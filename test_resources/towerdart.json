@@ -1,0 +1,10 @@
+{
+  "animations": [],
+  "capabilities": [
+    "LinearMovement"
+  ],
+  "dragPath": "front",
+  "id": "towerdart",
+  "movementPath": "front",
+  "speed": 0
+}

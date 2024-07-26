@@ -1,0 +1,26 @@
+{
+  "animations": [
+    {
+      "id": "front",
+      "position": "fromEntityBottomLeft",
+      "requiredLoops": 5
+    },
+    {
+      "id": "eat",
+      "position": "fromEntityBottomLeft",
+      "requiredLoops": 5
+    },
+    {
+      "id": "sleep",
+      "position": "fromEntityBottomLeft",
+      "requiredLoops": 20
+    }
+  ],
+  "capabilities": [
+    "LinearMovement"
+  ],
+  "dragPath": "drag",
+  "id": "ape",
+  "movementPath": "walk",
+  "speed": 0.7
+}
