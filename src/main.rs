@@ -5,9 +5,9 @@ mod species;
 mod sprites;
 mod utils;
 
-use std::{collections::HashMap, path::Path};
+use std::collections::HashMap;
 
-use constants::{ASSETS_PATH, FONTS_PATH, FONT_DEBUG, SPECIES_PATH};
+use constants::{ASSETS_PATH, SPECIES_PATH};
 use entities::factory::EntityFactory;
 use game::game::Game;
 use raylib::prelude::*;
@@ -36,46 +36,58 @@ fn main() {
     );
     game.add_entity_by_species("ape");
 
-    let mut square_pos = Vector2::new(100.0, 100.0);
-    let square_size = 50.0;
-    let mut dragging = false;
+    let mut dragging_id: Option<u32> = None;
+    let mut mouse_down = Vector2::zero();
+    let mut drag_offset = Vector2::zero();
+    let mut reset_dragging_id = false;
 
     while !rl.window_should_close() {
         let frame_time = (rl.get_frame_time() * 1000.0) as u64;
-        game.update(frame_time);        
+        game.update(frame_time);
+        let items = game.render();
+
+        let mouse_position = rl.get_mouse_position();
+        drag_offset = Vector2::new(mouse_position.x - mouse_down.x, mouse_position.y - mouse_down.y);
+
+        if reset_dragging_id {
+            reset_dragging_id = false;
+            dragging_id = None;
+        }
+
+        if rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT) {
+            if dragging_id.is_none() {
+                for item in &items {
+                    if item.frame.check_collision_point_rec(mouse_position) {
+                        dragging_id = Some(item.id);
+                        mouse_down = mouse_position;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if rl.is_mouse_button_released(MouseButton::MOUSE_BUTTON_LEFT) {
+            if let Some(id) = dragging_id {
+                drag_offset = Vector2::new(mouse_position.x - mouse_down.x, mouse_position.y - mouse_down.y);
+                game.move_entity_by(id, drag_offset);
+            }
+            reset_dragging_id = true;
+        }
 
         let mut d = rl.begin_drawing(&thread);
 
         d.clear_background(Color::BLACK);
-
         d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
 
-        let mouse_pos = d.get_mouse_position();
-
-        if d.is_mouse_button_pressed(raylib::consts::MouseButton::MOUSE_BUTTON_LEFT) {
-            if mouse_pos.x >= square_pos.x && mouse_pos.x <= square_pos.x + square_size
-                && mouse_pos.y >= square_pos.y && mouse_pos.y <= square_pos.y + square_size
-            {
-                dragging = true;
-            }
-        }
-
-        if d.is_mouse_button_released(raylib::consts::MouseButton::MOUSE_BUTTON_LEFT) {
-            dragging = false;
-        }
-
-        if dragging {
-            square_pos = Vector2::new(mouse_pos.x - square_size / 2.0, mouse_pos.y - square_size / 2.0);
-        }
-
-        d.draw_rectangle(square_pos.x as i32, square_pos.y as i32, square_size as i32, square_size as i32, Color::GREEN);
-
-
-        for item in game.render() {            
+        for item in items {
             if let Some(texture) = textures.get(&item.sprite_path) {
+                let is_being_dragged = dragging_id == Some(item.id);
+                let dx = if is_being_dragged { drag_offset.x } else { 0.0 };
+                let dy = if is_being_dragged { drag_offset.y } else { 0.0 };
+
                 d.draw_texture_ex(
                     texture,
-                    Vector2::new(item.frame.x, item.frame.y),
+                    Vector2::new(item.frame.x + dx, item.frame.y + dy),
                     item.z_rotation,
                     item.frame.width / texture.width as f32, 
                     Color::WHITE 

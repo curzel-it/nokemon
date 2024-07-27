@@ -1,6 +1,6 @@
 use std::fmt::{self, Debug};
 
-use raylib::math::Rectangle;
+use raylib::math::{Rectangle, Vector2};
 
 use crate::entities::{entity::Entity, factory::EntityFactory};
 
@@ -34,6 +34,24 @@ impl Game {
     pub fn update(&mut self, time_since_last_update: u64) {
         for entity in &mut self.entities {
             entity.update(time_since_last_update);
+        }
+    }
+
+    pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
+        for entity in &mut self.entities {
+            if entity.id == id {
+                entity.frame.x += offset.x;
+                entity.frame.y += offset.y;
+            }
+        }
+    }
+
+    pub fn move_entity_to(&mut self, id: u32, offset: Vector2) {
+        for entity in &mut self.entities {
+            if entity.id == id {
+                entity.frame.x = offset.x;
+                entity.frame.y = offset.y;
+            }
         }
     }
 
