@@ -68,7 +68,6 @@ fn main() {
 
         if rl.is_mouse_button_released(MouseButton::MOUSE_BUTTON_LEFT) {
             if let Some(id) = dragging_id {
-                drag_offset = Vector2::new(mouse_position.x - mouse_down.x, mouse_position.y - mouse_down.y);
                 game.move_entity_by(id, drag_offset);
             }
             reset_dragging_id = true;
