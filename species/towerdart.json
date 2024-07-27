@@ -1,10 +1,8 @@
 {
     "animations": [],
     "capabilities": [],
-    "dragPath": "front",
     "scale": 1,
     "id": "towerdart",
-    "movementPath": "walk",
     "speed": 0
   }
   

@@ -24,10 +24,8 @@
     "capabilities": [
         "LinearMovement"
     ],
-    "dragPath": "front",
     "scale": 2,
     "id": "cybertruck",
-    "movementPath": "walk",
     "speed": 1.65
   }
   

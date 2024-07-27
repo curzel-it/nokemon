@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::constants::MISSING_SPRITE;
+use crate::constants::{MISSING_SPRITE, SPRITE_NAME_FRONT};
 
 use super::sprite::Sprite;
 
@@ -23,7 +23,13 @@ impl SpriteSet {
     pub fn sprite_frames(&self, animation_name: &str) -> Vec<String> {
         match self.animations.get(&animation_name.to_owned()) {
             Some(frames) => frames.clone(),
-            None => vec![MISSING_SPRITE.to_owned()],
+            None => {
+                if animation_name != SPRITE_NAME_FRONT {
+                    return self.sprite_frames(SPRITE_NAME_FRONT);
+                } else {
+                    return vec![MISSING_SPRITE.to_owned()]
+                }
+            }
         }
     }
 

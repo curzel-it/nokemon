@@ -3,6 +3,7 @@ use std::vec::Vec;
 
 use super::timed_content_provider::TimedContentProvider;
 
+#[derive(Debug, Clone)]
 pub struct Sprite {
     pub animation_name: String,
     timed_content_provider: TimedContentProvider<String>,
@@ -24,7 +25,7 @@ impl Sprite {
         self.timed_content_provider.number_of_frames()
     }
 
-    pub fn update(&mut self, time_since_last_update: u64) {
+    pub fn update(&mut self, time_since_last_update: f32) {
         self.timed_content_provider.update(time_since_last_update);
     }
 }
@@ -43,13 +44,13 @@ mod tests {
     fn next_frame_advance() {
         let mut sprite = Sprite::new(String::from(""), vec![String::from("10"), String::from("20"), String::from("30")], 1.0);
 
-        sprite.update(500);
+        sprite.update(0.5);
         assert_eq!(sprite.current_frame(), "10");
 
-        sprite.update(500);
+        sprite.update(0.5);
         assert_eq!(sprite.current_frame(), "20");
 
-        sprite.update(1000);
+        sprite.update(1.0);
         assert_eq!(sprite.current_frame(), "30");
     }
 
@@ -57,19 +58,19 @@ mod tests {
     fn next_frame_with_insufficient_time_does_not_advance() {
         let mut sprite = Sprite::new(String::from(""), vec![String::from("10"), String::from("20"), String::from("30")], 1.0);
 
-        sprite.update(300);
+        sprite.update(0.3);
         assert_eq!(sprite.current_frame(), "10");
 
-        sprite.update(300);
+        sprite.update(0.3);
         assert_eq!(sprite.current_frame(), "10");
 
-        sprite.update(300);
+        sprite.update(0.3);
         assert_eq!(sprite.current_frame(), "10");
 
-        sprite.update(300);
+        sprite.update(0.3);
         assert_eq!(sprite.current_frame(), "20");
 
-        sprite.update(1000);
+        sprite.update(1.0);
         assert_eq!(sprite.current_frame(), "30");
     }
 }

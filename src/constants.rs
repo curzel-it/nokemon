@@ -9,7 +9,6 @@ pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";
 pub const TEST_RESOURCES_PATH: &str = "/Users/curzel/dev/tower-defense/test_resources";
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const BASE_ENTITY_SIZE: f32 = 50.0;
-pub const FONT_DEBUG: &str = "/Users/curzel/dev/tower-defense/resources/fonts/Courier New.ttf";
 
 pub const SPRITE_NAME_MOVEMENT: &str = "walk";
 pub const SPRITE_NAME_DRAG: &str = "drag";
@@ -24,9 +23,10 @@ pub const TEST_SPECIES_PATHS: &[&str] = &[
     "/Users/curzel/dev/tower-defense/species/thing.json"
 ];
 
-pub const SCREEN_FULL_HD: Rectangle = Rectangle::new(0.0, 0.0, 1920.0, 1080.0);
-pub const SCREEN_SQUARE_100: Rectangle = Rectangle::new(0.0, 0.0, 100.0, 100.0);
-pub const SCREEN_SQUARE_1000: Rectangle = Rectangle::new(0.0, 0.0, 1000.0, 1000.0);
+pub const RECT_ORIGIN_FULL_HD: Rectangle = Rectangle::new(0.0, 0.0, 1920.0, 1080.0);
+pub const RECT_ORIGIN_SQUARE_100: Rectangle = Rectangle::new(0.0, 0.0, 100.0, 100.0);
+pub const RECT_X100_SQUARE_100: Rectangle = Rectangle::new(100.0, 0.0, 100.0, 100.0);
+pub const RECT_ORIGIN_SQUARE_1000: Rectangle = Rectangle::new(0.0, 0.0, 1000.0, 1000.0);
 
 pub const TEST_ASSETS_PATHS: &[&str] = &[
     "/Users/curzel/dev/tower-defense/assets/ape_front-20.png",

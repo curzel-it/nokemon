@@ -7,7 +7,7 @@ mod utils;
 
 use std::collections::HashMap;
 
-use constants::{ASSETS_PATH, SPECIES_PATH};
+use constants::{ASSETS_PATH, DEBUG_ENABLED, SPECIES_PATH};
 use entities::factory::EntityFactory;
 use game::game::Game;
 use raylib::prelude::*;
@@ -35,6 +35,7 @@ fn main() {
         Rectangle::new(0.0, 0.0, 800.0, 600.0)
     );
     game.add_entity_by_species("ape");
+    game.add_entity_by_species("tower");
 
     let mut dragging_id: Option<u32> = None;
     let mut mouse_down = Vector2::zero();
@@ -42,8 +43,7 @@ fn main() {
     let mut reset_dragging_id = false;
 
     while !rl.window_should_close() {
-        let frame_time = (rl.get_frame_time() * 1000.0) as u64;
-        game.update(frame_time);
+        game.update(rl.get_frame_time());
         let items = game.render();
 
         let mouse_position = rl.get_mouse_position();
@@ -76,7 +76,6 @@ fn main() {
         let mut d = rl.begin_drawing(&thread);
 
         d.clear_background(Color::BLACK);
-        d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
 
         for item in items {
             if let Some(texture) = textures.get(&item.sprite_path) {
@@ -92,6 +91,10 @@ fn main() {
                     Color::WHITE 
                 );
             }
+        }
+
+        if DEBUG_ENABLED {
+            d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
         }
     }
 }

@@ -7,9 +7,9 @@ use crate::entities::{entity::Entity, factory::EntityFactory};
 use super::rendered_item::RenderedItem;
 
 pub struct Game {
-    entity_factory: EntityFactory,
+    pub entity_factory: EntityFactory,
     bounds: Rectangle,
-    entities: Vec<Entity>
+    pub entities: Vec<Entity>
 }
 
 impl Game {
@@ -31,7 +31,7 @@ impl Game {
         return self.entities.last().unwrap();
     }
 
-    pub fn update(&mut self, time_since_last_update: u64) {
+    pub fn update(&mut self, time_since_last_update: f32) {
         for entity in &mut self.entities {
             entity.update(time_since_last_update);
         }
@@ -69,5 +69,22 @@ impl Debug for Game {
             .field("height", &self.bounds.height)
             .field("entities", &self.entities)
             .finish()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{constants::RECT_ORIGIN_FULL_HD, entities::factory::EntityFactory};
+
+    use super::Game;
+
+    impl Game {
+        pub fn test() -> Self {
+            Self {
+                entity_factory: EntityFactory::test(),
+                bounds: RECT_ORIGIN_FULL_HD,
+                entities: Vec::new(),
+            }
+        }       
     }
 }

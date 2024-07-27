@@ -30,13 +30,13 @@ impl SpritesRepository {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{ASSETS_PATH, MISSING_SPRITE, SPRITE_NAME_FRONT};
+    use crate::constants::{ASSETS_PATH, MISSING_SPRITE, SPRITE_NAME_FRONT, SPRITE_NAME_MOVEMENT};
     use crate::utils::file_utils::list_files;
 
     use super::*;
 
     #[test]
-    fn can_load_sprites_for_existing_species() {
+    fn can_load_sprites_for_ape() {
         let builder = SpriteSetBuilder::new();
         let mut sprites_repo = SpritesRepository::new(builder);
         
@@ -45,6 +45,34 @@ mod tests {
 
         let sprite_set = sprites_repo.sprites("ape");
         let number_of_frames = sprite_set.sprite(SPRITE_NAME_FRONT, 1.0).number_of_frames();
+        assert!(number_of_frames > 1);
+    }
+
+    #[test]
+    fn can_load_sprites_for_tower() {
+        let builder = SpriteSetBuilder::new();
+        let mut sprites_repo = SpritesRepository::new(builder);
+        
+        let all_assets = list_files(ASSETS_PATH, "png");
+        sprites_repo.setup(&all_assets);
+
+        let sprite_set = sprites_repo.sprites("tower");
+        let sprite = sprite_set.sprite(SPRITE_NAME_FRONT, 1.0);
+        let number_of_frames = sprite.number_of_frames();
+        assert!(number_of_frames > 1);
+    }
+
+    #[test]
+    fn can_fallback_on_front_sprite_when_movement_not_available() {
+        let builder = SpriteSetBuilder::new();
+        let mut sprites_repo = SpritesRepository::new(builder);
+        
+        let all_assets = list_files(ASSETS_PATH, "png");
+        sprites_repo.setup(&all_assets);
+
+        let sprite_set = sprites_repo.sprites("tower");
+        let sprite = sprite_set.sprite(SPRITE_NAME_MOVEMENT, 1.0);
+        let number_of_frames = sprite.number_of_frames();
         assert!(number_of_frames > 1);
     }
 
