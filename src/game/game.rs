@@ -1,16 +1,17 @@
-use std::fmt::{self, Debug};
+use std::{collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
 use crate::entities::{entity::Entity, factory::EntityFactory};
 
-use super::rendered_item::RenderedItem;
+use super::{game_capability::{GameCapability, GameStateUpdate}, game_defaults::GameDefaultsLoader, rendered_item::RenderedItem};
 
 pub struct Game {
     pub entity_factory: EntityFactory,
     bounds: Rectangle,
-    pub entities: Vec<Entity>,
-    did_add_defaults: bool
+    pub entities: HashMap<u32, Entity>,
+    pub capabilities: Vec<Box<dyn GameCapability>>,
+    pub is_first_update: bool
 }
 
 impl Game {
@@ -18,28 +19,48 @@ impl Game {
         Self {
             entity_factory,
             bounds,
-            entities: Vec::new(),
-            did_add_defaults: false
+            entities: HashMap::new(),
+            capabilities: vec![
+                Box::new(GameDefaultsLoader::new())
+            ],
+            is_first_update: true
         }
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
-        for entity in &mut self.entities {
+        for (_, entity) in &mut self.entities {
             entity.update(time_since_last_update);
         }
-        self.spawn_defaults();
-        self.spawn_creeps();
+
+        let mut updates: Vec<GameStateUpdate> = vec![];
+        for capabilty in &self.capabilities {
+            let update = capabilty.update(self, time_since_last_update);
+            updates.push(update);
+        }
+        for update in updates {
+            self.apply(update);
+        }
+
+        if self.is_first_update {
+            self.is_first_update = false
+        }
     }
 
-    fn spawn_defaults(&mut self) {
-        if self.did_add_defaults { return; }
-        self.did_add_defaults = true;
-        self.add_entity_by_species("ape");
-        self.add_entity_by_species("tower");
+    fn apply(&mut self, update: GameStateUpdate) {
+        self.remove_entities(update.entities_to_remove);
+        self.add_entities(&update.new_entities);
     }
 
-    fn spawn_creeps(&mut self) {
-        
+    fn add_entities(&mut self, entities: &Vec<Entity>) {
+        for entity in entities {
+            self.add_entity(entity.clone());
+        }
+    }
+
+    fn remove_entities(&mut self, ids: Vec<u32>) {
+        for id in ids {
+            self.entities.remove(&id);
+        }
     }
 
     pub fn add_entity_by_species(&mut self, species_id: &str) -> &Entity {
@@ -48,30 +69,25 @@ impl Game {
     }
 
     pub fn add_entity(&mut self, entity: Entity) -> &Entity {
-        self.entities.push(entity);
-        return self.entities.last().unwrap();
+        let id = entity.id;
+        self.entities.insert(id, entity);
+        return self.entities.get(&id).unwrap();
     }
 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
-        for entity in &mut self.entities {
-            if entity.id == id {
-                entity.frame.x += offset.x;
-                entity.frame.y += offset.y;
-            }
-        }
+        let entity = self.entities.get_mut(&id).unwrap();
+        entity.frame.x += offset.x;
+        entity.frame.y += offset.y;
     }
 
     pub fn move_entity_to(&mut self, id: u32, offset: Vector2) {
-        for entity in &mut self.entities {
-            if entity.id == id {
-                entity.frame.x = offset.x;
-                entity.frame.y = offset.y;
-            }
-        }
+        let entity = self.entities.get_mut(&id).unwrap();
+        entity.frame.x = offset.x;
+        entity.frame.y = offset.y;
     }
 
     pub fn render(&self) -> Vec<RenderedItem> {
-        return self.entities.iter().map(|e| e.render()).collect();
+        return self.entities.values().map(|e| e.render()).collect();
     }
 }
 
@@ -94,13 +110,8 @@ mod tests {
     use super::Game;
 
     impl Game {
-        pub fn test() -> Self {
-            Self {
-                entity_factory: EntityFactory::test(),
-                bounds: RECT_ORIGIN_FULL_HD,
-                entities: Vec::new(),
-                did_add_defaults: false
-            }
+        pub fn test() -> Game {
+            return Game::new(EntityFactory::test(), RECT_ORIGIN_FULL_HD);
         }       
     }
 }

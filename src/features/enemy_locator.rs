@@ -12,13 +12,13 @@ impl EnemyLocator {
     }
 
     pub fn list_enemies<'a>(&self, game: &'a Game) -> Vec<&'a Entity> {
-        game.entities.iter()
+        game.entities.values()
             .filter(|entity| entity.is_enemy)
             .collect()
     }
 
     pub fn list_sorted_enemies<'a>(&self, origin: Vector2, game: &'a Game) -> Vec<&'a Entity> {
-        let mut enemies: Vec<&Entity> = game.entities.iter()
+        let mut enemies: Vec<&Entity> = game.entities.values()
             .filter(|entity| entity.is_enemy)
             .collect();
 

@@ -14,8 +14,6 @@ pub const MISSING_SPRITE: &str = "missing";
 
 // Test Stuff    
 
-pub const TEST_RESOURCES_PATH: &str = "/Users/curzel/dev/tower-defense/test_resources";
-
 pub const TEST_SPECIES_PATHS: &[&str] = &[
     "/Users/curzel/dev/tower-defense/species/ape.json",
     "/Users/curzel/dev/tower-defense/species/cybertruck.json",

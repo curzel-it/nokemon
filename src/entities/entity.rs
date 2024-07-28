@@ -7,6 +7,7 @@ use crate::game::rendered_item::RenderedItem;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
 
+#[derive(Clone)]
 pub struct Entity {
     pub id: u32,
     pub frame: Rectangle,
@@ -16,6 +17,7 @@ pub struct Entity {
     sprite_set: SpriteSet,
     current_sprite: Sprite,
     pub is_enemy: bool,
+    pub is_shooter: bool,
 }
 
 pub trait EntityCapability {
@@ -29,6 +31,8 @@ impl Entity {
         species: String,
         sprite_set: SpriteSet,
         frame: Rectangle,
+        is_enemy: bool,
+        is_shooter: bool,
     ) -> Self {
         let mut entity = Self {
             id,
@@ -38,7 +42,8 @@ impl Entity {
             species,
             sprite_set,
             current_sprite: Sprite::new("".to_owned(), Vec::new(), 1.0),
-            is_enemy: false,
+            is_enemy: is_enemy,
+            is_shooter: is_shooter,
         };
         entity.change_sprite(SPRITE_NAME_MOVEMENT);
         entity
@@ -50,10 +55,10 @@ impl Entity {
 
     pub fn update(&mut self, time_since_last_update: f32) {
         self.current_sprite.update(time_since_last_update);
-        self.linear_movement(time_since_last_update);
+        self.move_linearly(time_since_last_update);
     }
 
-    fn linear_movement(&mut self, time_since_last_update: f32) {
+    fn move_linearly(&mut self, time_since_last_update: f32) {
         let offset = self.direction * self.speed * time_since_last_update;
         let mut updated_frame = self.frame;
         updated_frame.x += offset.x;
@@ -100,29 +105,18 @@ impl Debug for Entity {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::factory::EntityFactory};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game::game::Game};
 
     #[test]
-    fn can_move_entity_horizontally_on_update() {
-        let entity_factory = EntityFactory::test();
-
-        let mut entity = entity_factory.build("ape");
+    fn can_move_on_update() {
+        let game = Game::test();
+        
+        let mut entity = game.entity_factory.build("ape");
         entity.frame = RECT_ORIGIN_SQUARE_100;
-        entity.direction = Vector2::new(1.0, 0.0);
+        entity.direction = Vector2::new(1.0, 1.0);
                 
         entity.update(1.0);
         assert_eq!(entity.frame.x, 30.0);
-    }
-
-    #[test]
-    fn can_move_entity_vertically_on_update() {
-        let entity_factory = EntityFactory::test();
-
-        let mut entity = entity_factory.build("ape");
-        entity.frame = RECT_ORIGIN_SQUARE_100;
-        entity.direction = Vector2::new(0.0, 1.0);
-
-        entity.update(1.0);
         assert_eq!(entity.frame.y, 30.0);
     }
 }

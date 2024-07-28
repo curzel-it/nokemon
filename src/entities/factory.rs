@@ -58,6 +58,8 @@ impl EntityFactory {
             species_id.to_owned(),
             sprites.clone(),
             frame,
+            species.is_enemy,
+            species.is_shooter
         );
         return entity;
     }

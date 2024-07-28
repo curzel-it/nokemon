@@ -3,6 +3,8 @@
     "capabilities": [],
     "scale": 1,
     "id": "ape",
-    "speed": 1
+    "speed": 1,
+    "is_enemy": false,
+    "is_shooter": false
   }
   

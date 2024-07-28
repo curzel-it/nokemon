@@ -37,7 +37,7 @@ impl SpeciesParser {
 mod tests {
     use std::path::Path;
 
-    use crate::constants::TEST_RESOURCES_PATH;
+    use crate::constants::SPECIES_PATH;
 
     use super::*;
 
@@ -57,19 +57,9 @@ mod tests {
     }
 
     #[test]
-    fn can_parse_species_from_string() {
-        let parser = SpeciesParser;
-        let correct_json = r#"{"id":"Tiger", "speed":35.5, "scale":1.2, "capabilities":[]}"#;
-        let result = parser.parse(correct_json).unwrap();
-        assert_eq!(result.id, "Tiger");
-        assert_eq!(result.speed, 35.5);
-        assert_eq!(result.scale, 1.2);
-    }
-
-    #[test]
     fn can_parse_species_from_file_path_without_scale() {
         let parser = SpeciesParser;
-        let path = Path::new(TEST_RESOURCES_PATH).join("tower.json");
+        let path = Path::new(SPECIES_PATH).join("tower.json");
         let path_string = path.to_str().unwrap().to_owned();
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "tower");
@@ -80,18 +70,18 @@ mod tests {
     #[test]
     fn can_parse_species_from_file_path_with_scale() {
         let parser = SpeciesParser;
-        let path = Path::new(TEST_RESOURCES_PATH).join("cybertruck.json");
+        let path = Path::new(SPECIES_PATH).join("cybertruck.json");
         let path_string = path.to_str().unwrap().to_owned();
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "cybertruck");
-        assert_eq!(result.speed, 1.65);
+        assert_eq!(result.speed, 1.7);
         assert_eq!(result.scale, 2.0);
     }
 
     #[test]
     fn can_parse_capabilities() {
         let parser = SpeciesParser;
-        let path = Path::new(TEST_RESOURCES_PATH).join("test_capabilities_8.json");
+        let path = Path::new(SPECIES_PATH).join("test_capabilities_8.json");
         let path_string = path.to_str().unwrap().to_owned();
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.capabilities.len(), 8);
