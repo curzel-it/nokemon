@@ -1,4 +1,4 @@
-use super::{entity::Entity, entity_capability::{EntityCapability, EntityStateUpdate}};
+use crate::entities::{entity::Entity, entity_capability::{EntityCapability, EntityStateUpdate}};
 
 pub struct LinearMovement;
 

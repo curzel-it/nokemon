@@ -2,9 +2,9 @@ use std::{collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::entities::{entity::Entity, factory::EntityFactory};
+use crate::{entities::{entity::Entity, factory::EntityFactory}, game_capabilities::game_defaults::GameDefaultsLoader};
 
-use super::{game_capability::{GameCapability, GameStateUpdate}, game_defaults::GameDefaultsLoader, rendered_item::RenderedItem};
+use super::{game_capability::{GameCapability, GameStateUpdate}, rendered_item::RenderedItem};
 
 pub struct Game {
     pub entity_factory: EntityFactory,

@@ -1,4 +1,4 @@
-use super::{game::Game, game_capability::{GameCapability, GameStateUpdate}};
+use crate::game::{game::Game, game_capability::{GameCapability, GameStateUpdate}};
 
 pub struct GameDefaultsLoader;
 

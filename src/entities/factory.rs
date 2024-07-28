@@ -2,9 +2,9 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::linear_movement::LinearMovement, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::{entity::Entity, linear_movement::LinearMovement};
+use super::entity::Entity;
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
