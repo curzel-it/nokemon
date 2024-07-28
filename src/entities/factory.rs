@@ -55,6 +55,7 @@ impl EntityFactory {
         let entity = Entity::new(
             get_next_entity_id(),
             BASE_ENTITY_SPEED * species.speed,
+            species_id.to_owned(),
             sprites.clone(),
             frame,
         );

@@ -1,5 +1,6 @@
 mod constants;
 mod entities;
+mod features;
 mod game;
 mod species;
 mod sprites;
@@ -93,8 +94,8 @@ fn main() {
             }
         }
 
-        if DEBUG_ENABLED {
-            d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
-        }
+        // if DEBUG_ENABLED {
+        //     d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
+        // }
     }
 }

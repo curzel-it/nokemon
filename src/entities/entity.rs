@@ -12,9 +12,10 @@ pub struct Entity {
     pub frame: Rectangle,
     pub direction: Vector2,
     pub speed: f32,
+    pub species: String,
     sprite_set: SpriteSet,
     current_sprite: Sprite,
-    is_enemy: bool,
+    pub is_enemy: bool,
 }
 
 pub trait EntityCapability {
@@ -25,6 +26,7 @@ impl Entity {
     pub fn new(
         id: u32,
         speed: f32,
+        species: String,
         sprite_set: SpriteSet,
         frame: Rectangle,
     ) -> Self {
@@ -33,6 +35,7 @@ impl Entity {
             frame,
             direction: Vector2::new(1.0, 0.0),
             speed: speed,
+            species,
             sprite_set,
             current_sprite: Sprite::new("".to_owned(), Vec::new(), 1.0),
             is_enemy: false,
