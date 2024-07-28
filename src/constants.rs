@@ -1,27 +1,27 @@
 use raylib::math::Rectangle;
 
-pub const FPS: f32 = 30.0;
-pub const DEBUG_ENABLED: bool = true;
+pub const FPS: u32 = 60;
+pub const DEBUG_ENABLED: bool = false;
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
-pub const FONTS_PATH: &str = "/Users/curzel/dev/tower-defense/resources/fonts";
 pub const SPECIES_PATH: &str = "/Users/curzel/dev/tower-defense/species";
 pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";
-pub const TEST_RESOURCES_PATH: &str = "/Users/curzel/dev/tower-defense/test_resources";
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const BASE_ENTITY_SIZE: f32 = 50.0;
 
 pub const SPRITE_NAME_MOVEMENT: &str = "walk";
-pub const SPRITE_NAME_DRAG: &str = "drag";
 pub const SPRITE_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";
 
-// Test stuff
+// Test Stuff    
+
+pub const TEST_RESOURCES_PATH: &str = "/Users/curzel/dev/tower-defense/test_resources";
 
 pub const TEST_SPECIES_PATHS: &[&str] = &[
     "/Users/curzel/dev/tower-defense/species/ape.json",
     "/Users/curzel/dev/tower-defense/species/cybertruck.json",
     "/Users/curzel/dev/tower-defense/species/thing.json"
 ];
+
 
 pub const RECT_ORIGIN_FULL_HD: Rectangle = Rectangle::new(0.0, 0.0, 1920.0, 1080.0);
 pub const RECT_ORIGIN_SQUARE_100: Rectangle = Rectangle::new(0.0, 0.0, 100.0, 100.0);

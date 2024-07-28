@@ -9,7 +9,8 @@ use super::rendered_item::RenderedItem;
 pub struct Game {
     pub entity_factory: EntityFactory,
     bounds: Rectangle,
-    pub entities: Vec<Entity>
+    pub entities: Vec<Entity>,
+    did_add_defaults: bool
 }
 
 impl Game {
@@ -18,7 +19,27 @@ impl Game {
             entity_factory,
             bounds,
             entities: Vec::new(),
+            did_add_defaults: false
         }
+    }
+
+    pub fn update(&mut self, time_since_last_update: f32) {
+        for entity in &mut self.entities {
+            entity.update(time_since_last_update);
+        }
+        self.spawn_defaults();
+        self.spawn_creeps();
+    }
+
+    fn spawn_defaults(&mut self) {
+        if self.did_add_defaults { return; }
+        self.did_add_defaults = true;
+        self.add_entity_by_species("ape");
+        self.add_entity_by_species("tower");
+    }
+
+    fn spawn_creeps(&mut self) {
+        
     }
 
     pub fn add_entity_by_species(&mut self, species_id: &str) -> &Entity {
@@ -29,12 +50,6 @@ impl Game {
     pub fn add_entity(&mut self, entity: Entity) -> &Entity {
         self.entities.push(entity);
         return self.entities.last().unwrap();
-    }
-
-    pub fn update(&mut self, time_since_last_update: f32) {
-        for entity in &mut self.entities {
-            entity.update(time_since_last_update);
-        }
     }
 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
@@ -84,6 +99,7 @@ mod tests {
                 entity_factory: EntityFactory::test(),
                 bounds: RECT_ORIGIN_FULL_HD,
                 entities: Vec::new(),
+                did_add_defaults: false
             }
         }       
     }

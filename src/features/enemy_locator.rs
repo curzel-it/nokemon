@@ -1,14 +1,10 @@
-use std::cmp::Ordering;
-
-use raylib::math::{Rectangle, Vector2};
+use raylib::math::Vector2;
 
 use crate::{entities::entity::Entity, game::game::Game};
 
 use super::sorting::sort_by_distance;
 
 pub struct EnemyLocator {}
-
-
 
 impl EnemyLocator {
     pub fn new() -> Self {
@@ -33,6 +29,8 @@ impl EnemyLocator {
 
 #[cfg(test)]
 mod tests {
+    use raylib::math::Rectangle;
+
     use super::*;
 
     #[test]

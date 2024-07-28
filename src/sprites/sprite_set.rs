@@ -41,7 +41,7 @@ impl SpriteSet {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{SPRITE_NAME_DRAG, SPRITE_NAME_FRONT, SPRITE_NAME_MOVEMENT};
+    use crate::constants::{SPRITE_NAME_FRONT, SPRITE_NAME_MOVEMENT};
 
     use super::*;
 
@@ -57,14 +57,12 @@ mod tests {
     fn can_reference_standard_sprites() {
         let animations: HashMap<String, Vec<String>> = [
             (SPRITE_NAME_MOVEMENT.to_string(), generate_sprite_names(SPRITE_NAME_MOVEMENT, 3)),
-            (SPRITE_NAME_DRAG.to_string(), generate_sprite_names(SPRITE_NAME_DRAG, 3)),
             (SPRITE_NAME_FRONT.to_string(), generate_sprite_names(SPRITE_NAME_FRONT, 3)),
         ].iter().cloned().collect();
 
         let sprite_set = SpriteSet::new(animations);
 
         assert_eq!(sprite_set.sprite_frames(SPRITE_NAME_MOVEMENT)[0], "walk-0");
-        assert_eq!(sprite_set.sprite_frames(SPRITE_NAME_DRAG)[0], "drag-0");
         assert_eq!(sprite_set.sprite_frames(SPRITE_NAME_FRONT)[0], "front-0");
     }
 
