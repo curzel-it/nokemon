@@ -19,8 +19,6 @@ impl GameCapability for GameDefaultsLoader {
             new_entities: vec![
                 game.entity_factory.build("ape"),
                 game.entity_factory.build("tower")
-                // self.add_entity_by_species("ape"),
-                // self.add_entity_by_species("tower")
             ]
         };
     }

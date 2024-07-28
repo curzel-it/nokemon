@@ -1,10 +1,10 @@
 use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
-use raylib::math::Rectangle;
+use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::entity::Entity;
+use super::{entity::Entity, linear_movement::LinearMovement};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -52,15 +52,21 @@ impl EntityFactory {
             BASE_ENTITY_SIZE * species.scale,
         );
 
-        let entity = Entity::new(
-            get_next_entity_id(),
-            BASE_ENTITY_SPEED * species.speed,
-            species_id.to_owned(),
-            sprites.clone(),
-            frame,
-            species.is_enemy,
-            species.is_shooter
-        );
+        let mut entity = Entity {
+            id: get_next_entity_id(),
+            frame: frame,
+            direction: Vector2::new(1.0, 0.0),
+            speed: BASE_ENTITY_SPEED * species.speed,
+            species: species_id.to_owned(),
+            sprite_set: sprites.clone(),
+            current_sprite: Sprite::new("".to_owned(), Vec::new(), 1.0),
+            capabilities: vec![
+                Box::new(LinearMovement::new()),
+            ],
+            is_enemy: species.is_enemy,
+            is_shooter: species.is_shooter,
+        };
+        entity.change_sprite(SPRITE_NAME_MOVEMENT);
         return entity;
     }
 }

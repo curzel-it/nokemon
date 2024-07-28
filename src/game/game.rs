@@ -48,12 +48,12 @@ impl Game {
 
     fn apply(&mut self, update: GameStateUpdate) {
         self.remove_entities(update.entities_to_remove);
-        self.add_entities(&update.new_entities);
+        self.add_entities(update.new_entities);
     }
 
-    fn add_entities(&mut self, entities: &Vec<Entity>) {
+    fn add_entities(&mut self, entities: Vec<Entity>) {
         for entity in entities {
-            self.add_entity(entity.clone());
+            self.add_entity(entity);
         }
     }
 

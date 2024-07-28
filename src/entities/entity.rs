@@ -2,71 +2,53 @@ use std::fmt::{self, Debug};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::{ANIMATIONS_FPS, SPRITE_NAME_MOVEMENT};
+use crate::constants::ANIMATIONS_FPS;
 use crate::game::rendered_item::RenderedItem;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
 
-#[derive(Clone)]
+use super::entity_capability::{EntityCapability, EntityStateUpdate};
+
 pub struct Entity {
     pub id: u32,
     pub frame: Rectangle,
     pub direction: Vector2,
     pub speed: f32,
     pub species: String,
-    sprite_set: SpriteSet,
-    current_sprite: Sprite,
+    pub sprite_set: SpriteSet,
+    pub current_sprite: Sprite,
+    pub capabilities: Vec<Box<dyn EntityCapability>>,
     pub is_enemy: bool,
     pub is_shooter: bool,
 }
 
-pub trait EntityCapability {
-    fn update(&self, time_since_last_update: f32, entity: &mut Entity);
-}
-
 impl Entity {
-    pub fn new(
-        id: u32,
-        speed: f32,
-        species: String,
-        sprite_set: SpriteSet,
-        frame: Rectangle,
-        is_enemy: bool,
-        is_shooter: bool,
-    ) -> Self {
-        let mut entity = Self {
-            id,
-            frame,
-            direction: Vector2::new(1.0, 0.0),
-            speed: speed,
-            species,
-            sprite_set,
-            current_sprite: Sprite::new("".to_owned(), Vec::new(), 1.0),
-            is_enemy: is_enemy,
-            is_shooter: is_shooter,
-        };
-        entity.change_sprite(SPRITE_NAME_MOVEMENT);
-        entity
-    }
-
-    pub fn current_sprite_frame(&self) -> String {
-        self.current_sprite.current_frame().to_string()
-    }
-
     pub fn update(&mut self, time_since_last_update: f32) {
+        let mut updates: Vec<EntityStateUpdate> = vec![];
+        for capabilty in &self.capabilities {
+            let update = capabilty.update(self, time_since_last_update);
+            updates.push(update);
+        }
+        for update in updates {
+            self.apply(update);
+        }
+
         self.current_sprite.update(time_since_last_update);
-        self.move_linearly(time_since_last_update);
     }
 
-    fn move_linearly(&mut self, time_since_last_update: f32) {
-        let offset = self.direction * self.speed * time_since_last_update;
-        let mut updated_frame = self.frame;
-        updated_frame.x += offset.x;
-        updated_frame.y += offset.y;
-        self.frame = updated_frame;
+    fn apply(&mut self, update: EntityStateUpdate) {
+        if let Some(value) = update.frame {
+            self.frame = value;
+        }
+        if let Some(value) = update.direction {
+            self.direction = value;
+        }
+        if let Some(value) = update.sprite_name {
+            self.change_sprite(value.as_str());
+        }
     }
 
-    fn change_sprite(&mut self, animation_name: &str) -> u32 {
+    pub fn change_sprite(&mut self, animation_name: &str) -> u32 {
         if self.current_sprite.animation_name != animation_name {
             self.current_sprite = self.sprite_set.sprite(&animation_name, ANIMATIONS_FPS);
         }
@@ -81,6 +63,10 @@ impl Entity {
             self.direction.x < 0.0, 
             0.0
         );
+    }
+
+    fn current_sprite_frame(&self) -> String {
+        self.current_sprite.current_frame().to_string()
     }
 }
 
@@ -98,25 +84,5 @@ impl Debug for Entity {
             .field("height", &self.frame.height)
             .field("is_enemy", &self.is_enemy)
             .finish()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use raylib::math::Vector2;
-
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game::game::Game};
-
-    #[test]
-    fn can_move_on_update() {
-        let game = Game::test();
-        
-        let mut entity = game.entity_factory.build("ape");
-        entity.frame = RECT_ORIGIN_SQUARE_100;
-        entity.direction = Vector2::new(1.0, 1.0);
-                
-        entity.update(1.0);
-        assert_eq!(entity.frame.x, 30.0);
-        assert_eq!(entity.frame.y, 30.0);
     }
 }
