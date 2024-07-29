@@ -44,6 +44,7 @@ impl Game {
 
     fn state_snapshot(&self) -> GameStateSnapshot {
         GameStateSnapshot {
+            bounds: self.bounds,
             enemies: self.entities.values()
                 .filter(|entity| entity.is_enemy)
                 .map(|e| e.state_snapshot())

@@ -2,13 +2,17 @@
     "animations": [],
     "capabilities": [
         {
+            "name": "Autoremove", 
+            "args": {}
+        },
+        {
             "name": "LinearMovement", 
             "args": {}
         }
     ],
     "scale": 1,
     "id": "towerdart",
-    "speed": 2,
+    "speed": 5,
     "is_enemy": false
   }
   

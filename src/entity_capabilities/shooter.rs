@@ -24,7 +24,6 @@ impl EntityCapability for Shooter {
         if self.time_to_next_shot <= 0.0 {
             self.time_to_next_shot = self.time_between_shots - self.time_to_next_shot;
             let bullet = self.build_bullet(entity.frame.x, entity.frame.y);
-            println!("Shooting! {:#?}", self.time_to_next_shot);
             return EntityStateUpdate::new_entity(bullet);
         } else {
             return EntityStateUpdate::nothing();
@@ -49,7 +48,7 @@ mod tests {
     use crate::{constants::RECT_ORIGIN_SQUARE_100, game::game::Game};
 
     #[test]
-    fn can_move_on_update() {
+    fn can_shoot_stuff() {
         // ...
     }
 }

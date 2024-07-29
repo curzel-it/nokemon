@@ -24,4 +24,11 @@ impl GameStateUpdate {
             entities_to_remove: vec![],
         }
     }
+
+    pub fn remove_entity(id: u32) -> Self {
+        Self {
+            new_entities: vec![],
+            entities_to_remove: vec![id],
+        }
+    }
 }

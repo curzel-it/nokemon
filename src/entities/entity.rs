@@ -51,7 +51,6 @@ impl Entity {
                 self.change_sprite(value.as_str());
             }
             for new_entity in update.game_update.new_entities {
-                println!("Need to create entity: {:#?}", new_entity);
                 game_update.new_entities.push(new_entity);
             }
             for entity_to_remove in update.game_update.entities_to_remove {

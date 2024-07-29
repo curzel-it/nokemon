@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::{linear_movement::LinearMovement, shooter::Shooter}, species::{species_model::SpeciesCapability, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::{autoremove::Autoremove, linear_movement::LinearMovement, shooter::Shooter}, species::{species_model::SpeciesCapability, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::{entity::Entity, entity_capability::{EntityCapability, UnknownCapability}};
 
@@ -90,6 +90,7 @@ impl EntityFactory {
 
         for capability in capabilities {
             let new_item: Box<dyn EntityCapability> = match capability.name.as_str() {
+                "Autoremove" => Box::new(Autoremove::new()),
                 "LinearMovement" => Box::new(LinearMovement::new()),
                 "Shooter" => Box::new(Shooter::new(
                     capability.get("rpm", 60.0)
@@ -114,15 +115,15 @@ impl EntityDescriptor {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{TEST_ASSETS_PATHS, TEST_SPECIES_PATHS};
+    use crate::{constants::{ASSETS_PATH, SPECIES_PATH}, utils::file_utils::list_files};
 
     use super::*;
 
     impl EntityFactory {
         pub fn test() -> EntityFactory { 
             return EntityFactory::new(
-                TEST_SPECIES_PATHS.iter().map(|&s| s.to_string()).collect(), 
-                TEST_ASSETS_PATHS.iter().map(|&s| s.to_string()).collect()
+                list_files(SPECIES_PATH, "json"), 
+                list_files(ASSETS_PATH, "png")
             );
         }
     }
