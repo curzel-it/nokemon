@@ -5,6 +5,7 @@ use crate::utils::vector_utils::make_lookup;
 use super::species_model::Species;
 use super::species_parser::SpeciesParser;
 
+#[derive(Debug)]
 pub struct SpeciesRepository {
     parser: SpeciesParser,
     species_by_id: HashMap<String, Species>,
@@ -34,8 +35,8 @@ impl SpeciesRepository {
         ids
     }
 
-    pub fn species(&self, species_id: String) -> Species {
-        let species = self.species_by_id.get(&species_id);
+    pub fn species(&self, species_id: &String) -> Species {
+        let species = self.species_by_id.get(species_id);
         return match species {
             Some(species) => species.clone(),
             None => Species::default()
@@ -61,9 +62,9 @@ mod tests {
         let expected_number_of_species = species_paths.len();
         assert_eq!(repo.number_of_available_species(), expected_number_of_species);
 
-        assert_eq!(repo.species("ape".to_owned()).id, "ape");
-        assert_eq!(repo.species("cybertruck".to_owned()).id, "cybertruck");
-        assert_eq!(repo.species("tower".to_owned()).id, "tower");
-        assert_eq!(repo.species("towerdart".to_owned()).id, "towerdart");
+        assert_eq!(repo.species(&"ape".to_owned()).id, "ape");
+        assert_eq!(repo.species(&"cybertruck".to_owned()).id, "cybertruck");
+        assert_eq!(repo.species(&"tower".to_owned()).id, "tower");
+        assert_eq!(repo.species(&"towerdart".to_owned()).id, "towerdart");
     }
 }

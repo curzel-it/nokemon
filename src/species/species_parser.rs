@@ -3,6 +3,7 @@ use std::io::Read;
 
 use super::species_model::Species;
 
+#[derive(Debug)]
 pub struct SpeciesParser;
 
 impl SpeciesParser {

@@ -1,11 +1,14 @@
 {
     "animations": [],
     "capabilities": [
-        "LinearMovement"
+        {
+            "name": "LinearMovement", 
+            "args": {}
+        }
     ],
     "scale": 1,
     "id": "towerdart",
-    "speed": 0,
+    "speed": 2,
     "is_enemy": false
   }
   

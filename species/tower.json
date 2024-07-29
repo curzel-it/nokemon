@@ -1,8 +1,16 @@
 {
     "animations": [],
     "capabilities": [
-        "LinearMovement",
-        "Shooter"
+        {
+            "name": "LinearMovement", 
+            "args": {}
+        },
+        {
+            "name": "Shooter",
+            "args": {
+                "rpm": "120"
+            }
+        }
     ],
     "scale": 1,
     "id": "tower",

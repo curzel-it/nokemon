@@ -2,9 +2,9 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::{linear_movement::LinearMovement, shooter::Shooter}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::{linear_movement::LinearMovement, shooter::Shooter}, species::{species_model::SpeciesCapability, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::{entity::Entity, entity_capability::EntityCapability};
+use super::{entity::Entity, entity_capability::{EntityCapability, UnknownCapability}};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -20,9 +20,17 @@ fn get_next_entity_id() -> u32 {
     return counter.load(Ordering::SeqCst);
 }
 
+#[derive(Debug)]
 pub struct EntityFactory {
     species_repo: SpeciesRepository,
     sprites_repo: SpritesRepository
+}
+
+#[derive(Debug, Clone)]
+pub struct EntityDescriptor {
+    pub species: String,
+    pub origin: Vector2,
+    pub direction: Vector2
 }
 
 impl EntityFactory {
@@ -42,12 +50,22 @@ impl EntityFactory {
     }
 
     pub fn build(&self, species_id: &str) -> Entity {
-        let species = self.species_repo.species(species_id.to_owned());
+        let descriptor = EntityDescriptor {
+            species: species_id.to_owned(),
+            origin: Vector2::new(50.0, 50.0),
+            direction: Vector2::new(1.0, 0.0)
+        };
+        return self.build_ex(&descriptor);
+    }
+
+    pub fn build_ex(&self, descriptor: &EntityDescriptor) -> Entity {
+        let species_id = &descriptor.species;
+        let species = self.species_repo.species(species_id);
         let sprites = self.sprites_repo.sprites(species_id);
 
         let frame = Rectangle::new(
-            50.0,
-            50.0,
+            descriptor.origin.x,
+            descriptor.origin.y,
             BASE_ENTITY_SIZE * species.scale,
             BASE_ENTITY_SIZE * species.scale,
         );
@@ -55,7 +73,7 @@ impl EntityFactory {
         let mut entity = Entity {
             id: get_next_entity_id(),
             frame: frame,
-            direction: Vector2::new(1.0, 0.0),
+            direction: descriptor.direction,
             speed: BASE_ENTITY_SPEED * species.speed,
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
@@ -67,16 +85,30 @@ impl EntityFactory {
         return entity;
     }
 
-    fn capabilities(&self, names: &Vec<String>) -> Vec<Box<dyn EntityCapability>> {
-        let mut capabilities: Vec<Box<dyn EntityCapability>> = vec![];
+    fn capabilities(&self, capabilities: &Vec<SpeciesCapability>) -> Vec<Box<dyn EntityCapability>> {
+        let mut items: Vec<Box<dyn EntityCapability>> = vec![];
 
-        if names.contains(&"LinearMovement".to_owned()) {
-            capabilities.push(Box::new(LinearMovement::new()));
+        for capability in capabilities {
+            let new_item: Box<dyn EntityCapability> = match capability.name.as_str() {
+                "LinearMovement" => Box::new(LinearMovement::new()),
+                "Shooter" => Box::new(Shooter::new(
+                    capability.get("rpm", 60.0)
+                )),
+                _ => Box::new(UnknownCapability::new(&capability.name)),
+            };
+            items.push(new_item);
         }
-        if names.contains(&"Shooter".to_owned()) {
-            capabilities.push(Box::new(Shooter::new()));
+        return items;
+    }
+}
+
+impl EntityDescriptor {
+    pub fn for_species(species_id: &str) -> Self {
+        Self {
+            species: species_id.to_owned(),
+            origin: Vector2::new(0.0, 0.0),
+            direction: Vector2::new(1.0, 0.0),
         }
-        return capabilities;
     }
 }
 

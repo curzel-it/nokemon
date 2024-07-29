@@ -1,7 +1,7 @@
 use raylib::math::Rectangle;
 
 pub const FPS: u32 = 60;
-pub const DEBUG_ENABLED: bool = false;
+pub const DEBUG_ENABLED: bool = true;
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
 pub const SPECIES_PATH: &str = "/Users/curzel/dev/tower-defense/species";
 pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";

@@ -4,6 +4,7 @@ use raylib::math::Vector2;
 
 use crate::entities::entity::EntityStateSnapshot;
 
+#[derive(Debug)]
 pub struct EntityLocator {}
 
 impl EntityLocator {
@@ -37,16 +38,14 @@ impl EntityLocator {
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::Rectangle;
-
     use super::*;
 
     #[test]
     fn can_return_sorted_list() {
         let mut entities = vec![
-            EntityStateSnapshot { id: 0, frame: Rectangle::new(100.0, 0.0, 1.0, 1.0) }, 
-            EntityStateSnapshot { id: 1, frame: Rectangle::new(50.0, 0.0, 1.0, 1.0) }, 
-            EntityStateSnapshot { id: 2, frame: Rectangle::new(10.0, 0.0, 1.0, 1.0) }, 
+            EntityStateSnapshot::with_id_and_x(0, 100.0), 
+            EntityStateSnapshot::with_id_and_x(1,  50.0), 
+            EntityStateSnapshot::with_id_and_x(2,  10.0)
         ];
 
         let origin = Vector2::new(0.0, 0.0);

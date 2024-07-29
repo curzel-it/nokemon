@@ -1,5 +1,6 @@
-use crate::entities::{entity::Entity, entity_capability::{EntityCapability, EntityStateUpdate, GameStateSnapshot}};
+use crate::entities::{entity::EntityStateSnapshot, entity_capability::{EntityCapability, EntityStateUpdate, GameStateSnapshot}};
 
+#[derive(Debug)]
 pub struct LinearMovement;
 
 impl LinearMovement {
@@ -9,7 +10,7 @@ impl LinearMovement {
 }
 
 impl EntityCapability for LinearMovement {
-    fn update(&self, entity: &Entity, _: &GameStateSnapshot, time_since_last_update: f32) -> EntityStateUpdate {
+    fn update(&mut self, entity: &EntityStateSnapshot, _: &GameStateSnapshot, time_since_last_update: f32) -> EntityStateUpdate {
         let offset = entity.direction * entity.speed * time_since_last_update;
         
         let mut updated_frame = entity.frame;

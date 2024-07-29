@@ -23,6 +23,7 @@ impl SpriteFrame {
     }
 }
 
+#[derive(Debug)]
 pub struct SpriteSetBuilder;
 
 impl SpriteSetBuilder {

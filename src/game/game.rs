@@ -11,7 +11,6 @@ pub struct Game {
     bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
     pub capabilities: Vec<Box<dyn GameCapability>>,
-    pub is_first_update: bool,
     entity_locator: EntityLocator
 }
 
@@ -22,29 +21,24 @@ impl Game {
             bounds,
             entities: HashMap::new(),
             capabilities: capabilities,
-            is_first_update: true,
             entity_locator: EntityLocator::new()
         }
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
         let state = self.state_snapshot();
+        let mut updates: Vec<GameStateUpdate> = vec![];
 
         for (_, entity) in &mut self.entities {
-            entity.update(&state, time_since_last_update);
+            let update = entity.update(&state, time_since_last_update);
+            updates.push(update);
         }
-
-        let mut updates: Vec<GameStateUpdate> = vec![];
-        for capabilty in &self.capabilities {
-            let update = capabilty.update(self, time_since_last_update);
+        for capabilty in &mut self.capabilities {
+            let update = capabilty.update(&state, time_since_last_update);
             updates.push(update);
         }
         for update in updates {
             self.apply(update);
-        }
-
-        if self.is_first_update {
-            self.is_first_update = false
         }
     }
 
@@ -59,7 +53,11 @@ impl Game {
 
     fn apply(&mut self, update: GameStateUpdate) {
         self.remove_entities(update.entities_to_remove);
-        self.add_entities(update.new_entities);
+
+        for descriptor in update.new_entities {
+            let entity = self.entity_factory.build_ex(&descriptor);
+            self.add_entity(entity);
+        }        
     }
 
     fn add_entities(&mut self, entities: Vec<Entity>) {

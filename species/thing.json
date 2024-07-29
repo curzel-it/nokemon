@@ -1,7 +1,10 @@
 {
     "animations": [],
     "capabilities": [
-        "LinearMovement"
+        {
+            "name": "LinearMovement", 
+            "args": {}
+        }
     ],
     "scale": 1,
     "id": "thing",

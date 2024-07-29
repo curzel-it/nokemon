@@ -80,6 +80,7 @@ impl StateStuff {
 
 fn main() {
     let mut state = StateStuff::new();
+    let mut frames_counter = 0;
 
     let (mut rl, thread) = raylib::init()
         .size(800, 600)
@@ -120,8 +121,11 @@ fn main() {
             draw_item(&mut d, &item, &state);
         }
 
+        frames_counter += 1;
+
         if DEBUG_ENABLED {
-            d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
+            println!("#{} {:#?}", frames_counter, game);
+            // d.draw_text(format!("{:#?}", game).as_str(), 10, 10, 18, Color::WHITE);
         }
     }
 }
