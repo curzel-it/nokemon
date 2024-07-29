@@ -8,7 +8,6 @@ pub struct Species {
     pub speed: f32,
     pub scale: f32,
     pub is_enemy: bool,
-    pub is_shooter: bool,
     pub capabilities: Vec<String>,
 }
 
@@ -23,7 +22,6 @@ impl Species {
             speed: 1.0,
             scale: 1.0,
             is_enemy: false,
-            is_shooter: false,
             capabilities: vec![]
         }
     }

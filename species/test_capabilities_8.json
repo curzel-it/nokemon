@@ -3,7 +3,6 @@
     "scale": 1,
     "id": "test_capabilities_8",
     "speed": 0,
-    "is_enemy": false,
-    "is_shooter": false
+    "is_enemy": false
   }
   

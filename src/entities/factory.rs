@@ -2,9 +2,9 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::linear_movement::LinearMovement, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, entity_capabilities::{linear_movement::LinearMovement, shooter::Shooter}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::entity::Entity;
+use super::{entity::Entity, entity_capability::EntityCapability};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -60,14 +60,23 @@ impl EntityFactory {
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
             current_sprite: Sprite::new("".to_owned(), Vec::new(), 1.0),
-            capabilities: vec![
-                Box::new(LinearMovement::new()),
-            ],
+            capabilities: self.capabilities(&species.capabilities),
             is_enemy: species.is_enemy,
-            is_shooter: species.is_shooter,
         };
         entity.change_sprite(SPRITE_NAME_MOVEMENT);
         return entity;
+    }
+
+    fn capabilities(&self, names: &Vec<String>) -> Vec<Box<dyn EntityCapability>> {
+        let mut capabilities: Vec<Box<dyn EntityCapability>> = vec![];
+
+        if names.contains(&"LinearMovement".to_owned()) {
+            capabilities.push(Box::new(LinearMovement::new()));
+        }
+        if names.contains(&"Shooter".to_owned()) {
+            capabilities.push(Box::new(Shooter::new()));
+        }
+        return capabilities;
     }
 }
 

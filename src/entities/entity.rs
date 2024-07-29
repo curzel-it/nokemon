@@ -7,7 +7,7 @@ use crate::game::rendered_item::RenderedItem;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
 
-use super::entity_capability::{EntityCapability, EntityStateUpdate};
+use super::entity_capability::{EntityCapability, EntityStateUpdate, GameStateSnapshot};
 
 pub struct Entity {
     pub id: u32,
@@ -19,14 +19,19 @@ pub struct Entity {
     pub current_sprite: Sprite,
     pub capabilities: Vec<Box<dyn EntityCapability>>,
     pub is_enemy: bool,
-    pub is_shooter: bool,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub struct EntityStateSnapshot {
+    pub id: u32,
+    pub frame: Rectangle,
 }
 
 impl Entity {
-    pub fn update(&mut self, time_since_last_update: f32) {
+    pub fn update(&mut self, game_state: &GameStateSnapshot, time_since_last_update: f32) {
         let mut updates: Vec<EntityStateUpdate> = vec![];
         for capabilty in &self.capabilities {
-            let update = capabilty.update(self, time_since_last_update);
+            let update = capabilty.update(self, game_state, time_since_last_update);
             updates.push(update);
         }
         for update in updates {
@@ -34,6 +39,13 @@ impl Entity {
         }
 
         self.current_sprite.update(time_since_last_update);
+    }
+
+    pub fn state_snapshot(&self) -> EntityStateSnapshot {
+        EntityStateSnapshot {
+            id: self.id, 
+            frame: self.frame
+        }
     }
 
     fn apply(&mut self, update: EntityStateUpdate) {

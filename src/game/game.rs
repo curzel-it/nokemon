@@ -2,7 +2,7 @@ use std::{collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{entities::{entity::Entity, factory::EntityFactory}, game_capabilities::game_defaults::GameDefaultsLoader};
+use crate::{entities::{entity::Entity, entity_capability::GameStateSnapshot, factory::EntityFactory}, features::entity_locator::EntityLocator, game_capabilities::game_defaults::GameDefaultsLoader};
 
 use super::{game_capability::{GameCapability, GameStateUpdate}, rendered_item::RenderedItem};
 
@@ -11,25 +11,27 @@ pub struct Game {
     bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
     pub capabilities: Vec<Box<dyn GameCapability>>,
-    pub is_first_update: bool
+    pub is_first_update: bool,
+    entity_locator: EntityLocator
 }
 
 impl Game {
-    pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
+    pub fn new(entity_factory: EntityFactory, bounds: Rectangle, capabilities: Vec<Box<dyn GameCapability>>) -> Self {
         Self {
             entity_factory,
             bounds,
             entities: HashMap::new(),
-            capabilities: vec![
-                Box::new(GameDefaultsLoader::new())
-            ],
-            is_first_update: true
+            capabilities: capabilities,
+            is_first_update: true,
+            entity_locator: EntityLocator::new()
         }
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
+        let state = self.state_snapshot();
+
         for (_, entity) in &mut self.entities {
-            entity.update(time_since_last_update);
+            entity.update(&state, time_since_last_update);
         }
 
         let mut updates: Vec<GameStateUpdate> = vec![];
@@ -43,6 +45,15 @@ impl Game {
 
         if self.is_first_update {
             self.is_first_update = false
+        }
+    }
+
+    fn state_snapshot(&self) -> GameStateSnapshot {
+        GameStateSnapshot {
+            enemies: self.entities.values()
+                .filter(|entity| entity.is_enemy)
+                .map(|e| e.state_snapshot())
+                .collect()
         }
     }
 
@@ -105,13 +116,27 @@ impl Debug for Game {
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::RECT_ORIGIN_FULL_HD, entities::factory::EntityFactory};
+    use raylib::math::Rectangle;
+
+    use crate::{constants::RECT_ORIGIN_FULL_HD, entities::{entity::Entity, factory::EntityFactory}};
 
     use super::Game;
 
     impl Game {
         pub fn test() -> Game {
-            return Game::new(EntityFactory::test(), RECT_ORIGIN_FULL_HD);
+            return Game::new(
+                EntityFactory::test(), 
+                RECT_ORIGIN_FULL_HD,
+                vec![]
+            );
         }       
+    }
+
+    impl Game {
+        pub fn frame_of_first_entity(&self) -> Rectangle {
+            let entities: Vec<&Entity> = self.entities.values().collect();
+            let entity = entities.first().unwrap();
+            return entity.frame;
+        }
     }
 }

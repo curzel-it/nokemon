@@ -1,10 +1,12 @@
 {
     "animations": [],
-    "capabilities": [],
+    "capabilities": [
+        "LinearMovement",
+        "Shooter"
+    ],
     "scale": 1,
     "id": "tower",
     "speed": 0,
-    "is_enemy": false,
-    "is_shooter": false
+    "is_enemy": false
   }
   

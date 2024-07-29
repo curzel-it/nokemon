@@ -14,6 +14,7 @@ use constants::{ASSETS_PATH, DEBUG_ENABLED, FPS, SPECIES_PATH};
 use entities::factory::EntityFactory;
 use features::item_finder::find_item;
 use game::{game::Game, rendered_item::RenderedItem};
+use game_capabilities::game_defaults::GameDefaultsLoader;
 use raylib::prelude::*;
 use utils::file_utils::list_files;
 
@@ -93,7 +94,10 @@ fn main() {
 
     let mut game = Game::new(
         EntityFactory::new(all_species, all_assets),
-        Rectangle::new(0.0, 0.0, 800.0, 600.0)
+        Rectangle::new(0.0, 0.0, 800.0, 600.0),
+        vec![
+            Box::new(GameDefaultsLoader::new())
+        ]
     );
 
     while !rl.window_should_close() {
