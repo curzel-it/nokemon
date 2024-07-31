@@ -1,8 +1,8 @@
 {
     "animations": [],
-    "capabilities": [
+    "behaviors": [
         {
-            "name": "Autoremove", 
+            "name": "RemoveEntitiesOutsideOfBounds", 
             "args": {}
         },
         {

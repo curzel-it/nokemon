@@ -8,6 +8,8 @@ pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const BASE_ENTITY_SIZE: f32 = 50.0;
 
+pub const GAME_ENTITY_ID: u32 = 0;
+
 pub const SPRITE_NAME_MOVEMENT: &str = "walk";
 pub const SPRITE_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";

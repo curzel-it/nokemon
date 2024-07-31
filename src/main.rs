@@ -1,9 +1,7 @@
 mod constants;
-mod entities;
-mod entity_capabilities;
+mod game_behaviors;
+mod game_engine;
 mod features;
-mod game;
-mod game_capabilities;
 mod species;
 mod sprites;
 mod utils;
@@ -11,29 +9,20 @@ mod utils;
 use std::collections::HashMap;
 
 use constants::{ASSETS_PATH, DEBUG_ENABLED, FPS, SPECIES_PATH};
-use entities::factory::EntityFactory;
-use features::item_finder::find_item;
-use game::{game::Game, rendered_item::RenderedItem};
-use game_capabilities::game_defaults::GameDefaultsLoader;
+use features::mouse_handler::MouseHandler;
+use game_behaviors::{linear_movement::LinearMovement, remove_entities_outside_of_bounds::RemoveEntitiesOutsideOfBounds, shooter::Shooter, update_sprites::UpdateSprites};
+use game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_behavior::GameBehavior};
 use raylib::prelude::*;
 use utils::file_utils::list_files;
 
 struct StateStuff {
-    textures: HashMap<String, Texture2D>,
-    dragging_id: Option<u32>,
-    mouse_down: Vector2,
-    drag_offset: Vector2,
-    reset_dragging_id: bool
+    textures: HashMap<String, Texture2D>
 }
 
 impl StateStuff {
     fn new() -> Self {
         Self {
-            textures: HashMap::new(),
-            dragging_id: None,
-            mouse_down: Vector2::zero(),
-            drag_offset: Vector2::zero(),
-            reset_dragging_id: false
+            textures: HashMap::new()
         }
     }
 
@@ -43,43 +32,25 @@ impl StateStuff {
             self.textures.insert(asset.clone(), texture);
         }
     } 
-
-    fn handle_mouse(
-        &mut self, 
-        game: &mut Game,
-        items: &Vec<RenderedItem>,
-        position: Vector2, 
-        is_pressed: bool, 
-        is_released: bool        
-    ) {
-        self.drag_offset = Vector2::new(
-            position.x - self.mouse_down.x, 
-            position.y - self.mouse_down.y
-        );
-        if self.reset_dragging_id {
-            self.reset_dragging_id = false;
-            self.dragging_id = None;
-        }
-
-        if is_pressed {
-            if self.dragging_id.is_none() {
-                let pointed_item = find_item(position, items).map(|e| e.id);
-                self.dragging_id = pointed_item;
-                self.mouse_down = position;
-            }
-        }
-
-        if is_released {
-            if let Some(id) = self.dragging_id {
-                game.move_entity_by(id, self.drag_offset);
-            }
-            self.reset_dragging_id = true;
-        }
-    }
 }
+
+pub fn update(
+    game: &mut Game, 
+    behaviors: &Vec<Box<dyn GameBehavior>>, 
+    time_since_last_update: f32
+) {
+    let entity_ids: Vec<u32> = game.entities.values().map(|e| e.id).collect();
+
+    for behavior in behaviors {
+        for id in &entity_ids {
+            behavior.update(id, game, time_since_last_update);
+        }        
+    }
+} 
 
 fn main() {
     let mut state = StateStuff::new();
+    let mut mouse_handler = MouseHandler::new();
     let mut frames_counter = 0;
 
     let (mut rl, thread) = raylib::init()
@@ -95,19 +66,22 @@ fn main() {
 
     let mut game = Game::new(
         EntityFactory::new(all_species, all_assets),
-        Rectangle::new(0.0, 0.0, 800.0, 600.0),
-        vec![
-            Box::new(GameDefaultsLoader::new())
-        ]
+        Rectangle::new(0.0, 0.0, 800.0, 600.0)
     );
+    game.setup();
+
+    let mut behaviors: Vec<Box<dyn GameBehavior>> = vec![
+        Box::new(LinearMovement::new()),
+        Box::new(UpdateSprites::new()),
+        Box::new(Shooter::new()),
+        Box::new(RemoveEntitiesOutsideOfBounds::new()),
+    ];
 
     while !rl.window_should_close() {
-        game.update(rl.get_frame_time());
-        let items = game.render();
-
-        state.handle_mouse(
+        update(&mut game, &mut behaviors, rl.get_frame_time());
+        
+        mouse_handler.handle_mouse_event(
             &mut game, 
-            &items,
             rl.get_mouse_position(),
             rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT),
             rl.is_mouse_button_released(MouseButton::MOUSE_BUTTON_LEFT)
@@ -117,8 +91,8 @@ fn main() {
 
         d.clear_background(Color::BLACK);
 
-        for item in items {
-            draw_item(&mut d, &item, &state);
+        for item in game.entities.values() {
+            draw_item(&mut d, &item, &mouse_handler, &state);
         }
 
         frames_counter += 1;
@@ -132,18 +106,22 @@ fn main() {
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
-    item: &RenderedItem,
+    item: &Entity,
+    mouse: &MouseHandler,
     state: &StateStuff
 ) {
-    if let Some(texture) = state.textures.get(&item.sprite_path) {
-        let is_being_dragged = state.dragging_id == Some(item.id);
-        let dx = if is_being_dragged { state.drag_offset.x } else { 0.0 };
-        let dy = if is_being_dragged { state.drag_offset.y } else { 0.0 };
+    let sprite_path = item.current_sprite.current_frame();
+    // let z_rotation = item.
+
+    if let Some(texture) = state.textures.get(sprite_path) {
+        let is_being_dragged = mouse.dragging_id == Some(item.id);
+        let dx = if is_being_dragged { mouse.drag_offset.x } else { 0.0 };
+        let dy = if is_being_dragged { mouse.drag_offset.y } else { 0.0 };
 
         d.draw_texture_ex(
             texture,
             Vector2::new(item.frame.x + dx, item.frame.y + dy),
-            item.z_rotation,
+            0.0,
             item.frame.width / texture.width as f32, 
             Color::WHITE 
         );

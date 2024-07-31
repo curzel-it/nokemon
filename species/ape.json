@@ -1,6 +1,6 @@
 {
     "animations": [],
-    "capabilities": [
+    "behaviors": [
         {
             "name": "LinearMovement",
             "args": {}

@@ -1,5 +1,5 @@
 {
-    "capabilities": [
+    "behaviors": [
         { "name": "1", "args": {} },
         { "name": "2", "args": {} },
         { "name": "3", "args": {} },
@@ -10,7 +10,7 @@
         { "name": "8", "args": {} }
     ],
     "scale": 1,
-    "id": "test_capabilities_8",
+    "id": "test_behaviors_8",
     "speed": 0,
     "is_enemy": false
   }

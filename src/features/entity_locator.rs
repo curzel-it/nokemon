@@ -1,9 +1,7 @@
 use std::cmp::Ordering;
 
 use raylib::math::Vector2;
-
-use crate::entities::entity::EntityStateSnapshot;
-
+/*
 #[derive(Debug)]
 pub struct EntityLocator {}
 
@@ -55,4 +53,4 @@ mod tests {
         let results: Vec<u32> = entities.iter().map(|e| e.id).collect();
         assert_eq!(results, vec![2, 1, 0]);
     }
-}
+} */

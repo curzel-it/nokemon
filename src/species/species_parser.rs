@@ -36,7 +36,8 @@ impl SpeciesParser {
 
 #[cfg(test)]
 mod tests {
-    use std::path::Path;
+    use std::{collections::HashMap, path::Path};
+    use common_macros::hash_map;
 
     use crate::constants::SPECIES_PATH;
 
@@ -80,11 +81,11 @@ mod tests {
     }
 
     #[test]
-    fn can_parse_capabilities() {
+    fn can_parse_behaviors() {
         let parser = SpeciesParser;
-        let path = Path::new(SPECIES_PATH).join("test_capabilities_8.json");
+        let path = Path::new(SPECIES_PATH).join("test_behaviors_8.json");
         let path_string = path.to_str().unwrap().to_owned();
         let result = parser.parse_from_file(&path_string).unwrap();
-        assert_eq!(result.capabilities.len(), 8);
+        assert_eq!(result.behaviors.len(), 8);
     }
 }

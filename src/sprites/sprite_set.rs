@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::constants::{MISSING_SPRITE, SPRITE_NAME_FRONT};
+use crate::constants::{ANIMATIONS_FPS, MISSING_SPRITE, SPRITE_NAME_FRONT};
 
 use super::sprite::Sprite;
 
@@ -33,9 +33,9 @@ impl SpriteSet {
         }
     }
 
-    pub fn sprite(&self, animation_name: &str, fps: f32) -> Sprite {
+    pub fn sprite(&self, animation_name: &str) -> Sprite {
         let frames = self.sprite_frames(animation_name);
-        Sprite::new(animation_name.to_owned(), frames, fps)
+        Sprite::new(animation_name.to_owned(), frames, ANIMATIONS_FPS)
     }
 }
 
