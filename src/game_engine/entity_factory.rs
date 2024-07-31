@@ -2,9 +2,9 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, SPRITE_NAME_MOVEMENT}, game_behaviors::{remove_entities_outside_of_bounds::RemoveEntitiesOutsideOfBounds, linear_movement::LinearMovement, shooter::Shooter}, species::{species_model::BehaviorDescriptor, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, ANIMATION_NAME_MOVEMENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::{entity::Entity, game_behavior::GameBehavior};
+use super::entity::Entity;
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -54,19 +54,22 @@ impl EntityFactory {
         );
 
         let entity_id = get_next_entity_id();
+        let direction = Vector2::new(1.0, 0.0);
+        let speed = BASE_ENTITY_SPEED * species.speed;
+        let time_between_shots = 1.0 / (species.bullets_per_minute / 60.0);
 
         return Entity {
             id: entity_id,
             frame: frame,
-            direction: Vector2::new(1.0, 0.0),
-            speed: BASE_ENTITY_SPEED * species.speed,
+            direction: direction,
+            speed: speed,
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
-            current_sprite: sprites.sprite(SPRITE_NAME_MOVEMENT),
+            current_sprite: sprites.sprite(ANIMATION_NAME_MOVEMENT),
             is_enemy: species.is_enemy,
             is_shooter: species.is_shooter,
-            time_between_shots: species.time_between_shots,
-            time_to_next_shot: species.time_to_next_shot,
+            time_between_shots: time_between_shots,
+            time_to_next_shot: time_between_shots,
         };
     }
 }

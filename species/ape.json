@@ -1,14 +1,9 @@
 {
     "animations": [],
-    "behaviors": [
-        {
-            "name": "LinearMovement",
-            "args": {}
-        }
-    ],
     "scale": 1,
     "id": "ape",
     "speed": 1,
-    "is_enemy": false
+    "is_enemy": false,
+    "is_shooter": false
   }
   

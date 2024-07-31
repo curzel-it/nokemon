@@ -1,4 +1,4 @@
-use crate::game_engine::{game::Game, game_behavior::GameBehavior};
+use crate::game_engine::{entity::Entity, game::Game, game_behavior::GameBehavior};
 
 #[derive(Debug)]
 pub struct Shooter;
@@ -20,7 +20,7 @@ impl GameBehavior for Shooter {
         
         if entity.time_to_next_shot <= 0.0 {
             entity.time_to_next_shot = entity.time_between_shots - entity.time_to_next_shot;
-            /*let bullet = self.build_bullet(game);
+            let bullet = self.build_bullet(game);
             game.add_entity(bullet);
         }
     }
@@ -28,11 +28,7 @@ impl GameBehavior for Shooter {
 
 impl Shooter {
     fn build_bullet(&self, game: &Game) -> Entity {
-        Entity::new()
-    }
-}
-*/
-        }
+        return game.entity_factory.build("towerdart");
     }
 }
 

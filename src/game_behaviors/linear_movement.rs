@@ -22,19 +22,19 @@ impl GameBehavior for LinearMovement {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{entity_factory::EntityFactory, game::Game}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_update::GameEngine}};
     
     #[test]
     fn can_move_on_update() {
+        let engine = GameEngine::new();
         let mut game = Game::test();
-        let entity_factory = EntityFactory::test();
         
-        let mut entity = entity_factory.build("ape");
+        let mut entity = game.entity_factory.build("ape");
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.direction = Vector2::new(1.0, 1.0);
         game.add_entity(entity);
                 
-        // game.update(1.0);
+        engine.update(&mut game, 1.0);
         let result = game.frame_of_first_entity();
         assert_eq!(result.x, 30.0);
         assert_eq!(result.y, 30.0);

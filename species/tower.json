@@ -1,20 +1,10 @@
 {
     "animations": [],
-    "behaviors": [
-        {
-            "name": "LinearMovement", 
-            "args": {}
-        },
-        {
-            "name": "Shooter",
-            "args": {
-                "rpm": "30"
-            }
-        }
-    ],
     "scale": 1,
     "id": "tower",
     "speed": 0,
-    "is_enemy": false
+    "is_enemy": false,
+    "is_shooter": true,
+    "bullets_per_minute": 120
   }
   

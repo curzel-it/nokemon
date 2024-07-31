@@ -10,8 +10,7 @@ use std::collections::HashMap;
 
 use constants::{ASSETS_PATH, DEBUG_ENABLED, FPS, SPECIES_PATH};
 use features::mouse_handler::MouseHandler;
-use game_behaviors::{linear_movement::LinearMovement, remove_entities_outside_of_bounds::RemoveEntitiesOutsideOfBounds, shooter::Shooter, update_sprites::UpdateSprites};
-use game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_behavior::GameBehavior};
+use game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_update::GameEngine};
 use raylib::prelude::*;
 use utils::file_utils::list_files;
 
@@ -34,20 +33,6 @@ impl StateStuff {
     } 
 }
 
-pub fn update(
-    game: &mut Game, 
-    behaviors: &Vec<Box<dyn GameBehavior>>, 
-    time_since_last_update: f32
-) {
-    let entity_ids: Vec<u32> = game.entities.values().map(|e| e.id).collect();
-
-    for behavior in behaviors {
-        for id in &entity_ids {
-            behavior.update(id, game, time_since_last_update);
-        }        
-    }
-} 
-
 fn main() {
     let mut state = StateStuff::new();
     let mut mouse_handler = MouseHandler::new();
@@ -64,21 +49,15 @@ fn main() {
     let all_species = list_files(SPECIES_PATH, "json");
     state.load_textures(&all_assets, &mut rl, &thread);
 
+    let engine = GameEngine::new();
     let mut game = Game::new(
         EntityFactory::new(all_species, all_assets),
         Rectangle::new(0.0, 0.0, 800.0, 600.0)
     );
     game.setup();
 
-    let mut behaviors: Vec<Box<dyn GameBehavior>> = vec![
-        Box::new(LinearMovement::new()),
-        Box::new(UpdateSprites::new()),
-        Box::new(Shooter::new()),
-        Box::new(RemoveEntitiesOutsideOfBounds::new()),
-    ];
-
     while !rl.window_should_close() {
-        update(&mut game, &mut behaviors, rl.get_frame_time());
+        engine.update(&mut game, rl.get_frame_time());
         
         mouse_handler.handle_mouse_event(
             &mut game, 
@@ -111,8 +90,7 @@ fn draw_item(
     state: &StateStuff
 ) {
     let sprite_path = item.current_sprite.current_frame();
-    // let z_rotation = item.
-
+    
     if let Some(texture) = state.textures.get(sprite_path) {
         let is_being_dragged = mouse.dragging_id == Some(item.id);
         let dx = if is_being_dragged { mouse.drag_offset.x } else { 0.0 };

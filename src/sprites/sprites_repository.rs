@@ -31,7 +31,7 @@ impl SpritesRepository {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{ASSETS_PATH, MISSING_SPRITE, SPRITE_NAME_FRONT, SPRITE_NAME_MOVEMENT};
+    use crate::constants::{ASSETS_PATH, MISSING_SPRITE, ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT};
     use crate::utils::file_utils::list_files;
 
     use super::*;
@@ -45,7 +45,7 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"ape".to_owned());
-        let number_of_frames = sprite_set.sprite(SPRITE_NAME_FRONT).number_of_frames();
+        let number_of_frames = sprite_set.sprite(ANIMATION_NAME_FRONT).number_of_frames();
         assert!(number_of_frames > 1);
     }
 
@@ -58,7 +58,7 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"tower".to_owned());
-        let sprite = sprite_set.sprite(SPRITE_NAME_FRONT);
+        let sprite = sprite_set.sprite(ANIMATION_NAME_FRONT);
         let number_of_frames = sprite.number_of_frames();
         assert!(number_of_frames > 1);
     }
@@ -72,7 +72,7 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"tower".to_owned());
-        let sprite = sprite_set.sprite(SPRITE_NAME_MOVEMENT);
+        let sprite = sprite_set.sprite(ANIMATION_NAME_MOVEMENT);
         let number_of_frames = sprite.number_of_frames();
         assert!(number_of_frames > 1);
     }
@@ -86,7 +86,7 @@ mod tests {
         sprites_repo.setup(&all_assets);
             
         let sprite_set = sprites_repo.sprites(&"non existing".to_owned());
-        let sprite = sprite_set.sprite(SPRITE_NAME_FRONT);
+        let sprite = sprite_set.sprite(ANIMATION_NAME_FRONT);
         assert!(sprite.number_of_frames() == 1);
         assert_eq!(sprite.current_frame().clone(), MISSING_SPRITE.to_owned());
     }

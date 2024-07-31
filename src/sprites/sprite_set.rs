@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::constants::{ANIMATIONS_FPS, MISSING_SPRITE, SPRITE_NAME_FRONT};
+use crate::constants::{ANIMATIONS_FPS, MISSING_SPRITE, ANIMATION_NAME_FRONT};
 
 use super::sprite::Sprite;
 
@@ -24,8 +24,8 @@ impl SpriteSet {
         match self.animations.get(&animation_name.to_owned()) {
             Some(frames) => frames.clone(),
             None => {
-                if animation_name != SPRITE_NAME_FRONT {
-                    return self.sprite_frames(SPRITE_NAME_FRONT);
+                if animation_name != ANIMATION_NAME_FRONT {
+                    return self.sprite_frames(ANIMATION_NAME_FRONT);
                 } else {
                     return vec![MISSING_SPRITE.to_owned()]
                 }
@@ -41,7 +41,7 @@ impl SpriteSet {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{SPRITE_NAME_FRONT, SPRITE_NAME_MOVEMENT};
+    use crate::constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT};
 
     use super::*;
 
@@ -56,14 +56,14 @@ mod tests {
     #[test]
     fn can_reference_standard_sprites() {
         let animations: HashMap<String, Vec<String>> = [
-            (SPRITE_NAME_MOVEMENT.to_string(), generate_sprite_names(SPRITE_NAME_MOVEMENT, 3)),
-            (SPRITE_NAME_FRONT.to_string(), generate_sprite_names(SPRITE_NAME_FRONT, 3)),
+            (ANIMATION_NAME_MOVEMENT.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT, 3)),
+            (ANIMATION_NAME_FRONT.to_string(), generate_sprite_names(ANIMATION_NAME_FRONT, 3)),
         ].iter().cloned().collect();
 
         let sprite_set = SpriteSet::new(animations);
 
-        assert_eq!(sprite_set.sprite_frames(SPRITE_NAME_MOVEMENT)[0], "walk-0");
-        assert_eq!(sprite_set.sprite_frames(SPRITE_NAME_FRONT)[0], "front-0");
+        assert_eq!(sprite_set.sprite_frames(ANIMATION_NAME_MOVEMENT)[0], "walk-0");
+        assert_eq!(sprite_set.sprite_frames(ANIMATION_NAME_FRONT)[0], "front-0");
     }
 
     #[test]

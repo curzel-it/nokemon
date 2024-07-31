@@ -73,13 +73,16 @@ impl Game {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::entity::Entity};
+    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::{entity::Entity, entity_factory::EntityFactory}};
 
     use super::Game;
 
     impl Game {
         pub fn test() -> Game {
-            return Game::new(RECT_ORIGIN_FULL_HD);
+            return Game::new(
+                EntityFactory::test(), 
+                RECT_ORIGIN_FULL_HD
+            );
         }       
     }
 

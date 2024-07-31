@@ -1,14 +1,9 @@
 {
     "animations": [],
-    "behaviors": [
-        {
-            "name": "LinearMovement",
-            "args": {}
-        }
-    ],
     "scale": 2,
     "id": "cybertruck",
     "speed": 1.7,
-    "is_enemy": false
+    "is_enemy": false,
+    "is_shooter": false
   }
   

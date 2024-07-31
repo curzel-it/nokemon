@@ -1,18 +1,9 @@
 {
     "animations": [],
-    "behaviors": [
-        {
-            "name": "RemoveEntitiesOutsideOfBounds", 
-            "args": {}
-        },
-        {
-            "name": "LinearMovement", 
-            "args": {}
-        }
-    ],
     "scale": 1,
     "id": "towerdart",
     "speed": 5,
-    "is_enemy": false
+    "is_enemy": false,
+    "is_shooter": false
   }
   

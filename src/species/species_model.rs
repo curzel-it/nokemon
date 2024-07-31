@@ -1,18 +1,24 @@
 use serde::Deserialize;
-use std::collections::HashMap;
-use std::str::FromStr;
 use std::string::String;
-use std::vec::Vec;
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct Species {
     pub id: String,
+
+    #[serde(default="df_zero")]
     pub speed: f32,
+
+    #[serde(default="df_one")]
     pub scale: f32,
+
+    #[serde(default="df_false")]
     pub is_enemy: bool,
+    
+    #[serde(default)]
     pub is_shooter: bool,
-    pub time_between_shots: f32,
-    pub time_to_next_shot: f32,
+
+    #[serde(default="df_one")]
+    pub bullets_per_minute: f32,
 }
 
 impl Species {
@@ -23,8 +29,19 @@ impl Species {
             scale: 1.0,
             is_enemy: false,
             is_shooter: false,
-            time_between_shots: 0.0,
-            time_to_next_shot: 0.0
+            bullets_per_minute: 1.0,
         }
     }
+}
+
+fn df_one() -> f32 {
+    1.0
+}
+
+fn df_zero() -> f32 {
+    0.0
+}
+
+fn df_false() -> bool {
+    false
 }

@@ -10,8 +10,8 @@ pub const BASE_ENTITY_SIZE: f32 = 50.0;
 
 pub const GAME_ENTITY_ID: u32 = 0;
 
-pub const SPRITE_NAME_MOVEMENT: &str = "walk";
-pub const SPRITE_NAME_FRONT: &str = "front";
+pub const ANIMATION_NAME_MOVEMENT: &str = "walk";
+pub const ANIMATION_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";
 
 // Test Stuff
