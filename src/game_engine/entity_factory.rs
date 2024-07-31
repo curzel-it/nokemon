@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, ANIMATION_NAME_MOVEMENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_MOVEMENT, BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::entity::Entity;
 
@@ -60,15 +60,19 @@ impl EntityFactory {
 
         return Entity {
             id: entity_id,
+            parent_id: NO_PARENT,
             frame: frame,
             direction: direction,
             speed: speed,
+            hp: species.hp,
+            dp: species.dp,
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
             current_sprite: sprites.sprite(ANIMATION_NAME_MOVEMENT),
             z_index: species.z_index,
             is_enemy: species.is_enemy,
             is_shooter: species.is_shooter,
+            is_bullet: species.is_bullet,
             time_between_shots: time_between_shots,
             time_to_next_shot: time_between_shots,
         };

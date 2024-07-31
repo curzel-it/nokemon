@@ -9,15 +9,19 @@ use crate::sprites::sprite_set::SpriteSet;
 #[derive(Debug)]
 pub struct Entity {
     pub id: u32,
+    pub parent_id: u32,
     pub frame: Rectangle,
     pub direction: Vector2,
     pub speed: f32,
+    pub hp: f32,
+    pub dp: f32,
     pub species: String,
     pub sprite_set: SpriteSet,
     pub current_sprite: Sprite,
     pub z_index: u32,
     pub is_enemy: bool,
     pub is_shooter: bool,
+    pub is_bullet: bool,
     pub time_between_shots: f32,
     pub time_to_next_shot: f32,
 }

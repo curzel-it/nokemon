@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fmt::{self, Debug}};
+use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
@@ -8,6 +8,7 @@ pub struct Game {
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
+    pub bullets: HashSet<u32>,
 }
 
 impl Game {
@@ -16,39 +17,29 @@ impl Game {
             entity_factory,
             bounds,
             entities: HashMap::new(),
+            bullets: HashSet::new(),
         }
     }
 
-    pub fn setup(&mut self) {
-        self.add_entity_by_species("ape");
-        self.add_entity_by_species("tower");
-    }
-
-    pub fn add_entity_by_species(&mut self, species_id: &str) -> &Entity {
+    pub fn add_entity_by_species(&mut self, species_id: &str) {
         let entity = self.entity_factory.build(species_id);
         return self.add_entity(entity);
     }
 
-    pub fn add_entity(&mut self, entity: Entity) -> &Entity {
+    pub fn add_entity(&mut self, entity: Entity) {
         let id = entity.id;
-        self.entities.insert(id, entity);
-        return self.entities.get(&id).unwrap();
-    }
+        let is_bullet = entity.is_bullet;
 
-    pub fn add_entities(&mut self, entities: Vec<Entity>) {
-        for entity in entities {
-            self.add_entity(entity);
+        self.entities.insert(id, entity);
+
+        if is_bullet {
+            self.bullets.insert(id);
         }
     }
 
     pub fn remove_entity(&mut self, id: &u32) {
         self.entities.remove(&id);
-    }
-
-    pub fn remove_entities(&mut self, ids: &Vec<u32>) {
-        for id in ids {
-            self.remove_entity(id);
-        }
+        self.bullets.remove(&id);
     }
 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {

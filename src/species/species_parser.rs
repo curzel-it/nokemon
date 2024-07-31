@@ -67,7 +67,7 @@ mod tests {
         assert_eq!(result.speed, 0.0);
         assert_eq!(result.scale, 50.0);
         assert_eq!(result.z_index, 1);
-        assert_eq!(result.bullets_per_minute, 120.0);
+        assert_eq!(result.bullets_per_minute, 30.0);
     }
 
     #[test]

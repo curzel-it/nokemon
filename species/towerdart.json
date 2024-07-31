@@ -5,6 +5,7 @@
     "speed": 5,
     "z_index": 2,
     "is_enemy": false,
-    "is_shooter": false
+    "is_shooter": false,
+    "is_bullet": true
   }
   

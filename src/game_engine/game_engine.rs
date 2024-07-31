@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{linear_movement::LinearMovement, remove_entities_outside_of_bounds::RemoveEntitiesOutsideOfBounds, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
 
 use super::{entity_factory::EntityFactory, game::Game, game_behavior::GameBehavior, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
@@ -23,7 +23,8 @@ impl GameEngine {
                 Box::new(LinearMovement::new()),
                 Box::new(UpdateSprites::new()),
                 Box::new(Shooter::new()),
-                Box::new(RemoveEntitiesOutsideOfBounds::new()),
+                Box::new(CheckBulletCollisons::new()),
+                Box::new(CleanupEntities::new()),
             ],
             textures: HashMap::new(),
             dragging_id: None,
@@ -50,7 +51,8 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, 800.0, 600.0)
         );
-        game.setup();
+        game.add_entity_by_species("ape");
+        game.add_entity_by_species("tower");
 
         return (game, rl, thread);
     }

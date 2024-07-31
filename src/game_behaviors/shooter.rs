@@ -29,6 +29,7 @@ impl GameBehavior for Shooter {
 impl Shooter {
     fn build_bullet(&self, entity_factory: &EntityFactory, parent: &Entity) -> Entity {
         let mut entity = entity_factory.build("towerdart");
+        entity.parent_id = parent.id;
         entity.frame.x = parent.frame.x + (parent.frame.width - entity.frame.width) / 2.0;
         entity.frame.y = parent.frame.y + (parent.frame.height - entity.frame.height) / 2.0;
         return entity;
