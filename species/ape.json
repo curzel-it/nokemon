@@ -1,6 +1,6 @@
 {
     "animations": [],
-    "scale": 1,
+    "scale": 75,
     "id": "ape",
     "speed": 1,
     "is_enemy": false,

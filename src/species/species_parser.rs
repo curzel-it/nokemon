@@ -65,8 +65,19 @@ mod tests {
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "tower");
         assert_eq!(result.speed, 0.0);
-        assert_eq!(result.scale, 1.0);
+        assert_eq!(result.scale, 50.0);
+        assert_eq!(result.z_index, 1);
         assert_eq!(result.bullets_per_minute, 120.0);
+    }
+
+    #[test]
+    fn can_parse_species_from_file_path_with_z_index() {
+        let parser = SpeciesParser;
+        let path = Path::new(SPECIES_PATH).join("towerdart.json");
+        let path_string = path.to_str().unwrap().to_owned();
+        let result = parser.parse_from_file(&path_string).unwrap();
+        assert_eq!(result.id, "towerdart");
+        assert_eq!(result.z_index, 2);
     }
 
     #[test]
@@ -77,7 +88,7 @@ mod tests {
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "cybertruck");
         assert_eq!(result.speed, 1.7);
-        assert_eq!(result.scale, 2.0);
+        assert_eq!(result.scale, 100.0);
         assert_eq!(result.bullets_per_minute, 1.0);
     }
 }

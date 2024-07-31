@@ -1,6 +1,6 @@
 {
     "animations": [],
-    "scale": 2,
+    "scale": 100,
     "id": "cybertruck",
     "speed": 1.7,
     "is_enemy": false,

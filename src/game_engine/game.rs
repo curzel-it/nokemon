@@ -4,7 +4,6 @@ use raylib::math::{Rectangle, Vector2};
 
 use super::{entity::Entity, entity_factory::EntityFactory};
 
-#[derive(Debug)]
 pub struct Game {
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
@@ -66,6 +65,15 @@ impl Game {
             entity.frame.x = offset.x;
             entity.frame.y = offset.y;
         }
+    }
+}
+
+impl Debug for Game {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Game")
+            .field("bounds", &self.bounds)
+            .field("entities", &self.entities)
+            .finish()
     }
 }
 

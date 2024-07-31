@@ -1,9 +1,10 @@
+use std::fmt::Debug;
 use std::string::String;
 use std::vec::Vec;
 
 use super::timed_content_provider::TimedContentProvider;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Sprite {
     pub animation_name: String,
     timed_content_provider: TimedContentProvider<String>,
@@ -27,6 +28,15 @@ impl Sprite {
 
     pub fn update(&mut self, time_since_last_update: f32) {
         self.timed_content_provider.update(time_since_last_update);
+    }
+}
+
+impl Debug for Sprite {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Sprite")
+            .field("animation_name", &self.animation_name)
+            .field("current_frame", &self.current_frame())
+            .finish()
     }
 }
 

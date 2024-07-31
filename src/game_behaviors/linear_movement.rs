@@ -22,7 +22,7 @@ impl GameBehavior for LinearMovement {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_update::GameEngine}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine}};
     
     #[test]
     fn can_move_on_update() {

@@ -1,6 +1,6 @@
 {
     "animations": [],
-    "scale": 1,
+    "scale": 50,
     "id": "thing",
     "speed": 0,
     "is_enemy": false,

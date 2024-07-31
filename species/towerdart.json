@@ -1,8 +1,9 @@
 {
     "animations": [],
-    "scale": 1,
+    "scale": 10,
     "id": "towerdart",
     "speed": 5,
+    "z_index": 2,
     "is_enemy": false,
     "is_shooter": false
   }

@@ -15,6 +15,7 @@ pub struct Entity {
     pub species: String,
     pub sprite_set: SpriteSet,
     pub current_sprite: Sprite,
+    pub z_index: u32,
     pub is_enemy: bool,
     pub is_shooter: bool,
     pub time_between_shots: f32,

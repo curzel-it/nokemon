@@ -1,10 +1,10 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Debug};
 
 use crate::constants::{ANIMATIONS_FPS, MISSING_SPRITE, ANIMATION_NAME_FRONT};
 
 use super::sprite::Sprite;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct SpriteSet {
     animations: HashMap<String, Vec<String>>,
 }
@@ -36,6 +36,17 @@ impl SpriteSet {
     pub fn sprite(&self, animation_name: &str) -> Sprite {
         let frames = self.sprite_frames(animation_name);
         Sprite::new(animation_name.to_owned(), frames, ANIMATIONS_FPS)
+    }
+}
+
+impl Debug for SpriteSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut names: Vec<&String> = self.animations.keys().collect();
+        names.sort();
+
+        return f.debug_struct("SpriteSet")
+            .field("animations", &names)
+            .finish();
     }
 }
 

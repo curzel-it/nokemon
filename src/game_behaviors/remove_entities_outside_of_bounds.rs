@@ -24,7 +24,7 @@ impl GameBehavior for RemoveEntitiesOutsideOfBounds {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_update::GameEngine}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine}};
 
     #[test]
     fn can_remove_automatically_when_leaving_screen() {
@@ -36,8 +36,10 @@ mod tests {
         entity.speed = 100.0;
         entity.direction = Vector2::new(-1.0, 0.0);  
         game.add_entity(entity);      
-                
+
+        println!("{:#?}", game);        
         engine.update(&mut game, 0.6);
+        println!("{:#?}", game);
         assert_eq!(game.entities.len(), 1);
                 
         engine.update(&mut game, 0.6);
