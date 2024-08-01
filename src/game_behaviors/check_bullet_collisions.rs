@@ -75,4 +75,29 @@ mod tests {
         assert_eq!(game.entities.get(&1).unwrap().hp, 10.0);
         assert_eq!(game.entities.get(&2).unwrap().hp, 10.0);
     }
+    #[test]
+    fn can_decrease_hp_of_both_bullet_and_targets_on_hit_2() {
+        let engine = GameEngine::new();
+        let mut game = Game::test();
+        
+        let mut bullet = game.entity_factory.build("towerdart");
+        bullet.id = 1;
+        bullet.frame = RECT_ORIGIN_SQUARE_100;
+        bullet.dp = 60.0;
+        bullet.hp = 50.0;
+        bullet.direction = Vector2::zero();
+        game.add_entity(bullet);      
+        
+        let mut ape = game.entity_factory.build("ape");
+        ape.id = 2;
+        ape.frame = RECT_ORIGIN_SQUARE_100;
+        ape.hp = 100.0;
+        ape.direction = Vector2::zero();
+        game.add_entity(ape);      
+
+        engine.update(&mut game, 0.1);
+        
+        assert!(game.entities.get(&1).is_none());
+        assert_eq!(game.entities.get(&2).unwrap().hp, 40.0);
+    }
 }

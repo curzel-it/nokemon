@@ -6,6 +6,8 @@
     "z_index": 2,
     "is_enemy": false,
     "is_shooter": false,
-    "is_bullet": true
+    "is_bullet": true,
+    "hp": 50,
+    "dp": 60
   }
   
