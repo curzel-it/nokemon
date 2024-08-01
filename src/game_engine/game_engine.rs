@@ -34,7 +34,7 @@ impl GameEngine {
         }
     }
 
-    pub fn start(&mut self, width: i32, height: i32) -> (Game, RaylibHandle, RaylibThread) {
+    pub fn start_rl(&mut self, width: i32, height: i32) -> (Game, RaylibHandle, RaylibThread) {
         let (mut rl, thread) = raylib::init()
             .size(width, height)
             .title("Tower Defense")
@@ -47,14 +47,24 @@ impl GameEngine {
 
         self.load_textures(&all_assets, &mut rl, &thread);
 
+        let game = self.start_with_assets_and_species(width, height, all_assets, all_species);
+        return (game, rl, thread);
+    }
+
+    pub fn start(&mut self, width: i32, height: i32) -> Game {
+        let all_assets = list_files(ASSETS_PATH, "png");
+        let all_species = list_files(SPECIES_PATH, "json");
+        return self.start_with_assets_and_species(width, height, all_assets, all_species);
+    }
+
+    fn start_with_assets_and_species(&mut self, width: i32, height: i32, all_assets: Vec<String>, all_species: Vec<String>) -> Game {
         let mut game = Game::new(
             EntityFactory::new(all_species, all_assets),
-            Rectangle::new(0.0, 0.0, 800.0, 600.0)
+            Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
         game.add_entity_by_species("ape");
         game.add_entity_by_species("tower");
-
-        return (game, rl, thread);
+        return game;
     }
 
     pub fn handle_inputs(&mut self, game: &mut Game, rl: &RaylibHandle) {

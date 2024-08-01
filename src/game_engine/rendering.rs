@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use raylib::prelude::*;
 
 use super::{entity::Entity, game::Game, game_engine::GameEngine};
@@ -8,7 +10,13 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
     d.clear_background(Color::BLACK);
 
     let mut sorted_entities: Vec<&Entity> = game.entities.values().collect();
-    sorted_entities.sort_by_key(|e| e.z_index);
+    sorted_entities.sort_by(|a, b| {
+        if a.frame.y < b.frame.y { return Ordering::Less; }
+        if a.frame.y > b.frame.y { return Ordering::Greater; }
+        if a.z_index < b.z_index { return Ordering::Less; }
+        if a.z_index > b.z_index { return Ordering::Greater; }
+        return Ordering::Equal;
+    });
 
     for item in sorted_entities {
         draw_item(&mut d, &item, &engine);
