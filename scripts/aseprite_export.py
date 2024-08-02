@@ -3,32 +3,39 @@ import os
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
+directions = "n ne e se s so o no".split(" ")
+directions_layers = [f"walk_{d}" for d in directions]
 
 def export_aseprite(file_path, destination_folder):
     if "/palettes" in file_path:
         return
-    elif "/characters" in file_path:
+    if "/characters" in file_path:
         export_aseprite_character(file_path, destination_folder)
-    else:
-        export_aseprite_default(file_path, destination_folder)
+
+    export_aseprite_default(file_path, destination_folder)
 
 def export_aseprite_default(file_path, destination_folder):
-    asset_name = file_path.split("/")[-1].split(".")[0]
-    asset_name = asset_name[:-1] if asset_name.endswith("-") else asset_name
-    ignore_layers = '--ignore-layer "Talking" --ignore-layer "talking"'
+    asset_name = asset_name_from_file_path(file_path)
+
+    ignore_layers = directions_layers + ["Talking", "talking"]
+    ignore_layers = [f'"{l}"' for l in ignore_layers]
+    ignore_layers = [f'--ignore-layer {l}' for l in ignore_layers]
+    ignore_layers = ' '.join(ignore_layers)
+    
     cmd = f"{aseprite_path} -b {file_path} {ignore_layers} --save-as {destination_folder}/{asset_name}-0.png"
     os.system(cmd)
 
 def export_aseprite_character(file_path, destination_folder):
-    asset_name = file_path.split("/")[-1].split(".")[0]
-    asset_name = asset_name[:-1] if asset_name.endswith("-") else asset_name
+    asset_name = asset_name_from_file_path(file_path)
 
-    directions = "n ne e se s so o no".split(" ")
-    layers = [f"walk_{d}" for d in directions]
-    
-    for layer in layers:
+    for layer in directions_layers:
         cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
         os.system(cmd)
+
+def asset_name_from_file_path(file_path):
+    asset_name = file_path.split("/")[-1].split(".")[0]
+    asset_name = asset_name[:-1] if asset_name.endswith("-") else asset_name
+    return asset_name
 
 def find_aseprite_files(folder):
     paths = []
