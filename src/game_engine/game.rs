@@ -21,12 +21,12 @@ impl Game {
         }
     }
 
-    pub fn add_entity_by_species(&mut self, species_id: &str) {
+    pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
         let entity = self.entity_factory.build(species_id);
         return self.add_entity(entity);
     }
 
-    pub fn add_entity(&mut self, entity: Entity) {
+    pub fn add_entity(&mut self, entity: Entity) -> u32 {
         let id = entity.id;
         let is_bullet = entity.is_bullet;
 
@@ -35,6 +35,7 @@ impl Game {
         if is_bullet {
             self.bullets.insert(id);
         }
+        return id;
     }
 
     pub fn remove_entity(&mut self, id: &u32) {
@@ -72,7 +73,7 @@ impl Debug for Game {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::{entity::Entity, entity_factory::EntityFactory}};
+    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::entity_factory::EntityFactory};
 
     use super::Game;
 
@@ -82,14 +83,14 @@ mod tests {
                 EntityFactory::test(), 
                 RECT_ORIGIN_FULL_HD
             );
-        }       
-    }
-
-    impl Game {
-        pub fn frame_of_first_entity(&self) -> Rectangle {
-            let entities: Vec<&Entity> = self.entities.values().collect();
-            let entity = entities.first().unwrap();
-            return entity.frame;
+        }
+        
+        pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
+            return self.entities.get(id).unwrap().frame;
+        }
+        
+        pub fn animation_name_of_entity(&self, id: &u32) -> String {
+            return self.entities.get(id).unwrap().current_sprite.animation_name.clone();
         }
     }
 }

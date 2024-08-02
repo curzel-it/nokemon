@@ -69,6 +69,7 @@ impl EntityFactory {
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
             current_sprite: sprites.sprite(ANIMATION_NAME_FRONT),
+            sprite_invalidated: false,
             z_index: species.z_index,
             is_enemy: species.is_enemy,
             is_shooter: species.is_shooter,

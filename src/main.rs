@@ -6,7 +6,7 @@ mod species;
 mod sprites;
 mod utils;
 
-use constants::{FPS, LOG_GAME_STATE};
+use constants::LOG_GAME_STATE;
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
 
 fn main() {

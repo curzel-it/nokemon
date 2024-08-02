@@ -18,6 +18,7 @@ pub struct Entity {
     pub species: String,
     pub sprite_set: SpriteSet,
     pub current_sprite: Sprite,
+    pub sprite_invalidated: bool,
     pub z_index: u32,
     pub is_enemy: bool,
     pub is_shooter: bool,
@@ -27,14 +28,15 @@ pub struct Entity {
 }
 
 impl Entity {
+    pub fn change_direction(&mut self, new_direction: Vector2) {
+        self.direction = new_direction;
+        self.sprite_invalidated = true;
+    }
+
     pub fn change_animation(&mut self, animation_name: &str) -> u32 {
         if self.current_sprite.animation_name != animation_name {
             self.current_sprite = self.sprite_set.sprite(&animation_name);
         }
         ((self.current_sprite.number_of_frames() as f32) / ANIMATIONS_FPS) as u32
-    }
-
-    fn current_sprite_frame(&self) -> String {
-        self.current_sprite.current_frame().to_string()
     }
 }

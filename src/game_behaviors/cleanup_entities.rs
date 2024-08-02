@@ -45,7 +45,7 @@ mod tests {
         let mut entity = game.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.speed = 100.0;
-        entity.direction = Vector2::new(-1.0, 0.0);  
+        entity.change_direction(Vector2::new(-1.0, 0.0));  
         game.add_entity(entity);      
 
         engine.update(&mut game, 0.6);
@@ -63,7 +63,7 @@ mod tests {
         let mut entity = game.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.speed = 100.0;
-        entity.direction = Vector2::new(-1.0, 0.0); 
+        entity.change_direction(Vector2::new(-1.0, 0.0));  
         entity.hp = 0.0; 
         game.add_entity(entity);      
 

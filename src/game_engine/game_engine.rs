@@ -62,8 +62,15 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        game.add_entity_by_species("red");
-        game.add_entity_by_species("tower");
+        
+        let tower_id = game.add_entity_by_species("tower");
+        let tower = game.entities.get_mut(&tower_id).unwrap();
+        tower.change_direction(Vector2::new(1.0, 0.0));
+
+        let id = game.add_entity_by_species("red");
+        let entity = game.entities.get_mut(&id).unwrap();
+        entity.change_direction(Vector2::new(1.0, 0.0));  
+
         return game;
     }
 

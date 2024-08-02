@@ -12,14 +12,14 @@ pub const NO_PARENT: u32 = 0;
 
 pub const ANIMATION_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";
-pub const ANIMATION_NAME_MOVEMENT_N: &str = "walk_n";
-pub const ANIMATION_NAME_MOVEMENT_NE: &str = "walk_ne";
-pub const ANIMATION_NAME_MOVEMENT_E: &str = "walk_e";
-pub const ANIMATION_NAME_MOVEMENT_SE: &str = "walk_se";
-pub const ANIMATION_NAME_MOVEMENT_S: &str = "walk_s";
-pub const ANIMATION_NAME_MOVEMENT_SO: &str = "walk_so";
-pub const ANIMATION_NAME_MOVEMENT_O: &str = "walk_o";
-pub const ANIMATION_NAME_MOVEMENT_NO: &str = "walk_no";
+pub const ANIMATION_NAME_MOVEMENT_N: &str = "walkn";
+pub const ANIMATION_NAME_MOVEMENT_NE: &str = "walkne";
+pub const ANIMATION_NAME_MOVEMENT_E: &str = "walke";
+pub const ANIMATION_NAME_MOVEMENT_SE: &str = "walkse";
+pub const ANIMATION_NAME_MOVEMENT_S: &str = "walks";
+pub const ANIMATION_NAME_MOVEMENT_SW: &str = "walksw";
+pub const ANIMATION_NAME_MOVEMENT_W: &str = "walkw";
+pub const ANIMATION_NAME_MOVEMENT_NW: &str = "walknw";
 
 // Test Stuff
 

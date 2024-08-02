@@ -3,8 +3,8 @@ import os
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
-directions = "n ne e se s so o no".split(" ")
-directions_layers = [f"walk_{d}" for d in directions]
+directions = "n ne e se s sw w nw".split(" ")
+directions_layers = [f"walk{d}" for d in directions]
 
 def export_aseprite(file_path, destination_folder):
     if "/palettes" in file_path:
