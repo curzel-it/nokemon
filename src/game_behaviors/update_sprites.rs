@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT_E, ANIMATION_NAME_MOVEMENT_N, ANIMATION_NAME_MOVEMENT_NE, ANIMATION_NAME_MOVEMENT_NW, ANIMATION_NAME_MOVEMENT_S, ANIMATION_NAME_MOVEMENT_SE, ANIMATION_NAME_MOVEMENT_SW, ANIMATION_NAME_MOVEMENT_W}, game_engine::{game::Game, game_behavior::GameBehavior}};
+use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT_E, ANIMATION_NAME_MOVEMENT_N, ANIMATION_NAME_MOVEMENT_NE, ANIMATION_NAME_MOVEMENT_NW, ANIMATION_NAME_MOVEMENT_S, ANIMATION_NAME_MOVEMENT_SE, ANIMATION_NAME_MOVEMENT_SW, ANIMATION_NAME_MOVEMENT_W}, game_engine::{game::Game, behaviors::EntityBehavior}};
 
 #[derive(Debug)]
 pub struct UpdateSprites;
@@ -11,7 +11,7 @@ impl UpdateSprites {
     }
 }
 
-impl GameBehavior for UpdateSprites {
+impl EntityBehavior for UpdateSprites {
     fn update(&self, entity_id: &u32, game: &mut Game, time_since_last_update: f32) {
         let entity = game.entities.get_mut(entity_id).unwrap();        
 

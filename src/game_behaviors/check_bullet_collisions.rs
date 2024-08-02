@@ -1,4 +1,4 @@
-use crate::game_engine::{game::Game, game_behavior::GameBehavior};
+use crate::game_engine::{game::Game, behaviors::EntityBehavior};
 
 #[derive(Debug)]
 pub struct CheckBulletCollisons;
@@ -9,7 +9,7 @@ impl CheckBulletCollisons {
     }
 }
 
-impl GameBehavior for CheckBulletCollisons {
+impl EntityBehavior for CheckBulletCollisons {
     fn update(&self, entity_id: &u32, game: &mut Game, _: f32) {
         if let Some((bullet_id, damage)) = self.check_hit(entity_id, game) {
             self.decrease_hp(entity_id, game, damage);

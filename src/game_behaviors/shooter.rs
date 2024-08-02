@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_behavior::GameBehavior};
+use crate::game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, behaviors::EntityBehavior};
 
 #[derive(Debug)]
 pub struct Shooter;
@@ -9,7 +9,7 @@ impl Shooter {
     }
 }
 
-impl GameBehavior for Shooter {
+impl EntityBehavior for Shooter {
     fn update(&self, entity_id: &u32, game: &mut Game, time_since_last_update: f32) {
         let entity = game.entities.get_mut(entity_id).unwrap();
         if !entity.is_shooter {

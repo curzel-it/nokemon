@@ -10,6 +10,8 @@ pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const BASE_ENTITY_SIZE: f32 = 1.0;
 pub const NO_PARENT: u32 = 0;
 
+pub const HERO_ENTITY_ID: u32 = 69;
+
 pub const ANIMATION_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";
 pub const ANIMATION_NAME_MOVEMENT_N: &str = "walkn";

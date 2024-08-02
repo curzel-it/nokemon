@@ -2,6 +2,8 @@ use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
+use crate::constants::HERO_ENTITY_ID;
+
 use super::{entity::Entity, entity_factory::EntityFactory};
 
 pub struct Game {
@@ -57,6 +59,14 @@ impl Game {
             entity.frame.x = offset.x;
             entity.frame.y = offset.y;
         }
+    }
+
+    pub fn hero(&self) -> &Entity {        
+        return &self.entities[&HERO_ENTITY_ID];
+    }
+
+    pub fn hero_mut(&mut self) -> &mut Entity {        
+        return self.entities.get_mut(&HERO_ENTITY_ID).unwrap();
     }
 }
 

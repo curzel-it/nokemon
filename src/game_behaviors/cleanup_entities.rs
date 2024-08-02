@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, game::Game, game_behavior::GameBehavior};
+use crate::game_engine::{entity::Entity, game::Game, behaviors::EntityBehavior};
 
 #[derive(Debug)]
 pub struct CleanupEntities;
@@ -9,7 +9,7 @@ impl CleanupEntities {
     }
 }
 
-impl GameBehavior for CleanupEntities {
+impl EntityBehavior for CleanupEntities {
     fn update(&self, entity_id: &u32, game: &mut Game, _: f32) {
         let entity = game.entities.get(entity_id).unwrap();
         

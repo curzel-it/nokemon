@@ -1,13 +1,14 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, HERO_ENTITY_ID, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
 
-use super::{entity_factory::EntityFactory, game::Game, game_behavior::GameBehavior, mouse_events_provider::MouseEventsProvider};
+use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
     entity_locator: EntityLocator,
-    behaviors: Vec<Box<dyn GameBehavior>>,
+    entity_behaviors: Vec<Box<dyn EntityBehavior>>,
+    game_behaviors: Vec<Box<dyn GameBehavior>>,
     pub textures: HashMap<String, Texture2D>,
     pub dragging_id: Option<u32>,
     mouse_down: Vector2,
@@ -19,12 +20,14 @@ impl GameEngine {
     pub fn new() -> Self {
         Self {
             entity_locator: EntityLocator::new(),
-            behaviors: vec![
+            entity_behaviors: vec![
                 Box::new(LinearMovement::new()),
                 Box::new(UpdateSprites::new()),
                 Box::new(Shooter::new()),
                 Box::new(CheckBulletCollisons::new()),
                 Box::new(CleanupEntities::new()),
+            ],
+            game_behaviors: vec![
             ],
             textures: HashMap::new(),
             dragging_id: None,
@@ -67,24 +70,30 @@ impl GameEngine {
         let tower = game.entities.get_mut(&tower_id).unwrap();
         tower.change_direction(Vector2::new(1.0, 0.0));
 
-        let id = game.add_entity_by_species("red");
-        let entity = game.entities.get_mut(&id).unwrap();
-        entity.change_direction(Vector2::new(1.0, 0.0));  
+        
+        let mut hero = game.entity_factory.build("red");
+        hero.id = HERO_ENTITY_ID;
+        hero.change_direction(Vector2::new(1.0, 0.0));  
+        game.add_entity(hero);
 
         return game;
     }
 
     pub fn handle_inputs(&mut self, game: &mut Game, rl: &RaylibHandle) {
-        self.handle_mouse_event(game, rl);
+        self.handle_mouse_events(game, rl);
+        self.handle_keyboard_events(game, rl);
     } 
 
     pub fn update(&self, game: &mut Game, time_since_last_update: f32) {
         let entity_ids: Vec<u32> = game.entities.values().map(|e| e.id).collect();
     
-        for behavior in &self.behaviors {
+        for behavior in &self.entity_behaviors {
             for id in &entity_ids {
                 behavior.update(id, game, time_since_last_update);
             }        
+        }
+        for behavior in &self.game_behaviors {
+            behavior.update(game, time_since_last_update);
         }
     } 
 
@@ -95,7 +104,7 @@ impl GameEngine {
         }
     } 
 
-    fn handle_mouse_event(&mut self, game: &mut Game, mouse: &dyn MouseEventsProvider) {
+    fn handle_mouse_events(&mut self, game: &mut Game, mouse: &dyn MouseEventsProvider) {
         let position = mouse.mouse_position();
 
         self.drag_offset = Vector2::new(
@@ -121,5 +130,11 @@ impl GameEngine {
             }
             self.reset_dragging_id = true;
         }
+    }
+
+    fn handle_keyboard_events(&mut self, game: &mut Game, keyboard: &dyn KeyboardEventsProvider) {
+        let new_direction = keyboard.direction_based_on_pressed_keys();
+        let entity = game.hero_mut();
+        entity.change_direction(new_direction);
     }
 }
