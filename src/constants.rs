@@ -12,7 +12,7 @@ pub const NO_PARENT: u32 = 0;
 
 pub const ANIMATION_NAME_FRONT: &str = "front";
 pub const MISSING_SPRITE: &str = "missing";
-pub const ANIMATION_NAME_MOVEMENT_N: &str = "walk_e";
+pub const ANIMATION_NAME_MOVEMENT_N: &str = "walk_n";
 pub const ANIMATION_NAME_MOVEMENT_NE: &str = "walk_ne";
 pub const ANIMATION_NAME_MOVEMENT_E: &str = "walk_e";
 pub const ANIMATION_NAME_MOVEMENT_SE: &str = "walk_se";

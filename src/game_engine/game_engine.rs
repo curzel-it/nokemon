@@ -62,7 +62,7 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        game.add_entity_by_species("ape");
+        game.add_entity_by_species("red");
         game.add_entity_by_species("tower");
         return game;
     }

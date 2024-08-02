@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_MOVEMENT, BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::entity::Entity;
 
@@ -54,7 +54,7 @@ impl EntityFactory {
         );
 
         let entity_id = get_next_entity_id();
-        let direction = Vector2::new(1.0, 0.0);
+        let direction = Vector2::new(0.0, 0.0);
         let speed = BASE_ENTITY_SPEED * species.speed;
         let time_between_shots = 1.0 / (species.bullets_per_minute / 60.0);
 
@@ -68,7 +68,7 @@ impl EntityFactory {
             dp: species.dp,
             species: species_id.to_owned(),
             sprite_set: sprites.clone(),
-            current_sprite: sprites.sprite(ANIMATION_NAME_MOVEMENT),
+            current_sprite: sprites.sprite(ANIMATION_NAME_FRONT),
             z_index: species.z_index,
             is_enemy: species.is_enemy,
             is_shooter: species.is_shooter,

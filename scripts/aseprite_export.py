@@ -21,14 +21,14 @@ def export_aseprite_default(file_path, destination_folder):
     ignore_layers = [f'"{l}"' for l in ignore_layers]
     ignore_layers = [f'--ignore-layer {l}' for l in ignore_layers]
     ignore_layers = ' '.join(ignore_layers)
-    
+
     cmd = f"{aseprite_path} -b {file_path} {ignore_layers} --save-as {destination_folder}/{asset_name}-0.png"
     os.system(cmd)
 
 def export_aseprite_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
 
-    for layer in directions_layers:
+    for layer in directions_layers + ["front"]:
         cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
         os.system(cmd)
 
@@ -39,7 +39,7 @@ def asset_name_from_file_path(file_path):
 
 def find_aseprite_files(folder):
     paths = []
-    for root, dirs, files in os.walk(folder):
+    for root, _, files in os.walk(folder):
         for file in files:
             if file.endswith(".aseprite") or file.endswith(".ase"):
                 paths.append(os.path.join(root, file))

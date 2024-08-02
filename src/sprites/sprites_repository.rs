@@ -31,7 +31,7 @@ impl SpritesRepository {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{ASSETS_PATH, MISSING_SPRITE, ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT};
+    use crate::constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT_N, ASSETS_PATH, MISSING_SPRITE};
     use crate::utils::file_utils::list_files;
 
     use super::*;
@@ -72,7 +72,7 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"tower".to_owned());
-        let sprite = sprite_set.sprite(ANIMATION_NAME_MOVEMENT);
+        let sprite = sprite_set.sprite(ANIMATION_NAME_MOVEMENT_N);
         let number_of_frames = sprite.number_of_frames();
         assert!(number_of_frames > 1);
     }
