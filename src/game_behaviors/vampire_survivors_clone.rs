@@ -13,6 +13,7 @@ impl GameBehavior for VampireSurvivorsClone {
         let mut hero = game.entity_factory.build("red");
         hero.id = HERO_ENTITY_ID;
         hero.change_direction(Vector2::new(1.0, 0.0));  
+        hero.place_center_of(game.bounds);
         game.add_entity(hero);
 
         game.selected_entity_id = Some(HERO_ENTITY_ID);

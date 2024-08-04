@@ -24,6 +24,11 @@ pub struct Entity {
 }
 
 impl Entity {
+    pub fn place_center_of(&mut self, bounds: Rectangle) {
+        self.frame.x = bounds.x + (bounds.width - self.frame.width) / 2.0;
+        self.frame.y = bounds.y + (bounds.height - self.frame.height) / 2.0;
+    }
+
     pub fn change_direction(&mut self, new_direction: Vector2) {
         self.direction = new_direction;
         self.sprite_invalidated = true;

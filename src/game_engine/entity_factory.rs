@@ -58,7 +58,7 @@ impl EntityFactory {
             parent_id: NO_PARENT,
             frame: frame,
             direction: Vector2::new(0.0, 0.0),
-            speed: BASE_ENTITY_SPEED * species.speed,
+            speed: BASE_ENTITY_SPEED * SCALE * species.speed,
             hp: species.hp,
             dp: species.dp,
             sprite_set: sprites.clone(),
