@@ -29,8 +29,7 @@ impl GameEngine {
                 Box::new(CleanupEntities::new()),
             ],
             game_defaults: Box::new(VampireSurvivorsClone::new()),
-            game_behaviors: vec![
-            ],
+            game_behaviors: vec![],
             textures: HashMap::new(),
             dragging_id: None,
             mouse_down: Vector2::zero(),
@@ -67,9 +66,7 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-
         self.game_defaults.update(&mut game, 0.0);
-
         return game;
     }
 

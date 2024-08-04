@@ -25,16 +25,6 @@ impl SpeciesRepository {
         self.species_by_id = lookup;
     }
 
-    pub fn number_of_available_species(&self) -> usize {
-        return self.species_by_id.len();
-    }
-
-    pub fn available_species(&self) -> Vec<String> {
-        let mut ids: Vec<String> = self.species_by_id.keys().cloned().collect();
-        ids.sort();
-        ids
-    }
-
     pub fn species(&self, species_id: &String) -> Species {
         let species = self.species_by_id.get(species_id);
         return match species {
@@ -59,12 +49,11 @@ mod tests {
 
         repo.setup(&species_paths);
 
-        let expected_number_of_species = species_paths.len();
-        assert_eq!(repo.number_of_available_species(), expected_number_of_species);
-
-        assert_eq!(repo.species(&"ape".to_owned()).id, "ape");
-        assert_eq!(repo.species(&"cybertruck".to_owned()).id, "cybertruck");
+        assert_eq!(repo.species(&"red".to_owned()).id, "red");
+        assert_eq!(repo.species(&"blue".to_owned()).id, "blue");
+        assert_eq!(repo.species(&"white".to_owned()).id, "white");
         assert_eq!(repo.species(&"tower".to_owned()).id, "tower");
         assert_eq!(repo.species(&"towerdart".to_owned()).id, "towerdart");
+        assert_eq!(repo.species(&"cybertruck".to_owned()).id, "cybertruck");
     }
 }
