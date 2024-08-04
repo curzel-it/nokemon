@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::utils::vector_utils::make_lookup;
+use crate::utils::grouping_utils::make_lookup;
 
 use super::species_model::Species;
 use super::species_parser::SpeciesParser;

@@ -1,5 +1,7 @@
 use raylib::{ffi::KeyboardKey, math::Vector2, RaylibHandle};
 
+use crate::utils::vector_utils::directions_based_direction_vector;
+
 pub trait KeyboardEventsProvider {
     fn is_up_pressed(&self) -> bool;
     fn is_right_pressed(&self) -> bool;
@@ -30,17 +32,6 @@ impl KeyboardEventsProvider for RaylibHandle {
         let right = self.is_right_pressed();
         let down = self.is_down_pressed();
         let left = self.is_left_pressed();
-
-        if up && left { return Some(Vector2::new(-0.71, -0.71)); }
-        if up && right { return Some(Vector2::new(0.71, -0.71)); }
-        if down && left { return Some(Vector2::new(-0.71, 0.71)); }
-        if down && right { return Some(Vector2::new(0.71, 0.71)); }
-        
-        if up { return Some(Vector2::new(0.0, -1.0)); }
-        if right { return Some(Vector2::new(1.0, 0.0)); }
-        if down { return Some(Vector2::new(0.0, 1.0)); }
-        if left { return Some(Vector2::new(-1.0, -0.0)); }
-
-        return None;
+        return directions_based_direction_vector(up, right, down, left);
     }
 }

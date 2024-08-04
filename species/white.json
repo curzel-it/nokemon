@@ -3,8 +3,8 @@
     "width": 15,
     "height": 17,
     "id": "white",
-    "speed": 1,
-    "is_enemy": false,
+    "speed": 2.5,
+    "is_enemy": true,
     "is_shooter": false
   }
   

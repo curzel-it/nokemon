@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, game_defaults::GameDefaults, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults}, utils::file_utils::list_files};
 
 use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
@@ -22,6 +22,7 @@ impl GameEngine {
         Self {
             entity_locator: EntityLocator::new(),
             entity_behaviors: vec![
+                Box::new(HeroSeeker::new()),
                 Box::new(LinearMovement::new()),
                 Box::new(UpdateSprites::new()),
                 Box::new(Shooter::new()),
@@ -29,7 +30,9 @@ impl GameEngine {
                 Box::new(CleanupEntities::new()),
             ],
             game_defaults: Box::new(GameDefaults::new()),
-            game_behaviors: vec![],
+            game_behaviors: vec![
+                Box::new(CreepSpawner::new()),
+            ],
             textures: HashMap::new(),
             dragging_id: None,
             mouse_down: Vector2::zero(),
@@ -78,6 +81,8 @@ impl GameEngine {
     pub fn update(&self, game: &mut Game, time_since_last_update: f32) {
         let entity_ids: Vec<u32> = game.entities.values().map(|e| e.id).collect();
     
+        game.total_elapsed_time += time_since_last_update;
+
         for behavior in &self.entity_behaviors {
             for id in &entity_ids {
                 behavior.update(id, game, time_since_last_update);

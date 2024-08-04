@@ -63,7 +63,7 @@ impl EntityFactory {
             dp: species.dp,
             sprite_set: sprites.clone(),
             current_sprite: Sprite::empty(),
-            sprite_invalidated: false,
+            sprite_invalidated: true,
             time_to_next_shot: species.time_between_shots,
             species: species,
         };

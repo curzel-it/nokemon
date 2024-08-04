@@ -2,9 +2,12 @@ use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
+use crate::constants::HERO_ENTITY_ID;
+
 use super::{entity::Entity, entity_factory::EntityFactory};
 
 pub struct Game {
+    pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
@@ -15,6 +18,7 @@ pub struct Game {
 impl Game {
     pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
         Self {
+            total_elapsed_time: 0.0,
             entity_factory,
             bounds,
             entities: HashMap::new(),
@@ -76,6 +80,17 @@ impl Game {
             }
         }
         return None;
+    }
+
+    pub fn hero(&mut self) -> Option<&Entity> {
+        return self.entities.get(&HERO_ENTITY_ID);
+    }
+
+    pub fn hero_position(&mut self) -> Vector2 {
+        if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
+            return Vector2::new(entity.frame.x, entity.frame.y);
+        }
+        return Vector2::zero();
     }
 }
 
