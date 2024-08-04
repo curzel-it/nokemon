@@ -11,6 +11,8 @@ def export_aseprite(file_path, destination_folder):
         return
     if "/characters" in file_path:
         export_aseprite_character(file_path, destination_folder)
+    if "/bg_tiles" in file_path:
+        export_aseprite_bg_tile(file_path, destination_folder)
 
     export_aseprite_default(file_path, destination_folder)
 
@@ -31,6 +33,11 @@ def export_aseprite_character(file_path, destination_folder):
     for layer in directions_layers + ["front"]:
         cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
         os.system(cmd)
+
+def export_aseprite_bg_tile(file_path, destination_folder):
+    asset_name = asset_name_from_file_path(file_path)
+    cmd = f"{aseprite_path} -b {file_path} --save-as {destination_folder}/bg_tile_{asset_name}.png"
+    os.system(cmd)
 
 def asset_name_from_file_path(file_path):
     asset_name = file_path.split("/")[-1].split(".")[0]

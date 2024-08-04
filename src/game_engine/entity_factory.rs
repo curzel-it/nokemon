@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, BASE_ENTITY_SIZE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, SCALE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::entity::Entity;
 
@@ -49,8 +49,8 @@ impl EntityFactory {
         let frame = Rectangle::new(
             50.0,
             50.0,
-            BASE_ENTITY_SIZE * species.width,
-            BASE_ENTITY_SIZE * species.height,
+            SCALE * species.width,
+            SCALE * species.height,
         );
 
         return Entity {

@@ -2,13 +2,17 @@ use std::cmp::Ordering;
 
 use raylib::prelude::*;
 
+use crate::constants::{BACKGROUND_TILE_GRASS, SCALE};
+
 use super::{entity::Entity, game::Game, game_engine::GameEngine};
 
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, engine: &GameEngine) {
     let mut d = rl.begin_drawing(thread);
+    draw_background(&mut d, game, engine);
+    draw_entities(&mut d, game, engine);
+}
 
-    d.clear_background(Color::BLACK);
-
+fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     let mut sorted_entities: Vec<&Entity> = game.entities.values().collect();
     sorted_entities.sort_by(|a, b| {
         if a.frame.y < b.frame.y { return Ordering::Less; }
@@ -19,7 +23,26 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
     });
 
     for item in sorted_entities {
-        draw_item(&mut d, &item, &engine);
+        draw_item(d, &item, &engine);
+    }
+}
+
+fn draw_background(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
+    if let Some(grasstile) = engine.textures.get(BACKGROUND_TILE_GRASS) {
+        let tile_width = grasstile.width() as usize;
+        let tile_height = grasstile.height() as usize;
+
+        for x in (0..game.bounds.width as i32).step_by(tile_width) {
+            for y in (0..game.bounds.height as i32).step_by(tile_height) {
+                d.draw_texture_ex(
+                    grasstile,
+                    Vector2::new(x as f32, y as f32),
+                    0.0,
+                    SCALE, 
+                    Color::WHITE 
+                );
+            }
+        }
     }
 }
 
