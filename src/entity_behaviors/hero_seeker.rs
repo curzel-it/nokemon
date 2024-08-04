@@ -1,4 +1,4 @@
-use crate::{game_engine::{behaviors::EntityBehavior, game::Game}, utils::vector_utils::{direction_vector, dumb_direction_vector}};
+use crate::{game_engine::{behaviors::EntityBehavior, game::Game}, utils::vector_utils::dumb_direction_vector};
 
 #[derive(Debug)]
 pub struct HeroSeeker;

@@ -92,6 +92,14 @@ impl Game {
         }
         return Vector2::zero();
     }
+
+    pub fn total_elapsed_time_s(&self) -> u32 {
+        return self.total_elapsed_time.floor() as u32;
+    }
+
+    pub fn total_elapsed_time_ms(&self) -> u32 {
+        return (self.total_elapsed_time * 1000.0).floor() as u32;
+    }
 }
 
 impl Debug for Game {

@@ -3,6 +3,7 @@ use raylib::{ffi::KeyboardKey, math::Vector2, RaylibHandle};
 use crate::utils::vector_utils::directions_based_direction_vector;
 
 pub trait KeyboardEventsProvider {
+    fn is_base_attack_pressed(&self) -> bool;
     fn is_up_pressed(&self) -> bool;
     fn is_right_pressed(&self) -> bool;
     fn is_down_pressed(&self) -> bool;
@@ -11,6 +12,10 @@ pub trait KeyboardEventsProvider {
 }
 
 impl KeyboardEventsProvider for RaylibHandle {
+    fn is_base_attack_pressed(&self) -> bool {
+        return self.is_key_down(KeyboardKey::KEY_K);
+    }
+
     fn is_up_pressed(&self) -> bool {
         return self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP);
     }

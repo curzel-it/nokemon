@@ -19,6 +19,8 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
         if a.frame.y > b.frame.y { return Ordering::Greater; }
         if a.species.z_index < b.species.z_index { return Ordering::Less; }
         if a.species.z_index > b.species.z_index { return Ordering::Greater; }
+        if a.frame.x < b.frame.x { return Ordering::Less; }
+        if a.frame.x > b.frame.x { return Ordering::Greater; }
         return Ordering::Equal;
     });
 
