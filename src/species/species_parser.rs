@@ -85,6 +85,7 @@ mod tests {
     fn can_parse_species_from_file_path_with_scale() {
         let parser = SpeciesParser;
         let path = Path::new(SPECIES_PATH).join("cybertruck.json");
+        println!("{:#?}", path);
         let path_string = path.to_str().unwrap().to_owned();
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "cybertruck");

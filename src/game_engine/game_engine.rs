@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites, vampire_survivors_clone::VampireSurvivorsClone}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites, game_defaults::GameDefaults}, utils::file_utils::list_files};
 
 use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
@@ -28,7 +28,7 @@ impl GameEngine {
                 Box::new(CheckBulletCollisons::new()),
                 Box::new(CleanupEntities::new()),
             ],
-            game_defaults: Box::new(VampireSurvivorsClone::new()),
+            game_defaults: Box::new(GameDefaults::new()),
             game_behaviors: vec![],
             textures: HashMap::new(),
             dragging_id: None,

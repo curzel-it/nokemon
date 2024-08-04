@@ -63,12 +63,12 @@ mod tests {
         bullet.change_direction(Vector2::zero());
         game.add_entity(bullet);      
         
-        let mut ape = game.entity_factory.build("ape");
-        ape.id = 2;
-        ape.frame = RECT_ORIGIN_SQUARE_100;
-        ape.hp = 60.0;
-        ape.change_direction(Vector2::zero());
-        game.add_entity(ape);      
+        let mut red = game.entity_factory.build("red");
+        red.id = 2;
+        red.frame = RECT_ORIGIN_SQUARE_100;
+        red.hp = 60.0;
+        red.change_direction(Vector2::zero());
+        game.add_entity(red);      
 
         engine.update(&mut game, 0.1);
         
@@ -88,12 +88,12 @@ mod tests {
         bullet.change_direction(Vector2::zero());
         game.add_entity(bullet);      
         
-        let mut ape = game.entity_factory.build("ape");
-        ape.id = 2;
-        ape.frame = RECT_ORIGIN_SQUARE_100;
-        ape.hp = 100.0;
-        ape.change_direction(Vector2::zero());
-        game.add_entity(ape);      
+        let mut red = game.entity_factory.build("red");
+        red.id = 2;
+        red.frame = RECT_ORIGIN_SQUARE_100;
+        red.hp = 100.0;
+        red.change_direction(Vector2::zero());
+        game.add_entity(red);      
 
         engine.update(&mut game, 0.1);
         

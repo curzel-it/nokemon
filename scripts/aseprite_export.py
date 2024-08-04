@@ -30,8 +30,12 @@ def export_aseprite_default(file_path, destination_folder):
 def export_aseprite_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
 
-    for layer in directions_layers + ["front"]:
-        cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
+    for walk_layer in directions_layers:
+        cmd = f"{aseprite_path} -b {file_path} --layer {walk_layer} --save-as {destination_folder}/{asset_name}_{walk_layer}-0.png"
+        os.system(cmd)
+
+        still_layer = walk_layer.replace("walk", "still")
+        cmd = f"{aseprite_path} -b {file_path} --layer {walk_layer} --frame-range 0,0 --save-as {destination_folder}/{asset_name}_{still_layer}-0.png"
         os.system(cmd)
 
 def export_aseprite_bg_tile(file_path, destination_folder):

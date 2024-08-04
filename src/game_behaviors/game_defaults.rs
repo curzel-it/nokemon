@@ -2,9 +2,9 @@ use raylib::math::Vector2;
 
 use crate::{constants::HERO_ENTITY_ID, game_engine::{behaviors::GameBehavior, game::Game}};
 
-pub struct VampireSurvivorsClone;
+pub struct GameDefaults;
 
-impl GameBehavior for VampireSurvivorsClone {
+impl GameBehavior for GameDefaults {
     fn update(&self, game: &mut Game, _: f32) {        
         let tower_id = game.add_entity_by_species("tower");
         let tower = game.entities.get_mut(&tower_id).unwrap();
@@ -20,7 +20,7 @@ impl GameBehavior for VampireSurvivorsClone {
     }
 }
 
-impl VampireSurvivorsClone {
+impl GameDefaults {
     pub fn new() -> Self {
         Self {}
     }

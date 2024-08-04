@@ -32,7 +32,7 @@ mod tests {
         let mut game = Game::test();
 
         for index in 0..10 {
-            let mut entity = game.entity_factory.build("ape");
+            let mut entity = game.entity_factory.build("red");
             entity.id = index;
             entity.frame = Rectangle::new((index as f32) * 100.0, 0.0, 10.0, 10.0);
             game.add_entity(entity);

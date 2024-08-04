@@ -37,16 +37,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn can_load_sprites_for_ape() {
+    fn can_load_sprites_for_red() {
         let builder = SpriteSetBuilder::new();
         let mut sprites_repo = SpritesRepository::new(builder);
         
         let all_assets = list_files(ASSETS_PATH, "png");
         sprites_repo.setup(&all_assets);
 
-        let sprite_set = sprites_repo.sprites(&"ape".to_owned());
-        let number_of_frames = sprite_set.sprite(ANIMATION_NAME_FRONT).number_of_frames();
-        assert!(number_of_frames > 1);
+        let sprite_set = sprites_repo.sprites(&"red".to_owned());
+        assert!(sprite_set.sprite("walknw").number_of_frames() > 1);
+        assert!(sprite_set.sprite("stillnw").number_of_frames() == 1);
     }
 
     #[test]

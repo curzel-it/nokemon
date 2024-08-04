@@ -104,20 +104,20 @@ mod tests {
         let builder = SpriteSetBuilder;
 
         assert_eq!(
-            builder.sprite_frame_from_path("/ape_eat-0.png"),
-            Some(SpriteFrame::new("/ape_eat-0.png", "ape", "eat", 0))
+            builder.sprite_frame_from_path("/red_eat-0.png"),
+            Some(SpriteFrame::new("/red_eat-0.png", "red", "eat", 0))
         );
         assert_eq!(
-            builder.sprite_frame_from_path("/ape_chef_eat-0.png"),
-            Some(SpriteFrame::new("/ape_chef_eat-0.png", "ape_chef", "eat", 0))
+            builder.sprite_frame_from_path("/red_chef_eat-0.png"),
+            Some(SpriteFrame::new("/red_chef_eat-0.png", "red_chef", "eat", 0))
         );
         assert_eq!(
-            builder.sprite_frame_from_path("/ape_eat-123.png"),
-            Some(SpriteFrame::new("/ape_eat-123.png", "ape", "eat", 123))
+            builder.sprite_frame_from_path("/red_eat-123.png"),
+            Some(SpriteFrame::new("/red_eat-123.png", "red", "eat", 123))
         );
         assert_eq!(
-            builder.sprite_frame_from_path("/ape_chef_eat-123.png"),
-            Some(SpriteFrame::new("/ape_chef_eat-123.png", "ape_chef", "eat", 123))
+            builder.sprite_frame_from_path("/red_chef_eat-123.png"),
+            Some(SpriteFrame::new("/red_chef_eat-123.png", "red_chef", "eat", 123))
         );
     }
 
@@ -126,11 +126,11 @@ mod tests {
         let builder = SpriteSetBuilder;
 
         let paths = vec![
-            "/ape_chef_eat-1.png".to_string(),
-            "/ape_chef_eat-2.png".to_string(),
-            "/ape_chef_eat-3.png".to_string(),
-            "/ape_chef_eat-4.png".to_string(),
-            "/ape_chef_eat-invalid.png".to_string(),
+            "/red_chef_eat-1.png".to_string(),
+            "/red_chef_eat-2.png".to_string(),
+            "/red_chef_eat-3.png".to_string(),
+            "/red_chef_eat-4.png".to_string(),
+            "/red_chef_eat-invalid.png".to_string(),
             "/invalid.png".to_string(),
         ];
         assert_eq!(builder.sprite_frames_from_paths(&paths).len(), 4);
