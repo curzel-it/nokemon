@@ -49,8 +49,8 @@ impl EntityFactory {
         let frame = Rectangle::new(
             50.0,
             50.0,
-            BASE_ENTITY_SIZE * species.scale,
-            BASE_ENTITY_SIZE * species.scale,
+            BASE_ENTITY_SIZE * species.width,
+            BASE_ENTITY_SIZE * species.height,
         );
 
         return Entity {

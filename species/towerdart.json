@@ -1,6 +1,7 @@
 {
     "animations": [],
-    "scale": 10,
+    "width": 10,
+    "height": 10,
     "id": "towerdart",
     "speed": 5,
     "z_index": 2,

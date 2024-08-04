@@ -1,6 +1,7 @@
 {
     "animations": [],
-    "scale": 50,
+    "width": 50,
+    "height": 50,
     "id": "tower",
     "speed": 0,
     "is_enemy": false,

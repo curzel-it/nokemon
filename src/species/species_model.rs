@@ -9,7 +9,10 @@ pub struct Species {
     pub speed: f32,
 
     #[serde(default="df_one")]
-    pub scale: f32,
+    pub width: f32,
+
+    #[serde(default="df_one")]
+    pub height: f32,
 
     #[serde(default="df_one_hundred")]
     pub hp: f32,
@@ -41,7 +44,8 @@ impl Species {
         Self {
             id: "missingno".to_owned(),
             speed: 1.0,
-            scale: 1.0,
+            width: 1.0,
+            height: 1.0,
             hp: 100.0,
             dp: 100.0,
             z_index: 1,

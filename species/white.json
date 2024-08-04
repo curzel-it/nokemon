@@ -1,6 +1,7 @@
 {
     "animations": [],
-    "scale": 24,
+    "width": 24,
+    "height": 16,
     "id": "white",
     "speed": 1,
     "is_enemy": false,

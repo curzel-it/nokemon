@@ -65,7 +65,8 @@ mod tests {
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "tower");
         assert_eq!(result.speed, 0.0);
-        assert_eq!(result.scale, 50.0);
+        assert_eq!(result.width, 50.0);
+        assert_eq!(result.height, 50.0);
         assert_eq!(result.z_index, 1);
         assert_eq!(result.time_between_shots, 2.0);
     }
@@ -88,7 +89,8 @@ mod tests {
         let result = parser.parse_from_file(&path_string).unwrap();
         assert_eq!(result.id, "cybertruck");
         assert_eq!(result.speed, 1.7);
-        assert_eq!(result.scale, 100.0);
+        assert_eq!(result.width, 100.0);
+        assert_eq!(result.height, 100.0);
         assert_eq!(result.time_between_shots, 1.0);
     }
 }
