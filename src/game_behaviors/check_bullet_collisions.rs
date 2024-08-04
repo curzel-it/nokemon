@@ -26,7 +26,7 @@ impl CheckBulletCollisons {
 
     fn check_hit(&self, entity_id: &u32, game: &Game) -> Option<(u32, f32)> {
         let entity = game.entities.get(entity_id).unwrap();
-        if entity.is_bullet { 
+        if entity.species.is_bullet { 
             return None; 
         }        
 

@@ -3,6 +3,7 @@ use std::fmt::Debug;
 use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::ANIMATIONS_FPS;
+use crate::species::species_model::Species;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
 
@@ -15,16 +16,11 @@ pub struct Entity {
     pub speed: f32,
     pub hp: f32,
     pub dp: f32,
-    pub species: String,
     pub sprite_set: SpriteSet,
     pub current_sprite: Sprite,
     pub sprite_invalidated: bool,
-    pub z_index: u32,
-    pub is_enemy: bool,
-    pub is_shooter: bool,
-    pub is_bullet: bool,
-    pub time_between_shots: f32,
     pub time_to_next_shot: f32,
+    pub species: Species,
 }
 
 impl Entity {

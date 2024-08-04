@@ -67,7 +67,7 @@ mod tests {
         assert_eq!(result.speed, 0.0);
         assert_eq!(result.scale, 50.0);
         assert_eq!(result.z_index, 1);
-        assert_eq!(result.bullets_per_minute, 30.0);
+        assert_eq!(result.time_between_shots, 2.0);
     }
 
     #[test]
@@ -89,6 +89,6 @@ mod tests {
         assert_eq!(result.id, "cybertruck");
         assert_eq!(result.speed, 1.7);
         assert_eq!(result.scale, 100.0);
-        assert_eq!(result.bullets_per_minute, 1.0);
+        assert_eq!(result.time_between_shots, 1.0);
     }
 }

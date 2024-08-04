@@ -13,8 +13,8 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
     sorted_entities.sort_by(|a, b| {
         if a.frame.y < b.frame.y { return Ordering::Less; }
         if a.frame.y > b.frame.y { return Ordering::Greater; }
-        if a.z_index < b.z_index { return Ordering::Less; }
-        if a.z_index > b.z_index { return Ordering::Greater; }
+        if a.species.z_index < b.species.z_index { return Ordering::Less; }
+        if a.species.z_index > b.species.z_index { return Ordering::Greater; }
         return Ordering::Equal;
     });
 

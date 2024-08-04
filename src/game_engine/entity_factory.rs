@@ -53,29 +53,19 @@ impl EntityFactory {
             BASE_ENTITY_SIZE * species.scale,
         );
 
-        let entity_id = get_next_entity_id();
-        let direction = Vector2::new(0.0, 0.0);
-        let speed = BASE_ENTITY_SPEED * species.speed;
-        let time_between_shots = 1.0 / (species.bullets_per_minute / 60.0);
-
         return Entity {
-            id: entity_id,
+            id: get_next_entity_id(),
             parent_id: NO_PARENT,
             frame: frame,
-            direction: direction,
-            speed: speed,
+            direction: Vector2::new(0.0, 0.0),
+            speed: BASE_ENTITY_SPEED * species.speed,
             hp: species.hp,
             dp: species.dp,
-            species: species_id.to_owned(),
             sprite_set: sprites.clone(),
             current_sprite: sprites.sprite(ANIMATION_NAME_FRONT),
             sprite_invalidated: false,
-            z_index: species.z_index,
-            is_enemy: species.is_enemy,
-            is_shooter: species.is_shooter,
-            is_bullet: species.is_bullet,
-            time_between_shots: time_between_shots,
-            time_to_next_shot: time_between_shots,
+            time_to_next_shot: species.time_between_shots,
+            species: species,
         };
     }
 }

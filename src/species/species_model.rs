@@ -28,9 +28,12 @@ pub struct Species {
     
     #[serde(default="df_false")]
     pub is_bullet: bool,
+    
+    #[serde(default="df_true")]
+    pub stays_inside_screen_bounds: bool,
 
     #[serde(default="df_one")]
-    pub bullets_per_minute: f32,
+    pub time_between_shots: f32,
 }
 
 impl Species {
@@ -45,7 +48,8 @@ impl Species {
             is_enemy: false,
             is_shooter: false,
             is_bullet: false,
-            bullets_per_minute: 1.0,
+            stays_inside_screen_bounds: true,
+            time_between_shots: 1.0,
         }
     }
 }
@@ -68,4 +72,8 @@ fn df_zero() -> f32 {
 
 fn df_false() -> bool {
     false
+}
+
+fn df_true() -> bool {
+    true
 }

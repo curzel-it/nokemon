@@ -2,8 +2,6 @@ use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::HERO_ENTITY_ID;
-
 use super::{entity::Entity, entity_factory::EntityFactory};
 
 pub struct Game {
@@ -32,7 +30,7 @@ impl Game {
 
     pub fn add_entity(&mut self, entity: Entity) -> u32 {
         let id = entity.id;
-        let is_bullet = entity.is_bullet;
+        let is_bullet = entity.species.is_bullet;
 
         self.entities.insert(id, entity);
 

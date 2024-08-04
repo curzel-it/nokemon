@@ -17,17 +17,19 @@ impl EntityBehavior for LinearMovement {
         let mut expected_x = entity.frame.x + offset.x;
         let mut expected_y = entity.frame.y + offset.y;
         
-        if expected_x < game.bounds.x {
-            expected_x = game.bounds.x;
-        }
-        if (expected_x + entity.frame.width) > (game.bounds.x + game.bounds.width) {
-            expected_x = game.bounds.x + game.bounds.width - entity.frame.width;
-        }
-        if expected_y < game.bounds.y {
-            expected_y = game.bounds.y;
-        }
-        if (expected_y + entity.frame.height) > (game.bounds.y + game.bounds.height) {
-            expected_y = game.bounds.y + game.bounds.height - entity.frame.height;
+        if entity.species.stays_inside_screen_bounds {
+            if expected_x < game.bounds.x {
+                expected_x = game.bounds.x;
+            }
+            if (expected_x + entity.frame.width) > (game.bounds.x + game.bounds.width) {
+                expected_x = game.bounds.x + game.bounds.width - entity.frame.width;
+            }
+            if expected_y < game.bounds.y {
+                expected_y = game.bounds.y;
+            }
+            if (expected_y + entity.frame.height) > (game.bounds.y + game.bounds.height) {
+                expected_y = game.bounds.y + game.bounds.height - entity.frame.height;
+            }
         }
         entity.frame.x = expected_x;
         entity.frame.y = expected_y;

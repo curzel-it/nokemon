@@ -8,6 +8,7 @@
     "is_shooter": false,
     "is_bullet": true,
     "hp": 50,
-    "dp": 60
+    "dp": 60,
+    "stays_inside_screen_bounds": false
   }
   
