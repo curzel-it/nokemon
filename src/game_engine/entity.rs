@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::ANIMATIONS_FPS;
+use crate::constants::{ANIMATIONS_FPS, BASE_ENTITY_SPEED, SCALE};
 use crate::species::species_model::Species;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
@@ -27,6 +27,10 @@ impl Entity {
     pub fn place_center_of(&mut self, bounds: Rectangle) {
         self.frame.x = bounds.x + (bounds.width - self.frame.width) / 2.0;
         self.frame.y = bounds.y + (bounds.height - self.frame.height) / 2.0;
+    }
+
+    pub fn reset_speed(&mut self) {
+        self. speed = BASE_ENTITY_SPEED * SCALE * self.species.speed;
     }
 
     pub fn change_direction(&mut self, new_direction: Vector2) {

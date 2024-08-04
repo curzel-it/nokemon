@@ -2,6 +2,8 @@ use std::fmt::Debug;
 use std::string::String;
 use std::vec::Vec;
 
+use crate::constants::{ANIMATIONS_FPS, MISSING_SPRITE};
+
 use super::timed_content_provider::TimedContentProvider;
 
 #[derive(Clone)]
@@ -16,6 +18,13 @@ impl Sprite {
             animation_name,
             timed_content_provider: TimedContentProvider::new(frames, fps),
         }
+    }
+
+    pub fn empty() -> Sprite {
+        return Sprite::new(
+            MISSING_SPRITE.to_owned(), 
+            vec![MISSING_SPRITE.to_string()], 
+            ANIMATIONS_FPS);
     }
 
     pub fn current_frame(&self) -> &String {

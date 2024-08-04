@@ -31,7 +31,7 @@ impl SpritesRepository {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT_N, ASSETS_PATH, MISSING_SPRITE};
+    use crate::constants::{ANIMATION_NAME_FRONT, ASSETS_PATH, MISSING_SPRITE};
     use crate::utils::file_utils::list_files;
 
     use super::*;
@@ -64,7 +64,7 @@ mod tests {
     }
 
     #[test]
-    fn can_fallback_on_front_sprite_when_movement_not_available() {
+    fn can_fallback_on_front_sprite_when_directional_walk_not_available() {
         let builder = SpriteSetBuilder::new();
         let mut sprites_repo = SpritesRepository::new(builder);
         
@@ -72,7 +72,21 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"tower".to_owned());
-        let sprite = sprite_set.sprite(ANIMATION_NAME_MOVEMENT_N);
+        let sprite = sprite_set.sprite("walkn");
+        let number_of_frames = sprite.number_of_frames();
+        assert!(number_of_frames > 1);
+    }
+
+    #[test]
+    fn can_fallback_on_front_sprite_when_walk_not_available() {
+        let builder = SpriteSetBuilder::new();
+        let mut sprites_repo = SpritesRepository::new(builder);
+        
+        let all_assets = list_files(ASSETS_PATH, "png");
+        sprites_repo.setup(&all_assets);
+
+        let sprite_set = sprites_repo.sprites(&"tower".to_owned());
+        let sprite = sprite_set.sprite("walk");
         let number_of_frames = sprite.number_of_frames();
         assert!(number_of_frames > 1);
     }

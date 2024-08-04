@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites, game_defaults::GameDefaults}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, BASE_ENTITY_SPEED, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, game_defaults::GameDefaults, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
 
 use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
@@ -124,9 +124,13 @@ impl GameEngine {
     }
 
     fn handle_keyboard_events(&mut self, game: &mut Game, keyboard: &dyn KeyboardEventsProvider) {
-        let new_direction = keyboard.direction_based_on_pressed_keys();
         if let Some(entity) = game.selected_entity_mut() {
-           entity.change_direction(new_direction);
+            if let Some(new_direction) = keyboard.direction_based_on_pressed_keys() {
+                entity.reset_speed();
+                entity.change_direction(new_direction);
+            } else {
+                entity.speed = 0.0;
+            }
         }
     }
 }

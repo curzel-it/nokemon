@@ -52,7 +52,7 @@ impl Debug for SpriteSet {
 
 #[cfg(test)]
 mod tests {
-    use crate::constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT_E, ANIMATION_NAME_MOVEMENT_N, ANIMATION_NAME_MOVEMENT_NE, ANIMATION_NAME_MOVEMENT_NW, ANIMATION_NAME_MOVEMENT_W, ANIMATION_NAME_MOVEMENT_S, ANIMATION_NAME_MOVEMENT_SE, ANIMATION_NAME_MOVEMENT_SW};
+    use crate::constants::ANIMATION_NAME_FRONT;
 
     use super::*;
 
@@ -67,20 +67,13 @@ mod tests {
     #[test]
     fn can_reference_standard_sprites() {
         let animations: HashMap<String, Vec<String>> = [
-            (ANIMATION_NAME_MOVEMENT_N.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_N, 3)),
-            (ANIMATION_NAME_MOVEMENT_NE.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_NE, 3)),
-            (ANIMATION_NAME_MOVEMENT_E.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_E, 3)),
-            (ANIMATION_NAME_MOVEMENT_SE.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_SE, 3)),
-            (ANIMATION_NAME_MOVEMENT_S.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_S, 3)),
-            (ANIMATION_NAME_MOVEMENT_SW.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_SW, 3)),
-            (ANIMATION_NAME_MOVEMENT_W.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_W, 3)),
-            (ANIMATION_NAME_MOVEMENT_NW.to_string(), generate_sprite_names(ANIMATION_NAME_MOVEMENT_NW, 3)),
+            ("walkn".to_string(), generate_sprite_names("walkn", 3)),
             (ANIMATION_NAME_FRONT.to_string(), generate_sprite_names(ANIMATION_NAME_FRONT, 3)),
         ].iter().cloned().collect();
 
         let sprite_set = SpriteSet::new(animations);
 
-        assert_eq!(sprite_set.sprite_frames(ANIMATION_NAME_MOVEMENT_N)[0], "walkn-0");
+        assert_eq!(sprite_set.sprite_frames("walkn")[0], "walkn-0");
         assert_eq!(sprite_set.sprite_frames(ANIMATION_NAME_FRONT)[0], "front-0");
     }
 

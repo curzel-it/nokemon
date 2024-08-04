@@ -14,15 +14,18 @@ pub const NO_PARENT: u32 = 0;
 pub const HERO_ENTITY_ID: u32 = 69;
 
 pub const ANIMATION_NAME_FRONT: &str = "front";
+pub const ANIMATION_NAME_MOVEMENT: &str = "walk";
+pub const ANIMATION_NAME_STILL: &str = "still";
 pub const MISSING_SPRITE: &str = "missing";
-pub const ANIMATION_NAME_MOVEMENT_N: &str = "walkn";
-pub const ANIMATION_NAME_MOVEMENT_NE: &str = "walkne";
-pub const ANIMATION_NAME_MOVEMENT_E: &str = "walke";
-pub const ANIMATION_NAME_MOVEMENT_SE: &str = "walkse";
-pub const ANIMATION_NAME_MOVEMENT_S: &str = "walks";
-pub const ANIMATION_NAME_MOVEMENT_SW: &str = "walksw";
-pub const ANIMATION_NAME_MOVEMENT_W: &str = "walkw";
-pub const ANIMATION_NAME_MOVEMENT_NW: &str = "walknw";
+
+pub const DIRECTION_NAME_N: &str = "n";
+pub const DIRECTION_NAME_NE: &str = "ne";
+pub const DIRECTION_NAME_E: &str = "e";
+pub const DIRECTION_NAME_SE: &str = "se";
+pub const DIRECTION_NAME_S: &str = "s";
+pub const DIRECTION_NAME_SW: &str = "sw";
+pub const DIRECTION_NAME_W: &str = "w";
+pub const DIRECTION_NAME_NW: &str = "nw";
 
 // Test Stuff
 

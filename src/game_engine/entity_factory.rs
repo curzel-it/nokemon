@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, SCALE, BASE_ENTITY_SPEED, NO_PARENT}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, BASE_ENTITY_SPEED, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::entity::Entity;
 
@@ -53,20 +53,25 @@ impl EntityFactory {
             SCALE * species.height,
         );
 
-        return Entity {
+        let mut entity = Entity {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
             frame: frame,
             direction: Vector2::new(0.0, 0.0),
-            speed: BASE_ENTITY_SPEED * SCALE * species.speed,
+            speed: 0.0,
             hp: species.hp,
             dp: species.dp,
             sprite_set: sprites.clone(),
-            current_sprite: sprites.sprite(ANIMATION_NAME_FRONT),
+            current_sprite: Sprite::empty(),
             sprite_invalidated: false,
             time_to_next_shot: species.time_between_shots,
             species: species,
         };
+        entity.reset_speed();
+        entity.change_animation(ANIMATION_NAME_FRONT);
+
+
+        return entity;
     }
 }
 
