@@ -10,6 +10,7 @@ pub struct Game {
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
+    pub selected_entity_id: Option<u32>,
     pub bullets: HashSet<u32>,
 }
 
@@ -19,6 +20,7 @@ impl Game {
             entity_factory,
             bounds,
             entities: HashMap::new(),
+            selected_entity_id: None,
             bullets: HashSet::new(),
         }
     }
@@ -61,12 +63,21 @@ impl Game {
         }
     }
 
-    pub fn hero(&self) -> &Entity {        
-        return &self.entities[&HERO_ENTITY_ID];
+    pub fn selected_entity(&self) -> Option<&Entity> {
+        if let Some(id) = self.selected_entity_id {
+            return Some(&self.entities[&id]);
+        } else {
+            return None;
+        }
     }
 
-    pub fn hero_mut(&mut self) -> &mut Entity {        
-        return self.entities.get_mut(&HERO_ENTITY_ID).unwrap();
+    pub fn selected_entity_mut(&mut self) -> Option<&mut Entity> {
+        if let Some(id) = self.selected_entity_id {
+            if let Some(entity_mut) = self.entities.get_mut(&id) {
+                return Some(entity_mut);
+            }
+        }
+        return None;
     }
 }
 

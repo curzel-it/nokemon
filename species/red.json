@@ -2,7 +2,7 @@
     "animations": [],
     "scale": 24,
     "id": "red",
-    "speed": 1,
+    "speed": 3,
     "is_enemy": false,
     "is_shooter": false
   }

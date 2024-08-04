@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, HERO_ENTITY_ID, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, features::entity_locator::EntityLocator, game_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites, vampire_survivors_clone::VampireSurvivorsClone}, utils::file_utils::list_files};
 
 use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
@@ -8,6 +8,7 @@ use raylib::prelude::*;
 pub struct GameEngine {
     entity_locator: EntityLocator,
     entity_behaviors: Vec<Box<dyn EntityBehavior>>,
+    game_defaults: Box<dyn GameBehavior>,
     game_behaviors: Vec<Box<dyn GameBehavior>>,
     pub textures: HashMap<String, Texture2D>,
     pub dragging_id: Option<u32>,
@@ -27,6 +28,7 @@ impl GameEngine {
                 Box::new(CheckBulletCollisons::new()),
                 Box::new(CleanupEntities::new()),
             ],
+            game_defaults: Box::new(VampireSurvivorsClone::new()),
             game_behaviors: vec![
             ],
             textures: HashMap::new(),
@@ -54,7 +56,7 @@ impl GameEngine {
         return (game, rl, thread);
     }
 
-    pub fn start(&mut self, width: i32, height: i32) -> Game {
+    pub fn start_headless(&mut self, width: i32, height: i32) -> Game {
         let all_assets = list_files(ASSETS_PATH, "png");
         let all_species = list_files(SPECIES_PATH, "json");
         return self.start_with_assets_and_species(width, height, all_assets, all_species);
@@ -65,16 +67,8 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        
-        let tower_id = game.add_entity_by_species("tower");
-        let tower = game.entities.get_mut(&tower_id).unwrap();
-        tower.change_direction(Vector2::new(1.0, 0.0));
 
-        
-        let mut hero = game.entity_factory.build("red");
-        hero.id = HERO_ENTITY_ID;
-        hero.change_direction(Vector2::new(1.0, 0.0));  
-        game.add_entity(hero);
+        self.game_defaults.update(&mut game, 0.0);
 
         return game;
     }
@@ -134,7 +128,8 @@ impl GameEngine {
 
     fn handle_keyboard_events(&mut self, game: &mut Game, keyboard: &dyn KeyboardEventsProvider) {
         let new_direction = keyboard.direction_based_on_pressed_keys();
-        let entity = game.hero_mut();
-        entity.change_direction(new_direction);
+        if let Some(entity) = game.selected_entity_mut() {
+           entity.change_direction(new_direction);
+        }
     }
 }
