@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_NE, DIRECTION_NAME_NW, DIRECTION_NAME_S, DIRECTION_NAME_SE, DIRECTION_NAME_SW, DIRECTION_NAME_W}, game_engine::{behaviors::EntityBehavior, game::Game}};
+use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_NE, DIRECTION_NAME_NW, DIRECTION_NAME_S, DIRECTION_NAME_SE, DIRECTION_NAME_SW, DIRECTION_NAME_W}, game_engine::{behaviors::EntityBehavior, entity::GameObject, game::Game}};
 
 #[derive(Debug)]
 pub struct UpdateSprites;
@@ -56,7 +56,7 @@ impl UpdateSprites {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{entity::GameObject, game::Game, game_engine::GameEngine}};
     
     fn test_setup(direction: Vector2) -> (GameEngine, Game, u32) {
         let engine = GameEngine::new();        

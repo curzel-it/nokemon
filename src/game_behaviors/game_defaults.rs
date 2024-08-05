@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::HERO_ENTITY_ID, game_engine::{behaviors::GameBehavior, game::Game}};
+use crate::{constants::HERO_ENTITY_ID, game_engine::{behaviors::GameBehavior, entity::GameObject, game::Game}};
 
 pub struct GameDefaults;
 

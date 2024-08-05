@@ -48,7 +48,7 @@ impl CheckBulletCollisons {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{entity::GameObject, game::Game, game_engine::GameEngine}};
 
     #[test]
     fn can_decrease_hp_of_both_bullet_and_targets_on_hit() {

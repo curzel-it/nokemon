@@ -40,7 +40,7 @@ impl EntityBehavior for LinearMovement {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::GameObject, game::Game, game_engine::GameEngine}};
     
     #[test]
     fn can_move_on_update() {

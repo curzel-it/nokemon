@@ -7,6 +7,14 @@ use crate::species::species_model::Species;
 use crate::sprites::sprite::Sprite;
 use crate::sprites::sprite_set::SpriteSet;
 
+pub trait GameObject: Debug {
+    fn update(&mut self);
+    fn place_center_of(&mut self, bounds: Rectangle);
+    fn reset_speed(&mut self);
+    fn change_direction(&mut self, new_direction: Vector2);
+    fn change_animation(&mut self, animation_name: &str) -> u32;
+}
+
 #[derive(Debug)]
 pub struct Entity {
     pub id: u32,
@@ -23,22 +31,26 @@ pub struct Entity {
     pub species: Species,
 }
 
-impl Entity {
-    pub fn place_center_of(&mut self, bounds: Rectangle) {
+impl GameObject for Entity {
+    fn update(&mut self) {
+        // ...
+    }
+
+    fn place_center_of(&mut self, bounds: Rectangle) {
         self.frame.x = bounds.x + (bounds.width - self.frame.width) / 2.0;
         self.frame.y = bounds.y + (bounds.height - self.frame.height) / 2.0;
     }
 
-    pub fn reset_speed(&mut self) {
+    fn reset_speed(&mut self) {
         self. speed = BASE_ENTITY_SPEED * SCALE * self.species.speed;
     }
 
-    pub fn change_direction(&mut self, new_direction: Vector2) {
+    fn change_direction(&mut self, new_direction: Vector2) {
         self.direction = new_direction;
         self.sprite_invalidated = true;
     }
 
-    pub fn change_animation(&mut self, animation_name: &str) -> u32 {
+    fn change_animation(&mut self, animation_name: &str) -> u32 {
         if self.current_sprite.animation_name != animation_name {
             self.current_sprite = self.sprite_set.sprite(&animation_name);
         }

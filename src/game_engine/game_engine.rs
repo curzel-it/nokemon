@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults}, utils::file_utils::list_files};
 
-use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
+use super::{behaviors::{EntityBehavior, GameBehavior}, entity::GameObject, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {

@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::entity::Entity;
+use super::entity::{Entity, GameObject};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
