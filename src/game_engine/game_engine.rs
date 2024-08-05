@@ -58,11 +58,12 @@ impl GameEngine {
         return (game, rl, thread);
     }
 
+    /*
     pub fn start_headless(&mut self, width: i32, height: i32) -> Game {
         let all_assets = list_files(ASSETS_PATH, "png");
         let all_species = list_files(SPECIES_PATH, "json");
         return self.start_with_assets_and_species(width, height, all_assets, all_species);
-    }
+    }*/
 
     fn start_with_assets_and_species(&mut self, width: i32, height: i32, all_assets: Vec<String>, all_species: Vec<String>) -> Game {
         let mut game = Game::new(

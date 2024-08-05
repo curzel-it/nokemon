@@ -57,21 +57,14 @@ impl Game {
         }
     }
 
-    pub fn move_entity_to(&mut self, id: u32, offset: Vector2) {
-        let entity = self.entities.get_mut(&id);
-        if let Some(entity) = entity {
-            entity.frame.x = offset.x;
-            entity.frame.y = offset.y;
-        }
-    }
-
+    /* 
     pub fn selected_entity(&self) -> Option<&Entity> {
         if let Some(id) = self.selected_entity_id {
             return Some(&self.entities[&id]);
         } else {
             return None;
         }
-    }
+    }*/
 
     pub fn selected_entity_mut(&mut self) -> Option<&mut Entity> {
         if let Some(id) = self.selected_entity_id {
@@ -82,9 +75,10 @@ impl Game {
         return None;
     }
 
+    /* 
     pub fn hero(&mut self) -> Option<&Entity> {
         return self.entities.get(&HERO_ENTITY_ID);
-    }
+    }*/
 
     pub fn hero_position(&mut self) -> Vector2 {
         if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
@@ -93,9 +87,10 @@ impl Game {
         return Vector2::zero();
     }
 
+    /* 
     pub fn total_elapsed_time_s(&self) -> u32 {
         return self.total_elapsed_time.floor() as u32;
-    }
+    }*/
 
     pub fn total_elapsed_time_ms(&self) -> u32 {
         return (self.total_elapsed_time * 1000.0).floor() as u32;
