@@ -9,6 +9,7 @@
     "is_enemy": false,
     "is_shooter": false,
     "is_bullet": true,
+    "hp": 100000,
     "dp": 10,
     "lifespan": 2
   }

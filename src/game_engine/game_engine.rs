@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, move_hero_attachments::MoveHeroAttachments, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults, hero_base_attack::HeroBaseAttack, selected_entity_movement::SelectedEntityMovement}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, move_hero_attachments::MoveHeroAttachments, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults, hero_base_attack::HeroBaseAttack, hero_timed_attack::HeroTimedAttack, selected_entity_movement::SelectedEntityMovement}, utils::file_utils::list_files};
 
 use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
@@ -28,7 +28,7 @@ impl GameEngine {
             ],
             game_defaults: Box::new(GameDefaults::new()),
             game_behaviors: vec![
-                Box::new(HeroBaseAttack::new()),
+                Box::new(HeroTimedAttack::new()),
                 Box::new(SelectedEntityMovement::new()),
                 Box::new(CreepSpawner::new()),                
             ],
