@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::HERO_ENTITY_ID;
 
-use super::{entity::Entity, entity_factory::EntityFactory};
+use super::{entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::KeyboardState};
 
 pub struct Game {
     pub total_elapsed_time: f32,
@@ -13,6 +13,7 @@ pub struct Game {
     pub entities: HashMap<u32, Entity>,
     pub selected_entity_id: Option<u32>,
     pub bullets: HashSet<u32>,
+    pub keyboard_state: KeyboardState
 }
 
 impl Game {
@@ -24,7 +25,12 @@ impl Game {
             entities: HashMap::new(),
             selected_entity_id: None,
             bullets: HashSet::new(),
+            keyboard_state: KeyboardState::default()
         }
+    }
+    
+    pub fn entity_ids(&self) -> Vec<u32> {
+        return self.entities.values().map(|e| e.id).collect();
     }
 
     pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
@@ -40,6 +46,9 @@ impl Game {
 
         if is_bullet {
             self.bullets.insert(id);
+        }
+        if let Some(new_entity) = self.entities.get_mut(&id) {
+            new_entity.creation_time = self.total_elapsed_time;
         }
         return id;
     }
@@ -80,11 +89,16 @@ impl Game {
         return self.entities.get(&HERO_ENTITY_ID);
     }*/
 
-    pub fn hero_position(&mut self) -> Vector2 {
+    pub fn hero_frame(&mut self) -> Rectangle {
         if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
-            return Vector2::new(entity.frame.x, entity.frame.y);
+            return entity.frame;
         }
-        return Vector2::zero();
+        return Rectangle::new(0.0, 0.0, 0.0, 0.0);
+    }
+
+    pub fn hero_position(&mut self) -> Vector2 {
+        let frame = self.hero_frame();
+        return Vector2::new(frame.x, frame.y);
     }
 
     /* 

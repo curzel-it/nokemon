@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, game::Game, behaviors::EntityBehavior};
+use crate::{game_engine::{behaviors::EntityBehavior, entity::Entity, game::Game}, species::species_model::INFINITE_LIFESPAN};
 
 #[derive(Debug)]
 pub struct CleanupEntities;
@@ -21,6 +21,9 @@ impl EntityBehavior for CleanupEntities {
 
 impl CleanupEntities {
     fn should_remove(&self, game: &Game, entity: &Entity) -> bool {
+        if entity.species.lifespan != INFINITE_LIFESPAN && game.total_elapsed_time - entity.creation_time > entity.species.lifespan {
+            return true;
+        }
         if entity.hp <= 0.0 {
             return true;
         }        
@@ -35,12 +38,13 @@ impl CleanupEntities {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
 
     #[test]
     fn can_remove_entities_outside_of_screen() {
         let engine = GameEngine::new();
         let mut game = Game::test();
+        let nokb = NoKeyboard {};
         
         let mut entity = game.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
@@ -48,10 +52,10 @@ mod tests {
         entity.change_direction(Vector2::new(-1.0, 0.0));  
         game.add_entity(entity);      
 
-        engine.update(&mut game, 0.6);
+        engine.update(&mut game, 0.6, &nokb);
         assert_eq!(game.entities.len(), 1);
                 
-        engine.update(&mut game, 0.6);
+        engine.update(&mut game, 0.6, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 
@@ -59,6 +63,7 @@ mod tests {
     fn can_remove_entities_with_no_hp_left() {
         let engine = GameEngine::new();
         let mut game = Game::test();
+        let nokb = NoKeyboard {};
         
         let mut entity = game.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
@@ -68,7 +73,26 @@ mod tests {
         game.add_entity(entity);      
 
         assert_eq!(game.entities.len(), 1);
-        engine.update(&mut game, 0.1);
+        engine.update(&mut game, 0.1, &nokb);
+        assert_eq!(game.entities.len(), 0);
+    }
+
+    #[test]
+    fn can_remove_entities_with_passed_expiration_date() {
+        let engine = GameEngine::new();
+        let mut game = Game::test();
+        let nokb = NoKeyboard {};
+        
+        let mut entity = game.entity_factory.build("baseattack");
+        let lifespan = entity.species.lifespan;
+        entity.frame = RECT_ORIGIN_SQUARE_100;
+        entity.speed = 0.0;
+        entity.change_direction(Vector2::zero());  
+
+        game.add_entity(entity);      
+
+        assert_eq!(game.entities.len(), 1);
+        engine.update(&mut game, lifespan + 1.0, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 }

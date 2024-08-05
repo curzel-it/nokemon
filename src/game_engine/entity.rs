@@ -21,6 +21,7 @@ pub struct Entity {
     pub sprite_invalidated: bool,
     pub time_to_next_shot: f32,
     pub species: Species,
+    pub creation_time: f32,
 }
 
 impl Entity {

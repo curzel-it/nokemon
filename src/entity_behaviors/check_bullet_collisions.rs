@@ -48,12 +48,13 @@ impl CheckBulletCollisons {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
 
     #[test]
     fn can_decrease_hp_of_both_bullet_and_targets_on_hit() {
         let engine = GameEngine::new();
         let mut game = Game::test();
+        let nokb = NoKeyboard {};
         
         let mut bullet = game.entity_factory.build("towerdart");
         bullet.id = 1;
@@ -70,15 +71,17 @@ mod tests {
         red.change_direction(Vector2::zero());
         game.add_entity(red);      
 
-        engine.update(&mut game, 0.1);
+        engine.update(&mut game, 0.1, &nokb);
         
         assert_eq!(game.entities.get(&1).unwrap().hp, 10.0);
         assert_eq!(game.entities.get(&2).unwrap().hp, 10.0);
     }
+
     #[test]
     fn can_decrease_hp_of_both_bullet_and_targets_on_hit_2() {
         let engine = GameEngine::new();
         let mut game = Game::test();
+        let nokb = NoKeyboard {};
         
         let mut bullet = game.entity_factory.build("towerdart");
         bullet.id = 1;
@@ -95,7 +98,8 @@ mod tests {
         red.change_direction(Vector2::zero());
         game.add_entity(red);      
 
-        engine.update(&mut game, 0.1);
+        engine.update(&mut game, 0.1, &nokb);
+        engine.update(&mut game, 0.1, &nokb);
         
         assert!(game.entities.get(&1).is_none());
         assert_eq!(game.entities.get(&2).unwrap().hp, 40.0);

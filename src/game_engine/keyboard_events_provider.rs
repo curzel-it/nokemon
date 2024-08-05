@@ -2,41 +2,50 @@ use raylib::{ffi::KeyboardKey, math::Vector2, RaylibHandle};
 
 use crate::utils::vector_utils::directions_based_direction_vector;
 
+#[derive(Default, Clone, Copy)]
+pub struct KeyboardState {
+    pub is_base_attack_pressed: bool,
+    pub is_up_pressed: bool,
+    pub is_right_pressed: bool,
+    pub is_down_pressed: bool,
+    pub is_left_pressed: bool,
+    pub direction_based_on_pressed_keys: Option<Vector2>
+}
+
 pub trait KeyboardEventsProvider {
-    fn is_base_attack_pressed(&self) -> bool;
-    fn is_up_pressed(&self) -> bool;
-    fn is_right_pressed(&self) -> bool;
-    fn is_down_pressed(&self) -> bool;
-    fn is_left_pressed(&self) -> bool;
-    fn direction_based_on_pressed_keys(&self) -> Option<Vector2>;
+    fn keyboard_state(&self) -> KeyboardState;
 }
 
 impl KeyboardEventsProvider for RaylibHandle {
-    fn is_base_attack_pressed(&self) -> bool {
-        return self.is_key_down(KeyboardKey::KEY_K);
-    }
+    fn keyboard_state(&self) -> KeyboardState {
+        let is_base_attack_pressed = self.is_key_down(KeyboardKey::KEY_SPACE);
+        let is_up_pressed = self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP);
+        let is_right_pressed = self.is_key_down(KeyboardKey::KEY_D) || self.is_key_down(KeyboardKey::KEY_RIGHT);
+        let is_down_pressed = self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN);
+        let is_left_pressed = self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT);
 
-    fn is_up_pressed(&self) -> bool {
-        return self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP);
-    }
-    
-    fn is_right_pressed(&self) -> bool {
-        return self.is_key_down(KeyboardKey::KEY_D) || self.is_key_down(KeyboardKey::KEY_RIGHT);
-    }
-    
-    fn is_down_pressed(&self) -> bool {
-        return self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN);
-    }
+        let direction = directions_based_direction_vector(
+            is_up_pressed, 
+            is_right_pressed, 
+            is_down_pressed, 
+            is_left_pressed
+        );
 
-    fn is_left_pressed(&self) -> bool {
-        return self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT);
+        KeyboardState {
+            is_base_attack_pressed,
+            is_up_pressed,
+            is_right_pressed,
+            is_down_pressed,
+            is_left_pressed, 
+            direction_based_on_pressed_keys: direction
+        }
     }
-    
-    fn direction_based_on_pressed_keys(&self) -> Option<Vector2> {
-        let up = self.is_up_pressed();
-        let right = self.is_right_pressed();
-        let down = self.is_down_pressed();
-        let left = self.is_left_pressed();
-        return directions_based_direction_vector(up, right, down, left);
+}
+
+pub struct NoKeyboard;
+
+impl KeyboardEventsProvider for NoKeyboard {
+    fn keyboard_state(&self) -> KeyboardState {
+        KeyboardState::default()
     }
 }

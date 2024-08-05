@@ -56,13 +56,9 @@ fn draw_item(
     let sprite_path = item.current_sprite.current_frame();
     
     if let Some(texture) = engine.textures.get(sprite_path) {
-        let is_being_dragged = engine.dragging_id == Some(item.id);
-        let dx = if is_being_dragged { engine.drag_offset.x } else { 0.0 };
-        let dy = if is_being_dragged { engine.drag_offset.y } else { 0.0 };
-
         d.draw_texture_ex(
             texture,
-            Vector2::new(item.frame.x + dx, item.frame.y + dy),
+            Vector2::new(item.frame.x, item.frame.y),
             0.0,
             item.frame.width / texture.width as f32, 
             Color::WHITE 

@@ -56,7 +56,7 @@ impl UpdateSprites {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{game::Game, game_engine::GameEngine}};
+    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
     
     fn test_setup(direction: Vector2) -> (GameEngine, Game, u32) {
         let engine = GameEngine::new();        
@@ -71,26 +71,29 @@ mod tests {
 
     #[test]
     fn can_switch_sprite_when_moving_east() {
+        let nokb = NoKeyboard {};
         let (engine, mut game, id) = test_setup(Vector2::new(1.0, 0.0));
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);
-        engine.update(&mut game, 1.0);
+        engine.update(&mut game, 1.0, &nokb);
         assert_eq!(game.animation_name_of_entity(&id), "walke");        
     }
 
     #[test]
     fn can_switch_sprite_when_moving_west() {
+        let nokb = NoKeyboard {};
         let (engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);
-        engine.update(&mut game, 1.0);
+        engine.update(&mut game, 1.0, &nokb);
         assert_eq!(game.animation_name_of_entity(&id), "walkw");        
     }
 
     #[test]
     fn can_show_directional_still_sprite_when_speed_is_zero() {
+        let nokb = NoKeyboard {};
         let (engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
         game.entities.get_mut(&id).unwrap().speed = 0.0;
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);
-        engine.update(&mut game, 1.0);
+        engine.update(&mut game, 1.0, &nokb);
         assert_eq!(game.animation_name_of_entity(&id), "stillw"); 
     }
 }

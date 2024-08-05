@@ -1,7 +1,9 @@
 use serde::Deserialize;
 use std::string::String;
 
-#[derive(Debug, Clone, Deserialize)]
+pub const INFINITE_LIFESPAN: f32 = -420.0;
+
+#[derive(Debug, Clone, Default, Deserialize)]
 pub struct Species {
     pub id: String,
 
@@ -24,6 +26,9 @@ pub struct Species {
     pub z_index: u32,
 
     #[serde(default="df_false")]
+    pub is_hero_attachment: bool,
+
+    #[serde(default="df_false")]
     pub is_enemy: bool,
     
     #[serde(default="df_false")]
@@ -37,25 +42,13 @@ pub struct Species {
 
     #[serde(default="df_one")]
     pub time_between_shots: f32,
+
+    #[serde(default="infinite_lifespan")]
+    pub lifespan: f32,
 }
 
-impl Species {
-    pub fn default() -> Self {
-        Self {
-            id: "missingno".to_owned(),
-            speed: 1.0,
-            width: 1.0,
-            height: 1.0,
-            hp: 100.0,
-            dp: 100.0,
-            z_index: 1,
-            is_enemy: false,
-            is_shooter: false,
-            is_bullet: false,
-            stays_inside_screen_bounds: true,
-            time_between_shots: 1.0,
-        }
-    }
+fn infinite_lifespan() -> f32 {
+    INFINITE_LIFESPAN
 }
 
 fn df_one() -> f32 {
