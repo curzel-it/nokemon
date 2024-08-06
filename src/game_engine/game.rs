@@ -4,13 +4,13 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
 
-use super::{entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::KeyboardState};
+use super::{entity::{Entity, SimpleEntity}, entity_factory::EntityFactory, keyboard_events_provider::KeyboardState};
 
 pub struct Game {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
-    pub entities: HashMap<u32, Entity>,
+    pub entities: HashMap<u32, Box<dyn Entity>>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState
 }
@@ -35,20 +35,21 @@ impl Game {
     }
     
     pub fn entity_ids(&self) -> Vec<u32> {
-        return self.entities.values().map(|e| e.id).collect();
+        return self.entities.values().map(|e| e.id()).collect();
     }
 
     pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
-        let entity = self.entity_factory.build(species_id);
-        return self.add_entity(entity);
+        let base = self.entity_factory.build(species_id);
+        let entity = SimpleEntity { base };
+        return self.add_entity(Box::new(entity));
     }
 
-    pub fn add_entity(&mut self, entity: Entity) -> u32 {
-        let id = entity.id;
+    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
+        let id = entity.id();
         self.entities.insert(id, entity);
 
         if let Some(new_entity) = self.entities.get_mut(&id) {
-            new_entity.creation_time = self.total_elapsed_time;
+            new_entity.set_creation_time(self.total_elapsed_time);
         }
         return id;
     }
@@ -74,7 +75,7 @@ impl Game {
         }
     }*/
 
-    pub fn selected_entity_mut(&mut self) -> Option<&mut Entity> {
+    pub fn selected_entity_mut(&mut self) -> Option<&mut Box<dyn Entity>> {
         if let Some(id) = self.selected_entity_id {
             if let Some(entity_mut) = self.entities.get_mut(&id) {
                 return Some(entity_mut);
@@ -89,7 +90,7 @@ impl Game {
 */
     pub fn hero_frame(&mut self) -> Rectangle {
         if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
-            return entity.frame;
+            return entity.frame();
         }
         return Rectangle::new(0.0, 0.0, 0.0, 0.0);
     }
@@ -135,11 +136,11 @@ mod tests {
         }
         
         pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
-            return self.entities.get(id).unwrap().frame;
+            return self.entities.get(id).unwrap().frame();
         }
         
-        pub fn animation_name_of_entity(&self, id: &u32) -> String {
-            return self.entities.get(id).unwrap().current_sprite.animation_name.clone();
+        pub fn animation_name_of_entity(&self, id: &u32) -> &str {
+            return self.entities.get(id).unwrap().current_animation();
         }
     }
 }

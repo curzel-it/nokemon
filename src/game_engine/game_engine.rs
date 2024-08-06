@@ -1,37 +1,17 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, move_hero_attachments::MoveHeroAttachments, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults, hero_base_attack::HeroBaseAttack, hero_timed_attack::HeroTimedAttack, selected_entity_movement::SelectedEntityMovement}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, utils::file_utils::list_files};
 
-use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
+use super::{entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
-    entity_locator: EntityLocator,
-    entity_behaviors: Vec<Box<dyn EntityBehavior>>,
-    game_defaults: Box<dyn GameBehavior>,
-    game_behaviors: Vec<Box<dyn GameBehavior>>,
     pub textures: HashMap<String, Texture2D>
 }
 
 impl GameEngine {
     pub fn new() -> Self {
         Self {
-            entity_locator: EntityLocator::new(),
-            entity_behaviors: vec![
-                Box::new(HeroSeeker::new()),
-                Box::new(MoveHeroAttachments::new()),
-                Box::new(LinearMovement::new()),
-                Box::new(UpdateSprites::new()),
-                Box::new(Shooter::new()),
-                Box::new(CheckBulletCollisons::new()),
-                Box::new(CleanupEntities::new()),
-            ],
-            game_defaults: Box::new(GameDefaults::new()),
-            game_behaviors: vec![
-                Box::new(HeroTimedAttack::new()),
-                Box::new(SelectedEntityMovement::new()),
-                Box::new(CreepSpawner::new()),                
-            ],
             textures: HashMap::new()
         }
     }
@@ -52,7 +32,7 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        self.game_defaults.update(&mut game, 0.0);
+        // self.game_defaults.update(&mut game, 0.0);
 
         return (game, rl, thread);
     }
@@ -65,7 +45,7 @@ impl GameEngine {
     ) {
         game.total_elapsed_time += time_since_last_update;
         game.keyboard_state = keyboard_events.keyboard_state();
-    
+        /* 
         for id in &game.entity_ids() {
             for behavior in &self.entity_behaviors {
                 behavior.update(id, game, time_since_last_update);
@@ -73,7 +53,7 @@ impl GameEngine {
         }
         for behavior in &self.game_behaviors {
             behavior.update(game, time_since_last_update);
-        }
+        }*/
     } 
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
@@ -101,7 +81,7 @@ mod tests {
                 EntityFactory::new(all_species, all_assets),
                 Rectangle::new(0.0, 0.0, width as f32, height as f32)
             );
-            self.game_defaults.update(&mut game, 0.0);
+            // self.game_defaults.update(&mut game, 0.0);
 
             return game;
         }

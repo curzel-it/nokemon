@@ -13,6 +13,7 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
 }
 
 fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
+    /* 
     let mut sorted_entities: Vec<&Entity> = game.entities.values().collect();
     sorted_entities.sort_by(|a, b| {
         if a.frame.y < b.frame.y { return Ordering::Less; }
@@ -22,10 +23,12 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
         if a.frame.x < b.frame.x { return Ordering::Less; }
         if a.frame.x > b.frame.x { return Ordering::Greater; }
         return Ordering::Equal;
-    });
+    });*/
+    let mut sorted_entities: Vec<&Box<dyn Entity>> = game.entities.values().collect();
+    sorted_entities.sort();
 
     for item in sorted_entities {
-        draw_item(d, &item, &engine);
+        draw_item(d, item, &engine);
     }
 }
 
@@ -50,17 +53,18 @@ fn draw_background(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
-    item: &Entity,
+    item: &Box<dyn Entity>,
     engine: &GameEngine
 ) {
-    let sprite_path = item.current_sprite.current_frame();
+    let sprite_path = item.current_sprite_frame();
+    let frame = item.frame();
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         d.draw_texture_ex(
             texture,
-            Vector2::new(item.frame.x, item.frame.y),
+            Vector2::new(frame.x, frame.y),
             0.0,
-            item.frame.width / texture.width as f32, 
+            frame.width / texture.width as f32, 
             Color::WHITE 
         );
     }

@@ -1,6 +1,7 @@
 pub mod behaviors;
 pub mod entity;
 pub mod entity_factory;
+pub mod entity_macro;
 pub mod game;
 pub mod game_engine;
 pub mod keyboard_events_provider;
