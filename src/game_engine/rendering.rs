@@ -24,7 +24,8 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
         if a.frame.x > b.frame.x { return Ordering::Greater; }
         return Ordering::Equal;
     });*/
-    let mut sorted_entities: Vec<&Box<dyn Entity>> = game.entities.values().collect();
+    let entities = game.entities.borrow();
+    let mut sorted_entities: Vec<&Box<dyn Entity>> = entities.values().collect();
     sorted_entities.sort();
 
     for item in sorted_entities {

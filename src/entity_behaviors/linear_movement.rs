@@ -1,6 +1,6 @@
-use crate::game_engine::{entity::Entity, game::Game};
+use crate::game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate};
 
-pub fn linear_movement(entity: &mut dyn Entity, game: &mut Game, time_since_last_update: f32) {
+pub fn linear_movement(entity: &mut dyn Entity, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
     let frame = entity.frame();
     let offset = entity.direction() * entity.speed() * time_since_last_update;
 
@@ -22,32 +22,28 @@ pub fn linear_movement(entity: &mut dyn Entity, game: &mut Game, time_since_last
         }
     }
     entity.place_at(expected_x, expected_y);
+    return vec![];
 }
 
 #[cfg(test)]
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
     
     #[test]
     fn can_move_on_update() {
-        let engine = GameEngine::new();
-        let mut game = Game::test();
-        let nokb = NoKeyboard {};
+        let game = Game::test();
         
         let mut body = game.entity_factory.build("red");
-        let entity_id = body.id;
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.speed = BASE_ENTITY_SPEED;        
         
         let mut entity = SimpleEntity::new(body);
         entity.set_direction(Vector2::new(1.0, 1.0));  
-        game.add_entity(Box::new(entity));
-                
-        engine.update(&mut game, 1.0, &nokb);
-        let result = game.frame_of_entity(&entity_id);
-        assert_eq!(result.x, 30.0);
-        assert_eq!(result.y, 30.0);
+        entity.update(&game, 1.0);
+
+        assert_eq!(entity.frame().x, 30.0);
+        assert_eq!(entity.frame().y, 30.0);
     }
 }

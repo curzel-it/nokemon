@@ -11,7 +11,7 @@ impl EntityLocator {
     }
 
     pub fn find_by_position(&self, game: &Game, position: &Vector2) -> Option<u32> {
-        for entity in game.entities.values() {
+        for entity in game.entities.borrow().values() {
             if entity.frame().check_collision_point_rec(position) {
                 return Some(entity.id());
             }

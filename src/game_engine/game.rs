@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
+use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}, mem::forget};
 
 use raylib::math::{Rectangle, Vector2};
 
@@ -58,7 +58,7 @@ impl Game {
         self.entities.borrow_mut().remove(&id);
     }
 
-    pub fn update(
+    pub fn update_rl(
         &mut self, 
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
@@ -77,16 +77,24 @@ impl Game {
                 state_updates.append(&mut updates);
             }
         }
-        /* 
-        for id in &game.entity_ids() {
-            for behavior in &self.entity_behaviors {
-                behavior.update(id, game, time_since_last_update);
-            }        
-        }
-        for behavior in &self.game_behaviors {
-            behavior.update(game, time_since_last_update);
-        }*/
+
+        drop(entities);
+        self.apply_state_updates(state_updates);
+
     } 
+
+    fn apply_state_updates(&mut self, updates: Vec<GameStateUpdate>) {
+        for update in updates {
+            self.apply_state_update(update)
+        }
+    }
+
+    fn apply_state_update(&mut self, update: GameStateUpdate) {
+        match update {
+            GameStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
+            GameStateUpdate::RemoveEntity(id) => self.remove_entity(&id)
+        };
+    }
 
     /* 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
@@ -155,7 +163,7 @@ impl Debug for Game {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::entity_factory::EntityFactory};
+    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard}};
 
     use super::Game;
 
@@ -168,7 +176,14 @@ mod tests {
         }
         
         pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
-            return self.entities.borrow().get(id).unwrap().frame();
+            let entities = self.entities.borrow();
+            let entity = entities.get(id).unwrap();
+            return entity.frame();
+        }
+        
+        pub fn update(&mut self, time_since_last_update: f32) {
+            let nokb = NoKeyboard {};
+            return self.update_rl(time_since_last_update, &nokb);
         }
         
         pub fn animation_name_of_entity(&self, id: &u32) -> String {
