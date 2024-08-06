@@ -67,6 +67,8 @@ mod tests {
         assert_eq!(game.entities.len(), 1);
                 
         engine.update(&mut game, 0.6, &nokb);
+        engine.update(&mut game, 0.6, &nokb);
+        engine.update(&mut game, 0.6, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 

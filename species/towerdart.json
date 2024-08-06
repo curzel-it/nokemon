@@ -6,10 +6,12 @@
     "speed": 5,
     "z_index": 2,
     "is_enemy": true,
-    "is_shooter": false,
-    "is_bullet": true,
+    "capabilities": [
+        "AnimatedSprite",
+        "LinearMovement",
+        "Bullet"
+    ],
     "hp": 50,
-    "dp": 60,
-    "stays_inside_screen_bounds": false
+    "dp": 60
   }
   

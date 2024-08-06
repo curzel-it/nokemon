@@ -5,10 +5,12 @@
     "id": "baseattack",
     "speed": 5,
     "z_index": 3,
-    "is_hero_attachment": true,
-    "is_enemy": false,
-    "is_shooter": false,
-    "is_bullet": true,
+    "capabilities": [
+        "AnimatedSprite",
+        "LinearMovement",
+        "HeroAttachment",
+        "Bullet"
+    ],
     "hp": 100000,
     "dp": 10,
     "lifespan": 2

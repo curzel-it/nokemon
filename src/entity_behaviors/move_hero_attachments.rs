@@ -14,7 +14,7 @@ impl EntityBehavior for MoveHeroAttachments {
         let hero_frame = game.hero_frame();
         let entity = game.entities.get_mut(entity_id).unwrap();        
         
-        if entity.species.is_hero_attachment {
+        if entity.species.is_hero_attachment() {
             entity.place_center_of(hero_frame)
         }
     }

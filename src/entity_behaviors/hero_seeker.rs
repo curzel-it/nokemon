@@ -14,7 +14,7 @@ impl EntityBehavior for HeroSeeker {
         let hero = game.hero_position();
         let entity = game.entities.get_mut(entity_id).unwrap();
         
-        if entity.species.hero_seeker {
+        if entity.species.is_hero_seeker() {
             entity.direction = dumb_direction_vector(entity.frame.x, entity.frame.y, hero.x, hero.y);
         }
     }

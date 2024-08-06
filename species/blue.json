@@ -4,7 +4,6 @@
     "height": 17,
     "id": "blue",
     "speed": 1,
-    "is_enemy": false,
-    "is_shooter": false
+    "is_enemy": false
   }
   

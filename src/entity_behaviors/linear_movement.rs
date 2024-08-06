@@ -17,7 +17,7 @@ impl EntityBehavior for LinearMovement {
         let mut expected_x = entity.frame.x + offset.x;
         let mut expected_y = entity.frame.y + offset.y;
         
-        if entity.species.stays_inside_screen_bounds {
+        if entity.species.stays_inside_screen_bounds() {
             if expected_x < game.bounds.x {
                 expected_x = game.bounds.x;
             }

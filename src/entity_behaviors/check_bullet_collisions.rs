@@ -26,7 +26,7 @@ impl CheckBulletCollisons {
 
     fn check_hits(&self, entity_id: &u32, game: &Game) -> Vec<(u32, f32)> {
         let entity = game.entities.get(entity_id).unwrap();
-        if entity.species.is_bullet { 
+        if entity.species.is_bullet() { 
             return vec![]; 
         }        
 
@@ -34,7 +34,7 @@ impl CheckBulletCollisons {
 
         for bullet_id in &game.entity_ids() {
             let bullet = game.entities.get(bullet_id).unwrap();
-            if !bullet.species.is_bullet { continue; }
+            if !bullet.species.is_bullet() { continue; }
             if bullet.parent_id == entity.id { continue; }
             if bullet.species.is_enemy == entity.species.is_enemy { continue; }
 

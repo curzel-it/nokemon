@@ -12,7 +12,7 @@ impl Shooter {
 impl EntityBehavior for Shooter {
     fn update(&self, entity_id: &u32, game: &mut Game, time_since_last_update: f32) {
         let entity = game.entities.get_mut(entity_id).unwrap();
-        if !entity.species.is_shooter {
+        if !entity.species.is_shooter() {
             return; 
         }
 
