@@ -5,7 +5,7 @@
     "id": "towerdart",
     "speed": 5,
     "z_index": 2,
-    "is_enemy": false,
+    "is_enemy": true,
     "is_shooter": false,
     "is_bullet": true,
     "hp": 50,

@@ -6,8 +6,9 @@ pub struct HeroTimedAttack;
 
 impl GameBehavior for HeroTimedAttack {
     fn update(&self, game: &mut Game, _: f32) {
-        if game.total_elapsed_time_ms() % 4000 <= 10 {     
-        // if game.keyboard_state.is_base_attack_pressed {
+        // if game.total_elapsed_time_ms() % 4000 <= 10 {
+        if game.is_every_n_seconds(4) {
+            // if game.keyboard_state.is_base_attack_pressed {
             let hero_frame = game.hero_frame();
             let mut new_entity = game.entity_factory.build("baseattack");
             new_entity.parent_id = HERO_ENTITY_ID;

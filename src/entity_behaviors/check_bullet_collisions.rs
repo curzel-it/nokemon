@@ -36,6 +36,9 @@ impl CheckBulletCollisons {
             if bullet.parent_id == entity.id {
                 return None;
             }
+            if bullet.species.is_enemy == entity.species.is_enemy {
+                return None;
+            }
             if bullet.frame.check_collision_recs(&entity.frame) {
                 return Some((bullet_id.clone(), bullet.dp));
             }

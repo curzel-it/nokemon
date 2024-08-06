@@ -37,6 +37,9 @@ pub struct Species {
     #[serde(default="df_false")]
     pub is_bullet: bool,
     
+    #[serde(default="df_false")]
+    pub hero_seeker: bool,
+    
     #[serde(default="df_true")]
     pub stays_inside_screen_bounds: bool,
 

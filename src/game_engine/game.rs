@@ -2,7 +2,7 @@ use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::HERO_ENTITY_ID;
+use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
 
 use super::{entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::KeyboardState};
 
@@ -27,6 +27,13 @@ impl Game {
             bullets: HashSet::new(),
             keyboard_state: KeyboardState::default()
         }
+    }
+
+    pub fn is_every_n_seconds(&self, seconds: u32) -> bool {
+        let full_second = self.total_elapsed_time.floor();
+        let i_full_second = full_second as u32;
+        let diff = self.total_elapsed_time - full_second;
+        return diff < FRAME_TIME && (i_full_second % seconds) == 0;
     }
     
     pub fn entity_ids(&self) -> Vec<u32> {
@@ -84,10 +91,9 @@ impl Game {
         return None;
     }
 
-    /* 
-    pub fn hero(&mut self) -> Option<&Entity> {
+    pub fn hero(&self) -> Option<&Entity> {
         return self.entities.get(&HERO_ENTITY_ID);
-    }*/
+    }
 
     pub fn hero_frame(&mut self) -> Rectangle {
         if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
@@ -104,11 +110,11 @@ impl Game {
     /* 
     pub fn total_elapsed_time_s(&self) -> u32 {
         return self.total_elapsed_time.floor() as u32;
-    }*/
+    }
 
     pub fn total_elapsed_time_ms(&self) -> u32 {
         return (self.total_elapsed_time * 1000.0).floor() as u32;
-    }
+    }*/
 }
 
 impl Debug for Game {

@@ -4,7 +4,7 @@ pub struct CreepSpawner;
 
 impl GameBehavior for CreepSpawner {
     fn update(&self, game: &mut Game, _: f32) {   
-        if game.total_elapsed_time_ms() % 2000 < 10 {
+        if game.is_every_n_seconds(2) {
             game.add_entity_by_species("white");
         }
     }

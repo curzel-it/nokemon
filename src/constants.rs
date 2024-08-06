@@ -1,6 +1,7 @@
 use raylib::math::Rectangle;
 
 pub const FPS: u32 = 60;
+pub const FRAME_TIME: f32 = 1.0 / FPS as f32;
 pub const LOG_GAME_STATE: bool = false; // true;
 pub const DEBUG_ENABLED: bool = true;
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
