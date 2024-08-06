@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, HashSet}, fmt::{self, Debug}};
+use std::{collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 

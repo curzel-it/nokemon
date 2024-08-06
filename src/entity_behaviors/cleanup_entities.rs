@@ -1,3 +1,5 @@
+use raylib::math::Rectangle;
+
 use crate::{game_engine::{behaviors::EntityBehavior, entity::Entity, game::Game}, species::species_model::INFINITE_LIFESPAN};
 
 #[derive(Debug)]
@@ -26,11 +28,20 @@ impl CleanupEntities {
         }
         if entity.hp <= 0.0 {
             return true;
-        }        
-        if game.bounds.get_collision_rec(&entity.frame).is_none() {
+        }       
+        if self.is_outside_of_enlarged_bounds(&game.bounds, &entity.frame) {
             return true;
         }
         return false;
+    }
+
+    fn is_outside_of_enlarged_bounds(&self, bounds: &Rectangle, rect: &Rectangle) -> bool {
+        let margin = 100.0;
+        if rect.x < bounds.x - rect.width - margin { return true; }
+        if rect.y < bounds.y - rect.height - margin { return true; }
+        if rect.x > bounds.x + bounds.width + margin { return true; }
+        if rect.y > bounds.y + bounds.height + margin { return true; }
+        return false
     }
 }
 
