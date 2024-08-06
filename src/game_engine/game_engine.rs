@@ -32,7 +32,7 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        // self.game_defaults.update(&mut game, 0.0);
+        game.setup();
 
         return (game, rl, thread);
     }
@@ -43,17 +43,7 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        game.total_elapsed_time += time_since_last_update;
-        game.keyboard_state = keyboard_events.keyboard_state();
-        /* 
-        for id in &game.entity_ids() {
-            for behavior in &self.entity_behaviors {
-                behavior.update(id, game, time_since_last_update);
-            }        
-        }
-        for behavior in &self.game_behaviors {
-            behavior.update(game, time_since_last_update);
-        }*/
+        game.update_rl(time_since_last_update, keyboard_events);
     } 
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
@@ -81,8 +71,8 @@ mod tests {
                 EntityFactory::new(all_species, all_assets),
                 Rectangle::new(0.0, 0.0, width as f32, height as f32)
             );
-            // self.game_defaults.update(&mut game, 0.0);
-
+            game.setup();
+            
             return game;
         }
     }

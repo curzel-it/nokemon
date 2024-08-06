@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
 
-use super::{entity::{self, Entity}, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
+use super::{entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
 
 pub struct Game {
     pub total_elapsed_time: f32,
@@ -12,8 +12,19 @@ pub struct Game {
     pub bounds: Rectangle,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub selected_entity_id: Option<u32>,
-    pub keyboard_state: KeyboardState
+    pub keyboard_state: KeyboardState,
 }
+
+        // self.game_defaults.update(&mut game, 0.0);
+        /* 
+        for id in &game.entity_ids() {
+            for behavior in &self.entity_behaviors {
+                behavior.update(id, game, time_since_last_update);
+            }        
+        }
+        for behavior in &self.game_behaviors {
+            behavior.update(game, time_since_last_update);
+        }*/
 
 impl Game {
     pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
@@ -25,6 +36,19 @@ impl Game {
             selected_entity_id: None,
             keyboard_state: KeyboardState::default()
         }
+    }
+    
+    pub fn setup(&mut self) {
+        let mut tower = self.entity_factory.build_simple("tower");
+        tower.set_direction(Vector2::new(1.0, 0.0));    
+        self.add_entity(tower);    
+        
+        let mut hero = self.entity_factory.build_simple_with_id("red", HERO_ENTITY_ID);
+        hero.set_direction(Vector2::new(1.0, 0.0));  
+        hero.center_in(&self.bounds);
+        self.add_entity(hero);
+
+        self.selected_entity_id = Some(HERO_ENTITY_ID);
     }
 
     pub fn is_every_n_seconds(&self, seconds: u32) -> bool {
@@ -92,7 +116,8 @@ impl Game {
     fn apply_state_update(&mut self, update: GameStateUpdate) {
         match update {
             GameStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            GameStateUpdate::RemoveEntity(id) => self.remove_entity(&id)
+            GameStateUpdate::RemoveEntity(id) => { self.remove_entity(&id) },
+            GameStateUpdate::SelectEntity(id) => { self.selected_entity_id = Some(id) },
         };
     }
 

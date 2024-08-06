@@ -2,9 +2,9 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{self, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::{entity_body::EntityBody, entity::Entity};
+use super::{entity::Entity, entity_body::EntityBody, simple_entity::SimpleEntity};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -40,6 +40,16 @@ impl EntityFactory {
             species_repo,
             sprites_repo,
         }
+    }
+
+    pub fn build_simple(&self, species_id: &str) -> Box<dyn Entity> {
+        Box::new(SimpleEntity::new(self.build(species_id)))
+    }
+
+    pub fn build_simple_with_id(&self, species_id: &str, id: u32) -> Box<dyn Entity> {
+        let mut body = self.build(species_id);
+        body.id = id;
+        return Box::new(SimpleEntity::new(body));
     }
 
     pub fn build(&self, species_id: &str) -> EntityBody {
