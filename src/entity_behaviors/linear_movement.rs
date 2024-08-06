@@ -7,7 +7,7 @@ pub fn linear_movement(entity: &mut dyn Entity, game: &Game, time_since_last_upd
     let mut expected_x = frame.x + offset.x;
     let mut expected_y = frame.y + offset.y;
     
-    if entity.species().stays_inside_screen_bounds {
+    if entity.species().stays_inside_screen_bounds() {
         if expected_x < game.bounds.x {
             expected_x = game.bounds.x;
         }
