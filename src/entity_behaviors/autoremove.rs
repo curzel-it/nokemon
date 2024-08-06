@@ -11,8 +11,9 @@ pub fn autoremove(entity: &dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
 
 fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
     let lifespan = entity.species().lifespan;
+    let age = game.total_elapsed_time - entity.creation_time();
 
-    if lifespan != INFINITE_LIFESPAN && game.total_elapsed_time - entity.creation_time() > lifespan {
+    if lifespan != INFINITE_LIFESPAN && age > lifespan {
         return true;
     }
     if entity.hp() <= 0.0 {
@@ -52,6 +53,11 @@ mod tests {
         game.update(0.6);
         assert_eq!(game.entities.borrow().len(), 1);
                 
+        game.update(0.6);
+        game.update(0.6);
+        game.update(0.6);
+        game.update(0.6);
+        game.update(0.6);
         game.update(0.6);
         game.update(0.6);
         game.update(0.6);

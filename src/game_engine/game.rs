@@ -104,7 +104,6 @@ impl Game {
 
         drop(entities);
         self.apply_state_updates(state_updates);
-
     } 
 
     fn apply_state_updates(&mut self, updates: Vec<GameStateUpdate>) {
@@ -116,7 +115,11 @@ impl Game {
     fn apply_state_update(&mut self, update: GameStateUpdate) {
         match update {
             GameStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            GameStateUpdate::RemoveEntity(id) => { self.remove_entity(&id) },
+            GameStateUpdate::RemoveEntity(id) => { 
+                println!("Number of entities: {}; will remove: {}", self.entities.borrow().len(), id);
+                self.remove_entity(&id);
+                println!("Number of entities: {}", self.entities.borrow().len());
+            },
             GameStateUpdate::SelectEntity(id) => { self.selected_entity_id = Some(id) },
         };
     }
