@@ -1,16 +1,16 @@
-use std::{collections::HashMap, fmt::{self, Debug}};
+use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
 
-use super::{entity::{Entity, SimpleEntity}, entity_factory::EntityFactory, keyboard_events_provider::KeyboardState};
+use super::{entity::{self, Entity}, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
 
 pub struct Game {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
-    pub entities: HashMap<u32, Box<dyn Entity>>,
+    pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState
 }
@@ -21,7 +21,7 @@ impl Game {
             total_elapsed_time: 0.0,
             entity_factory,
             bounds,
-            entities: HashMap::new(),
+            entities: RefCell::new(HashMap::new()),
             selected_entity_id: None,
             keyboard_state: KeyboardState::default()
         }
@@ -35,28 +35,58 @@ impl Game {
     }
     
     pub fn entity_ids(&self) -> Vec<u32> {
-        return self.entities.values().map(|e| e.id()).collect();
+        return self.entities.borrow().values().map(|e| e.id()).collect();
     }
 
     pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
-        let base = self.entity_factory.build(species_id);
-        let entity = SimpleEntity { base };
+        let body = self.entity_factory.build(species_id);
+        let entity = SimpleEntity::new(body);
         return self.add_entity(Box::new(entity));
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
         let id = entity.id();
-        self.entities.insert(id, entity);
+        self.entities.borrow_mut().insert(id, entity);
 
-        if let Some(new_entity) = self.entities.get_mut(&id) {
+        if let Some(new_entity) = self.entities.borrow_mut().get_mut(&id) {
             new_entity.set_creation_time(self.total_elapsed_time);
         }
         return id;
     }
 
     pub fn remove_entity(&mut self, id: &u32) {
-        self.entities.remove(&id);
+        self.entities.borrow_mut().remove(&id);
     }
+
+    pub fn update(
+        &mut self, 
+        time_since_last_update: f32,
+        keyboard_events: &dyn KeyboardEventsProvider
+    ) {
+        self.total_elapsed_time += time_since_last_update;
+        self.keyboard_state = keyboard_events.keyboard_state();
+
+        let entity_ids = self.entity_ids();
+        let mut entities = self.entities.borrow_mut();
+
+        let mut state_updates: Vec<GameStateUpdate> = vec![];
+
+        for id in &entity_ids {
+            if let Some(entity) = entities.get_mut(id) {
+                let mut updates = entity.update(self, time_since_last_update);
+                state_updates.append(&mut updates);
+            }
+        }
+        /* 
+        for id in &game.entity_ids() {
+            for behavior in &self.entity_behaviors {
+                behavior.update(id, game, time_since_last_update);
+            }        
+        }
+        for behavior in &self.game_behaviors {
+            behavior.update(game, time_since_last_update);
+        }*/
+    } 
 
     /* 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
@@ -73,23 +103,25 @@ impl Game {
         } else {
             return None;
         }
-    }*/
+    }
 
     pub fn selected_entity_mut(&mut self) -> Option<&mut Box<dyn Entity>> {
+        let mut entities = self.entities.borrow_mut();
+
         if let Some(id) = self.selected_entity_id {
-            if let Some(entity_mut) = self.entities.get_mut(&id) {
+            if let Some(entity_mut) = entities.get_mut(&id) {
                 return Some(entity_mut);
             }
         }
         return None;
     }
-/* 
+
     pub fn hero(&self) -> Option<&Entity> {
         return self.entities.get(&HERO_ENTITY_ID);
     }
 */
     pub fn hero_frame(&mut self) -> Rectangle {
-        if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
+        if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
             return entity.frame();
         }
         return Rectangle::new(0.0, 0.0, 0.0, 0.0);
@@ -136,11 +168,13 @@ mod tests {
         }
         
         pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
-            return self.entities.get(id).unwrap().frame();
+            return self.entities.borrow().get(id).unwrap().frame();
         }
         
-        pub fn animation_name_of_entity(&self, id: &u32) -> &str {
-            return self.entities.get(id).unwrap().current_animation();
+        pub fn animation_name_of_entity(&self, id: &u32) -> String {
+            let entities = self.entities.borrow();
+            let entity = entities.get(id).unwrap();
+            return entity.current_animation().to_string();
         }
     }
 }

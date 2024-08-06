@@ -1,8 +1,8 @@
-use crate::{game_engine::entity::BaseEntity, impl_entity};
+use crate::{game_engine::entity_body::EntityBody, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct Hero {
-    pub base: BaseEntity
+    pub body: EntityBody
 }
 
-impl_entity!(Hero);
+impl_embodied_entity!(Hero);

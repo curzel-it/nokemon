@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::entity::{BaseEntity, Entity};
+use super::{entity_body::EntityBody, entity::Entity};
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -42,7 +42,7 @@ impl EntityFactory {
         }
     }
 
-    pub fn build(&self, species_id: &str) -> BaseEntity {
+    pub fn build(&self, species_id: &str) -> EntityBody {
         let species = self.species_repo.species(&species_id.to_owned());
         let sprites = self.sprites_repo.sprites(&species_id.to_owned());
 
@@ -53,7 +53,7 @@ impl EntityFactory {
             SCALE * species.height,
         );
 
-        let mut entity = BaseEntity {
+        let mut entity = EntityBody {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
             frame: frame,

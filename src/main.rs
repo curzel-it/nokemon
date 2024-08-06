@@ -1,6 +1,6 @@
 mod constants;
-// mod entity_behaviors;
-// mod features;
+mod entity_behaviors;
+mod features;
 // mod game_behaviors;
 mod game_engine;
 mod hero;
