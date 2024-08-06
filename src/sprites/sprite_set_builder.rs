@@ -18,7 +18,7 @@ impl SpriteFrame {
             path: path.to_owned(),
             species: species.to_owned(),
             animation: animation.to_owned(),
-            index: index
+            index
         }
     }
 }

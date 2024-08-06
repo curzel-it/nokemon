@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! impl_embodied_entity {
     ($struct_name:ident) => {
-        impl crate::game_engine::entity_body::EmbodiedEntity for $struct_name {
+        impl $crate::game_engine::entity_body::EmbodiedEntity for $struct_name {
             fn id(&self) -> u32 {
                 self.body.id
             }
@@ -10,7 +10,7 @@ macro_rules! impl_embodied_entity {
                 self.body.parent_id
             }
             
-            fn species(&self) -> &crate::species::species_model::Species {
+            fn species(&self) -> &$crate::species::species_model::Species {
                 &self.body.species
             }
             

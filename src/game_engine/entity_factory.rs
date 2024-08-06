@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{self, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::{entity::Entity, entity_body::EntityBody, simple_entity::SimpleEntity};
 
@@ -17,7 +17,7 @@ fn get_next_entity_id() -> u32 {
         NEXT_ENTITY_INDEX.as_ref().expect("Counter is not initialized")
     };
     counter.fetch_add(1, Ordering::SeqCst);
-    return counter.load(Ordering::SeqCst);
+    counter.load(Ordering::SeqCst)
 }
 
 #[derive(Debug)]
@@ -49,7 +49,7 @@ impl EntityFactory {
     pub fn build_simple_with_id(&self, species_id: &str, id: u32) -> Box<dyn Entity> {
         let mut body = self.build(species_id);
         body.id = id;
-        return Box::new(SimpleEntity::new(body));
+        Box::new(SimpleEntity::new(body))
     }
 
     pub fn build(&self, species_id: &str) -> EntityBody {
@@ -66,7 +66,7 @@ impl EntityFactory {
         let mut entity = EntityBody {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
-            frame: frame,
+            frame,
             direction: Vector2::new(0.0, 0.0),
             speed: 0.0,
             hp: species.hp,
@@ -75,13 +75,13 @@ impl EntityFactory {
             current_sprite: Sprite::empty(),
             sprite_invalidated: true,
             time_to_next_shot: species.time_between_shots,
-            species: species,
+            species,
             creation_time: 0.0
         };
         entity.reset_speed();
         entity.set_animation(ANIMATION_NAME_FRONT);
 
-        return entity;
+        entity
     }
 }
 
@@ -93,10 +93,10 @@ mod tests {
 
     impl EntityFactory {
         pub fn test() -> EntityFactory { 
-            return EntityFactory::new(
+            EntityFactory::new(
                 list_files(SPECIES_PATH, "json"), 
                 list_files(ASSETS_PATH, "png")
-            );
+            )
         }
     }
 }

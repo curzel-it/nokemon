@@ -22,14 +22,14 @@ pub fn linear_movement(entity: &mut dyn Entity, game: &Game, time_since_last_upd
         }
     }
     entity.place_at(expected_x, expected_y);
-    return vec![];
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, simple_entity::SimpleEntity}};
     
     #[test]
     fn can_move_on_update() {

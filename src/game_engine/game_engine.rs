@@ -34,7 +34,7 @@ impl GameEngine {
         );
         game.setup();
 
-        return (game, rl, thread);
+        (game, rl, thread)
     }
 
     pub fn update(
@@ -48,7 +48,7 @@ impl GameEngine {
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
         for asset in all_assets {
-            let texture = rl.load_texture(&thread, asset).unwrap();
+            let texture = rl.load_texture(thread, asset).unwrap();
             self.textures.insert(asset.clone(), texture);
         }
     }
@@ -73,7 +73,7 @@ mod tests {
             );
             game.setup();
             
-            return game;
+            game
         }
     }
 

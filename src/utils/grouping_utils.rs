@@ -9,8 +9,8 @@ where
 {
     let mut grouped: HashMap<K, Vec<T>> = HashMap::new();
     for item in items {
-        let key = keyer(&item);
-        grouped.entry(key).or_insert_with(Vec::new).push(item.clone());
+        let key = keyer(item);
+        grouped.entry(key).or_default().push(item.clone());
     }
     grouped
 }
@@ -23,7 +23,7 @@ where
 {
     let mut lookup: HashMap<K, T> = HashMap::new();
     for item in items {
-        let key = keyer(&item);
+        let key = keyer(item);
         lookup.insert(key, item.clone());
     }
     lookup

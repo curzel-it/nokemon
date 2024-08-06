@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}, mem::forget};
+use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
@@ -55,7 +55,7 @@ impl Game {
         let full_second = self.total_elapsed_time.floor();
         let i_full_second = full_second as u32;
         let diff = self.total_elapsed_time - full_second;
-        return diff < FRAME_TIME && (i_full_second % seconds) == 0;
+        diff < FRAME_TIME && (i_full_second % seconds) == 0
     }
     
     pub fn entity_ids(&self) -> Vec<u32> {
@@ -65,7 +65,7 @@ impl Game {
     pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
         let body = self.entity_factory.build(species_id);
         let entity = SimpleEntity::new(body);
-        return self.add_entity(Box::new(entity));
+        self.add_entity(Box::new(entity))
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
@@ -75,11 +75,11 @@ impl Game {
         if let Some(new_entity) = self.entities.borrow_mut().get_mut(&id) {
             new_entity.set_creation_time(self.total_elapsed_time);
         }
-        return id;
+        id
     }
 
     pub fn remove_entity(&mut self, id: &u32) {
-        self.entities.borrow_mut().remove(&id);
+        self.entities.borrow_mut().remove(id);
     }
 
     pub fn update_rl(
@@ -157,12 +157,12 @@ impl Game {
         if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
             return entity.frame();
         }
-        return Rectangle::new(0.0, 0.0, 0.0, 0.0);
+        Rectangle::new(0.0, 0.0, 0.0, 0.0)
     }
 
     pub fn hero_position(&mut self) -> Vector2 {
         let frame = self.hero_frame();
-        return Vector2::new(frame.x, frame.y);
+        Vector2::new(frame.x, frame.y)
     }
 
     /* 
@@ -194,21 +194,21 @@ mod tests {
 
     impl Game {
         pub fn test() -> Game {
-            return Game::new(
+            Game::new(
                 EntityFactory::test(), 
                 RECT_ORIGIN_FULL_HD
-            );
+            )
         }
         
         pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
             let entities = self.entities.borrow();
             let entity = entities.get(id).unwrap();
-            return entity.frame();
+            entity.frame()
         }
         
         pub fn update(&mut self, time_since_last_update: f32) {
             let nokb = NoKeyboard {};
-            return self.update_rl(time_since_last_update, &nokb);
+            self.update_rl(time_since_last_update, &nokb)
         }
         
         pub fn animation_name_of_entity(&self, id: &u32) -> String {

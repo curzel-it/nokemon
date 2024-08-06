@@ -6,7 +6,7 @@ pub fn autoremove(entity: &dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
     if should_remove(game, entity) {
         return vec![GameStateUpdate::RemoveEntity(entity.id())];
     }
-    return vec![];
+    vec![]
 }
 
 fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
@@ -21,7 +21,7 @@ fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
     if is_outside_of_enlarged_bounds(&game.bounds, &entity.frame()) {
         return true;
     }
-    return false;
+    false
 }
 
 fn is_outside_of_enlarged_bounds(bounds: &Rectangle, rect: &Rectangle) -> bool {
@@ -30,7 +30,7 @@ fn is_outside_of_enlarged_bounds(bounds: &Rectangle, rect: &Rectangle) -> bool {
     if rect.y < bounds.y - rect.height - margin { return true; }
     if rect.x > bounds.x + bounds.width + margin { return true; }
     if rect.y > bounds.y + bounds.height + margin { return true; }
-    return false
+    false
 }
 
 #[cfg(test)]

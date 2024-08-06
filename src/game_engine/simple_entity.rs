@@ -23,6 +23,6 @@ impl Entity for SimpleEntity {
 
         game_updates.append(&mut linear_movement(self, game, time_since_last_update));
         game_updates.append(&mut autoremove(self, game));
-        return game_updates;
+        game_updates
     }
 }

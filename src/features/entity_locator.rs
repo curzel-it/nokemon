@@ -16,7 +16,7 @@ impl EntityLocator {
                 return Some(entity.id());
             }
         }
-        return None;
+        None
     }
 }
 

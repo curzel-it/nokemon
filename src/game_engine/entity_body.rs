@@ -70,7 +70,7 @@ impl EntityBody {
             
     pub fn set_animation(&mut self, animation_name: &str) -> u32 {
         if self.current_sprite.animation_name != animation_name {
-            self.current_sprite = self.sprite_set.sprite(&animation_name);
+            self.current_sprite = self.sprite_set.sprite(animation_name);
         }
         ((self.current_sprite.number_of_frames() as f32) / ANIMATIONS_FPS) as u32
     }

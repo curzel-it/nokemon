@@ -1,4 +1,3 @@
-use std::cmp::Ordering;
 
 use raylib::prelude::*;
 
@@ -29,7 +28,7 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     sorted_entities.sort();
 
     for item in sorted_entities {
-        draw_item(d, item, &engine);
+        draw_item(d, item, engine);
     }
 }
 

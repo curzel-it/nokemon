@@ -27,7 +27,7 @@ impl SpeciesRepository {
 
     pub fn species(&self, species_id: &String) -> Species {
         let species = self.species_by_id.get(species_id);
-        return match species {
+        match species {
             Some(species) => species.clone(),
             None => Species::default()
         }
