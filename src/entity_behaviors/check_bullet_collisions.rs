@@ -11,7 +11,7 @@ impl CheckBulletCollisons {
 
 impl EntityBehavior for CheckBulletCollisons {
     fn update(&self, entity_id: &u32, game: &mut Game, _: f32) {
-        if let Some((bullet_id, damage)) = self.check_hit(entity_id, game) {
+        for (bullet_id, damage) in self.check_hits(entity_id, game) {
             self.decrease_hp(entity_id, game, damage);
             self.decrease_hp(&bullet_id, game, damage);
         }
@@ -24,26 +24,25 @@ impl CheckBulletCollisons {
         entity.hp -= damage;
     }
 
-    fn check_hit(&self, entity_id: &u32, game: &Game) -> Option<(u32, f32)> {
+    fn check_hits(&self, entity_id: &u32, game: &Game) -> Vec<(u32, f32)> {
         let entity = game.entities.get(entity_id).unwrap();
         if entity.species.is_bullet { 
-            return None; 
+            return vec![]; 
         }        
 
-        for bullet_id in &game.bullets {
-            let bullet = game.entities.get(bullet_id).unwrap();
+        let mut collisions: Vec<(u32, f32)> = vec![];
 
-            if bullet.parent_id == entity.id {
-                return None;
-            }
-            if bullet.species.is_enemy == entity.species.is_enemy {
-                return None;
-            }
+        for bullet_id in &game.entity_ids() {
+            let bullet = game.entities.get(bullet_id).unwrap();
+            if !bullet.species.is_bullet { continue; }
+            if bullet.parent_id == entity.id { continue; }
+            if bullet.species.is_enemy == entity.species.is_enemy { continue; }
+
             if bullet.frame.check_collision_recs(&entity.frame) {
-                return Some((bullet_id.clone(), bullet.dp));
+                collisions.push((bullet_id.clone(), bullet.dp));
             }
         }
-        return None;
+        return collisions;
     }
 }
 

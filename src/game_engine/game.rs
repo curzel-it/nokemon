@@ -12,7 +12,6 @@ pub struct Game {
     pub bounds: Rectangle,
     pub entities: HashMap<u32, Entity>,
     pub selected_entity_id: Option<u32>,
-    pub bullets: HashSet<u32>,
     pub keyboard_state: KeyboardState
 }
 
@@ -24,7 +23,6 @@ impl Game {
             bounds,
             entities: HashMap::new(),
             selected_entity_id: None,
-            bullets: HashSet::new(),
             keyboard_state: KeyboardState::default()
         }
     }
@@ -47,13 +45,8 @@ impl Game {
 
     pub fn add_entity(&mut self, entity: Entity) -> u32 {
         let id = entity.id;
-        let is_bullet = entity.species.is_bullet;
-
         self.entities.insert(id, entity);
 
-        if is_bullet {
-            self.bullets.insert(id);
-        }
         if let Some(new_entity) = self.entities.get_mut(&id) {
             new_entity.creation_time = self.total_elapsed_time;
         }
@@ -62,9 +55,9 @@ impl Game {
 
     pub fn remove_entity(&mut self, id: &u32) {
         self.entities.remove(&id);
-        self.bullets.remove(&id);
     }
 
+    /* 
     pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
         let entity = self.entities.get_mut(&id);
         if let Some(entity) = entity {
@@ -73,7 +66,6 @@ impl Game {
         }
     }
 
-    /* 
     pub fn selected_entity(&self) -> Option<&Entity> {
         if let Some(id) = self.selected_entity_id {
             return Some(&self.entities[&id]);
@@ -90,11 +82,11 @@ impl Game {
         }
         return None;
     }
-
+/* 
     pub fn hero(&self) -> Option<&Entity> {
         return self.entities.get(&HERO_ENTITY_ID);
     }
-
+*/
     pub fn hero_frame(&mut self) -> Rectangle {
         if let Some(entity) = self.entities.get(&HERO_ENTITY_ID) {
             return entity.frame;
