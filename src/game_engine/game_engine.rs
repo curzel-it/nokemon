@@ -2,13 +2,13 @@ use std::collections::HashMap;
 
 use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, entity_behaviors::{check_bullet_collisions::CheckBulletCollisons, cleanup_entities::CleanupEntities, hero_seeker::HeroSeeker, linear_movement::LinearMovement, move_hero_attachments::MoveHeroAttachments, shooter::Shooter, update_sprites::UpdateSprites}, features::entity_locator::EntityLocator, game_behaviors::{creep_spawner::CreepSpawner, game_defaults::GameDefaults, hero_base_attack::HeroBaseAttack, hero_timed_attack::HeroTimedAttack, selected_entity_movement::SelectedEntityMovement}, utils::file_utils::list_files};
 
-use super::{behaviors::{EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
+use super::{behaviors::{self, EntityBehavior, GameBehavior}, entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
     entity_locator: EntityLocator,
     entity_behaviors: Vec<Box<dyn EntityBehavior>>,
-    game_defaults: Box<dyn GameBehavior>,
+    game_defaults: Vec<Box<dyn GameBehavior>>,
     game_behaviors: Vec<Box<dyn GameBehavior>>,
     pub textures: HashMap<String, Texture2D>
 }
@@ -26,7 +26,9 @@ impl GameEngine {
                 Box::new(CheckBulletCollisons::new()),
                 Box::new(CleanupEntities::new()),
             ],
-            game_defaults: Box::new(GameDefaults::new()),
+            game_defaults: vec![
+                Box::new(GameDefaults::new())
+            ],
             game_behaviors: vec![
                 Box::new(HeroTimedAttack::new()),
                 Box::new(SelectedEntityMovement::new()),
@@ -52,7 +54,10 @@ impl GameEngine {
             EntityFactory::new(all_species, all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
-        self.game_defaults.update(&mut game, 0.0);
+
+        for behavior in &self.game_defaults {
+            behavior.update(&mut game, 0.0);
+        }
 
         return (game, rl, thread);
     }
@@ -101,7 +106,10 @@ mod tests {
                 EntityFactory::new(all_species, all_assets),
                 Rectangle::new(0.0, 0.0, width as f32, height as f32)
             );
-            self.game_defaults.update(&mut game, 0.0);
+
+            for behavior in &self.game_defaults {
+                behavior.update(&mut game, 0.0);
+            }
 
             return game;
         }

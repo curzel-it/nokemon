@@ -3,7 +3,7 @@ use std::string::String;
 
 pub const INFINITE_LIFESPAN: f32 = -420.0;
 
-#[derive(Debug, Clone, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Deserialize, PartialEq, Eq, Hash)]
 pub enum SpeciesCapability {
     AnimatedSprite,
     LinearMovement,
@@ -101,8 +101,4 @@ fn df_zero() -> f32 {
 
 fn df_false() -> bool {
     false
-}
-
-fn df_true() -> bool {
-    true
 }
