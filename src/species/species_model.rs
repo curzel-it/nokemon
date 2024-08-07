@@ -28,6 +28,9 @@ pub struct Species {
     #[serde(default="df_false")]
     pub is_enemy: bool,
 
+    #[serde(default="df_false")]
+    pub is_bullet: bool,
+
     #[serde(default="df_one")]
     pub time_between_shots: f32,
 

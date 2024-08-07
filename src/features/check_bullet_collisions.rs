@@ -1,49 +1,45 @@
-use crate::game_engine::{game::Game, behaviors::EntityBehavior};
+use crate::game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate};
 
-#[derive(Debug)]
-pub struct CheckBulletCollisons;
-
-impl CheckBulletCollisons {
-    pub fn new() -> Self {
-        Self {}
+pub fn check_collisions_with_bullets(entity: &mut dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
+    for (bullet_id, damage) in check_hits(entity, game) {
+        return vec![
+            GameStateUpdate::IncreaseHp(entity.id(), -damage),
+            GameStateUpdate::IncreaseHp(bullet_id, -damage)
+        ]
     }
+    vec![]
 }
 
-impl EntityBehavior for CheckBulletCollisons {
-    fn update(&self, entity_id: &u32, game: &mut Game, _: f32) {
-        for (bullet_id, damage) in self.check_hits(entity_id, game) {
-            self.decrease_hp(entity_id, game, damage);
-            self.decrease_hp(&bullet_id, game, damage);
+fn check_hits(entity: &dyn Entity, game: &Game) -> Vec<(u32, f32)> {
+    if entity.species().is_bullet { 
+        return vec![]; 
+    }        
+
+    let mut collisions: Vec<(u32, f32)> = vec![];
+
+    // Both lines will panic because entities is already borrowed.
+    // Need to compute all collisions earlier.
+    // Importa: Do NOT waste time with non-rect collisions
+    let entity_ids = &game.entity_ids(); 
+    let entities = game.entities.borrow();
+
+    for bullet_id in entity_ids {
+        let bullet = entities.get(bullet_id).unwrap();
+
+        if !bullet.species().is_bullet { 
+            continue; 
+        }
+        if bullet.parent_id() == entity.id() { 
+            continue; 
+        }
+        if bullet.species().is_enemy == entity.species().is_enemy { 
+            continue; 
+        }
+        if bullet.frame().check_collision_recs(&entity.frame()) {
+            collisions.push((bullet_id.clone(), bullet.species().dp));
         }
     }
-}
-
-impl CheckBulletCollisons {
-    fn decrease_hp(&self, entity_id: &u32, game: &mut Game, damage: f32) {
-        let entity = game.entities.get_mut(entity_id).unwrap();
-        entity.hp -= damage;
-    }
-
-    fn check_hits(&self, entity_id: &u32, game: &Game) -> Vec<(u32, f32)> {
-        let entity = game.entities.get(entity_id).unwrap();
-        if entity.species.is_bullet { 
-            return vec![]; 
-        }        
-
-        let mut collisions: Vec<(u32, f32)> = vec![];
-
-        for bullet_id in &game.entity_ids() {
-            let bullet = game.entities.get(bullet_id).unwrap();
-            if !bullet.species.is_bullet { continue; }
-            if bullet.parent_id == entity.id { continue; }
-            if bullet.species.is_enemy == entity.species.is_enemy { continue; }
-
-            if bullet.frame.check_collision_recs(&entity.frame) {
-                collisions.push((bullet_id.clone(), bullet.dp));
-            }
-        }
-        return collisions;
-    }
+    return collisions;
 }
 
 #[cfg(test)]
