@@ -13,6 +13,8 @@ pub struct Game {
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
+    pub cached_hero_frame: Rectangle,
+    pub cached_hero_position: Vector2
 }
 
         // self.game_defaults.update(&mut game, 0.0);
@@ -34,7 +36,9 @@ impl Game {
             bounds,
             entities: RefCell::new(HashMap::new()),
             selected_entity_id: None,
-            keyboard_state: KeyboardState::default()
+            keyboard_state: KeyboardState::default(),
+            cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
+            cached_hero_position: Vector2::zero()
         }
     }
     
@@ -97,6 +101,7 @@ impl Game {
         }
 
         drop(entities);
+        self.store_updated_hero_state();
         self.apply_state_updates(state_updates);
     } 
 
@@ -146,16 +151,11 @@ impl Game {
         return self.entities.get(&HERO_ENTITY_ID);
     }
 */
-    pub fn hero_frame(&mut self) -> Rectangle {
+    fn store_updated_hero_state(&mut self) {
         if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
-            return entity.frame();
+            self.cached_hero_frame = entity.frame();
+            self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
         }
-        Rectangle::new(0.0, 0.0, 0.0, 0.0)
-    }
-
-    pub fn hero_position(&mut self) -> Vector2 {
-        let frame = self.hero_frame();
-        Vector2::new(frame.x, frame.y)
     }
 
     /* 

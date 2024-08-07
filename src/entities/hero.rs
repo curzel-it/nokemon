@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement_within_game_bounds::move_linearly_within_bounds, shooter::Shooter}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{constants::HERO_ENTITY_ID, features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement_within_game_bounds::move_linearly_within_bounds, shooter::Shooter}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -35,7 +35,10 @@ impl Entity for Hero {
 
 impl EntityFactory {
     pub fn build_hero(&self) -> Hero {
-        let mut hero = Hero::new(self.build("red"));
+        let mut body = self.build("red");
+        body.id = HERO_ENTITY_ID;
+        
+        let mut hero = Hero::new(body);
         hero.set_direction(Vector2::new(1.0, 0.0));    
         hero
     }
