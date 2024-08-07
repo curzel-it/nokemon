@@ -39,13 +39,9 @@ impl Game {
     }
     
     pub fn setup(&mut self) {
-        self.add_tower();
-        
-        let mut hero = self.entity_factory.build_simple_with_id("red", HERO_ENTITY_ID);
-        hero.set_direction(Vector2::new(1.0, 0.0));  
-        hero.center_in(&self.bounds);
-        self.add_entity(hero);
-
+        // self.add_tower();
+        self.add_creep_spawn_point();
+        self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
     }
 

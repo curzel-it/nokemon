@@ -1,0 +1,11 @@
+{
+    "animations": [],
+    "width": 50,
+    "height": 50,
+    "id": "creepspawnpoint",
+    "speed": 0,
+    "z_index": 3,
+    "hp": 100000,
+    "dp": 10
+  }
+  

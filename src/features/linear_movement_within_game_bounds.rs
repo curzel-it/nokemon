@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::game_engine::{entity::Entity};
+use crate::game_engine::entity::Entity;
 
 pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectangle, time_since_last_update: f32) {
     let frame = entity.frame();
