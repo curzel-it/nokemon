@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_NE, DIRECTION_NAME_NW, DIRECTION_NAME_S, DIRECTION_NAME_SE, DIRECTION_NAME_SW, DIRECTION_NAME_W}, game_engine::{entity::Entity, game::Game}};
+use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_NE, DIRECTION_NAME_NW, DIRECTION_NAME_S, DIRECTION_NAME_SE, DIRECTION_NAME_SW, DIRECTION_NAME_W}, game_engine::{entity::Entity}};
 
 pub trait AnimatedEntity: Entity {
     fn sprite_was_invalidated(&self) -> bool;
@@ -42,7 +42,7 @@ fn movement_sprite(speed: f32, direction: Vector2) -> Option<String> {
             return Some(format!("{ANIMATION_NAME_MOVEMENT}{direction_name}"));
         }
     }
-    return None;
+    None
 }
 
 fn direction_name(direction: Vector2) -> Option<String> {
@@ -54,7 +54,7 @@ fn direction_name(direction: Vector2) -> Option<String> {
     if direction.y > 0.0 && direction.x < 0.0 { return Some(DIRECTION_NAME_SW.to_owned()); }
     if direction.y == 0.0 && direction.x < 0.0 { return Some(DIRECTION_NAME_W.to_owned()); }
     if direction.y < 0.0 && direction.x < 0.0 { return Some(DIRECTION_NAME_NW.to_owned()); }
-    return None
+    None
 }
 
 #[cfg(test)]
@@ -73,7 +73,7 @@ mod tests {
         entity.set_direction(direction);
 
         drop(entities);
-        return (engine, game, id);
+        (engine, game, id)
     }
 
     #[test]

@@ -14,7 +14,7 @@ pub fn shoot_stuff(entity: &mut dyn Shooter, game: &Game, time_since_last_update
         let bullet = build_bullet(&game.entity_factory, entity);
         return vec![GameStateUpdate::AddEntity(bullet)];
     }
-    return vec![];
+    vec![]
 }
 
 fn build_bullet(entity_factory: &EntityFactory, parent: &dyn Shooter) -> Box<dyn Entity> {
@@ -22,5 +22,5 @@ fn build_bullet(entity_factory: &EntityFactory, parent: &dyn Shooter) -> Box<dyn
     body.parent_id = parent.id();
     body.direction = parent.direction();
     body.center_in(&parent.frame());
-    return Box::new(SimpleEntity::new(body));
+    Box::new(SimpleEntity::new(body))
 }

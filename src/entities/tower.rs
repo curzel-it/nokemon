@@ -12,10 +12,10 @@ impl Tower {
     pub fn new(body: EntityBody) -> Self {
         let time_to_next_shot = body.species.time_between_shots;
 
-        return Self { 
+        Self { 
             body,
             time_to_next_shot
-        };
+        }
     }
 }
 
@@ -24,7 +24,7 @@ impl_animated_entity!(Tower);
 
 impl Shooter for Tower {
     fn time_to_next_shot(&self) -> f32 {
-        return self.time_to_next_shot;
+        self.time_to_next_shot
     }
 
     fn inc_time_to_next_shot(&mut self, delta: f32) {
@@ -50,7 +50,7 @@ impl EntityFactory {
     pub fn build_tower(&self) -> Tower {
         let mut tower = Tower::new(self.build("tower"));
         tower.set_direction(Vector2::new(1.0, 0.0));    
-        return tower;
+        tower
     }
 }
 

@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds, shooter::{Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -12,10 +12,10 @@ impl Hero {
     pub fn new(body: EntityBody) -> Self {
         let time_to_next_shot = body.species.time_between_shots;
 
-        return Self { 
+        Self { 
             body,
             time_to_next_shot
-        };
+        }
     }
 }
 
@@ -36,7 +36,7 @@ impl EntityFactory {
     pub fn build_hero(&self) -> Hero {
         let mut hero = Hero::new(self.build("hero"));
         hero.set_direction(Vector2::new(1.0, 0.0));    
-        return hero;
+        hero
     }
 }
 

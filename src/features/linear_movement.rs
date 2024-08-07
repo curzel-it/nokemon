@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, game_state_update::GameStateUpdate};
+use crate::game_engine::{entity::Entity};
 
 pub fn move_linearly(entity: &mut dyn Entity, time_since_last_update: f32) {
     let frame = entity.frame();
