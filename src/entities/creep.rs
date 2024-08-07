@@ -30,7 +30,7 @@ impl Entity for Creep {
 
 impl EntityFactory {
     pub fn build_creep(&self) -> Creep {
-        let mut creep = Creep::new(self.build("creep"));
+        let mut creep = Creep::new(self.build("white"));
         creep.set_direction(Vector2::new(1.0, 0.0));    
         creep
     }

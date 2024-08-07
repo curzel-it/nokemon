@@ -16,7 +16,7 @@ impl CreepSpawnPoints {
         Self { 
             body,
             last_spawn_time: 0.0,
-            time_to_spawn: 4.0
+            time_to_spawn: 1.0
         }
     }
 }
