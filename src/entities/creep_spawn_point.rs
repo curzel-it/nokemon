@@ -1,8 +1,7 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds, shooter::{Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
-use super::creep::Creep;
 
 #[derive(Debug)]
 pub struct CreepSpawnPoints {
@@ -45,7 +44,7 @@ impl CreepSpawnPoints {
         let mut creep = game.entity_factory.build_creep();
         creep.center_in(&self.frame());
         creep.set_direction(Vector2::new(1.0, 0.0));
-        return Box::new(creep)
+        Box::new(creep)
     }
 }
 

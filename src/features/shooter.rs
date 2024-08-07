@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate, simple_entity::SimpleEntity};
+use crate::game_engine::{entity::Entity, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate};
 
 pub trait Shooter: Entity {
     fn time_to_next_shot(&self) -> f32;
