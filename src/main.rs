@@ -1,8 +1,7 @@
 mod constants;
-mod entity_behaviors;
+mod entities;
 mod features;
 mod game_engine;
-mod hero;
 mod species;
 mod sprites;
 mod utils;

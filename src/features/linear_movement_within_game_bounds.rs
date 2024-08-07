@@ -1,26 +1,27 @@
-use crate::game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate};
+use raylib::math::Rectangle;
 
-pub fn linear_movement(entity: &mut dyn Entity, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
+use crate::game_engine::{entity::Entity, game_state_update::GameStateUpdate};
+
+pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectangle, time_since_last_update: f32) -> Vec<GameStateUpdate> {
     let frame = entity.frame();
     let offset = entity.direction() * entity.speed() * time_since_last_update;
 
     let mut expected_x = frame.x + offset.x;
     let mut expected_y = frame.y + offset.y;
     
-    if entity.species().stays_inside_screen_bounds() {
-        if expected_x < game.bounds.x {
-            expected_x = game.bounds.x;
-        }
-        if (expected_x + frame.width) > (game.bounds.x + game.bounds.width) {
-            expected_x = game.bounds.x + game.bounds.width - frame.width;
-        }
-        if expected_y < game.bounds.y {
-            expected_y = game.bounds.y;
-        }
-        if (expected_y + frame.height) > (game.bounds.y + game.bounds.height) {
-            expected_y = game.bounds.y + game.bounds.height - frame.height;
-        }
+    if expected_x < game_bounds.x {
+        expected_x = game_bounds.x;
     }
+    if (expected_x + frame.width) > (game_bounds.x + game_bounds.width) {
+        expected_x = game_bounds.x + game_bounds.width - frame.width;
+    }
+    if expected_y < game_bounds.y {
+        expected_y = game_bounds.y;
+    }
+    if (expected_y + frame.height) > (game_bounds.y + game_bounds.height) {
+        expected_y = game_bounds.y + game_bounds.height - frame.height;
+    }
+
     entity.place_at(expected_x, expected_y);
     vec![]
 }

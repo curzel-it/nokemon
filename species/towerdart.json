@@ -6,11 +6,6 @@
     "speed": 5,
     "z_index": 2,
     "is_enemy": true,
-    "capabilities": [
-        "AnimatedSprite",
-        "LinearMovement",
-        "Bullet"
-    ],
     "hp": 50,
     "dp": 60
   }

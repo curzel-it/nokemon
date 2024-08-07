@@ -5,12 +5,6 @@
     "id": "tower",
     "speed": 0,
     "is_enemy": false,
-    "capabilities": [
-        "AnimatedSprite",
-        "LinearMovement",
-        "StaysInsideScreenBounds",
-        "Shooter"
-    ],
     "time_between_shots": 2
   }
   

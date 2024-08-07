@@ -39,9 +39,7 @@ impl Game {
     }
     
     pub fn setup(&mut self) {
-        let mut tower = self.entity_factory.build_simple("tower");
-        tower.set_direction(Vector2::new(1.0, 0.0));    
-        self.add_entity(tower);    
+        self.add_tower();
         
         let mut hero = self.entity_factory.build_simple_with_id("red", HERO_ENTITY_ID);
         hero.set_direction(Vector2::new(1.0, 0.0));  
@@ -115,11 +113,7 @@ impl Game {
     fn apply_state_update(&mut self, update: GameStateUpdate) {
         match update {
             GameStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            GameStateUpdate::RemoveEntity(id) => { 
-                println!("Number of entities: {}; will remove: {}", self.entities.borrow().len(), id);
-                self.remove_entity(&id);
-                println!("Number of entities: {}", self.entities.borrow().len());
-            },
+            GameStateUpdate::RemoveEntity(id) => { self.remove_entity(&id); },
             GameStateUpdate::SelectEntity(id) => { self.selected_entity_id = Some(id) },
         };
     }

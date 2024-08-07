@@ -4,12 +4,6 @@
     "height": 17,
     "id": "white",
     "speed": 2.5,
-    "capabilities": [
-        "AnimatedSprite",
-        "LinearMovement",
-        "StaysInsideScreenBounds",
-        "HeroSeeker"
-    ],
     "is_enemy": true
   }
   
