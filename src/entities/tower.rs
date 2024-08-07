@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate, simple_entity::SimpleEntity}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct Tower {
@@ -10,11 +10,9 @@ pub struct Tower {
 
 impl Tower {
     pub fn new(body: EntityBody) -> Self {
-        let time_to_next_shot = body.species.time_between_shots;
-
         Self { 
             body,
-            time_to_next_shot
+            time_to_next_shot: 3.0
         }
     }
 }
@@ -26,13 +24,21 @@ impl Shooter for Tower {
     fn time_to_next_shot(&self) -> f32 {
         self.time_to_next_shot
     }
-
+    
     fn inc_time_to_next_shot(&mut self, delta: f32) {
         self.time_to_next_shot += delta;
     }
-
+    
     fn reset_time_to_next_shot(&mut self) {
         self.time_to_next_shot = self.species().time_between_shots;
+    }
+    
+    fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
+        let mut body = entity_factory.build("towerdart");
+        body.parent_id = self.id();
+        body.direction = self.direction();
+        body.center_in(&self.frame());
+        Box::new(SimpleEntity::new(body))
     }
 }
 

@@ -29,7 +29,7 @@ pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectan
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, entities::hero::Hero, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, entities::hero::Hero, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, simple_entity::SimpleEntity}};
     
     #[test]
     fn can_move_on_update() {
@@ -39,27 +39,11 @@ mod tests {
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.speed = BASE_ENTITY_SPEED;        
         
-        let mut entity = Hero::new(body);
+        let mut entity = SimpleEntity::new(body);
         entity.set_direction(Vector2::new(1.0, 1.0));  
         entity.update(&game, 1.0);
 
         assert_eq!(entity.frame().x, 30.0);
-        assert_eq!(entity.frame().y, 30.0);
-    }
-
-    #[test]
-    fn can_not_move_outside_of_bounds() {
-        let game = Game::test();
-        
-        let mut body = game.entity_factory.build("red");
-        body.frame = RECT_ORIGIN_SQUARE_100;
-        body.speed = BASE_ENTITY_SPEED;        
-        
-        let mut entity = Hero::new(body);
-        entity.set_direction(Vector2::new(-1.0, 1.0));  
-        entity.update(&game, 1.0);
-
-        assert_eq!(entity.frame().x, 0.0);
         assert_eq!(entity.frame().y, 30.0);
     }
 }

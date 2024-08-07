@@ -4,6 +4,7 @@ pub trait Shooter: Entity {
     fn time_to_next_shot(&self) -> f32;
     fn inc_time_to_next_shot(&mut self, delta: f32);
     fn reset_time_to_next_shot(&mut self);
+    fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity>;
 }
 
 pub fn shoot_stuff(entity: &mut dyn Shooter, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
@@ -11,16 +12,8 @@ pub fn shoot_stuff(entity: &mut dyn Shooter, game: &Game, time_since_last_update
     
     if entity.time_to_next_shot() <= 0.0 {
         entity.reset_time_to_next_shot();
-        let bullet = build_bullet(&game.entity_factory, entity);
+        let bullet = entity.create_bullet(&game.entity_factory);
         return vec![GameStateUpdate::AddEntity(bullet)];
     }
     vec![]
-}
-
-fn build_bullet(entity_factory: &EntityFactory, parent: &dyn Shooter) -> Box<dyn Entity> {
-    let mut body = entity_factory.build("towerdart");
-    body.parent_id = parent.id();
-    body.direction = parent.direction();
-    body.center_in(&parent.frame());
-    Box::new(SimpleEntity::new(body))
 }
