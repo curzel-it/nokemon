@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
 
-use super::{entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
+use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
 
 pub struct Game {
     pub total_elapsed_time: f32,
@@ -14,7 +14,8 @@ pub struct Game {
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_frame: Rectangle,
-    pub cached_hero_position: Vector2
+    pub cached_hero_position: Vector2,
+    pub collisions: HashMap<u32, Vec<u32>>
 }
 
         // self.game_defaults.update(&mut game, 0.0);
@@ -38,7 +39,8 @@ impl Game {
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
             cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
-            cached_hero_position: Vector2::zero()
+            cached_hero_position: Vector2::zero(),
+            collisions: HashMap::new()
         }
     }
     
@@ -88,6 +90,8 @@ impl Game {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_events.keyboard_state();
 
+        self.collisions = compute_collisions(self);
+
         let entity_ids = self.entity_ids();
         let mut entities = self.entities.borrow_mut();
 
@@ -113,9 +117,20 @@ impl Game {
 
     fn apply_state_update(&mut self, update: GameStateUpdate) {
         match update {
-            GameStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            GameStateUpdate::RemoveEntity(id) => { self.remove_entity(&id); },
-            GameStateUpdate::SelectEntity(id) => { self.selected_entity_id = Some(id) },
+            GameStateUpdate::AddEntity(entity) => { 
+                self.add_entity(entity); 
+            },
+            GameStateUpdate::RemoveEntity(id) => { 
+                self.remove_entity(&id); 
+            },
+            GameStateUpdate::SelectEntity(id) => { 
+                self.selected_entity_id = Some(id) 
+            },
+            GameStateUpdate::IncreaseHp(id, value) => { 
+                if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
+                    entity.inc_hp(value);
+                }
+            }
         };
     }
 

@@ -22,6 +22,8 @@ pub trait EmbodiedEntity: Debug {
     fn set_speed(&mut self, speed: f32);
     fn reset_speed(&mut self);
     
+    fn dp(&self) -> f32;
+    
     fn hp(&self) -> f32;
     fn inc_hp(&mut self, value: f32);
         
@@ -31,6 +33,8 @@ pub trait EmbodiedEntity: Debug {
 
     fn creation_time(&self) -> f32;
     fn set_creation_time(&mut self, value: f32);
+
+    fn requires_collision_detection(&self) -> bool;
 }
 
 #[derive(Debug)]
@@ -48,6 +52,7 @@ pub struct EntityBody {
     pub time_to_next_shot: f32,
     pub species: Species,
     pub creation_time: f32,
+    pub requires_collision_detection: bool
 }
 
 impl EntityBody {            

@@ -54,6 +54,10 @@ macro_rules! impl_embodied_entity {
             fn reset_speed(&mut self) {
                 self.body.reset_speed();
             }
+
+            fn dp(&self) -> f32 {
+                self.body.dp
+            }
             
             fn hp(&self) -> f32 {
                 self.body.hp
@@ -81,6 +85,10 @@ macro_rules! impl_embodied_entity {
 
             fn set_creation_time(&mut self, value: f32) {
                 self.body.creation_time = value;
+            }
+
+            fn requires_collision_detection(&self) -> bool {
+                self.body.requires_collision_detection
             }
         }
     };

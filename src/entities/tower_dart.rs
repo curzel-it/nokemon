@@ -1,17 +1,17 @@
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
-pub struct SurroundingAreaAttack {
+pub struct TowerDart {
     body: EntityBody
 }
 
-impl SurroundingAreaAttack {
+impl TowerDart {
     pub fn new(parent: &dyn Entity, entity_factory: &EntityFactory) -> Self {
-        let mut body = entity_factory.build("baseattack");
+        let mut body = entity_factory.build("towerdart");
         body.requires_collision_detection = true;
         body.parent_id = parent.id();
-        body.speed = 0.0;
+        body.direction = parent.direction();
         body.center_in(&parent.frame());
         
         Self {
@@ -20,13 +20,13 @@ impl SurroundingAreaAttack {
     }
 }
 
-impl_embodied_entity!(SurroundingAreaAttack);
-impl_animated_entity!(SurroundingAreaAttack);
+impl_embodied_entity!(TowerDart);
+impl_animated_entity!(TowerDart);
 
-impl Entity for SurroundingAreaAttack {
+impl Entity for TowerDart {
     fn update(&mut self, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
         let mut game_updates: Vec<GameStateUpdate> = vec![];
-        self.center_in(&game.cached_hero_frame);
+        move_linearly(self, time_since_last_update);
         update_sprite(self, time_since_last_update);
         game_updates.append(&mut handle_collisions_for_bullet(self, game));
         game_updates.append(&mut remove_automatically(self, game));

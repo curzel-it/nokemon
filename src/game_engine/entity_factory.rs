@@ -76,7 +76,8 @@ impl EntityFactory {
             sprite_invalidated: true,
             time_to_next_shot: species.time_between_shots,
             species,
-            creation_time: 0.0
+            creation_time: 0.0,
+            requires_collision_detection: false
         };
         entity.reset_speed();
         entity.set_animation(ANIMATION_NAME_FRONT);

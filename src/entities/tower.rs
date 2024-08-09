@@ -2,6 +2,8 @@ use raylib::math::Vector2;
 
 use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate, simple_entity::SimpleEntity}, impl_animated_entity, impl_embodied_entity};
 
+use super::tower_dart::TowerDart;
+
 #[derive(Debug)]
 pub struct Tower {
     body: EntityBody,
@@ -34,11 +36,7 @@ impl Shooter for Tower {
     }
     
     fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
-        let mut body = entity_factory.build("towerdart");
-        body.parent_id = self.id();
-        body.direction = self.direction();
-        body.center_in(&self.frame());
-        Box::new(SimpleEntity::new(body))
+        Box::new(TowerDart::new(self, entity_factory))
     }
 }
 
