@@ -15,7 +15,7 @@ fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
     if lifespan != INFINITE_LIFESPAN && age > lifespan {
         return true;
     }
-    if entity.body().current_hp <= 0.0 {
+    if entity.body().hp <= 0.0 {
         return true;
     }       
     if !game.outer_bounds.check_collision_recs(&entity.body().frame) {
@@ -53,7 +53,7 @@ mod tests {
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 100.0;   
         body.direction = Vector2::zero();
-        body.current_hp = 0.0;
+        body.hp = 0.0;
         game.add_entity(Box::new(SimpleEntity::new(body)));
 
         assert_eq!(game.entities.borrow().len(), 1);

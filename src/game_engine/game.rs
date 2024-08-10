@@ -132,7 +132,7 @@ impl Game {
             },
             GameStateUpdate::IncreaseHp(id, value) => { 
                 if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
-                    entity.body_mut().current_hp += value;
+                    entity.body_mut().hp += value;
                 }
             }
         };

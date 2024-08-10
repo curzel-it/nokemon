@@ -10,7 +10,10 @@ impl TowerDart {
     pub fn new(parent: &dyn Entity, entity_factory: &EntityFactory) -> Self {
         let mut body = entity_factory.build("towerdart");
         body.resize(10.0, 10.0);
+        body.is_bullet = true;
         body.requires_collision_detection = true;
+        body.dp = 60.0;
+        body.hp = 100.0;
         body.parent_id = parent.id();
         body.direction = parent.body().direction;
         body.base_speed = 5.0;
