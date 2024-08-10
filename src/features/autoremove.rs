@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate}, species::species_model::INFINITE_LIFESPAN};
+use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate}};
 
 pub fn remove_automatically(entity: &dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
     if should_remove(game, entity) {

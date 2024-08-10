@@ -5,12 +5,12 @@ pub const FRAME_TIME: f32 = 1.0 / FPS as f32;
 pub const LOG_GAME_STATE: bool = false; // true;
 pub const DEBUG_ENABLED: bool = true;
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
-pub const SPECIES_PATH: &str = "/Users/curzel/dev/tower-defense/species";
 pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";
 pub const BACKGROUND_TILE_GRASS: &str = "/Users/curzel/dev/tower-defense/assets/bg_tile_grass.png";
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const SCALE: f32 = 2.0;
 pub const NO_PARENT: u32 = 0;
+pub const INFINITE_LIFESPAN: f32 = -420.0;
 
 pub const HERO_ENTITY_ID: u32 = 69;
 

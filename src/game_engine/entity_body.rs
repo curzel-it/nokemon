@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, SCALE}, species::species_model::Species, sprites::{sprite::Sprite, sprite_set::SpriteSet}};
+use crate::{constants::{ANIMATIONS_FPS, SCALE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    

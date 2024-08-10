@@ -2,7 +2,6 @@ mod constants;
 mod entities;
 mod features;
 mod game_engine;
-mod species;
 mod sprites;
 mod utils;
 

@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, SPECIES_PATH}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS}, utils::file_utils::list_files};
 
 use super::{entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
@@ -25,11 +25,10 @@ impl GameEngine {
         rl.set_target_fps(FPS);
         
         let all_assets = list_files(ASSETS_PATH, "png");
-        let all_species = list_files(SPECIES_PATH, "json");
         self.load_textures(&all_assets, &mut rl, &thread);
 
         let mut game = Game::new(
-            EntityFactory::new(all_species, all_assets),
+            EntityFactory::new(all_assets),
             Rectangle::new(0.0, 0.0, width as f32, height as f32)
         );
         game.setup();
@@ -58,17 +57,16 @@ impl GameEngine {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::{ASSETS_PATH, SPECIES_PATH}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
+    use crate::{constants::{ASSETS_PATH}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
 
     use super::GameEngine;
 
     impl GameEngine {
         fn start_headless(&mut self, width: i32, height: i32) -> Game {
             let all_assets = list_files(ASSETS_PATH, "png");
-            let all_species = list_files(SPECIES_PATH, "json");
 
             let mut game = Game::new(
-                EntityFactory::new(all_species, all_assets),
+                EntityFactory::new(all_assets),
                 Rectangle::new(0.0, 0.0, width as f32, height as f32)
             );
             game.setup();
