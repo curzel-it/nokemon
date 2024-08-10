@@ -1,7 +1,7 @@
 use crate::game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate};
 
 pub fn handle_collisions_for_bullet(bullet: &dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
-    let damage = -bullet.dp();
+    let damage = -bullet.body().current_dp;
 
     return game.collisions
         .get(&bullet.id())

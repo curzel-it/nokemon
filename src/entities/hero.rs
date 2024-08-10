@@ -32,7 +32,7 @@ impl Shooter for Hero {
     }
     
     fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.species().time_between_shots;
+        self.time_to_next_shot = self.body().time_between_shots;
     }
     
     fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
@@ -55,10 +55,13 @@ impl Entity for Hero {
 impl EntityFactory {
     pub fn build_hero(&self) -> Hero {
         let mut body = self.build("red");
+        body.resize(15.0, 17.0);
         body.id = HERO_ENTITY_ID;
+        body.base_speed = 2.0;
+        body.reset_speed();
 
         let mut hero = Hero::new(body);
-        hero.set_direction(Vector2::new(1.0, 0.0));    
+        hero.body_mut().direction = Vector2::new(1.0, 0.0);    
         hero
     }
 }

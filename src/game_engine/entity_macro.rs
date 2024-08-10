@@ -9,17 +9,13 @@ macro_rules! impl_embodied_entity {
             fn parent_id(&self) -> u32 {
                 self.body.parent_id
             }
-            
-            fn species(&self) -> &$crate::species::species_model::Species {
-                &self.body.species
+
+            fn body(&self) -> &EntityBody {
+                &self.body
             }
-            
-            fn frame(&self) -> raylib::math::Rectangle {
-                self.body.frame
-            }
-            
-            fn set_frame(&mut self, value: raylib::math::Rectangle) {
-                self.body.frame = value;
+
+            fn body_mut(&mut self) -> &mut EntityBody {
+                &mut self.body
             }
             
             fn center_in(&mut self, value: &raylib::math::Rectangle) {
@@ -34,61 +30,9 @@ macro_rules! impl_embodied_entity {
                 self.body.frame.x = x;
                 self.body.frame.y = y;
             }
-            
-            fn direction(&self) -> raylib::math::Vector2 {
-                self.body.direction
-            }
-            
-            fn set_direction(&mut self, value: raylib::math::Vector2) {
-                self.body.direction = value;
-            }
-            
-            fn speed(&self) -> f32 {
-                self.body.speed
-            }
-            
-            fn set_speed(&mut self, speed: f32) {
-                self.body.speed = speed;
-            }
-            
-            fn reset_speed(&mut self) {
-                self.body.reset_speed();
-            }
 
-            fn dp(&self) -> f32 {
-                self.body.dp
-            }
-            
-            fn hp(&self) -> f32 {
-                self.body.hp
-            }
-            
-            fn inc_hp(&mut self, value: f32) {
-                self.body.hp += value;
-            }
-            
-            fn current_sprite_frame(&self) -> &str {
-                self.body.current_sprite.current_frame()
-            }
-            
-            fn current_animation(&self) -> &str {
-                self.body.current_sprite.animation_name.as_str()
-            }
-            
-            fn set_animation(&mut self, animation_name: &str) -> u32 {
-                self.body.set_animation(animation_name)
-            }
-
-            fn creation_time(&self) -> f32 {
-                self.body.creation_time
-            }
-
-            fn set_creation_time(&mut self, value: f32) {
-                self.body.creation_time = value;
-            }
-
-            fn requires_collision_detection(&self) -> bool {
-                self.body.requires_collision_detection
+            fn resize(&mut self, w: f32, h: f32) {
+                self.body.resize(w, h);
             }
         }
     };

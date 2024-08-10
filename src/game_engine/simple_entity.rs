@@ -4,17 +4,13 @@ use super::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, game::Gam
 
 #[derive(Debug)]
 pub struct SimpleEntity {
-    body: EntityBody,
-    time_to_next_shot: f32
+    body: EntityBody
 }
 
 impl SimpleEntity {
     pub fn new(body: EntityBody) -> Self {
-        let time_to_next_shot = body.species.time_between_shots;
-
         Self { 
-            body,
-            time_to_next_shot
+            body
         }
     }
 }

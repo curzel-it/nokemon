@@ -1,10 +1,10 @@
 use raylib::math::Rectangle;
 
-use crate::game_engine::entity::Entity;
+use crate::{constants::{BASE_ENTITY_SPEED, SCALE}, game_engine::entity::Entity};
 
 pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectangle, time_since_last_update: f32) {
-    let frame = entity.frame();
-    let offset = entity.direction() * entity.speed() * time_since_last_update;
+    let frame = entity.body().frame;
+    let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * SCALE * BASE_ENTITY_SPEED;
 
     let mut expected_x = frame.x + offset.x;
     let mut expected_y = frame.y + offset.y;
@@ -29,7 +29,7 @@ pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectan
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, simple_entity::SimpleEntity}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, simple_entity::SimpleEntity}};
     
     #[test]
     fn can_move_on_update() {
@@ -37,13 +37,13 @@ mod tests {
         
         let mut body = game.entity_factory.build("red");
         body.frame = RECT_ORIGIN_SQUARE_100;
-        body.speed = BASE_ENTITY_SPEED;        
+        body.current_speed = 1.0;
         
         let mut entity = SimpleEntity::new(body);
-        entity.set_direction(Vector2::new(1.0, 1.0));  
+        entity.body_mut().direction = Vector2::new(1.0, 1.0);  
         entity.update(&game, 1.0);
 
-        assert_eq!(entity.frame().x, 30.0);
-        assert_eq!(entity.frame().y, 30.0);
+        assert_eq!(entity.body().frame.x, SCALE * BASE_ENTITY_SPEED);
+        assert_eq!(entity.body().frame.y, SCALE * BASE_ENTITY_SPEED);
     }
 }

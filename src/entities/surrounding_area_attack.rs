@@ -9,10 +9,12 @@ pub struct SurroundingAreaAttack {
 impl SurroundingAreaAttack {
     pub fn new(parent: &dyn Entity, entity_factory: &EntityFactory) -> Self {
         let mut body = entity_factory.build("baseattack");
+        body.resize(50.0, 30.0);
         body.requires_collision_detection = true;
         body.parent_id = parent.id();
-        body.speed = 0.0;
-        body.center_in(&parent.frame());
+        body.base_speed = 0.0;
+        body.reset_speed();
+        body.center_in(&parent.body().frame);
         
         Self {
             body

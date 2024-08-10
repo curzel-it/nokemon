@@ -31,9 +31,12 @@ impl Entity for Creep {
 
 impl EntityFactory {
     pub fn build_creep(&self) -> Creep {
-        let mut creep = Creep::new(self.build("white"));
-        creep.set_direction(Vector2::new(1.0, 0.0));    
-        creep
+        let mut body = self.build("white");
+        body.resize(15.0, 17.0);
+        body.base_speed = 1.5;
+        body.reset_speed();
+        body.direction = Vector2::new(1.0, 0.0);    
+        Creep::new(body)
     }
 }
 

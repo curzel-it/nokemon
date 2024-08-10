@@ -32,7 +32,7 @@ impl Shooter for Tower {
     }
     
     fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.species().time_between_shots;
+        self.time_to_next_shot = self.body().time_between_shots;
     }
     
     fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
@@ -52,9 +52,14 @@ impl Entity for Tower {
 
 impl EntityFactory {
     pub fn build_tower(&self) -> Tower {
-        let mut tower = Tower::new(self.build("tower"));
-        tower.set_direction(Vector2::new(1.0, 0.0));    
-        tower
+        let mut body = self.build("tower");
+        body.time_between_shots = 3.0;
+        body.time_to_next_shot = 3.0;
+        body.resize(50.0, 50.0);
+        body.base_speed = 0.0;
+        body.reset_speed();
+        body.direction = Vector2::new(1.0, 0.0);    
+        Tower::new(body)
     }
 }
 

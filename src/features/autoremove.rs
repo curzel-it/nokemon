@@ -10,27 +10,18 @@ pub fn remove_automatically(entity: &dyn Entity, game: &Game) -> Vec<GameStateUp
 }
 
 fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
-    let lifespan = entity.species().lifespan;
-    let age = game.total_elapsed_time - entity.creation_time();
+    let lifespan = entity.body().lifespan;
+    let age = game.total_elapsed_time - entity.body().creation_time;
 
     if lifespan != INFINITE_LIFESPAN && age > lifespan {
         return true;
     }
-    if entity.hp() <= 0.0 {
+    if entity.body().current_hp <= 0.0 {
         return true;
     }       
-    if is_outside_of_enlarged_bounds(&game.bounds, &entity.frame()) {
+    if !game.outer_bounds.check_collision_recs(&entity.body().frame) {
         return true;
     }
-    false
-}
-
-fn is_outside_of_enlarged_bounds(bounds: &Rectangle, rect: &Rectangle) -> bool {
-    let margin = 100.0;
-    if rect.x < bounds.x - rect.width - margin { return true; }
-    if rect.y < bounds.y - rect.height - margin { return true; }
-    if rect.x > bounds.x + bounds.width + margin { return true; }
-    if rect.y > bounds.y + bounds.height + margin { return true; }
     false
 }
 
@@ -46,21 +37,12 @@ mod tests {
         
         let mut body = game.entity_factory.build("towerdart");
         body.frame = RECT_ORIGIN_SQUARE_100;
-        body.speed = 100.0;  
+        body.current_speed = 100.0;  
         body.direction =  Vector2::new(-1.0, 0.0);
         game.add_entity(Box::new(SimpleEntity::new(body)));
 
-        game.update(0.6);
         assert_eq!(game.entities.borrow().len(), 1);
-                
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
-        game.update(0.6);
+        game.update(1.0);
         assert_eq!(game.entities.borrow().len(), 0);
     }
 
@@ -70,9 +52,9 @@ mod tests {
         
         let mut body = game.entity_factory.build("towerdart");
         body.frame = RECT_ORIGIN_SQUARE_100;
-        body.speed = 100.0;   
+        body.current_speed = 100.0;   
         body.direction = Vector2::zero();
-        body.hp = 0.0;
+        body.current_hp = 0.0;
         game.add_entity(Box::new(SimpleEntity::new(body)));
 
         assert_eq!(game.entities.borrow().len(), 1);
@@ -85,14 +67,14 @@ mod tests {
         let mut game = Game::test();
         
         let mut body = game.entity_factory.build("baseattack");
-        let lifespan = body.species.lifespan;
+        body.lifespan = 10.0;
         body.frame = RECT_ORIGIN_SQUARE_100;
-        body.speed = 0.0;
+        body.current_speed = 0.0;
         body.direction = Vector2::zero();
         game.add_entity(Box::new(SimpleEntity::new(body)));
 
         assert_eq!(game.entities.borrow().len(), 1);
-        game.update(lifespan + 1.0);
+        game.update(11.0);
         assert_eq!(game.entities.borrow().len(), 0);
     }
 }

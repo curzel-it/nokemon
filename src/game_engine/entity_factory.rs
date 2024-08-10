@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{ANIMATION_NAME_FRONT, NO_PARENT, SCALE}, species::{species_model::INFINITE_LIFESPAN, species_parser::SpeciesParser, species_repository::SpeciesRepository}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::{entity::Entity, entity_body::EntityBody, simple_entity::SimpleEntity};
 
@@ -42,44 +42,32 @@ impl EntityFactory {
         }
     }
 
-    pub fn build_simple(&self, species_id: &str) -> Box<dyn Entity> {
-        Box::new(SimpleEntity::new(self.build(species_id)))
-    }
-
-    pub fn build_simple_with_id(&self, species_id: &str, id: u32) -> Box<dyn Entity> {
-        let mut body = self.build(species_id);
-        body.id = id;
-        Box::new(SimpleEntity::new(body))
-    }
-
     pub fn build(&self, species_id: &str) -> EntityBody {
-        let species = self.species_repo.species(&species_id.to_owned());
         let sprites = self.sprites_repo.sprites(&species_id.to_owned());
-
-        let frame = Rectangle::new(
-            50.0,
-            50.0,
-            SCALE * species.width,
-            SCALE * species.height,
-        );
 
         let mut entity = EntityBody {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
-            frame,
+            frame: Rectangle::new(0.0, 0.0, 50.0, 50.0),
             direction: Vector2::new(0.0, 0.0),
-            speed: 0.0,
-            hp: species.hp,
-            dp: species.dp,
+            current_speed: 1.0,
+            base_speed: 1.0,
+            current_hp: 100.0,
+            base_hp: 100.0,
+            current_dp: 100.0,
+            base_dp: 100.0,
             sprite_set: sprites.clone(),
             current_sprite: Sprite::empty(),
             sprite_invalidated: true,
-            time_to_next_shot: species.time_between_shots,
-            species,
+            time_to_next_shot: 0.0,
+            time_between_shots: 0.0,
             creation_time: 0.0,
-            requires_collision_detection: false
+            requires_collision_detection: false,
+            z_index: 0,
+            is_enemy: false,
+            is_bullet: false,
+            lifespan: INFINITE_LIFESPAN,
         };
-        entity.reset_speed();
         entity.set_animation(ANIMATION_NAME_FRONT);
 
         entity

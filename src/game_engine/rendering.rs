@@ -17,8 +17,8 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     sorted_entities.sort_by(|a, b| {
         if a.frame.y < b.frame.y { return Ordering::Less; }
         if a.frame.y > b.frame.y { return Ordering::Greater; }
-        if a.species.z_index < b.species.z_index { return Ordering::Less; }
-        if a.species.z_index > b.species.z_index { return Ordering::Greater; }
+        if a.body().z_index < b.body().z_index { return Ordering::Less; }
+        if a.body().z_index > b.body().z_index { return Ordering::Greater; }
         if a.frame.x < b.frame.x { return Ordering::Less; }
         if a.frame.x > b.frame.x { return Ordering::Greater; }
         return Ordering::Equal;
@@ -56,8 +56,8 @@ fn draw_item(
     item: &Box<dyn Entity>,
     engine: &GameEngine
 ) {
-    let sprite_path = item.current_sprite_frame();
-    let frame = item.frame();
+    let sprite_path = item.body().current_sprite_frame();
+    let frame = item.body().frame;
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         d.draw_texture_ex(

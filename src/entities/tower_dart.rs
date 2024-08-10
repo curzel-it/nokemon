@@ -9,10 +9,13 @@ pub struct TowerDart {
 impl TowerDart {
     pub fn new(parent: &dyn Entity, entity_factory: &EntityFactory) -> Self {
         let mut body = entity_factory.build("towerdart");
+        body.resize(10.0, 10.0);
         body.requires_collision_detection = true;
         body.parent_id = parent.id();
-        body.direction = parent.direction();
-        body.center_in(&parent.frame());
+        body.direction = parent.body().direction;
+        body.base_speed = 5.0;
+        body.reset_speed();
+        body.center_in(&parent.body().frame);
         
         Self {
             body

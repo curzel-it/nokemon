@@ -24,10 +24,10 @@ macro_rules! impl_animated_entity {
 
 pub fn update_sprite(entity: &mut dyn AnimatedEntity, time_since_last_update: f32) {
     if entity.sprite_was_invalidated() {
-        if let Some(movement_animation) = movement_sprite(entity.speed(), entity.direction()) {
-            entity.set_animation(movement_animation.as_str());
+        if let Some(movement_animation) = movement_sprite(entity.body().current_speed, entity.body().direction) {
+            entity.body_mut().set_animation(movement_animation.as_str());
         } else {
-            entity.set_animation(ANIMATION_NAME_FRONT);
+            entity.body_mut().set_animation(ANIMATION_NAME_FRONT);
         }
     }
 
@@ -70,7 +70,7 @@ mod tests {
         let id = game.add_entity_by_species("red");
         let mut entities = game.entities.borrow_mut();
         let entity = entities.get_mut(&id).unwrap();        
-        entity.set_direction(direction);
+        entity.body_mut().direction = direction;
 
         drop(entities);
         (engine, game, id)
@@ -101,7 +101,7 @@ mod tests {
         
         let mut entities = game.entities.borrow_mut();
         let entity = entities.get_mut(&id).unwrap();  
-        entity.set_speed(0.0);
+        entity.body_mut().current_speed = 0.0;
         drop(entities);     
 
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);

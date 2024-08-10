@@ -22,10 +22,10 @@ impl PartialOrd for dyn Entity {
 
 impl Ord for dyn Entity {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.frame().y
-            .partial_cmp(&other.frame().y)
+        self.body().frame.y
+            .partial_cmp(&other.body().frame.y)
             .unwrap_or(Ordering::Equal)
-            .then_with(|| self.species().z_index.cmp(&other.species().z_index))
-            .then_with(|| self.creation_time().partial_cmp(&other.creation_time()).unwrap_or(Ordering::Equal))
+            .then_with(|| self.body().z_index.cmp(&other.body().z_index))
+            .then_with(|| self.body().creation_time.partial_cmp(&other.body().creation_time).unwrap_or(Ordering::Equal))
     }
 }

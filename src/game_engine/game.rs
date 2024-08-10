@@ -10,6 +10,7 @@ pub struct Game {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
+    pub outer_bounds: Rectangle,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
@@ -31,10 +32,13 @@ pub struct Game {
 
 impl Game {
     pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
+        let outer_bounds = Rectangle::new(bounds.x - 100.0, bounds.y - 100.0, bounds.width + 200.0, bounds.height + 200.0);
+
         Self {
             total_elapsed_time: 0.0,
             entity_factory,
             bounds,
+            outer_bounds,
             entities: RefCell::new(HashMap::new()),
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
@@ -73,7 +77,7 @@ impl Game {
         self.entities.borrow_mut().insert(id, entity);
 
         if let Some(new_entity) = self.entities.borrow_mut().get_mut(&id) {
-            new_entity.set_creation_time(self.total_elapsed_time);
+            new_entity.body_mut().creation_time = self.total_elapsed_time;
         }
         id
     }
@@ -128,7 +132,7 @@ impl Game {
             },
             GameStateUpdate::IncreaseHp(id, value) => { 
                 if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
-                    entity.inc_hp(value);
+                    entity.body_mut().current_hp += value;
                 }
             }
         };
@@ -168,7 +172,7 @@ impl Game {
 */
     fn store_updated_hero_state(&mut self) {
         if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
-            self.cached_hero_frame = entity.frame();
+            self.cached_hero_frame = entity.body().frame;
             self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
         }
     }
@@ -211,7 +215,7 @@ mod tests {
         pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
             let entities = self.entities.borrow();
             let entity = entities.get(id).unwrap();
-            entity.frame()
+            entity.body().frame
         }
         
         pub fn update(&mut self, time_since_last_update: f32) {
@@ -222,7 +226,7 @@ mod tests {
         pub fn animation_name_of_entity(&self, id: &u32) -> String {
             let entities = self.entities.borrow();
             let entity = entities.get(id).unwrap();
-            return entity.current_animation().to_string();
+            return entity.body().current_sprite.animation_name.to_owned();
         }
     }
 }
