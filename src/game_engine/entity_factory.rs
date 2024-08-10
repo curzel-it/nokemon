@@ -61,7 +61,6 @@ impl EntityFactory {
             is_bullet: false,
             lifespan: INFINITE_LIFESPAN,
         };
-        entity.set_animation(ANIMATION_NAME_FRONT);
 
         entity
     }

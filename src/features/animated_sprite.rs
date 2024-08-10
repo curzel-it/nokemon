@@ -71,6 +71,7 @@ mod tests {
         let mut entities = game.entities.borrow_mut();
         let entity = entities.get_mut(&id).unwrap();        
         entity.body_mut().direction = direction;
+        entity.body_mut().set_animation(ANIMATION_NAME_FRONT);
 
         drop(entities);
         (engine, game, id)
