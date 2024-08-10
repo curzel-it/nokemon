@@ -1,4 +1,3 @@
-use raylib::math::Rectangle;
 
 use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate}};
 

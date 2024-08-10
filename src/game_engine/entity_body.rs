@@ -77,6 +77,6 @@ impl EntityBody {
     }
 
     pub fn current_sprite_frame(&self) -> &str {
-        &self.current_sprite.current_frame()
+        self.current_sprite.current_frame()
     }
 }

@@ -13,9 +13,9 @@ pub fn compute_collisions(game: &Game) -> HashMap<u32, Vec<u32>> {
                 if let Some(entity2) = entities.get(&id2) {
                     if is_valid_collision(entity1, entity2) {
                         if !entity2.body().is_bullet {
-                            collisions.entry(id1).or_insert_with(Vec::new).push(id2);
+                            collisions.entry(id1).or_default().push(id2);
                         }
-                        collisions.entry(id2).or_insert_with(Vec::new).push(id1);
+                        collisions.entry(id2).or_default().push(id1);
                     }
                 }
             }
