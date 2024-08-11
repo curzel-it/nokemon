@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::{FRAME_TIME, HERO_ENTITY_ID};
+use crate::constants::{HERO_ENTITY_ID};
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
 

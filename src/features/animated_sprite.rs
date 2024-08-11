@@ -61,7 +61,7 @@ fn direction_name(direction: Vector2) -> Option<String> {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::ANIMATION_NAME_FRONT, entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
+    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
     
     fn test_setup(direction: Vector2) -> (GameEngine, Game, u32) {
         let engine = GameEngine::new();        
