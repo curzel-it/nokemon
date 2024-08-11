@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-use super::{entity::Entity, game::Game};
+use super::{entity::Entity, world::World};
 
-pub fn compute_collisions(game: &Game) -> HashMap<u32, Vec<u32>> {
+pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<u32>> {
     let mut collisions: HashMap<u32, Vec<u32>> = HashMap::new();
-    let visible_entities = &game.visible_entities;
-    let entities = game.entities.borrow();
+    let visible_entities = &world.visible_entities;
+    let entities = world.entities.borrow();
         
     let mut handlers_entity_ids: Vec<u32> = vec![];
     for entity in entities.values() {
@@ -47,65 +47,65 @@ fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> b
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, game::Game, visible_entities::compute_visible_entities}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, world::World, visible_entities::compute_visible_entities}};
 
     use super::compute_collisions;
 
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
-        let mut game = Game::test();
-        game.camera_viewport = RECT_ORIGIN_SQUARE_100;
+        let mut world = World::test();
+        world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
-        let tower = game.entity_factory.build_tower();
-        let mut towerdart = tower.create_bullet(&game.entity_factory);
+        let tower = world.entity_factory.build_tower();
+        let mut towerdart = tower.create_bullet(&world.entity_factory);
         towerdart.body_mut().id = 1;
         towerdart.body_mut().direction = Vector2::new(0.0, 0.0);
         towerdart.place_at(0.0, 0.0);
-        game.add_entity(towerdart);
+        world.add_entity(towerdart);
 
-        let mut hero = game.entity_factory.build_hero();
+        let mut hero = world.entity_factory.build_hero();
         hero.body_mut().id = 2;
         hero.body_mut().direction = Vector2::new(0.0, 0.0);
         hero.place_at(0.0, 0.0);
-        game.add_entity(Box::new(hero));
+        world.add_entity(Box::new(hero));
 
-        game.visible_entities = compute_visible_entities(&game);
+        world.visible_entities = compute_visible_entities(&world);
 
-        let entities = game.entities.borrow();
+        let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
         assert!(do_collide);
         drop(entities);
 
-        let collisions = compute_collisions(&game);
+        let collisions = compute_collisions(&world);
         assert_eq!(collisions.len(), 2);
     }    
 
     #[test]
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
-        let mut game = Game::test();
-        game.camera_viewport = RECT_ORIGIN_SQUARE_100;
+        let mut world = World::test();
+        world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
-        let tower = game.entity_factory.build_tower();
-        let mut towerdart = tower.create_bullet(&game.entity_factory);
+        let tower = world.entity_factory.build_tower();
+        let mut towerdart = tower.create_bullet(&world.entity_factory);
         towerdart.body_mut().id = 1;
         towerdart.body_mut().direction = Vector2::new(0.0, 0.0);
         towerdart.place_at(2000.0, 0.0);
-        game.add_entity(towerdart);
+        world.add_entity(towerdart);
 
-        let mut hero = game.entity_factory.build_hero();
+        let mut hero = world.entity_factory.build_hero();
         hero.body_mut().id = 2;
         hero.body_mut().direction = Vector2::new(0.0, 0.0);
         hero.place_at(2000.0, 0.0);
-        game.add_entity(Box::new(hero));
+        world.add_entity(Box::new(hero));
 
-        game.visible_entities = compute_visible_entities(&game);
+        world.visible_entities = compute_visible_entities(&world);
 
-        let entities = game.entities.borrow();
+        let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
         assert!(do_collide);
         drop(entities);
 
-        let collisions = compute_collisions(&game);
+        let collisions = compute_collisions(&world);
         assert_eq!(collisions.len(), 0);
     }    
 }

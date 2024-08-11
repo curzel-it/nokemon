@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{game_engine::{behaviors::EntityBehavior, entity::Entity, game::Game}, species::species_model::INFINITE_LIFESPAN};
+use crate::{game_engine::{behaviors::EntityBehavior, entity::Entity, world::Game}, species::species_model::INFINITE_LIFESPAN};
 
 #[derive(Debug)]
 pub struct CleanupEntities;
@@ -12,24 +12,24 @@ impl CleanupEntities {
 }
 
 impl EntityBehavior for CleanupEntities {
-    fn update(&self, entity_id: &u32, game: &mut Game, _: f32) {
-        let entity = game.entities.get(entity_id).unwrap();
+    fn update(&self, entity_id: &u32, world: &mut Game, _: f32) {
+        let entity = world.entities.get(entity_id).unwrap();
         
-        if self.should_remove(game, entity) {
-            game.remove_entity(entity_id);
+        if self.should_remove(world, entity) {
+            world.remove_entity(entity_id);
         }
     }
 }
 
 impl CleanupEntities {
-    fn should_remove(&self, game: &Game, entity: &Entity) -> bool {
-        if entity.species.lifespan != INFINITE_LIFESPAN && game.total_elapsed_time - entity.creation_time > entity.species.lifespan {
+    fn should_remove(&self, world: &Game, entity: &Entity) -> bool {
+        if entity.species.lifespan != INFINITE_LIFESPAN && world.total_elapsed_time - entity.creation_time > entity.species.lifespan {
             return true;
         }
         if entity.hp <= 0.0 {
             return true;
         }       
-        if self.is_outside_of_enlarged_bounds(&game.bounds, &entity.frame) {
+        if self.is_outside_of_enlarged_bounds(&world.bounds, &entity.frame) {
             return true;
         }
         return false;
@@ -49,63 +49,63 @@ impl CleanupEntities {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{world::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
 
     #[test]
     fn can_remove_entities_outside_of_screen() {
         let engine = GameEngine::new();
-        let mut game = Game::test();
+        let mut world = Game::test();
         let nokb = NoKeyboard {};
         
-        let mut entity = game.entity_factory.build("towerdart");
+        let mut entity = world.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.speed = 100.0;
         entity.change_direction(Vector2::new(-1.0, 0.0));  
-        game.add_entity(entity);      
+        world.add_entity(entity);      
 
-        engine.update_rl(&mut game, 0.6, &nokb);
-        assert_eq!(game.entities.len(), 1);
+        engine.update_rl(&mut world, 0.6, &nokb);
+        assert_eq!(world.entities.len(), 1);
                 
-        engine.update_rl(&mut game, 0.6, &nokb);
-        engine.update_rl(&mut game, 0.6, &nokb);
-        engine.update_rl(&mut game, 0.6, &nokb);
-        assert_eq!(game.entities.len(), 0);
+        engine.update_rl(&mut world, 0.6, &nokb);
+        engine.update_rl(&mut world, 0.6, &nokb);
+        engine.update_rl(&mut world, 0.6, &nokb);
+        assert_eq!(world.entities.len(), 0);
     }
 
     #[test]
     fn can_remove_entities_with_no_hp_left() {
         let engine = GameEngine::new();
-        let mut game = Game::test();
+        let mut world = Game::test();
         let nokb = NoKeyboard {};
         
-        let mut entity = game.entity_factory.build("towerdart");
+        let mut entity = world.entity_factory.build("towerdart");
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.speed = 100.0;
         entity.change_direction(Vector2::new(-1.0, 0.0));  
         entity.hp = 0.0; 
-        game.add_entity(entity);      
+        world.add_entity(entity);      
 
-        assert_eq!(game.entities.len(), 1);
-        engine.update_rl(&mut game, 0.1, &nokb);
-        assert_eq!(game.entities.len(), 0);
+        assert_eq!(world.entities.len(), 1);
+        engine.update_rl(&mut world, 0.1, &nokb);
+        assert_eq!(world.entities.len(), 0);
     }
 
     #[test]
     fn can_remove_entities_with_passed_expiration_date() {
         let engine = GameEngine::new();
-        let mut game = Game::test();
+        let mut world = Game::test();
         let nokb = NoKeyboard {};
         
-        let mut entity = game.entity_factory.build("baseattack");
+        let mut entity = world.entity_factory.build("baseattack");
         let lifespan = entity.species.lifespan;
         entity.frame = RECT_ORIGIN_SQUARE_100;
         entity.speed = 0.0;
         entity.change_direction(Vector2::zero());  
 
-        game.add_entity(entity);      
+        world.add_entity(entity);      
 
-        assert_eq!(game.entities.len(), 1);
-        engine.update_rl(&mut game, lifespan + 1.0, &nokb);
-        assert_eq!(game.entities.len(), 0);
+        assert_eq!(world.entities.len(), 1);
+        engine.update_rl(&mut world, lifespan + 1.0, &nokb);
+        assert_eq!(world.entities.len(), 0);
     }
 }

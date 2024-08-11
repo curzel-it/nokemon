@@ -1,9 +1,9 @@
-use crate::game_engine::{entity::Entity, game::Game, game_state_update::GameStateUpdate};
+use crate::game_engine::{entity::Entity, world::World, game_state_update::GameStateUpdate};
 
-pub fn handle_collisions_for_bullet(bullet: &dyn Entity, game: &Game) -> Vec<GameStateUpdate> {
+pub fn handle_collisions_for_bullet(bullet: &dyn Entity, world: &World) -> Vec<GameStateUpdate> {
     let damage = -bullet.body().dp;
 
-    return game.collisions
+    return world.collisions
         .get(&bullet.id())
         .unwrap_or(&vec![])
         .iter()

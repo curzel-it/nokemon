@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 
 #[derive(Debug)]
@@ -24,24 +24,24 @@ impl_embodied_entity!(CreepSpawnPoint);
 impl_animated_entity!(CreepSpawnPoint);
 
 impl Entity for CreepSpawnPoint {
-    fn update(&mut self, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate> {
         let mut game_updates: Vec<GameStateUpdate> = vec![];
-        move_linearly_within_bounds(self, &game.bounds, time_since_last_update);
+        move_linearly_within_bounds(self, &world.bounds, time_since_last_update);
         update_sprite(self, time_since_last_update);
 
-        if game.total_elapsed_time - self.last_spawn_time > self.time_to_spawn {
-            self.last_spawn_time = game.total_elapsed_time;
-            game_updates.push(GameStateUpdate::AddEntity(self.build_creep(game)))
+        if world.total_elapsed_time - self.last_spawn_time > self.time_to_spawn {
+            self.last_spawn_time = world.total_elapsed_time;
+            game_updates.push(GameStateUpdate::AddEntity(self.build_creep(world)))
         }
 
-        game_updates.append(&mut remove_automatically(self, game));
+        game_updates.append(&mut remove_automatically(self, world));
         game_updates
     }
 }
 
 impl CreepSpawnPoint {
-    fn build_creep(&self, game: &Game) -> Box<dyn Entity> {
-        let mut creep = game.entity_factory.build_creep();
+    fn build_creep(&self, world: &World) -> Box<dyn Entity> {
+        let mut creep = world.entity_factory.build_creep();
         creep.center_in(&self.body().frame);
         creep.body_mut().direction = Vector2::new(1.0, 0.0);
         Box::new(creep)

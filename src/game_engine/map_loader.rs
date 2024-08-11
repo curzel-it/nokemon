@@ -4,9 +4,9 @@ use raylib::math::Rectangle;
 
 use crate::{constants::{BG_TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::{BackgroundTile, BackgroundTileType}};
 
-use super::{entity_factory::EntityFactory, game::Game, tile_set::TileSet};
+use super::{entity_factory::EntityFactory, world::World, tile_set::TileSet};
 
-impl Game {
+impl World {
     pub fn load_map(&mut self) {
         let (rows, columns, tiles) = parse_world_map(WORLD_MAP_PATH, &self.entity_factory);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * BG_TILE_SIZE, rows as f32 * BG_TILE_SIZE);

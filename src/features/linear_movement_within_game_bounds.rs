@@ -29,19 +29,19 @@ pub fn move_linearly_within_bounds(entity: &mut dyn Entity, game_bounds: &Rectan
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, game::Game, simple_entity::SimpleEntity}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, world::World, simple_entity::SimpleEntity}};
     
     #[test]
     fn can_move_on_update() {
-        let game = Game::test();
+        let world = World::test();
         
-        let mut body = game.entity_factory.build("red");
+        let mut body = world.entity_factory.build("red");
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 1.0;
         
         let mut entity = SimpleEntity::new(body);
         entity.body_mut().direction = Vector2::new(1.0, 1.0);  
-        entity.update(&game, 1.0);
+        entity.update(&world, 1.0);
 
         assert_eq!(entity.body().frame.x, SCALE * BASE_ENTITY_SPEED);
         assert_eq!(entity.body().frame.y, SCALE * BASE_ENTITY_SPEED);

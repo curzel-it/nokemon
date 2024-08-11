@@ -3,33 +3,33 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use super::{entity::Entity, entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine};
+use super::{entity::Entity, entity_body::EmbodiedEntity, world::World, game_engine::GameEngine};
 
-pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, engine: &GameEngine) {
+pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();
     let mut d = rl.begin_drawing(thread);
     d.clear_background(Color::BLACK);
-    draw_tiles(&mut d, game, engine);
-    draw_entities(&mut d, game, engine);
-    draw_debug_info(&mut d, game, fps);
+    draw_tiles(&mut d, world, engine);
+    draw_entities(&mut d, world, engine);
+    draw_debug_info(&mut d, world, fps);
 }
 
-fn draw_debug_info(d: &mut RaylibDrawHandle, _: &Game, fps: u32) {
+fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
     d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::RED);
-    // d.draw_text(format!("Entities: {:#?}", game).as_str(), 10, 50, 20, Color::RED);
+    // d.draw_text(format!("Entities: {:#?}", world).as_str(), 10, 50, 20, Color::RED);
 }
 
-fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
-    for tile in game.visible_tiles() {
-        if game.camera_viewport.check_collision_recs(&tile.body().frame) {
-            draw_item(d, tile, &game.camera_viewport, engine);
+fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
+    for tile in world.visible_tiles() {
+        if world.camera_viewport.check_collision_recs(&tile.body().frame) {
+            draw_item(d, tile, &world.camera_viewport, engine);
         }
     }
 }
 
-fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
-    let visible_entities = &game.visible_entities;
-    let entities_map = game.entities.borrow();    
+fn draw_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
+    let visible_entities = &world.visible_entities;
+    let entities_map = world.entities.borrow();    
     
     let mut entities: Vec<&Box<dyn Entity>> = entities_map
         .iter()
@@ -56,7 +56,7 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     });
 
     for item in entities {
-        draw_item(d, item.borrow(), &game.camera_viewport, engine);
+        draw_item(d, item.borrow(), &world.camera_viewport, engine);
     }
 }
 

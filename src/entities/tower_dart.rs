@@ -1,5 +1,5 @@
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct TowerDart {
@@ -32,12 +32,12 @@ impl_embodied_entity!(TowerDart);
 impl_animated_entity!(TowerDart);
 
 impl Entity for TowerDart {
-    fn update(&mut self, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate> {
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate> {
         let mut game_updates: Vec<GameStateUpdate> = vec![];
         move_linearly(self, time_since_last_update);
         update_sprite(self, time_since_last_update);
-        game_updates.append(&mut handle_collisions_for_bullet(self, game));
-        game_updates.append(&mut remove_automatically(self, game));
+        game_updates.append(&mut handle_collisions_for_bullet(self, world));
+        game_updates.append(&mut remove_automatically(self, world));
         game_updates
     }
 }

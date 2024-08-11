@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{constants::{ASSETS_PATH, FPS}, utils::file_utils::list_files};
 
-use super::{entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
+use super::{entity_factory::EntityFactory, world::World, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
@@ -16,14 +16,14 @@ impl GameEngine {
         }
     }
 
-    pub fn start_rl(&mut self) -> (Game, RaylibHandle, RaylibThread) {        
+    pub fn start_rl(&mut self) -> (World, RaylibHandle, RaylibThread) {        
         let all_assets = list_files(ASSETS_PATH, "png");
 
-        let mut game = Game::new(EntityFactory::new(all_assets.clone()));
-        game.setup();
+        let mut world = World::new(EntityFactory::new(all_assets.clone()));
+        world.setup();
 
         let (mut rl, thread) = raylib::init()
-            .size(game.camera_viewport.width as i32, game.camera_viewport.height as i32)
+            .size(world.camera_viewport.width as i32, world.camera_viewport.height as i32)
             .resizable()
             .title("Tower Defense")
             .build();
@@ -31,16 +31,16 @@ impl GameEngine {
         rl.set_target_fps(FPS);
         self.load_textures(&all_assets, &mut rl, &thread);
 
-        (game, rl, thread)
+        (world, rl, thread)
     }
 
     pub fn update_rl(
         &self, 
-        game: &mut Game, 
+        world: &mut World, 
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        game.update_rl(time_since_last_update, keyboard_events);
+        world.update_rl(time_since_last_update, keyboard_events);
     } 
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
@@ -53,32 +53,32 @@ impl GameEngine {
 
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
+    use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, world::World}, utils::file_utils::list_files};
 
     use super::GameEngine;
 
     impl GameEngine {
-        pub fn start_headless(&mut self) -> Game {
+        pub fn start_headless(&mut self) -> World {
             let all_assets = list_files(ASSETS_PATH, "png");
-            let mut game = Game::new(EntityFactory::new(all_assets));
-            game.setup();            
-            game
+            let mut world = World::new(EntityFactory::new(all_assets));
+            world.setup();            
+            world
         }
 
         pub fn update(
             &self, 
-            game: &mut Game, 
+            world: &mut World, 
             time_since_last_update: f32
         ) {
-            game.update(time_since_last_update);
+            world.update(time_since_last_update);
         } 
     }
 
     #[test]
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
-        let game = engine.start_headless();
-        assert_ne!(game.bounds.width, 10.0);
-        assert_ne!(game.bounds.height, 10.0);
+        let world = engine.start_headless();
+        assert_ne!(world.bounds.width, 10.0);
+        assert_ne!(world.bounds.height, 10.0);
     }
 }

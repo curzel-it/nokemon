@@ -7,7 +7,7 @@ use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQU
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, tile_set::TileSet, visible_entities::compute_visible_entities};
 
-pub struct Game {
+pub struct World {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
@@ -22,7 +22,7 @@ pub struct Game {
     pub collisions: HashMap<u32, Vec<u32>>
 }
 
-impl Game {
+impl World {
     pub fn new(entity_factory: EntityFactory) -> Self {
         Self {
             total_elapsed_time: 0.0,
@@ -120,7 +120,7 @@ impl Game {
     }
 }
 
-impl Debug for Game {
+impl Debug for World {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Game")
             .field("bounds", &self.bounds)
@@ -133,11 +133,11 @@ impl Debug for Game {
 mod tests {
     use crate::game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard};
 
-    use super::Game;
+    use super::World;
 
-    impl Game {
-        pub fn test() -> Game {
-            Game::new(EntityFactory::test())
+    impl World {
+        pub fn test() -> World {
+            World::new(EntityFactory::test())
         }
         
         pub fn update(&mut self, time_since_last_update: f32) {

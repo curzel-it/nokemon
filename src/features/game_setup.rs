@@ -1,6 +1,6 @@
-use crate::{constants::HERO_ENTITY_ID, game_engine::{entity_body::EmbodiedEntity, game::Game}};
+use crate::{constants::HERO_ENTITY_ID, game_engine::{entity_body::EmbodiedEntity, world::World}};
 
-impl Game {    
+impl World {    
     pub fn setup(&mut self) {
         self.load_map();
         self.add_creep_spawn_point();
