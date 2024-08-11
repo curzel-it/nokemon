@@ -55,7 +55,7 @@ impl EntityFactory {
         let mut body = self.build("tower");
         body.time_between_shots = 3.0;
         body.time_to_next_shot = 3.0;
-        body.resize(50.0, 50.0);
+        body.resize(26.0, 42.0);
         body.base_speed = 0.0;
         body.reset_speed();
         body.direction = Vector2::new(1.0, 0.0);    

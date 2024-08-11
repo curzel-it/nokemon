@@ -1,9 +1,17 @@
 use std::collections::HashMap;
 
+use raylib::math::Rectangle;
+
 use super::{entity::Entity, world::World};
 
-pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<u32>> {
-    let mut collisions: HashMap<u32, Vec<u32>> = HashMap::new();
+pub struct Collision {
+    pub other_id: u32,
+    pub other_was_rigid: bool,
+    pub area: Rectangle
+}
+
+pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
+    let mut collisions: HashMap<u32, Vec<Collision>> = HashMap::new();
     let visible_entities = &world.visible_entities;
     let entities = world.entities.borrow();
         
@@ -18,9 +26,10 @@ pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<u32>> {
         if let Some(entity1) = entities.get(&id1) {
             for &id2 in visible_entities {
                 if let Some(entity2) = entities.get(&id2) {
-                    if is_valid_collision(entity1, entity2) {
-                        collisions.entry(id2).or_default().push(id1);
-                        collisions.entry(id1).or_default().push(id2);
+                    if let Some(area) = collision_area(entity1, entity2) {
+                        let (first, second) = collisions_pair(&entity1, &entity2, area);
+                        collisions.entry(id1).or_default().push(first);
+                        collisions.entry(id2).or_default().push(second);
                     }
                 }
             }
@@ -30,26 +39,41 @@ pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<u32>> {
     collisions
 }
 
-fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> bool {
-    if !entity1.body().frame.check_collision_recs(&entity2.body().frame) {
-        return false;
-    }
+fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Option<Rectangle> {
     if entity1.parent_id() == entity2.id() || entity2.parent_id() == entity1.id() {
-        return false;
+        return None;
     }
     if entity1.body().is_ally == entity2.body().is_ally {
-        return false;
+        return None;
     }             
-    true
+    entity1.body().frame.get_collision_rec(&entity2.body().frame)
+}
+
+fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, area: Rectangle) -> (Collision, Collision) {
+    let first_collision = Collision { 
+        other_id: second.id(), 
+        other_was_rigid: second.body().is_rigid, 
+        area 
+    };
+    let second_collision = Collision { 
+        other_id: first.id(), 
+        other_was_rigid: first.body().is_rigid, 
+        area 
+    };
+    (first_collision, second_collision)
 }
 
 #[cfg(test)]
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, world::World, visible_entities::compute_visible_entities}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
 
-    use super::compute_collisions;
+    use super::{collision_area, compute_collisions};
+
+    fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> bool {
+        collision_area(entity1, entity2).is_some()
+    }
 
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {

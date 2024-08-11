@@ -11,13 +11,14 @@ impl SurroundingAreaAttack {
         let mut body = entity_factory.build("baseattack");
         body.resize(50.0, 30.0);
         body.is_bullet = true;
-        body.requires_collision_detection = true;
         body.dp = 20.0;
         body.hp = 1000.0;
+        body.requires_collision_detection = true;
         body.is_ally = parent.body().is_ally;
         body.parent_id = parent.id();
         body.base_speed = 0.0;
-        body.lifespan = 2.0;
+        body.lifespan = 2.5;
+        body.is_rigid = false;
         body.reset_speed();
         body.center_in(&parent.body().frame);
         

@@ -22,7 +22,7 @@ impl Entity for Creep {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         set_direction_towards(self, &world.cached_hero_position);
-        move_linearly(self, time_since_last_update);
+        move_linearly(self, world, time_since_last_update);
         update_sprite(self, time_since_last_update);
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
@@ -35,6 +35,7 @@ impl EntityFactory {
         body.resize(15.0, 17.0);
         body.base_speed = 1.5;
         body.reset_speed();
+        body.is_ally = false;
         body.direction = Vector2::new(1.0, 0.0);    
         Creep::new(body)
     }

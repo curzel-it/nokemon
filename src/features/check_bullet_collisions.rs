@@ -7,6 +7,6 @@ pub fn handle_collisions_for_bullet(bullet: &dyn Entity, world: &World) -> Vec<W
         .get(&bullet.id())
         .unwrap_or(&vec![])
         .iter()
-        .map(|victim_id| WorldStateUpdate::IncreaseHp(*victim_id, damage))
+        .map(|c| WorldStateUpdate::IncreaseHp(c.other_id, damage))
         .collect();
 }

@@ -17,9 +17,6 @@ fn should_remove(world: &World, entity: &dyn Entity) -> bool {
     }
     if entity.body().hp <= 0.0 {
         return true;
-    }       
-    if !world.bounds.check_collision_recs(&entity.body().frame) {
-        return true;
     }
     false
 }
@@ -29,21 +26,6 @@ mod tests {
     use raylib::math::Vector2;
 
     use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{world::World, simple_entity::SimpleEntity}};
-
-    #[test]
-    fn can_remove_entities_outside_of_screen() {
-        let mut world = World::test();
-        
-        let mut body = world.entity_factory.build("towerdart");
-        body.frame = RECT_ORIGIN_SQUARE_100;
-        body.current_speed = 100.0;  
-        body.direction =  Vector2::new(-1.0, 0.0);
-        world.add_entity(Box::new(SimpleEntity::new(body)));
-
-        assert_eq!(world.entities.borrow().len(), 1);
-        world.update(1.0);
-        assert_eq!(world.entities.borrow().len(), 0);
-    }
 
     #[test]
     fn can_remove_entities_with_no_hp_left() {

@@ -26,7 +26,7 @@ impl_animated_entity!(CreepSpawnPoint);
 impl Entity for CreepSpawnPoint {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        move_linearly(self, time_since_last_update);
+        move_linearly(self, world, time_since_last_update);
         update_sprite(self, time_since_last_update);
 
         if world.total_elapsed_time - self.last_spawn_time > self.time_to_spawn {
@@ -52,6 +52,7 @@ impl EntityFactory {
     pub fn build_creep_spawn_point(&self) -> CreepSpawnPoint {
         let mut body = self.build("creepspawnpoint");
         body.resize(50.0, 30.0);
+        body.is_rigid = false;
         CreepSpawnPoint::new(body)
     }
 }

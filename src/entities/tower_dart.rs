@@ -11,7 +11,6 @@ impl TowerDart {
         let mut body = entity_factory.build("towerdart");
         body.resize(10.0, 10.0);
         body.is_bullet = true;
-        body.requires_collision_detection = true;
         body.dp = 60.0;
         body.hp = 100.0;
         body.is_ally = parent.body().is_ally;
@@ -19,6 +18,7 @@ impl TowerDart {
         body.direction = parent.body().direction;
         body.base_speed = 5.0;
         body.lifespan = 10.0;
+        body.is_rigid = false;
         body.reset_speed();
         body.center_in(&parent.body().frame);
         
@@ -34,7 +34,7 @@ impl_animated_entity!(TowerDart);
 impl Entity for TowerDart {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        move_linearly(self, time_since_last_update);
+        move_linearly(self, world, time_since_last_update);
         update_sprite(self, time_since_last_update);
         world_updates.append(&mut handle_collisions_for_bullet(self, world));
         world_updates.append(&mut remove_automatically(self, world));

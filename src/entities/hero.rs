@@ -44,7 +44,7 @@ impl Entity for Hero {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         set_direction_according_to_keyboard_state(self, &world.keyboard_state);
-        move_linearly(self, time_since_last_update);
+        move_linearly(self, world, time_since_last_update);
         update_sprite(self, time_since_last_update);
         world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
