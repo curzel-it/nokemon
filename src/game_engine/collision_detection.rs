@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use super::{entity::Entity, game::Game, visible_entities};
+use super::{entity::Entity, game::Game};
 
 pub fn compute_collisions(game: &Game) -> HashMap<u32, Vec<u32>> {
     let mut collisions: HashMap<u32, Vec<u32>> = HashMap::new();
@@ -45,7 +45,7 @@ fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> b
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::{Rectangle, Vector2};
+    use raylib::math::Vector2;
 
     use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, game::Game, visible_entities::compute_visible_entities}};
 
@@ -97,7 +97,7 @@ mod tests {
         hero.body_mut().direction = Vector2::new(0.0, 0.0);
         hero.place_at(2000.0, 0.0);
         game.add_entity(Box::new(hero));
-        
+
         game.visible_entities = compute_visible_entities(&game);
 
         let entities = game.entities.borrow();

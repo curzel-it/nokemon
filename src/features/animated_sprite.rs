@@ -59,7 +59,7 @@ fn direction_name(direction: Vector2) -> Option<String> {
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::{Rectangle, Vector2};
+    use raylib::math::Vector2;
 
     use crate::{constants::{ANIMATION_NAME_FRONT, RECT_ORIGIN_FULL_HD}, game_engine::{game::Game, game_engine::GameEngine, simple_entity::SimpleEntity}};
     

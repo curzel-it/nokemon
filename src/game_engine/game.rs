@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BG_TILE_SIZE, HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTile};
+use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTile};
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities};
 
@@ -46,10 +46,6 @@ impl Game {
         self.add_tower();
         self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
-    }
-    
-    pub fn entity_ids(&self) -> Vec<u32> {
-        return self.entities.borrow().values().map(|e| e.id()).collect();
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
