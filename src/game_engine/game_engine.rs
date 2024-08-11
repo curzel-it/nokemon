@@ -57,7 +57,7 @@ impl GameEngine {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::{ASSETS_PATH}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
+    use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
 
     use super::GameEngine;
 

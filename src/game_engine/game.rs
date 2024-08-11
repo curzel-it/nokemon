@@ -2,9 +2,9 @@ use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::{HERO_ENTITY_ID};
+use crate::constants::HERO_ENTITY_ID;
 
-use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, simple_entity::SimpleEntity};
+use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}};
 
 pub struct Game {
     pub total_elapsed_time: f32,
@@ -46,12 +46,6 @@ impl Game {
     
     pub fn entity_ids(&self) -> Vec<u32> {
         return self.entities.borrow().values().map(|e| e.id()).collect();
-    }
-
-    pub fn add_entity_by_species(&mut self, species_id: &str) -> u32 {
-        let body = self.entity_factory.build(species_id);
-        let entity = SimpleEntity::new(body);
-        self.add_entity(Box::new(entity))
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
@@ -136,8 +130,6 @@ impl Debug for Game {
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::Rectangle;
-
     use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard}};
 
     use super::Game;
@@ -148,12 +140,6 @@ mod tests {
                 EntityFactory::test(), 
                 RECT_ORIGIN_FULL_HD
             )
-        }
-        
-        pub fn frame_of_entity(&self, id: &u32) -> Rectangle {
-            let entities = self.entities.borrow();
-            let entity = entities.get(id).unwrap();
-            entity.body().frame
         }
         
         pub fn update(&mut self, time_since_last_update: f32) {

@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct Creep {
@@ -38,11 +38,5 @@ impl EntityFactory {
         body.reset_speed();
         body.direction = Vector2::new(1.0, 0.0);    
         Creep::new(body)
-    }
-}
-
-impl Game {
-    pub fn add_creep(&mut self) -> u32 {
-        self.add_entity(Box::new(self.entity_factory.build_creep()))
     }
 }

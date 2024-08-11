@@ -1,17 +1,5 @@
 use raylib::math::Vector2;
 
-pub fn direction_vector(x1: f32, y1: f32, x2: f32, y2: f32) -> Vector2 {
-    let dx = x2 - x1;
-    let dy = y2 - y1;    
-    let length = (dx.powi(2) + dy.powi(2)).sqrt();
-
-    if length != 0.0 {
-        Vector2::new(dx / length, dy / length)
-    } else {
-        Vector2 { x: 0.0, y: 0.0 }
-    }
-}
-
 pub fn dumb_direction_vector(x1: f32, y1: f32, x2: f32, y2: f32) -> Vector2 {
     let margin = 2.0;
     let up = y2 - y1 < -margin;
