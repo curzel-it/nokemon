@@ -24,6 +24,7 @@ impl GameEngine {
 
         let (mut rl, thread) = raylib::init()
             .size(game.camera_viewport.width as i32, game.camera_viewport.height as i32)
+            .resizable()
             .title("Tower Defense")
             .build();
     

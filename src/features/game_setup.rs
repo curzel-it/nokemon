@@ -12,16 +12,16 @@ impl Game {
     fn add_creep_spawn_point(&mut self) -> u32 {
         let mut entity = self.entity_factory.build_creep_spawn_point();
         entity.center_in(&self.bounds);
-        entity.body_mut().frame.x -= 50.0;
-        entity.body_mut().frame.y -= 50.0;
+        entity.body_mut().frame.x -= 100.0;
+        entity.body_mut().frame.y -= 100.0;
         self.add_entity(Box::new(entity))
     }
     
     fn add_tower(&mut self) -> u32 {
         let mut entity = self.entity_factory.build_tower();
         entity.center_in(&self.bounds);
-        entity.body_mut().frame.x -= 50.0;
-        entity.body_mut().frame.y -= 50.0;
+        entity.body_mut().frame.x -= 100.0;
+        entity.body_mut().frame.y -= 100.0;
         self.add_entity(Box::new(entity))
     }
 
