@@ -62,9 +62,3 @@ impl EntityFactory {
         Tower::new(body)
     }
 }
-
-impl Game {
-    pub fn add_tower(&mut self) -> u32 {
-        self.add_entity(Box::new(self.entity_factory.build_tower()))
-    }
-}

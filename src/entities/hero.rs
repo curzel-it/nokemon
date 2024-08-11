@@ -59,18 +59,12 @@ impl EntityFactory {
         body.id = HERO_ENTITY_ID;
         body.time_to_next_shot = 5.0;
         body.time_between_shots = 5.0;
-        body.base_speed = 2.0;
+        body.base_speed = 3.0;
         body.is_ally = true;
         body.reset_speed();
 
         let mut hero = Hero::new(body);
-        hero.body_mut().direction = Vector2::new(1.0, 0.0);    
+        hero.body_mut().direction = Vector2::new(1.0, 0.0);            
         hero
-    }
-}
-
-impl Game {
-    pub fn add_hero(&mut self) -> u32 {
-        self.add_entity(Box::new(self.entity_factory.build_hero()))
     }
 }

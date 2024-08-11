@@ -5,14 +5,14 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTile};
 
-use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities};
+use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, tile_set::TileSet, visible_entities::compute_visible_entities};
 
 pub struct Game {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub camera_viewport: Rectangle,
-    pub tiles: Vec<BackgroundTile>,
+    pub tiles: TileSet,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub visible_entities: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
@@ -29,7 +29,7 @@ impl Game {
             entity_factory,
             bounds: RECT_ORIGIN_SQUARE_100,
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            tiles: vec![],
+            tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
             selected_entity_id: None,
@@ -38,14 +38,6 @@ impl Game {
             cached_hero_position: Vector2::zero(),
             collisions: HashMap::new()
         }
-    }
-    
-    pub fn setup(&mut self) {
-        self.load_map();
-        self.add_creep_spawn_point();
-        self.add_tower();
-        self.add_hero();
-        self.selected_entity_id = Some(HERO_ENTITY_ID);
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
@@ -121,6 +113,10 @@ impl Game {
             self.cached_hero_frame = entity.body().frame;
             self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
         }
+    }
+
+    pub fn visible_tiles(&self) -> Vec<&BackgroundTile> {
+        self.tiles.visible_tiles(&self.camera_viewport)
     }
 }
 

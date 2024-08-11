@@ -51,8 +51,7 @@ impl GameEngine {
 }
 
 #[cfg(test)]
-mod tests {
-    
+mod tests {    
     use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
 
     use super::GameEngine;

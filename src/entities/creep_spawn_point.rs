@@ -55,9 +55,3 @@ impl EntityFactory {
         CreepSpawnPoint::new(body)
     }
 }
-
-impl Game {
-    pub fn add_creep_spawn_point(&mut self) -> u32 {
-        self.add_entity(Box::new(self.entity_factory.build_creep_spawn_point()))
-    }
-}

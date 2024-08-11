@@ -20,7 +20,7 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &Game, fps: u32) {
 }
 
 fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
-    for tile in &game.tiles {
+    for tile in game.visible_tiles() {
         if game.camera_viewport.check_collision_recs(&tile.body().frame) {
             draw_item(d, tile, &game.camera_viewport, engine);
         }
