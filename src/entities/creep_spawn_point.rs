@@ -52,7 +52,6 @@ impl EntityFactory {
     pub fn build_creep_spawn_point(&self) -> CreepSpawnPoint {
         let mut body = self.build("creepspawnpoint");
         body.resize(50.0, 30.0);
-        body.is_enemy = true;
         CreepSpawnPoint::new(body)
     }
 }

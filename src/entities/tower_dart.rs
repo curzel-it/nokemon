@@ -14,7 +14,7 @@ impl TowerDart {
         body.requires_collision_detection = true;
         body.dp = 60.0;
         body.hp = 100.0;
-        body.is_enemy = true;
+        body.is_ally = parent.body().is_ally;
         body.parent_id = parent.id();
         body.direction = parent.body().direction;
         body.base_speed = 5.0;

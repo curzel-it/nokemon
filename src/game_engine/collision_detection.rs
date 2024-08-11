@@ -39,9 +39,7 @@ fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> b
     if entity1.parent_id() == entity2.id() || entity2.parent_id() == entity1.id() {
         return false;
     }
-    if entity1.body().is_enemy == entity2.body().is_enemy {
-
-
+    if entity1.body().is_ally == entity2.body().is_ally {
         return false;
     }             
     true

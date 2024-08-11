@@ -60,6 +60,7 @@ impl EntityFactory {
         body.time_to_next_shot = 5.0;
         body.time_between_shots = 5.0;
         body.base_speed = 2.0;
+        body.is_ally = true;
         body.reset_speed();
 
         let mut hero = Hero::new(body);

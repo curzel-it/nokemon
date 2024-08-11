@@ -57,7 +57,7 @@ impl EntityFactory {
             creation_time: 0.0,
             requires_collision_detection: false,
             z_index: 0,
-            is_enemy: false,
+            is_ally: false,
             is_bullet: false,
             lifespan: INFINITE_LIFESPAN,
         }

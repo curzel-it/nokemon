@@ -14,6 +14,7 @@ impl SurroundingAreaAttack {
         body.requires_collision_detection = true;
         body.dp = 20.0;
         body.hp = 1000.0;
+        body.is_ally = parent.body().is_ally;
         body.parent_id = parent.id();
         body.base_speed = 0.0;
         body.lifespan = 2.0;
