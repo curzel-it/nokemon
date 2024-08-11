@@ -44,14 +44,14 @@ fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> b
 
         return false;
     }             
-    return true;
+    true
 }
 
 #[cfg(test)]
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{entities, features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, game::Game}};
+    use crate::{features::shooter::Shooter, game_engine::{collision_detection::is_valid_collision, entity_body::EmbodiedEntity, game::Game}};
 
     use super::compute_collisions;
 

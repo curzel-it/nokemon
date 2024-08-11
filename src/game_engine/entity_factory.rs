@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::{entity_body::EntityBody};
 

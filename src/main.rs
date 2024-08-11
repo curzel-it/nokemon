@@ -7,7 +7,6 @@ mod utils;
 
 use constants::LOG_GAME_STATE;
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
-use raylib::color::Color;
 
 fn main() {
     let mut engine = GameEngine::new();
