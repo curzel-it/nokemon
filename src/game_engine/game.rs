@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BG_TILE_SIZE, GAME_SIZE, HERO_ENTITY_ID}, entities::background_tile::{BackgroundTile, BackgroundTileType}};
+use crate::{constants::{BG_TILE_SIZE, HERO_ENTITY_ID}, entities::background_tile::BackgroundTile};
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}};
 
@@ -141,7 +141,7 @@ impl Debug for Game {
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::RECT_ORIGIN_FULL_HD, game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard}};
+    use crate::game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard};
 
     use super::Game;
 

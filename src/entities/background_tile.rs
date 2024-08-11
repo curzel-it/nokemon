@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::{BACKGROUND_TILE_GRASS, BG_TILE_SIZE, BG_TILE_Z_INDEX}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_embodied_entity};
+use crate::{constants::{BG_TILE_SIZE, BG_TILE_Z_INDEX}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, game::Game, game_state_update::GameStateUpdate}, impl_embodied_entity};
 
 #[derive(Debug)]
 pub enum BackgroundTileType {

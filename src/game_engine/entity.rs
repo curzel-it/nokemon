@@ -1,4 +1,3 @@
-use std::cmp::Ordering;
 
 use super::{entity_body::EmbodiedEntity, game::Game, game_state_update::GameStateUpdate};
 

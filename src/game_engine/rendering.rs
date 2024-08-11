@@ -14,14 +14,14 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
     draw_debug_info(&mut d, game, fps);
 }
 
-fn draw_debug_info(d: &mut RaylibDrawHandle, game: &Game, fps: u32) {
+fn draw_debug_info(d: &mut RaylibDrawHandle, _: &Game, fps: u32) {
     d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::RED);
     // d.draw_text(format!("Entities: {:#?}", game).as_str(), 10, 50, 20, Color::RED);
 }
 
 fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     for tile in &game.tiles {
-        if engine.camera_viewport.check_collision_recs(&&tile.body().frame) {
+        if engine.camera_viewport.check_collision_recs(&tile.body().frame) {
             draw_item(d, tile, engine);
         }
     }
@@ -44,7 +44,7 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
         if a.frame.y > b.frame.y { return Ordering::Greater; }
         if a.frame.x < b.frame.x { return Ordering::Less; }
         if a.frame.x > b.frame.x { return Ordering::Greater; }
-        return Ordering::Equal;
+        Ordering::Equal
     });
 
     for item in entities {

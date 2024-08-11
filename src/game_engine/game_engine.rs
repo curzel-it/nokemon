@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS, GAME_SIZE, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
 
 use super::{entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
@@ -61,9 +61,9 @@ impl GameEngine {
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::Rectangle;
+    
 
-    use crate::{constants::{ASSETS_PATH, GAME_SIZE, INITIAL_CAMERA_VIEWPORT}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
+    use crate::{constants::{ASSETS_PATH, GAME_SIZE}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
 
     use super::GameEngine;
 

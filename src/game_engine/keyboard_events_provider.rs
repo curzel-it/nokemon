@@ -4,11 +4,6 @@ use crate::utils::vector_utils::directions_based_direction_vector;
 
 #[derive(Default, Clone, Copy)]
 pub struct KeyboardState {
-    pub is_base_attack_pressed: bool,
-    pub is_up_pressed: bool,
-    pub is_right_pressed: bool,
-    pub is_down_pressed: bool,
-    pub is_left_pressed: bool,
     pub direction_based_on_pressed_keys: Option<Vector2>
 }
 
@@ -18,7 +13,6 @@ pub trait KeyboardEventsProvider {
 
 impl KeyboardEventsProvider for RaylibHandle {
     fn keyboard_state(&self) -> KeyboardState {
-        let is_base_attack_pressed = self.is_key_down(KeyboardKey::KEY_SPACE);
         let is_up_pressed = self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP);
         let is_right_pressed = self.is_key_down(KeyboardKey::KEY_D) || self.is_key_down(KeyboardKey::KEY_RIGHT);
         let is_down_pressed = self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN);
@@ -32,11 +26,6 @@ impl KeyboardEventsProvider for RaylibHandle {
         );
 
         KeyboardState {
-            is_base_attack_pressed,
-            is_up_pressed,
-            is_right_pressed,
-            is_down_pressed,
-            is_left_pressed, 
             direction_based_on_pressed_keys: direction
         }
     }
