@@ -21,10 +21,10 @@ impl Sprite {
     }
 
     pub fn empty() -> Sprite {
-        return Sprite::new(
+        Sprite::new(
             MISSING_SPRITE.to_owned(), 
             vec![MISSING_SPRITE.to_string()], 
-            ANIMATIONS_FPS);
+            ANIMATIONS_FPS)
     }
 
     pub fn current_frame(&self) -> &String {

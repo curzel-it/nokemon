@@ -25,9 +25,9 @@ impl SpriteSet {
             Some(frames) => frames.clone(),
             None => {
                 if animation_name != ANIMATION_NAME_FRONT {
-                    return self.sprite_frames(ANIMATION_NAME_FRONT);
+                    self.sprite_frames(ANIMATION_NAME_FRONT)
                 } else {
-                    return vec![MISSING_SPRITE.to_owned()]
+                    vec![MISSING_SPRITE.to_owned()]
                 }
             }
         }

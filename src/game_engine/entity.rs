@@ -1,48 +1,31 @@
-use std::fmt::Debug;
+use std::cmp::Ordering;
 
-use raylib::math::{Rectangle, Vector2};
+use super::{entity_body::EmbodiedEntity, game::Game, game_state_update::GameStateUpdate};
 
-use crate::constants::{ANIMATIONS_FPS, BASE_ENTITY_SPEED, SCALE};
-use crate::species::species_model::Species;
-use crate::sprites::sprite::Sprite;
-use crate::sprites::sprite_set::SpriteSet;
-
-#[derive(Debug)]
-pub struct Entity {
-    pub id: u32,
-    pub parent_id: u32,
-    pub frame: Rectangle,
-    pub direction: Vector2,
-    pub speed: f32,
-    pub hp: f32,
-    pub dp: f32,
-    pub sprite_set: SpriteSet,
-    pub current_sprite: Sprite,
-    pub sprite_invalidated: bool,
-    pub time_to_next_shot: f32,
-    pub species: Species,
-    pub creation_time: f32,
+pub trait Entity: EmbodiedEntity {
+    fn update(&mut self, game: &Game, time_since_last_update: f32) -> Vec<GameStateUpdate>;
 }
 
-impl Entity {
-    pub fn place_center_of(&mut self, bounds: Rectangle) {
-        self.frame.x = bounds.x + (bounds.width - self.frame.width) / 2.0;
-        self.frame.y = bounds.y + (bounds.height - self.frame.height) / 2.0;
+impl PartialEq for dyn Entity {
+    fn eq(&self, other: &Self) -> bool {
+        self.id() == other.id()
     }
+}
 
-    pub fn reset_speed(&mut self) {
-        self. speed = BASE_ENTITY_SPEED * SCALE * self.species.speed;
+impl Eq for dyn Entity {}
+
+impl PartialOrd for dyn Entity {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
+}
 
-    pub fn change_direction(&mut self, new_direction: Vector2) {
-        self.direction = new_direction;
-        self.sprite_invalidated = true;
-    }
-
-    pub fn change_animation(&mut self, animation_name: &str) -> u32 {
-        if self.current_sprite.animation_name != animation_name {
-            self.current_sprite = self.sprite_set.sprite(&animation_name);
-        }
-        ((self.current_sprite.number_of_frames() as f32) / ANIMATIONS_FPS) as u32
+impl Ord for dyn Entity {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.body().frame.y
+            .partial_cmp(&other.body().frame.y)
+            .unwrap_or(Ordering::Equal)
+            .then_with(|| self.body().z_index.cmp(&other.body().z_index))
+            .then_with(|| self.body().creation_time.partial_cmp(&other.body().creation_time).unwrap_or(Ordering::Equal))
     }
 }

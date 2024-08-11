@@ -17,12 +17,12 @@ impl SpritesRepository {
     }
 
     pub fn setup(&mut self, png_paths: &Vec<String>) {
-        self.sprite_sets = self.builder.sprite_sets(&png_paths);
+        self.sprite_sets = self.builder.sprite_sets(png_paths);
     }
 
     pub fn sprites(&self, species_id: &String) -> SpriteSet {
         let sprites = self.sprite_sets.get(species_id);
-        return match sprites {
+        match sprites {
             Some(sprites) => sprites.clone(),
             None => SpriteSet::default()
         }

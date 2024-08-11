@@ -1,4 +1,3 @@
-use std::cmp::Ordering;
 
 use raylib::prelude::*;
 
@@ -7,25 +6,24 @@ use crate::constants::{BACKGROUND_TILE_GRASS, SCALE};
 use super::{entity::Entity, game::Game, game_engine::GameEngine};
 
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, engine: &GameEngine) {
+    let fps = rl.get_fps();
     let mut d = rl.begin_drawing(thread);
     draw_background(&mut d, game, engine);
     draw_entities(&mut d, game, engine);
+    draw_debug_info(&mut d, fps);
+}
+
+fn draw_debug_info(d: &mut RaylibDrawHandle, fps: u32) {
+    d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::BLACK);
 }
 
 fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
-    let mut sorted_entities: Vec<&Entity> = game.entities.values().collect();
-    sorted_entities.sort_by(|a, b| {
-        if a.frame.y < b.frame.y { return Ordering::Less; }
-        if a.frame.y > b.frame.y { return Ordering::Greater; }
-        if a.species.z_index < b.species.z_index { return Ordering::Less; }
-        if a.species.z_index > b.species.z_index { return Ordering::Greater; }
-        if a.frame.x < b.frame.x { return Ordering::Less; }
-        if a.frame.x > b.frame.x { return Ordering::Greater; }
-        return Ordering::Equal;
-    });
+    let entities = game.entities.borrow();
+    let mut sorted_entities: Vec<&Box<dyn Entity>> = entities.values().collect();
+    sorted_entities.sort();
 
     for item in sorted_entities {
-        draw_item(d, &item, &engine);
+        draw_item(d, item, engine);
     }
 }
 
@@ -50,17 +48,18 @@ fn draw_background(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
-    item: &Entity,
+    item: &Box<dyn Entity>,
     engine: &GameEngine
 ) {
-    let sprite_path = item.current_sprite.current_frame();
+    let sprite_path = item.body().current_sprite_frame();
+    let frame = item.body().frame;
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         d.draw_texture_ex(
             texture,
-            Vector2::new(item.frame.x, item.frame.y),
+            Vector2::new(frame.x, frame.y),
             0.0,
-            item.frame.width / texture.width as f32, 
+            frame.width / texture.width as f32, 
             Color::WHITE 
         );
     }
