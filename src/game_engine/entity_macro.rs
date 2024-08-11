@@ -20,19 +20,11 @@ macro_rules! impl_embodied_entity {
             
             fn center_in(&mut self, value: &raylib::math::Rectangle) {
                 self.body.center_in(value);
-            }
-            
-            fn center_at(&mut self, value: &raylib::math::Vector2) {
-                self.body.center_at(value);
-            }
+            }            
 
             fn place_at(&mut self, x: f32, y: f32) {
                 self.body.frame.x = x;
                 self.body.frame.y = y;
-            }
-
-            fn resize(&mut self, w: f32, h: f32) {
-                self.body.resize(w, h);
             }
         }
     };

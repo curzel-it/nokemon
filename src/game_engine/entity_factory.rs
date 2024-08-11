@@ -4,7 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
-use super::{entity_body::EntityBody};
+use super::entity_body::EntityBody;
 
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
@@ -66,7 +66,7 @@ impl EntityFactory {
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::{ASSETS_PATH}, utils::file_utils::list_files};
+    use crate::{constants::ASSETS_PATH, utils::file_utils::list_files};
 
     use super::*;
 

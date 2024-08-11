@@ -61,20 +61,20 @@ fn direction_name(direction: Vector2) -> Option<String> {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::ANIMATION_NAME_FRONT, game_engine::{game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard}};
+    use crate::{constants::ANIMATION_NAME_FRONT, entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine, keyboard_events_provider::NoKeyboard, simple_entity::SimpleEntity}};
     
     fn test_setup(direction: Vector2) -> (GameEngine, Game, u32) {
         let engine = GameEngine::new();        
         let mut game = Game::test();
 
-        let id = game.add_entity_by_species("red");
-        let mut entities = game.entities.borrow_mut();
-        let entity = entities.get_mut(&id).unwrap();        
-        entity.body_mut().direction = direction;
-        entity.body_mut().set_animation(ANIMATION_NAME_FRONT);
+        let mut body = game.entity_factory.build("red");
+        body.direction = direction;
+        body.set_animation(ANIMATION_NAME_FRONT);
 
-        drop(entities);
-        (engine, game, id)
+        let hero = Box::new(SimpleEntity::new(body));
+        let hero_id = game.add_entity(hero);
+
+        (engine, game, hero_id)
     }
 
     #[test]

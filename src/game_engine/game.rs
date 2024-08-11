@@ -19,17 +19,6 @@ pub struct Game {
     pub collisions: HashMap<u32, Vec<u32>>
 }
 
-        // self.game_defaults.update(&mut game, 0.0);
-        /* 
-        for id in &game.entity_ids() {
-            for behavior in &self.entity_behaviors {
-                behavior.update(id, game, time_since_last_update);
-            }        
-        }
-        for behavior in &self.game_behaviors {
-            behavior.update(game, time_since_last_update);
-        }*/
-
 impl Game {
     pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
         let outer_bounds = Rectangle::new(bounds.x - 100.0, bounds.y - 100.0, bounds.width + 200.0, bounds.height + 200.0);
@@ -53,13 +42,6 @@ impl Game {
         self.add_tower();
         self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
-    }
-
-    pub fn is_every_n_seconds(&self, seconds: u32) -> bool {
-        let full_second = self.total_elapsed_time.floor();
-        let i_full_second = full_second as u32;
-        let diff = self.total_elapsed_time - full_second;
-        diff < FRAME_TIME && (i_full_second % seconds) == 0
     }
     
     pub fn entity_ids(&self) -> Vec<u32> {
@@ -127,9 +109,6 @@ impl Game {
             GameStateUpdate::RemoveEntity(id) => { 
                 self.remove_entity(&id); 
             },
-            GameStateUpdate::SelectEntity(id) => { 
-                self.selected_entity_id = Some(id) 
-            },
             GameStateUpdate::IncreaseHp(id, value) => { 
                 if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
                     entity.body_mut().hp += value;
@@ -137,54 +116,13 @@ impl Game {
             }
         };
     }
-
-    /* 
-    pub fn move_entity_by(&mut self, id: u32, offset: Vector2) {
-        let entity = self.entities.get_mut(&id);
-        if let Some(entity) = entity {
-            entity.frame.x += offset.x;
-            entity.frame.y += offset.y;
-        }
-    }
-
-    pub fn selected_entity(&self) -> Option<&Entity> {
-        if let Some(id) = self.selected_entity_id {
-            return Some(&self.entities[&id]);
-        } else {
-            return None;
-        }
-    }
-
-    pub fn selected_entity_mut(&mut self) -> Option<&mut Box<dyn Entity>> {
-        let mut entities = self.entities.borrow_mut();
-
-        if let Some(id) = self.selected_entity_id {
-            if let Some(entity_mut) = entities.get_mut(&id) {
-                return Some(entity_mut);
-            }
-        }
-        return None;
-    }
-
-    pub fn hero(&self) -> Option<&Entity> {
-        return self.entities.get(&HERO_ENTITY_ID);
-    }
-*/
+    
     fn store_updated_hero_state(&mut self) {
         if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
             self.cached_hero_frame = entity.body().frame;
             self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
         }
     }
-
-    /* 
-    pub fn total_elapsed_time_s(&self) -> u32 {
-        return self.total_elapsed_time.floor() as u32;
-    }
-
-    pub fn total_elapsed_time_ms(&self) -> u32 {
-        return (self.total_elapsed_time * 1000.0).floor() as u32;
-    }*/
 }
 
 impl Debug for Game {

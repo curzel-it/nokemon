@@ -12,9 +12,7 @@ pub trait EmbodiedEntity: Debug {
     fn body_mut(&mut self) -> &mut EntityBody;
     
     fn center_in(&mut self, value: &Rectangle);
-    fn center_at(&mut self, value: &Vector2);
     fn place_at(&mut self, x: f32, y: f32);
-    fn resize(&mut self, w: f32, h: f32);
 }
 
 #[derive(Debug)]
