@@ -55,7 +55,7 @@ mod tests {
         entity.change_direction(Vector2::new(1.0, 1.0));  
         game.add_entity(entity);
                 
-        engine.update(&mut game, 1.0, &nokb);
+        engine.update_rl(&mut game, 1.0, &nokb);
         let result = game.frame_of_entity(&entity_id);
         assert_eq!(result.x, 30.0);
         assert_eq!(result.y, 30.0);

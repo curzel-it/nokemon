@@ -63,12 +63,12 @@ mod tests {
         entity.change_direction(Vector2::new(-1.0, 0.0));  
         game.add_entity(entity);      
 
-        engine.update(&mut game, 0.6, &nokb);
+        engine.update_rl(&mut game, 0.6, &nokb);
         assert_eq!(game.entities.len(), 1);
                 
-        engine.update(&mut game, 0.6, &nokb);
-        engine.update(&mut game, 0.6, &nokb);
-        engine.update(&mut game, 0.6, &nokb);
+        engine.update_rl(&mut game, 0.6, &nokb);
+        engine.update_rl(&mut game, 0.6, &nokb);
+        engine.update_rl(&mut game, 0.6, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 
@@ -86,7 +86,7 @@ mod tests {
         game.add_entity(entity);      
 
         assert_eq!(game.entities.len(), 1);
-        engine.update(&mut game, 0.1, &nokb);
+        engine.update_rl(&mut game, 0.1, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 
@@ -105,7 +105,7 @@ mod tests {
         game.add_entity(entity);      
 
         assert_eq!(game.entities.len(), 1);
-        engine.update(&mut game, lifespan + 1.0, &nokb);
+        engine.update_rl(&mut game, lifespan + 1.0, &nokb);
         assert_eq!(game.entities.len(), 0);
     }
 }

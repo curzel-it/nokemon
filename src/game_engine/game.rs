@@ -1,18 +1,20 @@
-use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
+use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
+use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{BG_TILE_SIZE, HERO_ENTITY_ID}, entities::background_tile::BackgroundTile};
+use crate::{constants::{BG_TILE_SIZE, HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTile};
 
-use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}};
+use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities};
 
 pub struct Game {
     pub total_elapsed_time: f32,
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
-    pub outer_bounds: Rectangle,
+    pub camera_viewport: Rectangle,
     pub tiles: Vec<BackgroundTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
+    pub visible_entities: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_frame: Rectangle,
@@ -22,29 +24,20 @@ pub struct Game {
 
 impl Game {
     pub fn new(entity_factory: EntityFactory) -> Self {
-        let (bounds, outer_bounds) = Game::build_bounds(10.0, 10.0);
-
         Self {
             total_elapsed_time: 0.0,
             entity_factory,
-            bounds,
-            outer_bounds,
+            bounds: RECT_ORIGIN_SQUARE_100,
+            camera_viewport: INITIAL_CAMERA_VIEWPORT,
             tiles: vec![],
             entities: RefCell::new(HashMap::new()),
+            visible_entities: hash_set![],
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
             cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
             cached_hero_position: Vector2::zero(),
             collisions: HashMap::new()
         }
-    }
-
-    pub fn build_bounds(tiles_width: f32, tiles_height: f32) -> (Rectangle, Rectangle) {
-        let width = tiles_width * BG_TILE_SIZE;
-        let height = tiles_height * BG_TILE_SIZE;
-        let bounds = Rectangle::new(0.0, 0.0, width, height);
-        let outer_bounds = Rectangle::new(-100.0, -100.0, width + 200.0, height + 200.0);
-        (bounds, outer_bounds)
     }
     
     pub fn setup(&mut self) {
@@ -80,15 +73,13 @@ impl Game {
     ) {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_events.keyboard_state();
-
+        self.visible_entities = compute_visible_entities(self);
         self.collisions = compute_collisions(self);
 
-        let entity_ids = self.entity_ids();
+        let mut state_updates: Vec<GameStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();
 
-        let mut state_updates: Vec<GameStateUpdate> = vec![];
-
-        for id in &entity_ids {
+        for id in &self.visible_entities {
             if let Some(entity) = entities.get_mut(id) {
                 let mut updates = entity.update(self, time_since_last_update);
                 state_updates.append(&mut updates);
@@ -98,6 +89,13 @@ impl Game {
         drop(entities);
         self.store_updated_hero_state();
         self.apply_state_updates(state_updates);
+
+        self.camera_viewport = Rectangle::new(
+            self.cached_hero_position.x - self.camera_viewport.width / 2.0,
+            self.cached_hero_position.y - self.camera_viewport.height / 2.0,
+            self.camera_viewport.width,
+            self.camera_viewport.height
+        );
     } 
 
     fn apply_state_updates(&mut self, updates: Vec<GameStateUpdate>) {

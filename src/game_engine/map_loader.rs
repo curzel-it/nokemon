@@ -1,16 +1,15 @@
 use image::{GenericImageView, Pixel};
 use rand::Rng;
+use raylib::math::Rectangle;
 
-use crate::{constants::WORLD_MAP_PATH, entities::background_tile::BackgroundTileType};
+use crate::{constants::{BG_TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::BackgroundTileType};
 
 use super::game::Game;
 
 impl Game {
     pub fn load_map(&mut self) {
         let (rows, columns, tiles) = parse_world_map(WORLD_MAP_PATH);
-        let (bounds, outer_bounds) = Game::build_bounds(columns as f32, rows as f32);
-        self.bounds = bounds;
-        self.outer_bounds = outer_bounds;
+        self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * BG_TILE_SIZE, rows as f32 * BG_TILE_SIZE);
 
         self.tiles = tiles
             .iter()

@@ -10,3 +10,4 @@ pub mod keyboard_events_provider;
 pub mod map_loader;
 pub mod rendering;
 pub mod simple_entity;
+pub mod visible_entities;

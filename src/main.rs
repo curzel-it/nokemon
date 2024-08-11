@@ -14,7 +14,7 @@ fn main() {
     while !rl.window_should_close() {     
         let time_since_last_update = rl.get_frame_time();
    
-        engine.update(&mut game, time_since_last_update, &rl);
+        engine.update_rl(&mut game, time_since_last_update, &rl);
         draw_frame(&mut rl, &thread, &game, &engine);  
     }
 }

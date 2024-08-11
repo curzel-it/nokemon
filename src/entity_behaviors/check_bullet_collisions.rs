@@ -73,7 +73,7 @@ mod tests {
         red.change_direction(Vector2::zero());
         game.add_entity(red);      
 
-        engine.update(&mut game, 0.1, &nokb);
+        engine.update_rl(&mut game, 0.1, &nokb);
         
         assert_eq!(game.entities.get(&1).unwrap().hp, 10.0);
         assert_eq!(game.entities.get(&2).unwrap().hp, 10.0);
@@ -100,8 +100,8 @@ mod tests {
         red.change_direction(Vector2::zero());
         game.add_entity(red);      
 
-        engine.update(&mut game, 0.1, &nokb);
-        engine.update(&mut game, 0.1, &nokb);
+        engine.update_rl(&mut game, 0.1, &nokb);
+        engine.update_rl(&mut game, 0.1, &nokb);
         
         assert!(game.entities.get(&1).is_none());
         assert_eq!(game.entities.get(&2).unwrap().hp, 40.0);

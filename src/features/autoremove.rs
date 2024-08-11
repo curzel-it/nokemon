@@ -18,7 +18,7 @@ fn should_remove(game: &Game, entity: &dyn Entity) -> bool {
     if entity.body().hp <= 0.0 {
         return true;
     }       
-    if !game.outer_bounds.check_collision_recs(&entity.body().frame) {
+    if !game.bounds.check_collision_recs(&entity.body().frame) {
         return true;
     }
     false

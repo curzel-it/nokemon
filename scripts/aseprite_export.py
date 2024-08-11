@@ -67,5 +67,5 @@ def export_all_aseprite(root_folder, destination_folder):
         export_aseprite(file, destination_folder)
 
 
-os.system(f"rm -rf {pngs_folder}")
+# os.system(f"rm -rf {pngs_folder}/*")
 export_all_aseprite(aseprite_assets, pngs_folder)

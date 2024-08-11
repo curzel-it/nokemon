@@ -21,19 +21,27 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &Game, fps: u32) {
 
 fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     for tile in &game.tiles {
-        if engine.camera_viewport.check_collision_recs(&tile.body().frame) {
-            draw_item(d, tile, engine);
+        if game.camera_viewport.check_collision_recs(&tile.body().frame) {
+            draw_item(d, tile, &game.camera_viewport, engine);
         }
     }
 }
 
 fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
-    let entities_map = game.entities.borrow();
+    let visible_entities = &game.visible_entities;
+    let entities_map = game.entities.borrow();    
+    
     let mut entities: Vec<&Box<dyn Entity>> = entities_map
-        .values()
-        .filter(|e| engine.camera_viewport.check_collision_recs(&e.body().frame))
+        .iter()
+        .filter_map(|(id, e)| {
+            if visible_entities.contains(id) {
+                Some(e)
+            } else {
+                None
+            }
+        })
         .collect();
-
+    
     entities.sort_by(|entity_a, entity_b| {
         let a = entity_a.body();
         let b = entity_b.body();
@@ -48,18 +56,19 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
     });
 
     for item in entities {
-        draw_item(d, item.borrow(), engine);
+        draw_item(d, item.borrow(), &game.camera_viewport, engine);
     }
 }
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
     item: &dyn Entity,
+    camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
     let sprite_path = item.body().current_sprite_frame();
     let frame = item.body().frame;
-    let position = Vector2::new(frame.x - engine.camera_viewport.x, frame.y - engine.camera_viewport.y);
+    let position = Vector2::new(frame.x - camera_viewport.x, frame.y - camera_viewport.y);
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         d.draw_texture_ex(

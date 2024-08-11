@@ -18,6 +18,7 @@ impl TowerDart {
         body.parent_id = parent.id();
         body.direction = parent.body().direction;
         body.base_speed = 5.0;
+        body.lifespan = 10.0;
         body.reset_speed();
         body.center_in(&parent.body().frame);
         
