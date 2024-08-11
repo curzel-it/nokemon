@@ -1,9 +1,9 @@
 
-use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, world::World, game_state_update::GameStateUpdate}};
+use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, world::World, world_state_update::WorldStateUpdate}};
 
-pub fn remove_automatically(entity: &dyn Entity, world: &World) -> Vec<GameStateUpdate> {
+pub fn remove_automatically(entity: &dyn Entity, world: &World) -> Vec<WorldStateUpdate> {
     if should_remove(world, entity) {
-        return vec![GameStateUpdate::RemoveEntity(entity.id())];
+        return vec![WorldStateUpdate::RemoveEntity(entity.id())];
     }
     vec![]
 }

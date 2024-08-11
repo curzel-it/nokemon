@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::HERO_ENTITY_ID, features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game_state_update::GameStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
+use crate::{constants::HERO_ENTITY_ID, features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world_state_update::WorldStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -41,14 +41,14 @@ impl Shooter for Hero {
 }
 
 impl Entity for Hero {
-    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate> {
-        let mut game_updates: Vec<GameStateUpdate> = vec![];
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+        let mut world_updates: Vec<WorldStateUpdate> = vec![];
         set_direction_according_to_keyboard_state(self, &world.keyboard_state);
         move_linearly(self, time_since_last_update);
         update_sprite(self, time_since_last_update);
-        game_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
-        game_updates.append(&mut remove_automatically(self, world));
-        game_updates
+        world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
+        world_updates.append(&mut remove_automatically(self, world));
+        world_updates
     }
 }
 

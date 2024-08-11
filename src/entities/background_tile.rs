@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::{BG_TILE_SIZE, BG_TILE_Z_INDEX}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, game_state_update::GameStateUpdate}, impl_embodied_entity};
+use crate::{constants::{BG_TILE_SIZE, BG_TILE_Z_INDEX}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
 
 #[derive(Debug)]
 pub enum BackgroundTileType {
@@ -27,7 +27,7 @@ impl BackgroundTile {
 impl_embodied_entity!(BackgroundTile);
 
 impl Entity for BackgroundTile {
-    fn update(&mut self, _: &World, _: f32) -> Vec<GameStateUpdate> {
+    fn update(&mut self, _: &World, _: f32) -> Vec<WorldStateUpdate> {
         vec![]
     }
 }

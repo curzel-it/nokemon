@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_animated_entity, impl_embodied_entity};
 
 use super::tower_dart::TowerDart;
 
@@ -41,12 +41,12 @@ impl Shooter for Tower {
 }
 
 impl Entity for Tower {
-    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate> {
-        let mut game_updates: Vec<GameStateUpdate> = vec![];
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+        let mut world_updates: Vec<WorldStateUpdate> = vec![];
         update_sprite(self, time_since_last_update);
-        game_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
-        game_updates.append(&mut remove_automatically(self, world));
-        game_updates
+        world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
+        world_updates.append(&mut remove_automatically(self, world));
+        world_updates
     }
 }
 

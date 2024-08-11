@@ -1,8 +1,8 @@
 
-use super::{entity_body::EmbodiedEntity, world::World, game_state_update::GameStateUpdate};
+use super::{entity_body::EmbodiedEntity, world::World, world_state_update::WorldStateUpdate};
 
 pub trait Entity: EmbodiedEntity {
-    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate>;
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate>;
 }
 
 impl PartialEq for dyn Entity {

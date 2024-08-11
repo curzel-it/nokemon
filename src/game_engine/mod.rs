@@ -5,7 +5,7 @@ pub mod entity_factory;
 pub mod entity_macro;
 pub mod world;
 pub mod game_engine;
-pub mod game_state_update;
+pub mod world_state_update;
 pub mod keyboard_events_provider;
 pub mod map_loader;
 pub mod rendering;

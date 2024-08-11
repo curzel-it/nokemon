@@ -5,7 +5,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTile};
 
-use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, tile_set::TileSet, visible_entities::compute_visible_entities};
+use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, world_state_update::WorldStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, tile_set::TileSet, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub total_elapsed_time: f32,
@@ -64,7 +64,7 @@ impl World {
         self.visible_entities = compute_visible_entities(self);
         self.collisions = compute_collisions(self);
 
-        let mut state_updates: Vec<GameStateUpdate> = vec![];
+        let mut state_updates: Vec<WorldStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();
 
         for id in &self.visible_entities {
@@ -86,21 +86,21 @@ impl World {
         );
     } 
 
-    fn apply_state_updates(&mut self, updates: Vec<GameStateUpdate>) {
+    fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) {
         for update in updates {
             self.apply_state_update(update)
         }
     }
 
-    fn apply_state_update(&mut self, update: GameStateUpdate) {
+    fn apply_state_update(&mut self, update: WorldStateUpdate) {
         match update {
-            GameStateUpdate::AddEntity(entity) => { 
+            WorldStateUpdate::AddEntity(entity) => { 
                 self.add_entity(entity); 
             },
-            GameStateUpdate::RemoveEntity(id) => { 
+            WorldStateUpdate::RemoveEntity(id) => { 
                 self.remove_entity(&id); 
             },
-            GameStateUpdate::IncreaseHp(id, value) => { 
+            WorldStateUpdate::IncreaseHp(id, value) => { 
                 if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
                     entity.body_mut().hp += value;
                 }
