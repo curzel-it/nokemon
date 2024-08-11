@@ -1,4 +1,4 @@
-use raylib::math::Rectangle;
+use raylib::math::{Rectangle, Vector2};
 
 pub const FPS: u32 = 60;
 pub const LOG_GAME_STATE: bool = false; 
@@ -9,6 +9,8 @@ pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const SCALE: f32 = 2.0;
 pub const NO_PARENT: u32 = 0;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
+pub const INITIAL_CAMERA_VIEWPORT: Rectangle = Rectangle::new(0.0, 0.0, 800.0, 600.0);
+pub const GAME_SIZE: Vector2 = Vector2::new(1000.0, 1000.0);
 
 pub const HERO_ENTITY_ID: u32 = 69;
 

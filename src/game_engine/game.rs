@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::HERO_ENTITY_ID;
+use crate::constants::{GAME_SIZE, HERO_ENTITY_ID};
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}};
 
@@ -20,8 +20,8 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(entity_factory: EntityFactory, bounds: Rectangle) -> Self {
-        let outer_bounds = Rectangle::new(bounds.x - 100.0, bounds.y - 100.0, bounds.width + 200.0, bounds.height + 200.0);
+    pub fn new(entity_factory: EntityFactory) -> Self {
+        let (bounds, outer_bounds) = Game::default_bounds();
 
         Self {
             total_elapsed_time: 0.0,
@@ -35,6 +35,14 @@ impl Game {
             cached_hero_position: Vector2::zero(),
             collisions: HashMap::new()
         }
+    }
+
+    fn default_bounds() -> (Rectangle, Rectangle) {
+        let width = GAME_SIZE.x;
+        let height = GAME_SIZE.x;
+        let bounds = Rectangle::new(0.0, 0.0, width, height);
+        let outer_bounds = Rectangle::new(-100.0, -100.0, width + 200.0, height + 200.0);
+        (bounds, outer_bounds)
     }
     
     pub fn setup(&mut self) {
@@ -136,10 +144,7 @@ mod tests {
 
     impl Game {
         pub fn test() -> Game {
-            Game::new(
-                EntityFactory::test(), 
-                RECT_ORIGIN_FULL_HD
-            )
+            Game::new(EntityFactory::test())
         }
         
         pub fn update(&mut self, time_since_last_update: f32) {

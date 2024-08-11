@@ -7,10 +7,11 @@ mod utils;
 
 use constants::LOG_GAME_STATE;
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
+use raylib::math::Rectangle;
 
 fn main() {
     let mut engine = GameEngine::new();
-    let (mut game, mut rl, thread) = engine.start_rl(800, 600);
+    let (mut game, mut rl, thread) = engine.start_rl();
     let mut frames_counter = 0;
 
     while !rl.window_should_close() {     

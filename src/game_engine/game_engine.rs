@@ -1,24 +1,26 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FPS, GAME_SIZE, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
 
 use super::{entity_factory::EntityFactory, game::Game, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
+    pub camera_viewport: Rectangle,
     pub textures: HashMap<String, Texture2D>
 }
 
 impl GameEngine {
     pub fn new() -> Self {
         Self {
+            camera_viewport: INITIAL_CAMERA_VIEWPORT,
             textures: HashMap::new()
         }
     }
 
-    pub fn start_rl(&mut self, width: i32, height: i32) -> (Game, RaylibHandle, RaylibThread) {
+    pub fn start_rl(&mut self) -> (Game, RaylibHandle, RaylibThread) {
         let (mut rl, thread) = raylib::init()
-            .size(width, height)
+            .size(self.camera_viewport.width as i32, self.camera_viewport.height as i32)
             .title("Tower Defense")
             .build();
     
@@ -27,22 +29,26 @@ impl GameEngine {
         let all_assets = list_files(ASSETS_PATH, "png");
         self.load_textures(&all_assets, &mut rl, &thread);
 
-        let mut game = Game::new(
-            EntityFactory::new(all_assets),
-            Rectangle::new(0.0, 0.0, width as f32, height as f32)
-        );
+        let mut game = Game::new(EntityFactory::new(all_assets));
         game.setup();
 
         (game, rl, thread)
     }
 
     pub fn update(
-        &self, 
+        &mut self, 
         game: &mut Game, 
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
         game.update_rl(time_since_last_update, keyboard_events);
+
+        self.camera_viewport = Rectangle::new(
+            game.cached_hero_position.x - self.camera_viewport.width / 2.0,
+            game.cached_hero_position.y - self.camera_viewport.height / 2.0,
+            self.camera_viewport.width,
+            self.camera_viewport.height
+        );
     } 
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
@@ -57,20 +63,15 @@ impl GameEngine {
 mod tests {
     use raylib::math::Rectangle;
 
-    use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
+    use crate::{constants::{ASSETS_PATH, GAME_SIZE, INITIAL_CAMERA_VIEWPORT}, game_engine::{entity_factory::EntityFactory, game::Game}, utils::file_utils::list_files};
 
     use super::GameEngine;
 
     impl GameEngine {
-        fn start_headless(&mut self, width: i32, height: i32) -> Game {
+        fn start_headless(&mut self) -> Game {
             let all_assets = list_files(ASSETS_PATH, "png");
-
-            let mut game = Game::new(
-                EntityFactory::new(all_assets),
-                Rectangle::new(0.0, 0.0, width as f32, height as f32)
-            );
-            game.setup();
-            
+            let mut game = Game::new(EntityFactory::new(all_assets));
+            game.setup();            
             game
         }
     }
@@ -78,8 +79,8 @@ mod tests {
     #[test]
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
-        let game = engine.start_headless(600, 900);
-        assert_eq!(game.bounds.width, 600.0);
-        assert_eq!(game.bounds.height, 900.0);
+        let game = engine.start_headless();
+        assert_eq!(game.bounds.width, GAME_SIZE.x);
+        assert_eq!(game.bounds.height, GAME_SIZE.y);
     }
 }

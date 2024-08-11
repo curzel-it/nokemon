@@ -80,7 +80,7 @@ mod tests {
     #[test]
     fn can_switch_sprite_when_moving_east() {
         let nokb = NoKeyboard {};
-        let (engine, mut game, id) = test_setup(Vector2::new(1.0, 0.0));
+        let (mut engine, mut game, id) = test_setup(Vector2::new(1.0, 0.0));
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);
         engine.update(&mut game, 1.0, &nokb);
         assert_eq!(game.animation_name_of_entity(&id), "walke");        
@@ -89,7 +89,7 @@ mod tests {
     #[test]
     fn can_switch_sprite_when_moving_west() {
         let nokb = NoKeyboard {};
-        let (engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
+        let (mut engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
         assert_eq!(game.animation_name_of_entity(&id), ANIMATION_NAME_FRONT);
         engine.update(&mut game, 1.0, &nokb);
         assert_eq!(game.animation_name_of_entity(&id), "walkw");        
@@ -98,7 +98,7 @@ mod tests {
     #[test]
     fn can_show_directional_still_sprite_when_speed_is_zero() {
         let nokb = NoKeyboard {};
-        let (engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
+        let (mut engine, mut game, id) = test_setup(Vector2::new(-1.0, 0.0));
         
         let mut entities = game.entities.borrow_mut();
         let entity = entities.get_mut(&id).unwrap();  
