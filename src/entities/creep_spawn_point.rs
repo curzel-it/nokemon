@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement_within_game_bounds::move_linearly_within_bounds}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, game_state_update::GameStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, game_state_update::GameStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
 
 
 #[derive(Debug)]
@@ -26,7 +26,7 @@ impl_animated_entity!(CreepSpawnPoint);
 impl Entity for CreepSpawnPoint {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<GameStateUpdate> {
         let mut game_updates: Vec<GameStateUpdate> = vec![];
-        move_linearly_within_bounds(self, &world.bounds, time_since_last_update);
+        move_linearly(self, time_since_last_update);
         update_sprite(self, time_since_last_update);
 
         if world.total_elapsed_time - self.last_spawn_time > self.time_to_spawn {
