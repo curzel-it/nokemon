@@ -5,6 +5,8 @@ edition = "2021"
 
 [dependencies]
 common_macros = "0.1.1"
+image = "0.25.2"
+rand = "0.8.5"
 raylib = "5.0.1"
 regex = "1.10.5"
 serde = { version = "1.0.204", features = ["derive"] }

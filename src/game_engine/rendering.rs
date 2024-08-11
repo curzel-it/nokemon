@@ -1,9 +1,9 @@
 
+use std::{borrow::Borrow, cmp::Ordering};
+
 use raylib::prelude::*;
 
-use crate::constants::{BACKGROUND_TILE_GRASS, SCALE};
-
-use super::{entity::Entity, game::Game, game_engine::GameEngine};
+use super::{entity::Entity, entity_body::EmbodiedEntity, game::Game, game_engine::GameEngine};
 
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, engine: &GameEngine) {
     let fps = rl.get_fps();
@@ -11,11 +11,20 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, game: &Game, eng
     d.clear_background(Color::BLACK);
     draw_tiles(&mut d, game, engine);
     draw_entities(&mut d, game, engine);
-    draw_debug_info(&mut d, fps);
+    draw_debug_info(&mut d, game, fps);
 }
 
-fn draw_debug_info(d: &mut RaylibDrawHandle, fps: u32) {
-    d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::BLACK);
+fn draw_debug_info(d: &mut RaylibDrawHandle, game: &Game, fps: u32) {
+    d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::RED);
+    // d.draw_text(format!("Entities: {:#?}", game).as_str(), 10, 50, 20, Color::RED);
+}
+
+fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
+    for tile in &game.tiles {
+        if engine.camera_viewport.check_collision_recs(&&tile.body().frame) {
+            draw_item(d, tile, engine);
+        }
+    }
 }
 
 fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
@@ -25,35 +34,27 @@ fn draw_entities(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {
         .filter(|e| engine.camera_viewport.check_collision_recs(&e.body().frame))
         .collect();
 
-    entities.sort();
+    entities.sort_by(|entity_a, entity_b| {
+        let a = entity_a.body();
+        let b = entity_b.body();
+
+        if a.z_index < b.z_index { return Ordering::Less; }
+        if a.z_index > b.z_index { return Ordering::Greater; }
+        if a.frame.y < b.frame.y { return Ordering::Less; }
+        if a.frame.y > b.frame.y { return Ordering::Greater; }
+        if a.frame.x < b.frame.x { return Ordering::Less; }
+        if a.frame.x > b.frame.x { return Ordering::Greater; }
+        return Ordering::Equal;
+    });
 
     for item in entities {
-        draw_item(d, item, engine);
-    }
-}
-
-fn draw_tiles(d: &mut RaylibDrawHandle, game: &Game, engine: &GameEngine) {   
-    if let Some(grasstile) = engine.textures.get(BACKGROUND_TILE_GRASS) {
-        let tile_width = grasstile.width() as usize;
-        let tile_height = grasstile.height() as usize;
-
-        for x in (0..game.bounds.width as i32).step_by(tile_width) {
-            for y in (0..game.bounds.height as i32).step_by(tile_height) {
-                d.draw_texture_ex(
-                    grasstile,
-                    Vector2::new(x as f32, y as f32),
-                    0.0,
-                    SCALE, 
-                    Color::WHITE 
-                );
-            }
-        }
+        draw_item(d, item.borrow(), engine);
     }
 }
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
-    item: &Box<dyn Entity>,
+    item: &dyn Entity,
     engine: &GameEngine
 ) {
     let sprite_path = item.body().current_sprite_frame();

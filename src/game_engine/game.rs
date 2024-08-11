@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::HashMap, fmt::{self, Debug}};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::constants::{GAME_SIZE, HERO_ENTITY_ID};
+use crate::{constants::{BG_TILE_SIZE, GAME_SIZE, HERO_ENTITY_ID}, entities::background_tile::{BackgroundTile, BackgroundTileType}};
 
 use super::{collision_detection::compute_collisions, entity::Entity, entity_factory::EntityFactory, game_state_update::GameStateUpdate, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}};
 
@@ -11,6 +11,7 @@ pub struct Game {
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub outer_bounds: Rectangle,
+    pub tiles: Vec<BackgroundTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
@@ -21,13 +22,14 @@ pub struct Game {
 
 impl Game {
     pub fn new(entity_factory: EntityFactory) -> Self {
-        let (bounds, outer_bounds) = Game::default_bounds();
+        let (bounds, outer_bounds) = Game::build_bounds(10.0, 10.0);
 
         Self {
             total_elapsed_time: 0.0,
             entity_factory,
             bounds,
             outer_bounds,
+            tiles: vec![],
             entities: RefCell::new(HashMap::new()),
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
@@ -37,15 +39,16 @@ impl Game {
         }
     }
 
-    fn default_bounds() -> (Rectangle, Rectangle) {
-        let width = GAME_SIZE.x;
-        let height = GAME_SIZE.x;
+    pub fn build_bounds(tiles_width: f32, tiles_height: f32) -> (Rectangle, Rectangle) {
+        let width = tiles_width * BG_TILE_SIZE;
+        let height = tiles_height * BG_TILE_SIZE;
         let bounds = Rectangle::new(0.0, 0.0, width, height);
         let outer_bounds = Rectangle::new(-100.0, -100.0, width + 200.0, height + 200.0);
         (bounds, outer_bounds)
     }
     
     pub fn setup(&mut self) {
+        self.load_map();
         self.add_creep_spawn_point();
         self.add_tower();
         self.add_hero();

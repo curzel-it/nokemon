@@ -32,7 +32,7 @@ pub struct EntityBody {
     pub time_between_shots: f32,
     pub creation_time: f32,
     pub requires_collision_detection: bool,
-    pub z_index: u32,
+    pub z_index: i32,
     pub is_ally: bool,
     pub is_bullet: bool,
     pub lifespan: f32,
