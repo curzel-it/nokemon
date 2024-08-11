@@ -16,6 +16,7 @@ impl SurroundingAreaAttack {
         body.hp = 1000.0;
         body.parent_id = parent.id();
         body.base_speed = 0.0;
+        body.lifespan = 2.0;
         body.reset_speed();
         body.center_in(&parent.body().frame);
         

@@ -56,6 +56,7 @@ impl EntityFactory {
         body.time_between_shots = 3.0;
         body.time_to_next_shot = 3.0;
         body.resize(50.0, 50.0);
+        body.is_enemy = true;
         body.base_speed = 0.0;
         body.reset_speed();
         body.direction = Vector2::new(1.0, 0.0);    

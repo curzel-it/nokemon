@@ -57,6 +57,8 @@ impl EntityFactory {
         let mut body = self.build("red");
         body.resize(15.0, 17.0);
         body.id = HERO_ENTITY_ID;
+        body.time_to_next_shot = 5.0;
+        body.time_between_shots = 5.0;
         body.base_speed = 2.0;
         body.reset_speed();
 

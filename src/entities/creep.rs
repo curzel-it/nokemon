@@ -34,6 +34,7 @@ impl EntityFactory {
         let mut body = self.build("white");
         body.resize(15.0, 17.0);
         body.base_speed = 1.5;
+        body.is_enemy = true;
         body.reset_speed();
         body.direction = Vector2::new(1.0, 0.0);    
         Creep::new(body)

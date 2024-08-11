@@ -7,6 +7,7 @@ mod utils;
 
 use constants::LOG_GAME_STATE;
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
+use raylib::color::Color;
 
 fn main() {
     let mut engine = GameEngine::new();
@@ -17,7 +18,7 @@ fn main() {
         let time_since_last_update = rl.get_frame_time();
    
         engine.update(&mut game, time_since_last_update, &rl);
-        draw_frame(&mut rl, &thread, &game, &engine);
+        draw_frame(&mut rl, &thread, &game, &engine);        
 
         frames_counter += 1;
 

@@ -40,7 +40,7 @@ impl EntityFactory {
     pub fn build(&self, species_id: &str) -> EntityBody {
         let sprites = self.sprites_repo.sprites(&species_id.to_owned());
 
-        let mut entity = EntityBody {
+        EntityBody {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
             frame: Rectangle::new(0.0, 0.0, 50.0, 50.0),
@@ -52,17 +52,15 @@ impl EntityFactory {
             sprite_set: sprites.clone(),
             current_sprite: Sprite::empty(),
             sprite_invalidated: true,
-            time_to_next_shot: 0.0,
-            time_between_shots: 0.0,
+            time_to_next_shot: 1000.0,
+            time_between_shots: 1000.0,
             creation_time: 0.0,
             requires_collision_detection: false,
             z_index: 0,
             is_enemy: false,
             is_bullet: false,
             lifespan: INFINITE_LIFESPAN,
-        };
-
-        entity
+        }
     }
 }
 
