@@ -12,7 +12,7 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
             let center_x = frame.x + frame.width / 2.0;
             let center_y = frame.y + frame.height / 2.0;
         
-            for collision in my_collisions.into_iter() {
+            for collision in my_collisions.iter() {
                 if !collision.other_was_rigid {
                     continue;
                 }

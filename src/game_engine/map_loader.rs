@@ -3,7 +3,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::{BG_TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::BackgroundTileInfo};
 
-use super::{entity::Entity, obstacles, tile_set::TileSet, world::World};
+use super::{tile_set::TileSet, world::World};
 
 impl World {
     pub fn load_map(&mut self) {

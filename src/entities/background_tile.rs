@@ -2,7 +2,7 @@ use rand::Rng;
 
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, BG_TILE_SIZE, INVISIBLE_OBSTACLE_Z_INDEX}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::{self, EntityFactory}, obstacles::StaticObstacle, simple_entity::SimpleEntity, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
+use crate::{constants::{ASSETS_PATH, BG_TILE_SIZE}, game_engine::{entity::Entity, entity_factory::{EntityFactory}}};
 
 #[derive(Debug)]
 pub enum BackgroundTileType {

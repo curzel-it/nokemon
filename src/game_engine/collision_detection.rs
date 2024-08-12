@@ -27,7 +27,7 @@ pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
             for &id2 in visible_entities {
                 if let Some(entity2) = entities.get(&id2) {
                     if let Some(area) = collision_area(entity1, entity2) {
-                        let (first, second) = collisions_pair(&entity1, &entity2, area);
+                        let (first, second) = collisions_pair(entity1, entity2, area);
                         collisions.entry(id1).or_default().push(first);
                         collisions.entry(id2).or_default().push(second);
                     }
