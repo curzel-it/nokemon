@@ -71,13 +71,36 @@ fn draw_item(
     let position = Vector2::new(frame.x - camera_viewport.x, frame.y - camera_viewport.y);
     
     if let Some(texture) = engine.textures.get(sprite_path) {
+        let source_rect = Rectangle {
+            x: 0.0,
+            y: 0.0,
+            width: texture.width as f32,
+            height: texture.height as f32,
+        };
+
+        let dest_rect = Rectangle {
+            x: position.x,
+            y: position.y,
+            width: frame.width,
+            height: frame.height,
+        };
+
+        d.draw_texture_pro(
+            texture,
+            source_rect,
+            dest_rect,
+            Vector2::new(0.0, 0.0), 
+            0.0,
+            Color::WHITE,
+        );
+        /* 
         d.draw_texture_ex(
             texture,
             position,
             0.0,
             SCALE, 
             Color::WHITE 
-        );
+        );*/
     }
 }
 

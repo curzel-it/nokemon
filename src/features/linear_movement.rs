@@ -25,7 +25,7 @@ fn move_away_from_collisions(entity: &mut dyn Entity, collisions: &Vec<&Collisio
     let entity_center_x = frame.x + frame.width / 2.0;
     let entity_center_y = frame.y + frame.height / 2.0;
 
-    if direction.x > 0.0 {
+    if direction.x >= 0.0 {
         entity.body_mut().frame.x = collisions.iter().filter_map(|c| {
             if c.area.x > entity_center_x {
                 Some(c.area.x - frame.width - COLLISION_BOUNCE_FIX)

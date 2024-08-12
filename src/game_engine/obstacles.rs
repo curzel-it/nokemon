@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::INFINITE_LIFESPAN, impl_embodied_entity};
+use crate::{constants::{ANIMATION_NAME_FRONT, INFINITE_LIFESPAN}, impl_embodied_entity};
 
 use super::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate};
 
@@ -29,7 +29,7 @@ impl Entity for StaticObstacle {
 impl EntityFactory {
     pub fn build_invisible_obstacle(&self, frame: Rectangle) -> StaticObstacle {
         let mut body = self.build("obstacle");
-        body.set_animation("no animation");
+        body.set_animation(ANIMATION_NAME_FRONT);
         body.is_rigid = true;
         body.base_speed = 0.0;
         body.current_speed = 0.0;

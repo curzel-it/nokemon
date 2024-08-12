@@ -4,7 +4,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::{ASSETS_PATH, BG_TILE_SIZE}, game_engine::{entity::Entity, entity_factory::{EntityFactory}}};
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BackgroundTileType {
     Grass,
     Water,
@@ -13,25 +13,47 @@ pub enum BackgroundTileType {
     Snow
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BackgroundTileInfo {
     pub tile_type: BackgroundTileType,
     pub variant: i32,
     pub column: u32, 
     pub row: u32,
+    pub width: u32,
+    pub height: u32,
     pub has_ground_contact: bool,
     pub has_water_contact: bool,
 }
 
 impl BackgroundTileInfo {
-    pub fn new(color: u32, column: u32, row: u32) -> Self {
+    pub fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
+        Self::with_color_indeces_size(color, column, row, 1, 1)
+    }
+
+    pub fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
         let tile_type = BackgroundTileType::from_color(color).unwrap_or(BackgroundTileType::Desert);            
-        let variant = rand::thread_rng().gen_range(0..10);
+        // let variant = rand::thread_rng().gen_range(0..10);
         
         Self {
             tile_type,
-            variant,
-            column, row,
+            variant: 1,
+            column, 
+            row,
+            width,
+            height,
+            has_ground_contact: false,
+            has_water_contact: false,
+        }
+    }
+
+    pub fn with_tile(other: &BackgroundTileInfo, width: u32, height: u32) -> Self {
+        Self {
+            tile_type: other.tile_type,
+            variant: other.variant,
+            column: other.column, 
+            row: other.row,
+            width,
+            height,
             has_ground_contact: false,
             has_water_contact: false,
         }
@@ -57,13 +79,19 @@ impl BackgroundTileInfo {
             Rectangle::new(
                 self.column as f32 * BG_TILE_SIZE, 
                 self.row as f32 * BG_TILE_SIZE, 
-                BG_TILE_SIZE, 
-                BG_TILE_SIZE
+                self.width as f32 * BG_TILE_SIZE, 
+                self.height as f32 * BG_TILE_SIZE
             )
         );
         Box::new(entity)
     }
 }
+
+pub const COLOR_GRASS: u32 = 0x00FF00;
+pub const COLOR_WATER: u32 = 0x0000FF;
+pub const COLOR_ROCK: u32 = 0x7F7F7F;
+pub const COLOR_DESERT: u32 = 0xFFFF00;
+pub const COLOR_SNOW: u32 = 0xFFFFFF;
 
 impl BackgroundTileType {
     fn animation_name(&self) -> &str {
@@ -78,11 +106,11 @@ impl BackgroundTileType {
     
     fn from_color(color: u32) -> Option<BackgroundTileType> {
         match color {
-            0x00FF00 => Some(BackgroundTileType::Grass),
-            0x0000FF => Some(BackgroundTileType::Water),
-            0x7F7F7F => Some(BackgroundTileType::Rock),
-            0xFFFF00 => Some(BackgroundTileType::Desert),
-            0xFFFFFF => Some(BackgroundTileType::Snow),
+            COLOR_GRASS => Some(BackgroundTileType::Grass),
+            COLOR_WATER => Some(BackgroundTileType::Water),
+            COLOR_ROCK => Some(BackgroundTileType::Rock),
+            COLOR_DESERT => Some(BackgroundTileType::Desert),
+            COLOR_SNOW => Some(BackgroundTileType::Snow),
             _ => None,
         }
     }
