@@ -8,6 +8,7 @@ pub mod game_engine;
 pub mod world_state_update;
 pub mod keyboard_events_provider;
 pub mod map_loader;
+pub mod obstacles;
 pub mod rendering;
 pub mod simple_entity;
 pub mod tile_set;

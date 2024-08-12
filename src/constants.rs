@@ -13,7 +13,7 @@ pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INITIAL_CAMERA_VIEWPORT: Rectangle = Rectangle::new(0.0, 0.0, 800.0, 600.0);
 pub const GAME_SIZE: Vector2 = Vector2::new(1000.0, 1000.0);
 pub const BG_TILE_SIZE: f32 = 42.0;
-pub const BG_TILE_Z_INDEX: i32 = -1000;
+pub const INVISIBLE_OBSTACLE_Z_INDEX: i32 = -1000;
 pub const COLLISION_BOUNCE_FIX: f32 = 0.1;
 
 pub const HERO_ENTITY_ID: u32 = 69;

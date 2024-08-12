@@ -3,6 +3,8 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
+use crate::{constants::{BG_TILE_SIZE, SCALE}, entities::background_tile::BackgroundTileInfo};
+
 use super::{entity::Entity, entity_body::EmbodiedEntity, world::World, game_engine::GameEngine};
 
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
@@ -21,9 +23,7 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
 
 fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     for tile in world.visible_tiles() {
-        if world.camera_viewport.check_collision_recs(&tile.body().frame) {
-            draw_item(d, tile, &world.camera_viewport, engine);
-        }
+        draw_tile(d, tile, &world.camera_viewport, engine);
     }
 }
 
@@ -75,7 +75,30 @@ fn draw_item(
             texture,
             position,
             0.0,
-            frame.width / texture.width as f32, 
+            SCALE, 
+            Color::WHITE 
+        );
+    }
+}
+
+fn draw_tile(
+    d: &mut RaylibDrawHandle, 
+    tile: &BackgroundTileInfo,
+    camera_viewport: &Rectangle,
+    engine: &GameEngine
+) {
+    let sprite_path = tile.sprite_name();    
+    let position = Vector2::new(
+        tile.column as f32 * BG_TILE_SIZE - camera_viewport.x, 
+        tile.row as f32 * BG_TILE_SIZE - camera_viewport.y
+    );
+    
+    if let Some(texture) = engine.textures.get(&sprite_path) {
+        d.draw_texture_ex(
+            texture,
+            position,
+            0.0,
+            SCALE,
             Color::WHITE 
         );
     }

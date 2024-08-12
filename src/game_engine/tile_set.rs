@@ -1,9 +1,9 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::BG_TILE_SIZE, entities::background_tile::BackgroundTile};
+use crate::{constants::BG_TILE_SIZE, entities::background_tile::BackgroundTileInfo};
 
 pub struct TileSet {
-    pub tiles: Vec<Vec<BackgroundTile>>,
+    pub tiles: Vec<Vec<BackgroundTileInfo>>,
 }
 
 impl TileSet {
@@ -13,13 +13,13 @@ impl TileSet {
         }
     }
 
-    pub fn with_tiles(tiles: Vec<Vec<BackgroundTile>>) -> Self {
+    pub fn with_tiles(tiles: Vec<Vec<BackgroundTileInfo>>) -> Self {
         Self {
             tiles
         }
     }
 
-    pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&BackgroundTile> {
+    pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&BackgroundTileInfo> {
         let first_row = (viewport.y / BG_TILE_SIZE).floor() as usize;
         let rows = (viewport.height / BG_TILE_SIZE).ceil() as usize;
         let first_col = (viewport.x / BG_TILE_SIZE).floor() as usize;
