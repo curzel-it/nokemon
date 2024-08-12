@@ -2,7 +2,7 @@ use rand::Rng;
 
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, BG_TILE_SIZE}, game_engine::{entity::Entity, entity_factory::{EntityFactory}}};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, game_engine::{entity::Entity, entity_factory::{EntityFactory}}};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BackgroundTileType {
@@ -77,10 +77,10 @@ impl BackgroundTileInfo {
     pub fn into_obstacle_entity(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
         let entity = entity_factory.build_invisible_obstacle(
             Rectangle::new(
-                self.column as f32 * BG_TILE_SIZE, 
-                self.row as f32 * BG_TILE_SIZE, 
-                self.width as f32 * BG_TILE_SIZE, 
-                self.height as f32 * BG_TILE_SIZE
+                self.column as f32 * TILE_SIZE, 
+                self.row as f32 * TILE_SIZE, 
+                self.width as f32 * TILE_SIZE, 
+                self.height as f32 * TILE_SIZE
             )
         );
         Box::new(entity)

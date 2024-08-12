@@ -1,7 +1,7 @@
 use image::{GenericImageView, Pixel};
 use raylib::math::Rectangle;
 
-use crate::{constants::{BG_TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::BackgroundTileInfo, game_engine::entity::Entity};
+use crate::{constants::{TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::BackgroundTileInfo, game_engine::entity::Entity};
 
 use super::{tile_set::TileSet, world::World};
 
@@ -10,7 +10,7 @@ impl World {
         let (rows, columns, mut tiles) = parse_world_map(WORLD_MAP_PATH);
         integrate_borders_info(&mut tiles);
         make_obstacles(self, &tiles);
-        self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * BG_TILE_SIZE, rows as f32 * BG_TILE_SIZE);        
+        self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
         self.tiles = TileSet::with_tiles(tiles);
     }
 }

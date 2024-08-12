@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::{BG_TILE_SIZE, SCALE}, entities::background_tile::BackgroundTileInfo};
+use crate::{constants::{TILE_SIZE, SCALE}, entities::background_tile::BackgroundTileInfo};
 
 use super::{entity::Entity, entity_body::EmbodiedEntity, world::World, game_engine::GameEngine};
 
@@ -112,8 +112,8 @@ fn draw_tile(
 ) {
     let sprite_path = tile.sprite_name();    
     let position = Vector2::new(
-        tile.column as f32 * BG_TILE_SIZE - camera_viewport.x, 
-        tile.row as f32 * BG_TILE_SIZE - camera_viewport.y
+        tile.column as f32 * TILE_SIZE - camera_viewport.x, 
+        tile.row as f32 * TILE_SIZE - camera_viewport.y
     );
     
     if let Some(texture) = engine.textures.get(&sprite_path) {
