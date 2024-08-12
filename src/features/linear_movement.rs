@@ -1,45 +1,81 @@
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_BOUNCE_FIX, SCALE}, game_engine::{entity::Entity, world::World}};
+use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_BOUNCE_FIX, COLLISION_RIGIDITY_THRESHOLD, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
 
-pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) {
-    let frame = entity.body().frame;
-    let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * SCALE * BASE_ENTITY_SPEED;
-
-    let mut expected_x = frame.x + offset.x;
-    let mut expected_y = frame.y + offset.y;
-
+pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     if entity.body().is_rigid {
-        if let Some(my_collisions) = &world.collisions.get(&entity.id()) {
-            let center_x = frame.x + frame.width / 2.0;
-            let center_y = frame.y + frame.height / 2.0;
-        
-            for collision in my_collisions.iter() {
-                if !collision.other_was_rigid {
-                    continue;
-                }
-                if collision.area.width > 0.5 {
-                    let collision_center_x = collision.area.x + collision.area.width / 2.0;
-
-                    if offset.x > 0.0 && center_x < collision_center_x {
-                        expected_x = frame.x - COLLISION_BOUNCE_FIX;
-                    }
-                    if offset.x < 0.0 && center_x > collision_center_x {
-                        expected_x = frame.x + COLLISION_BOUNCE_FIX;
-                    }    
-                }
-
-                if collision.area.height > 0.5 {
-                    let collision_center_y = collision.area.y + collision.area.height / 2.0;
-
-                    if offset.y > 0.0 && center_y < collision_center_y  {
-                        expected_y = frame.y - COLLISION_BOUNCE_FIX;
-                    }
-                    if offset.y < 0.0 && center_y > collision_center_y {
-                        expected_y = frame.y + COLLISION_BOUNCE_FIX;
-                    }
-                }
+        if let Some(all_collisions) = &world.collisions.get(&entity.id()) {
+            let valid_collisions: Vec<&Collision> = all_collisions
+                .iter()
+                .filter(|c| {
+                    c.other_was_rigid && (c.area.width > COLLISION_RIGIDITY_THRESHOLD && c.area.height > COLLISION_RIGIDITY_THRESHOLD)
+                })
+                .collect();
+            
+            if !valid_collisions.is_empty() {
+                move_away_from_collisions(entity, &valid_collisions);
             }
         }
     }
+    
+    just_move(entity, time_since_last_update);
+}
+
+fn move_away_from_collisions(entity: &mut dyn Entity, collisions: &Vec<&Collision>) {
+    let direction = entity.body().direction;
+    let frame = entity.body().frame;
+    let entity_center_x = frame.x + frame.width / 2.0;
+    let entity_center_y = frame.y + frame.height / 2.0;
+
+    if direction.x > 0.0 {
+        entity.body_mut().frame.x = collisions.iter().filter_map(|c| {
+            if c.area.x > entity_center_x {
+                Some(c.area.x - frame.width - COLLISION_BOUNCE_FIX)
+            } else {
+                None
+            }
+        })
+        .min_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap_or(frame.x);
+    }
+    if direction.x < 0.0 {
+        entity.body_mut().frame.x = collisions.iter().filter_map(|c| {
+            if c.area.x + c.area.width < entity_center_x {
+                Some(c.area.x + c.area.width + COLLISION_BOUNCE_FIX)
+            } else {
+                None
+            }
+        })
+        .max_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap_or(frame.x);
+    }
+    if direction.y > 0.0 {
+        entity.body_mut().frame.y = collisions.iter().filter_map(|c| {
+            if c.area.y > entity_center_y {
+                Some(c.area.y - frame.height - COLLISION_BOUNCE_FIX)
+            } else {
+                None
+            }
+        })
+        .min_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap_or(frame.y);
+    }
+    if direction.y < 0.0 {
+        entity.body_mut().frame.y = collisions.iter().filter_map(|c| {
+            if c.area.y + c.area.height < entity_center_y {
+                Some(c.area.y + c.area.height + COLLISION_BOUNCE_FIX)
+            } else {
+                None
+            }
+        })
+        .max_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap_or(frame.y);
+    }
+}
+
+fn just_move(entity: &mut dyn Entity, time_since_last_update: f32) {
+    let frame = entity.body().frame;
+    let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * SCALE * BASE_ENTITY_SPEED;
+    let expected_x = frame.x + offset.x;
+    let expected_y = frame.y + offset.y;
     entity.place_at(expected_x, expected_y);
 }
 
@@ -58,11 +94,11 @@ mod tests {
         body.current_speed = 1.0;        
         
         let mut entity = SimpleEntity::new(body);
-        entity.body_mut().direction = Vector2::new(1.0, 1.0);  
+        entity.body_mut().direction = Vector2::new(1.0, 0.0);  
         entity.update(&world, 1.0);
 
         assert_eq!(entity.body().frame.x, SCALE * BASE_ENTITY_SPEED);
-        assert_eq!(entity.body().frame.y, SCALE * BASE_ENTITY_SPEED);
+        assert_eq!(entity.body().frame.y, 0.0);
     }
 
     #[test]
@@ -74,11 +110,11 @@ mod tests {
         body.current_speed = 1.0;
         
         let mut entity = SimpleEntity::new(body);
-        entity.body_mut().direction = Vector2::new(-1.0, 1.0);  
+        entity.body_mut().direction = Vector2::new(-1.0, 0.0);  
         entity.update(&world, 1.0);
 
         assert_eq!(entity.body().frame.x, -SCALE * BASE_ENTITY_SPEED);
-        assert_eq!(entity.body().frame.y, SCALE * BASE_ENTITY_SPEED);
+        assert_eq!(entity.body().frame.y, 0.0);
     }
 
     #[test]

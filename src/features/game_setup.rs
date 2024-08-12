@@ -3,8 +3,8 @@ use crate::{constants::HERO_ENTITY_ID, game_engine::{entity_body::EmbodiedEntity
 impl World {    
     pub fn setup(&mut self) {
         self.load_map();
-        self.add_creep_spawn_point();
-        self.add_tower();
+        // self.add_creep_spawn_point();
+        // self.add_tower();
         self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
     }

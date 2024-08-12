@@ -14,7 +14,8 @@ pub const INITIAL_CAMERA_VIEWPORT: Rectangle = Rectangle::new(0.0, 0.0, 800.0, 6
 pub const GAME_SIZE: Vector2 = Vector2::new(1000.0, 1000.0);
 pub const BG_TILE_SIZE: f32 = 42.0;
 pub const INVISIBLE_OBSTACLE_Z_INDEX: i32 = -1000;
-pub const COLLISION_BOUNCE_FIX: f32 = 0.1;
+pub const COLLISION_BOUNCE_FIX: f32 = 1.0;
+pub const COLLISION_RIGIDITY_THRESHOLD: f32 = 1.0;
 
 pub const HERO_ENTITY_ID: u32 = 69;
 
@@ -24,13 +25,9 @@ pub const ANIMATION_NAME_STILL: &str = "still";
 pub const MISSING_SPRITE: &str = "missing";
 
 pub const DIRECTION_NAME_N: &str = "n";
-pub const DIRECTION_NAME_NE: &str = "ne";
 pub const DIRECTION_NAME_E: &str = "e";
-pub const DIRECTION_NAME_SE: &str = "se";
 pub const DIRECTION_NAME_S: &str = "s";
-pub const DIRECTION_NAME_SW: &str = "sw";
 pub const DIRECTION_NAME_W: &str = "w";
-pub const DIRECTION_NAME_NW: &str = "nw";
 
 // Test Stuff
 

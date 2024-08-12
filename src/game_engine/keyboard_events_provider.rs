@@ -1,6 +1,6 @@
 use raylib::{ffi::KeyboardKey, math::Vector2, RaylibHandle};
 
-use crate::utils::vector_utils::directions_based_direction_vector;
+use crate::utils::vector_utils::directions_based_direction_vector_4d;
 
 #[derive(Default, Clone, Copy)]
 pub struct KeyboardState {
@@ -18,7 +18,7 @@ impl KeyboardEventsProvider for RaylibHandle {
         let is_down_pressed = self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN);
         let is_left_pressed = self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT);
 
-        let direction = directions_based_direction_vector(
+        let direction = directions_based_direction_vector_4d(
             is_up_pressed, 
             is_right_pressed, 
             is_down_pressed, 
