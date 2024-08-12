@@ -28,7 +28,7 @@ impl Entity for StaticObstacle {
 
 impl EntityFactory {
     pub fn build_invisible_obstacle(&self, frame: Rectangle) -> StaticObstacle {
-        let mut body = self.build("obstacle");
+        let mut body = self.build("invisibleobstacle");
         body.set_animation(ANIMATION_NAME_FRONT);
         body.is_rigid = true;
         body.base_speed = 0.0;

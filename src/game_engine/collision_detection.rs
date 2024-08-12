@@ -4,10 +4,13 @@ use raylib::math::Rectangle;
 
 use super::{entity::Entity, world::World};
 
+#[derive(Debug, Copy, Clone)]
 pub struct Collision {
     pub other_id: u32,
     pub other_was_rigid: bool,
-    pub overlapping_area: Rectangle
+    pub overlapping_area: Rectangle,
+    pub center_x: f32,
+    pub center_y: f32,
 }
 
 pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
@@ -50,16 +53,24 @@ fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Optio
 }
 
 fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlapping_area: Rectangle) -> (Collision, Collision) {
+    let center_x = overlapping_area.x + overlapping_area.width / 2.0;
+    let center_y = overlapping_area.y + overlapping_area.height / 2.0;
+
     let first_collision = Collision { 
         other_id: second.id(), 
         other_was_rigid: second.body().is_rigid, 
-        overlapping_area 
+        overlapping_area,
+        center_x, 
+        center_y
     };
     let second_collision = Collision { 
         other_id: first.id(), 
         other_was_rigid: first.body().is_rigid, 
-        overlapping_area 
+        overlapping_area ,
+        center_x, 
+        center_y
     };
+    
     (first_collision, second_collision)
 }
 
