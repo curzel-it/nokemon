@@ -21,9 +21,9 @@ impl TileSet {
 
     pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&BackgroundTileInfo> {
         let first_row = (viewport.y / TILE_SIZE).floor() as usize;
-        let rows = (viewport.height / TILE_SIZE).ceil() as usize;
+        let rows = (viewport.height / TILE_SIZE).ceil() as usize + 1;
         let first_col = (viewport.x / TILE_SIZE).floor() as usize;
-        let cols = (viewport.width / TILE_SIZE).ceil() as usize;
+        let cols = (viewport.width / TILE_SIZE).ceil() as usize + 1;
 
         let mut visible_tiles = Vec::new();
 

@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-width, height = 42, 42
+width, height = 15, 15
 
 def noisy_image_data(r, g, b):
     image_data = np.zeros((height, width, 4), dtype=np.uint8)
