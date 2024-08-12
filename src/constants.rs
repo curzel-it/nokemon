@@ -7,7 +7,7 @@ pub const ASSETS_PATH: &str = "/Users/curzel/dev/tower-defense/assets";
 pub const BACKGROUND_TILE_GRASS: &str = "/Users/curzel/dev/tower-defense/assets/bg_tile_grass.png";
 pub const WORLD_MAP_PATH: &str = "/Users/curzel/dev/tower-defense/assets/world_map-0.png";
 pub const ANIMATIONS_FPS: f32 = 10.0;
-pub const SCALE: f32 = 2.0;
+pub const SCALE: f32 = 3.0;
 pub const NO_PARENT: u32 = 0;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INITIAL_CAMERA_VIEWPORT: Rectangle = Rectangle::new(0.0, 0.0, 800.0, 600.0);
@@ -15,7 +15,7 @@ pub const GAME_SIZE: Vector2 = Vector2::new(1000.0, 1000.0);
 pub const BG_TILE_SIZE: f32 = 42.0;
 pub const INVISIBLE_OBSTACLE_Z_INDEX: i32 = -1000;
 pub const COLLISION_BOUNCE_FIX: f32 = 1.0;
-pub const COLLISION_RIGIDITY_THRESHOLD: f32 = 1.0;
+pub const COLLISION_THRESHOLD: f32 = 5.0;
 
 pub const HERO_ENTITY_ID: u32 = 69;
 

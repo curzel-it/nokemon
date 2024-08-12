@@ -7,7 +7,7 @@ use super::{entity::Entity, world::World};
 pub struct Collision {
     pub other_id: u32,
     pub other_was_rigid: bool,
-    pub area: Rectangle
+    pub overlapping_area: Rectangle
 }
 
 pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
@@ -26,8 +26,8 @@ pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
         if let Some(entity1) = entities.get(&id1) {
             for &id2 in visible_entities {
                 if let Some(entity2) = entities.get(&id2) {
-                    if let Some(area) = collision_area(entity1, entity2) {
-                        let (first, second) = collisions_pair(entity1, entity2, area);
+                    if let Some(overlapping_area) = collision_area(entity1, entity2) {
+                        let (first, second) = collisions_pair(entity1, entity2, overlapping_area);
                         collisions.entry(id1).or_default().push(first);
                         collisions.entry(id2).or_default().push(second);
                     }
@@ -49,16 +49,16 @@ fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Optio
     entity1.body().frame.get_collision_rec(&entity2.body().frame)
 }
 
-fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, area: Rectangle) -> (Collision, Collision) {
+fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlapping_area: Rectangle) -> (Collision, Collision) {
     let first_collision = Collision { 
         other_id: second.id(), 
         other_was_rigid: second.body().is_rigid, 
-        area 
+        overlapping_area 
     };
     let second_collision = Collision { 
         other_id: first.id(), 
         other_was_rigid: first.body().is_rigid, 
-        area 
+        overlapping_area 
     };
     (first_collision, second_collision)
 }
