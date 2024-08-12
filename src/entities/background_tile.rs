@@ -1,8 +1,7 @@
-use rand::Rng;
 
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, game_engine::{entity::Entity, entity_factory::{EntityFactory}}};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, game_engine::{entity::Entity, entity_factory::EntityFactory}};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BackgroundTileType {

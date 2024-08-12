@@ -1,6 +1,6 @@
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
+use crate::{constants::{BASE_ENTITY_SPEED, SCALE}, game_engine::{entity::Entity, world::World}};
 
-pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
+pub fn move_linearly(entity: &mut dyn Entity, _: &World, time_since_last_update: f32) { 
     let frame = entity.body().frame;
     let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * SCALE * BASE_ENTITY_SPEED;
     let expected_x = frame.x + offset.x;
@@ -10,9 +10,9 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::{Rectangle, Vector2};
+    use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_BOUNCE_FIX, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, simple_entity::SimpleEntity, world::World}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, simple_entity::SimpleEntity, world::World}};
     
     #[test]
     fn can_move_on_update() {

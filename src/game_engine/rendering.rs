@@ -5,7 +5,7 @@ use raylib::prelude::*;
 
 use crate::{constants::{TILE_SIZE, SCALE}, entities::background_tile::BackgroundTileInfo};
 
-use super::{entity::Entity, entity_body::EmbodiedEntity, world::World, game_engine::GameEngine};
+use super::{entity::Entity, world::World, game_engine::GameEngine};
 
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();

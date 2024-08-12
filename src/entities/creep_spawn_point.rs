@@ -2,7 +2,6 @@ use raylib::math::Vector2;
 
 use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world_state_update::WorldStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
 
-
 #[derive(Debug)]
 pub struct CreepSpawnPoint {
     body: EntityBody,

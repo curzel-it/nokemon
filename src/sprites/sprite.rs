@@ -27,10 +27,6 @@ impl Sprite {
             ANIMATIONS_FPS)
     }
 
-    pub fn jump_to_frame(&mut self, frame_index: usize) {
-        self.timed_content_provider.jump_to_frame(frame_index)
-    }
-
     pub fn current_frame(&self) -> &String {
         self.timed_content_provider.current_frame()
     }
