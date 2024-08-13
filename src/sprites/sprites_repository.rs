@@ -45,8 +45,8 @@ mod tests {
         sprites_repo.setup(&all_assets);
 
         let sprite_set = sprites_repo.sprites(&"red".to_owned());
-        assert!(sprite_set.sprite("walknw").number_of_frames() > 1);
-        assert!(sprite_set.sprite("stillnw").number_of_frames() == 1);
+        assert!(sprite_set.sprite("walkn").number_of_frames() > 1);
+        assert!(sprite_set.sprite("stilln").number_of_frames() == 1);
     }
 
     #[test]

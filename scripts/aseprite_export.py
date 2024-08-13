@@ -1,71 +1,111 @@
+import sys
 import os
+import subprocess
 
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
-directions = "n ne e se s sw w nw".split(" ")
-directions_layers = [f"walk{d}" for d in directions]
+directions = "n e s w".split(" ")
+walk_layers = [f"walk{d}" for d in directions]
+still_layers = [f"still{d}" for d in directions]
 
 def export_aseprite(file_path, destination_folder):
-    if "/palettes" in file_path:
-        return
-    if "/characters" in file_path:
-        export_aseprite_character(file_path, destination_folder)
-    if "/bg_tiles" in file_path:
-        export_aseprite_bg_tile(file_path, destination_folder)
+    filename = file_path.split("/")[-1]
+    if filename == "palette.aseprite": return
+    elif filename == "world.aseprite": export_aseprite_level(file_path, destination_folder)
+    else: export_aseprite_character(file_path, destination_folder)
 
-    export_aseprite_default(file_path, destination_folder)
-
-def export_aseprite_default(file_path, destination_folder):
-    asset_name = asset_name_from_file_path(file_path)
-
-    ignore_layers = directions_layers + ["Talking", "talking"]
-    ignore_layers = [f'"{l}"' for l in ignore_layers]
-    ignore_layers = [f'--ignore-layer {l}' for l in ignore_layers]
-    ignore_layers = ' '.join(ignore_layers)
-
-    cmd = f"{aseprite_path} -b {file_path} {ignore_layers} --save-as {destination_folder}/{asset_name}-0.png"
+def export_aseprite_level(file_path, destination_folder):
+    cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {destination_folder}/../world_biome.png"
     os.system(cmd)
+    cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {destination_folder}/../world_constructions.png"
+    os.system(cmd)
+
+def list_layers(path):
+    command = [
+        aseprite_path, 
+        "-b", 
+        "--list-layers", 
+        path
+    ]
+    
+    # Run the command and capture the output
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    # Split the output into lines and strip any extra whitespace
+    layers = result.stdout.strip().splitlines()
+    
+    return layers
 
 def export_aseprite_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
+    layers = list_layers(file_path)
 
-    for walk_layer in directions_layers:
-        cmd = f"{aseprite_path} -b {file_path} --layer {walk_layer} --save-as {destination_folder}/{asset_name}_{walk_layer}-0.png"
+    non_still_non_movement_layers = layers
+    non_still_non_movement_layers = [l for l in layers if not "still" in l]
+    non_still_non_movement_layers = [l for l in layers if not "walk" in l]
+
+
+    if "walk" in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer walk --save-as {destination_folder}/{asset_name}_walk{direction}-0.png"
+            os.system(cmd)
+
+    if "walkn" in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer walk{direction} --save-as {destination_folder}/{asset_name}_walk{direction}-0.png"
+            os.system(cmd)
+
+    if "still" in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer still --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
+            os.system(cmd)
+
+    if "stilln" in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer still{direction} --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
+            os.system(cmd)
+
+    if "walk" in layers and "still" not in layers and "stilln" not in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer walk --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
+            os.system(cmd)
+
+    if "walkn" in layers and "still" not in layers and "stilln" not in layers:
+        for direction in directions:
+            cmd = f"{aseprite_path} -b {file_path} --layer walk{direction} --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
+            os.system(cmd)
+
+    for layer in non_still_non_movement_layers:
+        cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
         os.system(cmd)
-
-        still_layer = walk_layer.replace("walk", "still")
-        cmd = f"{aseprite_path} -b {file_path} --layer {walk_layer} --frame-range 0,0 --save-as {destination_folder}/{asset_name}_{still_layer}-0.png"
-        os.system(cmd)
-
-def export_aseprite_bg_tile(file_path, destination_folder):
-    asset_name = asset_name_from_file_path(file_path)
-    cmd = f"{aseprite_path} -b {file_path} --save-as {destination_folder}/bg_tile_{asset_name}.png"
-    os.system(cmd)
 
 def asset_name_from_file_path(file_path):
     asset_name = file_path.split("/")[-1].split(".")[0]
     asset_name = asset_name[:-1] if asset_name.endswith("-") else asset_name
     return asset_name
 
-def find_aseprite_files(folder):
+def find_aseprite_files(folder, tag):
     paths = []
     for root, _, files in os.walk(folder):
         for file in files:
-            if file.endswith(".aseprite") or file.endswith(".ase"):
+            if tag in file.lower() and (file.endswith(".aseprite") or file.endswith(".ase")):
                 paths.append(os.path.join(root, file))
     return paths
 
 
-def export_all_aseprite(root_folder, destination_folder):
+def export_all_aseprite(tag, root_folder, destination_folder):
     print(f"Looking for *.aseprite and *.ase file in {root_folder}...")
-    files = find_aseprite_files(root_folder)
+    if tag != "":
+        print(f"Also filtering by `{tag}`")
+    files = find_aseprite_files(root_folder, tag)
     print(f"Found {len(files)} files")
     for i, file in enumerate(files):
-        if i % 10 == 0:
-            print(f"Exported {i} files out of {len(files)}")
+        print(f"Exporting file {i+1} out of {len(files)}")
         export_aseprite(file, destination_folder)
+    print(f"All done!")
 
 
+tag = sys.argv[-1] if len(sys.argv) == 2 else ""
 # os.system(f"rm -rf {pngs_folder}/*")
-export_all_aseprite(aseprite_assets, pngs_folder)
+export_all_aseprite(tag, aseprite_assets, pngs_folder)
