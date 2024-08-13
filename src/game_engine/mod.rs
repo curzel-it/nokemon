@@ -9,7 +9,6 @@ pub mod map_loader;
 pub mod obstacles;
 pub mod rendering;
 pub mod simple_entity;
-pub mod tile_set;
 pub mod visible_entities;
 pub mod world;
 pub mod world_state_update;

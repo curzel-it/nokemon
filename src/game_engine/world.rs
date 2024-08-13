@@ -3,9 +3,9 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::BackgroundTileInfo};
+use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, entities::background_tile::{BiomeTile, TileSet}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, tile_set::TileSet, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
+use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
 
 pub struct World {
     pub total_elapsed_time: f32,
@@ -115,7 +115,7 @@ impl World {
         }
     }
 
-    pub fn visible_tiles(&self) -> Vec<&BackgroundTileInfo> {
+    pub fn visible_tiles(&self) -> Vec<&BiomeTile> {
         self.tiles.visible_tiles(&self.camera_viewport)
     }
 }

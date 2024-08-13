@@ -16,9 +16,9 @@ def export_aseprite(file_path, destination_folder):
     else: export_aseprite_character(file_path, destination_folder)
 
 def export_aseprite_level(file_path, destination_folder):
-    cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {destination_folder}/../world_biome.png"
+    cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {destination_folder}/../levels/world_biome.png"
     os.system(cmd)
-    cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {destination_folder}/../world_constructions.png"
+    cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {destination_folder}/../levels/world_constructions.png"
     os.system(cmd)
 
 def list_layers(path):

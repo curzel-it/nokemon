@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::{TILE_SIZE, SCALE}, entities::background_tile::BackgroundTileInfo};
+use crate::{constants::{TILE_SIZE, SCALE}, entities::background_tile::BiomeTile};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 
@@ -106,7 +106,7 @@ fn draw_item(
 
 fn draw_tile(
     d: &mut RaylibDrawHandle, 
-    tile: &BackgroundTileInfo,
+    tile: &BiomeTile,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
