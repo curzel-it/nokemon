@@ -70,8 +70,8 @@ pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
 macro_rules! impl_tile_defaults {
     () => {
         fn into_obstacle_entity(
-            &self, entity_factory: &crate::game_engine::entity_factory::EntityFactory
-        ) -> Box<dyn crate::game_engine::entity::Entity> {
+            &self, entity_factory: &$crate::game_engine::entity_factory::EntityFactory
+        ) -> Box<dyn $crate::game_engine::entity::Entity> {
             let entity = entity_factory.build_invisible_obstacle(
                 raylib::math::Rectangle::new(
                     self.column as f32 * TILE_SIZE, 

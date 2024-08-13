@@ -8,10 +8,8 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     let expected_x = frame.x + offset.x;
     let expected_y = frame.y + offset.y;
 
-    if entity.body().is_rigid {
-        if has_blocking_collisions(entity, collisions) {
-            return
-        }
+    if entity.body().is_rigid && has_blocking_collisions(entity, collisions) {
+        return
     }
 
     entity.place_at(expected_x, expected_y);
@@ -29,29 +27,25 @@ fn blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> Vec<
     if direction.x > 0.0 {
         return collisions.iter().filter(|collision| {
             collision.center_x > entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
-        })
-        .map(|c| c.clone())
+        }).copied()
         .collect();
     }
     if direction.x < 0.0 {
         return collisions.iter().filter(|collision| {
             collision.center_x < entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
-        })
-        .map(|c| c.clone())
+        }).copied()
         .collect();
     }
     if direction.y > 0.0 {
         return collisions.iter().filter(|collision| {
             collision.center_y > entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
-        })
-        .map(|c| c.clone())
+        }).copied()
         .collect();
     }
     if direction.y < 0.0 {
         return collisions.iter().filter(|collision| {
             collision.center_y < entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
-        })
-        .map(|c| c.clone())
+        }).copied()
         .collect();
     }
     vec![]
