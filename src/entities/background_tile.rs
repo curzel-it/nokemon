@@ -1,9 +1,10 @@
+use serde::{Deserialize, Serialize};
 
 use raylib::math::Rectangle;
 
 use crate::{constants::{ASSETS_PATH, TILE_SIZE}, game_engine::{entity::Entity, entity_factory::EntityFactory}};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BackgroundTileType {
     Grass,
     Water,
@@ -12,17 +13,31 @@ pub enum BackgroundTileType {
     Snow
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub struct BackgroundTileInfo {
     pub tile_type: BackgroundTileType,
-    pub variant: i32,
     pub column: u32, 
     pub row: u32,
+
+    #[serde(default="df_one")]
     pub width: u32,
+
+    #[serde(default="df_one")]
     pub height: u32,
+
+    #[serde(default="df_zero")]
+    pub variant: i32,
+
+    #[serde(default="df_grass")]
     pub tile_up_type: BackgroundTileType,
+
+    #[serde(default="df_grass")]
     pub tile_right_type: BackgroundTileType,
+
+    #[serde(default="df_grass")]
     pub tile_down_type: BackgroundTileType,
+
+    #[serde(default="df_grass")]
     pub tile_left_type: BackgroundTileType,
 }
 
@@ -44,28 +59,6 @@ impl Default for BackgroundTileInfo {
 }
 
 impl BackgroundTileInfo {
-    pub fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
-        Self::with_color_indeces_size(color, column, row, 1, 1)
-    }
-
-    pub fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
-        let tile_type = BackgroundTileType::from_color(color).unwrap_or(BackgroundTileType::Desert);            
-        // let variant = rand::thread_rng().gen_range(0..10);
-        
-        Self {
-            tile_type,
-            variant: 1,
-            column, 
-            row,
-            width,
-            height,
-            tile_up_type: BackgroundTileType::Grass,
-            tile_right_type: BackgroundTileType::Grass,
-            tile_down_type: BackgroundTileType::Grass,
-            tile_left_type: BackgroundTileType::Grass,
-        }
-    }
-
     pub fn is_water(&self) -> bool {
         match &self.tile_type {
             BackgroundTileType::Water => true,
@@ -90,12 +83,6 @@ impl BackgroundTileInfo {
     }
 }
 
-pub const COLOR_GRASS: u32 = 0x00FF00;
-pub const COLOR_WATER: u32 = 0x0000FF;
-pub const COLOR_ROCK: u32 = 0x7F7F7F;
-pub const COLOR_DESERT: u32 = 0xFFFF00;
-pub const COLOR_SNOW: u32 = 0xFFFFFF;
-
 impl BackgroundTileType {
     fn animation_name(&self) -> &str {
         match self {
@@ -106,15 +93,44 @@ impl BackgroundTileType {
             BackgroundTileType::Snow => "snow",
         }
     }
-    
-    fn from_color(color: u32) -> Option<BackgroundTileType> {
-        match color {
-            COLOR_GRASS => Some(BackgroundTileType::Grass),
-            COLOR_WATER => Some(BackgroundTileType::Water),
-            COLOR_ROCK => Some(BackgroundTileType::Rock),
-            COLOR_DESERT => Some(BackgroundTileType::Desert),
-            COLOR_SNOW => Some(BackgroundTileType::Snow),
-            _ => None,
+}
+
+fn df_grass() -> BackgroundTileType {
+    BackgroundTileType::Grass
+}
+
+fn df_one() -> u32 {
+    1
+}
+
+fn df_zero() -> i32 {
+    0
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    impl BackgroundTileInfo {
+        pub fn with_type_indeces(tile_type: BackgroundTileType, column: u32, row: u32) -> Self {
+            Self::with_type_indeces_size(tile_type, column, row, 1, 1)
+        }
+
+        pub fn with_type_indeces_size(tile_type: BackgroundTileType, column: u32, row: u32, width: u32, height: u32) -> Self {
+            // let variant = rand::thread_rng().gen_range(0..10);
+            
+            Self {
+                tile_type,
+                variant: 1,
+                column, 
+                row,
+                width,
+                height,
+                tile_up_type: BackgroundTileType::Grass,
+                tile_right_type: BackgroundTileType::Grass,
+                tile_down_type: BackgroundTileType::Grass,
+                tile_left_type: BackgroundTileType::Grass,
+            }
         }
     }
 }

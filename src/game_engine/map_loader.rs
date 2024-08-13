@@ -1,6 +1,9 @@
+use std::{fs::File, io::BufReader};
+
 use image::{GenericImageView, Pixel};
 use rand::Rng;
 use raylib::math::Rectangle;
+use serde_json::from_reader;
 
 use crate::{constants::{TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::{BackgroundTileInfo, BackgroundTileType}, game_engine::entity::Entity};
 
@@ -8,7 +11,9 @@ use super::{tile_set::TileSet, world::World};
 
 impl World {
     pub fn load_map(&mut self) {
-        let (rows, columns, mut tiles) = parse_world_map(WORLD_MAP_PATH);
+        let mut tiles = parse_world_map(WORLD_MAP_PATH);
+        let rows = tiles.len();
+        let columns = tiles[0].len();
         integrate_borders_info(&mut tiles);
         make_water_obstacles(self, &tiles);        
         make_variations(&mut tiles);
@@ -73,25 +78,22 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<BackgroundTileInfo>>) {
     }
 }
 
-fn parse_world_map(image_path: &str) -> (u32, u32, Vec<Vec<BackgroundTileInfo>>) {
-    let img = image::open(image_path).expect("Failed to open image");
-    let (width, height) = img.dimensions();
+fn parse_world_map(json_path: &str) -> Vec<Vec<BackgroundTileInfo>> {
+    let file = File::open(json_path).expect("Failed to open JSON file");
+    let reader = BufReader::new(file);
+    
+    let tiles: Vec<BackgroundTileInfo> = from_reader(reader).expect("Failed to parse JSON");
 
-    let mut tiles: Vec<Vec<BackgroundTileInfo>> = Vec::new();
+    let columns = tiles.iter().max_by_key(|tile| tile.column).map(|tile| tile.column + 1).unwrap_or(0);
+    let rows = tiles.iter().max_by_key(|tile| tile.row).map(|tile| tile.row + 1).unwrap_or(0);
 
-    for y in 0..height {
-        let mut row: Vec<BackgroundTileInfo> = Vec::new();
+    let mut tile_matrix: Vec<Vec<BackgroundTileInfo>> = vec![vec![BackgroundTileInfo::default(); columns as usize]; rows as usize];
 
-        for x in 0..width {
-            let pixel = img.get_pixel(x, y).to_rgb();
-            let color_int = (pixel[0] as u32) << 16 | (pixel[1] as u32) << 8 | (pixel[2] as u32);            
-            let tile = BackgroundTileInfo::with_color_indeces(color_int, x, y);
-            row.push(tile);
-        }
-        tiles.push(row);
+    for tile in tiles {
+        tile_matrix[tile.row as usize][tile.column as usize] = tile;
     }
 
-    (width, height, tiles)
+    tile_matrix
 }
 
 fn joined_water_tiles(tiles: &Vec<BackgroundTileInfo>) -> Vec<BackgroundTileInfo> {
@@ -120,12 +122,12 @@ fn joined_tiles(tiles: &Vec<BackgroundTileInfo>) -> Vec<BackgroundTileInfo> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::entities::background_tile::{BackgroundTileInfo, BackgroundTileType, COLOR_DESERT, COLOR_GRASS, COLOR_ROCK, COLOR_WATER};
+    use crate::entities::background_tile::{BackgroundTileInfo, BackgroundTileType};
 
     #[test]
     fn test_single_water_tile() {
         let tiles = vec![
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 0, 0)
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 0, 0)
         ];
 
         let joined_tiles = joined_tiles(&tiles);
@@ -138,9 +140,9 @@ mod tests {
     #[test]
     fn test_multiple_non_contiguous_water_tiles() {
         let tiles = vec![
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 0, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_GRASS, 1, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 2, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 0, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Grass, 1, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 2, 0),
         ];
 
         let joined_tiles = joined_tiles(&tiles);
@@ -157,9 +159,9 @@ mod tests {
     #[test]
     fn test_contiguous_water_tiles() {
         let tiles = vec![
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 0, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 1, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 2, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 0, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 1, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 2, 0),
         ];
 
         let joined_tiles = joined_tiles(&tiles);
@@ -172,11 +174,11 @@ mod tests {
     #[test]
     fn test_mixed_tiles() {
         let tiles = vec![
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 0, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 1, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_GRASS, 2, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 3, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_WATER, 4, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 0, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 1, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Grass, 2, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 3, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Water, 4, 0),
         ];
 
         let joined_tiles = joined_water_tiles(&tiles);
@@ -191,9 +193,9 @@ mod tests {
     #[test]
     fn test_no_water_tiles() {
         let tiles = vec![
-            BackgroundTileInfo::with_color_indeces(COLOR_GRASS, 0, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_ROCK, 1, 0),
-            BackgroundTileInfo::with_color_indeces(COLOR_DESERT, 2, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Grass, 0, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Rock, 1, 0),
+            BackgroundTileInfo::with_type_indeces(BackgroundTileType::Desert, 2, 0),
         ];
         assert_eq!(joined_tiles(&tiles).len(), 3);
         assert_eq!(joined_water_tiles(&tiles).len(), 0);

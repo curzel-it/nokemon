@@ -1,4 +1,4 @@
-use crate::{constants::{BASE_ENTITY_SPEED, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
+use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
 
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let no_collisions: Vec<Collision> = vec![];
@@ -22,35 +22,34 @@ fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> 
 }
 
 fn blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> Vec<Collision> {
-    let threshold = 20.0;
     let entity_center_x = entity.body().frame.x + entity.body().frame.width / 2.0;
     let entity_center_y = entity.body().frame.y + entity.body().frame.height / 2.0;
     let direction = entity.body().direction;
 
     if direction.x > 0.0 {
         return collisions.iter().filter(|collision| {
-            collision.center_x > entity_center_x && collision.overlapping_area.height > threshold
+            collision.center_x > entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
         })
         .map(|c| c.clone())
         .collect();
     }
     if direction.x < 0.0 {
         return collisions.iter().filter(|collision| {
-            collision.center_x < entity_center_x && collision.overlapping_area.height > threshold
+            collision.center_x < entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
         })
         .map(|c| c.clone())
         .collect();
     }
     if direction.y > 0.0 {
         return collisions.iter().filter(|collision| {
-            collision.center_y > entity_center_y && collision.overlapping_area.width > threshold
+            collision.center_y > entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
         })
         .map(|c| c.clone())
         .collect();
     }
     if direction.y < 0.0 {
         return collisions.iter().filter(|collision| {
-            collision.center_y < entity_center_y && collision.overlapping_area.width > threshold
+            collision.center_y < entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
         })
         .map(|c| c.clone())
         .collect();
