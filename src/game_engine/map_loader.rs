@@ -1,7 +1,8 @@
 use image::{GenericImageView, Pixel};
+use rand::Rng;
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::BackgroundTileInfo, game_engine::entity::Entity};
+use crate::{constants::{TILE_SIZE, WORLD_MAP_PATH}, entities::background_tile::{BackgroundTileInfo, BackgroundTileType}, game_engine::entity::Entity};
 
 use super::{tile_set::TileSet, world::World};
 
@@ -9,9 +10,19 @@ impl World {
     pub fn load_map(&mut self) {
         let (rows, columns, mut tiles) = parse_world_map(WORLD_MAP_PATH);
         integrate_borders_info(&mut tiles);
-        make_water_obstacles(self, &tiles);
+        make_water_obstacles(self, &tiles);        
+        make_variations(&mut tiles);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
         self.tiles = TileSet::with_tiles(tiles);
+    }
+}
+
+fn make_variations(tiles: &mut Vec<Vec<BackgroundTileInfo>>) {
+    for row in 0..tiles.len() {
+        for col in 0..tiles[row].len() {
+            let variant = rand::thread_rng().gen_range(0..10);
+            tiles[row][col].variant = variant;
+        }
     }
 }
 
@@ -35,21 +46,29 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<BackgroundTileInfo>>) {
 
     for row in 0..rows {
         for col in 0..columns {
-            let ground_above = row != 0 && tiles[row-1][col].is_not_water();
-            let ground_right = col != columns-1 && tiles[row][col+1].is_not_water();
-            let ground_below = row != rows-1 && tiles[row+1][col].is_not_water();
-            let ground_left = col != 0 && tiles[row][col-1].is_not_water();            
-            let has_ground_contact = ground_above || ground_right || ground_below || ground_left;
+            let mut tile_up_type = BackgroundTileType::Grass;
+            let mut tile_right_type = BackgroundTileType::Grass;
+            let mut tile_down_type = BackgroundTileType::Grass;
+            let mut tile_left_type = BackgroundTileType::Grass;
 
-            let water_above = row != 0 && !tiles[row-1][col].is_water();
-            let water_right = col != columns-1 && !tiles[row][col+1].is_water();
-            let water_below = row != rows-1 && !tiles[row+1][col].is_water();
-            let water_left = col != 0 && !tiles[row][col-1].is_water();            
-            let has_water_contact = water_above || water_right || water_below || water_left;
-            
-            let tile = &mut tiles[row][col];
-            tile.has_ground_contact = has_ground_contact;
-            tile.has_water_contact = has_water_contact;
+            if row > 0 {
+                tile_up_type = tiles[row-1][col].tile_type;
+            }
+            if col < columns - 1 {
+                tile_right_type = tiles[row][col+1].tile_type;
+            }
+            if row < rows - 1 {
+                tile_down_type = tiles[row+1][col].tile_type;
+            }
+            if col > 0 {
+                tile_left_type = tiles[row][col-1].tile_type;
+            }
+
+            let current = &mut tiles[row][col];
+            current.tile_up_type = tile_up_type;
+            current.tile_right_type = tile_right_type;
+            current.tile_down_type = tile_down_type;
+            current.tile_left_type = tile_left_type;
         }
     }
 }

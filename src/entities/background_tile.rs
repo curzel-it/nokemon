@@ -20,8 +20,27 @@ pub struct BackgroundTileInfo {
     pub row: u32,
     pub width: u32,
     pub height: u32,
-    pub has_ground_contact: bool,
-    pub has_water_contact: bool,
+    pub tile_up_type: BackgroundTileType,
+    pub tile_right_type: BackgroundTileType,
+    pub tile_down_type: BackgroundTileType,
+    pub tile_left_type: BackgroundTileType,
+}
+
+impl Default for BackgroundTileInfo {
+    fn default() -> Self {
+        BackgroundTileInfo {
+            tile_type: BackgroundTileType::Grass,
+            variant: 0,
+            column: 0,
+            row: 0,
+            width: 0,
+            height: 0,
+            tile_up_type: BackgroundTileType::Grass,
+            tile_right_type: BackgroundTileType::Grass,
+            tile_down_type: BackgroundTileType::Grass,
+            tile_left_type: BackgroundTileType::Grass,
+        }
+    }
 }
 
 impl BackgroundTileInfo {
@@ -40,21 +59,10 @@ impl BackgroundTileInfo {
             row,
             width,
             height,
-            has_ground_contact: false,
-            has_water_contact: false,
-        }
-    }
-
-    pub fn with_tile(other: &BackgroundTileInfo, width: u32, height: u32) -> Self {
-        Self {
-            tile_type: other.tile_type,
-            variant: other.variant,
-            column: other.column, 
-            row: other.row,
-            width,
-            height,
-            has_ground_contact: false,
-            has_water_contact: false,
+            tile_up_type: BackgroundTileType::Grass,
+            tile_right_type: BackgroundTileType::Grass,
+            tile_down_type: BackgroundTileType::Grass,
+            tile_left_type: BackgroundTileType::Grass,
         }
     }
 
@@ -63,10 +71,6 @@ impl BackgroundTileInfo {
             BackgroundTileType::Water => true,
             _ => false
         }
-    }
-
-    pub fn is_not_water(&self) -> bool {
-        !self.is_water()
     }
 
     pub fn sprite_name(&self) -> String {

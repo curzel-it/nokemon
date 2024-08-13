@@ -37,7 +37,12 @@ impl Sprite {
 
     pub fn update(&mut self, time_since_last_update: f32) {
         self.timed_content_provider.update(time_since_last_update);
+    }    
+    
+    pub fn jump_to_frame(&mut self, frame_index: usize) {
+        self.timed_content_provider.jump_to_frame(frame_index)
     }
+
 }
 
 impl Debug for Sprite {
