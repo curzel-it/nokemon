@@ -1,6 +1,6 @@
 use raylib::math::Vector2;
 
-use crate::{constants::HERO_ENTITY_ID, features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world_state_update::WorldStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
+use crate::{constants::HERO_ENTITY_ID, features::{animated_sprite::update_sprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_animated_entity, impl_embodied_entity, utils::geometry_utils::Insets};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -55,7 +55,8 @@ impl Entity for Hero {
 impl EntityFactory {
     pub fn build_hero(&self) -> Hero {
         let mut body = self.build("red");
-        body.resize(15.0, 17.0);
+        body.resize(19.0, 22.0);
+        body.collision_insets = Insets::new(12.0, 4.0, 0.0, 4.0);
         body.id = HERO_ENTITY_ID;
         body.time_to_next_shot = 5.0;
         body.time_between_shots = 5.0;

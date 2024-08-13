@@ -49,7 +49,7 @@ fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Optio
     if entity1.body().is_ally == entity2.body().is_ally {
         return None;
     }             
-    entity1.body().frame.get_collision_rec(&entity2.body().frame)
+    entity1.collision_frame().get_collision_rec(&entity2.collision_frame())
 }
 
 fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlapping_area: Rectangle) -> (Collision, Collision) {

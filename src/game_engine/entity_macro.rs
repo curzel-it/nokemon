@@ -26,6 +26,10 @@ macro_rules! impl_embodied_entity {
                 self.body.frame.x = x;
                 self.body.frame.y = y;
             }
+
+            fn collision_frame(&self) -> raylib::math::Rectangle {
+                self.body.collision_frame()
+            }
         }
     };
 }

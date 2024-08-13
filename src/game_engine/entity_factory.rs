@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set::SpriteSet, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set::SpriteSet, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}, utils::geometry_utils::Insets};
 
 use super::entity_body::EntityBody;
 
@@ -47,6 +47,7 @@ impl EntityFactory {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,
             frame: Rectangle::new(0.0, 0.0, 50.0, 50.0),
+            collision_insets: Insets::zero(),
             direction: Vector2::new(0.0, 0.0),
             current_speed: 1.0,
             base_speed: 1.0,

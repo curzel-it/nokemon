@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, SCALE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}};
+use crate::{constants::{ANIMATIONS_FPS, SCALE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -10,6 +10,7 @@ pub trait EmbodiedEntity: Debug {
 
     fn body(&self) -> &EntityBody;
     fn body_mut(&mut self) -> &mut EntityBody;
+    fn collision_frame(&self) -> Rectangle;
     
     fn center_in(&mut self, value: &Rectangle);
     fn place_at(&mut self, x: f32, y: f32);
@@ -19,7 +20,8 @@ pub trait EmbodiedEntity: Debug {
 pub struct EntityBody {
     pub id: u32,
     pub parent_id: u32,
-    pub frame: Rectangle,
+    pub frame: Rectangle,  
+    pub collision_insets: Insets,
     pub direction: Vector2,
     pub current_speed: f32,
     pub base_speed: f32,
@@ -75,5 +77,9 @@ impl EntityBody {
 
     pub fn current_sprite_frame(&self) -> &str {
         self.current_sprite.current_frame()
+    }
+
+    pub fn collision_frame(&self) -> Rectangle {
+        self.collision_insets.apply_to_rect(&self.frame)
     }
 }
