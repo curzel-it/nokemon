@@ -1,5 +1,4 @@
 
-use raylib::math::Rectangle;
 
 use crate::{constants::{ASSETS_PATH, TILE_SIZE}, impl_tile_defaults};
 

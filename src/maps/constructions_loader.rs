@@ -1,10 +1,8 @@
 use image::{GenericImageView, Pixel};
-use rand::Rng;
-use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, WORLD_MAP_CONSTRUCTIONS}, game_engine::{entity::Entity, world::World}};
+use crate::{constants::WORLD_MAP_CONSTRUCTIONS, game_engine::{entity::Entity, world::World}};
 
-use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::{Tile, TileSet}};
+use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::Tile};
  
 impl World {
     pub fn load_constructions_tiles(&mut self) {
