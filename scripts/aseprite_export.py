@@ -66,14 +66,9 @@ def export_aseprite_character(file_path, destination_folder):
             cmd = f"{aseprite_path} -b {file_path} --layer still{direction} --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
             os.system(cmd)
 
-    if "walk" in layers and "still" not in layers and "stilln" not in layers:
+    if ("walk" in layers or "walkn" in layers) and "still" not in layers and "stilln" not in layers:
         for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer walk --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
-            os.system(cmd)
-
-    if "walkn" in layers and "still" not in layers and "stilln" not in layers:
-        for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer walk{direction} --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
+            cmd = f"cp {destination_folder}/{asset_name}_walk{direction}-0.png {destination_folder}/{asset_name}_still{direction}-0.png"
             os.system(cmd)
 
     for layer in non_still_non_movement_layers:
