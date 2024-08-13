@@ -11,44 +11,6 @@ pub const COLOR_ROCK: u32 = 0x7F7F7F;
 pub const COLOR_DESERT: u32 = 0xFFFF00;
 pub const COLOR_SNOW: u32 = 0xFFFFFF;
 
-pub struct BiomeTileSet {
-    pub tiles: Vec<Vec<BiomeTile>>,
-}
-
-impl BiomeTileSet {
-    pub fn empty() -> Self {
-        Self {
-            tiles: vec![]
-        }
-    }
-
-    pub fn with_tiles(tiles: Vec<Vec<BiomeTile>>) -> Self {
-        Self {
-            tiles
-        }
-    }
-
-    pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&BiomeTile> {
-        let first_row = (viewport.y / TILE_SIZE).floor() as usize;
-        let rows = (viewport.height / TILE_SIZE).ceil() as usize + 1;
-        let first_col = (viewport.x / TILE_SIZE).floor() as usize;
-        let cols = (viewport.width / TILE_SIZE).ceil() as usize + 1;
-
-        let mut visible_tiles = Vec::new();
-
-        for row in first_row..(first_row + rows) {
-            for col in first_col..(first_col + cols) {
-                if row < self.tiles.len() && col < self.tiles[row].len() {
-                    let tile = &self.tiles[row][col];
-                    visible_tiles.push(tile);
-                }
-            }
-        }
-
-        visible_tiles    
-    }
-}
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Biome {
     Grass,

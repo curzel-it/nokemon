@@ -4,7 +4,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::{TILE_SIZE, WORLD_MAP_BIOME}, game_engine::{entity::Entity, world::World}};
 
-use super::{biome_tiles::{Biome, BiomeTile, BiomeTileSet}, tiles::{joined_tiles, Tile}};
+use super::{biome_tiles::{Biome, BiomeTile}, tiles::{joined_tiles, Tile, TileSet}};
 
 impl World {
     pub fn load_biome_tiles(&mut self) {
@@ -13,7 +13,7 @@ impl World {
         make_water_obstacles(self, &tiles);        
         make_variations(&mut tiles);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
-        self.tiles = BiomeTileSet::with_tiles(tiles);
+        self.tiles = TileSet::with_tiles(tiles);
     }
 }
 

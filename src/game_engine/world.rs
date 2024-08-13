@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::biome_tiles::{BiomeTile, BiomeTileSet}};
+use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, tiles::TileSet}};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
 
@@ -12,7 +12,7 @@ pub struct World {
     pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub camera_viewport: Rectangle,
-    pub tiles: BiomeTileSet,
+    pub tiles: TileSet<BiomeTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
     pub visible_entities: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
@@ -29,7 +29,7 @@ impl World {
             entity_factory,
             bounds: RECT_ORIGIN_SQUARE_100,
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            tiles: BiomeTileSet::empty(),
+            tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
             selected_entity_id: None,
