@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::{TILE_SIZE, SCALE}, entities::background_tile::BiomeTile};
+use crate::{constants::{SCALE, TILE_SIZE}, maps::tiles::Tile};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 
@@ -104,16 +104,16 @@ fn draw_item(
     }
 }
 
-fn draw_tile(
+fn draw_tile<T: Tile>(
     d: &mut RaylibDrawHandle, 
-    tile: &BiomeTile,
+    tile: &T,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
     let sprite_path = tile.sprite_name();    
     let position = Vector2::new(
-        tile.column as f32 * TILE_SIZE - camera_viewport.x, 
-        tile.row as f32 * TILE_SIZE - camera_viewport.y
+        tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
+        tile.row() as f32 * TILE_SIZE - camera_viewport.y
     );
     
     if let Some(texture) = engine.textures.get(&sprite_path) {

@@ -1,4 +1,3 @@
-pub mod background_tile;
 pub mod creep;
 pub mod creep_spawn_point;
 pub mod hero;

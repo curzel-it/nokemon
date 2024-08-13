@@ -2,9 +2,9 @@ use image::{GenericImageView, Pixel};
 use rand::Rng;
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, WORLD_BIOME_PATH}, entities::background_tile::{Biome, BiomeTile, TileSet}, game_engine::entity::Entity};
+use crate::{constants::{TILE_SIZE, WORLD_BIOME_PATH}, game_engine::{entity::Entity, world::World}};
 
-use super::world::World;
+use super::{biome_tiles::{Biome, BiomeTile, BiomeTileSet}, tiles::{joined_tiles, Tile}};
 
 impl World {
     pub fn load_biome_tiles(&mut self) {
@@ -13,7 +13,7 @@ impl World {
         make_water_obstacles(self, &tiles);        
         make_variations(&mut tiles);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
-        self.tiles = TileSet::with_tiles(tiles);
+        self.tiles = BiomeTileSet::with_tiles(tiles);
     }
 }
 
@@ -98,29 +98,11 @@ fn joined_water_tiles(tiles: &Vec<BiomeTile>) -> Vec<BiomeTile> {
     joined_tiles(tiles).into_iter().filter(|t| t.is_water()).collect()
 } 
 
-fn joined_tiles(tiles: &Vec<BiomeTile>) -> Vec<BiomeTile> {
-    let mut joined: Vec<BiomeTile> = vec![];    
-    let mut previous = tiles[0];
-    
-    for i in 1..tiles.len() {
-        let current = tiles[i];
-        
-        if current.tile_type == previous.tile_type {
-            previous.width += 1;
-        } else {
-            joined.push(previous);
-            previous = current;
-        }
-    }
-    joined.push(previous);
-
-    joined
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::maps::biome_tiles::{Biome, COLOR_DESERT, COLOR_GRASS, COLOR_ROCK, COLOR_WATER};
+
     use super::*;
-    use crate::entities::background_tile::{BiomeTile, Biome, COLOR_DESERT, COLOR_GRASS, COLOR_ROCK, COLOR_WATER};
 
     #[test]
     fn test_single_water_tile() {

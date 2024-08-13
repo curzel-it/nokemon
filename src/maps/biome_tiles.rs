@@ -1,7 +1,9 @@
 
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, game_engine::{entity::Entity, entity_factory::EntityFactory}};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, impl_tile_defaults};
+
+use super::tiles::Tile;
 
 pub const COLOR_GRASS: u32 = 0x00FF00;
 pub const COLOR_WATER: u32 = 0x0000FF;
@@ -9,11 +11,11 @@ pub const COLOR_ROCK: u32 = 0x7F7F7F;
 pub const COLOR_DESERT: u32 = 0xFFFF00;
 pub const COLOR_SNOW: u32 = 0xFFFFFF;
 
-pub struct TileSet {
+pub struct BiomeTileSet {
     pub tiles: Vec<Vec<BiomeTile>>,
 }
 
-impl TileSet {
+impl BiomeTileSet {
     pub fn empty() -> Self {
         Self {
             tiles: vec![]
@@ -77,12 +79,43 @@ impl Default for BiomeTile {
             variant: 0,
             column: 0,
             row: 0,
-            width: 0,
-            height: 0,
+            width: 1,
+            height: 1,
             tile_up_type: Biome::Grass,
             tile_right_type: Biome::Grass,
             tile_down_type: Biome::Grass,
             tile_left_type: Biome::Grass,
+        }
+    }
+}
+
+impl Tile for BiomeTile {
+    fn sprite_name(&self) -> String {
+        format!("{}/bg_tile_{}-{}.png", ASSETS_PATH, self.tile_type.animation_name(), self.variant)
+    }
+
+    impl_tile_defaults!();
+}
+
+impl Biome {
+    fn animation_name(&self) -> &str {
+        match self {
+            Biome::Grass => "grass",
+            Biome::Water => "water",
+            Biome::Rock => "rock",
+            Biome::Desert => "desert",
+            Biome::Snow => "snow",
+        }
+    }
+    
+    fn from_color(color: u32) -> Option<Biome> {
+        match color {
+            COLOR_GRASS => Some(Biome::Grass),
+            COLOR_WATER => Some(Biome::Water),
+            COLOR_ROCK => Some(Biome::Rock),
+            COLOR_DESERT => Some(Biome::Desert),
+            COLOR_SNOW => Some(Biome::Snow),
+            _ => None,
         }
     }
 }
@@ -114,45 +147,6 @@ impl BiomeTile {
         match &self.tile_type {
             Biome::Water => true,
             _ => false
-        }
-    }
-
-    pub fn sprite_name(&self) -> String {
-        format!("{}/bg_tile_{}-{}.png", ASSETS_PATH, self.tile_type.animation_name(), self.variant)
-    }
-
-    pub fn into_obstacle_entity(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
-        let entity = entity_factory.build_invisible_obstacle(
-            Rectangle::new(
-                self.column as f32 * TILE_SIZE, 
-                self.row as f32 * TILE_SIZE, 
-                self.width as f32 * TILE_SIZE, 
-                self.height as f32 * TILE_SIZE
-            )
-        );
-        Box::new(entity)
-    }
-}
-
-impl Biome {
-    fn animation_name(&self) -> &str {
-        match self {
-            Biome::Grass => "grass",
-            Biome::Water => "water",
-            Biome::Rock => "rock",
-            Biome::Desert => "desert",
-            Biome::Snow => "snow",
-        }
-    }
-    
-    fn from_color(color: u32) -> Option<Biome> {
-        match color {
-            COLOR_GRASS => Some(Biome::Grass),
-            COLOR_WATER => Some(Biome::Water),
-            COLOR_ROCK => Some(Biome::Rock),
-            COLOR_DESERT => Some(Biome::Desert),
-            COLOR_SNOW => Some(Biome::Snow),
-            _ => None,
         }
     }
 }
