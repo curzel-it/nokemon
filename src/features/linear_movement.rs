@@ -1,12 +1,9 @@
-use raylib::collision;
-
 use crate::{constants::{BASE_ENTITY_SPEED, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
 
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let no_collisions: Vec<Collision> = vec![];
     let collisions = world.collisions.get(&entity.id()).unwrap_or(&no_collisions);
     let frame = entity.body().frame;
-    let direction = entity.body().direction;
     let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * SCALE * BASE_ENTITY_SPEED;
     let expected_x = frame.x + offset.x;
     let expected_y = frame.y + offset.y;

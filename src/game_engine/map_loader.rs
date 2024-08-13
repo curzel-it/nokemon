@@ -9,13 +9,13 @@ impl World {
     pub fn load_map(&mut self) {
         let (rows, columns, mut tiles) = parse_world_map(WORLD_MAP_PATH);
         integrate_borders_info(&mut tiles);
-        make_obstacles(self, &tiles);
+        make_water_obstacles(self, &tiles);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
         self.tiles = TileSet::with_tiles(tiles);
     }
 }
 
-fn make_obstacles(world: &mut World, tiles: &Vec<Vec<BackgroundTileInfo>>) {
+fn make_water_obstacles(world: &mut World, tiles: &Vec<Vec<BackgroundTileInfo>>) {
     for row in tiles {
         let obstacles: Vec<Box<dyn Entity>> = joined_water_tiles(row)
             .iter()
