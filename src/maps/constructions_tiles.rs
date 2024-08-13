@@ -62,24 +62,51 @@ impl ConstructionTile {
             tile_left_type: Construction::Nothing,
         }
     }
+
+    pub fn is_something(&self) -> bool {
+        self.tile_type != Construction::Nothing
+    }
 }
 
 impl Tile for ConstructionTile {    
     fn sprite_name(&self) -> String {
-        format!("{}/{}-0.png", ASSETS_PATH, self.tile_type.animation_name())
+        let sprite_name = match self.tile_type {
+            Construction::Nothing => "nothing".to_owned(),
+            Construction::WoodenFence => self.wooden_fence_sprite_name()
+        };
+        let s = format!("{}/{}-0.png", ASSETS_PATH, sprite_name);
+        println!("Fence: {:#?}", s);
+        format!("{}/{}-0.png", ASSETS_PATH, sprite_name)
     }
 
     impl_tile_defaults!();
 }
 
-impl Construction {
-    fn animation_name(&self) -> &str {
-        match self {
-            Construction::Nothing => "nothing",
-            Construction::WoodenFence => "wooden_fence_stills",
+impl ConstructionTile {
+    fn wooden_fence_sprite_name(&self) -> String {
+        let mut names: Vec<String> = vec!["wooden_fence".to_owned()];
+
+        if self.tile_up_type == self.tile_type {
+            names.push("up".to_owned());
         }
+        if self.tile_right_type == self.tile_type {
+            names.push("right".to_owned());
+        }
+        if self.tile_down_type == self.tile_type {
+            names.push("down".to_owned());
+        }
+        if self.tile_left_type == self.tile_type {
+            names.push("left".to_owned());
+        }
+        if names.len() == 1 {
+            names.push("alone".to_owned());
+        }
+
+        names.join("_")
     }
-    
+}
+
+impl Construction {    
     fn from_color(color: u32) -> Option<Construction> {
         match color {
             COLOR_WOODEN_FENCE => Some(Construction::WoodenFence),

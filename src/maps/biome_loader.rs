@@ -2,13 +2,13 @@ use image::{GenericImageView, Pixel};
 use rand::Rng;
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, WORLD_BIOME_PATH}, game_engine::{entity::Entity, world::World}};
+use crate::{constants::{TILE_SIZE, WORLD_MAP_BIOME}, game_engine::{entity::Entity, world::World}};
 
 use super::{biome_tiles::{Biome, BiomeTile, BiomeTileSet}, tiles::{joined_tiles, Tile}};
 
 impl World {
     pub fn load_biome_tiles(&mut self) {
-        let (rows, columns, mut tiles) = parse_biome_map(WORLD_BIOME_PATH);
+        let (rows, columns, mut tiles) = parse_biome_map(WORLD_MAP_BIOME);
         integrate_borders_info(&mut tiles);
         make_water_obstacles(self, &tiles);        
         make_variations(&mut tiles);
@@ -31,7 +31,7 @@ fn make_water_obstacles(world: &mut World, tiles: &Vec<Vec<BiomeTile>>) {
         let obstacles: Vec<Box<dyn Entity>> = joined_water_tiles(row)
             .iter()
             .filter(|tile| tile.is_water())
-            .map(|tile| tile.into_obstacle_entity(&world.entity_factory))
+            .map(|tile| tile.into_obstacle_entity("invisible".to_string(), &world.entity_factory))
             .collect();
 
         for obstacle in obstacles {

@@ -2,7 +2,7 @@ use std::sync::{atomic::{AtomicU32, Ordering}, Once};
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, sprites::{sprite::Sprite, sprite_set::SpriteSet, sprite_set_builder::SpriteSetBuilder, sprites_repository::SpritesRepository}};
 
 use super::entity_body::EntityBody;
 
@@ -39,7 +39,10 @@ impl EntityFactory {
 
     pub fn build(&self, species_id: &str) -> EntityBody {
         let sprites = self.sprites_repo.sprites(&species_id.to_owned());
+        self.build_with_sprites(&sprites)
+    }
 
+    pub fn build_with_sprites(&self, sprites: &SpriteSet) -> EntityBody {
         EntityBody {
             id: get_next_entity_id(),
             parent_id: NO_PARENT,

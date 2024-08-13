@@ -1,6 +1,7 @@
+use common_macros::hash_map;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, INFINITE_LIFESPAN}, impl_embodied_entity};
+use crate::{constants::{ANIMATION_NAME_FRONT, INFINITE_LIFESPAN}, impl_embodied_entity, sprites::sprite_set::SpriteSet};
 
 use super::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate};
 
@@ -27,8 +28,11 @@ impl Entity for StaticObstacle {
 
 
 impl EntityFactory {
-    pub fn build_invisible_obstacle(&self, frame: Rectangle) -> StaticObstacle {
-        let mut body = self.build("invisibleobstacle");
+    pub fn build_static_obstacle(&self, sprite: String, frame: Rectangle) -> StaticObstacle {
+        let sprites = SpriteSet::new(hash_map! {
+            ANIMATION_NAME_FRONT.to_string() => vec![sprite.clone()],
+        });
+        let mut body = self.build_with_sprites(&sprites);
         body.set_animation(ANIMATION_NAME_FRONT);
         body.is_rigid = true;
         body.base_speed = 0.0;

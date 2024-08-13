@@ -1,26 +1,30 @@
+use image::{GenericImageView, Pixel};
+use rand::Rng;
+use raylib::math::Rectangle;
 
+use crate::{constants::{TILE_SIZE, WORLD_MAP_CONSTRUCTIONS}, game_engine::{entity::Entity, world::World}};
 
-/* 
+use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::{Tile, TileSet}};
+ 
 impl World {
     pub fn load_constructions_tiles(&mut self) {
-        let mut tiles = parse_constructions_map(WORLD_BIOME_PATH);
+        let mut tiles = parse_constructions_map(WORLD_MAP_CONSTRUCTIONS);
         integrate_borders_info(&mut tiles);
         make_obstacles(self, &tiles);
     }
 }
 
 fn make_obstacles(world: &mut World, tiles: &Vec<Vec<ConstructionTile>>) {
-    for row in tiles {
-        let obstacles: Vec<Box<dyn Entity>> = joined_tiles(row)
-            .iter()
-            .filter(|tile| tile.is_water())
-            .map(|tile| tile.into_obstacle_entity(&world.entity_factory))
-            .collect();
+    let obstacles: Vec<Box<dyn Entity>> = tiles
+        .iter()
+        .flatten()
+        .filter(|t| t.is_something())
+        .map(|tile| tile.into_obstacle_entity(tile.sprite_name(), &world.entity_factory))
+        .collect();
 
-        for obstacle in obstacles {
-            world.add_entity(obstacle);
-        };
-    }
+    for obstacle in obstacles {
+        world.add_entity(obstacle);
+    };
 }
 
 fn integrate_borders_info(tiles: &mut Vec<Vec<ConstructionTile>>) {
@@ -56,7 +60,7 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<ConstructionTile>>) {
     }
 }
 
-fn parse_constructions_map(image_path: &str) -> (u32, u32, Vec<Vec<ConstructionTile>>) {
+fn parse_constructions_map(image_path: &str) -> Vec<Vec<ConstructionTile>> {
     let img = image::open(image_path).expect("Failed to open image");
     let (width, height) = img.dimensions();
 
@@ -74,7 +78,7 @@ fn parse_constructions_map(image_path: &str) -> (u32, u32, Vec<Vec<ConstructionT
         tiles.push(row);
     }
 
-    (width, height, tiles)
+    tiles
 }
 
 fn joined_tiles(tiles: &Vec<ConstructionTile>) -> Vec<ConstructionTile> {
@@ -94,4 +98,4 @@ fn joined_tiles(tiles: &Vec<ConstructionTile>) -> Vec<ConstructionTile> {
     joined.push(previous);
 
     joined
-}*/
+}

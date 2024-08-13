@@ -4,7 +4,7 @@ use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, entity_factory::
 
 pub trait Tile: Clone {
     fn sprite_name(&self) -> String;
-    fn into_obstacle_entity(&self, entity_factory: &EntityFactory) -> Box<dyn Entity>;
+    fn into_obstacle_entity(&self, species: String, entity_factory: &EntityFactory) -> Box<dyn Entity>;
     fn row(&self) -> u32;
     fn column(&self) -> u32;
     fn is_same_tile_type(&self, other: &Self) -> bool;
@@ -70,9 +70,12 @@ pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
 macro_rules! impl_tile_defaults {
     () => {
         fn into_obstacle_entity(
-            &self, entity_factory: &$crate::game_engine::entity_factory::EntityFactory
+            &self, 
+            sprite: String,
+            entity_factory: &$crate::game_engine::entity_factory::EntityFactory
         ) -> Box<dyn $crate::game_engine::entity::Entity> {
-            let entity = entity_factory.build_invisible_obstacle(
+            let entity = entity_factory.build_static_obstacle(
+                sprite,
                 raylib::math::Rectangle::new(
                     self.column as f32 * TILE_SIZE, 
                     self.row as f32 * TILE_SIZE, 
