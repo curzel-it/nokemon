@@ -29,7 +29,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn content_provider() -> TimedContentProvider<u32> {
-        TimedContentProvider::new(vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], TILE_VARIATIONS_FPS)
+        TimedContentProvider::new(vec![0, 1, 2, 3], TILE_VARIATIONS_FPS)
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
@@ -37,7 +37,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn current_variant(&self, row: u32, col: u32) -> u32 {
-        (self.sprite_counter.current_frame().clone() + row + col) % 15
+        (self.sprite_counter.current_frame().clone() + row + col) % 4
     }
 
     pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&T> {

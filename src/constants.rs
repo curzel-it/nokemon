@@ -1,7 +1,7 @@
 use raylib::math::{Rectangle, Vector2};
 
 pub const FPS: u32 = 60;
-pub const TILE_VARIATIONS_FPS: f32 = 10.0;
+pub const TILE_VARIATIONS_FPS: f32 = 1.0;
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const LOG_GAME_STATE: bool = false; 
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
