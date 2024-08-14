@@ -8,6 +8,7 @@ use super::{entity::Entity, world::World};
 pub struct Collision {
     pub other_id: u32,
     pub other_was_rigid: bool,
+    pub are_same_faction: bool,
     pub overlapping_area: Rectangle,
     pub center_x: f32,
     pub center_y: f32,
@@ -43,22 +44,27 @@ pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
 }
 
 fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Option<Rectangle> {
-    if entity1.parent_id() == entity2.id() || entity2.parent_id() == entity1.id() {
+    if entity1.id() == entity2.id() {
         return None;
     }
-    if entity1.body().is_ally == entity2.body().is_ally {
+    if entity1.parent_id() == entity2.id() {
         return None;
-    }             
+    }
+    if entity2.parent_id() == entity1.id() {
+        return None;
+    }
     entity1.collision_frame().get_collision_rec(&entity2.collision_frame())
 }
 
 fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlapping_area: Rectangle) -> (Collision, Collision) {
     let center_x = overlapping_area.x + overlapping_area.width / 2.0;
     let center_y = overlapping_area.y + overlapping_area.height / 2.0;
+    let are_same_faction = first.body().is_ally == second.body().is_ally;
 
     let first_collision = Collision { 
         other_id: second.id(), 
         other_was_rigid: second.body().is_rigid, 
+        are_same_faction,
         overlapping_area,
         center_x, 
         center_y
@@ -66,6 +72,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
     let second_collision = Collision { 
         other_id: first.id(), 
         other_was_rigid: first.body().is_rigid, 
+        are_same_faction,
         overlapping_area ,
         center_x, 
         center_y

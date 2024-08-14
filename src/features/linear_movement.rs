@@ -1,4 +1,4 @@
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
+use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, HERO_ENTITY_ID, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
 
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let no_collisions: Vec<Collision> = vec![];
@@ -8,7 +8,7 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     let expected_x = frame.x + offset.x;
     let expected_y = frame.y + offset.y;
 
-    if entity.body().is_rigid && has_blocking_collisions(entity, collisions) {
+    if has_blocking_collisions(entity, collisions) {
         return
     }
 
@@ -16,39 +16,39 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
 }
 
 fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> bool {
-    !blocking_collisions(entity, collisions).is_empty()
+    if !entity.body().is_rigid {
+        return false
+    }
+    let rigid_collisions: Vec<&Collision> = collisions.iter().filter(|c| c.other_was_rigid).collect();
+    has_blocking_rigid_collisions(entity, &rigid_collisions)
 }
 
-fn blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> Vec<Collision> {
+fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collision>) -> bool {
     let entity_center_x = entity.body().frame.x + entity.body().frame.width / 2.0;
     let entity_center_y = entity.body().frame.y + entity.body().frame.height / 2.0;
     let direction = entity.body().direction;
 
     if direction.x > 0.0 {
-        return collisions.iter().filter(|collision| {
+        return collisions.iter().any(|collision| {
             collision.center_x > entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
-        }).copied()
-        .collect();
+        });
     }
     if direction.x < 0.0 {
-        return collisions.iter().filter(|collision| {
+        return collisions.iter().any(|collision| {
             collision.center_x < entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
-        }).copied()
-        .collect();
+        });
     }
     if direction.y > 0.0 {
-        return collisions.iter().filter(|collision| {
+        return collisions.iter().any(|collision| {
             collision.center_y > entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
-        }).copied()
-        .collect();
+        });
     }
     if direction.y < 0.0 {
-        return collisions.iter().filter(|collision| {
+        return collisions.iter().any(|collision| {
             collision.center_y < entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
-        }).copied()
-        .collect();
+        });
     }
-    vec![]
+    false
 }
 
 #[cfg(test)]

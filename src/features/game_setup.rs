@@ -4,8 +4,8 @@ impl World {
     pub fn setup(&mut self) {
         self.load_biome_tiles();
         self.load_constructions_tiles();
-        // self.add_creep_spawn_point();
-        // self.add_tower();
+        self.add_creep_spawn_point();
+        self.add_tower();
         self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
     }
@@ -14,7 +14,7 @@ impl World {
         let mut entity = self.entity_factory.build_creep_spawn_point();
         entity.center_in(&self.bounds);
         entity.body_mut().frame.x -= 100.0;
-        entity.body_mut().frame.y -= 100.0;
+        entity.body_mut().frame.y -= 70.0;
         self.add_entity(Box::new(entity))
     }
     
