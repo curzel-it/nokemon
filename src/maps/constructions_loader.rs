@@ -78,22 +78,3 @@ fn parse_constructions_map(image_path: &str) -> Vec<Vec<ConstructionTile>> {
 
     tiles
 }
-
-fn joined_tiles(tiles: &Vec<ConstructionTile>) -> Vec<ConstructionTile> {
-    let mut joined: Vec<ConstructionTile> = vec![];    
-    let mut previous = tiles[0];
-    
-    for i in 1..tiles.len() {
-        let current = tiles[i];
-        
-        if current.tile_type == previous.tile_type {
-            previous.width += 1;
-        } else {
-            joined.push(previous);
-            previous = current;
-        }
-    }
-    joined.push(previous);
-
-    joined
-}

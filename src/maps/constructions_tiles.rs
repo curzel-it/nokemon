@@ -5,7 +5,6 @@ use crate::{constants::{ASSETS_PATH, TILE_SIZE}, impl_tile_defaults};
 use super::tiles::Tile;
 
 pub const COLOR_WOODEN_FENCE: u32 = 0x391f21;
-pub const COLOR_NOTHING: u32 = 0x000000;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Construction {

@@ -1,4 +1,4 @@
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, HERO_ENTITY_ID, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
+use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, SCALE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
 
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let no_collisions: Vec<Collision> = vec![];
