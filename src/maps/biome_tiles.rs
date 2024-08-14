@@ -67,15 +67,34 @@ impl BiomeTile {
     }
 
     fn setup_mixed_biomes(&mut self) {
-        if self.tile_type == Biome::Desert {
-            self.setup_mixed_biome(Biome::Snow);
-            self.setup_mixed_biome(Biome::Grass);
-            self.setup_mixed_biome(Biome::Rock);
-            self.setup_mixed_biome(Biome::Water);
+        match self.tile_type {
+            Biome::Desert => {
+                self.setup_mixed_biome(Biome::Snow);
+                self.setup_mixed_biome(Biome::Grass);
+                self.setup_mixed_biome(Biome::Rock);
+                self.setup_mixed_biome(Biome::Water);
+            },
+            Biome::Grass => {
+                self.setup_mixed_biome(Biome::Snow);
+                self.setup_mixed_biome(Biome::Desert);
+                self.setup_mixed_biome(Biome::Rock);
+            },
+            Biome::Snow => {
+                self.setup_mixed_biome(Biome::Grass);
+                self.setup_mixed_biome(Biome::Rock);
+            },
+            Biome::Water => {
+                self.setup_mixed_biome(Biome::Grass);
+            }
+            Biome::Rock => {}
         }
     }
 
     fn setup_mixed_biome(&mut self, biome: Biome) {
+        if self.tile_type == biome { 
+            return;
+        }
+
         let mut directions: String = "".to_owned();
 
         if self.tile_up_type == biome { directions += "n"; }

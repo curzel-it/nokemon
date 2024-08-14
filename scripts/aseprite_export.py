@@ -75,9 +75,15 @@ def merge_sprites_layers(first_layer_path, second_layer_path, original_suffix, r
         second_layer = Image.open(second_layer_path.replace("-0.", f"-{frame}."))        
         second_layer = second_layer.rotate(second_layer_rotation, expand=True)
 
-        first_layer = Image.open(first_layer_path.replace("-0.", f"-{frame}."))        
-        first_layer.paste(second_layer, (0, 0), second_layer)        
-        first_layer.save(merged_destination)        
+        try:
+            first_layer = Image.open(first_layer_path.replace("-0.", f"-{frame}."))        
+            first_layer.paste(second_layer, (0, 0), second_layer)        
+            first_layer.save(merged_destination)        
+        except Exception as e:
+            print(e)
+            print(first_layer_path)
+            print(second_layer_path)
+            print(merged_destination)
 
 
 def export_character(file_path, destination_folder):
