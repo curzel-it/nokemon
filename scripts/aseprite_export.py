@@ -39,18 +39,21 @@ def export_bg_tile(file_path, destination_folder):
     cmd = f"{aseprite_path} -b {file_path} --layer base --save-as {base_asset}"
     os.system(cmd)
 
-    for direction in directions_8:
-        for biome in biomes:
-            destination_no_index = f"{destination_folder}/{asset_name}_{biome}_{direction}"            
+    for biome in biomes:
+        if f"{biome}_nw" in layers:
+            regular = f"{destination_folder}/{asset_name}_{biome}-0.png"
+            cmd = f"{aseprite_path} -b {file_path} --layer base --save-as {regular}"
+            os.system(cmd)
 
-            if f"{biome}_{direction}" in layers:
-                destination = f"{destination_no_index}-0.png"
-                include_layers = f"--layer base --layer {biome}_{direction}"
-                cmd = f"{aseprite_path} -b {file_path} {include_layers} --save-as {destination}"
-                os.system(cmd)
-            # else:
-            #    for i in range(0, 15):
-            #        os.system(f"cp {base_asset_no_index}-{i}.png {destination_no_index}-{i}.png")
+            north = f"temp/{asset_name}_{biome}_n-0.png"
+            cmd = f"{aseprite_path} -b {file_path} --layer {biome}_n --save-as {north}"
+            os.system(cmd)
+
+            north_west = f"temp/{asset_name}_{biome}_nw-0.png"
+            cmd = f"{aseprite_path} -b {file_path} --layer {biome}_n --save-as {north_west}"
+            os.system(cmd)
+
+            save_directional_biome_tile(north, "n", 0, asset_name, biome)
 
 
 def export_character(file_path, destination_folder):
@@ -115,7 +118,8 @@ def export_all_aseprite(tag, root_folder, destination_folder):
         export_aseprite(file, destination_folder)
     print(f"All done!")
 
-
+os.system("mkdir temp")
 tag = sys.argv[-1] if len(sys.argv) == 2 else ""
 # os.system(f"rm -rf {pngs_folder}/*")
 export_all_aseprite(tag, aseprite_assets, pngs_folder)
+os.system("rm -rf temp")

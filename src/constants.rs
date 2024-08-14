@@ -13,7 +13,7 @@ pub const NO_PARENT: u32 = 0;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INITIAL_CAMERA_VIEWPORT: Rectangle = Rectangle::new(0.0, 0.0, 1280.0, 720.0);
 pub const GAME_SIZE: Vector2 = Vector2::new(1000.0, 1000.0);
-pub const TILE_SIZE: f32 = SCALE * 15.0;
+pub const TILE_SIZE: f32 = SCALE * 16.0;
 pub const COLLISION_THRESHOLD: f32 = TILE_SIZE / 3.0;
 
 pub const HERO_ENTITY_ID: u32 = 69;
