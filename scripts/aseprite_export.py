@@ -6,45 +6,60 @@ aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
 directions = "n e s w".split(" ")
+directions_8 = "n e s w ne es sw nw".split(" ")
 walk_layers = [f"walk{d}" for d in directions]
 still_layers = [f"still{d}" for d in directions]
+biomes = "desert water rock snow grass".split(" ")
 
 def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
     if filename == "palette.aseprite": return
-    elif filename == "world.aseprite": export_aseprite_level(file_path, destination_folder)
-    else: export_aseprite_character(file_path, destination_folder)
+    elif filename == "world.aseprite": export_level(file_path, destination_folder)
+    elif filename.startswith("bg_tile_"): export_bg_tile(file_path, destination_folder)
+    else: export_character(file_path, destination_folder)
 
-def export_aseprite_level(file_path, destination_folder):
+def export_level(file_path, destination_folder):
     cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {destination_folder}/../levels/world_biome.png"
     os.system(cmd)
     cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {destination_folder}/../levels/world_constructions.png"
     os.system(cmd)
 
 def list_layers(path):
-    command = [
-        aseprite_path, 
-        "-b", 
-        "--list-layers", 
-        path
-    ]
-    
-    # Run the command and capture the output
+    command = [aseprite_path, "-b", "--list-layers", path]
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    
-    # Split the output into lines and strip any extra whitespace
-    layers = result.stdout.strip().splitlines()
-    
+    layers = result.stdout.strip().splitlines()    
     return layers
 
-def export_aseprite_character(file_path, destination_folder):
+def export_bg_tile(file_path, destination_folder):
+    asset_name = asset_name_from_file_path(file_path)
+    layers = list_layers(file_path)
+
+    base_asset_no_index = f"{destination_folder}/{asset_name}"
+    base_asset = f"{base_asset_no_index}-0.png"
+    cmd = f"{aseprite_path} -b {file_path} --layer base --save-as {base_asset}"
+    os.system(cmd)
+
+    for direction in directions_8:
+        for biome in biomes:
+            destination_no_index = f"{destination_folder}/{asset_name}_{biome}_{direction}"            
+
+            if f"{biome}_{direction}" in layers:
+                destination = f"{destination_no_index}-0.png"
+                include_layers = f"--layer base --layer {biome}_{direction}"
+                cmd = f"{aseprite_path} -b {file_path} {include_layers} --save-as {destination}"
+                os.system(cmd)
+            # else:
+            #    for i in range(0, 15):
+            #        os.system(f"cp {base_asset_no_index}-{i}.png {destination_no_index}-{i}.png")
+
+
+def export_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
     layers = list_layers(file_path)
 
     non_still_non_movement_layers = layers
     non_still_non_movement_layers = [l for l in layers if not "still" in l]
     non_still_non_movement_layers = [l for l in layers if not "walk" in l]
-
 
     if "walk" in layers:
         for direction in directions:

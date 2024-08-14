@@ -19,10 +19,9 @@ pub enum Biome {
     Snow
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BiomeTile {
     pub tile_type: Biome,
-    pub variant: i32,
     pub column: u32, 
     pub row: u32,
     pub width: u32,
@@ -31,13 +30,13 @@ pub struct BiomeTile {
     pub tile_right_type: Biome,
     pub tile_down_type: Biome,
     pub tile_left_type: Biome,
+    pub neighbor_sprite_name_suffix: String
 }
 
 impl Default for BiomeTile {
     fn default() -> Self {
         BiomeTile {
             tile_type: Biome::Grass,
-            variant: 0,
             column: 0,
             row: 0,
             width: 1,
@@ -46,16 +45,48 @@ impl Default for BiomeTile {
             tile_right_type: Biome::Grass,
             tile_down_type: Biome::Grass,
             tile_left_type: Biome::Grass,
+            neighbor_sprite_name_suffix: "".to_owned()
         }
     }
 }
 
 impl Tile for BiomeTile {
-    fn sprite_name(&self) -> String {
-        format!("{}/bg_tile_{}-{}.png", ASSETS_PATH, self.tile_type.animation_name(), self.variant)
+    fn sprite_name(&self, variant: u32) -> String {
+        format!("{}/bg_tile_{}{}-{}.png", ASSETS_PATH, self.tile_type.animation_name(), self.neighbor_sprite_name_suffix, variant)
+    }
+    impl_tile_defaults!();
+}
+
+impl BiomeTile {
+    pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
+        self.tile_up_type = up;
+        self.tile_right_type = right;
+        self.tile_down_type = bottom;
+        self.tile_left_type = left;        
+        self.setup_mixed_biomes();    
     }
 
-    impl_tile_defaults!();
+    fn setup_mixed_biomes(&mut self) {
+        if self.tile_type == Biome::Desert {
+            self.setup_mixed_biome(Biome::Snow);
+            self.setup_mixed_biome(Biome::Grass);
+            self.setup_mixed_biome(Biome::Rock);
+            self.setup_mixed_biome(Biome::Water);
+        }
+    }
+
+    fn setup_mixed_biome(&mut self, biome: Biome) {
+        let mut directions: String = "".to_owned();
+
+        if self.tile_up_type == biome { directions += "n"; }
+        if self.tile_right_type == biome { directions += "e"; }
+        if self.tile_down_type == biome { directions += "s"; }
+        if self.tile_left_type == biome { directions += "w"; }
+
+        if !directions.is_empty() {
+            self.neighbor_sprite_name_suffix = format!("_{}_{}", biome.animation_name(), directions);            
+        }
+    }
 }
 
 impl Biome {
@@ -88,11 +119,9 @@ impl BiomeTile {
 
     pub fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
         let tile_type = Biome::from_color(color).unwrap_or(Biome::Desert);            
-        // let variant = rand::thread_rng().gen_range(0..10);
         
         Self {
             tile_type,
-            variant: 1,
             column, 
             row,
             width,
@@ -101,6 +130,7 @@ impl BiomeTile {
             tile_right_type: Biome::Grass,
             tile_down_type: Biome::Grass,
             tile_left_type: Biome::Grass,
+            neighbor_sprite_name_suffix: "".to_owned()
         }
     }
 

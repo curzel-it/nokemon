@@ -1,9 +1,9 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, entity_factory::EntityFactory}};
+use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_FPS}, game_engine::{entity::Entity, entity_factory::EntityFactory}, sprites::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
-    fn sprite_name(&self) -> String;
+    fn sprite_name(&self, variant: u32) -> String;
     fn into_obstacle_entity(&self, species: String, entity_factory: &EntityFactory) -> Box<dyn Entity>;
     fn row(&self) -> u32;
     fn column(&self) -> u32;
@@ -13,17 +13,31 @@ pub trait Tile: Clone {
 
 pub struct TileSet<T: Tile> {
     pub tiles: Vec<Vec<T>>,
+    sprite_counter: TimedContentProvider<u32>,
 }
 
 impl<T: Tile> TileSet<T> {
     pub fn empty() -> Self {
-        Self {
-            tiles: vec![],
-        }
+        Self::with_tiles(vec![])
     }
 
     pub fn with_tiles(tiles: Vec<Vec<T>>) -> Self {
-        Self { tiles }
+        Self { 
+            tiles,
+            sprite_counter: Self::content_provider()
+        }
+    }
+
+    pub fn content_provider() -> TimedContentProvider<u32> {
+        TimedContentProvider::new(vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], TILE_VARIATIONS_FPS)
+    }
+
+    pub fn update(&mut self, time_since_last_update: f32) {
+        self.sprite_counter.update(time_since_last_update);
+    }
+
+    pub fn current_variant(&self, row: u32, col: u32) -> u32 {
+        (self.sprite_counter.current_frame().clone() + row + col) % 15
     }
 
     pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&T> {

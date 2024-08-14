@@ -74,6 +74,8 @@ impl World {
             }
         }
 
+        self.tiles.update(time_since_last_update);
+
         drop(entities);
         self.store_updated_hero_state();
         self.apply_state_updates(state_updates);

@@ -21,9 +21,10 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
     // d.draw_text(format!("Entities: {:#?}", world).as_str(), 10, 50, 20, Color::RED);
 }
 
-fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
+fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
     for tile in world.visible_tiles() {
-        draw_tile(d, tile, &world.camera_viewport, engine);
+        let variant = world.tiles.current_variant(tile.row, tile.column);
+        draw_tile(d, tile, variant, &world.camera_viewport, engine);
     }
 }
 
@@ -107,10 +108,11 @@ fn draw_item(
 fn draw_tile<T: Tile>(
     d: &mut RaylibDrawHandle, 
     tile: &T,
+    variant: u32,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
-    let sprite_path = tile.sprite_name();    
+    let sprite_path = tile.sprite_name(variant);    
     let position = Vector2::new(
         tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
         tile.row() as f32 * TILE_SIZE - camera_viewport.y

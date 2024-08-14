@@ -1,5 +1,4 @@
 use image::{GenericImageView, Pixel};
-use rand::Rng;
 use raylib::math::Rectangle;
 
 use crate::{constants::{TILE_SIZE, WORLD_MAP_BIOME}, game_engine::{entity::Entity, world::World}};
@@ -11,18 +10,8 @@ impl World {
         let (rows, columns, mut tiles) = parse_biome_map(WORLD_MAP_BIOME);
         integrate_borders_info(&mut tiles);
         make_water_obstacles(self, &tiles);        
-        make_variations(&mut tiles);
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
         self.tiles = TileSet::with_tiles(tiles);
-    }
-}
-
-fn make_variations(tiles: &mut Vec<Vec<BiomeTile>>) {
-    for row in 0..tiles.len() {
-        for col in 0..tiles[row].len() {
-            let variant = rand::thread_rng().gen_range(0..10);
-            tiles[row][col].variant = variant;
-        }
     }
 }
 
@@ -46,10 +35,11 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<BiomeTile>>) {
 
     for row in 0..rows {
         for col in 0..columns {
-            let mut tile_up_type = Biome::Grass;
-            let mut tile_right_type = Biome::Grass;
-            let mut tile_down_type = Biome::Grass;
-            let mut tile_left_type = Biome::Grass;
+            let current_biome = tiles[row][col].tile_type;
+            let mut tile_up_type = current_biome;
+            let mut tile_right_type = current_biome;
+            let mut tile_down_type = current_biome;
+            let mut tile_left_type = current_biome;
 
             if row > 0 {
                 tile_up_type = tiles[row-1][col].tile_type;
@@ -65,10 +55,12 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<BiomeTile>>) {
             }
 
             let current = &mut tiles[row][col];
-            current.tile_up_type = tile_up_type;
-            current.tile_right_type = tile_right_type;
-            current.tile_down_type = tile_down_type;
-            current.tile_left_type = tile_left_type;
+            current.setup_neighbors(
+                tile_up_type,
+                tile_right_type,
+                tile_down_type,
+                tile_left_type
+            );
         }
     }
 }

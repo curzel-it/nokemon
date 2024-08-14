@@ -68,7 +68,7 @@ impl ConstructionTile {
 }
 
 impl Tile for ConstructionTile {    
-    fn sprite_name(&self) -> String {
+    fn sprite_name(&self, _: u32) -> String {
         let sprite_name = match self.tile_type {
             Construction::Nothing => "nothing".to_owned(),
             Construction::WoodenFence => self.wooden_fence_sprite_name()
