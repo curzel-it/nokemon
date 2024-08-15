@@ -107,6 +107,7 @@ impl BiomeTile {
                 Direction::Right => return 1,
                 Direction::Down => return 2,
                 Direction::Left => return 3,
+                _ => {}
             }
         }
         if directions.len() == 2 {
