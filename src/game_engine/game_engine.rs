@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{constants::ASSETS_PATH, utils::file_utils::list_files};
 
-use super::{entity_factory::EntityFactory, world::World, keyboard_events_provider::KeyboardEventsProvider};
+use super::{world::World, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
 
 pub struct GameEngine {
@@ -16,10 +16,8 @@ impl GameEngine {
         }
     }
 
-    pub fn start_rl(&mut self) -> (World, RaylibHandle, RaylibThread) {        
-        let all_assets = list_files(ASSETS_PATH, "png");
-
-        let mut world = World::new(EntityFactory::new(all_assets.clone()));
+    pub fn start_rl(&mut self) -> (World, RaylibHandle, RaylibThread) {                
+        let mut world = World::new();
         world.setup();
 
         let (mut rl, thread) = raylib::init()
@@ -29,6 +27,7 @@ impl GameEngine {
             .build();
     
         // rl.set_target_fps(FPS);
+        let all_assets = list_files(ASSETS_PATH, "png");
         self.load_textures(&all_assets, &mut rl, &thread);
 
         (world, rl, thread)
@@ -53,14 +52,13 @@ impl GameEngine {
 
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::ASSETS_PATH, game_engine::{entity_factory::EntityFactory, world::World}, utils::file_utils::list_files};
+    use crate::game_engine::world::World;
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
-            let all_assets = list_files(ASSETS_PATH, "png");
-            let mut world = World::new(EntityFactory::new(all_assets));
+            let mut world = World::new();
             world.setup();            
             world
         }

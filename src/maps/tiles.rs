@@ -1,9 +1,9 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::{entity::Entity, entity_factory::EntityFactory}, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
-    fn into_obstacle_entity(&self, species: String, entity_factory: &EntityFactory) -> Box<dyn Entity>;
+    fn into_obstacle_entity(&self, species: &str) -> Box<dyn Entity>;
     fn row(&self) -> u32;
     fn column(&self) -> u32;
     fn is_same_tile_type(&self, other: &Self) -> bool;
@@ -96,12 +96,8 @@ pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
 macro_rules! impl_tile {
     ($struct_name:ident) => {
         impl $crate::maps::tiles::Tile for $struct_name {
-            fn into_obstacle_entity(
-                &self, 
-                sprite: String,
-                entity_factory: &$crate::game_engine::entity_factory::EntityFactory
-            ) -> Box<dyn $crate::game_engine::entity::Entity> {
-                let entity = entity_factory.build_static_obstacle(
+            fn into_obstacle_entity(&self, sprite: &str) -> Box<dyn $crate::game_engine::entity::Entity> {
+                let entity = crate::game_engine::obstacles::StaticObstacle::new(
                     sprite,
                     raylib::math::Rectangle::new(
                         self.column as f32 * TILE_SIZE, 

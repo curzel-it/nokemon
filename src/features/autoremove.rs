@@ -25,13 +25,13 @@ fn should_remove(world: &World, entity: &dyn Entity) -> bool {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{world::World, simple_entity::SimpleEntity}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::tower_dart::TowerDart, game_engine::{entity_body::EntityBody, simple_entity::SimpleEntity, world::World}};
 
     #[test]
     fn can_remove_entities_with_no_hp_left() {
-        let mut world = World::test();
+        let mut world = World::new();
         
-        let mut body = world.entity_factory.build("towerdart");
+        let mut body = EntityBody::test();
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 100.0;   
         body.direction = Vector2::zero();
@@ -45,9 +45,9 @@ mod tests {
 
     #[test]
     fn can_remove_entities_with_passed_expiration_date() {
-        let mut world = World::test();
+        let mut world = World::new();
         
-        let mut body = world.entity_factory.build("baseattack");
+        let mut body = EntityBody::test();
         body.lifespan = 10.0;
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 0.0;

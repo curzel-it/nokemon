@@ -85,7 +85,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::hero::Hero, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
 
     use super::{collision_area, compute_collisions};
 
@@ -95,19 +95,19 @@ mod tests {
 
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
-        let mut world = World::test();
+        let mut world = World::new();
         world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
-        let tower = world.entity_factory.build_tower();
-        let mut towerdart = tower.create_bullet(&world.entity_factory);
+        let tower = Tower::new();
+        let mut towerdart = tower.create_bullet();
         towerdart.body_mut().id = 1;
-        towerdart.body_mut().direction = Vector2::new(0.0, 0.0);
+        towerdart.body_mut().direction = Vector2::zero();
         towerdart.place_at(0.0, 0.0);
         world.add_entity(towerdart);
 
         let mut hero = Hero::new();
         hero.body_mut().id = 2;
-        hero.body_mut().direction = Vector2::new(0.0, 0.0);
+        hero.body_mut().direction = Vector2::zero();
         hero.place_at(0.0, 0.0);
         world.add_entity(Box::new(hero));
 
@@ -124,19 +124,19 @@ mod tests {
 
     #[test]
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
-        let mut world = World::test();
+        let mut world = World::new();
         world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
-        let tower = world.entity_factory.build_tower();
-        let mut towerdart = tower.create_bullet(&world.entity_factory);
+        let tower = Tower::new();
+        let mut towerdart = tower.create_bullet();
         towerdart.body_mut().id = 1;
-        towerdart.body_mut().direction = Vector2::new(0.0, 0.0);
+        towerdart.body_mut().direction = Vector2::zero();
         towerdart.place_at(2000.0, 0.0);
         world.add_entity(towerdart);
 
         let mut hero = Hero::new();
         hero.body_mut().id = 2;
-        hero.body_mut().direction = Vector2::new(0.0, 0.0);
+        hero.body_mut().direction = Vector2::zero();
         hero.place_at(2000.0, 0.0);
         world.add_entity(Box::new(hero));
 

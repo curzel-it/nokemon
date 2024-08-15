@@ -20,7 +20,7 @@ fn make_water_obstacles(world: &mut World, tiles: &Vec<Vec<BiomeTile>>) {
         let obstacles: Vec<Box<dyn Entity>> = joined_water_tiles(row)
             .iter()
             .filter(|tile| tile.is_water())
-            .map(|tile| tile.into_obstacle_entity("invisible".to_string(), &world.entity_factory))
+            .map(|tile| tile.into_obstacle_entity("invisible"))
             .collect();
 
         for obstacle in obstacles {

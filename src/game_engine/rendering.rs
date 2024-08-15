@@ -85,7 +85,7 @@ fn draw_item(
             texture,
             source_rect,
             dest_rect,
-            Vector2::new(0.0, 0.0), 
+            Vector2::zero(), 
             0.0,
             Color::WHITE,
         );
@@ -114,7 +114,7 @@ fn draw_tile<T: SpriteTile>(
             texture,
             source_rect,
             dest_rect,
-            Vector2::new(0.0, 0.0), 
+            Vector2::zero(), 
             0.0,
             Color::WHITE,
         );

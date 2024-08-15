@@ -55,13 +55,13 @@ fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collisio
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, simple_entity::SimpleEntity, world::World}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100, SCALE}, entities::creep::Creep, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}};
     
     #[test]
     fn can_move_on_update() {
-        let world = World::test();
+        let world = World::new();
         
-        let mut body = world.entity_factory.build("red");
+        let mut body = EntityBody::test();
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 1.0;        
         
@@ -75,9 +75,9 @@ mod tests {
 
     #[test]
     fn can_move_outside_of_bounds() {
-        let world = World::test();
+        let world = World::new();
         
-        let mut body = world.entity_factory.build("red");
+        let mut body = EntityBody::test();
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 1.0;
         

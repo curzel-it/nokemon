@@ -17,7 +17,7 @@ impl SurroundingAreaAttack {
                 parent_id: parent.id(),
                 frame: Rectangle::new(0.0, 0.0, 50.0, 30.0).to_scale(),
                 collision_insets: Insets::zero(),
-                direction: Vector2::new(0.0, 0.0),
+                direction: Vector2::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 1000.0,

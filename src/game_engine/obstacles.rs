@@ -1,21 +1,42 @@
-use common_macros::hash_map;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATION_NAME_FRONT, ASSETS_PATH, INFINITE_LIFESPAN}, impl_embodied_entity, sprites::sprite_set::SpriteSet};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
 
-use super::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate};
+use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate};
 
 #[derive(Debug)]
 pub struct StaticObstacle {
     body: EntityBody,
-    sprite_sheet_path: String,
+    sprite: AnimatedSprite,
 }
 
 impl StaticObstacle {
-    pub fn new(body: EntityBody) -> Self {
+    pub fn new(sprite: &str, frame: Rectangle) -> Self {
         Self { 
-            body,
-            sprite_sheet_path: format!("{}/obstacle.png", ASSETS_PATH)
+            body: EntityBody {
+                id: get_next_entity_id(),
+                parent_id: NO_PARENT,
+                frame: frame,
+                collision_insets: Insets::zero(), // TODO: .to_scale(),
+                direction: Vector2::zero(),
+                current_speed: 0.0,
+                base_speed: 0.0,
+                hp: 100.0,
+                dp: 0.0,
+                sprite_set: SpriteSet::default(),
+                current_sprite: Sprite::empty(),
+                sprite_invalidated: true,
+                time_to_next_shot: 2.0,
+                time_between_shots: 2.0,
+                creation_time: 0.0,
+                requires_collision_detection: true,
+                is_rigid: true,
+                z_index: 0,
+                is_ally: false,
+                is_bullet: false,
+                lifespan: INFINITE_LIFESPAN,
+            },
+            sprite: AnimatedSprite::new(sprite, 8, 26, 42)
         }
     }
 }
@@ -28,34 +49,10 @@ impl Entity for StaticObstacle {
     }
 
     fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
-            0.0,
-            0.0,
-            self.body.frame.width,
-            self.body.frame.height
-        )
+        self.sprite.texture_source_rect()
     }
 
     fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path 
-    }
-}
-
-
-impl EntityFactory {
-    pub fn build_static_obstacle(&self, sprite: String, frame: Rectangle) -> StaticObstacle {
-        let sprites = SpriteSet::new(hash_map! {
-            ANIMATION_NAME_FRONT.to_string() => vec![sprite.clone()],
-        });
-        let mut body = self.build_with_sprites(&sprites);
-        body.set_animation(ANIMATION_NAME_FRONT);
-        body.is_rigid = true;
-        body.base_speed = 0.0;
-        body.current_speed = 0.0;
-        body.lifespan = INFINITE_LIFESPAN;
-        body.dp = 0.0;
-        body.direction = Vector2::zero();
-        body.frame = frame;
-        StaticObstacle::new(body)
+        &self.sprite.sheet_path 
     }
 }

@@ -16,7 +16,7 @@ impl Creep {
                 parent_id: NO_PARENT,
                 frame: Rectangle::new(0.0, 0.0, 19.0, 22.0).to_scale(),
                 collision_insets: Insets::new(12.0, 4.0, 0.0, 4.0),
-                direction: Vector2::new(0.0, 0.0),
+                direction: Vector2::zero(),
                 current_speed: 1.5,
                 base_speed: 1.5,
                 hp: 100.0,

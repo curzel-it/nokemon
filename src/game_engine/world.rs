@@ -5,11 +5,10 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, tiles::TileSet}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, entity_factory::EntityFactory, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
+use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
 
 pub struct World {
     pub total_elapsed_time: f32,
-    pub entity_factory: EntityFactory,
     pub bounds: Rectangle,
     pub camera_viewport: Rectangle,
     pub tiles: TileSet<BiomeTile>,
@@ -23,10 +22,9 @@ pub struct World {
 }
 
 impl World {
-    pub fn new(entity_factory: EntityFactory) -> Self {
+    pub fn new() -> Self {
         Self {
             total_elapsed_time: 0.0,
-            entity_factory,
             bounds: RECT_ORIGIN_SQUARE_100,
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             tiles: TileSet::empty(),
@@ -133,15 +131,11 @@ impl Debug for World {
 
 #[cfg(test)]
 mod tests {
-    use crate::game_engine::{entity_factory::EntityFactory, keyboard_events_provider::NoKeyboard};
+    use crate::game_engine::keyboard_events_provider::NoKeyboard;
 
     use super::World;
 
-    impl World {
-        pub fn test() -> World {
-            World::new(EntityFactory::test())
-        }
-        
+    impl World {        
         pub fn update(&mut self, time_since_last_update: f32) {
             let nokb = NoKeyboard {};
             self.update_rl(time_since_last_update, &nokb)

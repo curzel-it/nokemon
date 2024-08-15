@@ -2,7 +2,9 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+use crate::{constants::{ANIMATIONS_FPS, INFINITE_LIFESPAN, NO_PARENT, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+
+use super::entity_factory::get_next_entity_id;
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -87,5 +89,42 @@ impl EntityBody {
     pub fn snap_to_nearest_tile(&mut self) {
         self.frame.x = (self.frame.x / TILE_SIZE).round() * TILE_SIZE;
         self.frame.y = (self.frame.y / TILE_SIZE).round() * TILE_SIZE;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use raylib::math::{Rectangle, Vector2};
+
+    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, game_engine::entity_factory::get_next_entity_id, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+
+    use super::EntityBody;
+
+    impl EntityBody {
+        pub fn test() -> Self {
+            EntityBody {
+                id: get_next_entity_id(),
+                parent_id: NO_PARENT,
+                frame: Rectangle::new(0.0, 0.0, 50.0, 50.0),
+                collision_insets: Insets::zero(),
+                direction: Vector2::new(0.0, 0.0),
+                current_speed: 1.0,
+                base_speed: 1.0,
+                hp: 100.0,
+                dp: 0.0,
+                sprite_set: SpriteSet::default(),
+                current_sprite: Sprite::empty(),
+                sprite_invalidated: true,
+                time_to_next_shot: 1000.0,
+                time_between_shots: 1000.0,
+                creation_time: 0.0,
+                requires_collision_detection: true,
+                is_rigid: true,
+                z_index: 0,
+                is_ally: false,
+                is_bullet: false,
+                lifespan: INFINITE_LIFESPAN,
+            }
+        }
     }
 }
