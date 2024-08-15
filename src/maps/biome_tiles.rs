@@ -57,11 +57,7 @@ impl Default for BiomeTile {
 impl_tile!(BiomeTile);
 
 impl SpriteTile for BiomeTile {
-    fn sprite_name(&self) -> String {
-        format!("{}/bg_tiles.png", ASSETS_PATH)
-    }
-
-    fn sprite_source_rect(&self, variant: u32) -> Rectangle {
+    fn texture_source_rect(&self, variant: u32) -> Rectangle {
         Rectangle::new(
             self.texture_offset_x,
             self.texture_offset_y + TILE_TEXTURE_SIZE * (variant * Biome::number_of_biomes()) as f32,

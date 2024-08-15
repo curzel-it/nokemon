@@ -10,7 +10,7 @@ def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
     if filename == "palette.aseprite": return
     elif filename == "world.aseprite": export_level(file_path, destination_folder)
-    elif filename.startswith("bg_tile"): return
+    elif filename.startswith("tiles_"): return
     else: export_character(file_path, destination_folder)
 
 def export_level(file_path, destination_folder):

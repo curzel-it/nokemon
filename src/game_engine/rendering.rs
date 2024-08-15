@@ -22,9 +22,11 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
 }
 
 fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
+    let sprites = world.tiles.sheet_path.as_str();
+
     for tile in world.visible_tiles() {
         let variant = world.tiles.current_variant(tile.row, tile.column);
-        draw_tile(d, tile, variant, &world.camera_viewport, engine);
+        draw_tile(d, sprites, tile, variant, &world.camera_viewport, engine);
     }
 }
 
@@ -94,15 +96,15 @@ fn draw_item(
 
 fn draw_tile<T: SpriteTile>(
     d: &mut RaylibDrawHandle, 
+    sprite_path: &str,
     tile: &T,
     variant: u32,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
-    let sprite_path = tile.sprite_name();  
-    let source_rect = tile.sprite_source_rect(variant);
+    let source_rect = tile.texture_source_rect(variant);
     
-    if let Some(texture) = engine.textures.get(&sprite_path) {
+    if let Some(texture) = engine.textures.get(sprite_path) {
         let dest_rect = Rectangle {
             x: tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
             y: tile.row() as f32 * TILE_SIZE - camera_viewport.y,

@@ -40,12 +40,12 @@ def fix_rgba_image(image_path):
             image = Image.merge("RGBA", (r, g, b, a))
             image.save(image_path)
 
-def export_all_tiles(aseprite_assets, destination_folder):
+def export_biome_tiles(aseprite_assets, destination_folder):
     print("Generating tiles...")
     os.system("rm -rf temp")
     os.system("mkdir temp")
 
-    os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tiles.aseprite --save-as temp/bg_tiles-0.png")
+    os.system(f"{aseprite_path} -b {aseprite_assets}/tiles_biome.aseprite --save-as temp/tiles_biome-0.png")
         
     for file in os.listdir("temp"):
         if file.endswith(".png"):
@@ -64,7 +64,7 @@ def export_all_tiles(aseprite_assets, destination_folder):
     overall_y = 0
 
     for frame in range(0, number_of_frames):
-        tiles = Image.open(f"temp/bg_tiles-{frame}.png")
+        tiles = Image.open(f"temp/tiles_biome-{frame}.png")
 
         for (biome_index, base_biome) in enumerate(biomes):
             overall_y = biome_index + len(biomes) * frame
@@ -89,9 +89,8 @@ def export_all_tiles(aseprite_assets, destination_folder):
 
                     overall_x += 1
                     overall.paste(result, (overall_x * tile_size, overall_y * tile_size)) 
-                    # result.save(f"{destination_folder}/bg_tile_{base_biome}_{border_biome}_{borders}-{frame}.png")  
 
-    overall.save(f"{destination_folder}/bg_tiles.png")        
+    overall.save(f"{destination_folder}/tiles_biome.png")        
 
-os.system(f"rm -rf {pngs_folder}/bg_tile*")
-export_all_tiles(aseprite_assets, pngs_folder)
+os.system(f"rm -rf {pngs_folder}/tiles_*")
+export_biome_tiles(aseprite_assets, pngs_folder)

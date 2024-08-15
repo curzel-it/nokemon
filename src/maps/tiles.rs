@@ -1,9 +1,9 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
-    fn into_obstacle_entity(&self, species: &str) -> Box<dyn Entity>;
+    fn into_obstacle_entity(&self) -> Box<dyn Entity>;
     fn row(&self) -> u32;
     fn column(&self) -> u32;
     fn is_same_tile_type(&self, other: &Self) -> bool;
@@ -11,23 +11,24 @@ pub trait Tile: Clone {
 }
 
 pub trait SpriteTile: Tile {
-    fn sprite_name(&self) -> String;
-    fn sprite_source_rect(&self, variant: u32) -> Rectangle;
+    fn texture_source_rect(&self, variant: u32) -> Rectangle;
 }
 
 pub struct TileSet<T: Tile> {
     pub tiles: Vec<Vec<T>>,
+    pub sheet_path: String,
     sprite_counter: TimedContentProvider<u32>,
 }
 
 impl<T: Tile> TileSet<T> {
     pub fn empty() -> Self {
-        Self::with_tiles(vec![])
+        Self::with_tiles("".to_owned(), vec![])
     }
 
-    pub fn with_tiles(tiles: Vec<Vec<T>>) -> Self {
+    pub fn with_tiles(sheet_path: String, tiles: Vec<Vec<T>>) -> Self {
         Self { 
             tiles,
+            sheet_path: format!("{}/{}.png", ASSETS_PATH, sheet_path),
             sprite_counter: Self::content_provider()
         }
     }
@@ -96,9 +97,9 @@ pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
 macro_rules! impl_tile {
     ($struct_name:ident) => {
         impl $crate::maps::tiles::Tile for $struct_name {
-            fn into_obstacle_entity(&self, sprite: &str) -> Box<dyn $crate::game_engine::entity::Entity> {
+            fn into_obstacle_entity(&self) -> Box<dyn $crate::game_engine::entity::Entity> {
                 let entity = $crate::game_engine::obstacles::StaticObstacle::new(
-                    sprite,
+                    "invisible",
                     raylib::math::Rectangle::new(
                         self.column as f32 * TILE_SIZE, 
                         self.row as f32 * TILE_SIZE, 

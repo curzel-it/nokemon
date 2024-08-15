@@ -17,9 +17,7 @@ fn make_obstacles(world: &mut World, tiles: &Vec<Vec<ConstructionTile>>) {
         .iter()
         .flatten()
         .filter(|t| t.is_something())
-        .map(|tile| {
-            tile.into_obstacle_entity(tile.sprite_name().as_str())
-        })
+        .map(|tile| { tile.into_obstacle_entity() })
         .collect();
 
     for obstacle in obstacles {
