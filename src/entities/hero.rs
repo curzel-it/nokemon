@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH, HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::{update_sprite, AnimatedEntity}, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::{get_next_entity_id, EntityFactory}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet, timed_content_provider::TimedContentProvider}, utils::geometry_utils::{Direction, Insets}};
+use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH, HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SCALE}, features::{animated_sprite::{update_sprite, AnimatedEntity, AnimatedSprite}, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::{get_next_entity_id, EntityFactory}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet, timed_content_provider::TimedContentProvider}, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -8,9 +8,7 @@ use super::surrounding_area_attack::SurroundingAreaAttack;
 pub struct Hero {
     body: EntityBody,
     time_to_next_shot: f32,
-    sprite_sheet_path: String,
-    sprite_index: f32,
-    sprite_frame_provider: TimedContentProvider<f32>
+    sprite: AnimatedSprite,
 }
 
 impl Hero {
@@ -19,7 +17,7 @@ impl Hero {
             body: EntityBody {
                 id: HERO_ENTITY_ID,
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, 19.0, 22.0),
+                frame: Rectangle::new(0.0, 0.0, 19.0, 22.0).to_scale(),
                 collision_insets: Insets::new(12.0, 4.0, 0.0, 4.0),
                 direction: Vector2::new(0.0, 0.0),
                 current_speed: 3.0,
@@ -40,9 +38,7 @@ impl Hero {
                 lifespan: INFINITE_LIFESPAN,
             },
             time_to_next_shot: 5.0,
-            sprite_sheet_path: format!("{}/red.png", ASSETS_PATH),
-            sprite_index: 0.0,
-            sprite_frame_provider: TimedContentProvider::new(vec![0.0, 1.0, 2.0], ANIMATIONS_FPS)
+            sprite: AnimatedSprite::new("red", 3, 19, 22)
         }
     }
 }
@@ -79,16 +75,11 @@ impl Entity for Hero {
     }
 
     fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
-            self.sprite_frame_provider.current_frame() * self.body.frame.width,
-            self.sprite_index * self.body.frame.height,
-            self.body.frame.width,
-            self.body.frame.height
-        )
+        self.sprite.texture_source_rect()
     }
 
     fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path
+        &self.sprite.sheet_path
     }
 }
 
@@ -98,7 +89,7 @@ impl Hero {
             let direction = Direction::from_vector(self.body.direction);
             let is_moving = self.body.current_speed != 0.0;
 
-            self.sprite_index = match (direction, is_moving) {
+            self.sprite.row = match (direction, is_moving) {
                 (Direction::Up, true) => 0.0,
                 (Direction::Up, false) => 1.0,
                 (Direction::Right, true) => 2.0,
@@ -111,6 +102,6 @@ impl Hero {
                 (Direction::Unknown, false) => 5.0
             };
         }    
-        self.sprite_frame_provider.update(time_since_last_update);
+        self.sprite.update(time_since_last_update);
     }
 }

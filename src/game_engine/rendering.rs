@@ -77,8 +77,8 @@ fn draw_item(
         let dest_rect = Rectangle {
             x: position.x,
             y: position.y,
-            width: frame.width * SCALE,
-            height: frame.height * SCALE,
+            width: frame.width,
+            height: frame.height,
         };
 
         d.draw_texture_pro(

@@ -1,5 +1,7 @@
 use raylib::math::{Rectangle, Vector2};
 
+use crate::constants::SCALE;
+
 #[derive(Debug, Copy, Clone, Default)]
 pub struct Insets {
     pub top: f32,
@@ -48,5 +50,25 @@ impl Direction {
         if dv.y  > 0.0 && dv.x == 0.0 { return Direction::Down; }
         if dv.y == 0.0 && dv.x  < 0.0 { return Direction::Left; }
         Direction::Unknown
+    }
+}
+
+pub trait Scalable {
+    fn scaled(&self, value: f32) -> Self;
+    fn to_scale(&self) -> Self;
+}
+
+impl Scalable for Rectangle {
+    fn to_scale(&self) -> Self {
+        self.scaled(SCALE)
+    }
+
+    fn scaled(&self, value: f32) -> Self {
+        Rectangle::new(
+            self.x * value, 
+            self.y * value, 
+            self.width * value, 
+            self.height * value
+        )
     }
 }
