@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, tiles::TileSet}};
+use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
 
@@ -11,7 +11,8 @@ pub struct World {
     pub total_elapsed_time: f32,
     pub bounds: Rectangle,
     pub camera_viewport: Rectangle,
-    pub tiles: TileSet<BiomeTile>,
+    pub biome_tiles: TileSet<BiomeTile>,
+    pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
     pub visible_entities: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
@@ -27,7 +28,8 @@ impl World {
             total_elapsed_time: 0.0,
             bounds: RECT_ORIGIN_SQUARE_100,
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            tiles: TileSet::empty(),
+            biome_tiles: TileSet::empty(),
+            constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
             selected_entity_id: None,
@@ -72,7 +74,8 @@ impl World {
             }
         }
 
-        self.tiles.update(time_since_last_update);
+        self.biome_tiles.update(time_since_last_update);
+        // self.constructions_tiles.update(time_since_last_update);
 
         drop(entities);
         self.store_updated_hero_state();
@@ -115,8 +118,8 @@ impl World {
         }
     }
 
-    pub fn visible_tiles(&self) -> Vec<&BiomeTile> {
-        self.tiles.visible_tiles(&self.camera_viewport)
+    pub fn visible_biome_tiles(&self) -> Vec<&BiomeTile> {
+        self.biome_tiles.visible_tiles(&self.camera_viewport)
     }
 }
 

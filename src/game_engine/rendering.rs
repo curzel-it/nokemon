@@ -11,7 +11,7 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, e
     let fps = rl.get_fps();
     let mut d = rl.begin_drawing(thread);
     d.clear_background(Color::BLACK);
-    draw_tiles(&mut d, world, engine);
+    draw_biome(&mut d, world, engine);
     draw_entities(&mut d, world, engine);
     draw_debug_info(&mut d, world, fps);
 }
@@ -21,11 +21,11 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
     // d.draw_text(format!("Entities: {:#?}", world).as_str(), 10, 50, 20, Color::RED);
 }
 
-fn draw_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprites = world.tiles.sheet_path.as_str();
+fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
+    let sprites = world.biome_tiles.sheet_path.as_str();
 
-    for tile in world.visible_tiles() {
-        let variant = world.tiles.current_variant(tile.row, tile.column);
+    for tile in world.visible_biome_tiles() {
+        let variant = world.biome_tiles.current_variant(tile.row, tile.column);
         draw_tile(d, sprites, tile, variant, &world.camera_viewport, engine);
     }
 }

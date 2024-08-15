@@ -11,7 +11,7 @@ impl World {
         integrate_borders_info(&mut tiles);
         make_water_obstacles(self, &tiles);        
         self.bounds = Rectangle::new(0.0, 0.0, columns as f32 * TILE_SIZE, rows as f32 * TILE_SIZE);        
-        self.tiles = TileSet::with_tiles("tiles_biome".to_owned(), tiles);
+        self.biome_tiles = TileSet::with_tiles("tiles_biome".to_owned(), tiles);
     }
 }
 
