@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::{SCALE, TILE_SIZE}, maps::tiles::SpriteTile};
+use crate::{constants::TILE_SIZE, maps::tiles::SpriteTile};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 

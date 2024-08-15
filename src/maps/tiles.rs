@@ -41,7 +41,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn current_variant(&self, row: u32, col: u32) -> u32 {
-        (self.sprite_counter.current_frame().clone() + row + col) % TILE_VARIATIONS_COUNT
+        (*self.sprite_counter.current_frame() + row + col) % TILE_VARIATIONS_COUNT
     }
 
     pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&T> {

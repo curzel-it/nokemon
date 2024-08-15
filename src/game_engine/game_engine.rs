@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FPS}, utils::file_utils::list_files};
+use crate::{constants::ASSETS_PATH, utils::file_utils::list_files};
 
 use super::{entity_factory::EntityFactory, world::World, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
