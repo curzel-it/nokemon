@@ -1,22 +1,46 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::ASSETS_PATH, features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Insets, Scalable}};
+
+use super::creep::Creep;
 
 #[derive(Debug)]
 pub struct CreepSpawnPoint {
     body: EntityBody,
     last_spawn_time: f32,
     time_to_spawn: f32,
-    sprite_sheet_path: String,
+    sprite: AnimatedSprite,
 }
 
 impl CreepSpawnPoint {
-    pub fn new(body: EntityBody) -> Self {
+    pub fn new() -> Self {
         Self { 
-            body,
+            body: EntityBody {
+                id: get_next_entity_id(),
+                parent_id: NO_PARENT,
+                frame: Rectangle::new(0.0, 0.0, 50.0, 30.0).to_scale(),
+                collision_insets: Insets::zero(),
+                direction: Vector2::new(0.0, 0.0),
+                current_speed: 0.0,
+                base_speed: 0.0,
+                hp: 100.0,
+                dp: 20.0,
+                sprite_set: SpriteSet::default(),
+                current_sprite: Sprite::empty(),
+                sprite_invalidated: true,
+                time_to_next_shot: 1000.0,
+                time_between_shots: 1000.0,
+                creation_time: 0.0,
+                requires_collision_detection: false,
+                is_rigid: false,
+                z_index: 0,
+                is_ally: false,
+                is_bullet: false,
+                lifespan: INFINITE_LIFESPAN,
+            },
             last_spawn_time: 0.0,
             time_to_spawn: 2.0,
-            sprite_sheet_path: format!("{}/baseattack.png", ASSETS_PATH)
+            sprite: AnimatedSprite::new("baseattack", 3, 50, 30)
         }
     }
 }
@@ -27,11 +51,11 @@ impl Entity for CreepSpawnPoint {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         move_linearly(self, world, time_since_last_update);
-        update_sprite(self, time_since_last_update);
+        self.update_sprite(time_since_last_update);
 
         if world.total_elapsed_time - self.last_spawn_time > self.time_to_spawn {
             self.last_spawn_time = world.total_elapsed_time;
-            world_updates.push(WorldStateUpdate::AddEntity(self.build_creep(world)))
+            world_updates.push(WorldStateUpdate::AddEntity(self.build_creep()))
         }
 
         world_updates.append(&mut remove_automatically(self, world));
@@ -39,33 +63,25 @@ impl Entity for CreepSpawnPoint {
     }
 
     fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
-            0.0,
-            0.0,
-            self.body.frame.width,
-            self.body.frame.height
-        )
+        self.sprite.texture_source_rect()
     }
 
     fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path 
+        &self.sprite.sheet_path 
     }
 }
 
 impl CreepSpawnPoint {
-    fn build_creep(&self, world: &World) -> Box<dyn Entity> {
-        let mut creep = world.entity_factory.build_creep();
-        creep.center_in(&self.body().frame);
-        creep.body_mut().direction = Vector2::new(1.0, 0.0);
-        Box::new(creep)
+    fn update_sprite(&mut self, time_since_last_update: f32) {
+        self.sprite.update(time_since_last_update);
     }
 }
 
-impl EntityFactory {
-    pub fn build_creep_spawn_point(&self) -> CreepSpawnPoint {
-        let mut body = self.build("creepspawnpoint");
-        body.resize(50.0, 30.0);
-        body.is_rigid = false;
-        CreepSpawnPoint::new(body)
+impl CreepSpawnPoint {
+    fn build_creep(&self) -> Box<dyn Entity> {
+        let mut creep = Creep::new();
+        creep.center_in(&self.body().frame);
+        creep.body_mut().direction = Vector2::new(1.0, 0.0);
+        Box::new(creep)
     }
 }

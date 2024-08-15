@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::{AnimatedEntity, AnimatedSprite}, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -58,8 +58,8 @@ impl Shooter for Hero {
         self.time_to_next_shot = self.body().time_between_shots;
     }
     
-    fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
-        Box::new(SurroundingAreaAttack::new(self, entity_factory))
+    fn create_bullet(&self) -> Box<dyn Entity> {
+        Box::new(SurroundingAreaAttack::new(self))
     }
 }
 
@@ -69,7 +69,7 @@ impl Entity for Hero {
         set_direction_according_to_keyboard_state(self, &world.keyboard_state);
         move_linearly(self, world, time_since_last_update);
         self.update_sprite(time_since_last_update);
-        world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
+        world_updates.append(&mut shoot_stuff(self, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
     }

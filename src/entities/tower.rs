@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::ASSETS_PATH, features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Insets, Scalable}};
 
 use super::tower_dart::TowerDart;
 
@@ -8,15 +8,37 @@ use super::tower_dart::TowerDart;
 pub struct Tower {
     body: EntityBody,
     time_to_next_shot: f32,
-    sprite_sheet_path: String,
+    sprite: AnimatedSprite,
 }
 
 impl Tower {
-    pub fn new(body: EntityBody) -> Self {
+    pub fn new() -> Self {
         Self { 
-            body,
+            body: EntityBody {
+                id: get_next_entity_id(),
+                parent_id: NO_PARENT,
+                frame: Rectangle::new(0.0, 0.0, 26.0, 42.0).to_scale(),
+                collision_insets: Insets::new(8.0, 0.0, 0.0, 0.0), // TODO: .to_scale(),
+                direction: Vector2::new(0.0, 0.0),
+                current_speed: 0.0,
+                base_speed: 0.0,
+                hp: 100.0,
+                dp: 0.0,
+                sprite_set: SpriteSet::default(),
+                current_sprite: Sprite::empty(),
+                sprite_invalidated: true,
+                time_to_next_shot: 2.0,
+                time_between_shots: 2.0,
+                creation_time: 0.0,
+                requires_collision_detection: true,
+                is_rigid: true,
+                z_index: 0,
+                is_ally: false,
+                is_bullet: false,
+                lifespan: INFINITE_LIFESPAN,
+            },
             time_to_next_shot: 3.0,
-            sprite_sheet_path: format!("{}/tower.png", ASSETS_PATH)
+            sprite: AnimatedSprite::new("tower", 8, 26, 42)
         }
     }
 }
@@ -36,43 +58,31 @@ impl Shooter for Tower {
         self.time_to_next_shot = self.body().time_between_shots;
     }
     
-    fn create_bullet(&self, entity_factory: &EntityFactory) -> Box<dyn Entity> {
-        Box::new(TowerDart::new(self, entity_factory))
+    fn create_bullet(&self) -> Box<dyn Entity> {
+        Box::new(TowerDart::new(self))
     }
 }
 
 impl Entity for Tower {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        update_sprite(self, time_since_last_update);
-        world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
+        self.update_sprite(time_since_last_update);
+        world_updates.append(&mut shoot_stuff(self, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
     }
 
     fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
-            0.0,
-            0.0,
-            self.body.frame.width,
-            self.body.frame.height
-        )
+        self.sprite.texture_source_rect()
     }
 
     fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path 
+        &self.sprite.sheet_path
     }
 }
 
-impl EntityFactory {
-    pub fn build_tower(&self) -> Tower {
-        let mut body = self.build("tower");
-        body.time_between_shots = 3.0;
-        body.time_to_next_shot = 3.0;
-        body.resize(26.0, 42.0);
-        body.base_speed = 0.0;
-        body.reset_speed();
-        body.direction = Vector2::new(1.0, 0.0);    
-        Tower::new(body)
+impl Tower {
+    fn update_sprite(&mut self, time_since_last_update: f32) {
+        self.sprite.update(time_since_last_update);
     }
 }

@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity};
+use crate::{features::{autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, world_state_update::WorldStateUpdate};
 
@@ -16,7 +16,6 @@ impl Entity for SimpleEntity {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         move_linearly(self, world, time_since_last_update);
-        update_sprite(self, time_since_last_update);
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
     }
