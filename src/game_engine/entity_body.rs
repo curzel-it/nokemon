@@ -2,9 +2,8 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, INFINITE_LIFESPAN, NO_PARENT, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+use crate::{constants::{ANIMATIONS_FPS, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
 
-use super::entity_factory::get_next_entity_id;
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    

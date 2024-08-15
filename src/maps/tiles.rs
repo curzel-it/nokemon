@@ -97,7 +97,7 @@ macro_rules! impl_tile {
     ($struct_name:ident) => {
         impl $crate::maps::tiles::Tile for $struct_name {
             fn into_obstacle_entity(&self, sprite: &str) -> Box<dyn $crate::game_engine::entity::Entity> {
-                let entity = crate::game_engine::obstacles::StaticObstacle::new(
+                let entity = $crate::game_engine::obstacles::StaticObstacle::new(
                     sprite,
                     raylib::math::Rectangle::new(
                         self.column as f32 * TILE_SIZE, 

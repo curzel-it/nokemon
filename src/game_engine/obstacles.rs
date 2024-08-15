@@ -16,7 +16,7 @@ impl StaticObstacle {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
-                frame: frame,
+                frame,
                 collision_insets: Insets::zero(), // TODO: .to_scale(),
                 direction: Vector2::zero(),
                 current_speed: 0.0,
