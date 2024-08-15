@@ -4,25 +4,26 @@ import sys
 import os
 import subprocess
 
+tile_size = 16
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 biomes = "grass desert rock snow water".split(" ")
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
 
 combinations = {
-    "n": ("w", -90),
-    "e": ("w", 180),
-    "s": ("w", 90),
-    "w": ("w", 0),
-    "nw": ("nw", 0),
-    "ne": ("nw", -90),
-    "es": ("nw", 180),
-    "sw": ("nw", 90),
-    "nes": ("nws", 180),
-    "wes": ("nws", 90),
-    "nws": ("nws", 0),
-    "nwe": ("nws", -90),
-    "nesw": ("nesw", 0),
+    "n": (4, -90),
+    "e": (4, 180),
+    "s": (4, 90),
+    "w": (4, 0),
+    "nw": (3, 0),
+    "ne": (3, -90),
+    "es": (3, 180),
+    "sw": (3, 90),
+    "nes": (2, 180),
+    "esw": (2, 90),
+    "nws": (2, 0),
+    "nwe": (2, -90),
+    "nesw": (1, 0),
 }
 
 def fix_rgba_image(image_path):
@@ -44,34 +45,37 @@ def export_all_tiles(aseprite_assets, destination_folder):
     os.system("rm -rf temp")
     os.system("mkdir temp")
 
-    for biome in biomes:
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}.aseprite --save-as {destination_folder}/bg_tile_{biome}-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}.aseprite --save-as temp/{biome}_base-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_w.aseprite --save-as temp/{biome}_w-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nw.aseprite --save-as temp/{biome}_nw-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nws.aseprite --save-as temp/{biome}_nws-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nesw.aseprite --save-as temp/{biome}_nesw-0.png")
+    os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tiles.aseprite --save-as temp/bg_tiles-0.png")
         
     for file in os.listdir("temp"):
         if file.endswith(".png"):
-            fix_rgba_image(f"temp/{file}")
+            fix_rgba_image(f"temp/{file}")    
 
-    for base_biome in biomes:
-        for border_biome in biomes:
-            if base_biome == border_biome: continue
+    indexed_biomes = [("water", 0), ("desert", 1), ("grass", 2), ("rock", 3), ("snow", 4)]
 
-            for borders in combinations.keys():
-                for frame in range(0, 4):
-                    layer_name, rotation = combinations[borders]
-                    base_path = f"temp/{base_biome}_base-{frame}.png"
-                    result = Image.open(base_path)
+    for frame in range(0, 4):
+        tiles = Image.open(f"temp/bg_tiles-{frame}.png")
 
-                    new_layer_path = f"temp/{border_biome}_{layer_name}-{frame}.png"
-                    new_layer = Image.open(new_layer_path)
-                    new_layer = new_layer.rotate(rotation, expand=False)
+        for base_biome, row in indexed_biomes:
+            for border_biome, other_row in indexed_biomes:
+                if row == other_row: 
+                    y = tile_size * row
+                    result = tiles.crop((0, y, tile_size, y + tile_size))
+                    result.save(f"{destination_folder}/bg_tile_{base_biome}-{frame}.png")       
+                else:
+                    for borders in combinations.keys():
+                        column, rotation = combinations[borders]
 
-                    result.paste(new_layer, (0, 0), new_layer)
-                    result.save(f"{destination_folder}/bg_tile_{base_biome}_{border_biome}_{borders}-{frame}.png")        
+                        y = tile_size * row
+                        result = tiles.crop((0, y, tile_size, y + tile_size))
+
+                        x = tile_size * column
+                        y = tile_size * other_row
+                        new_layer = tiles.crop((x, y, x + tile_size, y + tile_size))
+                        new_layer = new_layer.rotate(rotation, expand=False)
+
+                        result.paste(new_layer, (0, 0), new_layer)
+                        result.save(f"{destination_folder}/bg_tile_{base_biome}_{border_biome}_{borders}-{frame}.png")        
 
 os.system(f"rm -rf {pngs_folder}/bg_tile*")
 export_all_tiles(aseprite_assets, pngs_folder)
