@@ -1,22 +1,23 @@
-use raylib::math::Vector2;
+use raylib::math::{Rectangle, Vector2};
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_animated_entity, impl_embodied_entity, utils::geometry_utils::Insets};
+use crate::{constants::ASSETS_PATH, features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::Insets};
 
 #[derive(Debug)]
 pub struct Creep {
-    body: EntityBody
+    body: EntityBody,
+    sprite_sheet_path: String,
 }
 
 impl Creep {
     pub fn new(body: EntityBody) -> Self {
         Self { 
-            body
+            body,
+            sprite_sheet_path: format!("{}/white.png", ASSETS_PATH)
         }
     }
 }
 
 impl_embodied_entity!(Creep);
-impl_animated_entity!(Creep);
 
 impl Entity for Creep {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -26,6 +27,19 @@ impl Entity for Creep {
         update_sprite(self, time_since_last_update);
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
+    }
+
+    fn texture_source_rect(&self) -> Rectangle {
+        Rectangle::new(
+            0.0,
+            0.0,
+            self.body.frame.width,
+            self.body.frame.height
+        )
+    }
+
+    fn sprite_sheet_path(&self) -> &str {
+        &self.sprite_sheet_path 
     }
 }
 

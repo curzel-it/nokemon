@@ -85,7 +85,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::hero::Hero, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
 
     use super::{collision_area, compute_collisions};
 
@@ -105,7 +105,7 @@ mod tests {
         towerdart.place_at(0.0, 0.0);
         world.add_entity(towerdart);
 
-        let mut hero = world.entity_factory.build_hero();
+        let mut hero = Hero::new();
         hero.body_mut().id = 2;
         hero.body_mut().direction = Vector2::new(0.0, 0.0);
         hero.place_at(0.0, 0.0);
@@ -134,7 +134,7 @@ mod tests {
         towerdart.place_at(2000.0, 0.0);
         world.add_entity(towerdart);
 
-        let mut hero = world.entity_factory.build_hero();
+        let mut hero = Hero::new();
         hero.body_mut().id = 2;
         hero.body_mut().direction = Vector2::new(0.0, 0.0);
         hero.place_at(2000.0, 0.0);

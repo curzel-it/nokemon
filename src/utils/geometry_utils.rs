@@ -1,4 +1,4 @@
-use raylib::math::Rectangle;
+use raylib::math::{Rectangle, Vector2};
 
 #[derive(Debug, Copy, Clone, Default)]
 pub struct Insets {
@@ -39,4 +39,14 @@ pub enum Direction {
     Right,
     Left,
     Unknown
+}
+
+impl Direction {
+    pub fn from_vector(dv: Vector2) -> Self {
+        if dv.y  < 0.0 && dv.x == 0.0 { return Direction::Up; }
+        if dv.y == 0.0 && dv.x  > 0.0 { return Direction::Right; }
+        if dv.y  > 0.0 && dv.x == 0.0 { return Direction::Down; }
+        if dv.y == 0.0 && dv.x  < 0.0 { return Direction::Left; }
+        Direction::Unknown
+    }
 }

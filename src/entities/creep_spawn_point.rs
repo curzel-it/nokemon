@@ -1,12 +1,13 @@
-use raylib::math::Vector2;
+use raylib::math::{Rectangle, Vector2};
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world_state_update::WorldStateUpdate, world::World}, impl_animated_entity, impl_embodied_entity};
+use crate::{constants::ASSETS_PATH, features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
 
 #[derive(Debug)]
 pub struct CreepSpawnPoint {
     body: EntityBody,
     last_spawn_time: f32,
-    time_to_spawn: f32
+    time_to_spawn: f32,
+    sprite_sheet_path: String,
 }
 
 impl CreepSpawnPoint {
@@ -14,13 +15,13 @@ impl CreepSpawnPoint {
         Self { 
             body,
             last_spawn_time: 0.0,
-            time_to_spawn: 2.0
+            time_to_spawn: 2.0,
+            sprite_sheet_path: format!("{}/baseattack.png", ASSETS_PATH)
         }
     }
 }
 
 impl_embodied_entity!(CreepSpawnPoint);
-impl_animated_entity!(CreepSpawnPoint);
 
 impl Entity for CreepSpawnPoint {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -35,6 +36,19 @@ impl Entity for CreepSpawnPoint {
 
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
+    }
+
+    fn texture_source_rect(&self) -> Rectangle {
+        Rectangle::new(
+            0.0,
+            0.0,
+            self.body.frame.width,
+            self.body.frame.height
+        )
+    }
+
+    fn sprite_sheet_path(&self) -> &str {
+        &self.sprite_sheet_path 
     }
 }
 

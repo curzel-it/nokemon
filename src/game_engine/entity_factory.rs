@@ -9,7 +9,7 @@ use super::entity_body::EntityBody;
 static INIT: Once = Once::new();
 static mut NEXT_ENTITY_INDEX: Option<AtomicU32> = None;
 
-fn get_next_entity_id() -> u32 {
+pub fn get_next_entity_id() -> u32 {
     let counter = unsafe {
         INIT.call_once(|| {
             NEXT_ENTITY_INDEX = Some(AtomicU32::new(1000));

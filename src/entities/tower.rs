@@ -1,26 +1,27 @@
-use raylib::math::Vector2;
+use raylib::math::{Rectangle, Vector2};
 
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_animated_entity, impl_embodied_entity};
+use crate::{constants::ASSETS_PATH, features::{animated_sprite::update_sprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity};
 
 use super::tower_dart::TowerDart;
 
 #[derive(Debug)]
 pub struct Tower {
     body: EntityBody,
-    time_to_next_shot: f32
+    time_to_next_shot: f32,
+    sprite_sheet_path: String,
 }
 
 impl Tower {
     pub fn new(body: EntityBody) -> Self {
         Self { 
             body,
-            time_to_next_shot: 3.0
+            time_to_next_shot: 3.0,
+            sprite_sheet_path: format!("{}/tower.png", ASSETS_PATH)
         }
     }
 }
 
 impl_embodied_entity!(Tower);
-impl_animated_entity!(Tower);
 
 impl Shooter for Tower {
     fn time_to_next_shot(&self) -> f32 {
@@ -47,6 +48,19 @@ impl Entity for Tower {
         world_updates.append(&mut shoot_stuff(self, world, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
+    }
+
+    fn texture_source_rect(&self) -> Rectangle {
+        Rectangle::new(
+            0.0,
+            0.0,
+            self.body.frame.width,
+            self.body.frame.height
+        )
+    }
+
+    fn sprite_sheet_path(&self) -> &str {
+        &self.sprite_sheet_path 
     }
 }
 

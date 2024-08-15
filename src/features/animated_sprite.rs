@@ -1,12 +1,13 @@
-use raylib::math::Vector2;
+use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_S, DIRECTION_NAME_W}, game_engine::entity::Entity};
 
 pub trait AnimatedEntity: Entity {
     fn sprite_was_invalidated(&self) -> bool;
-    fn update_sprite(&mut self, time_since_last_update: f32);
+    fn texture_source_rect(&self) -> Rectangle;
+    // fn update_sprite(&mut self, time_since_last_update: f32);
 }
-
+/*
 #[macro_export]
 macro_rules! impl_animated_entity {
     ($struct_name:ident) => {
@@ -20,10 +21,10 @@ macro_rules! impl_animated_entity {
             }
         }
     }
-}
+} */
 
-pub fn update_sprite(entity: &mut dyn AnimatedEntity, time_since_last_update: f32) {
-    if entity.sprite_was_invalidated() {
+pub fn update_sprite(entity: &mut dyn Entity, time_since_last_update: f32) {
+    /*if entity.sprite_was_invalidated() {
         if let Some(movement_animation) = movement_sprite(entity.body().current_speed, entity.body().direction) {
             entity.body_mut().set_animation(movement_animation.as_str());
         } else {
@@ -31,7 +32,7 @@ pub fn update_sprite(entity: &mut dyn AnimatedEntity, time_since_last_update: f3
         }
     }
 
-    entity.update_sprite(time_since_last_update);
+    // entity.update_sprite(time_since_last_update);*/
 }
 
 fn movement_sprite(speed: f32, direction: Vector2) -> Option<String> {        

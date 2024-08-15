@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, maps::tiles::SpriteTile};
+use crate::{constants::{ASSETS_PATH, SCALE, TILE_SIZE}, maps::tiles::SpriteTile};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 
@@ -67,23 +67,18 @@ fn draw_item(
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
-    let sprite_path = item.body().current_sprite_frame();
+    let sprite_path = item.sprite_sheet_path();
     let frame = item.body().frame;
     let position = Vector2::new(frame.x - camera_viewport.x, frame.y - camera_viewport.y);
     
     if let Some(texture) = engine.textures.get(sprite_path) {
-        let source_rect = Rectangle {
-            x: 0.0,
-            y: 0.0,
-            width: texture.width as f32,
-            height: texture.height as f32,
-        };
+        let source_rect = item.texture_source_rect();
 
         let dest_rect = Rectangle {
             x: position.x,
             y: position.y,
-            width: frame.width,
-            height: frame.height,
+            width: frame.width * SCALE,
+            height: frame.height * SCALE,
         };
 
         d.draw_texture_pro(

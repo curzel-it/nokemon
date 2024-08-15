@@ -1,4 +1,4 @@
-use crate::{constants::HERO_ENTITY_ID, game_engine::{entity_body::EmbodiedEntity, world::World}};
+use crate::{constants::HERO_ENTITY_ID, entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}};
 
 impl World {    
     pub fn setup(&mut self) {
@@ -27,7 +27,7 @@ impl World {
     }
 
     fn add_hero(&mut self) -> u32 {
-        let mut entity = self.entity_factory.build_hero();
+        let mut entity = Hero::new();
         entity.center_in(&self.bounds);
         entity.snap_to_nearest_tile();
         self.add_entity(Box::new(entity))

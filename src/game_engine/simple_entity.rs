@@ -1,14 +1,16 @@
-use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, impl_animated_entity, impl_embodied_entity};
+use raylib::math::Rectangle;
+
+use crate::{features::{animated_sprite::update_sprite, autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, world_state_update::WorldStateUpdate};
 
 #[derive(Debug)]
 pub struct SimpleEntity {
-    body: EntityBody
+    body: EntityBody,
+    sprite_sheet_path: String,
 }
 
 impl_embodied_entity!(SimpleEntity);
-impl_animated_entity!(SimpleEntity);
 
 impl Entity for SimpleEntity {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -18,18 +20,32 @@ impl Entity for SimpleEntity {
         world_updates.append(&mut remove_automatically(self, world));
         world_updates
     }
+
+    fn texture_source_rect(&self) -> Rectangle {
+        Rectangle::new(
+            0.0,
+            0.0,
+            self.body.frame.width,
+            self.body.frame.height
+        )
+    }
+
+    fn sprite_sheet_path(&self) -> &str {
+        &self.sprite_sheet_path 
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::game_engine::entity_body::EntityBody;
+    use crate::{constants::ASSETS_PATH, game_engine::entity_body::EntityBody};
 
     use super::SimpleEntity;
 
     impl SimpleEntity {
         pub fn new(body: EntityBody) -> Self {
             Self { 
-                body
+                body,
+                sprite_sheet_path: format!("{}/entity.png", ASSETS_PATH)
             }
         }
     }
