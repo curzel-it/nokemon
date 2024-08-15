@@ -1,4 +1,3 @@
-from PIL import Image
 import sys
 import os
 import subprocess
@@ -6,11 +5,6 @@ import subprocess
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
 pngs_folder = "../assets"
-directions = "n e s w".split(" ")
-directions_8 = "n e s w ne es sw nw".split(" ")
-walk_layers = [f"walk{d}" for d in directions]
-still_layers = [f"still{d}" for d in directions]
-biomes = "desert water rock snow grass".split(" ")
 
 def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
