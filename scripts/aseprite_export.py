@@ -16,7 +16,7 @@ def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
     if filename == "palette.aseprite": return
     elif filename == "world.aseprite": export_level(file_path, destination_folder)
-    elif filename.startswith("bg_tile_"): export_bg_tile(file_path, destination_folder)
+    elif filename.startswith("bg_tile_"): return
     else: export_character(file_path, destination_folder)
 
 def export_level(file_path, destination_folder):
@@ -30,61 +30,6 @@ def list_layers(path):
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     layers = result.stdout.strip().splitlines()    
     return layers
-
-def export_bg_tile(file_path, destination_folder):
-    asset_name = asset_name_from_file_path(file_path)
-    layers = list_layers(file_path)
-
-    base_asset_no_index = f"{destination_folder}/{asset_name}"
-    base_asset = f"{base_asset_no_index}-0.png"
-    cmd = f"{aseprite_path} -b {file_path} --layer base --save-as {base_asset}"
-    os.system(cmd)
-
-    for biome in biomes:
-        if f"{biome}_nw" in layers:
-            regular = f"{destination_folder}/{asset_name}_{biome}-0.png"
-            cmd = f"{aseprite_path} -b {file_path} --layer base --save-as {regular}"
-            os.system(cmd)
-
-            west = f"temp/{asset_name}_{biome}_w-0.png"
-            cmd = f"{aseprite_path} -b {file_path} --layer {biome}_w --save-as {west}"
-            os.system(cmd)
-
-            north_west = f"temp/{asset_name}_{biome}_nw-0.png"
-            cmd = f"{aseprite_path} -b {file_path} --layer {biome}_nw --save-as {north_west}"
-            os.system(cmd)
-
-            merge_sprites_layers(regular, west, "_w-", "_n-", -90, 4)
-            merge_sprites_layers(regular, west, "_w-", "_e-", 180, 4)
-            merge_sprites_layers(regular, west, "_w-", "_s-", 90, 4)
-            merge_sprites_layers(regular, west, "_w-", "_w-", 0, 4)
-            merge_sprites_layers(regular, north_west, "_nw-", "_nw-", 0, 4)
-            merge_sprites_layers(regular, north_west, "_nw-", "_ne-", -90, 4)
-            merge_sprites_layers(regular, north_west, "_nw-", "_es-", 180, 4)
-            merge_sprites_layers(regular, north_west, "_nw-", "_sw-", 90, 4)
-
-def merge_sprites_layers(first_layer_path, second_layer_path, original_suffix, replace_suffix, second_layer_rotation, number_of_frames):
-    destination_folder = "/".join(first_layer_path.split("/")[:-1])
-
-    for frame in range(0, number_of_frames):
-        merged_destination = second_layer_path
-        merged_destination = merged_destination.replace("temp/", f"{destination_folder}/")
-        merged_destination = merged_destination.replace(original_suffix, replace_suffix)
-        merged_destination = merged_destination.replace("-0.", f"-{frame}.")
-
-        second_layer = Image.open(second_layer_path.replace("-0.", f"-{frame}."))        
-        second_layer = second_layer.rotate(second_layer_rotation, expand=True)
-
-        try:
-            first_layer = Image.open(first_layer_path.replace("-0.", f"-{frame}."))        
-            first_layer.paste(second_layer, (0, 0), second_layer)        
-            first_layer.save(merged_destination)        
-        except Exception as e:
-            print(e)
-            print(first_layer_path)
-            print(second_layer_path)
-            print(merged_destination)
-
 
 def export_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
@@ -150,6 +95,4 @@ def export_all_aseprite(tag, root_folder, destination_folder):
 
 os.system("mkdir temp")
 tag = sys.argv[-1] if len(sys.argv) == 2 else ""
-# os.system(f"rm -rf {pngs_folder}/*")
 export_all_aseprite(tag, aseprite_assets, pngs_folder)
-os.system("rm -rf temp")

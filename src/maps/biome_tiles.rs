@@ -76,7 +76,6 @@ impl BiomeTile {
             },
             Biome::Grass => {
                 self.setup_mixed_biome(Biome::Snow);
-                self.setup_mixed_biome(Biome::Desert);
                 self.setup_mixed_biome(Biome::Rock);
             },
             Biome::Snow => {
