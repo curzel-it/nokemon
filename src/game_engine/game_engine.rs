@@ -28,7 +28,7 @@ impl GameEngine {
             .title("Tower Defense")
             .build();
     
-        rl.set_target_fps(FPS);
+        // rl.set_target_fps(FPS);
         self.load_textures(&all_assets, &mut rl, &thread);
 
         (world, rl, thread)

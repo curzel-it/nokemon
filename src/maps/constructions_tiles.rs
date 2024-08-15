@@ -1,6 +1,8 @@
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, impl_tile_defaults};
+use raylib::math::Rectangle;
 
-use super::tiles::Tile;
+use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile};
+
+use super::tiles::{SpriteTile, Tile};
 
 pub const COLOR_WOODEN_FENCE: u32 = 0x391f21;
 
@@ -65,18 +67,25 @@ impl ConstructionTile {
     }
 }
 
-impl Tile for ConstructionTile {    
-    fn sprite_name(&self, _: u32) -> String {
+impl_tile!(ConstructionTile);
+
+impl SpriteTile for ConstructionTile {    
+    fn sprite_name(&self) -> String {
         let sprite_name = match self.tile_type {
             Construction::Nothing => "nothing".to_owned(),
             Construction::WoodenFence => self.wooden_fence_sprite_name()
         };
-        let s = format!("{}/{}-0.png", ASSETS_PATH, sprite_name);
-        println!("Fence: {:#?}", s);
         format!("{}/{}-0.png", ASSETS_PATH, sprite_name)
     }
 
-    impl_tile_defaults!();
+    fn sprite_source_rect(&self, _: u32) -> Rectangle {
+        Rectangle {
+            x: 0.0,
+            y: 0.0,
+            width: TILE_TEXTURE_SIZE,
+            height: TILE_TEXTURE_SIZE
+        }
+    }
 }
 
 impl ConstructionTile {

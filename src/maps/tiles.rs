@@ -1,14 +1,18 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_FPS}, game_engine::{entity::Entity, entity_factory::EntityFactory}, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::{entity::Entity, entity_factory::EntityFactory}, sprites::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
-    fn sprite_name(&self, variant: u32) -> String;
     fn into_obstacle_entity(&self, species: String, entity_factory: &EntityFactory) -> Box<dyn Entity>;
     fn row(&self) -> u32;
     fn column(&self) -> u32;
     fn is_same_tile_type(&self, other: &Self) -> bool;
     fn increment_width(&mut self, diff: u32);
+}
+
+pub trait SpriteTile: Tile {
+    fn sprite_name(&self) -> String;
+    fn sprite_source_rect(&self, variant: u32) -> Rectangle;
 }
 
 pub struct TileSet<T: Tile> {
@@ -29,7 +33,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn content_provider() -> TimedContentProvider<u32> {
-        TimedContentProvider::new(vec![0, 1, 2, 3], TILE_VARIATIONS_FPS)
+        TimedContentProvider::new(Vec::from_iter(0..TILE_VARIATIONS_COUNT), TILE_VARIATIONS_FPS)
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
@@ -37,7 +41,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn current_variant(&self, row: u32, col: u32) -> u32 {
-        (self.sprite_counter.current_frame().clone() + row + col) % 4
+        (self.sprite_counter.current_frame().clone() + row + col) % TILE_VARIATIONS_COUNT
     }
 
     pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&T> {
@@ -89,39 +93,41 @@ pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
 }
 
 #[macro_export]
-macro_rules! impl_tile_defaults {
-    () => {
-        fn into_obstacle_entity(
-            &self, 
-            sprite: String,
-            entity_factory: &$crate::game_engine::entity_factory::EntityFactory
-        ) -> Box<dyn $crate::game_engine::entity::Entity> {
-            let entity = entity_factory.build_static_obstacle(
-                sprite,
-                raylib::math::Rectangle::new(
-                    self.column as f32 * TILE_SIZE, 
-                    self.row as f32 * TILE_SIZE, 
-                    self.width as f32 * TILE_SIZE, 
-                    self.height as f32 * TILE_SIZE
-                )
-            );
-            Box::new(entity)
-        }
+macro_rules! impl_tile {
+    ($struct_name:ident) => {
+        impl $crate::maps::tiles::Tile for $struct_name {
+            fn into_obstacle_entity(
+                &self, 
+                sprite: String,
+                entity_factory: &$crate::game_engine::entity_factory::EntityFactory
+            ) -> Box<dyn $crate::game_engine::entity::Entity> {
+                let entity = entity_factory.build_static_obstacle(
+                    sprite,
+                    raylib::math::Rectangle::new(
+                        self.column as f32 * TILE_SIZE, 
+                        self.row as f32 * TILE_SIZE, 
+                        self.width as f32 * TILE_SIZE, 
+                        self.height as f32 * TILE_SIZE
+                    )
+                );
+                Box::new(entity)
+            }
+            
+            fn row(&self) -> u32 {
+                self.row
+            }
+            
+            fn column(&self) -> u32 {
+                self.column
+            }
         
-        fn row(&self) -> u32 {
-            self.row
-        }
+            fn is_same_tile_type(&self, other: &Self) -> bool {
+                self.tile_type == other.tile_type
+            }
         
-        fn column(&self) -> u32 {
-            self.column
-        }
-    
-        fn is_same_tile_type(&self, other: &Self) -> bool {
-            self.tile_type == other.tile_type
-        }
-    
-        fn increment_width(&mut self, diff: u32) {
-            self.width += diff;
+            fn increment_width(&mut self, diff: u32) {
+                self.width += diff;
+            }
         }
     }
 }

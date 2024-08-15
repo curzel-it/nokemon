@@ -51,31 +51,47 @@ def export_all_tiles(aseprite_assets, destination_folder):
         if file.endswith(".png"):
             fix_rgba_image(f"temp/{file}")    
 
-    indexed_biomes = [("water", 0), ("desert", 1), ("grass", 2), ("rock", 3), ("snow", 4)]
+    number_of_frames = 4
+    biomes = ["water", "desert", "grass", "rock", "snow"]
 
-    for frame in range(0, 4):
+    # 1060 tiles
+    # 1060 = number_of_frames x 212
+    # 212 = number_of_biomes x 53
+    # 53 = number_of_combinations x (number_of_biomes - 1) + 1
+    w = len(combinations) * len(biomes) + 1
+    h = len(biomes) * number_of_frames
+    overall = Image.new("RGBA", (tile_size * w, tile_size * h), (0, 0, 0, 255))
+    overall_y = 0
+
+    for frame in range(0, number_of_frames):
         tiles = Image.open(f"temp/bg_tiles-{frame}.png")
 
-        for base_biome, row in indexed_biomes:
-            for border_biome, other_row in indexed_biomes:
-                if row == other_row: 
-                    y = tile_size * row
+        for (biome_index, base_biome) in enumerate(biomes):
+            overall_y = biome_index + len(biomes) * frame
+            y = tile_size * biome_index
+            base = tiles.crop((0, y, tile_size, y + tile_size))
+            overall_x = 0
+            overall.paste(base, (overall_x * tile_size, overall_y * tile_size)) 
+
+            for (other_biome_index, border_biome) in enumerate(biomes):
+                for borders in combinations.keys():
+                    column, rotation = combinations[borders]
+
+                    y = tile_size * biome_index
                     result = tiles.crop((0, y, tile_size, y + tile_size))
-                    result.save(f"{destination_folder}/bg_tile_{base_biome}-{frame}.png")       
-                else:
-                    for borders in combinations.keys():
-                        column, rotation = combinations[borders]
 
-                        y = tile_size * row
-                        result = tiles.crop((0, y, tile_size, y + tile_size))
+                    x = tile_size * column
+                    y = tile_size * other_biome_index
+                    new_layer = tiles.crop((x, y, x + tile_size, y + tile_size))
+                    new_layer = new_layer.rotate(rotation, expand=False)
 
-                        x = tile_size * column
-                        y = tile_size * other_row
-                        new_layer = tiles.crop((x, y, x + tile_size, y + tile_size))
-                        new_layer = new_layer.rotate(rotation, expand=False)
+                    result.paste(new_layer, (0, 0), new_layer)
 
-                        result.paste(new_layer, (0, 0), new_layer)
-                        result.save(f"{destination_folder}/bg_tile_{base_biome}_{border_biome}_{borders}-{frame}.png")        
+                    overall_x += 1
+                    overall.paste(result, (overall_x * tile_size, overall_y * tile_size)) 
+                    # result.save(f"{destination_folder}/bg_tile_{base_biome}_{border_biome}_{borders}-{frame}.png")  
+
+    overall.save(f"{destination_folder}/bg_tiles.png")        
 
 os.system(f"rm -rf {pngs_folder}/bg_tile*")
 export_all_tiles(aseprite_assets, pngs_folder)

@@ -31,3 +31,11 @@ impl Insets {
         )
     }
 }
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub enum Direction {
+    Up,
+    Down,
+    Right,
+    Left
+}

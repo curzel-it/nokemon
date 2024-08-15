@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::{SCALE, TILE_SIZE}, maps::tiles::Tile};
+use crate::{constants::{SCALE, TILE_SIZE}, maps::tiles::SpriteTile};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 
@@ -94,24 +94,37 @@ fn draw_item(
             0.0,
             Color::WHITE,
         );
-        /* 
-        d.draw_texture_ex(
-            texture,
-            position,
-            0.0,
-            SCALE, 
-            Color::WHITE 
-        );*/
     }
 }
 
-fn draw_tile<T: Tile>(
+fn draw_tile<T: SpriteTile>(
     d: &mut RaylibDrawHandle, 
     tile: &T,
     variant: u32,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
+    let sprite_path = tile.sprite_name();  
+    let source_rect = tile.sprite_source_rect(variant);
+    
+    if let Some(texture) = engine.textures.get(&sprite_path) {
+        let dest_rect = Rectangle {
+            x: tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
+            y: tile.row() as f32 * TILE_SIZE - camera_viewport.y,
+            width: TILE_SIZE,
+            height: TILE_SIZE,
+        };
+
+        d.draw_texture_pro(
+            texture,
+            source_rect,
+            dest_rect,
+            Vector2::new(0.0, 0.0), 
+            0.0,
+            Color::WHITE,
+        );
+    }
+    /* 
     let sprite_path = tile.sprite_name(variant);    
     let position = Vector2::new(
         tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
@@ -126,5 +139,5 @@ fn draw_tile<T: Tile>(
             SCALE,
             Color::WHITE 
         );
-    }
+    }*/
 }

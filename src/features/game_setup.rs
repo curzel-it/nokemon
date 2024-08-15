@@ -4,8 +4,8 @@ impl World {
     pub fn setup(&mut self) {
         self.load_biome_tiles();
         self.load_constructions_tiles();
-        self.add_creep_spawn_point();
-        self.add_tower();
+        // self.add_creep_spawn_point();
+        // self.add_tower();
         self.add_hero();
         self.selected_entity_id = Some(HERO_ENTITY_ID);
     }
