@@ -16,7 +16,7 @@ def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
     if filename == "palette.aseprite": return
     elif filename == "world.aseprite": export_level(file_path, destination_folder)
-    elif filename.startswith("bg_tile_"): return
+    elif filename.startswith("bg_tile"): return
     else: export_character(file_path, destination_folder)
 
 def export_level(file_path, destination_folder):
@@ -33,40 +33,8 @@ def list_layers(path):
 
 def export_character(file_path, destination_folder):
     asset_name = asset_name_from_file_path(file_path)
-    layers = list_layers(file_path)
-
-    non_still_non_movement_layers = layers
-    non_still_non_movement_layers = [l for l in layers if not "still" in l]
-    non_still_non_movement_layers = [l for l in layers if not "walk" in l]
-
-    if "walk" in layers:
-        for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer walk --save-as {destination_folder}/{asset_name}_walk{direction}-0.png"
-            os.system(cmd)
-
-    if "walkn" in layers:
-        for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer walk{direction} --save-as {destination_folder}/{asset_name}_walk{direction}-0.png"
-            os.system(cmd)
-
-    if "still" in layers:
-        for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer still --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
-            os.system(cmd)
-
-    if "stilln" in layers:
-        for direction in directions:
-            cmd = f"{aseprite_path} -b {file_path} --layer still{direction} --save-as {destination_folder}/{asset_name}_still{direction}-0.png"
-            os.system(cmd)
-
-    if ("walk" in layers or "walkn" in layers) and "still" not in layers and "stilln" not in layers:
-        for direction in directions:
-            cmd = f"cp {destination_folder}/{asset_name}_walk{direction}-0.png {destination_folder}/{asset_name}_still{direction}-0.png"
-            os.system(cmd)
-
-    for layer in non_still_non_movement_layers:
-        cmd = f"{aseprite_path} -b {file_path} --layer {layer} --save-as {destination_folder}/{asset_name}_{layer}-0.png"
-        os.system(cmd)
+    cmd = f"{aseprite_path} -b --split-layers {file_path} --sheet-type rows --sheet {destination_folder}/{asset_name}.png"
+    os.system(cmd)
 
 def asset_name_from_file_path(file_path):
     asset_name = file_path.split("/")[-1].split(".")[0]
