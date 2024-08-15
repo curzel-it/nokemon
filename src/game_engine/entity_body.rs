@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, SCALE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+use crate::{constants::{ANIMATIONS_FPS, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -14,6 +14,7 @@ pub trait EmbodiedEntity: Debug {
     
     fn center_in(&mut self, value: &Rectangle);
     fn place_at(&mut self, x: f32, y: f32);
+    fn snap_to_nearest_tile(&mut self);
 }
 
 #[derive(Debug)]
@@ -81,5 +82,10 @@ impl EntityBody {
 
     pub fn collision_frame(&self) -> Rectangle {
         self.collision_insets.apply_to_rect(&self.frame)
+    }
+
+    pub fn snap_to_nearest_tile(&mut self) {
+        self.frame.x = (self.frame.x / TILE_SIZE).round() * TILE_SIZE;
+        self.frame.y = (self.frame.y / TILE_SIZE).round() * TILE_SIZE;
     }
 }

@@ -61,6 +61,14 @@ impl<T: Tile> TileSet<T> {
     }
 }
 
+pub fn entity_is_on_tile(entity: &dyn Entity) -> bool {
+    rect_is_on_tile(&entity.body().frame)
+}
+
+pub fn rect_is_on_tile(frame: &Rectangle) -> bool {
+    frame.x % TILE_SIZE == 0.0 && frame.y % TILE_SIZE == 0.0
+}
+
 pub fn joined_tiles<T: Tile>(tiles: &Vec<T>) -> Vec<T> {
     let mut joined: Vec<T> = vec![];
     let mut previous = tiles[0].clone();

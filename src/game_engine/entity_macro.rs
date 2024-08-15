@@ -20,7 +20,11 @@ macro_rules! impl_embodied_entity {
             
             fn center_in(&mut self, value: &raylib::math::Rectangle) {
                 self.body.center_in(value);
-            }            
+            }
+            
+            fn snap_to_nearest_tile(&mut self) {
+                self.body.snap_to_nearest_tile()
+            }
 
             fn place_at(&mut self, x: f32, y: f32) {
                 self.body.frame.x = x;

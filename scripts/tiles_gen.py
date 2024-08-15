@@ -22,7 +22,7 @@ combinations = {
     "wes": ("nws", 90),
     "nws": ("nws", 0),
     "nwe": ("nws", -90),
-    "news": ("news", 0),
+    "nesw": ("nesw", 0),
 }
 
 def fix_rgba_image(image_path):
@@ -50,7 +50,7 @@ def export_all_tiles(aseprite_assets, destination_folder):
         os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_w.aseprite --save-as temp/{biome}_w-0.png")
         os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nw.aseprite --save-as temp/{biome}_nw-0.png")
         os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nws.aseprite --save-as temp/{biome}_nws-0.png")
-        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_news.aseprite --save-as temp/{biome}_news-0.png")
+        os.system(f"{aseprite_path} -b {aseprite_assets}/bg_tile_{biome}_border_nesw.aseprite --save-as temp/{biome}_nesw-0.png")
         
     for file in os.listdir("temp"):
         if file.endswith(".png"):
