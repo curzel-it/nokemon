@@ -121,6 +121,10 @@ impl World {
     pub fn visible_biome_tiles(&self) -> Vec<&BiomeTile> {
         self.biome_tiles.visible_tiles(&self.camera_viewport)
     }
+
+    pub fn visible_construction_tiles(&self) -> Vec<&ConstructionTile> {
+        self.constructions_tiles.visible_tiles(&self.camera_viewport)
+    }
 }
 
 impl Debug for World {

@@ -2,13 +2,14 @@ use image::{GenericImageView, Pixel};
 
 use crate::{constants::WORLD_MAP_CONSTRUCTIONS, game_engine::{entity::Entity, world::World}};
 
-use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::{SpriteTile, Tile}};
+use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::{Tile, TileSet}};
  
 impl World {
     pub fn load_constructions_tiles(&mut self) {
         let mut tiles = parse_constructions_map(WORLD_MAP_CONSTRUCTIONS);
         integrate_borders_info(&mut tiles);
         make_obstacles(self, &tiles);
+        self.constructions_tiles = TileSet::with_tiles("tiles_constructions".to_owned(), tiles);
     }
 }
 
@@ -50,10 +51,12 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<ConstructionTile>>) {
             }
 
             let current = &mut tiles[row][col];
-            current.tile_up_type = tile_up_type;
-            current.tile_right_type = tile_right_type;
-            current.tile_down_type = tile_down_type;
-            current.tile_left_type = tile_left_type;
+            current.setup_neighbors(
+                tile_up_type,
+                tile_right_type,
+                tile_down_type,
+                tile_left_type
+            );
         }
     }
 }

@@ -12,6 +12,7 @@ pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, e
     let mut d = rl.begin_drawing(thread);
     d.clear_background(Color::BLACK);
     draw_biome(&mut d, world, engine);
+    draw_constructions(&mut d, world, engine);
     draw_entities(&mut d, world, engine);
     draw_debug_info(&mut d, world, fps);
 }
@@ -27,6 +28,14 @@ fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     for tile in world.visible_biome_tiles() {
         let variant = world.biome_tiles.current_variant(tile.row, tile.column);
         draw_tile(d, sprites, tile, variant, &world.camera_viewport, engine);
+    }
+}
+
+fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
+    let sprites = world.constructions_tiles.sheet_path.as_str();
+
+    for tile in world.visible_construction_tiles() {
+        draw_tile(d, sprites, tile, 0, &world.camera_viewport, engine);
     }
 }
 
@@ -121,20 +130,4 @@ fn draw_tile<T: SpriteTile>(
             Color::WHITE,
         );
     }
-    /* 
-    let sprite_path = tile.sprite_name(variant);    
-    let position = Vector2::new(
-        tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
-        tile.row() as f32 * TILE_SIZE - camera_viewport.y
-    );
-    
-    if let Some(texture) = engine.textures.get(&sprite_path) {
-        d.draw_texture_ex(
-            texture,
-            position,
-            0.0,
-            SCALE,
-            Color::WHITE 
-        );
-    }*/
 }

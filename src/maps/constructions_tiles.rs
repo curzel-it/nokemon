@@ -63,7 +63,7 @@ impl ConstructionTile {
             tile_right_type: Construction::Nothing,
             tile_down_type: Construction::Nothing,
             tile_left_type: Construction::Nothing,
-            texture_offset_x: tile_type.texture_offset_x(),
+            texture_offset_x: tile_type.texture_offset_x() as f32,
             texture_offset_y: 0.0,
         }
     }
@@ -101,28 +101,31 @@ impl ConstructionTile {
         let same_down = self.tile_down_type == self.tile_type;
         let same_left = self.tile_left_type == self.tile_type;
 
-        self.texture_offset_y = match (same_up, same_right, same_down, same_left) {
-            (false, true, false, true) => 0.0,
-            (false, false, false, false) => 1.0,
-            (false, true, false, false) => 2.0,
-            (false, false, false, true) => 3.0,
-            (true, false, true, false) => 4.0,
-            (true, false, false, false) => 5.0,
-            (false, false, true, false) => 6.0,
-            (true, true, false, false) => 7.0,
-            (true, false, false, true) => 8.0,
-            (false, false, true, true) => 9.0,
-            (false, true, true, false) => 10.0,
-            _ => 0.0
+        let x = self.tile_type.texture_offset_x();
+        let y = match (same_up, same_right, same_down, same_left) {
+            (false, true, false, true) => 0,
+            (false, false, false, false) => 1,
+            (false, false, false, true) => 2,
+            (false, true, false, false) => 3,
+            (true, false, true, false) => 4,
+            (true, false, false, false) => 5,
+            (false, false, true, false) => 6,
+            (true, true, false, false) => 7,
+            (true, false, false, true) => 8,
+            (false, true, true, false) => 9,
+            (false, false, true, true) => 10,
+            _ => 0
         };
+        self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
+        self.texture_offset_y = TILE_TEXTURE_SIZE * y as f32;
     }
 }
 
 impl Construction {    
-    fn texture_offset_x(&self) -> f32 {
+    fn texture_offset_x(&self) -> u32 {
         match self {
-            Construction::Nothing => 0.0,
-            Construction::WoodenFence => 1.0
+            Construction::Nothing => 0,
+            Construction::WoodenFence => 1
         }
     }
 

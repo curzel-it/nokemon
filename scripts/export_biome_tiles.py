@@ -92,5 +92,5 @@ def export_biome_tiles(aseprite_assets, destination_folder):
 
     overall.save(f"{destination_folder}/tiles_biome.png")        
 
-os.system(f"rm -rf {pngs_folder}/tiles_*")
+os.system(f"rm -rf {pngs_folder}/tiles_biome.png")
 export_biome_tiles(aseprite_assets, pngs_folder)
