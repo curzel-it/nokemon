@@ -2,7 +2,7 @@
 
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile, utils::geometry_utils::Direction};
+use crate::{constants::{TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile, utils::geometry_utils::Direction};
 
 use super::tiles::SpriteTile;
 

@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile};
+use crate::{constants::{TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile};
 
 use super::tiles::SpriteTile;
 
