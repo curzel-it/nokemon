@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH, HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SCALE}, features::{animated_sprite::{update_sprite, AnimatedEntity, AnimatedSprite}, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::{get_next_entity_id, EntityFactory}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet, timed_content_provider::TimedContentProvider}, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::{AnimatedEntity, AnimatedSprite}, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::EntityFactory, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 

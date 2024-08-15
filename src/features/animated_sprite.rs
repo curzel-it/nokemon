@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, ANIMATION_NAME_FRONT, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, ASSETS_PATH, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_S, DIRECTION_NAME_W}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ANIMATIONS_FPS, ANIMATION_NAME_MOVEMENT, ANIMATION_NAME_STILL, ASSETS_PATH, DIRECTION_NAME_E, DIRECTION_NAME_N, DIRECTION_NAME_S, DIRECTION_NAME_W}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
 
 pub trait AnimatedEntity: Entity {
     fn sprite_was_invalidated(&self) -> bool;
