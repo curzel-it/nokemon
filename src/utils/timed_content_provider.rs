@@ -1,4 +1,3 @@
-use crate::constants::ANIMATIONS_FPS;
 
 #[derive(Debug, Clone)]
 pub struct TimedContentProvider<T> {
