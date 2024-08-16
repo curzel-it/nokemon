@@ -55,12 +55,7 @@ impl Entity for TowerDart {
     }
 
     fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
-            0.0,
-            0.0,
-            self.body.frame.width,
-            self.body.frame.height
-        )
+        self.sprite.texture_source_rect()
     }
 
     fn sprite_sheet_path(&self) -> &str {
