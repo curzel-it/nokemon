@@ -22,7 +22,6 @@ impl TowerDart {
                 base_speed: 5.0,
                 hp: 100.0,
                 dp: 60.0,
-                sprite_invalidated: true,
                 time_to_next_shot: 5.0,
                 time_between_shots: 3.0,
                 creation_time: 0.0,
@@ -63,17 +62,15 @@ impl Entity for TowerDart {
 
 impl TowerDart {
     fn update_sprite(&mut self, time_since_last_update: f32) {
-        if self.body.sprite_invalidated {
-            let direction = Direction::from_vector(self.body.direction);
+        let direction = Direction::from_vector(self.body.direction);
 
-            self.sprite.row = match direction {
-                Direction::Up => 2.0,
-                Direction::Right => 0.0,
-                Direction::Down => 3.0,
-                Direction::Left => 1.0,
-                Direction::Unknown => 3.0,
-            };
-        }    
+        self.sprite.row = match direction {
+            Direction::Up => 2.0,
+            Direction::Right => 0.0,
+            Direction::Down => 3.0,
+            Direction::Left => 1.0,
+            Direction::Unknown => 3.0,
+        };
         self.sprite.update(time_since_last_update);
     }
 }

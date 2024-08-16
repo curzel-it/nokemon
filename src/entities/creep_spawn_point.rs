@@ -25,7 +25,6 @@ impl CreepSpawnPoint {
                 base_speed: 0.0,
                 hp: 100.0,
                 dp: 0.0,
-                sprite_invalidated: true,
                 time_to_next_shot: 1000.0,
                 time_between_shots: 1000.0,
                 creation_time: 0.0,

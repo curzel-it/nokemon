@@ -24,7 +24,6 @@ impl Hero {
                 base_speed: 3.0,
                 hp: 100.0,
                 dp: 0.0,
-                sprite_invalidated: true,
                 time_to_next_shot: 3.0,
                 time_between_shots: 7.0,
                 creation_time: 0.0,
@@ -83,23 +82,21 @@ impl Entity for Hero {
 
 impl Hero {
     fn update_sprite(&mut self, time_since_last_update: f32) {
-        if self.body.sprite_invalidated {
-            let direction = Direction::from_vector(self.body.direction);
-            let is_moving = self.body.current_speed != 0.0;
+        let direction = Direction::from_vector(self.body.direction);
+        let is_moving = self.body.current_speed != 0.0;
 
-            self.sprite.row = match (direction, is_moving) {
-                (Direction::Up, true) => 0.0,
-                (Direction::Up, false) => 1.0,
-                (Direction::Right, true) => 2.0,
-                (Direction::Right, false) => 3.0,
-                (Direction::Down, true) => 4.0,
-                (Direction::Down, false) => 5.0,
-                (Direction::Left, true) => 6.0,
-                (Direction::Left, false) => 7.0,
-                (Direction::Unknown, true) => 5.0,
-                (Direction::Unknown, false) => 5.0
-            };
-        }    
+        self.sprite.row = match (direction, is_moving) {
+            (Direction::Up, true) => 0.0,
+            (Direction::Up, false) => 1.0,
+            (Direction::Right, true) => 2.0,
+            (Direction::Right, false) => 3.0,
+            (Direction::Down, true) => 4.0,
+            (Direction::Down, false) => 5.0,
+            (Direction::Left, true) => 6.0,
+            (Direction::Left, false) => 7.0,
+            (Direction::Unknown, true) => 5.0,
+            (Direction::Unknown, false) => 5.0
+        };
         self.sprite.update(time_since_last_update);
     }
 }
