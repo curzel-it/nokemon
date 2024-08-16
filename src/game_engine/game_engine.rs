@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, SCALE}, utils::file_utils::list_files};
+use crate::{constants::ASSETS_PATH, utils::file_utils::list_files};
 
 use super::{world::World, keyboard_events_provider::KeyboardEventsProvider};
 use raylib::prelude::*;
@@ -26,8 +26,7 @@ impl GameEngine {
             .title("Tower Defense")
             .build();
         
-        world.camera_viewport.width = rl.get_screen_width() as f32 / SCALE;
-        world.camera_viewport.height = rl.get_screen_height() as f32 / SCALE;
+        world.update_camera_viewport_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
     
         // rl.set_target_fps(FPS);
         let all_assets = list_files(ASSETS_PATH, "png");

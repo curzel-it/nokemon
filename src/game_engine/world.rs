@@ -11,6 +11,7 @@ pub struct World {
     pub total_elapsed_time: f32,
     pub bounds: Rectangle,
     pub camera_viewport: Rectangle,
+    pub rendering_scale: f32,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
@@ -28,6 +29,7 @@ impl World {
             total_elapsed_time: 0.0,
             bounds: RECT_ORIGIN_SQUARE_100,
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
+            rendering_scale: 2.0,
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
@@ -124,6 +126,11 @@ impl World {
 
     pub fn visible_construction_tiles(&self) -> Vec<&ConstructionTile> {
         self.constructions_tiles.visible_tiles(&self.camera_viewport)
+    }
+
+    pub fn update_camera_viewport_from_screen_size(&mut self, width: i32, height: i32) {
+        self.camera_viewport.width = width as f32 / self.rendering_scale;
+        self.camera_viewport.height = height as f32 / self.rendering_scale;
     }
 }
 

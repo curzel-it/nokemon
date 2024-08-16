@@ -23,19 +23,34 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
 }
 
 fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprites = world.biome_tiles.sheet_path.as_str();
+    let sprite_path = world.biome_tiles.sheet_path.as_str();
 
     for tile in world.visible_biome_tiles() {
-        let variant = world.biome_tiles.current_variant(tile.row, tile.column);
-        draw_tile(d, sprites, tile, variant, &world.camera_viewport, engine);
+        draw_tile(
+            d, 
+            sprite_path, 
+            tile, 
+            world.biome_tiles.current_variant(tile.row, tile.column), 
+            world.rendering_scale, 
+            &world.camera_viewport, 
+            engine
+        );
     }
 }
 
 fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprites = world.constructions_tiles.sheet_path.as_str();
+    let sprite_path = world.constructions_tiles.sheet_path.as_str();
 
     for tile in world.visible_construction_tiles() {
-        draw_tile(d, sprites, tile, 0, &world.camera_viewport, engine);
+        draw_tile(
+            d, 
+            sprite_path, 
+            tile, 
+            0, 
+            world.rendering_scale,
+            &world.camera_viewport, 
+            engine
+        );
     }
 }
 
@@ -68,13 +83,20 @@ fn draw_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     });
 
     for item in entities {
-        draw_item(d, item.borrow(), &world.camera_viewport, engine);
+        draw_item(
+            d, 
+            item.borrow(),
+            world.rendering_scale,
+            &world.camera_viewport, 
+            engine
+        );
     }
 }
 
 fn draw_item(
     d: &mut RaylibDrawHandle, 
     item: &dyn Entity,
+    rendering_scale: f32,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
@@ -90,7 +112,7 @@ fn draw_item(
             y: position.y,
             width: frame.width,
             height: frame.height,
-        }.to_scale();
+        }.scaled(rendering_scale);
 
         d.draw_texture_pro(
             texture,
@@ -108,6 +130,7 @@ fn draw_tile<T: SpriteTile>(
     sprite_path: &str,
     tile: &T,
     variant: u32,
+    rendering_scale: f32,
     camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
@@ -119,7 +142,7 @@ fn draw_tile<T: SpriteTile>(
             y: tile.row() as f32 * TILE_SIZE - camera_viewport.y,
             width: TILE_SIZE,
             height: TILE_SIZE,
-        }.to_scale();
+        }.scaled(rendering_scale);
 
         d.draw_texture_pro(
             texture,
