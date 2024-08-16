@@ -16,11 +16,11 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
 }
 
 fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> bool {
-    if !entity.body().is_rigid {
-        return false
+    if entity.body().is_rigid && entity.body().requires_collision_detection {
+        let rigid_collisions: Vec<&Collision> = collisions.iter().filter(|c| c.other_was_rigid).collect();
+        return has_blocking_rigid_collisions(entity, &rigid_collisions);        
     }
-    let rigid_collisions: Vec<&Collision> = collisions.iter().filter(|c| c.other_was_rigid).collect();
-    has_blocking_rigid_collisions(entity, &rigid_collisions)
+    false
 }
 
 fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collision>) -> bool {

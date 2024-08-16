@@ -53,8 +53,8 @@ macro_rules! impl_humanoid_sprite_update {
         
                 self.sprite.row = match (direction, is_moving) {
                     ($crate::utils::geometry_utils::Direction::Up, true) => 0.0,
-                    (crate::utils::geometry_utils::Direction::Up, false) => 1.0,
-                    (crate::utils::geometry_utils::Direction::Right, true) => 2.0,
+                    ($crate::utils::geometry_utils::Direction::Up, false) => 1.0,
+                    ($crate::utils::geometry_utils::Direction::Right, true) => 2.0,
                     (crate::utils::geometry_utils::Direction::Right, false) => 3.0,
                     (crate::utils::geometry_utils::Direction::Down, true) => 4.0,
                     (crate::utils::geometry_utils::Direction::Down, false) => 5.0,
@@ -78,8 +78,8 @@ macro_rules! impl_bullet_sprite_update {
         
                 self.sprite.row = match direction {
                     $crate::utils::geometry_utils::Direction::Up => 2.0,
-                    crate::utils::geometry_utils::Direction::Right => 0.0,
-                    crate::utils::geometry_utils::Direction::Down => 3.0,
+                    $crate::utils::geometry_utils::Direction::Right => 0.0,
+                    $crate::utils::geometry_utils::Direction::Down => 3.0,
                     crate::utils::geometry_utils::Direction::Left => 1.0,
                     crate::utils::geometry_utils::Direction::Unknown => 3.0,
                 };

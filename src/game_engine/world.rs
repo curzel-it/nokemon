@@ -5,7 +5,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
+use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities_and_collision_candidates, world_state_update::WorldStateUpdate};
 
 pub struct World {
     pub total_elapsed_time: f32,
@@ -15,6 +15,7 @@ pub struct World {
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
     pub visible_entities: HashSet<u32>,
+    pub collision_candidates: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_frame: Rectangle,
@@ -32,6 +33,7 @@ impl World {
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
+            collision_candidates: hash_set![],
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
             cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
@@ -61,7 +63,7 @@ impl World {
     ) {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_events.keyboard_state();
-        self.visible_entities = compute_visible_entities(self);
+        (self.visible_entities, self.collision_candidates) = compute_visible_entities_and_collision_candidates(self);
         self.collisions = compute_collisions(self);
 
         let mut state_updates: Vec<WorldStateUpdate> = vec![];

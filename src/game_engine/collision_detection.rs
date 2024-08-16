@@ -16,17 +16,10 @@ pub struct Collision {
 
 pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
     let mut collisions: HashMap<u32, Vec<Collision>> = HashMap::new();
-    let visible_entities = &world.visible_entities;
+    let visible_entities = &world.collision_candidates;
     let entities = world.entities.borrow();
-        
-    let mut handlers_entity_ids: Vec<u32> = vec![];
-    for entity in entities.values() {
-        if entity.body().requires_collision_detection {
-            handlers_entity_ids.push(entity.id());
-        }
-    }
 
-    for id1 in handlers_entity_ids {
+    for &id1 in visible_entities {
         if let Some(entity1) = entities.get(&id1) {
             for &id2 in visible_entities {
                 if let Some(entity2) = entities.get(&id2) {
@@ -85,7 +78,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities_and_collision_candidates, world::World}};
 
     use super::{collision_area, compute_collisions};
 
@@ -111,7 +104,7 @@ mod tests {
         hero.place_at(0.0, 0.0);
         world.add_entity(Box::new(hero));
 
-        world.visible_entities = compute_visible_entities(&world);
+        (world.visible_entities, world.collision_candidates) = compute_visible_entities_and_collision_candidates(&world);
 
         let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
@@ -140,7 +133,7 @@ mod tests {
         hero.place_at(2000.0, 0.0);
         world.add_entity(Box::new(hero));
 
-        world.visible_entities = compute_visible_entities(&world);
+        (world.visible_entities, world.collision_candidates) = compute_visible_entities_and_collision_candidates(&world);
 
         let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
