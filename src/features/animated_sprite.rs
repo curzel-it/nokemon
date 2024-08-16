@@ -13,7 +13,6 @@ pub struct AnimatedSprite {
 
 impl AnimatedSprite {
     pub fn new(sprite: &str, number_of_frames: u32, width: u32, height: u32) -> Self {
-
         Self {
             sheet_path: format!("{}/{}.png", ASSETS_PATH, sprite),
             row: 0.0,

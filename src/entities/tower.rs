@@ -28,7 +28,7 @@ impl Tower {
                 time_to_next_shot: 2.0,
                 time_between_shots: 2.0,
                 creation_time: 0.0,
-                requires_collision_detection: true,
+                requires_collision_detection: false,
                 is_rigid: true,
                 z_index: 0,
                 is_ally: false,
