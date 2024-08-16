@@ -22,8 +22,6 @@ impl TowerDart {
                 base_speed: 5.0,
                 hp: 100.0,
                 dp: 60.0,
-                time_to_next_shot: 5.0,
-                time_between_shots: 3.0,
                 creation_time: 0.0,
                 requires_collision_detection: true,
                 is_rigid: false,

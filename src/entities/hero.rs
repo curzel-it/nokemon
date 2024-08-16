@@ -8,6 +8,7 @@ use super::surrounding_area_attack::SurroundingAreaAttack;
 pub struct Hero {
     body: EntityBody,
     time_to_next_shot: f32,
+    time_between_shots: f32,
     sprite: AnimatedSprite,
 }
 
@@ -24,8 +25,6 @@ impl Hero {
                 base_speed: 3.0,
                 hp: 100.0,
                 dp: 0.0,
-                time_to_next_shot: 3.0,
-                time_between_shots: 7.0,
                 creation_time: 0.0,
                 requires_collision_detection: true,
                 is_rigid: true,
@@ -34,7 +33,8 @@ impl Hero {
                 is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            time_to_next_shot: 5.0,
+            time_to_next_shot: 3.0,
+            time_between_shots: 7.0,
             sprite: AnimatedSprite::new("red", 3, 19, 22)
         }
     }
@@ -52,7 +52,7 @@ impl Shooter for Hero {
     }
     
     fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.body().time_between_shots;
+        self.time_to_next_shot = self.time_between_shots;
     }
     
     fn create_bullet(&self) -> Box<dyn Entity> {

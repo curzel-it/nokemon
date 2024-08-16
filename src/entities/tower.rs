@@ -8,6 +8,7 @@ use super::tower_dart::TowerDart;
 pub struct Tower {
     body: EntityBody,
     time_to_next_shot: f32,
+    time_between_shots: f32,
     sprite: AnimatedSprite,
 }
 
@@ -24,8 +25,6 @@ impl Tower {
                 base_speed: 0.0,
                 hp: 100.0,
                 dp: 0.0,
-                time_to_next_shot: 2.0,
-                time_between_shots: 2.0,
                 creation_time: 0.0,
                 requires_collision_detection: false,
                 is_rigid: true,
@@ -34,7 +33,8 @@ impl Tower {
                 is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            time_to_next_shot: 3.0,
+            time_to_next_shot: 2.0,
+            time_between_shots: 2.0,
             sprite: AnimatedSprite::new("tower", 8, 26, 42)
         }
     }
@@ -52,7 +52,7 @@ impl Shooter for Tower {
     }
     
     fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.body().time_between_shots;
+        self.time_to_next_shot = self.time_between_shots;
     }
     
     fn create_bullet(&self) -> Box<dyn Entity> {
