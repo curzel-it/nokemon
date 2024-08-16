@@ -27,7 +27,7 @@ impl Hero {
                 sprite_set: SpriteSet::default(),
                 current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
-                time_to_next_shot: 5.0,
+                time_to_next_shot: 1.0,
                 time_between_shots: 3.0,
                 creation_time: 0.0,
                 requires_collision_detection: true,

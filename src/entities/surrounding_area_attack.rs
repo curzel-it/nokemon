@@ -11,7 +11,7 @@ pub struct SurroundingAreaAttack {
 
 impl SurroundingAreaAttack {
     pub fn new(parent: &dyn Entity) -> Self {        
-        Self {
+        let mut entity = Self {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: parent.id(),
@@ -35,8 +35,10 @@ impl SurroundingAreaAttack {
                 is_bullet: true,
                 lifespan: 2.5,
             },
-            sprite: AnimatedSprite::new("baseattack.png", 3, 50, 30)
-        }
+            sprite: AnimatedSprite::new("baseattack", 3, 50, 30)
+        };
+        entity.center_in(&parent.body().frame);
+        entity
     }
 }
 

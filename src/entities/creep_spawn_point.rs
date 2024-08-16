@@ -24,7 +24,7 @@ impl CreepSpawnPoint {
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 100.0,
-                dp: 20.0,
+                dp: 0.0,
                 sprite_set: SpriteSet::default(),
                 current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
