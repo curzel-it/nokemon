@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
