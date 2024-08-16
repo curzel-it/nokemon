@@ -1,7 +1,7 @@
 
 use raylib::math::Rectangle;
 
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_bullet_sprite_update, impl_embodied_entity, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 #[derive(Debug)]
 pub struct TowerDart {
@@ -38,6 +38,7 @@ impl TowerDart {
 }
 
 impl_embodied_entity!(TowerDart);
+impl_bullet_sprite_update!(TowerDart);
 
 impl Entity for TowerDart {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -55,20 +56,5 @@ impl Entity for TowerDart {
 
     fn sprite_sheet_path(&self) -> &str {
         &self.sprite.sheet_path
-    }
-}
-
-impl TowerDart {
-    fn update_sprite(&mut self, time_since_last_update: f32) {
-        let direction = Direction::from_vector(self.body.direction);
-
-        self.sprite.row = match direction {
-            Direction::Up => 2.0,
-            Direction::Right => 0.0,
-            Direction::Down => 3.0,
-            Direction::Left => 1.0,
-            Direction::Unknown => 3.0,
-        };
-        self.sprite.update(time_since_last_update);
     }
 }

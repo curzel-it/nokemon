@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_shooter, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_shooter, impl_single_animation_sprite_update, utils::geometry_utils::{Insets, Scalable}};
 
 use super::tower_dart::TowerDart;
 
@@ -42,6 +42,7 @@ impl Tower {
 
 impl_embodied_entity!(Tower);
 impl_shooter!(Tower, TowerDart);
+impl_single_animation_sprite_update!(Tower);
 
 impl Entity for Tower {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -58,11 +59,5 @@ impl Entity for Tower {
 
     fn sprite_sheet_path(&self) -> &str {
         &self.sprite.sheet_path
-    }
-}
-
-impl Tower {
-    fn update_sprite(&mut self, time_since_last_update: f32) {
-        self.sprite.update(time_since_last_update);
     }
 }

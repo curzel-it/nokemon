@@ -1,7 +1,7 @@
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Insets, Scalable}};
+use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::{Insets, Scalable}};
 
 #[derive(Debug)]
 pub struct SurroundingAreaAttack {
@@ -38,6 +38,7 @@ impl SurroundingAreaAttack {
 }
 
 impl_embodied_entity!(SurroundingAreaAttack);
+impl_single_animation_sprite_update!(SurroundingAreaAttack);
 
 impl Entity for SurroundingAreaAttack {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -55,11 +56,5 @@ impl Entity for SurroundingAreaAttack {
 
     fn sprite_sheet_path(&self) -> &str {
         &self.sprite.sheet_path 
-    }
-}
-
-impl SurroundingAreaAttack {
-    fn update_sprite(&mut self, time_since_last_update: f32) {
-        self.sprite.update(time_since_last_update);
     }
 }
