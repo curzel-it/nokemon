@@ -3,7 +3,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, maps::tiles::SpriteTile};
+use crate::{constants::TILE_SIZE, maps::tiles::SpriteTile, utils::geometry_utils::Scalable};
 
 use super::{entity::Entity, world::World, game_engine::GameEngine};
 
@@ -90,7 +90,7 @@ fn draw_item(
             y: position.y,
             width: frame.width,
             height: frame.height,
-        };
+        }.to_scale();
 
         d.draw_texture_pro(
             texture,
@@ -119,7 +119,7 @@ fn draw_tile<T: SpriteTile>(
             y: tile.row() as f32 * TILE_SIZE - camera_viewport.y,
             width: TILE_SIZE,
             height: TILE_SIZE,
-        };
+        }.to_scale();
 
         d.draw_texture_pro(
             texture,

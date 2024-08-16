@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{SCALE, TILE_SIZE}, utils::geometry_utils::Insets};
+use crate::{constants::TILE_SIZE, utils::geometry_utils::Insets};
 
 
 pub trait EmbodiedEntity: Debug {
@@ -53,8 +53,8 @@ impl EntityBody {
     }
     
     pub fn resize(&mut self, w: f32, h: f32) {
-        self.frame.width = SCALE * w;
-        self.frame.height = SCALE * h;
+        self.frame.width = w;
+        self.frame.height = h;
     }
             
     pub fn reset_speed(&mut self) {
