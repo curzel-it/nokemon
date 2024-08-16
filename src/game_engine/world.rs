@@ -128,9 +128,22 @@ impl World {
         self.constructions_tiles.visible_tiles(&self.camera_viewport)
     }
 
-    pub fn update_camera_viewport_from_screen_size(&mut self, width: i32, height: i32) {
+    pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {
+        self.rendering_scale = self.rendering_scale_for_screen_width(width);
         self.camera_viewport.width = width as f32 / self.rendering_scale;
         self.camera_viewport.height = height as f32 / self.rendering_scale;
+    }
+
+    fn rendering_scale_for_screen_width(&self, width: i32) -> f32 {
+        if width < 500 {
+            1.0
+        } else if width < 1400 {
+            2.0
+        } else if width < 3000 {
+            3.0
+        } else {
+            4.0
+        }
     }
 }
 

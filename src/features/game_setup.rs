@@ -13,8 +13,8 @@ impl World {
     fn add_creep_spawn_point(&mut self) -> u32 {
         let mut entity = CreepSpawnPoint::new();
         entity.center_in(&self.bounds);
-        entity.body_mut().frame.x -= 100.0;
-        entity.body_mut().frame.y -= 70.0;
+        entity.body_mut().frame.x -= 80.0;
+        entity.body_mut().frame.y -= 120.0;
         self.add_entity(Box::new(entity))
     }
     

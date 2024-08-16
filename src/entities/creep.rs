@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, utils::geometry_utils::{Insets, Scalable}};
 
 #[derive(Debug)]
 pub struct Creep {
@@ -9,11 +9,11 @@ pub struct Creep {
 }
 
 impl Creep {
-    pub fn new() -> Self {
+    pub fn new(parent: &dyn Entity) -> Self {
         Self {             
             body: EntityBody {
                 id: get_next_entity_id(),
-                parent_id: NO_PARENT,
+                parent_id: parent.id(),
                 frame: Rectangle::new(0.0, 0.0, 19.0, 22.0),
                 collision_insets: Insets::new(8.0, 4.0, 0.0, 4.0),
                 direction: Vector2::zero(),
@@ -25,7 +25,7 @@ impl Creep {
                 requires_collision_detection: true,
                 is_rigid: true,
                 z_index: 0,
-                is_ally: false,
+                is_ally: parent.body().is_ally,
                 is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },

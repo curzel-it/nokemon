@@ -69,7 +69,7 @@ impl Entity for CreepSpawnPoint {
 
 impl CreepSpawnPoint {
     fn build_creep(&self) -> Box<dyn Entity> {
-        let mut creep = Creep::new();
+        let mut creep = Creep::new(self);
         creep.center_in(&self.body().frame);
         creep.body_mut().direction = Vector2::new(1.0, 0.0);
         Box::new(creep)

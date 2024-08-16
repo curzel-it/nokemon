@@ -26,7 +26,7 @@ impl GameEngine {
             .title("Tower Defense")
             .build();
         
-        world.update_camera_viewport_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+        world.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
     
         // rl.set_target_fps(FPS);
         let all_assets = list_files(ASSETS_PATH, "png");
@@ -65,11 +65,7 @@ mod tests {
             world
         }
 
-        pub fn update(
-            &self, 
-            world: &mut World, 
-            time_since_last_update: f32
-        ) {
+        pub fn update(&self, world: &mut World, time_since_last_update: f32) {
             world.update(time_since_last_update);
         } 
     }
