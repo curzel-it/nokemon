@@ -147,11 +147,5 @@ mod tests {
             let nokb = NoKeyboard {};
             self.update_rl(time_since_last_update, &nokb)
         }
-        
-        pub fn animation_name_of_entity(&self, id: &u32) -> String {
-            let entities = self.entities.borrow();
-            let entity = entities.get(id).unwrap();
-            return entity.body().current_sprite.animation_name.to_owned();
-        }
     }
 }
