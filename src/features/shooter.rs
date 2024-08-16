@@ -34,7 +34,7 @@ macro_rules! impl_shooter {
                 self.time_to_next_shot = self.time_between_shots;
             }
             
-            fn create_bullet(&self) -> Box<dyn crate::game_engine::entity::Entity> {
+            fn create_bullet(&self) -> Box<dyn $crate::game_engine::entity::Entity> {
                 Box::new($bullet_struct::new(self))
             }
         }
