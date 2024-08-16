@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_shooter, utils::geometry_utils::{Insets, Scalable}};
 
 use super::tower_dart::TowerDart;
 
@@ -41,24 +41,7 @@ impl Tower {
 }
 
 impl_embodied_entity!(Tower);
-
-impl Shooter for Tower {
-    fn time_to_next_shot(&self) -> f32 {
-        self.time_to_next_shot
-    }
-    
-    fn inc_time_to_next_shot(&mut self, delta: f32) {
-        self.time_to_next_shot += delta;
-    }
-    
-    fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.time_between_shots;
-    }
-    
-    fn create_bullet(&self) -> Box<dyn Entity> {
-        Box::new(TowerDart::new(self))
-    }
-}
+impl_shooter!(Tower, TowerDart);
 
 impl Entity for Tower {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {

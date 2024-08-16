@@ -17,3 +17,26 @@ pub fn shoot_stuff(entity: &mut dyn Shooter, time_since_last_update: f32) -> Vec
     }
     vec![]
 }
+
+#[macro_export]
+macro_rules! impl_shooter {
+    ($shooter_struct:ident, $bullet_struct:ident) => {
+        impl $crate::features::shooter::Shooter for $shooter_struct {
+            fn time_to_next_shot(&self) -> f32 {
+                self.time_to_next_shot
+            }
+            
+            fn inc_time_to_next_shot(&mut self, delta: f32) {
+                self.time_to_next_shot += delta;
+            }
+            
+            fn reset_time_to_next_shot(&mut self) {
+                self.time_to_next_shot = self.time_between_shots;
+            }
+            
+            fn create_bullet(&self) -> Box<dyn crate::game_engine::entity::Entity> {
+                Box::new($bullet_struct::new(self))
+            }
+        }
+    };
+}

@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -41,24 +41,8 @@ impl Hero {
 }
 
 impl_embodied_entity!(Hero);
-
-impl Shooter for Hero {
-    fn time_to_next_shot(&self) -> f32 {
-        self.time_to_next_shot
-    }
-    
-    fn inc_time_to_next_shot(&mut self, delta: f32) {
-        self.time_to_next_shot += delta;
-    }
-    
-    fn reset_time_to_next_shot(&mut self) {
-        self.time_to_next_shot = self.time_between_shots;
-    }
-    
-    fn create_bullet(&self) -> Box<dyn Entity> {
-        Box::new(SurroundingAreaAttack::new(self))
-    }
-}
+impl_humanoid_sprite_update!(Hero);
+impl_shooter!(Hero, SurroundingAreaAttack);
 
 impl Entity for Hero {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
@@ -77,26 +61,5 @@ impl Entity for Hero {
 
     fn sprite_sheet_path(&self) -> &str {
         &self.sprite.sheet_path
-    }
-}
-
-impl Hero {
-    fn update_sprite(&mut self, time_since_last_update: f32) {
-        let direction = Direction::from_vector(self.body.direction);
-        let is_moving = self.body.current_speed != 0.0;
-
-        self.sprite.row = match (direction, is_moving) {
-            (Direction::Up, true) => 0.0,
-            (Direction::Up, false) => 1.0,
-            (Direction::Right, true) => 2.0,
-            (Direction::Right, false) => 3.0,
-            (Direction::Down, true) => 4.0,
-            (Direction::Down, false) => 5.0,
-            (Direction::Left, true) => 6.0,
-            (Direction::Left, false) => 7.0,
-            (Direction::Unknown, true) => 5.0,
-            (Direction::Unknown, false) => 5.0
-        };
-        self.sprite.update(time_since_last_update);
     }
 }
