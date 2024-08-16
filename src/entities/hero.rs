@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -24,8 +24,6 @@ impl Hero {
                 base_speed: 3.0,
                 hp: 100.0,
                 dp: 0.0,
-                sprite_set: SpriteSet::default(),
-                current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
                 time_to_next_shot: 3.0,
                 time_between_shots: 7.0,

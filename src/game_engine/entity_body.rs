@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ANIMATIONS_FPS, SCALE, TILE_SIZE}, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+use crate::{constants::{SCALE, TILE_SIZE}, utils::geometry_utils::Insets};
 
 
 pub trait EmbodiedEntity: Debug {
@@ -29,8 +29,6 @@ pub struct EntityBody {
     pub base_speed: f32,
     pub hp: f32,
     pub dp: f32,
-    pub sprite_set: SpriteSet,
-    pub current_sprite: Sprite,
     pub sprite_invalidated: bool,
     pub time_to_next_shot: f32,
     pub time_between_shots: f32,
@@ -69,17 +67,6 @@ impl EntityBody {
     pub fn scale_speed(&mut self, scalar: f32) {
         self.current_speed = self.base_speed * scalar;
     }
-            
-    pub fn set_animation(&mut self, animation_name: &str) -> u32 {
-        if self.current_sprite.animation_name != animation_name {
-            self.current_sprite = self.sprite_set.sprite(animation_name);
-        }
-        ((self.current_sprite.number_of_frames() as f32) / ANIMATIONS_FPS) as u32
-    }
-
-    pub fn current_sprite_frame(&self) -> &str {
-        self.current_sprite.current_frame()
-    }
 
     pub fn collision_frame(&self) -> Rectangle {
         self.collision_insets.apply_to_rect(&self.frame)
@@ -95,7 +82,7 @@ impl EntityBody {
 mod tests {
     use raylib::math::{Rectangle, Vector2};
 
-    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, game_engine::entity_factory::get_next_entity_id, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, game_engine::entity_factory::get_next_entity_id, utils::geometry_utils::Insets};
 
     use super::EntityBody;
 
@@ -111,8 +98,6 @@ mod tests {
                 base_speed: 1.0,
                 hp: 100.0,
                 dp: 0.0,
-                sprite_set: SpriteSet::default(),
-                current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
                 time_to_next_shot: 1000.0,
                 time_between_shots: 1000.0,

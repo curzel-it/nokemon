@@ -1,7 +1,7 @@
 
 use raylib::math::Rectangle;
 
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Direction, Insets, Scalable}};
+use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Direction, Insets, Scalable}};
 
 #[derive(Debug)]
 pub struct TowerDart {
@@ -22,8 +22,6 @@ impl TowerDart {
                 base_speed: 5.0,
                 hp: 100.0,
                 dp: 60.0,
-                sprite_set: SpriteSet::default(),
-                current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
                 time_to_next_shot: 5.0,
                 time_between_shots: 3.0,

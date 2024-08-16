@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate}, impl_embodied_entity, utils::geometry_utils::{Insets, Scalable}};
 
 use super::creep::Creep;
 
@@ -25,8 +25,6 @@ impl CreepSpawnPoint {
                 base_speed: 0.0,
                 hp: 100.0,
                 dp: 0.0,
-                sprite_set: SpriteSet::default(),
-                current_sprite: Sprite::empty(),
                 sprite_invalidated: true,
                 time_to_next_shot: 1000.0,
                 time_between_shots: 1000.0,

@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH}, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH}, utils::timed_content_provider::TimedContentProvider};
 
 #[derive(Debug)]
 pub struct AnimatedSprite {
@@ -13,12 +13,11 @@ pub struct AnimatedSprite {
 
 impl AnimatedSprite {
     pub fn new(sprite: &str, number_of_frames: u32, width: u32, height: u32) -> Self {
-        let frames = Vec::from_iter((0..number_of_frames).map(|v| v as f32));
 
         Self {
             sheet_path: format!("{}/{}.png", ASSETS_PATH, sprite),
             row: 0.0,
-            frames_provider: TimedContentProvider::new(frames, ANIMATIONS_FPS),
+            frames_provider: TimedContentProvider::frames_counter(number_of_frames),
             width: width as f32,
             height: height as f32
         }
@@ -35,5 +34,12 @@ impl AnimatedSprite {
             self.width,
             self.height
         )
+    }
+}
+
+impl TimedContentProvider<f32> {
+    pub fn frames_counter(n: u32) -> Self {
+        let frames = Vec::from_iter((0..n).map(|v| v as f32));
+        Self::new(frames, ANIMATIONS_FPS)
     }
 }

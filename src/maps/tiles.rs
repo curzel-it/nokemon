@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, sprites::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, utils::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
     fn into_obstacle_entity(&self) -> Box<dyn Entity>;

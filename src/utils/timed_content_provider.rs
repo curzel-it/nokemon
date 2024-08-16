@@ -1,3 +1,5 @@
+use crate::constants::ANIMATIONS_FPS;
+
 #[derive(Debug, Clone)]
 pub struct TimedContentProvider<T> {
     frames: Vec<T>,
@@ -62,7 +64,6 @@ impl<T> TimedContentProvider<T> {
         self.leftover = 0.0;
         self.current_frame_index = frame_index;
     }
-
 }
 
 #[cfg(test)]

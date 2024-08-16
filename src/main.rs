@@ -3,7 +3,6 @@ mod entities;
 mod features;
 mod game_engine;
 mod maps;
-mod sprites;
 mod utils;
 
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
