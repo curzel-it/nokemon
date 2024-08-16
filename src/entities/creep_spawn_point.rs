@@ -19,7 +19,7 @@ impl CreepSpawnPoint {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
                 frame: Rectangle::new(0.0, 0.0, 50.0, 30.0).to_scale(),
-                collision_insets: Insets::zero(),
+                collision_insets: Insets::zero().to_scale(),
                 direction: Vector2::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,

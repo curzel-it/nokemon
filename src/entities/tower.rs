@@ -18,7 +18,7 @@ impl Tower {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
                 frame: Rectangle::new(0.0, 0.0, 26.0, 42.0).to_scale(),
-                collision_insets: Insets::new(8.0, 0.0, 0.0, 0.0), // TODO: .to_scale(),
+                collision_insets: Insets::new(8.0, 0.0, 0.0, 0.0).to_scale(),
                 direction: Vector2::new(1.0, 0.0),
                 current_speed: 0.0,
                 base_speed: 0.0,

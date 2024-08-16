@@ -72,3 +72,18 @@ impl Scalable for Rectangle {
         )
     }
 }
+
+impl Scalable for Insets {
+    fn to_scale(&self) -> Self {
+        self.scaled(SCALE)
+    }
+
+    fn scaled(&self, value: f32) -> Self {
+        Insets::new(
+            self.top * value, 
+            self.right * value, 
+            self.bottom * value, 
+            self.left * value
+        )
+    }
+}

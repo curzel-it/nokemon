@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::Insets};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, sprites::{sprite::Sprite, sprite_set::SpriteSet}, utils::geometry_utils::{Insets, Scalable}};
 
 use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate};
 
@@ -17,7 +17,7 @@ impl StaticObstacle {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
                 frame,
-                collision_insets: Insets::zero(), // TODO: .to_scale(),
+                collision_insets: Insets::zero().to_scale(),
                 direction: Vector2::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,

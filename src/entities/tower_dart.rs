@@ -16,7 +16,7 @@ impl TowerDart {
                 id: get_next_entity_id(),
                 parent_id: parent.id(),
                 frame: Rectangle::new(0.0, 0.0, 10.0, 10.0).to_scale(),
-                collision_insets: Insets::new(2.0, 0.0, 2.0, 2.0),
+                collision_insets: Insets::zero().to_scale(),
                 direction: parent.body().direction,
                 current_speed: 5.0,
                 base_speed: 5.0,
