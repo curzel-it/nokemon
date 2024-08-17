@@ -1,7 +1,6 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use image::math::Rect;
 use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
@@ -138,7 +137,7 @@ mod tests {
     impl World {        
         pub fn update(&mut self, time_since_last_update: f32) {
             let nokb = NoKeyboard {};
-            let viewport = self.bounds.clone();
+            let viewport = self.bounds;
             self.update_rl(time_since_last_update, &viewport, &nokb)
         }
     }
