@@ -54,9 +54,9 @@ macro_rules! impl_humanoid_sprite_update {
                 self.sprite.row = match (direction, is_moving) {
                     ($crate::utils::geometry_utils::Direction::Up, true) => 0.0,
                     ($crate::utils::geometry_utils::Direction::Up, false) => 1.0,
-                    (crate::utils::geometry_utils::Direction::Right, true) => 2.0,
-                    (crate::utils::geometry_utils::Direction::Right, false) => 3.0,
-                    (crate::utils::geometry_utils::Direction::Down, true) => 4.0,
+                    ($crate::utils::geometry_utils::Direction::Right, true) => 2.0,
+                    ($crate::utils::geometry_utils::Direction::Right, false) => 3.0,
+                    ($crate::utils::geometry_utils::Direction::Down, true) => 4.0,
                     (crate::utils::geometry_utils::Direction::Down, false) => 5.0,
                     (crate::utils::geometry_utils::Direction::Left, true) => 6.0,
                     (crate::utils::geometry_utils::Direction::Left, false) => 7.0,

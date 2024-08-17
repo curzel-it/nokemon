@@ -3,7 +3,7 @@ use std::collections::HashSet;
 use raylib::math::Rectangle;
 
 use crate::{
-    constants::{TILE_SIZE, TILE_TEXTURE_SIZE},
+    constants::TILE_TEXTURE_SIZE,
     impl_tile,
 };
 
@@ -112,10 +112,7 @@ impl ConstructionTile {
         self.tile_down_type = bottom;
         self.tile_left_type = left;
 
-        match self.tile_type {
-            Construction::WoodenFence => self.setup_tile(),
-            _ => {}
-        }
+        if self.tile_type == Construction::WoodenFence { self.setup_tile() }
     }
 
     fn setup_tile(&mut self) {
@@ -255,15 +252,15 @@ mod tests {
         items
             .iter()
             .enumerate()
-            .map(|(row_index, row)| {
+            .flat_map(|(row_index, row)| {
                 row
                     .iter()
                     .enumerate()
                     .map(move |(col_index, item)| {
                         ConstructionTile {
-                            tile_type: Construction::from_index(item.clone() as u32),
-                            column: col_index.clone() as u32,
-                            row: row_index.clone() as u32,
+                            tile_type: Construction::from_index(*item as u32),
+                            column: col_index as u32,
+                            row: row_index as u32,
                             width: 1,
                             height: 1,
                             tile_up_type: Construction::Nothing,
@@ -275,7 +272,6 @@ mod tests {
                         }
                     })
             })
-            .flatten()
             .collect()
     }
 
