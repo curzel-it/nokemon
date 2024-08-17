@@ -139,10 +139,8 @@ impl World {
             1.0
         } else if width < 1400 {
             2.0
-        } else if width < 3000 {
-            3.0
         } else {
-            4.0
+            (width as f32 / 1000.0).ceil()
         }
     }
 }
