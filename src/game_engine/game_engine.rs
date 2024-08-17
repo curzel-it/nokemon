@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT, LEVEL_ID_HOUSE_INTERIOR}, utils::file_utils::list_files};
 
 use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -94,20 +94,28 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::MoveCamera(x, y) => self.center_camera_at(x, y),
-            EngineStateUpdate::PushWorld(name) => println!("Need to push level `{}`", name),
+            EngineStateUpdate::MoveCamera(x, y) => self.center_camera_at(x.clone(), y.clone()),
+            EngineStateUpdate::PushWorld(id) => self.push_world(id.clone()),
             EngineStateUpdate::PopWorld => println!("Need to pop level"),
         }
     }
 
+    fn push_world(&mut self, id: u32) {
+        match id {
+            LEVEL_ID_HOUSE_INTERIOR => println!("Need to push level `House Interior`"),
+            _ => println!("Unknown level `{}`", id),
+        }
+        
+    }
+
     fn center_camera_in(&mut self, frame: &Rectangle) {
         self.center_camera_at(
-            &(frame.x + frame.width / 2.0),
-            &(frame.y + frame.height / 2.0)
+            frame.x + frame.width / 2.0,
+            frame.y + frame.height / 2.0
         );
     }
 
-    fn center_camera_at(&mut self, x: &f32, y: &f32) {
+    fn center_camera_at(&mut self, x: f32, y: f32) {
         self.camera_viewport = Rectangle::new(
             x - self.camera_viewport.width / 2.0,
             y - self.camera_viewport.height / 2.0,

@@ -65,3 +65,34 @@ impl Scalable for Rectangle {
         )
     }
 }
+
+pub fn center_of_rec(frame: &Rectangle) -> Vector2 {
+    Vector2::new(
+        frame.x + frame.width / 2.0,
+        frame.y + frame.height / 2.0
+    )
+}
+
+pub fn is_collision_trajectory(direction: &Vector2, source: &Rectangle, destination: &Rectangle) -> bool {
+    is_collision_trajectory_points(
+        direction,
+        &center_of_rec(source),
+        &center_of_rec(destination),
+    )
+}
+
+pub fn is_collision_trajectory_points(direction: &Vector2, source: &Vector2, destination: &Vector2) -> bool {
+    if direction.x > 0.0 && destination.x > source.x {
+        return true;
+    }
+    if direction.x < 0.0 && destination.x < source.x {
+        return true;
+    }
+    if direction.y > 0.0 && destination.y > source.y {
+        return true;
+    }
+    if direction.y < 0.0 && destination.y < source.y {
+        return true;
+    }
+    false
+}

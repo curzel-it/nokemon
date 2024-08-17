@@ -11,7 +11,7 @@ pub enum WorldStateUpdate {
 
 pub enum EngineStateUpdate {
     MoveCamera(f32, f32),
-    PushWorld(String),
+    PushWorld(u32),
     PopWorld,
 }
 

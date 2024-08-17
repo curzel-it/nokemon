@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::{entity_is_on_tile, TileSet}}};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
@@ -18,6 +18,7 @@ pub struct World {
     pub keyboard_state: KeyboardState,
     pub cached_hero_frame: Rectangle,
     pub cached_hero_position: Vector2,
+    pub cached_hero_direction: Vector2,
     pub collisions: HashMap<u32, Vec<Collision>>
 }
 
@@ -34,6 +35,7 @@ impl World {
             keyboard_state: KeyboardState::default(),
             cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
             cached_hero_position: Vector2::zero(),
+            cached_hero_direction: Vector2::zero(),
             collisions: HashMap::new()
         }
     }
@@ -107,6 +109,7 @@ impl World {
         if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
             self.cached_hero_frame = entity.body().frame;
             self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
+            self.cached_hero_direction = entity.body().direction;
         }
     }
 
