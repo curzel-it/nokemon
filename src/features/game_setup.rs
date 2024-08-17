@@ -3,7 +3,7 @@ use crate::{constants::HERO_ENTITY_ID, entities::{creep_spawn_point::CreepSpawnP
 impl World {    
     pub fn setup(&mut self) {
         self.load_biome_tiles();
-        self.load_constructions_tiles();
+        self.load_construction_tiles();
         self.add_creep_spawn_point();
         self.add_tower();
         self.add_hero();

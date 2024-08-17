@@ -10,7 +10,7 @@ use super::{entity::Entity, world::World, game_engine::GameEngine};
 pub fn draw_frame(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();
     let mut d = rl.begin_drawing(thread);
-    d.clear_background(Color::BLACK);
+    d.clear_background(Color::new(0, 105, 170, 255));
     draw_biome(&mut d, world, engine);
     draw_constructions(&mut d, world, engine);
     draw_entities(&mut d, world, engine);

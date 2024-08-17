@@ -1,6 +1,7 @@
 import sys
 import os
 import subprocess
+from PIL import Image
 
 aseprite_path = "/Applications/Aseprite.app/Contents/MacOS/aseprite"
 aseprite_assets = "../aseprite"
@@ -14,9 +15,12 @@ def export_aseprite(file_path, destination_folder):
     else: export_character(file_path, destination_folder)
 
 def export_level(file_path, destination_folder):
-    cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {destination_folder}/../levels/world_biome.png"
+    path = f"{destination_folder}/../levels/world_biome.png"
+    cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {path} --format png"
     os.system(cmd)
-    cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {destination_folder}/../levels/world_constructions.png"
+
+    path = f"{destination_folder}/../levels/world_constructions.png"
+    cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {path} --format png"
     os.system(cmd)
 
 def list_layers(path):
@@ -43,7 +47,6 @@ def find_aseprite_files(folder, tag):
                 paths.append(os.path.join(root, file))
     return paths
 
-
 def export_all_aseprite(tag, root_folder, destination_folder):
     print(f"Looking for *.aseprite and *.ase file in {root_folder}...")
     if tag != "":
@@ -55,6 +58,7 @@ def export_all_aseprite(tag, root_folder, destination_folder):
         export_aseprite(file, destination_folder)
     print(f"All done!")
 
+os.system("rm -rf temp")
 os.system("mkdir temp")
 tag = sys.argv[-1] if len(sys.argv) == 2 else ""
 export_all_aseprite(tag, aseprite_assets, pngs_folder)

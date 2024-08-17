@@ -5,9 +5,19 @@ mod game_engine;
 mod maps;
 mod utils;
 
+use std::env;
+
 use game_engine::{game_engine::GameEngine, rendering::draw_frame};
+use maps::worldgen::create_map_binaries;
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    if args.contains(&"worldgen".to_owned()) {
+        println!("Running world gen...");
+        create_map_binaries();
+        return;
+    }
+
     let mut engine = GameEngine::new();
     let (mut world, mut rl, thread) = engine.start_rl();
 

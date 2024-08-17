@@ -1,21 +1,20 @@
 
 
-use std::collections::HashSet;
-
 use raylib::math::Rectangle;
 
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::geometry_utils::Direction};
 
 use super::tiles::SpriteTile;
 
-pub const COLOR_GRASS: u32 = 0x00FF00;
-pub const COLOR_WATER: u32 = 0x0000FF;
-pub const COLOR_ROCK: u32 = 0x7F7F7F;
-pub const COLOR_DESERT: u32 = 0xFFFF00;
-pub const COLOR_SNOW: u32 = 0xFFFFFF;
+pub const COLOR_GRASS: u32 = 0x00FF00ff;
+pub const COLOR_WATER: u32 = 0x0000FFff;
+pub const COLOR_ROCK: u32 = 0x7F7F7Fff;
+pub const COLOR_DESERT: u32 = 0xFFFF00ff;
+pub const COLOR_SNOW: u32 = 0xFFFFFFff;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Biome {
+    Nothing,
     Grass,
     Water,
     Rock,
@@ -38,24 +37,6 @@ pub struct BiomeTile {
     pub texture_offset_y: f32,
 }
 
-impl Default for BiomeTile {
-    fn default() -> Self {
-        BiomeTile {
-            tile_type: Biome::Grass,
-            column: 0,
-            row: 0,
-            width: 1,
-            height: 1,
-            tile_up_type: Biome::Grass,
-            tile_right_type: Biome::Grass,
-            tile_down_type: Biome::Grass,
-            tile_left_type: Biome::Grass,
-            texture_offset_x: 0.0,
-            texture_offset_y: 0.0,
-        }
-    }
-}
-
 impl_tile!(BiomeTile);
 
 impl SpriteTile for BiomeTile {
@@ -70,15 +51,14 @@ impl SpriteTile for BiomeTile {
 }
 
 impl BiomeTile {
-    pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
-        self.tile_up_type = up;
-        self.tile_right_type = right;
-        self.tile_down_type = bottom;
-        self.tile_left_type = left;        
-        self.setup_mixed_biomes();    
+    pub fn is_water(&self) -> bool {
+        match &self.tile_type {
+            Biome::Water => true,
+            _ => false
+        }
     }
 
-    fn setup_mixed_biomes(&mut self) {
+    pub fn setup_textures(&mut self) {
         let x = self.texture_index_for_neighbors();
         let y = self.tile_type.texture_index(); 
         self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
@@ -168,7 +148,6 @@ impl BiomeTile {
         if self.tile_left_type == biome { contacts.push(Direction::Left); }
         contacts
     }
-
 }
 
 impl Biome {
@@ -180,18 +159,9 @@ impl Biome {
         5
     }
 
-    fn animation_name(&self) -> &str {
-        match self {
-            Biome::Water => "water",
-            Biome::Desert => "desert",
-            Biome::Grass => "grass",
-            Biome::Rock => "rock",
-            Biome::Snow => "snow",
-        }
-    }
-
     fn texture_index(&self) -> u32 {
         match self {
+            Biome::Nothing => 0,
             Biome::Water => 0,
             Biome::Desert => 1,
             Biome::Grass => 2,
@@ -200,114 +170,16 @@ impl Biome {
         }
     }
     
-    fn from_color(color: u32) -> Option<Biome> {
+    pub fn from_color(color: u32) -> Biome {
         match color {
-            COLOR_GRASS => Some(Biome::Grass),
-            COLOR_WATER => Some(Biome::Water),
-            COLOR_ROCK => Some(Biome::Rock),
-            COLOR_DESERT => Some(Biome::Desert),
-            COLOR_SNOW => Some(Biome::Snow),
-            _ => None,
+            COLOR_GRASS => Biome::Grass,
+            COLOR_WATER => Biome::Water,
+            COLOR_ROCK => Biome::Rock,
+            COLOR_DESERT => Biome::Desert,
+            COLOR_SNOW => Biome::Snow,
+            _ => Biome::Nothing
         }
     }
-}
-
-impl BiomeTile {
-    pub fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
-        Self::with_color_indeces_size(color, column, row, 1, 1)
-    }
-
-    pub fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
-        let tile_type = Biome::from_color(color).unwrap_or(Biome::Desert);            
-        
-        Self {
-            tile_type,
-            column, 
-            row,
-            width,
-            height,
-            tile_up_type: Biome::Grass,
-            tile_right_type: Biome::Grass,
-            tile_down_type: Biome::Grass,
-            tile_left_type: Biome::Grass,
-            texture_offset_x: 0.0,
-            texture_offset_y: 0.0,
-        }
-    }
-
-    pub fn is_water(&self) -> bool {
-        match &self.tile_type {
-            Biome::Water => true,
-            _ => false
-        }
-    }
-}
-
-pub fn group_biome_tiles(tiles: &Vec<BiomeTile>) -> Vec<BiomeTile> {
-    let mut result = Vec::new();
-    let mut visited = HashSet::new(); 
-
-    let rows = tiles.iter().map(|t| t.row).max().unwrap_or(0) + 1;
-    let cols = tiles.iter().map(|t| t.column).max().unwrap_or(0) + 1;
-
-    for tile in tiles {
-        if visited.contains(&(tile.row, tile.column)) {
-            continue; 
-        }
-
-        let mut max_width = 1;
-        let mut max_height = 1;
-
-        while tile.column + max_width < cols
-            && tiles.iter().any(|t| {
-                t.row == tile.row
-                    && t.column == tile.column + max_width
-                    && t.tile_type == tile.tile_type
-            })
-        {
-            max_width += 1;
-        }
-
-        let mut valid_height = true;
-        while valid_height && tile.row + max_height < rows {
-            for col_offset in 0..max_width {
-                if !tiles.iter().any(|t| {
-                    t.row == tile.row + max_height
-                        && t.column == tile.column + col_offset
-                        && t.tile_type == tile.tile_type
-                }) {
-                    valid_height = false;
-                    break;
-                }
-            }
-            if valid_height {
-                max_height += 1;
-            }
-        }
-
-        for row_offset in 0..max_height {
-            for col_offset in 0..max_width {
-                visited.insert((tile.row + row_offset, tile.column + col_offset));
-            }
-        }
-
-        let group = BiomeTile {
-            tile_type: tile.tile_type,
-            column: tile.column,
-            row: tile.row,
-            width: max_width,
-            height: max_height,
-            tile_up_type: tile.tile_type,
-            tile_right_type: tile.tile_type,
-            tile_down_type: tile.tile_type,
-            tile_left_type: tile.tile_type,
-            texture_offset_x: 0.0,
-            texture_offset_y: 0.0,
-        };
-        result.push(group);
-    }
-
-    result
 }
 
 #[cfg(test)]
@@ -315,6 +187,40 @@ mod tests {
     use crate::utils::geometry_utils::Direction;
 
     use super::{Biome, BiomeTile, COLOR_WATER};
+
+    impl BiomeTile {
+        fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
+            Self::with_color_indeces_size(color, column, row, 1, 1)
+        }
+    
+        fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
+            let tile_type = Biome::from_color(color);
+            
+            Self {
+                tile_type,
+                column, 
+                row,
+                width,
+                height,
+                tile_up_type: Biome::Grass,
+                tile_right_type: Biome::Grass,
+                tile_down_type: Biome::Grass,
+                tile_left_type: Biome::Grass,
+                texture_offset_x: 0.0,
+                texture_offset_y: 0.0,
+            }
+        }
+    }
+
+    impl BiomeTile {
+        fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
+            self.tile_up_type = up;
+            self.tile_right_type = right;
+            self.tile_down_type = bottom;
+            self.tile_left_type = left;        
+            self.setup_textures();    
+        }
+    }
         
     #[test]
     fn can_return_correct_index_from_directions() {

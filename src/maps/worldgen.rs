@@ -2,15 +2,16 @@ use bincode;
 use image::{GenericImageView, Pixel};
 use serde::{Serialize, Deserialize};
 use std::fs::File;
-use std::io::Write;
+use std::io::{Read, Write};
 use std::collections::HashSet;
 
 pub const WORLD_MAP_BIOME: &str = "/Users/curzel/dev/tower-defense/levels/world_biome.png";
 pub const WORLD_MAP_BIOME_BIN: &str = "/Users/curzel/dev/tower-defense/levels/world_biome.bin";
 pub const WORLD_MAP_CONSTRUCTIONS: &str = "/Users/curzel/dev/tower-defense/levels/world_constructions.png";
+pub const WORLD_MAP_CONSTRUCTIONS_BIN: &str = "/Users/curzel/dev/tower-defense/levels/world_constructions.bin";
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy)]
-pub struct Tile {
+pub struct TileItem {
     pub tile_type: u32,
     pub column: u32,
     pub row: u32,
@@ -19,31 +20,70 @@ pub struct Tile {
     pub tile_up_type: u32,
     pub tile_right_type: u32,
     pub tile_down_type: u32,
-    pub tile_left_type: u32,
-    pub texture_offset_x: f32,
-    pub texture_offset_y: f32,
+    pub tile_left_type: u32
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-struct TiledMap {
-    pub tiles_matrix: Vec<Vec<Tile>>,
-    pub grouped_tiles: Vec<Tile>
+pub struct TiledMap {
+    pub tiles_matrix: Vec<Vec<TileItem>>,
+    pub grouped_tiles: Vec<TileItem>
 }
 
-fn parse_biome_map(image_path: &str) -> (u32, u32, Vec<Vec<Tile>>) {
+pub fn create_map_binaries() {
+    let layers = vec![
+        (WORLD_MAP_BIOME, WORLD_MAP_BIOME_BIN),
+        (WORLD_MAP_CONSTRUCTIONS, WORLD_MAP_CONSTRUCTIONS_BIN),
+    ];
+    for (image_path, output_path) in layers {
+        create_map_binary(image_path, output_path)
+    }
+}
+
+fn create_map_binary(image_path: &str, output_path: &str) {
+    let mut tiles_matrix = parse_map_image(image_path);
+    
+    integrate_borders_info(&mut tiles_matrix);
+
+    let flattened_tiles: Vec<TileItem> = tiles_matrix
+        .iter()
+        .flatten()
+        .copied()
+        .collect();
+    
+    let grouped_tiles = group_tiles(&flattened_tiles);
+
+    let map = TiledMap { tiles_matrix, grouped_tiles };
+    create_map_binary_for_map(&map, output_path);
+}
+
+pub fn create_map_binary_for_map(map: &TiledMap, output_path: &str) {
+    let mut file = File::create(output_path).expect("Failed to create output file");
+    let binary_data = bincode::serialize(&map).expect("Failed to serialize tiles to binary");
+    file.write_all(&binary_data).expect("Failed to write binary data to file");
+    println!("Data successfully written to {}", output_path);
+}
+
+pub fn deserialize_tiled_map(file_path: &str) -> TiledMap {
+    let mut file = File::open(file_path).unwrap();
+    let mut buffer = Vec::new();
+    let _ = file.read_to_end(&mut buffer);
+    bincode::deserialize(&buffer).unwrap()
+}
+
+fn parse_map_image(image_path: &str) -> Vec<Vec<TileItem>> {
     let img = image::open(image_path).expect("Failed to open image");
     let (width, height) = img.dimensions();
 
-    let mut tiles: Vec<Vec<Tile>> = Vec::new();
+    let mut tiles: Vec<Vec<TileItem>> = Vec::new();
 
     for y in 0..height {
-        let mut row: Vec<Tile> = Vec::new();
+        let mut row: Vec<TileItem> = Vec::new();
 
         for x in 0..width {
-            let pixel = img.get_pixel(x, y).to_rgb();
-            let tile_type = (pixel[0] as u32) << 16 | (pixel[1] as u32) << 8 | (pixel[2] as u32);
+            let pixel = img.get_pixel(x, y).to_rgba();
+            let tile_type =  (pixel[0] as u32) << 24 | (pixel[1] as u32) << 16 | (pixel[2] as u32) << 8 | (pixel[3] as u32);
 
-            let tile = Tile {
+            let tile = TileItem {
                 tile_type,
                 column: x,
                 row: y,
@@ -52,19 +92,17 @@ fn parse_biome_map(image_path: &str) -> (u32, u32, Vec<Vec<Tile>>) {
                 tile_up_type: 0,
                 tile_right_type: 0,
                 tile_down_type: 0,
-                tile_left_type: 0,
-                texture_offset_x: 0.0,
-                texture_offset_y: 0.0,
+                tile_left_type: 0
             };
             row.push(tile);
         }
         tiles.push(row);
     }
 
-    (width, height, tiles)
+    tiles
 }
 
-pub fn group_tiles(tiles: &Vec<Tile>) -> Vec<Tile> {
+pub fn group_tiles(tiles: &Vec<TileItem>) -> Vec<TileItem> {
     let mut result = Vec::new();
     let mut visited = HashSet::new(); 
 
@@ -112,7 +150,7 @@ pub fn group_tiles(tiles: &Vec<Tile>) -> Vec<Tile> {
             }
         }
 
-        let group = Tile {
+        let group = TileItem {
             tile_type: tile.tile_type,
             column: tile.column,
             row: tile.row,
@@ -121,9 +159,7 @@ pub fn group_tiles(tiles: &Vec<Tile>) -> Vec<Tile> {
             tile_up_type: tile.tile_type,
             tile_right_type: tile.tile_type,
             tile_down_type: tile.tile_type,
-            tile_left_type: tile.tile_type,
-            texture_offset_x: 0.0,
-            texture_offset_y: 0.0,
+            tile_left_type: tile.tile_type
         };
         result.push(group);
     }
@@ -131,7 +167,7 @@ pub fn group_tiles(tiles: &Vec<Tile>) -> Vec<Tile> {
     result
 }
 
-fn integrate_borders_info(tiles: &mut Vec<Vec<Tile>>) {
+fn integrate_borders_info(tiles: &mut Vec<Vec<TileItem>>) {
     let rows = tiles.len();
     let columns = tiles[0].len();
 
@@ -165,29 +201,13 @@ fn integrate_borders_info(tiles: &mut Vec<Vec<Tile>>) {
     }
 }
 
-fn main() {
-    let image_path = WORLD_MAP_BIOME;
-    let output_path = WORLD_MAP_BIOME_BIN;
-
-    let (_width, _height, mut tiles_matrix) = parse_biome_map(image_path);
-    integrate_borders_info(&mut tiles_matrix);
-    let flattened_tiles: Vec<Tile> = tiles_matrix.iter().flatten().copied().collect();
-    let grouped_tiles = group_tiles(&flattened_tiles);
-
-    let map = TiledMap { tiles_matrix, grouped_tiles };
-
-    let mut file = File::create(output_path).expect("Failed to create output file");
-    let binary_data = bincode::serialize(&map).expect("Failed to serialize tiles to binary");
-    file.write_all(&binary_data).expect("Failed to write binary data to file");
-
-    println!("Data successfully written to {}", output_path);
-}
-
 #[cfg(test)]
 mod tests {
-    use super::{group_tiles, Tile};
+    use crate::maps::constructions_tiles::COLOR_WOODEN_FENCE;
 
-    fn tiles_from_indeces(items: Vec<Vec<i32>>) -> Vec<Tile> {
+    use super::{create_map_binary_for_map, deserialize_tiled_map, group_tiles, TileItem, TiledMap};
+
+    fn tiles_from_indeces(items: Vec<Vec<i32>>) -> Vec<TileItem> {
         items
             .iter()
             .enumerate()
@@ -196,7 +216,7 @@ mod tests {
                     .iter()
                     .enumerate()
                     .map(move |(col_index, item)| {
-                        Tile {
+                        TileItem {
                             tile_type: *item as u32,
                             column: col_index as u32,
                             row: row_index as u32,
@@ -205,9 +225,7 @@ mod tests {
                             tile_up_type: 0,
                             tile_right_type: 0,
                             tile_down_type: 0,
-                            tile_left_type: 0,
-                            texture_offset_x: 0.0,
-                            texture_offset_y: 0.0,
+                            tile_left_type: 0
                         }
                     })
             })
@@ -293,6 +311,56 @@ mod tests {
         assert_eq!(grouped_tiles[5].tile_type, 0);
         assert_eq!(grouped_tiles[5].width, 1);
         assert_eq!(grouped_tiles[5].height, 1);
+    }
+
+    #[test]
+    fn can_encode_and_decode() {
+        let tiles_matrix = vec![
+            (40..44).map(|column| {
+                TileItem {
+                    tile_type: COLOR_WOODEN_FENCE,
+                    column: column,
+                    row: 26,
+                    width: 1,
+                    height: 1,
+                    tile_up_type: 0,
+                    tile_right_type: COLOR_WOODEN_FENCE,
+                    tile_down_type: 0,
+                    tile_left_type: 0
+                }
+            })
+            .collect()
+        ];
+
+        let grouped_tiles = vec![
+            TileItem {
+                tile_type: COLOR_WOODEN_FENCE,
+                column: 40,
+                row: 26,
+                width: 4,
+                height: 1,
+                tile_up_type: 0,
+                tile_right_type: 0,
+                tile_down_type: 0,
+                tile_left_type: 0
+            }
+        ];
+
+        let path = "test_can_encode_and_decode.bin";
+        let original_map = TiledMap { tiles_matrix, grouped_tiles };
+        create_map_binary_for_map(&original_map, path);
+        
+        let decoded_map = deserialize_tiled_map(path);
+
+        assert_eq!(decoded_map.tiles_matrix.len(), original_map.tiles_matrix.len());
+        assert_eq!(decoded_map.tiles_matrix[0].len(), original_map.tiles_matrix[0].len());
+        assert_eq!(decoded_map.grouped_tiles.len(), original_map.grouped_tiles.len());
+
+        println!("Colors check {:08X} vs {:08X}", decoded_map.tiles_matrix[0][0].tile_type, original_map.tiles_matrix[0][0].tile_type);
+        println!("Colors check {:08X} vs {:08X}", decoded_map.grouped_tiles[0].tile_type, original_map.grouped_tiles[0].tile_type);
+
+        assert_eq!(decoded_map.tiles_matrix[0][0].tile_type, original_map.tiles_matrix[0][0].tile_type);
+        assert_eq!(decoded_map.grouped_tiles[0].tile_type, original_map.grouped_tiles[0].tile_type);
     }
 }
 
