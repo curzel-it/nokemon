@@ -7,27 +7,12 @@ impl World {
         let map = deserialize_tiled_map(WORLD_MAP_CONSTRUCTIONS_BIN);
         let matrix = to_construction_tile_matrix(&map);
         let groups = to_construction_tile_list(&map);
-
-        for row in map.tiles_matrix {
-            for item in row {
-                Construction::from_color(item.tile_type);
-            }
-        }
-
         make_obstacles(self, &groups);        
         self.constructions_tiles = TileSet::with_tiles("tiles_constructions".to_owned(), matrix);
     }
 }
 
 fn make_obstacles(world: &mut World, groups: &Vec<ConstructionTile>) {
-    let asdf: Vec<&ConstructionTile> = groups
-        .iter()
-        .filter(|tile| tile.is_something())
-        .collect();
-
-
-    println!("Construction groups: {:#?}", asdf);
-
     let obstacles: Vec<Box<dyn Entity>> = groups
         .iter()
         .filter(|tile| tile.is_something())

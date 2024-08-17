@@ -10,16 +10,17 @@ pngs_folder = "../assets"
 def export_aseprite(file_path, destination_folder):
     filename = file_path.split("/")[-1]
     if filename == "palette.aseprite": return
-    elif filename == "world.aseprite": export_level(file_path, destination_folder)
+    elif filename.startswith("level_"): export_level(file_path, destination_folder)
     elif filename.startswith("tiles_"): return
     else: export_character(file_path, destination_folder)
 
 def export_level(file_path, destination_folder):
-    path = f"{destination_folder}/../levels/world_biome.png"
+    level_name = file_path.split("/")[-1].split(".")[0].replace("level_", "")
+    path = f"{destination_folder}/../levels/{level_name}_biome.png"
     cmd = f"{aseprite_path} -b {file_path} --layer biome --save-as {path} --format png"
     os.system(cmd)
 
-    path = f"{destination_folder}/../levels/world_constructions.png"
+    path = f"{destination_folder}/../levels/{level_name}_constructions.png"
     cmd = f"{aseprite_path} -b {file_path} --layer constructions --save-as {path} --format png"
     os.system(cmd)
 

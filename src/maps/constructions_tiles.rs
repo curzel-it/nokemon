@@ -94,10 +94,7 @@ impl Construction {
         match color {
             COLOR_WOODEN_FENCE => Construction::WoodenFence,
             COLOR_HOUSE => Construction::House,
-            _ => {
-                println!("Missing color: {:08X}", color);
-                Construction::Nothing
-            },
+            _ => Construction::Nothing
         }
     }
 }
