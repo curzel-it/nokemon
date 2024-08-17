@@ -1,17 +1,16 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
+use image::math::Rect;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INITIAL_CAMERA_VIEWPORT, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
 
 pub struct World {
     pub total_elapsed_time: f32,
     pub bounds: Rectangle,
-    pub camera_viewport: Rectangle,
-    pub rendering_scale: f32,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
@@ -28,8 +27,6 @@ impl World {
         Self {
             total_elapsed_time: 0.0,
             bounds: RECT_ORIGIN_SQUARE_100,
-            camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            rendering_scale: 2.0,
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
@@ -59,11 +56,12 @@ impl World {
     pub fn update_rl(
         &mut self, 
         time_since_last_update: f32,
+        viewport: &Rectangle,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_events.keyboard_state();
-        self.visible_entities = compute_visible_entities(self);
+        self.visible_entities = compute_visible_entities(self, viewport);
         self.collisions = compute_collisions(self);
 
         let mut state_updates: Vec<WorldStateUpdate> = vec![];
@@ -82,13 +80,6 @@ impl World {
         drop(entities);
         self.store_updated_hero_state();
         self.apply_state_updates(state_updates);
-
-        self.camera_viewport = Rectangle::new(
-            self.cached_hero_position.x - self.camera_viewport.width / 2.0,
-            self.cached_hero_position.y - self.camera_viewport.height / 2.0,
-            self.camera_viewport.width,
-            self.camera_viewport.height
-        );
     } 
 
     fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) {
@@ -120,28 +111,12 @@ impl World {
         }
     }
 
-    pub fn visible_biome_tiles(&self) -> Vec<&BiomeTile> {
-        self.biome_tiles.visible_tiles(&self.camera_viewport)
+    pub fn visible_biome_tiles(&self, viewport: &Rectangle) -> Vec<&BiomeTile> {
+        self.biome_tiles.visible_tiles(viewport)
     }
 
-    pub fn visible_construction_tiles(&self) -> Vec<&ConstructionTile> {
-        self.constructions_tiles.visible_tiles(&self.camera_viewport)
-    }
-
-    pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {
-        self.rendering_scale = self.rendering_scale_for_screen_width(width);
-        self.camera_viewport.width = width as f32 / self.rendering_scale;
-        self.camera_viewport.height = height as f32 / self.rendering_scale;
-    }
-
-    fn rendering_scale_for_screen_width(&self, width: i32) -> f32 {
-        if width < 500 {
-            1.0
-        } else if width < 1400 {
-            2.0
-        } else {
-            (width as f32 / 1000.0).ceil()
-        }
+    pub fn visible_construction_tiles(&self, viewport: &Rectangle) -> Vec<&ConstructionTile> {
+        self.constructions_tiles.visible_tiles(viewport)
     }
 }
 
@@ -163,7 +138,8 @@ mod tests {
     impl World {        
         pub fn update(&mut self, time_since_last_update: f32) {
             let nokb = NoKeyboard {};
-            self.update_rl(time_since_last_update, &nokb)
+            let viewport = self.bounds.clone();
+            self.update_rl(time_since_last_update, &viewport, &nokb)
         }
     }
 }

@@ -21,11 +21,13 @@ fn main() {
     let mut engine = GameEngine::new();
     let (mut world, mut rl, thread) = engine.start_rl();
 
+    engine.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+
     while !rl.window_should_close() {     
         let time_since_last_update = rl.get_frame_time();
 
         if rl.is_window_resized() {
-            world.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+            engine.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
         }
 
         engine.update_rl(&mut world, time_since_last_update, &rl);

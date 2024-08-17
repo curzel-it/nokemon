@@ -95,7 +95,6 @@ mod tests {
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
         let mut world = World::new();
-        world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
         let tower = Tower::new();
         let mut towerdart = tower.create_bullet();
@@ -110,7 +109,7 @@ mod tests {
         hero.place_at(0.0, 0.0);
         world.add_entity(Box::new(hero));
 
-        world.visible_entities = compute_visible_entities(&world);
+        world.visible_entities = compute_visible_entities(&world, &RECT_ORIGIN_SQUARE_100);
 
         let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
@@ -124,7 +123,6 @@ mod tests {
     #[test]
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
         let mut world = World::new();
-        world.camera_viewport = RECT_ORIGIN_SQUARE_100;
 
         let tower = Tower::new();
         let mut towerdart = tower.create_bullet();
@@ -139,7 +137,7 @@ mod tests {
         hero.place_at(2000.0, 0.0);
         world.add_entity(Box::new(hero));
 
-        world.visible_entities = compute_visible_entities(&world);
+        world.visible_entities = compute_visible_entities(&world, &RECT_ORIGIN_SQUARE_100);
 
         let entities = world.entities.borrow();
         let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());

@@ -25,14 +25,12 @@ fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
 fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
     let sprite_path = world.biome_tiles.sheet_path.as_str();
 
-    for tile in world.visible_biome_tiles() {
+    for tile in world.visible_biome_tiles(&engine.camera_viewport) {
         draw_tile(
             d, 
             sprite_path, 
             tile, 
             world.biome_tiles.current_variant(tile.row, tile.column), 
-            world.rendering_scale, 
-            &world.camera_viewport, 
             engine
         );
     }
@@ -41,14 +39,12 @@ fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
 fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
     let sprite_path = world.constructions_tiles.sheet_path.as_str();
 
-    for tile in world.visible_construction_tiles() {
+    for tile in world.visible_construction_tiles(&engine.camera_viewport) {
         draw_tile(
             d, 
             sprite_path, 
             tile, 
             0, 
-            world.rendering_scale,
-            &world.camera_viewport, 
             engine
         );
     }
@@ -83,36 +79,23 @@ fn draw_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     });
 
     for item in entities {
-        draw_item(
-            d, 
-            item.borrow(),
-            world.rendering_scale,
-            &world.camera_viewport, 
-            engine
-        );
+        draw_item(d, item.borrow(), engine);
     }
 }
 
-fn draw_item(
-    d: &mut RaylibDrawHandle, 
-    item: &dyn Entity,
-    rendering_scale: f32,
-    camera_viewport: &Rectangle,
-    engine: &GameEngine
-) {
+fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
     let sprite_path = item.sprite_sheet_path();
     let frame = item.body().frame;
-    let position = Vector2::new(frame.x - camera_viewport.x, frame.y - camera_viewport.y);
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         let source_rect = item.texture_source_rect();
 
         let dest_rect = Rectangle {
-            x: position.x,
-            y: position.y,
+            x: frame.x - engine.camera_viewport.x, 
+            y: frame.y - engine.camera_viewport.y,
             width: frame.width,
             height: frame.height,
-        }.scaled(rendering_scale);
+        }.scaled(engine.rendering_scale);
 
         d.draw_texture_pro(
             texture,
@@ -130,19 +113,17 @@ fn draw_tile<T: SpriteTile>(
     sprite_path: &str,
     tile: &T,
     variant: u32,
-    rendering_scale: f32,
-    camera_viewport: &Rectangle,
     engine: &GameEngine
 ) {
     let source_rect = tile.texture_source_rect(variant);
     
     if let Some(texture) = engine.textures.get(sprite_path) {
         let dest_rect = Rectangle {
-            x: tile.column() as f32 * TILE_SIZE - camera_viewport.x, 
-            y: tile.row() as f32 * TILE_SIZE - camera_viewport.y,
+            x: tile.column() as f32 * TILE_SIZE - engine.camera_viewport.x, 
+            y: tile.row() as f32 * TILE_SIZE - engine.camera_viewport.y,
             width: TILE_SIZE,
             height: TILE_SIZE,
-        }.scaled(rendering_scale);
+        }.scaled(engine.rendering_scale);
 
         d.draw_texture_pro(
             texture,
