@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
 
-use super::{world::World, keyboard_events_provider::KeyboardEventsProvider};
+use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
 use raylib::prelude::*;
 
@@ -57,7 +57,8 @@ impl GameEngine {
     ) {
         let viewport = self.camera_viewport.clone();
         let world = self.current_world_mut();
-        world.update_rl(time_since_last_update, &viewport, keyboard_events);
+        
+        let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_events);
 
         self.camera_viewport = Rectangle::new(
             world.cached_hero_position.x - viewport.width / 2.0,
@@ -65,6 +66,8 @@ impl GameEngine {
             viewport.width,
             viewport.height
         );
+
+        self.apply_state_updates(state_updates);
     } 
 
     fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
@@ -87,6 +90,17 @@ impl GameEngine {
             2.0
         } else {
             (width as f32 / 1000.0).ceil()
+        }
+    }
+
+    fn apply_state_updates(&mut self, updates: Vec<EngineStateUpdate>) {
+        updates.iter().for_each(|u| self.apply_state_update(u));
+    }
+
+    fn apply_state_update(&mut self, update: &EngineStateUpdate) {
+        match update {
+            EngineStateUpdate::PushWorld(name) => println!("Need to push level `{}`", name),
+            EngineStateUpdate::PopWorld => println!("Need to pop level"),
         }
     }
 }

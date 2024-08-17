@@ -5,7 +5,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, visible_entities::compute_visible_entities, world_state_update::WorldStateUpdate};
+use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub total_elapsed_time: f32,
@@ -57,7 +57,7 @@ impl World {
         time_since_last_update: f32,
         viewport: &Rectangle,
         keyboard_events: &dyn KeyboardEventsProvider
-    ) {
+    ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_events.keyboard_state();
         self.visible_entities = compute_visible_entities(self, viewport);
@@ -78,16 +78,14 @@ impl World {
 
         drop(entities);
         self.store_updated_hero_state();
-        self.apply_state_updates(state_updates);
+        self.apply_state_updates(state_updates)
     } 
 
-    fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) {
-        for update in updates {
-            self.apply_state_update(update)
-        }
+    fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) -> Vec<EngineStateUpdate> {
+        updates.into_iter().filter_map(|u| self.apply_state_update(u)).collect()
     }
 
-    fn apply_state_update(&mut self, update: WorldStateUpdate) {
+    fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
         match update {
             WorldStateUpdate::AddEntity(entity) => { 
                 self.add_entity(entity); 
@@ -99,8 +97,10 @@ impl World {
                 if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
                     entity.body_mut().hp += value;
                 }
-            }
+            },
+            WorldStateUpdate::EngineUpdate(update) => return Some(update)
         };
+        None
     }
     
     fn store_updated_hero_state(&mut self) {
@@ -130,12 +130,12 @@ impl Debug for World {
 
 #[cfg(test)]
 mod tests {
-    use crate::game_engine::keyboard_events_provider::NoKeyboard;
+    use crate::game_engine::{keyboard_events_provider::NoKeyboard, state_updates::EngineStateUpdate};
 
     use super::World;
 
     impl World {        
-        pub fn update(&mut self, time_since_last_update: f32) {
+        pub fn update(&mut self, time_since_last_update: f32) -> Vec<EngineStateUpdate> {
             let nokb = NoKeyboard {};
             let viewport = self.bounds;
             self.update_rl(time_since_last_update, &viewport, &nokb)

@@ -2,7 +2,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::geometry_utils::Insets};
 
-use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, world_state_update::WorldStateUpdate};
+use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate};
 
 #[derive(Debug)]
 pub struct StaticObstacle {

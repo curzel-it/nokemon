@@ -10,4 +10,4 @@ pub mod rendering;
 pub mod simple_entity;
 pub mod visible_entities;
 pub mod world;
-pub mod world_state_update;
+pub mod state_updates;

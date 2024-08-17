@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, world::World, world_state_update::WorldStateUpdate};
+use crate::game_engine::{entity::Entity, world::World, state_updates::WorldStateUpdate};
 
 pub fn handle_collisions_for_bullet(bullet: &dyn Entity, world: &World) -> Vec<WorldStateUpdate> {
     let damage = -bullet.body().dp;

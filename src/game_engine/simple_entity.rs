@@ -2,7 +2,7 @@ use raylib::math::Rectangle;
 
 use crate::{features::{autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity};
 
-use super::{entity::Entity, entity_body::EntityBody, world::World, world_state_update::WorldStateUpdate};
+use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
 
 #[derive(Debug)]
 pub struct SimpleEntity {
