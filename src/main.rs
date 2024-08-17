@@ -19,7 +19,7 @@ fn main() {
     }
 
     let mut engine = GameEngine::new();
-    let (mut world, mut rl, thread) = engine.start_rl();
+    let (mut rl, thread) = engine.start_rl();
 
     engine.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
 
@@ -30,7 +30,7 @@ fn main() {
             engine.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
         }
 
-        engine.update_rl(&mut world, time_since_last_update, &rl);
-        draw_frame(&mut rl, &thread, &world, &engine);  
+        engine.update_rl(time_since_last_update, &rl);
+        draw_frame(&mut rl, &thread, &engine.current_world(), &engine);  
     }
 }

@@ -3,9 +3,11 @@ use std::collections::HashMap;
 use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, utils::file_utils::list_files};
 
 use super::{world::World, keyboard_events_provider::KeyboardEventsProvider};
+use common_macros::hash_map;
 use raylib::prelude::*;
 
 pub struct GameEngine {
+    pub worlds: Vec<World>,
     pub textures: HashMap<String, Texture2D>,
     pub camera_viewport: Rectangle,
     pub rendering_scale: f32,
@@ -14,15 +16,17 @@ pub struct GameEngine {
 impl GameEngine {
     pub fn new() -> Self {
         Self {
-            textures: HashMap::new(),
+            worlds: vec![],
+            textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             rendering_scale: 2.0,
         }
     }
 
-    pub fn start_rl(&mut self) -> (World, RaylibHandle, RaylibThread) {                
+    pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {                
         let mut world = World::new();
         world.setup();
+        self.worlds.push(world);
 
         let (mut rl, thread) = raylib::init()
             .size(self.camera_viewport.width as i32, self.camera_viewport.height as i32)
@@ -34,22 +38,32 @@ impl GameEngine {
         let all_assets = list_files(ASSETS_PATH, "png");
         self.load_textures(&all_assets, &mut rl, &thread);
 
-        (world, rl, thread)
+        (rl, thread)
+    }
+
+    pub fn current_world_mut(&mut self) -> &mut World {
+        self.worlds.last_mut().unwrap()
+    }
+
+
+    pub fn current_world(&self) -> &World {
+        self.worlds.last().unwrap()
     }
 
     pub fn update_rl(
         &mut self, 
-        world: &mut World, 
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        world.update_rl(time_since_last_update, &self.camera_viewport, keyboard_events);
+        let viewport = self.camera_viewport.clone();
+        let world = self.current_world_mut();
+        world.update_rl(time_since_last_update, &viewport, keyboard_events);
 
         self.camera_viewport = Rectangle::new(
-            world.cached_hero_position.x - self.camera_viewport.width / 2.0,
-            world.cached_hero_position.y - self.camera_viewport.height / 2.0,
-            self.camera_viewport.width,
-            self.camera_viewport.height
+            world.cached_hero_position.x - viewport.width / 2.0,
+            world.cached_hero_position.y - viewport.height / 2.0,
+            viewport.width,
+            viewport.height
         );
     } 
 
