@@ -15,7 +15,7 @@ impl Creep {
                 id: get_next_entity_id(),
                 parent_id: parent.id(),
                 frame: Rectangle::new(0.0, 0.0, 19.0, 22.0),
-                collision_insets: Insets::new(8.0, 4.0, 0.0, 4.0),
+                collision_insets: Insets::new(8.0, 1.0, 0.0, 1.0),
                 direction: Vector2::zero(),
                 current_speed: 1.5,
                 base_speed: 1.5,

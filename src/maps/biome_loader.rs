@@ -1,9 +1,9 @@
 use image::{GenericImageView, Pixel};
 use raylib::math::Rectangle;
 
-use crate::{constants::{TILE_SIZE, WORLD_MAP_BIOME}, game_engine::{entity::Entity, world::World}};
+use crate::{constants::{TILE_SIZE, WORLD_MAP_BIOME}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
-use super::{biome_tiles::BiomeTile, tiles::{joined_tiles, Tile, TileSet}};
+use super::{biome_tiles::{group_biome_tiles, BiomeTile}, tiles::{Tile, TileSet}};
 
 impl World {
     pub fn load_biome_tiles(&mut self) {
@@ -87,89 +87,20 @@ fn parse_biome_map(image_path: &str) -> (u32, u32, Vec<Vec<BiomeTile>>) {
 }
 
 fn joined_water_tiles(tiles: &Vec<BiomeTile>) -> Vec<BiomeTile> {
-    joined_tiles(tiles).into_iter().filter(|t| t.is_water()).collect()
+    group_biome_tiles(tiles).into_iter().filter(|t| t.is_water()).collect()
 } 
 
-#[cfg(test)]
-mod tests {
-    use crate::maps::biome_tiles::{Biome, COLOR_DESERT, COLOR_GRASS, COLOR_ROCK, COLOR_WATER};
-
-    use super::*;
-
-    #[test]
-    fn test_single_water_tile() {
-        let tiles = vec![
-            BiomeTile::with_color_indeces(COLOR_WATER, 0, 0)
-        ];
-
-        let joined_tiles = joined_tiles(&tiles);
-
-        assert_eq!(joined_tiles.len(), 1);
-        assert_eq!(joined_tiles[0].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[0].width, 1);
-    }
-
-    #[test]
-    fn test_multiple_non_contiguous_water_tiles() {
-        let tiles = vec![
-            BiomeTile::with_color_indeces(COLOR_WATER, 0, 0),
-            BiomeTile::with_color_indeces(COLOR_GRASS, 1, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 2, 0),
-        ];
-
-        let joined_tiles = joined_tiles(&tiles);
-
-        assert_eq!(joined_tiles.len(), 3);
-        assert_eq!(joined_tiles[0].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[0].width, 1);
-        assert_eq!(joined_tiles[1].tile_type, Biome::Grass);
-        assert_eq!(joined_tiles[1].width, 1);
-        assert_eq!(joined_tiles[2].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[2].width, 1);
-    }
-
-    #[test]
-    fn test_contiguous_water_tiles() {
-        let tiles = vec![
-            BiomeTile::with_color_indeces(COLOR_WATER, 0, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 1, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 2, 0),
-        ];
-
-        let joined_tiles = joined_tiles(&tiles);
-
-        assert_eq!(joined_tiles.len(), 1);
-        assert_eq!(joined_tiles[0].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[0].width, 3);
-    }
-
-    #[test]
-    fn test_mixed_tiles() {
-        let tiles = vec![
-            BiomeTile::with_color_indeces(COLOR_WATER, 0, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 1, 0),
-            BiomeTile::with_color_indeces(COLOR_GRASS, 2, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 3, 0),
-            BiomeTile::with_color_indeces(COLOR_WATER, 4, 0),
-        ];
-
-        let joined_tiles = joined_water_tiles(&tiles);
-
-        assert_eq!(joined_tiles.len(), 2);
-        assert_eq!(joined_tiles[0].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[0].width, 2);
-        assert_eq!(joined_tiles[1].tile_type, Biome::Water);
-        assert_eq!(joined_tiles[1].width, 2);
-    }
-
-    #[test]
-    fn test_no_water_tiles() {
-        let tiles = vec![
-            BiomeTile::with_color_indeces(COLOR_GRASS, 0, 0),
-            BiomeTile::with_color_indeces(COLOR_ROCK, 1, 0),
-            BiomeTile::with_color_indeces(COLOR_DESERT, 2, 0),
-        ];
-        assert_eq!(joined_tiles(&tiles).len(), 3);
-        assert_eq!(joined_water_tiles(&tiles).len(), 0);
+impl BiomeTile {
+    fn into_obstacle_entity(&self) -> Box<dyn Entity> {
+        let entity = StaticObstacle::new(
+            "invisible",
+            raylib::math::Rectangle::new(
+                self.column as f32 * TILE_SIZE, 
+                self.row as f32 * TILE_SIZE, 
+                self.width as f32 * TILE_SIZE, 
+                self.height as f32 * TILE_SIZE
+            )
+        );
+        Box::new(entity)
     }
 }

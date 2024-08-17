@@ -1,5 +1,7 @@
 
 
+use std::collections::HashSet;
+
 use raylib::math::Rectangle;
 
 use crate::{constants::{TILE_SIZE, TILE_TEXTURE_SIZE}, impl_tile, utils::geometry_utils::Direction};
@@ -239,6 +241,73 @@ impl BiomeTile {
             _ => false
         }
     }
+}
+
+pub fn group_biome_tiles(tiles: &Vec<BiomeTile>) -> Vec<BiomeTile> {
+    let mut result = Vec::new();
+    let mut visited = HashSet::new(); 
+
+    let rows = tiles.iter().map(|t| t.row).max().unwrap_or(0) + 1;
+    let cols = tiles.iter().map(|t| t.column).max().unwrap_or(0) + 1;
+
+    for tile in tiles {
+        if visited.contains(&(tile.row, tile.column)) {
+            continue; 
+        }
+
+        let mut max_width = 1;
+        let mut max_height = 1;
+
+        while tile.column + max_width < cols
+            && tiles.iter().any(|t| {
+                t.row == tile.row
+                    && t.column == tile.column + max_width
+                    && t.tile_type == tile.tile_type
+            })
+        {
+            max_width += 1;
+        }
+
+        let mut valid_height = true;
+        while valid_height && tile.row + max_height < rows {
+            for col_offset in 0..max_width {
+                if !tiles.iter().any(|t| {
+                    t.row == tile.row + max_height
+                        && t.column == tile.column + col_offset
+                        && t.tile_type == tile.tile_type
+                }) {
+                    valid_height = false;
+                    break;
+                }
+            }
+            if valid_height {
+                max_height += 1;
+            }
+        }
+
+        for row_offset in 0..max_height {
+            for col_offset in 0..max_width {
+                visited.insert((tile.row + row_offset, tile.column + col_offset));
+            }
+        }
+
+        let group = BiomeTile {
+            tile_type: tile.tile_type,
+            column: tile.column,
+            row: tile.row,
+            width: max_width,
+            height: max_height,
+            tile_up_type: tile.tile_type,
+            tile_right_type: tile.tile_type,
+            tile_down_type: tile.tile_type,
+            tile_left_type: tile.tile_type,
+            texture_offset_x: 0.0,
+            texture_offset_y: 0.0,
+        };
+        result.push(group);
+    }
+
+    result
 }
 
 #[cfg(test)]

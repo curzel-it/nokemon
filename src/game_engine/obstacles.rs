@@ -31,7 +31,7 @@ impl StaticObstacle {
                 is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new(sprite, 8, 26, 42)
+            sprite: AnimatedSprite::new(sprite, 1, frame.width as u32, frame.height as u32)
         }
     }
 }

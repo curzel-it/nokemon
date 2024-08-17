@@ -19,7 +19,7 @@ impl Hero {
                 id: HERO_ENTITY_ID,
                 parent_id: NO_PARENT,
                 frame: Rectangle::new(0.0, 0.0, 19.0, 22.0),
-                collision_insets: Insets::new(8.0, 4.0, 0.0, 4.0),
+                collision_insets: Insets::new(8.0, 1.0, 0.0, 1.0),
                 direction: Vector2::zero(),
                 current_speed: 3.0,
                 base_speed: 3.0,
