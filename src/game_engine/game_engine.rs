@@ -26,6 +26,7 @@ impl GameEngine {
     pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {                
         let mut world = World::new();
         world.setup();
+        let world_bounds = world.bounds;
         self.worlds.push(world);
 
         let (mut rl, thread) = raylib::init()
@@ -37,6 +38,9 @@ impl GameEngine {
         // rl.set_target_fps(FPS);
         let all_assets = list_files(ASSETS_PATH, "png");
         self.load_textures(&all_assets, &mut rl, &thread);
+
+        self.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+        self.center_camera_in(&world_bounds);
 
         (rl, thread)
     }
@@ -56,17 +60,8 @@ impl GameEngine {
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
         let viewport = self.camera_viewport.clone();
-        let world = self.current_world_mut();
-        
+        let world = self.current_world_mut();        
         let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_events);
-
-        self.camera_viewport = Rectangle::new(
-            world.cached_hero_position.x - viewport.width / 2.0,
-            world.cached_hero_position.y - viewport.height / 2.0,
-            viewport.width,
-            viewport.height
-        );
-
         self.apply_state_updates(state_updates);
     } 
 
@@ -99,9 +94,26 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
+            EngineStateUpdate::MoveCamera(x, y) => self.center_camera_at(x, y),
             EngineStateUpdate::PushWorld(name) => println!("Need to push level `{}`", name),
             EngineStateUpdate::PopWorld => println!("Need to pop level"),
         }
+    }
+
+    fn center_camera_in(&mut self, frame: &Rectangle) {
+        self.center_camera_at(
+            &(frame.x + frame.width / 2.0),
+            &(frame.y + frame.height / 2.0)
+        );
+    }
+
+    fn center_camera_at(&mut self, x: &f32, y: &f32) {
+        self.camera_viewport = Rectangle::new(
+            x - self.camera_viewport.width / 2.0,
+            y - self.camera_viewport.height / 2.0,
+            self.camera_viewport.width,
+            self.camera_viewport.height
+        );
     }
 }
 

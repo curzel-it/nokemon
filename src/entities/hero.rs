@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, world::World, state_updates::WorldStateUpdate}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -52,6 +52,7 @@ impl Entity for Hero {
         self.update_sprite(time_since_last_update);
         world_updates.append(&mut shoot_stuff(self, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
+        world_updates.push(self.move_camera_update());
         world_updates
     }
 
@@ -61,5 +62,15 @@ impl Entity for Hero {
 
     fn sprite_sheet_path(&self) -> &str {
         &self.sprite.sheet_path
+    }
+}
+
+impl Hero {
+    fn move_camera_update(&self) -> WorldStateUpdate {
+        WorldStateUpdate::EngineUpdate(
+            EngineStateUpdate::MoveCamera(
+                self.body.frame.x, self.body.frame.y
+            )
+        )
     }
 }
