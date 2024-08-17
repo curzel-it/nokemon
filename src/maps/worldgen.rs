@@ -319,7 +319,7 @@ mod tests {
             (40..44).map(|column| {
                 TileItem {
                     tile_type: COLOR_WOODEN_FENCE,
-                    column: column,
+                    column,
                     row: 26,
                     width: 1,
                     height: 1,

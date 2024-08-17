@@ -59,8 +59,8 @@ fn to_biome_tile_matrix(tiled_map: &TiledMap) -> Vec<Vec<BiomeTile>> {
     tiled_map.tiles_matrix
         .iter()
         .map(|row| {
-            row.into_iter()
-                .map(|t| BiomeTile::from_tile_item(t))
+            row.iter()
+                .map(BiomeTile::from_tile_item)
                 .collect::<Vec<BiomeTile>>()
         })
         .collect()
@@ -69,7 +69,7 @@ fn to_biome_tile_matrix(tiled_map: &TiledMap) -> Vec<Vec<BiomeTile>> {
 fn to_biome_tile_list(tiled_map: &TiledMap) -> Vec<BiomeTile> {
     tiled_map.grouped_tiles
         .iter()
-        .map(|t| BiomeTile::from_tile_item(t))
+        .map(BiomeTile::from_tile_item)
         .collect()
 }
 

@@ -1,6 +1,6 @@
 use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
-use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap, WORLD_MAP_BIOME_BIN, WORLD_MAP_CONSTRUCTIONS_BIN}};
+use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap, WORLD_MAP_CONSTRUCTIONS_BIN}};
 
 impl World {    
     pub fn load_construction_tiles(&mut self) {
@@ -69,8 +69,8 @@ fn to_construction_tile_matrix(tiled_map: &TiledMap) -> Vec<Vec<ConstructionTile
     tiled_map.tiles_matrix
         .iter()
         .map(|row| {
-            row.into_iter()
-                .map(|t| ConstructionTile::from_tile_item(t))
+            row.iter()
+                .map(ConstructionTile::from_tile_item)
                 .collect::<Vec<ConstructionTile>>()
         })
         .collect()
@@ -79,7 +79,7 @@ fn to_construction_tile_matrix(tiled_map: &TiledMap) -> Vec<Vec<ConstructionTile
 fn to_construction_tile_list(tiled_map: &TiledMap) -> Vec<ConstructionTile> {
     tiled_map.grouped_tiles
         .iter()
-        .map(|t| ConstructionTile::from_tile_item(t))
+        .map(ConstructionTile::from_tile_item)
         .collect()
 }
 
