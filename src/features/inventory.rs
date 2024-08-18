@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::{keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{self, Building, BuildingType}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -92,7 +92,7 @@ impl Inventory {
         match item {
            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
            Stockable::ConstructionTile(construction) => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
-           Stockable::Building(_) => vec![],
+           Stockable::Building(building_type) => self.place_building(camera_vieport, building_type),
         }
     }
 
@@ -115,6 +115,15 @@ impl Inventory {
             return inventory_item.stock;
         }
         0
+    }
+
+    fn place_building(&self, camera_vieport: &Rectangle, building_type: BuildingType) -> Vec<WorldStateUpdate> {
+        let frame = self.item_being_placed.unwrap().frame;
+        let mut building = Building::new(building_type, LEVEL_ID_HOUSE_INTERIOR);
+        building.body_mut().frame.x = camera_vieport.x + frame.x;
+        building.body_mut().frame.y = camera_vieport.y + frame.y;
+        let update = WorldStateUpdate::AddEntity(Box::new(building));
+        vec![update]
     }
 }
 
