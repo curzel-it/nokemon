@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::keyboard_events_provider::KeyboardState, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::{keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -36,12 +36,12 @@ impl Inventory {
         }
     }
 
-    pub fn update(&mut self, keyboard_state: &KeyboardState) {
+    pub fn update(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_inventory_been_pressed {
             self.is_open = !self.is_open;
         }
         if !self.is_open {
-            return;
+            return vec![];
         }
         if self.is_placing_item {
             if keyboard_state.has_up_been_pressed {
@@ -57,7 +57,7 @@ impl Inventory {
                 self.item_being_placed.as_mut().unwrap().frame.x -= TILE_SIZE;
             }
             if keyboard_state.has_confirmation_been_pressed {
-                self.place(self.item_being_placed.unwrap().item);
+                return self.place(self.item_being_placed.unwrap().item);
             }
         } else {
             if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
@@ -76,10 +76,11 @@ impl Inventory {
                 self.is_placing_item = true;
             }
         }
+        vec![]
     }
 
-    pub fn place(&self, item: Stockable) {
-        
+    pub fn place(&self, item: Stockable) -> Vec<WorldStateUpdate> {
+        vec![]
     }
 
     pub fn set_creative_mode(&mut self, is_enabled: bool) {        

@@ -86,7 +86,7 @@ impl World {
         self.apply_state_updates(state_updates)
     } 
 
-    fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) -> Vec<EngineStateUpdate> {
+    pub fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) -> Vec<EngineStateUpdate> {
         updates.into_iter().filter_map(|u| self.apply_state_update(u)).collect()
     }
 

@@ -69,9 +69,13 @@ impl GameEngine {
         };
 
         let viewport = self.camera_viewport;
-        let world = self.current_world_mut();       
+        let world = self.current_world_mut();
         let state_updates = world.update_rl(time_since_last_update, &viewport, world_keyboard_state);
-        self.inventory.update(&keyboard_state);
+                
+        let world_updates = self.inventory.update(&keyboard_state);
+        let world = self.current_world_mut();
+        world.apply_state_updates(world_updates);
+
         self.apply_state_updates(state_updates);
     } 
 
