@@ -5,12 +5,10 @@ use crate::{constants::TILE_TEXTURE_SIZE, impl_tile};
 use super::tiles::SpriteTile;
 
 pub const COLOR_WOODEN_FENCE: u32 = 0x391F21ff;
-pub const COLOR_HOUSE: u32 = 0xFF00FFff;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum Construction {
     WoodenFence,
-    House,
     Nothing,
 }
 
@@ -78,7 +76,6 @@ impl Construction {
         match self {
             Construction::Nothing => "invisible",
             Construction::WoodenFence => "invisible",
-            Construction::House => "house",
         }
     }
 
@@ -86,14 +83,12 @@ impl Construction {
         match self {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
-            Construction::House => 0,
         }
     }
 
     pub fn from_color(color: u32) -> Construction {
         match color {
             COLOR_WOODEN_FENCE => Construction::WoodenFence,
-            COLOR_HOUSE => Construction::House,
             _ => Construction::Nothing
         }
     }

@@ -73,8 +73,9 @@ impl Stockable {
             Stockable::BiomeTile(Biome::Grass),
             Stockable::BiomeTile(Biome::Rock),
             Stockable::BiomeTile(Biome::Snow),
+            Stockable::BiomeTile(Biome::LightWood),
+            Stockable::BiomeTile(Biome::DarkWood),
             Stockable::ConstructionTile(Construction::WoodenFence),
-            Stockable::ConstructionTile(Construction::House),
         ]
     }
 
@@ -98,11 +99,12 @@ impl Stockable {
                 Biome::Grass => (0, 3),
                 Biome::Rock => (0, 4),
                 Biome::Snow => (0, 5),
+                Biome::LightWood => (0, 6),
+                Biome::DarkWood => (0, 7),
             },
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (1, 0),
                 Construction::WoodenFence => (1, 1),
-                Construction::House => (1, 2),
             }
         }
     }
