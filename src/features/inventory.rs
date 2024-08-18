@@ -5,8 +5,10 @@ use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::build
 #[derive(Debug)]
 pub struct Inventory {
     pub is_open: bool,
+    pub is_placing_item: bool,
     pub stock: Vec<InventoryItem>,
     pub selected_index: usize,
+    pub item_being_placed: Option<InventoryItemBeingPlaced>,
     sprite_sheet_path: String
 }
 
@@ -16,28 +18,68 @@ pub struct InventoryItem {
     pub stock: i32
 }
 
+#[derive(Debug, Clone, Copy)]
+pub struct InventoryItemBeingPlaced {
+    pub item: Stockable,
+    pub frame: Rectangle
+}
+
 impl Inventory {
     pub fn new() -> Self {
         Self {
             is_open: false,
+            is_placing_item: false,
             stock: vec![],
             selected_index: 0,
+            item_being_placed: None,
             sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH)
         }
     }
 
     pub fn update(&mut self, keyboard_state: &KeyboardState) {
-        if keyboard_state.should_toggle_inventory() {
+        if keyboard_state.has_inventory_been_pressed {
             self.is_open = !self.is_open;
         }
-        if self.is_open {
+        if !self.is_open {
+            return;
+        }
+        if self.is_placing_item {
+            if keyboard_state.has_up_been_pressed {
+                self.item_being_placed.as_mut().unwrap().frame.y -= TILE_SIZE;
+            }
+            if keyboard_state.has_right_been_pressed {
+                self.item_being_placed.as_mut().unwrap().frame.x += TILE_SIZE;
+            }
+            if keyboard_state.has_down_been_pressed {
+                self.item_being_placed.as_mut().unwrap().frame.y += TILE_SIZE;
+            }
+            if keyboard_state.has_left_been_pressed {
+                self.item_being_placed.as_mut().unwrap().frame.x -= TILE_SIZE;
+            }
+            if keyboard_state.has_confirmation_been_pressed {
+                self.place(self.item_being_placed.unwrap().item);
+            }
+        } else {
             if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
                 self.selected_index += 1;
             }
             if keyboard_state.has_left_been_pressed && self.selected_index > 0 {
                 self.selected_index -= 1;
             }
+            if keyboard_state.has_confirmation_been_pressed {
+                self.item_being_placed = Some(
+                    InventoryItemBeingPlaced {
+                        item: self.stock[self.selected_index].item,
+                        frame: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE)
+                    }
+                );
+                self.is_placing_item = true;
+            }
         }
+    }
+
+    pub fn place(&self, item: Stockable) {
+        
     }
 
     pub fn set_creative_mode(&mut self, is_enabled: bool) {        
