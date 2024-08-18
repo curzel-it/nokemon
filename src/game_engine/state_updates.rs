@@ -1,3 +1,5 @@
+use crate::maps::biome_tiles::Biome;
+
 use super::entity::{Entity, EntityProps};
 
 pub enum WorldStateUpdate {
@@ -5,6 +7,7 @@ pub enum WorldStateUpdate {
     RemoveEntity(u32),
     IncreaseHp(u32, f32),
     CacheHeroProps(EntityProps),
+    BiomeTileChange(usize, usize, Biome),
     EngineUpdate(EngineStateUpdate),
 }
 

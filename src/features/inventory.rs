@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::{keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::{keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -36,7 +36,7 @@ impl Inventory {
         }
     }
 
-    pub fn update(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+    pub fn update(&mut self, camera_vieport: &Rectangle, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_inventory_been_pressed {
             self.is_open = !self.is_open;
         }
@@ -57,7 +57,7 @@ impl Inventory {
                 self.item_being_placed.as_mut().unwrap().frame.x -= TILE_SIZE;
             }
             if keyboard_state.has_confirmation_been_pressed {
-                return self.place(self.item_being_placed.unwrap().item);
+                return self.place(camera_vieport, self.item_being_placed.unwrap().item);
             }
         } else {
             if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
@@ -79,8 +79,16 @@ impl Inventory {
         vec![]
     }
 
-    pub fn place(&self, item: Stockable) -> Vec<WorldStateUpdate> {
-        vec![]
+    fn place(&self, camera_vieport: &Rectangle, item: Stockable) -> Vec<WorldStateUpdate> {
+        let frame = self.item_being_placed.unwrap().frame;
+        let row = ((camera_vieport.y + frame.y) / TILE_SIZE) as usize;
+        let col = ((camera_vieport.x + frame.x) / TILE_SIZE) as usize;
+
+        match item {
+           Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
+           Stockable::ConstructionTile(_) => vec![],
+           Stockable::Building(_) => vec![],
+        }
     }
 
     pub fn set_creative_mode(&mut self, is_enabled: bool) {        

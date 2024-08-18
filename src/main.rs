@@ -23,7 +23,7 @@ fn main() {
     }
     if args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
-        creative_mode = true
+        creative_mode = true;
     }
 
     let mut engine = GameEngine::with_options(creative_mode);

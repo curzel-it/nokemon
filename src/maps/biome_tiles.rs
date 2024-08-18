@@ -4,7 +4,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::geometry_utils::Direction};
 
-use super::tiles::SpriteTile;
+use super::tiles::{SpriteTile, TileSet};
 
 pub const COLOR_GRASS: u32 = 0x00FF00ff;
 pub const COLOR_WATER: u32 = 0x0000FFff;
@@ -73,6 +73,7 @@ impl BiomeTile {
         if let Some((neighbor, directions)) = self.best_neighbor() {            
             return match (self.tile_type, neighbor) {
                 (Biome::Water, Biome::Desert) => 0,
+                (Biome::Water, Biome::Grass) => 0,
                 (Biome::Grass, Biome::Desert) => 0,
                 (Biome::Grass, Biome::Rock) => 0,
                 (Biome::Snow, Biome::Rock) => 0,
@@ -186,6 +187,30 @@ impl Biome {
             COLOR_LIGHT_WOOD => Biome::LightWood,
             COLOR_DARK_WOOD => Biome::DarkWood,
             _ => Biome::Nothing
+        }
+    }
+}
+
+impl TileSet<BiomeTile> {
+    pub fn update_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
+        self.tiles[row][col].tile_type = new_biome;
+        self.tiles[row][col].setup_textures();
+
+        if row > 0 {
+            self.tiles[row-1][col].tile_down_type = new_biome;
+            self.tiles[row-1][col].setup_textures();
+        }
+        if row < self.tiles.len() - 1 {
+            self.tiles[row+1][col].tile_up_type = new_biome;
+            self.tiles[row+1][col].setup_textures();
+        }
+        if col > 0 {
+            self.tiles[row][col-1].tile_right_type = new_biome;
+            self.tiles[row][col-1].setup_textures();
+        }
+        if col < self.tiles[0].len() - 1 {
+            self.tiles[row][col+1].tile_left_type = new_biome;
+            self.tiles[row][col+1].setup_textures();
         }
     }
 }
