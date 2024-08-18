@@ -77,14 +77,10 @@ impl Teleporter {
         let collision = world.collisions
             .get(&self.body.id)
             .unwrap_or(&no_collisions)
-            .into_iter()
+            .iter()
             .find(|c| c.other_id == HERO_ENTITY_ID);
 
-        return if let Some(collision) = collision {
-            Some(collision.clone())
-        } else {
-            None
-        }            
+        collision.copied()            
     }
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {

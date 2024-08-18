@@ -30,6 +30,6 @@ fn main() {
         }
 
         engine.update_rl(time_since_last_update, &rl);
-        draw_frame(&mut rl, &thread, &engine.current_world(), &engine);  
+        draw_frame(&mut rl, &thread, engine.current_world(), &engine);  
     }
 }

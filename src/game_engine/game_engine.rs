@@ -53,7 +53,7 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        let viewport = self.camera_viewport.clone();
+        let viewport = self.camera_viewport;
         let world = self.current_world_mut();        
         let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_events);
         self.apply_state_updates(state_updates);
@@ -101,10 +101,10 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::CenterCamera(x, y) => self.center_camera_at(x.clone(), y.clone()),            
-            EngineStateUpdate::PushWorld(id) => self.push_world(id.clone()),
+            EngineStateUpdate::CenterCamera(x, y) => self.center_camera_at(*x, *y),            
+            EngineStateUpdate::PushWorld(id) => self.push_world(*id),
             EngineStateUpdate::PopWorld => self.pop_world(),
-            EngineStateUpdate::ToggleWorld(id) => self.toggle_world(id.clone()),
+            EngineStateUpdate::ToggleWorld(id) => self.toggle_world(*id),
         }
     }
 

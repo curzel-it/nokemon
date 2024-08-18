@@ -18,7 +18,7 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::{entities::{hero::Hero, tower::Tower}, game_engine::{entity_body::EmbodiedEntity, game_engine::GameEngine, state_updates::WorldStateUpdate}};
+    use crate::{entities::{hero::Hero, tower::Tower}, game_engine::{entity_body::EmbodiedEntity, game_engine::GameEngine}};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
@@ -32,7 +32,7 @@ mod tests {
         let actual_tower = entities.get_mut(&tower_id).unwrap();
         let updates = actual_tower.update(&world, 60.0);
         
-        assert!(updates.len() > 0);
+        assert!(!updates.is_empty());
     }
 
     #[test]
@@ -44,6 +44,6 @@ mod tests {
 
         let updates = world.update(60.0);
 
-        assert!(updates.len() > 0);
+        assert!(!updates.is_empty());
     }
 }
