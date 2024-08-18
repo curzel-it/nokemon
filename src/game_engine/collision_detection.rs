@@ -84,7 +84,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::{levels::LEVEL_DEMO_WORLD, shooter::Shooter}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
 
     use super::{collision_area, compute_collisions};
 
@@ -94,7 +94,7 @@ mod tests {
 
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
-        let mut world = World::new();
+        let mut world = World::new(LEVEL_DEMO_WORLD);
 
         let tower = Tower::new();
         let mut towerdart = tower.create_bullet();
@@ -122,7 +122,7 @@ mod tests {
 
     #[test]
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
-        let mut world = World::new();
+        let mut world = World::new(LEVEL_DEMO_WORLD);
 
         let tower = Tower::new();
         let mut towerdart = tower.create_bullet();

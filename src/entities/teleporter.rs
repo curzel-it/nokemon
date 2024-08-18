@@ -1,12 +1,15 @@
+use core::time;
+
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, LEVEL_ID_HOUSE_INTERIOR, NO_PARENT, TILE_SIZE}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{collision_detection::Collision, entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::{is_collision_trajectory, Insets}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, levels::LEVEL_ID_HOUSE_INTERIOR, linear_movement::move_linearly}, game_engine::{collision_detection::Collision, entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::{is_collision_trajectory, Insets}};
 
 #[derive(Debug)]
 pub struct Teleporter {
     body: EntityBody,
     destination: u32,
     sprite: AnimatedSprite,
+    cooldown: f32
 }
 
 impl Teleporter {
@@ -31,7 +34,8 @@ impl Teleporter {
                 lifespan: INFINITE_LIFESPAN,
             },
             destination: LEVEL_ID_HOUSE_INTERIOR,
-            sprite: AnimatedSprite::new("white", 3, TILE_SIZE as u32, TILE_SIZE as u32)
+            sprite: AnimatedSprite::new("white", 3, TILE_SIZE as u32, TILE_SIZE as u32),
+            cooldown: 0.0,
         }
     }
 }
@@ -41,15 +45,17 @@ impl_single_animation_sprite_update!(Teleporter);
 
 impl Entity for Teleporter {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+        self.cooldown -= time_since_last_update;
         self.update_sprite(time_since_last_update);
-        
-        if self.hero_collision(world).is_some() {
+
+        if self.cooldown <= 0.0 && self.hero_collision(world).is_some() {
             let is_colliding = is_collision_trajectory(
                 &world.cached_hero_direction, 
                 &world.cached_hero_frame, 
                 &self.body.frame
             );
             if is_colliding {
+                self.cooldown = 2.0;
                 return vec![self.engine_update_push_world()];
             }
         }
@@ -84,7 +90,7 @@ impl Teleporter {
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::PushWorld(self.destination)
+            EngineStateUpdate::ToggleWorld(self.destination)
         )
     }
 }

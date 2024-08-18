@@ -1,10 +1,11 @@
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, features::levels::level_constructions_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
-use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap, WORLD_MAP_CONSTRUCTIONS_BIN}};
+use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
 impl World {    
     pub fn load_construction_tiles(&mut self) {
-        let map = deserialize_tiled_map(WORLD_MAP_CONSTRUCTIONS_BIN);
+        let file_path = level_constructions_binary_path(self.level_id);
+        let map = deserialize_tiled_map(file_path);
         let matrix = to_construction_tile_matrix(&map);
         let groups = to_construction_tile_list(&map);
         make_obstacles(self, &groups);        

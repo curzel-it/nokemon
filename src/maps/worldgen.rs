@@ -5,10 +5,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::collections::HashSet;
 
-pub const WORLD_MAP_BIOME: &str = "/Users/curzel/dev/tower-defense/levels/world_biome.png";
-pub const WORLD_MAP_BIOME_BIN: &str = "/Users/curzel/dev/tower-defense/levels/world_biome.bin";
-pub const WORLD_MAP_CONSTRUCTIONS: &str = "/Users/curzel/dev/tower-defense/levels/world_constructions.png";
-pub const WORLD_MAP_CONSTRUCTIONS_BIN: &str = "/Users/curzel/dev/tower-defense/levels/world_constructions.bin";
+use crate::features::levels::level_tiles_paths;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy)]
 pub struct TileItem {
@@ -30,13 +27,12 @@ pub struct TiledMap {
 }
 
 pub fn create_map_binaries() {
-    let layers = vec![
-        (WORLD_MAP_BIOME, WORLD_MAP_BIOME_BIN),
-        (WORLD_MAP_CONSTRUCTIONS, WORLD_MAP_CONSTRUCTIONS_BIN),
-    ];
-    for (image_path, output_path) in layers {
-        create_map_binary(image_path, output_path)
-    }
+    level_tiles_paths()
+        .iter()
+        .for_each(|level| {
+            create_map_binary(&level.biome_map_image, &level.biome_map_binary);
+            create_map_binary(&level.constructions_map_image, &level.constructions_map_binary);
+        })
 }
 
 fn create_map_binary(image_path: &str, output_path: &str) {
@@ -63,7 +59,7 @@ pub fn create_map_binary_for_map(map: &TiledMap, output_path: &str) {
     println!("Data successfully written to {}", output_path);
 }
 
-pub fn deserialize_tiled_map(file_path: &str) -> TiledMap {
+pub fn deserialize_tiled_map(file_path: String) -> TiledMap {
     let mut file = File::open(file_path).unwrap();
     let mut buffer = Vec::new();
     let _ = file.read_to_end(&mut buffer);
@@ -350,7 +346,7 @@ mod tests {
         let original_map = TiledMap { tiles_matrix, grouped_tiles };
         create_map_binary_for_map(&original_map, path);
         
-        let decoded_map = deserialize_tiled_map(path);
+        let decoded_map = deserialize_tiled_map(path.to_owned());
 
         assert_eq!(decoded_map.tiles_matrix.len(), original_map.tiles_matrix.len());
         assert_eq!(decoded_map.tiles_matrix[0].len(), original_map.tiles_matrix[0].len());

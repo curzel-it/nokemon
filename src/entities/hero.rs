@@ -45,13 +45,14 @@ impl_humanoid_sprite_update!(Hero);
 impl_shooter!(Hero, SurroundingAreaAttack);
 
 impl Entity for Hero {
-    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         set_direction_according_to_keyboard_state(self, &world.keyboard_state);
         move_linearly(self, world, time_since_last_update);
         self.update_sprite(time_since_last_update);
         world_updates.append(&mut shoot_stuff(self, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
+        world_updates.push(self.cache_frame_update());
         world_updates.push(self.move_camera_update());
         world_updates
     }
@@ -66,9 +67,15 @@ impl Entity for Hero {
 }
 
 impl Hero {
+    fn cache_frame_update(&self) -> WorldStateUpdate {
+        WorldStateUpdate::CacheHeroProps(
+            self.body.frame, self.body.direction
+        )
+    }
+
     fn move_camera_update(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::MoveCamera(
+            EngineStateUpdate::CenterCamera(
                 self.body.frame.x, self.body.frame.y
             )
         )

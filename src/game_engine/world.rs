@@ -5,9 +5,10 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::{entity_is_on_tile, TileSet}}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
+use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState, NoKeyboard}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
+    pub level_id: u32,
     pub total_elapsed_time: f32,
     pub bounds: Rectangle,
     pub biome_tiles: TileSet<BiomeTile>,
@@ -23,8 +24,9 @@ pub struct World {
 }
 
 impl World {
-    pub fn new() -> Self {
+    pub fn new(level_id: u32) -> Self {
         Self {
+            level_id,
             total_elapsed_time: 0.0,
             bounds: RECT_ORIGIN_SQUARE_100,
             biome_tiles: TileSet::empty(),
@@ -79,7 +81,6 @@ impl World {
         // self.constructions_tiles.update(time_since_last_update);
 
         drop(entities);
-        self.store_updated_hero_state();
         self.apply_state_updates(state_updates)
     } 
 
@@ -89,28 +90,26 @@ impl World {
 
     fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
         match update {
-            WorldStateUpdate::AddEntity(entity) => { 
-                self.add_entity(entity); 
-            },
-            WorldStateUpdate::RemoveEntity(id) => { 
-                self.remove_entity(&id); 
-            },
-            WorldStateUpdate::IncreaseHp(id, value) => { 
-                if let Some(entity) = self.entities.borrow_mut().get_mut(&id) {
-                    entity.body_mut().hp += value;
-                }
-            },
+            WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
+            WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
+            WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(id, value),
+            WorldStateUpdate::CacheHeroProps(frame, direction) => self.cache_hero_props(frame, direction),
             WorldStateUpdate::EngineUpdate(update) => return Some(update)
         };
         None
     }
-    
-    fn store_updated_hero_state(&mut self) {
-        if let Some(entity) = self.entities.borrow().get(&HERO_ENTITY_ID) {
-            self.cached_hero_frame = entity.body().frame;
-            self.cached_hero_position = Vector2::new(self.cached_hero_frame.x, self.cached_hero_frame.y);
-            self.cached_hero_direction = entity.body().direction;
+
+    fn increase_entity_hp(&mut self, id: u32, value: f32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.get_mut(&id) {
+            entity.body_mut().hp += value;
         }
+    }
+
+    fn cache_hero_props(&mut self, frame: Rectangle, direction: Vector2) {
+        self.cached_hero_frame = frame;
+        self.cached_hero_position = Vector2::new(frame.x, frame.y);
+        self.cached_hero_direction = direction;
     }
 
     pub fn visible_biome_tiles(&self, viewport: &Rectangle) -> Vec<&BiomeTile> {
@@ -131,17 +130,10 @@ impl Debug for World {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use crate::game_engine::{keyboard_events_provider::NoKeyboard, state_updates::EngineStateUpdate};
-
-    use super::World;
-
-    impl World {        
-        pub fn update(&mut self, time_since_last_update: f32) -> Vec<EngineStateUpdate> {
-            let nokb = NoKeyboard {};
-            let viewport = self.bounds;
-            self.update_rl(time_since_last_update, &viewport, &nokb)
-        }
+impl World {        
+    pub fn update(&mut self, time_since_last_update: f32) -> Vec<EngineStateUpdate> {
+        let nokb = NoKeyboard {};
+        let viewport = self.bounds;
+        self.update_rl(time_since_last_update, &viewport, &nokb)
     }
 }

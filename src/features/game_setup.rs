@@ -16,6 +16,7 @@ impl World {
         entity.center_in(&self.bounds);
         entity.body_mut().frame.x -= 50.0;
         entity.body_mut().frame.y -= 50.0;
+        entity.snap_to_nearest_tile();
         self.add_entity(Box::new(entity))
     }
 
@@ -24,6 +25,7 @@ impl World {
         entity.center_in(&self.bounds);
         entity.body_mut().frame.x -= 80.0;
         entity.body_mut().frame.y -= 120.0;
+        entity.snap_to_nearest_tile();
         self.add_entity(Box::new(entity))
     }
     
@@ -32,6 +34,7 @@ impl World {
         entity.center_in(&self.bounds);
         entity.body_mut().frame.x -= 100.0;
         entity.body_mut().frame.y += 100.0;
+        entity.snap_to_nearest_tile();
         self.add_entity(Box::new(entity))
     }
 

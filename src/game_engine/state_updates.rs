@@ -1,4 +1,4 @@
-use raylib::math::Vector2;
+use raylib::math::{Rectangle, Vector2};
 
 use super::entity::Entity;
 
@@ -6,13 +6,16 @@ pub enum WorldStateUpdate {
     AddEntity(Box<dyn Entity>),
     RemoveEntity(u32),
     IncreaseHp(u32, f32),
+    CacheHeroProps(Rectangle, Vector2),
     EngineUpdate(EngineStateUpdate),
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum EngineStateUpdate {
-    MoveCamera(f32, f32),
+    CenterCamera(f32, f32),
     PushWorld(u32),
     PopWorld,
+    ToggleWorld(u32),
 }
 
 #[cfg(test)]

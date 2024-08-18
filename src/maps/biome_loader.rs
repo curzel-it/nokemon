@@ -1,12 +1,13 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, features::levels::level_biome_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
-use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap, WORLD_MAP_BIOME_BIN}};
+use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
 impl World {    
     pub fn load_biome_tiles(&mut self) {
-        let map = deserialize_tiled_map(WORLD_MAP_BIOME_BIN);
+        let file_path = level_biome_binary_path(self.level_id);
+        let map = deserialize_tiled_map(file_path);
         let matrix = to_biome_tile_matrix(&map);
         let groups = to_biome_tile_list(&map);
         make_water_obstacles(self, &groups);        
