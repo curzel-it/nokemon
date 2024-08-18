@@ -2,7 +2,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile};
 
-use super::tiles::SpriteTile;
+use super::tiles::{SpriteTile, TileSet};
 
 pub const COLOR_WOODEN_FENCE: u32 = 0x391F21ff;
 
@@ -90,6 +90,30 @@ impl Construction {
         match color {
             COLOR_WOODEN_FENCE => Construction::WoodenFence,
             _ => Construction::Nothing
+        }
+    }
+}
+
+impl TileSet<ConstructionTile> {
+    pub fn update_tile(&mut self, row: usize, col: usize, new_biome: Construction) {
+        self.tiles[row][col].tile_type = new_biome;
+        self.tiles[row][col].setup_textures();
+
+        if row > 0 {
+            self.tiles[row-1][col].tile_down_type = new_biome;
+            self.tiles[row-1][col].setup_textures();
+        }
+        if row < self.tiles.len() - 1 {
+            self.tiles[row+1][col].tile_up_type = new_biome;
+            self.tiles[row+1][col].setup_textures();
+        }
+        if col > 0 {
+            self.tiles[row][col-1].tile_right_type = new_biome;
+            self.tiles[row][col-1].setup_textures();
+        }
+        if col < self.tiles[0].len() - 1 {
+            self.tiles[row][col+1].tile_left_type = new_biome;
+            self.tiles[row][col+1].setup_textures();
         }
     }
 }

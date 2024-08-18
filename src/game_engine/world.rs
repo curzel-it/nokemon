@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::Rectangle;
 
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
@@ -97,6 +97,7 @@ impl World {
             WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(id, value),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
+            WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
             WorldStateUpdate::EngineUpdate(update) => return Some(update)
         };
         None
@@ -104,6 +105,10 @@ impl World {
 
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
         self.biome_tiles.update_tile(row, col, new_biome)
+    }
+
+    fn update_construction_tile(&mut self, row: usize, col: usize, new_construction: Construction) {
+        self.constructions_tiles.update_tile(row, col, new_construction)
     }
 
     fn increase_entity_hp(&mut self, id: u32, value: f32) {

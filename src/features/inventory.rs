@@ -70,7 +70,12 @@ impl Inventory {
                 self.item_being_placed = Some(
                     InventoryItemBeingPlaced {
                         item: self.stock[self.selected_index].item,
-                        frame: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE)
+                        frame: Rectangle::new(
+                            (camera_vieport.x / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.x,
+                            (camera_vieport.y / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.y,
+                            TILE_SIZE, 
+                            TILE_SIZE
+                        )
                     }
                 );
                 self.is_placing_item = true;
@@ -86,7 +91,7 @@ impl Inventory {
 
         match item {
            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
-           Stockable::ConstructionTile(_) => vec![],
+           Stockable::ConstructionTile(construction) => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
            Stockable::Building(_) => vec![],
         }
     }
