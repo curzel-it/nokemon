@@ -1,12 +1,10 @@
-use raylib::math::{Rectangle, Vector2};
-
-use super::entity::Entity;
+use super::entity::{Entity, EntityProps};
 
 pub enum WorldStateUpdate {
     AddEntity(Box<dyn Entity>),
     RemoveEntity(u32),
     IncreaseHp(u32, f32),
-    CacheHeroProps(Rectangle, Vector2),
+    CacheHeroProps(EntityProps),
     EngineUpdate(EngineStateUpdate),
 }
 

@@ -9,7 +9,6 @@ pub struct Teleporter {
     body: EntityBody,
     destination: u32,
     sprite: AnimatedSprite,
-    cooldown: f32
 }
 
 impl Teleporter {
@@ -35,7 +34,6 @@ impl Teleporter {
             },
             destination: LEVEL_ID_HOUSE_INTERIOR,
             sprite: AnimatedSprite::new("white", 3, TILE_SIZE as u32, TILE_SIZE as u32),
-            cooldown: 0.0,
         }
     }
 }
@@ -45,19 +43,10 @@ impl_single_animation_sprite_update!(Teleporter);
 
 impl Entity for Teleporter {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        self.cooldown -= time_since_last_update;
         self.update_sprite(time_since_last_update);
 
-        if self.cooldown <= 0.0 && self.hero_collision(world).is_some() {
-            let is_colliding = is_collision_trajectory(
-                &world.cached_hero_direction, 
-                &world.cached_hero_frame, 
-                &self.body.frame
-            );
-            if is_colliding {
-                self.cooldown = 2.0;
-                return vec![self.engine_update_push_world()];
-            }
+        if self.should_teleport(world) {
+            return vec![self.engine_update_push_world()];
         }
         vec![]
     }
@@ -72,6 +61,18 @@ impl Entity for Teleporter {
 }
 
 impl Teleporter {
+    fn should_teleport(&self, world: &World) -> bool {
+        if self.hero_collision(world).is_none() {
+            return false 
+        }
+        let is_colliding = is_collision_trajectory(
+            &world.cached_hero_props.direction, 
+            &world.cached_hero_props.frame, 
+            &self.body.frame
+        );
+        is_colliding && world.cached_hero_props.speed > 0.1
+    }
+
     fn hero_collision(&self, world: &World) -> Option<Collision> {
         let no_collisions = vec![];
 

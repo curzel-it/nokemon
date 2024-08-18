@@ -3,9 +3,9 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::{entity_is_on_tile, TileSet}}};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::{entity_is_on_tile, TileSet}}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::Entity, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState, NoKeyboard}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
+use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState, NoKeyboard}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub level_id: u32,
@@ -17,9 +17,7 @@ pub struct World {
     pub visible_entities: HashSet<u32>,
     pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
-    pub cached_hero_frame: Rectangle,
-    pub cached_hero_position: Vector2,
-    pub cached_hero_direction: Vector2,
+    pub cached_hero_props: EntityProps,
     pub collisions: HashMap<u32, Vec<Collision>>
 }
 
@@ -35,9 +33,7 @@ impl World {
             visible_entities: hash_set![],
             selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
-            cached_hero_frame: Rectangle::new(0.0, 0.0, 1.0, 1.0),
-            cached_hero_position: Vector2::zero(),
-            cached_hero_direction: Vector2::zero(),
+            cached_hero_props: EntityProps::default(),
             collisions: HashMap::new()
         }
     }
@@ -93,7 +89,7 @@ impl World {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
             WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
             WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(id, value),
-            WorldStateUpdate::CacheHeroProps(frame, direction) => self.cache_hero_props(frame, direction),
+            WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::EngineUpdate(update) => return Some(update)
         };
         None
@@ -106,10 +102,12 @@ impl World {
         }
     }
 
-    fn cache_hero_props(&mut self, frame: Rectangle, direction: Vector2) {
-        self.cached_hero_frame = frame;
-        self.cached_hero_position = Vector2::new(frame.x, frame.y);
-        self.cached_hero_direction = direction;
+    pub fn move_hero_one_tile_down(&mut self) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(hero) = entities.get_mut(&HERO_ENTITY_ID) {
+            hero.body_mut().frame.y += TILE_SIZE;
+            self.cached_hero_props = hero.props();
+        }
     }
 
     pub fn visible_biome_tiles(&self, viewport: &Rectangle) -> Vec<&BiomeTile> {

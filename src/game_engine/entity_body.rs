@@ -4,6 +4,7 @@ use raylib::math::{Rectangle, Vector2};
 
 use crate::{constants::TILE_SIZE, utils::geometry_utils::Insets};
 
+use super::entity::EntityProps;
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -16,6 +17,7 @@ pub trait EmbodiedEntity: Debug {
     fn center_in(&mut self, value: &Rectangle);
     fn place_at(&mut self, x: f32, y: f32);
     fn snap_to_nearest_tile(&mut self);
+    fn props(&self) -> EntityProps;
 }
 
 #[derive(Debug)]
@@ -72,6 +74,14 @@ impl EntityBody {
     pub fn snap_to_nearest_tile(&mut self) {
         self.frame.x = (self.frame.x / TILE_SIZE).round() * TILE_SIZE;
         self.frame.y = (self.frame.y / TILE_SIZE).round() * TILE_SIZE;
+    }
+
+    pub fn props(&self) -> EntityProps {
+        EntityProps { 
+            direction: self.direction, 
+            frame: self.frame, 
+            speed: self.current_speed 
+        }
     }
 }
 

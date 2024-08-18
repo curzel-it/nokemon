@@ -26,6 +26,10 @@ macro_rules! impl_embodied_entity {
                 self.body.snap_to_nearest_tile()
             }
 
+            fn props(&self) -> $crate::game_engine::entity::EntityProps {
+                self.body.props()
+            }
+
             fn place_at(&mut self, x: f32, y: f32) {
                 self.body.frame.x = x;
                 self.body.frame.y = y;

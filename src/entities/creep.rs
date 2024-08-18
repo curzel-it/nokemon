@@ -40,7 +40,7 @@ impl_humanoid_sprite_update!(Creep);
 impl Entity for Creep {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        set_direction_towards(self, &world.cached_hero_position);
+        set_direction_towards(self, &world.cached_hero_props.position());
         move_linearly(self, world, time_since_last_update);
         self.update_sprite(time_since_last_update);
         world_updates.append(&mut remove_automatically(self, world));

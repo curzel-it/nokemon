@@ -43,7 +43,7 @@ impl_single_animation_sprite_update!(SurroundingAreaAttack);
 impl Entity for SurroundingAreaAttack {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        self.center_in(&world.cached_hero_frame);
+        self.center_in(&world.cached_hero_props.frame);
         self.update_sprite(time_since_last_update);
         world_updates.append(&mut handle_collisions_for_bullet(self, world));
         world_updates.append(&mut remove_automatically(self, world));

@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -52,7 +52,7 @@ impl Entity for Hero {
         self.update_sprite(time_since_last_update);
         world_updates.append(&mut shoot_stuff(self, time_since_last_update));
         world_updates.append(&mut remove_automatically(self, world));
-        world_updates.push(self.cache_frame_update());
+        world_updates.push(self.cache_props());
         world_updates.push(self.move_camera_update());
         world_updates
     }
@@ -67,9 +67,13 @@ impl Entity for Hero {
 }
 
 impl Hero {
-    fn cache_frame_update(&self) -> WorldStateUpdate {
+    fn cache_props(&self) -> WorldStateUpdate {
         WorldStateUpdate::CacheHeroProps(
-            self.body.frame, self.body.direction
+            EntityProps {
+                frame: self.body.frame, 
+                direction: self.body.direction, 
+                speed: self.body.current_speed
+            }            
         )
     }
 
