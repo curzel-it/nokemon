@@ -6,7 +6,6 @@ pub mod entity_macro;
 pub mod game_engine;
 pub mod keyboard_events_provider;
 pub mod obstacles;
-pub mod rendering;
 pub mod simple_entity;
 pub mod visible_entities;
 pub mod world;

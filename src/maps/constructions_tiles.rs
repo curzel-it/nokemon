@@ -7,7 +7,7 @@ use super::tiles::SpriteTile;
 pub const COLOR_WOODEN_FENCE: u32 = 0x391F21ff;
 pub const COLOR_HOUSE: u32 = 0xFF00FFff;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum Construction {
     WoodenFence,
     House,

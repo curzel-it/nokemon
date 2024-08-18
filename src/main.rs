@@ -4,12 +4,14 @@ mod features;
 mod game_engine;
 mod levels;
 mod maps;
+mod rendering;
 mod utils;
 
 use std::env;
 
-use game_engine::{game_engine::GameEngine, rendering::draw_frame};
+use game_engine::game_engine::GameEngine;
 use maps::worldgen::create_map_binaries;
+use rendering::levels::render;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -30,6 +32,6 @@ fn main() {
         }
 
         engine.update_rl(time_since_last_update, &rl);
-        draw_frame(&mut rl, &thread, engine.current_world(), &engine);  
+        render(&mut rl, &thread, engine.current_world(), &engine);  
     }
 }
