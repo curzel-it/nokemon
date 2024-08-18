@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, features::inventory::Inventory, levels::constants::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
 
-use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
+use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
 use raylib::prelude::*;
 
@@ -62,9 +62,15 @@ impl GameEngine {
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
         let keyboard_state = keyboard_events.state();
+        let world_keyboard_state = if self.inventory.is_open {
+            KeyboardState::nothing()
+        } else {
+            keyboard_events.state()
+        };
+
         let viewport = self.camera_viewport;
         let world = self.current_world_mut();       
-        let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_state);
+        let state_updates = world.update_rl(time_since_last_update, &viewport, world_keyboard_state);
         self.inventory.update(&keyboard_state);
         self.apply_state_updates(state_updates);
     } 

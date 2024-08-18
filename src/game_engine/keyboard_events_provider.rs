@@ -4,34 +4,38 @@ use crate::utils::vector_utils::directions_based_direction_vector_4d;
 
 #[derive(Default, Clone, Copy)]
 pub struct KeyboardState {
-    pub is_up_pressed: bool,
-    pub is_right_pressed: bool,
-    pub is_down_pressed: bool, 
-    pub is_left_pressed: bool,
-    pub is_i_pressed: bool,
+    pub is_up_down: bool,
+    pub is_right_down: bool,
+    pub is_down_down: bool, 
+    pub is_left_down: bool,
+    pub has_i_been_pressed: bool,
+    pub has_right_been_pressed: bool,
+    pub has_left_been_pressed: bool,
 }
 
 impl KeyboardState {
     pub fn nothing() -> Self {
         Self {
-            is_up_pressed: false,
-            is_right_pressed: false,
-            is_down_pressed: false, 
-            is_left_pressed: false,
-            is_i_pressed: false,
+            is_up_down: false,
+            is_right_down: false,
+            is_down_down: false, 
+            is_left_down: false,
+            has_i_been_pressed: false,
+            has_right_been_pressed: false,
+            has_left_been_pressed: false,
         }
     }
 
     pub fn should_toggle_inventory(&self) -> bool {
-        self.is_i_pressed
+        self.has_i_been_pressed
     }
 
-    pub fn direction_based_on_pressed_keys(&self) -> Option<Vector2> {
+    pub fn direction_based_on_down_keys(&self) -> Option<Vector2> {
         directions_based_direction_vector_4d(
-            self.is_up_pressed, 
-            self.is_right_pressed, 
-            self.is_down_pressed, 
-            self.is_left_pressed
+            self.is_up_down, 
+            self.is_right_down, 
+            self.is_down_down, 
+            self.is_left_down
         )
     }
 }
@@ -43,11 +47,13 @@ pub trait KeyboardEventsProvider {
 impl KeyboardEventsProvider for RaylibHandle {
     fn state(&self) -> KeyboardState {
         KeyboardState {
-            is_up_pressed: self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP),
-            is_right_pressed: self.is_key_down(KeyboardKey::KEY_D) || self.is_key_down(KeyboardKey::KEY_RIGHT),
-            is_down_pressed: self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN),
-            is_left_pressed: self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT),
-            is_i_pressed: self.is_key_pressed(KeyboardKey::KEY_I),
+            is_up_down: self.is_key_down(KeyboardKey::KEY_W) || self.is_key_down(KeyboardKey::KEY_UP),
+            is_right_down: self.is_key_down(KeyboardKey::KEY_D) || self.is_key_down(KeyboardKey::KEY_RIGHT),
+            is_down_down: self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN),
+            is_left_down: self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT),
+            has_i_been_pressed: self.is_key_pressed(KeyboardKey::KEY_I),
+            has_right_been_pressed: self.is_key_pressed(KeyboardKey::KEY_D) || self.is_key_pressed(KeyboardKey::KEY_RIGHT),
+            has_left_been_pressed: self.is_key_pressed(KeyboardKey::KEY_A) || self.is_key_pressed(KeyboardKey::KEY_LEFT),
         }
     }
 }

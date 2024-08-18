@@ -1,24 +1,27 @@
-use std::collections::HashMap;
+use raylib::math::Rectangle;
 
-use common_macros::hash_map;
-use raylib::ffi::Rectangle;
-
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, entities::building::BuildingType, game_engine::keyboard_events_provider::KeyboardState, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::BuildingType, game_engine::keyboard_events_provider::KeyboardState, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
     pub is_open: bool,
-    pub stock: HashMap<Stockable, u32>,
-    creative_mode: bool,
+    pub stock: Vec<InventoryItem>,
+    pub selected_index: usize,
     sprite_sheet_path: String
+}
+
+#[derive(Debug)]
+pub struct InventoryItem {
+    pub item: Stockable,
+    pub stock: i32
 }
 
 impl Inventory {
     pub fn new() -> Self {
         Self {
             is_open: false,
-            stock: hash_map!(),
-            creative_mode: false,
+            stock: vec![],
+            selected_index: 0,
             sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH)
         }
     }
@@ -27,15 +30,21 @@ impl Inventory {
         if keyboard_state.should_toggle_inventory() {
             self.is_open = !self.is_open;
         }
+        if self.is_open {
+            if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
+                self.selected_index += 1;
+            }
+            if keyboard_state.has_left_been_pressed && self.selected_index > 0 {
+                self.selected_index -= 1;
+            }
+        }
     }
 
-    pub fn set_creative_mode(&mut self, is_enabled: bool) {
-        self.creative_mode = is_enabled;
-        
+    pub fn set_creative_mode(&mut self, is_enabled: bool) {        
         if is_enabled {
-            self.stock = hash_map!();
+            self.stock = vec![];
             Stockable::all_possible_items().into_iter().for_each(|item| {
-                self.stock.insert(item, 1);
+                self.stock.push(InventoryItem { item, stock: INFINITE_STOCK });
             });
             println!("Loaded up for creative mode: {:#?}", self.stock);
         }
@@ -45,25 +54,11 @@ impl Inventory {
         &self.sprite_sheet_path
     }
 
-    pub fn amount(&self, item: Stockable) -> u32 {
-        if self.creative_mode {
-            return 99;
+    pub fn amount(&self, item: Stockable) -> i32 {
+        if let Some(inventory_item) = self.stock.iter().find(|i| i.item == item) {
+            return inventory_item.stock;
         }
-        if let Some(amount) = self.stock.get(&item) {
-            return amount.clone()
-        } else {
-            return 0
-        }
-    }
-
-    pub fn visible_items(&self) -> Vec<Stockable> {
-        let mut items: Vec<Stockable> = self.stock
-            .iter()
-            .filter(|(_, amount)| { self.creative_mode || **amount > 0 })
-            .map(|(item, _)| item.clone())
-            .collect();
-        items.sort_by_key(|item| item.texture_offsets());
-        items
+        0
     }
 }
 
