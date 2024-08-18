@@ -5,7 +5,7 @@ use raylib::math::Rectangle;
 
 use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, KeyboardState, NoKeyboard}, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
+use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub level_id: u32,
@@ -62,10 +62,10 @@ impl World {
         &mut self, 
         time_since_last_update: f32,
         viewport: &Rectangle,
-        keyboard_events: &dyn KeyboardEventsProvider
+        keyboard_state: KeyboardState
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
-        self.keyboard_state = keyboard_events.keyboard_state();
+        self.keyboard_state = keyboard_state;
         self.visible_entities = compute_visible_entities(self, viewport);
         self.collisions = compute_collisions(self);
 
@@ -136,8 +136,8 @@ impl Debug for World {
 
 impl World {        
     pub fn update(&mut self, time_since_last_update: f32) -> Vec<EngineStateUpdate> {
-        let nokb = NoKeyboard {};
+        let keyboard_state = KeyboardState::nothing();
         let viewport = self.bounds;
-        self.update_rl(time_since_last_update, &viewport, &nokb)
+        self.update_rl(time_since_last_update, &viewport, keyboard_state)
     }
 }

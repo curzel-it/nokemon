@@ -61,9 +61,11 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
+        let keyboard_state = keyboard_events.state();
         let viewport = self.camera_viewport;
-        let world = self.current_world_mut();        
-        let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_events);
+        let world = self.current_world_mut();       
+        let state_updates = world.update_rl(time_since_last_update, &viewport, keyboard_state);
+        self.inventory.update(&keyboard_state);
         self.apply_state_updates(state_updates);
     } 
 
@@ -161,7 +163,7 @@ impl GameEngine {
 
 #[cfg(test)]
 mod tests {    
-    use crate::{levels::constants::LEVEL_DEMO_WORLD, game_engine::world::World};
+    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, levels::constants::LEVEL_DEMO_WORLD};
 
     use super::GameEngine;
 
@@ -172,8 +174,9 @@ mod tests {
             world
         }
 
-        pub fn update(&self, world: &mut World, time_since_last_update: f32) {
-            world.update(time_since_last_update);
+        pub fn update(&mut self, time_since_last_update: f32) {
+            let nokb = NoKeyboardEvents {};
+            self.update_rl(time_since_last_update, &nokb);
         } 
     }
 

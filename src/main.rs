@@ -11,7 +11,7 @@ use std::env;
 
 use game_engine::game_engine::GameEngine;
 use maps::worldgen::create_map_binaries;
-use rendering::levels::render;
+use rendering::levels_rendering::render;
 
 fn main() {
     let mut creative_mode = false;
@@ -20,9 +20,8 @@ fn main() {
     if args.contains(&"worldgen".to_owned()) {
         println!("Running world gen...");
         create_map_binaries();
-        return;
     }
-    if args.contains(&"createmod".to_owned()) {
+    if args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
         creative_mode = true
     }

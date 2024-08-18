@@ -3,10 +3,12 @@ use raylib::prelude::*;
 use crate::{constants::TILE_SIZE, features::inventory::Stockable, game_engine::game_engine::GameEngine, utils::geometry_utils::Scalable};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
-    let sprite_path = engine.inventory.sprite_sheet_path();
+    if engine.inventory.is_open {
+        let sprite_path = engine.inventory.sprite_sheet_path();
 
-    for (index, item) in engine.inventory.visible_items().iter().enumerate() {
-        draw_item(d, sprite_path, item, index, engine);
+        for (index, item) in engine.inventory.visible_items().iter().enumerate() {
+            draw_item(d, sprite_path, item, index, engine);
+        }
     }
 }
 

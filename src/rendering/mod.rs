@@ -1,4 +1,4 @@
-pub mod levels;
-pub mod entities;
-pub mod inventory;
-pub mod tiles;
+pub mod levels_rendering;
+pub mod entities_rendering;
+pub mod inventory_rendering;
+pub mod tiles_rendering;

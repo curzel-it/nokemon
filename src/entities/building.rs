@@ -4,7 +4,7 @@ use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, g
 
 const BUILDINGS_SPRITE_SHEET: &str = "buildings";
 
-#[derive(Debug, Clone, Copy, Hash)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum BuildingType {
     House
 }

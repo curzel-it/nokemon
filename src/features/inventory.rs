@@ -3,10 +3,11 @@ use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::ffi::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, entities::building::BuildingType, game_engine::keyboard_events_provider::KeyboardState, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
+    pub is_open: bool,
     pub stock: HashMap<Stockable, u32>,
     creative_mode: bool,
     sprite_sheet_path: String
@@ -15,9 +16,16 @@ pub struct Inventory {
 impl Inventory {
     pub fn new() -> Self {
         Self {
+            is_open: false,
             stock: hash_map!(),
             creative_mode: false,
             sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH)
+        }
+    }
+
+    pub fn update(&mut self, keyboard_state: &KeyboardState) {
+        if keyboard_state.should_toggle_inventory() {
+            self.is_open = !self.is_open;
         }
     }
 
@@ -63,6 +71,7 @@ impl Inventory {
 pub enum Stockable {
     BiomeTile(Biome),
     ConstructionTile(Construction),    
+    Building(BuildingType),    
 }
 
 impl Stockable {
@@ -76,6 +85,7 @@ impl Stockable {
             Stockable::BiomeTile(Biome::LightWood),
             Stockable::BiomeTile(Biome::DarkWood),
             Stockable::ConstructionTile(Construction::WoodenFence),
+            Stockable::Building(BuildingType::House),
         ]
     }
 
@@ -105,6 +115,9 @@ impl Stockable {
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (1, 0),
                 Construction::WoodenFence => (1, 1),
+            },
+            Stockable::Building(building_type) => match building_type {
+                BuildingType::House => (1, 2)
             }
         }
     }
