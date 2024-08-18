@@ -117,11 +117,9 @@ impl GameEngine {
     }
 
     fn push_world(&mut self, id: u32) {
-        println!("Pushing world {}", id);
         if !self.worlds.is_empty() {
             self.current_world_mut().move_hero_one_tile_down();
         }
-
         let mut new_level = World::new(id);
         new_level.setup();
         new_level.update(0.001);
@@ -131,7 +129,6 @@ impl GameEngine {
     }
 
     fn pop_world(&mut self) {
-        println!("Popping world...");
         self.worlds.pop();
         let hero_frame = self.current_world().cached_hero_props.frame;
         self.center_camera_in(&hero_frame);

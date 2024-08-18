@@ -1,4 +1,6 @@
-use crate::levels::constants::{LEVELS_PATH, LEVEL_DEMO_WORLD, LEVEL_ID_HOUSE_INTERIOR};
+use crate::{game_engine::world::World, levels::constants::{LEVELS_PATH, LEVEL_DEMO_WORLD, LEVEL_ID_HOUSE_INTERIOR}};
+
+use super::{level_setup_demo::level_setup_demo, level_setup_house_interior::level_setup_house_interior};
 
 pub fn level_tiles_paths() -> Vec<LevelTilePaths> {
     all_levels()
@@ -13,6 +15,13 @@ pub fn level_tiles_paths() -> Vec<LevelTilePaths> {
             }
         })
         .collect()
+}
+
+pub fn setup_level(world: &mut World) {
+    match world.level_id {
+        LEVEL_ID_HOUSE_INTERIOR => level_setup_house_interior(world),
+        _ => level_setup_demo(world)
+    }
 }
 
 fn all_levels() -> Vec<u32> {
