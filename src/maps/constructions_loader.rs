@@ -1,4 +1,4 @@
-use crate::{constants::TILE_SIZE, features::levels::level_constructions_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, levels::utils::level_constructions_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
 use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 

@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::TILE_SIZE, features::levels::level_biome_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, levels::utils::level_biome_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
 
 use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 

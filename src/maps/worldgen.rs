@@ -5,7 +5,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::collections::HashSet;
 
-use crate::features::levels::level_tiles_paths;
+use crate::levels::utils::level_tiles_paths;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy)]
 pub struct TileItem {

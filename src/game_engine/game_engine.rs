@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, features::levels::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, levels::constants::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
 
 use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -156,7 +156,7 @@ impl GameEngine {
 
 #[cfg(test)]
 mod tests {    
-    use crate::{features::levels::LEVEL_DEMO_WORLD, game_engine::world::World};
+    use crate::{levels::constants::LEVEL_DEMO_WORLD, game_engine::world::World};
 
     use super::GameEngine;
 

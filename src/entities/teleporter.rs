@@ -1,8 +1,6 @@
-use core::time;
-
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, levels::LEVEL_ID_HOUSE_INTERIOR, linear_movement::move_linearly}, game_engine::{collision_detection::Collision, entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::{is_collision_trajectory, Insets}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, features::animated_sprite::AnimatedSprite, game_engine::{collision_detection::Collision, entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, levels::constants::LEVEL_ID_HOUSE_INTERIOR, utils::geometry_utils::{is_collision_trajectory, Insets}};
 
 #[derive(Debug)]
 pub struct Teleporter {

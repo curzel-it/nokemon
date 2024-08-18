@@ -84,7 +84,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::{levels::LEVEL_DEMO_WORLD, shooter::Shooter}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, levels::constants::LEVEL_DEMO_WORLD};
 
     use super::{collision_area, compute_collisions};
 

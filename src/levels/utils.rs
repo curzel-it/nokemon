@@ -1,7 +1,4 @@
-const LEVELS_PATH: &str = "/Users/curzel/dev/tower-defense/levels/";
-
-pub const LEVEL_DEMO_WORLD: u32 = 420;
-pub const LEVEL_ID_HOUSE_INTERIOR: u32 = 1000_001;
+use crate::levels::constants::{LEVELS_PATH, LEVEL_DEMO_WORLD, LEVEL_ID_HOUSE_INTERIOR};
 
 pub fn level_tiles_paths() -> Vec<LevelTilePaths> {
     all_levels()

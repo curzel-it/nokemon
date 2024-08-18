@@ -25,7 +25,7 @@ fn should_remove(world: &World, entity: &dyn Entity) -> bool {
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, features::levels::LEVEL_DEMO_WORLD, game_engine::{entity_body::EntityBody, simple_entity::SimpleEntity, world::World}};
+    use crate::{constants::RECT_ORIGIN_SQUARE_100, levels::constants::LEVEL_DEMO_WORLD, game_engine::{entity_body::EntityBody, simple_entity::SimpleEntity, world::World}};
 
     #[test]
     fn can_remove_entities_with_no_hp_left() {

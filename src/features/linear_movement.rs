@@ -55,7 +55,7 @@ fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collisio
 mod tests {
     use raylib::math::Vector2;
 
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, features::levels::LEVEL_DEMO_WORLD, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}};
+    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, levels::constants::LEVEL_DEMO_WORLD, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}};
     
     #[test]
     fn can_move_on_update() {
