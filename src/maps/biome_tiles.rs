@@ -12,7 +12,7 @@ pub const COLOR_ROCK: u32 = 0x7F7F7Fff;
 pub const COLOR_DESERT: u32 = 0xFFFF00ff;
 pub const COLOR_SNOW: u32 = 0xFFFFFFff;
 pub const COLOR_LIGHT_WOOD: u32 = 0xBF6F4Aff;
-pub const COLOR_DARK_WOOK: u32 = 0x5D2C28ff;
+pub const COLOR_DARK_WOOD: u32 = 0x5D2C28ff;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Biome {
@@ -184,7 +184,7 @@ impl Biome {
             COLOR_DESERT => Biome::Desert,
             COLOR_SNOW => Biome::Snow,
             COLOR_LIGHT_WOOD => Biome::LightWood,
-            COLOR_DARK_WOOK => Biome::DarkWood,
+            COLOR_DARK_WOOD => Biome::DarkWood,
             _ => Biome::Nothing
         }
     }
