@@ -14,14 +14,20 @@ use maps::worldgen::create_map_binaries;
 use rendering::levels::render;
 
 fn main() {
+    let mut creative_mode = false;
+
     let args: Vec<String> = env::args().collect();
     if args.contains(&"worldgen".to_owned()) {
         println!("Running world gen...");
         create_map_binaries();
         return;
     }
+    if args.contains(&"createmod".to_owned()) {
+        println!("Running in creative mode...");
+        creative_mode = true
+    }
 
-    let mut engine = GameEngine::new();
+    let mut engine = GameEngine::with_options(creative_mode);
     let (mut rl, thread) = engine.start_rl();
 
     while !rl.window_should_close() {     

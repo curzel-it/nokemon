@@ -10,11 +10,11 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     d.clear_background(Color::BLACK);
     render_tiles(&mut d, world, engine);
     render_entities(&mut d, world, engine);
-    render_inventory(&mut d, world, engine);
-    draw_debug_info(&mut d, world, fps);
+    render_inventory(&mut d, engine);
+    draw_debug_info(&mut d, fps);
 }
 
-fn draw_debug_info(d: &mut RaylibDrawHandle, _: &World, fps: u32) {
+fn draw_debug_info(d: &mut RaylibDrawHandle, fps: u32) {
     d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::RED);
     // d.draw_text(format!("Entities: {:#?}", world).as_str(), 10, 50, 20, Color::RED);
 }

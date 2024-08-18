@@ -1,12 +1,13 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, levels::constants::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, features::inventory::Inventory, levels::constants::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
 
 use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
 use raylib::prelude::*;
 
 pub struct GameEngine {
+    pub inventory: Inventory,
     pub worlds: Vec<World>,
     pub textures: HashMap<String, Texture2D>,
     pub camera_viewport: Rectangle,
@@ -16,11 +17,18 @@ pub struct GameEngine {
 impl GameEngine {
     pub fn new() -> Self {
         Self {
+            inventory: Inventory::new(),
             worlds: vec![],
             textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             rendering_scale: 2.0,
         }
+    }
+
+    pub fn with_options(creative_mode: bool) -> Self {
+        let mut engine = Self::new();
+        engine.inventory.set_creative_mode(creative_mode);
+        engine
     }
 
     pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {
