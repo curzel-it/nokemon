@@ -64,6 +64,11 @@ impl ConstructionTile {
             (true, false, false, true) => 8,
             (false, true, true, false) => 9,
             (false, false, true, true) => 10,
+            (true, true, true, false) => 11,
+            (true, false, true, true) => 12,
+            (true, true, false, true) => 13,
+            (false, true, true, true) => 14,
+            (true, true, true, true) => 15,
             _ => 0,
         };
         self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
