@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{self, Building, BuildingType}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{Building, BuildingType}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -108,13 +108,6 @@ impl Inventory {
 
     pub fn sprite_sheet_path(&self) -> &str {
         &self.sprite_sheet_path
-    }
-
-    pub fn amount(&self, item: Stockable) -> i32 {
-        if let Some(inventory_item) = self.stock.iter().find(|i| i.item == item) {
-            return inventory_item.stock;
-        }
-        0
     }
 
     fn place_building(&self, camera_vieport: &Rectangle, building_type: BuildingType) -> Vec<WorldStateUpdate> {
