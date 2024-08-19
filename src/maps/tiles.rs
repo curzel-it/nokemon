@@ -1,6 +1,6 @@
 use raylib::math::Rectangle;
 
-use crate::{constants::{ASSETS_PATH, TILE_MARGIN, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, game_engine::entity::Entity, utils::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::timed_content_provider::TimedContentProvider};
 
 pub trait Tile: Clone {
     fn row(&self) -> u32;
@@ -61,22 +61,6 @@ impl<T: Tile> TileSet<T> {
 
         visible_tiles
     }
-}
-
-pub fn entity_is_on_tile(entity: &dyn Entity) -> bool {
-    rect_is_on_tile(&entity.body().frame)
-}
-
-pub fn rect_is_on_tile(frame: &Rectangle) -> bool {
-    frame.x % TILE_SIZE == 0.0 && frame.y % TILE_SIZE == 0.0
-}
-
-pub fn entity_is_near_tile(entity: &dyn Entity) -> bool {
-    rect_is_near_tile(&entity.body().frame)
-}
-
-pub fn rect_is_near_tile(frame: &Rectangle) -> bool {
-    (frame.x % TILE_SIZE) < TILE_MARGIN && (frame.y % TILE_SIZE) < TILE_MARGIN
 }
 
 #[macro_export]

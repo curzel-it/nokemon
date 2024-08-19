@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, features::animated_sprite::AnimatedSprite, game_engine::{collision_detection::Collision, entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, levels::constants::LEVEL_ID_HOUSE_INTERIOR, utils::geometry_utils::{is_collision_trajectory, Insets}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{collision_detection::Collision, entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, levels::constants::LEVEL_ID_HOUSE_INTERIOR, utils::geometry_utils::{is_collision_trajectory, Insets}};
 
 #[derive(Debug)]
 pub struct Teleporter {
@@ -60,27 +60,15 @@ impl Entity for Teleporter {
 
 impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
-        if self.hero_collision(world).is_none() {
-            return false 
+        let hero_frame = world.cached_hero_props.frame;
+        let hero_direction = world.cached_hero_props.direction;
+        
+        if let Some(collision) = self.body.frame.get_collision_rec(&hero_frame) {
+            if collision.width.floor() <= TILE_SIZE_HALF { return false }
+            if collision.height.floor() < TILE_SIZE_HALF { return false }
+            return hero_direction.y != 0.0;
         }
-        let is_colliding = is_collision_trajectory(
-            &world.cached_hero_props.direction, 
-            &world.cached_hero_props.frame, 
-            &self.body.frame
-        );
-        is_colliding && world.cached_hero_props.speed > 0.1
-    }
-
-    fn hero_collision(&self, world: &World) -> Option<Collision> {
-        let no_collisions = vec![];
-
-        let collision = world.collisions
-            .get(&self.body.id)
-            .unwrap_or(&no_collisions)
-            .iter()
-            .find(|c| c.other_id == HERO_ENTITY_ID);
-
-        collision.copied()            
+        false
     }
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {

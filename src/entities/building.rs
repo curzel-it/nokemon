@@ -1,6 +1,6 @@
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::geometry_utils::{is_collision_trajectory, Insets, Scalable}};
+use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::geometry_utils::{Insets, Scalable}};
 
 const BUILDINGS_SPRITE_SHEET: &str = "buildings";
 
@@ -30,7 +30,7 @@ impl BuildingType {
             x + col as f32 * TILE_SIZE, 
             y + row as f32 * TILE_SIZE, 
             w as f32 * TILE_SIZE, 
-            h as f32 * TILE_SIZE - TILE_SIZE / 4.0
+            h as f32 * TILE_SIZE
         )
     }
 }
@@ -93,21 +93,21 @@ impl Entity for Building {
 }
 
 impl Building {
-    fn should_teleport(&self, world: &World) -> bool {
-        if !self.hero_is_on_door(world) {
-            return false 
-        }
-        let is_colliding = is_collision_trajectory(
-            &world.cached_hero_props.direction, 
-            &world.cached_hero_props.frame, 
-            &self.body.frame
-        );
-        is_colliding && world.cached_hero_props.speed > 0.1
+    fn door_frame(&self) -> Rectangle {
+        self.building_type.door_frame(self.body.frame.x, self.body.frame.y)
     }
 
-    fn hero_is_on_door(&self, world: &World) -> bool {
-        let door = self.building_type.door_frame(self.body.frame.x, self.body.frame.y);
-        door.check_collision_recs(&world.cached_hero_props.frame)
+    fn should_teleport(&self, world: &World) -> bool {
+        let door = self.door_frame();
+        let hero_frame = world.cached_hero_props.frame;
+        let hero_direction = world.cached_hero_props.direction;
+        
+        if let Some(collision) = door.get_collision_rec(&hero_frame) {
+            if collision.width.floor() <= TILE_SIZE_HALF { return false }
+            if collision.height.floor() < TILE_SIZE_HALF { return false }
+            return hero_direction.y != 0.0;
+        }
+        false
     }
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {

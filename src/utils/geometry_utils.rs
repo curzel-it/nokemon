@@ -82,6 +82,7 @@ pub fn is_collision_trajectory(direction: &Vector2, source: &Rectangle, destinat
 }
 
 pub fn is_collision_trajectory_points(direction: &Vector2, source: &Vector2, destination: &Vector2) -> bool {
+    
     if direction.x > 0.0 && destination.x > source.x {
         return true;
     }
