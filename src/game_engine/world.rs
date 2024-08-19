@@ -15,7 +15,6 @@ pub struct World {
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
     pub visible_entities: HashSet<u32>,
-    pub selected_entity_id: Option<u32>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_props: EntityProps,
     pub collisions: HashMap<u32, Vec<Collision>>
@@ -31,7 +30,6 @@ impl World {
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
-            selected_entity_id: None,
             keyboard_state: KeyboardState::default(),
             cached_hero_props: EntityProps::default(),
             collisions: HashMap::new()
