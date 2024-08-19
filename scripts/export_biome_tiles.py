@@ -24,6 +24,8 @@ combinations = {
     "nws": (2, 0),
     "nwe": (2, -90),
     "nesw": (1, 0),
+    "ns": (4, (-90, 90)),
+    "ew": (4, (180, 0))
 }
 
 def fix_rgba_image(image_path):
@@ -75,7 +77,7 @@ def export_biome_tiles(aseprite_assets, destination_folder):
 
             for (other_biome_index, border_biome) in enumerate(biomes):
                 for borders in combinations.keys():
-                    column, rotation = combinations[borders]
+                    column, rotations = combinations[borders]
 
                     y = tile_size * biome_index
                     result = tiles.crop((0, y, tile_size, y + tile_size))
@@ -83,7 +85,7 @@ def export_biome_tiles(aseprite_assets, destination_folder):
                     x = tile_size * column
                     y = tile_size * other_biome_index
                     new_layer = tiles.crop((x, y, x + tile_size, y + tile_size))
-                    new_layer = new_layer.rotate(rotation, expand=False)
+                    new_layer = rotate(new_layer, rotations)
 
                     result.paste(new_layer, (0, 0), new_layer)
 
@@ -91,6 +93,16 @@ def export_biome_tiles(aseprite_assets, destination_folder):
                     overall.paste(result, (overall_x * tile_size, overall_y * tile_size)) 
 
     overall.save(f"{destination_folder}/tiles_biome.png")        
+
+def rotate(image, rotations):
+    if isinstance(rotations, tuple):
+        new_image = Image.new("RGBA", image.size, (0, 0, 0, 0))
+        for rotation in rotations:
+            rotated = image.rotate(rotation, expand=True)
+            new_image = Image.alpha_composite(new_image, rotated)
+        return new_image
+    else:
+        return image.rotate(rotations, expand=True)
 
 os.system(f"rm -rf {pngs_folder}/tiles_biome.png")
 export_biome_tiles(aseprite_assets, pngs_folder)

@@ -99,6 +99,8 @@ impl BiomeTile {
                 (Direction::Up, Direction::Right) => return 5,
                 (Direction::Right, Direction::Down) => return 6,
                 (Direction::Down, Direction::Left) => return 7,
+                (Direction::Up, Direction::Down) => return 13,
+                (Direction::Right, Direction::Left) => return 14,
                 _ => {}
             }
         }
@@ -157,7 +159,7 @@ impl BiomeTile {
 
 impl Biome {
     fn number_of_combinations() -> u32 {
-        13
+        15
     }
 
     fn number_of_biomes() -> u32 {
