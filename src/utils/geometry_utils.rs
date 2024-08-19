@@ -2,14 +2,14 @@ use raylib::math::{Rectangle, Vector2};
 
 #[derive(Debug, Copy, Clone, Default)]
 pub struct Insets {
-    pub top: f32,
-    pub right: f32,
-    pub bottom: f32,
-    pub left: f32
+    pub top: i32,
+    pub right: i32,
+    pub bottom: i32,
+    pub left: i32
 }
 
 impl Insets {
-    pub fn new(top: f32, right: f32, bottom: f32, left: f32) -> Self {
+    pub fn new(top: i32, right: i32, bottom: i32, left: i32) -> Self {
         Insets { 
             top, 
             right, 
@@ -19,16 +19,59 @@ impl Insets {
     }
 
     pub fn zero() -> Self {
-        Insets::new(0.0, 0.0, 0.0, 0.0)
+        Insets::new(0, 0, 0, 0)
     }
 
-    pub fn apply_to_rect(&self, rect: &Rectangle) -> Rectangle {
-        Rectangle::new(
+    pub fn apply_to_rect(&self, rect: &IntRect) -> IntRect {
+        IntRect::new(
             rect.x + self.left, 
             rect.y + self.top, 
-            rect.width - self.left - self.right, 
-            rect.height - self.top - self.bottom
+            (rect.width as i32 - self.left - self.right).max(0) as u32, 
+            (rect.height as i32 - self.top - self.bottom).max(0) as u32
         )
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct IntRect {
+    pub x: i32,
+    pub y: i32,
+    pub width: i32,
+    pub height: i32,
+}
+
+impl IntRect {
+    pub fn new(x: i32, y: i32, width: i32, height: i32) -> Self {
+        IntRect {
+            x, y, width, height
+        }
+    }
+
+    pub fn zero() -> Self {
+        Self::new(0, 0, 0, 0)
+    }
+
+    pub fn square(x: i32, y: i32, size: i32) -> Self {
+        Self::new(x, y, size, size)
+    }
+
+    pub fn offset(&mut self, dx: i32, dy: i32) {
+        self.x += dx;
+        self.y += dy;
+    }
+
+    pub fn center(&self) -> (i32, i32) {
+        (self.x + self.width as i32 / 2, self.y + self.height as i32 / 2)
+    }
+
+    pub fn center_at(&mut self, x: i32, y: i32) {
+        self.x = x - self.width as i32 / 2;
+        self.y = y - self.height as i32 / 2;
+    }
+
+    pub fn resize(&mut self, width: i32, height: i32) {
+        self.width = width;
+        self.height = height;
     }
 }
 

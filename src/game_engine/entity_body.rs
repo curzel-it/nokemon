@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
 
-use crate::{constants::TILE_SIZE, utils::geometry_utils::Insets};
+use crate::{constants::TILE_SIZE, utils::geometry_utils::{Insets, IntRect}};
 
 use super::entity::EntityProps;
 
@@ -24,7 +24,8 @@ pub trait EmbodiedEntity: Debug {
 pub struct EntityBody {
     pub id: u32,
     pub parent_id: u32,
-    pub frame: Rectangle,  
+    pub frame: IntRect,  
+    pub offset: Vector2,
     pub collision_insets: Insets,
     pub direction: Vector2,
     pub current_speed: f32,
@@ -41,22 +42,17 @@ pub struct EntityBody {
 }
 
 impl EntityBody {            
-    pub fn center_in(&mut self, value: &Rectangle) {
-        let center = Vector2 {
-            x: value.x + value.width / 2.0,
-            y: value.y + value.height / 2.0,
-        };
-        self.center_at(&center);
+    pub fn center_in(&mut self, other: &IntRect) {
+        let (x, y) = other.center();
+        self.center_at(x, y);
     }
     
-    pub fn center_at(&mut self, value: &Vector2) {
-        self.frame.x = value.x - self.frame.width / 2.0;
-        self.frame.y = value.y - self.frame.height / 2.0;
+    pub fn center_at(&mut self, x: i32, y: i32) {
+        self.frame.center_at(x, y)
     }
     
-    pub fn resize(&mut self, w: f32, h: f32) {
-        self.frame.width = w;
-        self.frame.height = h;
+    pub fn resize(&mut self, width: u32, height: u32) {
+        self.frame.resize(width, height)
     }
             
     pub fn reset_speed(&mut self) {
@@ -67,13 +63,21 @@ impl EntityBody {
         self.current_speed = self.base_speed * scalar;
     }
 
-    pub fn collision_frame(&self) -> Rectangle {
+    pub fn collision_frame(&self) -> IntRect {
         self.collision_insets.apply_to_rect(&self.frame)
     }
 
     pub fn snap_to_nearest_tile(&mut self) {
-        self.frame.x = (self.frame.x / TILE_SIZE).round() * TILE_SIZE;
-        self.frame.y = (self.frame.y / TILE_SIZE).round() * TILE_SIZE;
+        if self.direction.x > 0.0 {
+            self.frame.x = (self.frame.x as f32 / TILE_SIZE as f32).floor() * TILE_SIZE;
+        } else {
+            self.frame.x = (self.frame.x as f32 / TILE_SIZE as f32).ceil() * TILE_SIZE;
+        }
+        if self.direction.y > 0.0 {
+            self.frame.y = (self.frame.y as f32 / TILE_SIZE as f32).floor() * TILE_SIZE;
+        } else {
+            self.frame.y = (self.frame.y as f32 / TILE_SIZE as f32).ceil() * TILE_SIZE;
+        }
     }
 
     pub fn props(&self) -> EntityProps {
