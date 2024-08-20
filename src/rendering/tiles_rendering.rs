@@ -44,7 +44,7 @@ fn draw_tile<T: SpriteTile>(
 ) {
     let source_rect = tile.texture_source_rect(variant);
     
-    if let Some(texture) = engine.textures.get(sprite_path) {
+    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
         let dest_rect = Rectangle {
             x: tile.column() as f32 * TILE_SIZE - engine.camera_viewport.x, 
             y: tile.row() as f32 * TILE_SIZE - engine.camera_viewport.y,

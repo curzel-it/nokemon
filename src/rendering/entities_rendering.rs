@@ -41,7 +41,7 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
     let sprite_path = item.sprite_sheet_path();
     let frame = item.body().frame;
     
-    if let Some(texture) = engine.textures.get(sprite_path) {
+    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
         let source_rect = item.texture_source_rect();
 
         let dest_rect = Rectangle {

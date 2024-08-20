@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, ui::ui::{TextStyle, UiView}, utils::geometry_utils::Scalable};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, ui::ui::{TextStyle, UiView}, utils::geometry_utils::Scalable};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     if engine.inventory.is_open {
@@ -20,6 +20,16 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
                         children: vec![
                             UiView::Text { style: TextStyle::Bold, text: "Hello Bold".to_owned() },
                             UiView::Text { style: TextStyle::Regular, text: "Hello Regular".to_owned() },
+                            UiView::Texture { 
+                                key: format!("{}/inventory.png", ASSETS_PATH), 
+                                source_rect: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE), 
+                                size: Vector2::new(TILE_SIZE, TILE_SIZE), 
+                            },
+                            UiView::Texture { 
+                                key: format!("{}/inventory.png", ASSETS_PATH), 
+                                source_rect: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE), 
+                                size: Vector2::new(2.0 * TILE_SIZE, 2.0 * TILE_SIZE), 
+                            }
                         ], 
                     }
                 ]
@@ -45,7 +55,7 @@ fn draw_item(
 ) {
     let source_rect = entry.item.texture_source_rect();
     
-    if let Some(texture) = engine.textures.get(sprite_path) {
+    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
         let dest_rect = Rectangle {
             x: index as f32 * (2.0 + TILE_SIZE) + 100.0, 
             y: engine.camera_viewport.height - TILE_SIZE * 2.0,

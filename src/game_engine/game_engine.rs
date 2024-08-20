@@ -9,7 +9,7 @@ use raylib::prelude::*;
 pub struct GameEngine {
     pub inventory: Inventory,
     pub worlds: Vec<World>,
-    pub textures: HashMap<String, Texture2D>,
+    // pub textures: HashMap<String, Texture2D>,
     pub camera_viewport: Rectangle,
     pub rendering_scale: f32,
     pub ui_config: Option<UiConfig>
@@ -20,7 +20,7 @@ impl GameEngine {
         Self {
             inventory: Inventory::new(),
             worlds: vec![],
-            textures: hash_map![],
+            // textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             rendering_scale: 2.0,
             ui_config: None
@@ -41,15 +41,16 @@ impl GameEngine {
             .build();        
     
         let font = rl.load_font(&thread, FONT).unwrap();
-        let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();
-        self.ui_config = Some(UiConfig { font, font_bold });
+        let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
-        rl.set_target_fps(FPS);
+        // rl.set_target_fps(FPS);
 
-        let all_assets = list_files(ASSETS_PATH, "png");
-        self.load_textures(&all_assets, &mut rl, &thread);
         self.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
         self.push_world(LEVEL_DEMO_WORLD);
+
+        let all_assets = list_files(ASSETS_PATH, "png");
+        let textures = self.load_textures(&all_assets, &mut rl, &thread);
+        self.ui_config = Some(UiConfig { font, font_bold, textures });
 
         (rl, thread)
     }
@@ -95,11 +96,14 @@ impl GameEngine {
         self.apply_state_updates(state_updates);
     } 
 
-    fn load_textures(&mut self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) {    
+    fn load_textures(&self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<String, Texture2D> {    
+        let mut textures: HashMap<String, Texture2D> = hash_map!();
         for asset in all_assets {
+            println!("{}", asset);
             let texture = rl.load_texture(thread, asset).unwrap();
-            self.textures.insert(asset.clone(), texture);
+            textures.insert(asset.clone(), texture);
         }
+        textures
     }
 
     pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {

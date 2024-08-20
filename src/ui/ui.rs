@@ -1,8 +1,11 @@
+use std::collections::HashMap;
+
 use raylib::prelude::*;
 
 pub struct UiConfig {
     pub font: Font,
     pub font_bold: Font,
+    pub textures: HashMap<String, Texture2D>
 }
 
 pub enum TextStyle {
@@ -15,6 +18,7 @@ pub enum UiView {
     Column { spacing: f32, children: Vec<UiView> },
     Row { spacing: f32, children: Vec<UiView> },
     Text { style: TextStyle, text: String },
+    Texture { key: String, source_rect: Rectangle, size: Vector2 },
 }
 
 impl UiConfig {
@@ -23,6 +27,10 @@ impl UiConfig {
             TextStyle::Bold => &self.font_bold,
             TextStyle::Regular => &self.font,
         }
+    }
+
+    pub fn get_texture(&self, key: &str) -> Option<&Texture2D> {
+        self.textures.get(key)
     }
 }
 
@@ -40,6 +48,9 @@ impl UiView {
             }
             UiView::Text { style, text } => {
                 self.render_text(d, config, position, style, text);
+            }
+            UiView::Texture { key, source_rect, size } => {
+                self.render_texture(d, config, key, source_rect, &position, size);
             }
         }
     }
@@ -107,6 +118,27 @@ impl UiView {
         d.draw_text_ex(font, text, position, 20.0, 1.0, Color::WHITE);
     }
 
+    fn render_texture(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &UiConfig,
+        key: &String,
+        source_rect: &Rectangle,
+        position: &Vector2,
+        size: &Vector2
+    ) {
+        if let Some(texture) = config.get_texture(key) {
+            d.draw_texture_pro(
+                texture,
+                source_rect,
+                Rectangle::new(position.x, position.y, size.x, size.y),
+                Vector2::zero(), 
+                0.0,
+                Color::WHITE,
+            );
+        }
+    }
+
     fn calculate_size(&self, config: &UiConfig) -> Vector2 {
         match self {
             UiView::Box { padding, background_color: _, children } => {
@@ -120,6 +152,9 @@ impl UiView {
             }
             UiView::Text { style, text } => {
                 self.calculate_text_size(config, style, text)
+            }
+            UiView::Texture { key: _, source_rect: _, size } => {
+                size.clone()
             }
         }
     }
