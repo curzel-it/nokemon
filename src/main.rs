@@ -1,5 +1,4 @@
 mod constants;
-mod design_system;
 mod entities;
 mod features;
 mod game_engine;
@@ -30,7 +29,7 @@ fn main() {
     let mut engine = GameEngine::with_options(creative_mode);
     let (mut rl, thread) = engine.start_rl();
 
-    while !rl.window_should_close() {     
+    while !(rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE)) {     
         let time_since_last_update = rl.get_frame_time();
 
         if rl.is_window_resized() {

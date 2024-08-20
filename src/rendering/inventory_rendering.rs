@@ -79,5 +79,4 @@ fn draw_placement_indicator(
         dest_rect.height as i32, 
         Color::RED
     );
-
 }

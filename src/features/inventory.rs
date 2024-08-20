@@ -37,8 +37,8 @@ impl Inventory {
     }
 
     pub fn update(&mut self, camera_vieport: &Rectangle, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_inventory_been_pressed {
-            self.is_open = !self.is_open;
+        if !self.is_open && keyboard_state.has_inventory_been_pressed {
+            self.is_open = true;
         }
         if !self.is_open {
             return vec![];
@@ -58,6 +58,10 @@ impl Inventory {
             }
             if keyboard_state.has_confirmation_been_pressed {
                 return self.place(camera_vieport, self.item_being_placed.unwrap().item);
+            }
+            if keyboard_state.has_back_been_pressed {
+                self.is_placing_item = false;
+                self.item_being_placed = None;
             }
         } else {
             if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
@@ -79,6 +83,9 @@ impl Inventory {
                     }
                 );
                 self.is_placing_item = true;
+            }
+            if keyboard_state.has_back_been_pressed {
+                self.is_open = false;
             }
         }
         vec![]
