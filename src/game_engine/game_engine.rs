@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, INITIAL_CAMERA_VIEWPORT}, features::inventory::Inventory, levels::constants::LEVEL_DEMO_WORLD, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, FPS, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::UiConfig, utils::file_utils::list_files};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -12,6 +12,7 @@ pub struct GameEngine {
     pub textures: HashMap<String, Texture2D>,
     pub camera_viewport: Rectangle,
     pub rendering_scale: f32,
+    pub ui_config: Option<UiConfig>
 }
 
 impl GameEngine {
@@ -22,6 +23,7 @@ impl GameEngine {
             textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             rendering_scale: 2.0,
+            ui_config: None
         }
     }
 
@@ -38,7 +40,11 @@ impl GameEngine {
             .title("Totally not Pokemon")
             .build();        
     
-        // rl.set_target_fps(FPS);
+        let font = rl.load_font(&thread, FONT).unwrap();
+        let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();
+        self.ui_config = Some(UiConfig { font, font_bold });
+
+        rl.set_target_fps(FPS);
 
         let all_assets = list_files(ASSETS_PATH, "png");
         self.load_textures(&all_assets, &mut rl, &thread);
@@ -61,18 +67,28 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        let keyboard_state = keyboard_events.state();
-        let world_keyboard_state = if self.inventory.is_open {
+        let world = self.current_world();
+        let camera_viewport = self.camera_viewport;
+        let inventory_is_open = self.inventory.is_open;
+
+        let handled = !inventory_is_open && handle_interactions(world);
+
+        let inventory_keyboard_state = if handled {
             KeyboardState::nothing()
         } else {
             keyboard_events.state()
         };
 
-        let camera_viewport = self.camera_viewport;
+        let world_keyboard_state = if inventory_is_open || handled {
+            KeyboardState::nothing()
+        } else {
+            keyboard_events.state()
+        };
+
         let world = self.current_world_mut();
         let state_updates = world.update_rl(time_since_last_update, &camera_viewport, world_keyboard_state);
                 
-        let world_updates = self.inventory.update(&camera_viewport, &keyboard_state);
+        let world_updates = self.inventory.update(&camera_viewport, &inventory_keyboard_state);
         let world = self.current_world_mut();
         world.apply_state_updates(world_updates);
 

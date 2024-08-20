@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, utils::geometry_utils::Scalable};
+use crate::{constants::TILE_SIZE, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, ui::ui::{TextStyle, UiView}, utils::geometry_utils::Scalable};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     if engine.inventory.is_open {
@@ -10,7 +10,24 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
             draw_item(d, sprite_path, entry, index == engine.inventory.selected_index, index, engine);
         }
         if !engine.inventory.is_placing_item {
-            d.draw_text("Use arrows, then space bar", 20, 20, 18, Color::BLACK);
+            // d.draw_text("Use arrows, then space bar", 20, 20, 18, Color::BLACK);
+            UiView::Box { 
+                padding: 20.0,
+                background_color: Color::BLACK,
+                children: vec![
+                    UiView::Column { 
+                        spacing: 20.0,
+                        children: vec![
+                            UiView::Text { style: TextStyle::Bold, text: "Hello Bold".to_owned() },
+                            UiView::Text { style: TextStyle::Regular, text: "Hello Regular".to_owned() },
+                        ], 
+                    }
+                ]
+            }.render(
+                d, 
+                &engine.ui_config.as_ref().unwrap(), 
+                Vector2::new(20.0, 20.0)
+            );
         }
         if let Some(item_being_placed) = engine.inventory.item_being_placed {
             draw_placement_indicator(d, item_being_placed, engine);

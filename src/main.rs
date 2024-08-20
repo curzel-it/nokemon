@@ -5,6 +5,7 @@ mod game_engine;
 mod levels;
 mod maps;
 mod rendering;
+mod ui;
 mod utils;
 
 use std::env;
