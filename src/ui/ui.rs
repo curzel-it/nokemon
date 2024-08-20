@@ -1,18 +1,15 @@
 use raylib::prelude::*;
 
-// Configuration structures
 pub struct UiConfig {
     pub font: Font,
     pub font_bold: Font,
 }
 
-// Enum for TextStyle
 pub enum TextStyle {
     Bold,
     Regular,
 }
 
-// Enum for UiView types
 pub enum UiView {
     Box { padding: f32, background_color: Color, children: Vec<UiView> },
     Column { spacing: f32, children: Vec<UiView> },
@@ -30,7 +27,6 @@ impl UiConfig {
 }
 
 impl UiView {
-    // Main render method
     pub fn render(&self, d: &mut RaylibDrawHandle, config: &UiConfig, position: Vector2) {
         match self {
             UiView::Box { padding, background_color, children } => {
@@ -48,7 +44,6 @@ impl UiView {
         }
     }
 
-    // Box rendering logic
     fn render_box(
         &self,
         d: &mut RaylibDrawHandle,
@@ -58,19 +53,16 @@ impl UiView {
         padding: f32,
         background_color: Color,
     ) {
-        // Render the box background
-        let size = self.calculate_size(d, config);
+        let size = self.calculate_size(config);
         d.draw_rectangle_v(position, size, background_color);
 
-        // Render each child in the box, positioning relative to the top-left corner
         let mut child_position = position + Vector2::new(padding, padding);
         for child in children {
             child.render(d, config, child_position);
-            child_position.y += child.calculate_size(d, config).y + padding;
+            child_position.y += child.calculate_size(config).y + padding;
         }
     }
 
-    // Column rendering logic
     fn render_column(
         &self,
         d: &mut RaylibDrawHandle,
@@ -83,11 +75,10 @@ impl UiView {
 
         for child in children {
             child.render(d, config, child_position);
-            child_position.y += child.calculate_size(d, config).y + spacing;
+            child_position.y += child.calculate_size(config).y + spacing;
         }
     }
 
-    // Row rendering logic
     fn render_row(
         &self,
         d: &mut RaylibDrawHandle,
@@ -100,11 +91,10 @@ impl UiView {
 
         for child in children {
             child.render(d, config, child_position);
-            child_position.x += child.calculate_size(d, config).x + spacing;
+            child_position.x += child.calculate_size(config).x + spacing;
         }
     }
 
-    // Text rendering logic
     fn render_text(
         &self,
         d: &mut RaylibDrawHandle,
@@ -117,28 +107,25 @@ impl UiView {
         d.draw_text_ex(font, text, position, 20.0, 1.0, Color::WHITE);
     }
 
-    // Main calculate_size method
-    fn calculate_size(&self, d: &RaylibDrawHandle, config: &UiConfig) -> Vector2 {
+    fn calculate_size(&self, config: &UiConfig) -> Vector2 {
         match self {
             UiView::Box { padding, background_color: _, children } => {
-                self.calculate_box_size(d, config, children, *padding)
+                self.calculate_box_size(config, children, *padding)
             }
             UiView::Column { spacing, children } => {
-                self.calculate_column_size(d, config, children, *spacing)
+                self.calculate_column_size(config, children, *spacing)
             }
             UiView::Row { spacing, children } => {
-                self.calculate_row_size(d, config, children, *spacing)
+                self.calculate_row_size(config, children, *spacing)
             }
             UiView::Text { style, text } => {
-                self.calculate_text_size(d, config, style, text)
+                self.calculate_text_size(config, style, text)
             }
         }
     }
 
-    // Box size calculation logic
     fn calculate_box_size(
         &self,
-        d: &RaylibDrawHandle,
         config: &UiConfig,
         children: &Vec<UiView>,
         padding: f32,
@@ -147,18 +134,15 @@ impl UiView {
         let mut max_height: f32 = 0.0;
 
         for child in children {
-            let size = child.calculate_size(d, config);
+            let size = child.calculate_size(config);
             max_width = max_width.max(size.x + padding * 2.0);
             max_height = max_height.max(size.y + padding * 2.0);
         }
-
         Vector2::new(max_width, max_height)
     }
 
-    // Column size calculation logic
     fn calculate_column_size(
         &self,
-        d: &RaylibDrawHandle,
         config: &UiConfig,
         children: &Vec<UiView>,
         spacing: f32,
@@ -167,21 +151,18 @@ impl UiView {
         let mut max_width: f32 = 0.0;
 
         for child in children {
-            let size = child.calculate_size(d, config);
+            let size = child.calculate_size(config);
             total_height += size.y + spacing;
             max_width = max_width.max(size.x);
         }
         if children.len() > 0 {
             total_height -= spacing;
         }
-
         Vector2::new(max_width, total_height)
     }
 
-    // Row size calculation logic
     fn calculate_row_size(
         &self,
-        d: &RaylibDrawHandle,
         config: &UiConfig,
         children: &Vec<UiView>,
         spacing: f32,
@@ -190,21 +171,18 @@ impl UiView {
         let mut max_height: f32 = 0.0;
 
         for child in children {
-            let size = child.calculate_size(d, config);
+            let size = child.calculate_size(config);
             total_width += size.x + spacing;
             max_height = max_height.max(size.y);
         }
         if children.len() > 0 {
             total_width -= spacing;
         }
-
         Vector2::new(total_width, max_height)
     }
 
-    // Text size calculation logic
     fn calculate_text_size(
         &self,
-        d: &RaylibDrawHandle,
         config: &UiConfig,
         style: &TextStyle,
         text: &String,
