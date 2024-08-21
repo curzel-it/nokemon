@@ -20,6 +20,7 @@ pub enum View {
     HStack { spacing: f32, children: Vec<View> },
     Text { style: TextStyle, text: String },
     Texture { key: String, source_rect: Rectangle, size: Vector2 },
+    Spacing { size: f32 },
 }
 
 #[macro_export]
@@ -74,6 +75,19 @@ macro_rules! texture {
     };
 }
 
+#[macro_export]
+macro_rules! spacing {
+    ($size:expr) => {
+        crate::ui::ui::View::Spacing {
+            size: $size,
+        }
+    };
+}
+
+pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
+    view.render(d, config, position);
+}
+
 impl RenderingConfig {
     fn font(&self, style: &TextStyle) -> &Font {
         match style {
@@ -88,7 +102,7 @@ impl RenderingConfig {
 }
 
 impl View {
-    pub fn render(&self, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
+    fn render(&self, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
         match self {
             View::ZStack { padding, background_color, children } => {
                 self.render_zstack(d, config, position, children, *padding, *background_color);
@@ -104,6 +118,9 @@ impl View {
             }
             View::Texture { key, source_rect, size } => {
                 self.render_texture(d, config, key, source_rect, &position, size);
+            }
+            View::Spacing { size: _ } => {
+                // Not visible
             }
         }
     }
@@ -210,6 +227,9 @@ impl View {
             }
             View::Texture { key: _, source_rect: _, size } => {
                 size.clone()
+            }
+            View::Spacing { size } => {
+                Vector2::new(size.clone(), size.clone())
             }
         }
     }
