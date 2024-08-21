@@ -14,20 +14,27 @@ pub enum TextStyle {
     Regular,
 }
 
+pub enum Spacing {
+    ZERO,
+    SM, 
+    MD,
+    LG
+}
+
 pub enum View {
-    ZStack { padding: f32, background_color: Color, children: Vec<View> },
-    VStack { spacing: f32, children: Vec<View> },
-    HStack { spacing: f32, children: Vec<View> },
+    ZStack { spacing: Spacing, background_color: Color, children: Vec<View> },
+    VStack { spacing: Spacing, children: Vec<View> },
+    HStack { spacing: Spacing, children: Vec<View> },
     Text { style: TextStyle, text: String },
     Texture { key: String, source_rect: Rectangle, size: Vector2 },
-    Spacing { size: f32 },
+    Spacing { size: Spacing },
 }
 
 #[macro_export]
 macro_rules! zstack {
-    ($padding:expr, $background_color:expr, $( $child:expr ),* ) => {
+    ($spacing:expr, $background_color:expr, $( $child:expr ),* ) => {
         crate::ui::ui::View::ZStack {
-            padding: $padding,
+            spacing: $spacing,
             background_color: $background_color,
             children: vec![$($child),*],
         }
@@ -88,6 +95,17 @@ pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, po
     view.render(d, config, position);
 }
 
+impl Spacing {
+    fn value(&self) -> f32 {
+        match self {
+            Spacing::ZERO => 0.0,
+            Spacing::SM => 8.0,
+            Spacing::MD => 16.0,
+            Spacing::LG => 24.0,
+        }
+    }
+}
+
 impl RenderingConfig {
     fn font(&self, style: &TextStyle) -> &Font {
         match style {
@@ -104,14 +122,14 @@ impl RenderingConfig {
 impl View {
     fn render(&self, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
         match self {
-            View::ZStack { padding, background_color, children } => {
-                self.render_zstack(d, config, position, children, *padding, *background_color);
+            View::ZStack { spacing, background_color, children } => {
+                self.render_zstack(d, config, position, children, spacing, *background_color);
             }
             View::VStack { spacing, children } => {
-                self.render_vstack(d, config, position, children, *spacing);
+                self.render_vstack(d, config, position, children, spacing);
             }
             View::HStack { spacing, children } => {
-                self.render_hstack(d, config, position, children, *spacing);
+                self.render_hstack(d, config, position, children, spacing);
             }
             View::Text { style, text } => {
                 self.render_text(d, config, position, style, text);
@@ -131,16 +149,19 @@ impl View {
         config: &RenderingConfig,
         position: Vector2,
         children: &Vec<View>,
-        padding: f32,
+        spacing: &Spacing,
         background_color: Color,
     ) {
         let size = self.calculate_size(config);
         d.draw_rectangle_v(position, size, background_color);
 
-        let mut child_position = position + Vector2::new(padding, padding);
+        let mut child_position = position;
+        child_position.x += spacing.value();
+        child_position.y += spacing.value(); 
+
         for child in children {
             child.render(d, config, child_position);
-            child_position.y += child.calculate_size(config).y + padding;
+            child_position.y += child.calculate_size(config).y + spacing.value();
         }
     }
 
@@ -150,13 +171,14 @@ impl View {
         config: &RenderingConfig,
         position: Vector2,
         children: &Vec<View>,
-        spacing: f32,
+        spacing: &Spacing,
     ) {
+        let space = spacing.value();
         let mut child_position = position;
 
         for child in children {
             child.render(d, config, child_position);
-            child_position.y += child.calculate_size(config).y + spacing;
+            child_position.y += child.calculate_size(config).y + space;
         }
     }
 
@@ -166,13 +188,14 @@ impl View {
         config: &RenderingConfig,
         position: Vector2,
         children: &Vec<View>,
-        spacing: f32,
+        spacing: &Spacing,
     ) {
+        let space = spacing.value();
         let mut child_position = position;
 
         for child in children {
             child.render(d, config, child_position);
-            child_position.x += child.calculate_size(config).x + spacing;
+            child_position.x += child.calculate_size(config).x + space;
         }
     }
 
@@ -213,14 +236,14 @@ impl View {
 
     fn calculate_size(&self, config: &RenderingConfig) -> Vector2 {
         match self {
-            View::ZStack { padding, background_color: _, children } => {
-                self.calculate_zstack_size(config, children, *padding)
+            View::ZStack { spacing, background_color: _, children } => {
+                self.calculate_zstack_size(config, children, spacing)
             }
             View::VStack { spacing, children } => {
-                self.calculate_vstack_size(config, children, *spacing)
+                self.calculate_vstack_size(config, children, spacing)
             }
             View::HStack { spacing, children } => {
-                self.calculate_hstack_size(config, children, *spacing)
+                self.calculate_hstack_size(config, children, spacing)
             }
             View::Text { style, text } => {
                 self.calculate_text_size(config, style, text)
@@ -229,7 +252,7 @@ impl View {
                 size.clone()
             }
             View::Spacing { size } => {
-                Vector2::new(size.clone(), size.clone())
+                Vector2::new(size.value(), size.value())
             }
         }
     }
@@ -238,7 +261,7 @@ impl View {
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
-        padding: f32,
+        spacing: &Spacing,
     ) -> Vector2 {
         let mut max_width: f32 = 0.0;
         let mut max_height: f32 = 0.0;
@@ -248,25 +271,29 @@ impl View {
             max_width = max_width.max(size.x);
             max_height = max_height.max(size.y);
         }
-        Vector2::new(max_width + padding * 2.0, max_height + padding * 2.0)
+        Vector2::new(
+            max_width + spacing.value() * 2.0, 
+            max_height + spacing.value() * 2.0
+        )
     }
 
     fn calculate_vstack_size(
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
-        spacing: f32,
+        spacing: &Spacing,
     ) -> Vector2 {
+        let space = spacing.value();
         let mut total_height: f32 = 0.0;
         let mut max_width: f32 = 0.0;
 
         for child in children {
             let size = child.calculate_size(config);
-            total_height += size.y + spacing;
+            total_height += size.y + space;
             max_width = max_width.max(size.x);
         }
         if children.len() > 0 {
-            total_height -= spacing;
+            total_height -= space;
         }
         Vector2::new(max_width, total_height)
     }
@@ -275,18 +302,19 @@ impl View {
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
-        spacing: f32,
+        spacing: &Spacing,
     ) -> Vector2 {
+        let space = spacing.value();
         let mut total_width: f32 = 0.0;
         let mut max_height: f32 = 0.0;
 
         for child in children {
             let size = child.calculate_size(config);
-            total_width += size.x + spacing;
+            total_width += size.x + space;
             max_height = max_height.max(size.y);
         }
         if children.len() > 0 {
-            total_width -= spacing;
+            total_width -= space;
         }
         Vector2::new(total_width, max_height)
     }

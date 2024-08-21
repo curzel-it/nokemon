@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, PADDING_LG, PADDING_MD, PADDING_SM, PADDING_ZERO, TILE_SIZE}, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, hstack, spacing, text, texture, ui::ui::{render, TextStyle}, utils::geometry_utils::Scalable, vstack, zstack};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, hstack, spacing, text, texture, ui::ui::{render, Spacing, TextStyle}, utils::geometry_utils::Scalable, vstack, zstack};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     if engine.inventory.is_open {
@@ -13,18 +13,18 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
             // d.draw_text("Use arrows, then space bar", 20, 20, 18, Color::BLACK);
             render(
                 zstack!(
-                    PADDING_LG,
+                    Spacing::LG,
                     Color::BLACK,
                     vstack!(
-                        PADDING_ZERO, 
+                        Spacing::ZERO, 
                         text!(TextStyle::Bold, "Hello Bold".to_string()),
-                        spacing!(PADDING_MD),
+                        spacing!(Spacing::MD),
                         text!(TextStyle::Regular, "Hello Regular".to_string()),
-                        spacing!(PADDING_LG),
+                        spacing!(Spacing::LG),
                         hstack!(
-                            PADDING_LG,
+                            Spacing::LG,
                             zstack!(
-                                PADDING_SM, 
+                                Spacing::SM, 
                                 Color::YELLOW,
                                 texture!(
                                     format!("{}/inventory.png", ASSETS_PATH), 

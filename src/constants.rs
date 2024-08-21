@@ -17,10 +17,6 @@ pub const TILE_VARIATIONS_COUNT: u32 = 4;
 pub const COLLISION_THRESHOLD: f32 = TILE_SIZE / 3.0;
 pub const HERO_ENTITY_ID: u32 = 69;
 pub const INFINITE_STOCK: i32 = -420;
-pub const PADDING_ZERO: f32 = 8.0;
-pub const PADDING_SM: f32 = 8.0;
-pub const PADDING_MD: f32 = 16.0;
-pub const PADDING_LG: f32 = 24.0;
 
 // Test Stuff
 pub const RECT_ORIGIN_SQUARE_100: Rectangle = Rectangle::new(0.0, 0.0, 100.0, 100.0);
