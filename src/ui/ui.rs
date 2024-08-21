@@ -5,7 +5,8 @@ use raylib::prelude::*;
 pub struct UiConfig {
     pub font: Font,
     pub font_bold: Font,
-    pub textures: HashMap<String, Texture2D>
+    pub textures: HashMap<String, Texture2D>,
+    pub rendering_scale: f32,
 }
 
 pub enum TextStyle {
@@ -128,6 +129,8 @@ impl UiView {
         size: &Vector2
     ) {
         if let Some(texture) = config.get_texture(key) {
+            // d.draw_rectangle(position.x as i32, position.y as i32, size.x as i32, size.y as i32, Color::RED);
+            
             d.draw_texture_pro(
                 texture,
                 source_rect,
@@ -135,7 +138,7 @@ impl UiView {
                 Vector2::zero(), 
                 0.0,
                 Color::WHITE,
-            );
+            ); 
         }
     }
 

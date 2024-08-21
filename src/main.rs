@@ -22,7 +22,7 @@ fn main() {
         println!("Running world gen...");
         create_map_binaries();
     }
-    if args.contains(&"creative".to_owned()) {
+    if true || args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
         creative_mode = true;
     }

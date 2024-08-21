@@ -50,7 +50,7 @@ fn draw_tile<T: SpriteTile>(
             y: tile.row() as f32 * TILE_SIZE - engine.camera_viewport.y,
             width: TILE_SIZE,
             height: TILE_SIZE,
-        }.scaled(engine.rendering_scale);
+        }.scaled(engine.ui_config.as_ref().unwrap().rendering_scale);
 
         d.draw_texture_pro(
             texture,

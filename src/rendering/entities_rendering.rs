@@ -49,7 +49,7 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
             y: frame.y - engine.camera_viewport.y,
             width: frame.width,
             height: frame.height,
-        }.scaled(engine.rendering_scale);
+        }.scaled(engine.ui_config.as_ref().unwrap().rendering_scale);
 
         d.draw_texture_pro(
             texture,

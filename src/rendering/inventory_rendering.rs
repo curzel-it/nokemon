@@ -22,12 +22,12 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
                             UiView::Text { style: TextStyle::Regular, text: "Hello Regular".to_owned() },
                             UiView::Texture { 
                                 key: format!("{}/inventory.png", ASSETS_PATH), 
-                                source_rect: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE), 
+                                source_rect: Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
                                 size: Vector2::new(TILE_SIZE, TILE_SIZE), 
                             },
                             UiView::Texture { 
                                 key: format!("{}/inventory.png", ASSETS_PATH), 
-                                source_rect: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE), 
+                                source_rect: Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
                                 size: Vector2::new(2.0 * TILE_SIZE, 2.0 * TILE_SIZE), 
                             }
                         ], 
@@ -61,7 +61,7 @@ fn draw_item(
             y: engine.camera_viewport.height - TILE_SIZE * 2.0,
             width: TILE_SIZE,
             height: TILE_SIZE,
-        }.scaled(engine.rendering_scale);
+        }.scaled(engine.ui_config.as_ref().unwrap().rendering_scale);
 
         d.draw_rectangle(
             dest_rect.x as i32 - 4, 
@@ -97,7 +97,7 @@ fn draw_placement_indicator(
     item: InventoryItemBeingPlaced,
     engine: &GameEngine
 ) {
-    let dest_rect = item.frame.scaled(engine.rendering_scale);
+    let dest_rect = item.frame.scaled(engine.ui_config.as_ref().unwrap().rendering_scale);
 
     d.draw_rectangle(
         dest_rect.x as i32, 

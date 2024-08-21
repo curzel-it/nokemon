@@ -10,8 +10,7 @@ pub struct GameEngine {
     pub inventory: Inventory,
     pub worlds: Vec<World>,
     // pub textures: HashMap<String, Texture2D>,
-    pub camera_viewport: Rectangle,
-    pub rendering_scale: f32,
+    pub camera_viewport: Rectangle,    
     pub ui_config: Option<UiConfig>
 }
 
@@ -22,7 +21,6 @@ impl GameEngine {
             worlds: vec![],
             // textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            rendering_scale: 2.0,
             ui_config: None
         }
     }
@@ -45,12 +43,18 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
 
-        self.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
         self.push_world(LEVEL_DEMO_WORLD);
 
         let all_assets = list_files(ASSETS_PATH, "png");
         let textures = self.load_textures(&all_assets, &mut rl, &thread);
-        self.ui_config = Some(UiConfig { font, font_bold, textures });
+        self.ui_config = Some(UiConfig { 
+            font, 
+            font_bold, 
+            textures,
+            rendering_scale: 2.0
+        });
+
+        self.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
 
         (rl, thread)
     }
@@ -107,9 +111,10 @@ impl GameEngine {
     }
 
     pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {
-        self.rendering_scale = self.rendering_scale_for_screen_width(width);
-        self.camera_viewport.width = width as f32 / self.rendering_scale;
-        self.camera_viewport.height = height as f32 / self.rendering_scale;
+        let scale = self.rendering_scale_for_screen_width(width);
+        self.ui_config.as_mut().unwrap().rendering_scale = scale;
+        self.camera_viewport.width = width as f32 / scale;
+        self.camera_viewport.height = height as f32 / scale;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> f32 {
