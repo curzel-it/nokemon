@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-pub struct UiConfig {
+pub struct RenderingConfig {
     pub font: Font,
     pub font_bold: Font,
     pub textures: HashMap<String, Texture2D>,
@@ -14,15 +14,67 @@ pub enum TextStyle {
     Regular,
 }
 
-pub enum UiView {
-    Box { padding: f32, background_color: Color, children: Vec<UiView> },
-    Column { spacing: f32, children: Vec<UiView> },
-    Row { spacing: f32, children: Vec<UiView> },
+pub enum View {
+    ZStack { padding: f32, background_color: Color, children: Vec<View> },
+    VStack { spacing: f32, children: Vec<View> },
+    HStack { spacing: f32, children: Vec<View> },
     Text { style: TextStyle, text: String },
     Texture { key: String, source_rect: Rectangle, size: Vector2 },
 }
 
-impl UiConfig {
+#[macro_export]
+macro_rules! zstack {
+    ($padding:expr, $background_color:expr, $( $child:expr ),* ) => {
+        crate::ui::ui::View::ZStack {
+            padding: $padding,
+            background_color: $background_color,
+            children: vec![$($child),*],
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! vstack {
+    ($spacing:expr, $( $child:expr ),* ) => {
+        crate::ui::ui::View::VStack {
+            spacing: $spacing,
+            children: vec![$($child),*],
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! hstack {
+    ($spacing:expr, $( $child:expr ),* ) => {
+        crate::ui::ui::View::HStack {
+            spacing: $spacing,
+            children: vec![$($child),*],
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! text {
+    ($style:expr, $text:expr ) => {
+        crate::ui::ui::View::Text {
+            style: $style,
+            text: $text,
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! texture {
+    ($key:expr, $source_rect:expr, $size:expr) => {
+        crate::ui::ui::View::Texture {
+            key: $key,
+            source_rect: $source_rect,
+            size: $size,
+        }
+    };
+}
+
+impl RenderingConfig {
     fn font(&self, style: &TextStyle) -> &Font {
         match style {
             TextStyle::Bold => &self.font_bold,
@@ -35,22 +87,22 @@ impl UiConfig {
     }
 }
 
-impl UiView {
-    pub fn render(&self, d: &mut RaylibDrawHandle, config: &UiConfig, position: Vector2) {
+impl View {
+    pub fn render(&self, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
         match self {
-            UiView::Box { padding, background_color, children } => {
+            View::ZStack { padding, background_color, children } => {
                 self.render_box(d, config, position, children, *padding, *background_color);
             }
-            UiView::Column { spacing, children } => {
+            View::VStack { spacing, children } => {
                 self.render_column(d, config, position, children, *spacing);
             }
-            UiView::Row { spacing, children } => {
+            View::HStack { spacing, children } => {
                 self.render_row(d, config, position, children, *spacing);
             }
-            UiView::Text { style, text } => {
+            View::Text { style, text } => {
                 self.render_text(d, config, position, style, text);
             }
-            UiView::Texture { key, source_rect, size } => {
+            View::Texture { key, source_rect, size } => {
                 self.render_texture(d, config, key, source_rect, &position, size);
             }
         }
@@ -59,9 +111,9 @@ impl UiView {
     fn render_box(
         &self,
         d: &mut RaylibDrawHandle,
-        config: &UiConfig,
+        config: &RenderingConfig,
         position: Vector2,
-        children: &Vec<UiView>,
+        children: &Vec<View>,
         padding: f32,
         background_color: Color,
     ) {
@@ -78,9 +130,9 @@ impl UiView {
     fn render_column(
         &self,
         d: &mut RaylibDrawHandle,
-        config: &UiConfig,
+        config: &RenderingConfig,
         position: Vector2,
-        children: &Vec<UiView>,
+        children: &Vec<View>,
         spacing: f32,
     ) {
         let mut child_position = position;
@@ -94,9 +146,9 @@ impl UiView {
     fn render_row(
         &self,
         d: &mut RaylibDrawHandle,
-        config: &UiConfig,
+        config: &RenderingConfig,
         position: Vector2,
-        children: &Vec<UiView>,
+        children: &Vec<View>,
         spacing: f32,
     ) {
         let mut child_position = position;
@@ -110,7 +162,7 @@ impl UiView {
     fn render_text(
         &self,
         d: &mut RaylibDrawHandle,
-        config: &UiConfig,
+        config: &RenderingConfig,
         position: Vector2,
         style: &TextStyle,
         text: &String,
@@ -122,7 +174,7 @@ impl UiView {
     fn render_texture(
         &self,
         d: &mut RaylibDrawHandle,
-        config: &UiConfig,
+        config: &RenderingConfig,
         key: &String,
         source_rect: &Rectangle,
         position: &Vector2,
@@ -142,21 +194,21 @@ impl UiView {
         }
     }
 
-    fn calculate_size(&self, config: &UiConfig) -> Vector2 {
+    fn calculate_size(&self, config: &RenderingConfig) -> Vector2 {
         match self {
-            UiView::Box { padding, background_color: _, children } => {
+            View::ZStack { padding, background_color: _, children } => {
                 self.calculate_box_size(config, children, *padding)
             }
-            UiView::Column { spacing, children } => {
+            View::VStack { spacing, children } => {
                 self.calculate_column_size(config, children, *spacing)
             }
-            UiView::Row { spacing, children } => {
+            View::HStack { spacing, children } => {
                 self.calculate_row_size(config, children, *spacing)
             }
-            UiView::Text { style, text } => {
+            View::Text { style, text } => {
                 self.calculate_text_size(config, style, text)
             }
-            UiView::Texture { key: _, source_rect: _, size } => {
+            View::Texture { key: _, source_rect: _, size } => {
                 size.clone()
             }
         }
@@ -164,8 +216,8 @@ impl UiView {
 
     fn calculate_box_size(
         &self,
-        config: &UiConfig,
-        children: &Vec<UiView>,
+        config: &RenderingConfig,
+        children: &Vec<View>,
         padding: f32,
     ) -> Vector2 {
         let mut max_width: f32 = 0.0;
@@ -181,8 +233,8 @@ impl UiView {
 
     fn calculate_column_size(
         &self,
-        config: &UiConfig,
-        children: &Vec<UiView>,
+        config: &RenderingConfig,
+        children: &Vec<View>,
         spacing: f32,
     ) -> Vector2 {
         let mut total_height: f32 = 0.0;
@@ -201,8 +253,8 @@ impl UiView {
 
     fn calculate_row_size(
         &self,
-        config: &UiConfig,
-        children: &Vec<UiView>,
+        config: &RenderingConfig,
+        children: &Vec<View>,
         spacing: f32,
     ) -> Vector2 {
         let mut total_width: f32 = 0.0;
@@ -221,7 +273,7 @@ impl UiView {
 
     fn calculate_text_size(
         &self,
-        config: &UiConfig,
+        config: &RenderingConfig,
         style: &TextStyle,
         text: &String,
     ) -> Vector2 {

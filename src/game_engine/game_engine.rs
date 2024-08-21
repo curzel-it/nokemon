@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, FPS, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::UiConfig, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::file_utils::list_files};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -9,9 +9,8 @@ use raylib::prelude::*;
 pub struct GameEngine {
     pub inventory: Inventory,
     pub worlds: Vec<World>,
-    // pub textures: HashMap<String, Texture2D>,
     pub camera_viewport: Rectangle,    
-    pub ui_config: Option<UiConfig>
+    pub ui_config: Option<RenderingConfig>
 }
 
 impl GameEngine {
@@ -19,7 +18,6 @@ impl GameEngine {
         Self {
             inventory: Inventory::new(),
             worlds: vec![],
-            // textures: hash_map![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             ui_config: None
         }
@@ -47,7 +45,7 @@ impl GameEngine {
 
         let all_assets = list_files(ASSETS_PATH, "png");
         let textures = self.load_textures(&all_assets, &mut rl, &thread);
-        self.ui_config = Some(UiConfig { 
+        self.ui_config = Some(RenderingConfig { 
             font, 
             font_bold, 
             textures,

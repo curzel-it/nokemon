@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, ui::ui::{TextStyle, UiView}, utils::geometry_utils::Scalable};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, features::inventory::{InventoryItem, InventoryItemBeingPlaced}, game_engine::game_engine::GameEngine, ui::ui::{TextStyle}, utils::geometry_utils::Scalable, zstack, vstack, hstack, text, texture};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     if engine.inventory.is_open {
@@ -11,29 +11,32 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         }
         if !engine.inventory.is_placing_item {
             // d.draw_text("Use arrows, then space bar", 20, 20, 18, Color::BLACK);
-            UiView::Box { 
-                padding: 20.0,
-                background_color: Color::BLACK,
-                children: vec![
-                    UiView::Column { 
-                        spacing: 20.0,
-                        children: vec![
-                            UiView::Text { style: TextStyle::Bold, text: "Hello Bold".to_owned() },
-                            UiView::Text { style: TextStyle::Regular, text: "Hello Regular".to_owned() },
-                            UiView::Texture { 
-                                key: format!("{}/inventory.png", ASSETS_PATH), 
-                                source_rect: Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                                size: Vector2::new(TILE_SIZE, TILE_SIZE), 
-                            },
-                            UiView::Texture { 
-                                key: format!("{}/inventory.png", ASSETS_PATH), 
-                                source_rect: Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                                size: Vector2::new(2.0 * TILE_SIZE, 2.0 * TILE_SIZE), 
-                            }
-                        ], 
-                    }
-                ]
-            }.render(
+            zstack!(
+                20.0,
+                Color::BLACK,
+                vstack!(
+                    20.0, 
+                    text!(TextStyle::Bold, "Hello Bold".to_string()),
+                    text!(TextStyle::Regular, "Hello Regular".to_string()),
+                    hstack!(
+                        20.0,
+                        zstack!(
+                            4.0, 
+                            Color::YELLOW,
+                            texture!(
+                                format!("{}/inventory.png", ASSETS_PATH), 
+                                Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
+                                Vector2::new(TILE_SIZE, TILE_SIZE)
+                            )
+                        ),
+                        texture!(
+                            format!("{}/inventory.png", ASSETS_PATH), 
+                            Rectangle::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
+                            Vector2::new(2.0 * TILE_SIZE, 2.0 * TILE_SIZE)
+                        )
+                    )
+                )
+            ).render(
                 d, 
                 &engine.ui_config.as_ref().unwrap(), 
                 Vector2::new(20.0, 20.0)
