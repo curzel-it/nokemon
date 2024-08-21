@@ -21,18 +21,18 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
                     hstack!(
                         20.0,
                         zstack!(
-                            4.0, 
+                            20.0, 
                             Color::YELLOW,
                             texture!(
                                 format!("{}/inventory.png", ASSETS_PATH), 
                                 Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                                Vector2::new(TILE_SIZE, TILE_SIZE)
+                                Vector2::new(5.0 * TILE_SIZE, 5.0 * TILE_SIZE)
                             )
                         ),
                         texture!(
                             format!("{}/inventory.png", ASSETS_PATH), 
                             Rectangle::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                            Vector2::new(2.0 * TILE_SIZE, 2.0 * TILE_SIZE)
+                            Vector2::new(10.0 * TILE_SIZE, 10.0 * TILE_SIZE)
                         )
                     )
                 )

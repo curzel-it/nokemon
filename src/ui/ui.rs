@@ -91,13 +91,13 @@ impl View {
     pub fn render(&self, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: Vector2) {
         match self {
             View::ZStack { padding, background_color, children } => {
-                self.render_box(d, config, position, children, *padding, *background_color);
+                self.render_zstack(d, config, position, children, *padding, *background_color);
             }
             View::VStack { spacing, children } => {
-                self.render_column(d, config, position, children, *spacing);
+                self.render_vstack(d, config, position, children, *spacing);
             }
             View::HStack { spacing, children } => {
-                self.render_row(d, config, position, children, *spacing);
+                self.render_hstack(d, config, position, children, *spacing);
             }
             View::Text { style, text } => {
                 self.render_text(d, config, position, style, text);
@@ -108,7 +108,7 @@ impl View {
         }
     }
 
-    fn render_box(
+    fn render_zstack(
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
@@ -127,7 +127,7 @@ impl View {
         }
     }
 
-    fn render_column(
+    fn render_vstack(
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
@@ -143,7 +143,7 @@ impl View {
         }
     }
 
-    fn render_row(
+    fn render_hstack(
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
@@ -197,13 +197,13 @@ impl View {
     fn calculate_size(&self, config: &RenderingConfig) -> Vector2 {
         match self {
             View::ZStack { padding, background_color: _, children } => {
-                self.calculate_box_size(config, children, *padding)
+                self.calculate_zstack_size(config, children, *padding)
             }
             View::VStack { spacing, children } => {
-                self.calculate_column_size(config, children, *spacing)
+                self.calculate_vstack_size(config, children, *spacing)
             }
             View::HStack { spacing, children } => {
-                self.calculate_row_size(config, children, *spacing)
+                self.calculate_hstack_size(config, children, *spacing)
             }
             View::Text { style, text } => {
                 self.calculate_text_size(config, style, text)
@@ -214,7 +214,7 @@ impl View {
         }
     }
 
-    fn calculate_box_size(
+    fn calculate_zstack_size(
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
@@ -225,13 +225,13 @@ impl View {
 
         for child in children {
             let size = child.calculate_size(config);
-            max_width = max_width.max(size.x + padding * 2.0);
-            max_height = max_height.max(size.y + padding * 2.0);
+            max_width = max_width.max(size.x);
+            max_height = max_height.max(size.y);
         }
-        Vector2::new(max_width, max_height)
+        Vector2::new(max_width + padding * 2.0, max_height + padding * 2.0)
     }
 
-    fn calculate_column_size(
+    fn calculate_vstack_size(
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
@@ -251,7 +251,7 @@ impl View {
         Vector2::new(max_width, total_height)
     }
 
-    fn calculate_row_size(
+    fn calculate_hstack_size(
         &self,
         config: &RenderingConfig,
         children: &Vec<View>,
