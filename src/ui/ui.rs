@@ -9,6 +9,7 @@ pub struct RenderingConfig {
     pub font_bold: Font,
     pub textures: HashMap<String, Texture2D>,
     pub rendering_scale: f32,
+    pub font_rendering_scale: f32,
 }
 
 pub enum TextStyle {
@@ -156,14 +157,27 @@ impl GridSpacing {
     }
 }
 
+impl RenderingConfig {
+    pub fn scaled_font_size(&self, style: &TextStyle) -> f32 {
+        self.font_rendering_scale * match style {
+            TextStyle::Bold => 10.0,
+            TextStyle::Regular => 10.0,
+        }
+    }
+
+    pub fn scaled_font_spacing(&self, _: &TextStyle) -> f32 {
+        self.font_rendering_scale
+    }
+}
+
 impl Spacing {
-    fn value(&self) -> f32 {
-        match self {
+    fn value(&self, config: &RenderingConfig) -> f32 {
+        config.rendering_scale * match self {
             Spacing::ZERO => 0.0,
-            Spacing::XS => 4.0,
-            Spacing::SM => 8.0,
-            Spacing::MD => 16.0,
-            Spacing::LG => 24.0,
+            Spacing::XS => 2.0,
+            Spacing::SM => 4.0,
+            Spacing::MD => 8.0,
+            Spacing::LG => 12.0,
         }
     }
 }
@@ -225,7 +239,7 @@ impl View {
         spacing: &Spacing,
         background_color: Color,
     ) {
-        let space = spacing.value();
+        let space = spacing.value(config);
         let size = self.calculate_size(config);
         let child_position = Vector2::new(position.x + space, position.y + space);
 
@@ -244,7 +258,7 @@ impl View {
         children: &[View],
         spacing: &Spacing,
     ) {
-        let space = spacing.value();
+        let space = spacing.value(config);
         let mut child_position = position.clone();
 
         for child in children {
@@ -261,7 +275,7 @@ impl View {
         children: &[View],
         spacing: &Spacing,
     ) {
-        let space = spacing.value();
+        let space = spacing.value(config);
         let mut child_position = position.clone();
 
         for child in children {
@@ -279,7 +293,9 @@ impl View {
         text: &String,
     ) {
         let font = config.font(style);
-        d.draw_text_ex(font, text, position, 20.0, 1.0, Color::WHITE);
+        let font_size = config.scaled_font_size(style);
+        let font_spacing = config.scaled_font_spacing(style);
+        d.draw_text_ex(font, text, position, font_size, font_spacing, Color::WHITE);
     }
 
     fn render_texture(
@@ -297,7 +313,12 @@ impl View {
             d.draw_texture_pro(
                 texture,
                 source_rect,
-                Rectangle::new(position.x, position.y, size.x, size.y),
+                Rectangle::new(
+                    position.x, 
+                    position.y, 
+                    config.rendering_scale * size.x, 
+                    config.rendering_scale * size.y
+                ),
                 Vector2::zero(), 
                 0.0,
                 Color::WHITE,
@@ -314,7 +335,7 @@ impl View {
         spacing: &GridSpacing,
         children: &[View],
     ) {
-        let row_space: f32 = spacing.between_rows.value();
+        let row_space: f32 = spacing.between_rows.value(config);
         let mut row_position: Vector2 = position.clone();        
         let rows = children.chunks(*columns);
 
@@ -334,7 +355,7 @@ impl View {
         spacing: &GridSpacing,
         children: &[View],
     ) {
-        let column_space: f32 = spacing.between_columns.value();
+        let column_space: f32 = spacing.between_columns.value(config);
         let mut column_position: Vector2 = position.clone();        
         let columns = children.chunks(*rows);
 
@@ -362,10 +383,10 @@ impl View {
                 self.calculate_text_size(config, style, text)
             }
             View::Texture { key: _, source_rect: _, size } => {
-                size.clone()
+                self.calculate_texture_size(config, size)
             }
             View::Spacing { size } => {
-                Vector2::new(size.value(), size.value())
+                self.calculate_spacing_size(config, size)
             }
             View::VGrid { columns, spacing, children } => {
                 self.calculate_vgrid_size(config, columns, spacing, children)
@@ -374,6 +395,14 @@ impl View {
                 self.calculate_hgrid_size(config, rows, spacing, children)
             }
         }
+    }
+
+    fn calculate_texture_size(&self, config: &RenderingConfig, size: &Vector2) -> Vector2 {
+        Vector2::new(size.x * config.rendering_scale, size.y * config.rendering_scale)
+    }
+
+    fn calculate_spacing_size(&self, config: &RenderingConfig, size: &Spacing) -> Vector2 {
+        Vector2::new(size.value(config), size.value(config))
     }
 
     fn calculate_zstack_size(
@@ -391,8 +420,8 @@ impl View {
             max_height = max_height.max(size.y);
         }
         Vector2::new(
-            max_width + spacing.value() * 2.0, 
-            max_height + spacing.value() * 2.0
+            max_width + spacing.value(config) * 2.0, 
+            max_height + spacing.value(config) * 2.0
         )
     }
 
@@ -402,7 +431,7 @@ impl View {
         children: &[View],
         spacing: &Spacing,
     ) -> Vector2 {
-        let space = spacing.value();
+        let space = spacing.value(config);
         let mut total_height: f32 = 0.0;
         let mut max_width: f32 = 0.0;
 
@@ -423,7 +452,7 @@ impl View {
         children: &[View],
         spacing: &Spacing,
     ) -> Vector2 {
-        let space = spacing.value();
+        let space = spacing.value(config);
         let mut total_width: f32 = 0.0;
         let mut max_height: f32 = 0.0;
 
@@ -445,7 +474,9 @@ impl View {
         text: &String,
     ) -> Vector2 {
         let font = config.font(style);
-        let size = font.measure_text(text, 20.0, 1.0);
+        let font_size = config.scaled_font_size(style);
+        let font_spacing = config.scaled_font_spacing(style);
+        let size = font.measure_text(text, font_size, font_spacing);
         Vector2::new(size.x, size.y)
     }
 
@@ -472,7 +503,7 @@ impl View {
             height += row_size.y;
         }
 
-        height += (rows_count - 1).max(0) as f32 * spacing.between_rows.value();
+        height += (rows_count - 1).max(0) as f32 * spacing.between_rows.value(config);
 
         Vector2::new(width, height)
     }
@@ -500,7 +531,7 @@ impl View {
             width += column_size.x;
         }
 
-        width += (columns_count - 1).max(0) as f32 * spacing.between_columns.value();
+        width += (columns_count - 1).max(0) as f32 * spacing.between_columns.value(config);
 
         Vector2::new(width, height)
     }

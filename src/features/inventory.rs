@@ -142,8 +142,11 @@ impl Inventory {
                 Spacing::LG,
                 Color::BLACK,
                 vstack!(
-                    Spacing::MD, 
+                    Spacing::ZERO, 
                     text!(TextStyle::Bold, "Inventory".to_string()),
+                    spacing!(Spacing::SM),
+                    text!(TextStyle::Regular, "1. Press space bar to select\n2. Use arrows to move it around the map\n3. Space again to place it.".to_string()),
+                    spacing!(Spacing::MD),
                     View::VGrid {                        
                         spacing: GridSpacing::SM(),
                         columns: 5,
@@ -166,14 +169,14 @@ impl InventoryItem {
                 texture!(
                     format!("{}/inventory.png", ASSETS_PATH), 
                     self.item.texture_source_rect(), 
-                    Vector2::new(1.5 * TILE_SIZE, 1.5 * TILE_SIZE)
+                    Vector2::new(TILE_SIZE, TILE_SIZE)
                 )
             )
         } else {
             texture!(
                 format!("{}/inventory.png", ASSETS_PATH), 
                 self.item.texture_source_rect(), 
-                Vector2::new(1.5 * TILE_SIZE, 1.5 * TILE_SIZE)
+                Vector2::new(TILE_SIZE, TILE_SIZE)
             )
         }
     }
