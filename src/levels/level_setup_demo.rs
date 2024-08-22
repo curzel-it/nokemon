@@ -3,9 +3,9 @@ use crate::{entities::{building::{Building, BuildingType}, creep_spawn_point::Cr
 use super::constants::LEVEL_ID_HOUSE_INTERIOR;
 
 pub fn level_setup_demo(world: &mut World) {
-    add_creep_spawn_point(world);
-    add_tower(world);
-    add_house(world);
+    // add_creep_spawn_point(world);
+    // add_tower(world);
+    // add_house(world);
     add_hero(world);
 }
 

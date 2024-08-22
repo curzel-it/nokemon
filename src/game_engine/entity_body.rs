@@ -1,6 +1,7 @@
 use std::fmt::Debug;
 
 use raylib::math::{Rectangle, Vector2};
+use serde::{Deserialize, Serialize};
 
 use crate::{constants::TILE_SIZE, utils::geometry_utils::Insets};
 
