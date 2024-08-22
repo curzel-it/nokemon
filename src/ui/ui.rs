@@ -12,6 +12,7 @@ pub struct RenderingConfig {
     pub font_rendering_scale: f32,
 }
 
+#[derive(Copy, Clone, Debug)]
 pub enum TextStyle {
     Bold,
     Regular,
@@ -74,7 +75,7 @@ macro_rules! hstack {
 
 #[macro_export]
 macro_rules! text {
-    ($style:expr, $text:expr ) => {
+    ($style:expr, $text:expr) => {
         crate::ui::ui::View::Text {
             style: $style,
             text: $text,
@@ -165,8 +166,12 @@ impl RenderingConfig {
         }
     }
 
-    pub fn scaled_font_spacing(&self, _: &TextStyle) -> f32 {
-        self.font_rendering_scale
+    pub fn scaled_font_spacing(&self, style: &TextStyle) -> f32 {
+        self.scaled_font_size(style) / 10.0
+    }
+
+    pub fn font_lines_spacing(&self, _: &TextStyle) -> Spacing {
+        Spacing::XS
     }
 }
 
@@ -291,11 +296,30 @@ impl View {
         position: &Vector2,
         style: &TextStyle,
         text: &String,
-    ) {
-        let font = config.font(style);
-        let font_size = config.scaled_font_size(style);
-        let font_spacing = config.scaled_font_spacing(style);
-        d.draw_text_ex(font, text, position, font_size, font_spacing, Color::WHITE);
+    ) { 
+        if !text.contains("\n") {
+            let font = config.font(style);
+            let font_size = config.scaled_font_size(style);
+            let font_spacing = config.scaled_font_spacing(style);
+            d.draw_text_ex(font, text, position, font_size, font_spacing, Color::WHITE);
+        } else {
+            let stack = self.multiline_text_to_vstack(config, style, text);
+            stack.render(d, config, position);
+        }
+    }
+
+    fn multiline_text_to_vstack(&self, config: &RenderingConfig, style: &TextStyle, text: &String) -> View {
+        let lines_spacing = config.font_lines_spacing(style);
+        let lines = text.split("\n");
+        let texts: Vec<View> = lines.map(|line_text|
+            View::Text { 
+                style: style.clone(), 
+                text: line_text.replace("\n", " ").to_string()
+            }
+        ).collect();
+        let lines_stack = View::VStack { spacing: lines_spacing, children: texts };
+        lines_stack
+        // spacing!(Spacing::LG)
     }
 
     fn render_texture(
@@ -473,11 +497,16 @@ impl View {
         style: &TextStyle,
         text: &String,
     ) -> Vector2 {
-        let font = config.font(style);
-        let font_size = config.scaled_font_size(style);
-        let font_spacing = config.scaled_font_spacing(style);
-        let size = font.measure_text(text, font_size, font_spacing);
-        Vector2::new(size.x, size.y)
+        if !text.contains("\n") {
+            let font = config.font(style);
+            let font_size = config.scaled_font_size(style);
+            let font_spacing = config.scaled_font_spacing(style);
+            let size = font.measure_text(text, font_size, font_spacing);
+            Vector2::new(size.x, size.y)
+        } else {
+            let stack = self.multiline_text_to_vstack(config, style, text);
+            stack.calculate_size(config)
+        }
     }
 
     fn calculate_vgrid_size(
