@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{features::inventory::InventoryItemBeingPlaced, game_engine::game_engine::GameEngine, ui::ui::{render_from, Corner}, utils::geometry_utils::Scalable};
+use crate::{features::inventory::InventoryItemBeingPlaced, game_engine::game_engine::GameEngine, ui::ui::{render_from, Corner}, utils::vector::Vector2d};
 
 pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     let ui_config = engine.ui_config.as_ref().unwrap();
@@ -14,7 +14,7 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
             engine.inventory.ui(),
             d, 
             ui_config, 
-            &Vector2::new(ui_config.canvas_size.x, 0.0)
+            &Vector2d::new(ui_config.canvas_size.x, 0.0)
         );
     }
     if let Some(item_being_placed) = engine.inventory.item_being_placed {
@@ -32,8 +32,8 @@ fn draw_placement_indicator(
     d.draw_rectangle(
         dest_rect.x as i32, 
         dest_rect.y as i32, 
-        dest_rect.width as i32, 
-        dest_rect.height as i32, 
+        dest_rect.w as i32, 
+        dest_rect.h as i32, 
         Color::RED
     );
 }

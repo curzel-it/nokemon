@@ -1,6 +1,6 @@
-use raylib::{ffi::KeyboardKey, math::Vector2, RaylibHandle};
+use raylib::{ffi::KeyboardKey, RaylibHandle};
 
-use crate::utils::vector_utils::directions_based_direction_vector_4d;
+use crate::utils::{vector::Vector2d, vector_utils::directions_based_direction_vector_4d};
 
 #[derive(Default, Clone, Copy)]
 pub struct KeyboardState {
@@ -34,7 +34,7 @@ impl KeyboardState {
         }
     }
 
-    pub fn direction_based_on_down_keys(&self) -> Option<Vector2> {
+    pub fn direction_based_on_down_keys(&self) -> Option<Vector2d> {
         directions_based_direction_vector_4d(
             self.is_up_down, 
             self.is_right_down, 

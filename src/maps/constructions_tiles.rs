@@ -1,7 +1,7 @@
 use raylib::math::Rectangle;
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::TILE_TEXTURE_SIZE, impl_tile};
+use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -31,8 +31,8 @@ pub struct ConstructionTile {
 impl_tile!(ConstructionTile);
 
 impl SpriteTile for ConstructionTile {
-    fn texture_source_rect(&self, _: u32) -> Rectangle {
-        Rectangle::new(
+    fn texture_source_rect(&self, _: u32) -> Rect {
+        Rect::new(
             self.texture_offset_x,
             self.texture_offset_y,
             TILE_TEXTURE_SIZE,

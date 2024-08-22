@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::constants::{ASSETS_PATH, TILE_SIZE};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,
@@ -10,7 +10,7 @@ pub struct RenderingConfig {
     pub textures: HashMap<String, Texture2D>,
     pub rendering_scale: f32,
     pub font_rendering_scale: f32,
-    pub canvas_size: Vector2
+    pub canvas_size: Vector2d
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -47,7 +47,7 @@ pub enum View {
     VStack { spacing: Spacing, children: Vec<View> },
     HStack { spacing: Spacing, children: Vec<View> },
     Text { style: TextStyle, text: String },
-    Texture { key: String, source_rect: Rectangle, size: Vector2 },
+    Texture { key: String, source_rect: Rect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
     HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> }
@@ -140,11 +140,11 @@ pub fn padding(padding: Spacing, content: View) -> View {
     zstack!(padding, Color::BLACK.alpha(0.0), content)
 }
 
-pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2) {
+pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render(d, config, position);
 }
 
-pub fn render_from(corner: Corner, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2) {
+pub fn render_from(corner: Corner, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render_from(d, config, position, corner);
 }
 
@@ -234,7 +234,7 @@ impl View {
         &self, 
         d: &mut RaylibDrawHandle, 
         config: &RenderingConfig, 
-        position: &Vector2,
+        position: &Vector2d,
         corner: Corner
     ) {
         if let Corner::TopLeft = corner {
@@ -249,7 +249,7 @@ impl View {
             Corner::BottomLeft => (position.x, position.y - size.y)
         };
 
-        let real_position = Vector2::new(x, y);
+        let real_position = Vector2d::new(x, y);
         self.render(d, config, &real_position)
     }
 
@@ -257,7 +257,7 @@ impl View {
         &self, 
         d: &mut RaylibDrawHandle, 
         config: &RenderingConfig, 
-        position: &Vector2
+        position:  &Vector2d
     ) {
         match self {
             View::ZStack { spacing, background_color, children } => {
@@ -291,16 +291,16 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         children: &[View],
         spacing: &Spacing,
         background_color: Color,
     ) {
         let space = spacing.value(config);
         let size = self.calculate_size(config);
-        let child_position = Vector2::new(position.x + space, position.y + space);
+        let child_position = Vector2d::new(position.x + space, position.y + space);
 
-        d.draw_rectangle_v(position, size, background_color);
+        d.draw_rectangle_v(position.as_rv(), size.as_rv(), background_color);
 
         for child in children {
             child.render(d, config, &child_position);
@@ -311,7 +311,7 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         children: &[View],
         spacing: &Spacing,
     ) {
@@ -328,7 +328,7 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         children: &[View],
         spacing: &Spacing,
     ) {
@@ -345,7 +345,7 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         style: &TextStyle,
         text: &String,
     ) { 
@@ -353,7 +353,7 @@ impl View {
             let font = config.font(style);
             let font_size = config.scaled_font_size(style);
             let font_spacing = config.scaled_font_spacing(style);
-            d.draw_text_ex(font, text, position, font_size, font_spacing, Color::WHITE);
+            d.draw_text_ex(font, text, position.as_rv(), font_size, font_spacing, Color::WHITE);
         } else {
             let stack = self.multiline_text_to_vstack(style, text);
             stack.render(d, config, position);
@@ -382,16 +382,16 @@ impl View {
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
         key: &String,
-        source_rect: &Rectangle,
-        position: &Vector2,
-        size: &Vector2
+        source_rect: &Rect,
+        position: &Vector2d,
+        size:  &Vector2d
     ) {
         if let Some(texture) = config.get_texture(key) {
             // d.draw_rectangle(position.x as i32, position.y as i32, size.x as i32, size.y as i32, Color::RED);
             
             d.draw_texture_pro(
                 texture,
-                source_rect,
+                source_rect.as_rr(),
                 Rectangle::new(
                     position.x, 
                     position.y, 
@@ -409,13 +409,13 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         columns: &usize,
         spacing: &GridSpacing,
         children: &[View],
     ) {
         let row_space: f32 = spacing.between_rows.value(config);
-        let mut row_position: Vector2 = *position;        
+        let mut row_position: Vector2d = *position;        
         let rows = children.chunks(*columns);
 
         for row in rows {
@@ -429,13 +429,13 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        position: &Vector2,
+        position: &Vector2d,
         rows: &usize,
         spacing: &GridSpacing,
         children: &[View],
     ) {
         let column_space: f32 = spacing.between_columns.value(config);
-        let mut column_position: Vector2 = *position;        
+        let mut column_position: Vector2d = *position;        
         let columns = children.chunks(*rows);
 
         for column in columns {
@@ -447,7 +447,7 @@ impl View {
 }
 
 impl View {
-    fn calculate_size(&self, config: &RenderingConfig) -> Vector2 {
+    fn calculate_size(&self, config: &RenderingConfig) -> Vector2d {
         match self {
             View::ZStack { spacing, background_color: _, children } => {
                 self.calculate_zstack_size(config, children, spacing)
@@ -476,12 +476,12 @@ impl View {
         }
     }
 
-    fn calculate_texture_size(&self, config: &RenderingConfig, size: &Vector2) -> Vector2 {
-        Vector2::new(size.x * config.rendering_scale, size.y * config.rendering_scale)
+    fn calculate_texture_size(&self, config: &RenderingConfig, size: &Vector2d) -> Vector2d {
+        Vector2d::new(size.x * config.rendering_scale, size.y * config.rendering_scale)
     }
 
-    fn calculate_spacing_size(&self, config: &RenderingConfig, size: &Spacing) -> Vector2 {
-        Vector2::new(size.value(config), size.value(config))
+    fn calculate_spacing_size(&self, config: &RenderingConfig, size: &Spacing) -> Vector2d {
+        Vector2d::new(size.value(config), size.value(config))
     }
 
     fn calculate_zstack_size(
@@ -489,7 +489,7 @@ impl View {
         config: &RenderingConfig,
         children: &[View],
         spacing: &Spacing,
-    ) -> Vector2 {
+    ) -> Vector2d {
         let mut max_width: f32 = 0.0;
         let mut max_height: f32 = 0.0;
 
@@ -498,7 +498,7 @@ impl View {
             max_width = max_width.max(size.x);
             max_height = max_height.max(size.y);
         }
-        Vector2::new(
+        Vector2d::new(
             max_width + spacing.value(config) * 2.0, 
             max_height + spacing.value(config) * 2.0
         )
@@ -509,7 +509,7 @@ impl View {
         config: &RenderingConfig,
         children: &[View],
         spacing: &Spacing,
-    ) -> Vector2 {
+    ) -> Vector2d {
         let space = spacing.value(config);
         let mut total_height: f32 = 0.0;
         let mut max_width: f32 = 0.0;
@@ -522,7 +522,7 @@ impl View {
         if !children.is_empty() {
             total_height -= space;
         }
-        Vector2::new(max_width, total_height)
+        Vector2d::new(max_width, total_height)
     }
 
     fn calculate_hstack_size(
@@ -530,7 +530,7 @@ impl View {
         config: &RenderingConfig,
         children: &[View],
         spacing: &Spacing,
-    ) -> Vector2 {
+    ) -> Vector2d {
         let space = spacing.value(config);
         let mut total_width: f32 = 0.0;
         let mut max_height: f32 = 0.0;
@@ -543,7 +543,7 @@ impl View {
         if !children.is_empty() {
             total_width -= space;
         }
-        Vector2::new(total_width, max_height)
+        Vector2d::new(total_width, max_height)
     }
 
     fn calculate_text_size(
@@ -551,13 +551,13 @@ impl View {
         config: &RenderingConfig,
         style: &TextStyle,
         text: &String,
-    ) -> Vector2 {
+    ) -> Vector2d {
         if !text.contains("\n") {
             let font = config.font(style);
             let font_size = config.scaled_font_size(style);
             let font_spacing = config.scaled_font_spacing(style);
             let size = font.measure_text(text, font_size, font_spacing);
-            Vector2::new(size.x, size.y)
+            Vector2d::new(size.x, size.y)
         } else {
             let stack = self.multiline_text_to_vstack(style, text);
             stack.calculate_size(config)
@@ -570,7 +570,7 @@ impl View {
         columns: &usize,
         spacing: &GridSpacing,
         children: &[View],
-    ) -> Vector2 {
+    ) -> Vector2d {
         let mut width: f32 = 0.0;
         let mut height: f32 = 0.0;
 
@@ -588,8 +588,7 @@ impl View {
         }
 
         height += (rows_count - 1).max(0) as f32 * spacing.between_rows.value(config);
-
-        Vector2::new(width, height)
+        Vector2d::new(width, height)
     }
 
     fn calculate_hgrid_size(
@@ -598,7 +597,7 @@ impl View {
         rows: &usize,
         spacing: &GridSpacing,
         children: &[View],
-    ) -> Vector2 {
+    ) -> Vector2d {
         let mut width: f32 = 0.0;
         let mut height: f32 = 0.0;
 
@@ -617,7 +616,7 @@ impl View {
 
         width += (columns_count - 1).max(0) as f32 * spacing.between_columns.value(config);
 
-        Vector2::new(width, height)
+        Vector2d::new(width, height)
     }
 }
 
@@ -643,14 +642,14 @@ pub fn showcase_view() -> View {
                             Color::YELLOW,
                             texture!(
                                 format!("{}/inventory.png", ASSETS_PATH), 
-                                Rectangle::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                                Vector2::new(5.0 * TILE_SIZE, 5.0 * TILE_SIZE)
+                                Rect::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
+                                Vector2d::new(5.0 * TILE_SIZE, 5.0 * TILE_SIZE)
                             )
                         ),
                         texture!(
                             format!("{}/inventory.png", ASSETS_PATH), 
-                            Rectangle::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                            Vector2::new(10.0 * TILE_SIZE, 10.0 * TILE_SIZE)
+                            Rect::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
+                            Vector2d::new(10.0 * TILE_SIZE, 10.0 * TILE_SIZE)
                         )
                     )
                 ),

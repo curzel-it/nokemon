@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::geometry_utils::{Insets, Scalable}};
+use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 const BUILDINGS_SPRITE_SHEET: &str = "buildings";
 
@@ -10,11 +8,11 @@ pub enum BuildingType {
 }
 
 impl BuildingType {
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         let (row, w, h) = match self {
             BuildingType::House => (0, 5, 5)
         };
-        Rectangle::new(
+        Rect::new(
             0 as f32, 
             row as f32, 
             w as f32, 
@@ -22,11 +20,11 @@ impl BuildingType {
         ).scaled(TILE_SIZE)
     }
 
-    fn door_frame(&self, x: f32, y: f32) -> Rectangle {
+    fn door_frame(&self, x: f32, y: f32) -> Rect {
         let (row, col, w, h) = match self {
             BuildingType::House => (4, 3, 1, 1)
         };
-        Rectangle::new(
+        Rect::new(
             x + col as f32 * TILE_SIZE, 
             y + row as f32 * TILE_SIZE, 
             w as f32 * TILE_SIZE, 
@@ -51,9 +49,9 @@ impl Building {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, frame.width, frame.height),
+                frame: Rect::new(0.0, 0.0, frame.w, frame.h),
                 collision_insets: Insets::zero(),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 1000.0,
@@ -82,7 +80,7 @@ impl Entity for Building {
         vec![]
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.building_type.texture_source_rect()
     }
 
@@ -92,7 +90,7 @@ impl Entity for Building {
 }
 
 impl Building {
-    fn door_frame(&self) -> Rectangle {
+    fn door_frame(&self) -> Rect {
         self.building_type.door_frame(self.body.frame.x, self.body.frame.y)
     }
 
@@ -101,9 +99,9 @@ impl Building {
         let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
         
-        if let Some(collision) = door.get_collision_rec(&hero_frame) {
-            if collision.width.floor() <= TILE_SIZE_HALF { return false }
-            if collision.height.floor() < TILE_SIZE_HALF { return false }
+        if let Some(collision) = door.collision_area_with_rect(&hero_frame) {
+            if collision.w.floor() <= TILE_SIZE_HALF { return false }
+            if collision.h.floor() < TILE_SIZE_HALF { return false }
             return hero_direction.y != 0.0;
         }
         false

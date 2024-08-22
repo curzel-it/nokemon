@@ -1,7 +1,5 @@
 
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::Insets};
+use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct SurroundingAreaAttack {
@@ -15,9 +13,9 @@ impl SurroundingAreaAttack {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: parent.id(),
-                frame: Rectangle::new(0.0, 0.0, 50.0, 30.0),
+                frame: Rect::new(0.0, 0.0, 50.0, 30.0),
                 collision_insets: Insets::zero(),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 1000.0,
@@ -49,7 +47,7 @@ impl Entity for SurroundingAreaAttack {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 

@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate}, impl_embodied_entity, impl_single_animation_sprite_update, utils::geometry_utils::Insets};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::creep::Creep;
 
@@ -18,9 +16,9 @@ impl CreepSpawnPoint {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, 50.0, 30.0),
+                frame: Rect::new(0.0, 0.0, 50.0, 30.0),
                 collision_insets: Insets::zero(),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 100.0,
@@ -57,7 +55,7 @@ impl Entity for CreepSpawnPoint {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 
@@ -70,7 +68,7 @@ impl CreepSpawnPoint {
     fn build_creep(&self) -> Box<dyn Entity> {
         let mut creep = Creep::new(self);
         creep.center_in(&self.body().frame);
-        creep.body_mut().direction = Vector2::new(1.0, 0.0);
+        creep.body_mut().direction = Vector2d::new(1.0, 0.0);
         Box::new(creep)
     }
 }

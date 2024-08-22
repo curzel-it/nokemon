@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::file_utils::list_files};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{file_utils::list_files, rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -9,7 +9,7 @@ use raylib::prelude::*;
 pub struct GameEngine {
     pub inventory: Inventory,
     pub worlds: Vec<World>,
-    pub camera_viewport: Rectangle,    
+    pub camera_viewport: Rect,    
     pub ui_config: Option<RenderingConfig>
 }
 
@@ -31,7 +31,7 @@ impl GameEngine {
 
     pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {
         let (mut rl, thread) = raylib::init()
-            .size(self.camera_viewport.width as i32, self.camera_viewport.height as i32)
+            .size(self.camera_viewport.w as i32, self.camera_viewport.h as i32)
             .resizable()
             .title("Totally not Pokemon")
             .build();        
@@ -51,7 +51,7 @@ impl GameEngine {
             textures,
             rendering_scale: 2.0,
             font_rendering_scale: 2.0,
-            canvas_size: Vector2::new(1.0, 1.0)
+            canvas_size: Vector2d::new(1.0, 1.0)
         });
 
         self.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
@@ -114,9 +114,10 @@ impl GameEngine {
         let (scale, font_scale) = self.rendering_scale_for_screen_width(width);
         self.ui_config.as_mut().unwrap().rendering_scale = scale;
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
-        self.ui_config.as_mut().unwrap().canvas_size = Vector2::new(width as f32, height as f32);
-        self.camera_viewport.width = width as f32 / scale;
-        self.camera_viewport.height = height as f32 / scale;
+        self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
+        self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
+        self.camera_viewport.w = width as f32 / scale;
+        self.camera_viewport.h = height as f32 / scale;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
@@ -182,19 +183,19 @@ impl GameEngine {
         self.center_camera_in(&hero_frame);
     }
 
-    fn center_camera_in(&mut self, frame: &Rectangle) {
+    fn center_camera_in(&mut self, frame: &Rect) {
         self.center_camera_at(
-            frame.x + frame.width / 2.0,
-            frame.y + frame.height / 2.0
+            frame.x + frame.w / 2.0,
+            frame.y + frame.h / 2.0
         );
     }
 
     fn center_camera_at(&mut self, x: f32, y: f32) {
-        self.camera_viewport = Rectangle::new(
-            x - self.camera_viewport.width / 2.0,
-            y - self.camera_viewport.height / 2.0,
-            self.camera_viewport.width,
-            self.camera_viewport.height
+        self.camera_viewport = Rect::new(
+            x - self.camera_viewport.w / 2.0,
+            y - self.camera_viewport.h / 2.0,
+            self.camera_viewport.w,
+            self.camera_viewport.h
         );
     }
 }
@@ -222,7 +223,7 @@ mod tests {
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
         let world = engine.start_headless();
-        assert_ne!(world.bounds.width, 10.0);
-        assert_ne!(world.bounds.height, 10.0);
+        assert_ne!(world.bounds.w, 10.0);
+        assert_ne!(world.bounds.h, 10.0);
     }
 }

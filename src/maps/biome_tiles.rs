@@ -3,7 +3,7 @@
 use raylib::math::Rectangle;
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::geometry_utils::Direction};
+use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -45,8 +45,8 @@ pub struct BiomeTile {
 impl_tile!(BiomeTile);
 
 impl SpriteTile for BiomeTile {
-    fn texture_source_rect(&self, variant: u32) -> Rectangle {
-        Rectangle::new(
+    fn texture_source_rect(&self, variant: u32) -> Rect {
+        Rect::new(
             self.texture_offset_x,
             self.texture_offset_y + TILE_TEXTURE_SIZE * (variant * Biome::number_of_biomes()) as f32,
             TILE_TEXTURE_SIZE, 

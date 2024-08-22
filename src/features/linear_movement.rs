@@ -4,7 +4,12 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     let no_collisions: Vec<Collision> = vec![];
     let collisions = world.collisions.get(&entity.id()).unwrap_or(&no_collisions);
     let frame = entity.body().frame;
-    let offset = entity.body().direction * entity.body().current_speed * time_since_last_update * BASE_ENTITY_SPEED;
+    
+    let offset = entity.body().direction
+        .scaled(entity.body().current_speed)
+        .scaled(time_since_last_update)
+        .scaled(BASE_ENTITY_SPEED);
+    
     let expected_x = frame.x + offset.x;
     let expected_y = frame.y + offset.y;
 
@@ -24,28 +29,28 @@ fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> 
 }
 
 fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collision>) -> bool {
-    let entity_center_x = entity.body().frame.x + entity.body().frame.width / 2.0;
-    let entity_center_y = entity.body().frame.y + entity.body().frame.height / 2.0;
+    let entity_center_x = entity.body().frame.x + entity.body().frame.w / 2.0;
+    let entity_center_y = entity.body().frame.y + entity.body().frame.h / 2.0;
     let direction = entity.body().direction;
 
     if direction.x > 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_x > entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
+            collision.center_x > entity_center_x && collision.overlapping_area.h > COLLISION_THRESHOLD
         });
     }
     if direction.x < 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_x < entity_center_x && collision.overlapping_area.height > COLLISION_THRESHOLD
+            collision.center_x < entity_center_x && collision.overlapping_area.h > COLLISION_THRESHOLD
         });
     }
     if direction.y > 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_y > entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
+            collision.center_y > entity_center_y && collision.overlapping_area.w > COLLISION_THRESHOLD
         });
     }
     if direction.y < 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_y < entity_center_y && collision.overlapping_area.width > COLLISION_THRESHOLD
+            collision.center_y < entity_center_y && collision.overlapping_area.w > COLLISION_THRESHOLD
         });
     }
     false
@@ -53,9 +58,7 @@ fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collisio
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::Vector2;
-
-    use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, levels::constants::LEVEL_DEMO_WORLD, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}};
+        use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}, levels::constants::LEVEL_DEMO_WORLD, utils::vector::Vector2d};
     
     #[test]
     fn can_move_on_update() {
@@ -66,7 +69,7 @@ mod tests {
         body.current_speed = 1.0;        
         
         let mut entity = SimpleEntity::new(body);
-        entity.body_mut().direction = Vector2::new(1.0, 0.0);  
+        entity.body_mut().direction = Vector2d::new(1.0, 0.0);  
         entity.update(&world, 1.0);
 
         assert_eq!(entity.body().frame.x, BASE_ENTITY_SPEED);
@@ -82,7 +85,7 @@ mod tests {
         body.current_speed = 1.0;
         
         let mut entity = SimpleEntity::new(body);
-        entity.body_mut().direction = Vector2::new(-1.0, 0.0);  
+        entity.body_mut().direction = Vector2d::new(-1.0, 0.0);  
         entity.update(&world, 1.0);
 
         assert_eq!(entity.body().frame.x, -BASE_ENTITY_SPEED);

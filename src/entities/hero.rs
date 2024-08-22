@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::geometry_utils::Insets};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -18,9 +16,9 @@ impl Hero {
             body: EntityBody {
                 id: HERO_ENTITY_ID,
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, 19.0, 22.0),
+                frame: Rect::new(0.0, 0.0, 19.0, 22.0),
                 collision_insets: Insets::new(8.0, 1.0, 0.0, 1.0),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 3.0,
                 base_speed: 3.0,
                 hp: 100.0,
@@ -56,7 +54,7 @@ impl Entity for Hero {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 

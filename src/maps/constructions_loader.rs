@@ -1,4 +1,4 @@
-use crate::{constants::TILE_SIZE, levels::utils::level_constructions_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_constructions_binary_path, utils::rect::Rect};
 
 use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
@@ -73,7 +73,7 @@ impl ConstructionTile {
     fn into_obstacle_entity(&self) -> Box<dyn Entity> {
         let entity = StaticObstacle::new(
             self.tile_type.sprite(),
-            raylib::math::Rectangle::new(
+            Rect::new(
                 self.column as f32 * TILE_SIZE, 
                 self.row as f32 * TILE_SIZE, 
                 self.width as f32 * TILE_SIZE, 

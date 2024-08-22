@@ -1,6 +1,4 @@
-use raylib::math::Rectangle;
-
-use crate::{constants::TILE_SIZE, levels::utils::level_biome_binary_path, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}};
+use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_biome_binary_path, utils::rect::Rect};
 
 use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
@@ -13,7 +11,7 @@ impl World {
         make_water_obstacles(self, &groups);        
         let width = matrix[0].len() as f32 * TILE_SIZE;
         let height = matrix.len() as f32 * TILE_SIZE;
-        self.bounds = Rectangle::new(0.0, 0.0, width, height);
+        self.bounds = Rect::new(0.0, 0.0, width, height);
         self.biome_tiles = TileSet::with_tiles("tiles_biome".to_owned(), matrix);
     }
 }
@@ -78,7 +76,7 @@ impl BiomeTile {
     fn into_obstacle_entity(&self) -> Box<dyn Entity> {
         let entity = StaticObstacle::new(
             "invisible",
-            raylib::math::Rectangle::new(
+            Rect::new(
                 self.column as f32 * TILE_SIZE, 
                 self.row as f32 * TILE_SIZE, 
                 self.width as f32 * TILE_SIZE, 

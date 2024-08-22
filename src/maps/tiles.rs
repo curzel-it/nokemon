@@ -1,6 +1,4 @@
-use raylib::math::Rectangle;
-
-use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 pub trait Tile: Clone {
     fn row(&self) -> u32;
@@ -8,7 +6,7 @@ pub trait Tile: Clone {
 }
 
 pub trait SpriteTile: Tile {
-    fn texture_source_rect(&self, variant: u32) -> Rectangle;
+    fn texture_source_rect(&self, variant: u32) -> Rect;
 }
 
 pub struct TileSet<T: Tile> {
@@ -42,11 +40,11 @@ impl<T: Tile> TileSet<T> {
         (*self.sprite_counter.current_frame() + row + col) % TILE_VARIATIONS_COUNT
     }
 
-    pub fn visible_tiles(&self, viewport: &Rectangle) -> Vec<&T> {
+    pub fn visible_tiles(&self, viewport: &Rect) -> Vec<&T> {
         let first_row = (viewport.y / TILE_SIZE).floor() as usize;
-        let rows = (viewport.height / TILE_SIZE).ceil() as usize + 1;
+        let rows = (viewport.h / TILE_SIZE).ceil() as usize + 1;
         let first_col = (viewport.x / TILE_SIZE).floor() as usize;
-        let cols = (viewport.width / TILE_SIZE).ceil() as usize + 1;
+        let cols = (viewport.w / TILE_SIZE).ceil() as usize + 1;
 
         let mut visible_tiles = Vec::new();
 

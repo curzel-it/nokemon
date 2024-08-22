@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, levels::constants::LEVEL_ID_HOUSE_INTERIOR, utils::geometry_utils::Insets};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, levels::constants::LEVEL_ID_HOUSE_INTERIOR, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Teleporter {
@@ -15,9 +13,9 @@ impl Teleporter {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, TILE_SIZE, TILE_SIZE),
+                frame: Rect::new(0.0, 0.0, TILE_SIZE, TILE_SIZE),
                 collision_insets: Insets::zero(),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 100.0,
@@ -48,7 +46,7 @@ impl Entity for Teleporter {
         vec![]
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 
@@ -62,9 +60,9 @@ impl Teleporter {
         let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
         
-        if let Some(collision) = self.body.frame.get_collision_rec(&hero_frame) {
-            if collision.width.floor() <= TILE_SIZE_HALF { return false }
-            if collision.height.floor() < TILE_SIZE_HALF { return false }
+        if let Some(collision) = self.body.frame.collision_area_with_rect(&hero_frame) {
+            if collision.w.floor() <= TILE_SIZE_HALF { return false }
+            if collision.h.floor() < TILE_SIZE_HALF { return false }
             return hero_direction.y != 0.0;
         }
         false

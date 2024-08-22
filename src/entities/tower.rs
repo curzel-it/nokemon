@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate}, impl_embodied_entity, impl_shooter, impl_single_animation_sprite_update, utils::geometry_utils::Insets};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_shooter, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::tower_dart::TowerDart;
 
@@ -18,9 +16,9 @@ impl Tower {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
-                frame: Rectangle::new(0.0, 0.0, 26.0, 42.0),
+                frame: Rect::new(0.0, 0.0, 26.0, 42.0),
                 collision_insets: Insets::new(8.0, 0.0, 0.0, 0.0),
-                direction: Vector2::new(1.0, 0.0),
+                direction: Vector2d::new(1.0, 0.0),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 100.0,
@@ -52,7 +50,7 @@ impl Entity for Tower {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 

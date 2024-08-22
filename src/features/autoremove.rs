@@ -23,9 +23,7 @@ fn should_remove(world: &World, entity: &dyn Entity) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use raylib::math::Vector2;
-
-    use crate::{constants::RECT_ORIGIN_SQUARE_100, levels::constants::LEVEL_DEMO_WORLD, game_engine::{entity_body::EntityBody, simple_entity::SimpleEntity, world::World}};
+        use crate::{constants::RECT_ORIGIN_SQUARE_100, game_engine::{entity_body::EntityBody, simple_entity::SimpleEntity, world::World}, levels::constants::LEVEL_DEMO_WORLD, utils::vector::Vector2d};
 
     #[test]
     fn can_remove_entities_with_no_hp_left() {
@@ -34,7 +32,7 @@ mod tests {
         let mut body = EntityBody::test();
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 100.0;   
-        body.direction = Vector2::zero();
+        body.direction = Vector2d::zero();
         body.hp = 0.0;
         world.add_entity(Box::new(SimpleEntity::new(body)));
 
@@ -51,7 +49,7 @@ mod tests {
         body.lifespan = 10.0;
         body.frame = RECT_ORIGIN_SQUARE_100;
         body.current_speed = 0.0;
-        body.direction = Vector2::zero();
+        body.direction = Vector2d::zero();
         world.add_entity(Box::new(SimpleEntity::new(body)));
 
         assert_eq!(world.entities.borrow().len(), 1);

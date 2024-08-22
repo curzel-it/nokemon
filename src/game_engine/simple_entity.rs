@@ -1,6 +1,4 @@
-use raylib::math::Rectangle;
-
-use crate::{features::{autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity};
+use crate::{features::{autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity, utils::rect::Rect};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
 
@@ -20,12 +18,12 @@ impl Entity for SimpleEntity {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
+    fn texture_source_rect(&self) -> Rect {
+        Rect::new(
             0.0,
             0.0,
-            self.body.frame.width,
-            self.body.frame.height
+            self.body.frame.w,
+            self.body.frame.h
         )
     }
 

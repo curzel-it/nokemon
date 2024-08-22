@@ -1,6 +1,4 @@
-use raylib::math::Rectangle;
-
-use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH}, utils::timed_content_provider::TimedContentProvider};
+use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug)]
 pub struct AnimatedSprite {
@@ -26,8 +24,8 @@ impl AnimatedSprite {
         self.frames_provider.update(time_since_last_update)
     }
 
-    pub fn texture_source_rect(&self) -> Rectangle {
-        Rectangle::new(
+    pub fn texture_source_rect(&self) -> Rect {
+        Rect::new(
             self.frames_provider.current_frame() * self.width,
             self.row * self.height,
             self.width,

@@ -1,16 +1,14 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use raylib::math::Rectangle;
-
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub level_id: u32,
     pub total_elapsed_time: f32,
-    pub bounds: Rectangle,
+    pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
@@ -59,7 +57,7 @@ impl World {
     pub fn update_rl(
         &mut self, 
         time_since_last_update: f32,
-        viewport: &Rectangle,
+        viewport: &Rect,
         keyboard_state: KeyboardState
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
@@ -124,11 +122,11 @@ impl World {
         }
     }
 
-    pub fn visible_biome_tiles(&self, viewport: &Rectangle) -> Vec<&BiomeTile> {
+    pub fn visible_biome_tiles(&self, viewport: &Rect) -> Vec<&BiomeTile> {
         self.biome_tiles.visible_tiles(viewport)
     }
 
-    pub fn visible_construction_tiles(&self, viewport: &Rectangle) -> Vec<&ConstructionTile> {
+    pub fn visible_construction_tiles(&self, viewport: &Rect) -> Vec<&ConstructionTile> {
         self.constructions_tiles.visible_tiles(viewport)
     }
 }

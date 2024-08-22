@@ -1,7 +1,5 @@
 
-use raylib::math::Rectangle;
-
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate}, impl_bullet_sprite_update, impl_embodied_entity, utils::geometry_utils::Insets};
+use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_bullet_sprite_update, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect}};
 
 #[derive(Debug)]
 pub struct TowerDart {
@@ -15,7 +13,7 @@ impl TowerDart {
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: parent.id(),
-                frame: Rectangle::new(0.0, 0.0, 10.0, 10.0),
+                frame: Rect::new(0.0, 0.0, 10.0, 10.0),
                 collision_insets: Insets::zero(),
                 direction: parent.body().direction,
                 current_speed: 5.0,
@@ -49,7 +47,7 @@ impl Entity for TowerDart {
         world_updates
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 

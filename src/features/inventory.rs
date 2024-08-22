@@ -1,6 +1,6 @@
-use raylib::{color::Color, math::{Rectangle, Vector2}};
+use raylib::color::Color;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, vstack, zstack};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -22,7 +22,7 @@ pub struct InventoryItem {
 #[derive(Debug, Clone, Copy)]
 pub struct InventoryItemBeingPlaced {
     pub item: Stockable,
-    pub frame: Rectangle
+    pub frame: Rect
 }
 
 impl Inventory {
@@ -38,7 +38,7 @@ impl Inventory {
         }
     }
 
-    pub fn update(&mut self, camera_vieport: &Rectangle, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+    pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if !self.is_open && keyboard_state.has_inventory_been_pressed {
             self.is_open = true;
         }
@@ -82,7 +82,7 @@ impl Inventory {
                 self.item_being_placed = Some(
                     InventoryItemBeingPlaced {
                         item: self.stock[self.selected_index].item,
-                        frame: Rectangle::new(
+                        frame: Rect::new(
                             (camera_vieport.x / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.x,
                             (camera_vieport.y / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.y,
                             TILE_SIZE, 
@@ -99,7 +99,7 @@ impl Inventory {
         vec![]
     }
 
-    fn place(&self, camera_vieport: &Rectangle, item: Stockable) -> Vec<WorldStateUpdate> {
+    fn place(&self, camera_vieport: &Rect, item: Stockable) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
         let row = ((camera_vieport.y + frame.y) / TILE_SIZE) as usize;
         let col = ((camera_vieport.x + frame.x) / TILE_SIZE) as usize;
@@ -121,7 +121,7 @@ impl Inventory {
         }
     }
 
-    fn place_building(&self, camera_vieport: &Rectangle, building_type: BuildingType) -> Vec<WorldStateUpdate> {
+    fn place_building(&self, camera_vieport: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
         let mut building = Building::new(building_type, LEVEL_ID_HOUSE_INTERIOR);
         building.body_mut().frame.x = camera_vieport.x + frame.x;
@@ -153,14 +153,14 @@ impl Stockable {
         ]
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         let (row, col) = self.texture_offsets();
 
-        Rectangle {
+        Rect {
             x: col as f32 * TILE_SIZE,
             y: row as f32 * TILE_SIZE,
-            width: TILE_SIZE, 
-            height: TILE_SIZE
+            w: TILE_SIZE, 
+            h: TILE_SIZE
         }
     }
 
@@ -220,7 +220,7 @@ impl InventoryItem {
                 texture!(
                     sprite_sheet, 
                     self.item.texture_source_rect(), 
-                    Vector2::new(
+                    Vector2d::new(
                         TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value(), 
                         TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value()
                     )
@@ -230,7 +230,7 @@ impl InventoryItem {
             texture!(
                 sprite_sheet, 
                 self.item.texture_source_rect(), 
-                Vector2::new(TILE_SIZE_X1_5, TILE_SIZE_X1_5)
+                Vector2d::new(TILE_SIZE_X1_5, TILE_SIZE_X1_5)
             )
         }
     }

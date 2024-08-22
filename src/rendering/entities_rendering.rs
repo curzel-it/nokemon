@@ -2,7 +2,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{game_engine::{entity::Entity, game_engine::GameEngine, world::World}, utils::geometry_utils::Scalable};
+use crate::{game_engine::{entity::Entity, game_engine::GameEngine, world::World}, utils::rect::Rect};
 
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;
@@ -42,14 +42,16 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
     let frame = item.body().frame;
     
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
-        let source_rect = item.texture_source_rect();
+        let source_rect = item.texture_source_rect().as_rr();
 
-        let dest_rect = Rectangle {
+        let dest_rect = Rect {
             x: frame.x - engine.camera_viewport.x, 
             y: frame.y - engine.camera_viewport.y,
-            width: frame.width,
-            height: frame.height,
-        }.scaled(engine.ui_config.as_ref().unwrap().rendering_scale);
+            w: frame.w,
+            h: frame.h,
+        }
+        .scaled(engine.ui_config.as_ref().unwrap().rendering_scale)
+        .as_rr();
 
         d.draw_texture_pro(
             texture,

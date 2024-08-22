@@ -1,6 +1,4 @@
-use raylib::math::{Rectangle, Vector2};
-
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::geometry_utils::Insets};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate};
 
@@ -11,14 +9,14 @@ pub struct StaticObstacle {
 }
 
 impl StaticObstacle {
-    pub fn new(sprite: &str, frame: Rectangle) -> Self {
+    pub fn new(sprite: &str, frame: Rect) -> Self {
         Self { 
             body: EntityBody {
                 id: get_next_entity_id(),
                 parent_id: NO_PARENT,
                 frame,
                 collision_insets: Insets::zero(),
-                direction: Vector2::zero(),
+                direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
                 hp: 100.0,
@@ -30,7 +28,7 @@ impl StaticObstacle {
                 is_ally: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new(sprite, 1, frame.width as u32, frame.height as u32)
+            sprite: AnimatedSprite::new(sprite, 1, frame.w as u32, frame.h as u32)
         }
     }
 }
@@ -42,7 +40,7 @@ impl Entity for StaticObstacle {
         vec![]
     }
 
-    fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rect {
         self.sprite.texture_source_rect()
     }
 
