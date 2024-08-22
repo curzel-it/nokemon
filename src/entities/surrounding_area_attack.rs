@@ -27,7 +27,6 @@ impl SurroundingAreaAttack {
                 is_rigid: false,
                 z_index: 0,
                 is_ally: parent.body().is_ally,
-                is_bullet: true,
                 lifespan: 2.5,
             },
             sprite: AnimatedSprite::new("baseattack", 3, 50, 30)

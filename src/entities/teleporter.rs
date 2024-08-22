@@ -27,7 +27,6 @@ impl Teleporter {
                 is_rigid: false,
                 z_index: 0,
                 is_ally: false,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             destination: LEVEL_ID_HOUSE_INTERIOR,

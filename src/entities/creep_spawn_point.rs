@@ -30,7 +30,6 @@ impl CreepSpawnPoint {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: false,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             last_spawn_time: 0.0,

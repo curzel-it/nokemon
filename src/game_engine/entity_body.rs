@@ -37,7 +37,6 @@ pub struct EntityBody {
     pub is_rigid: bool,
     pub z_index: i32,
     pub is_ally: bool,
-    pub is_bullet: bool,
     pub lifespan: f32,
 }
 
@@ -111,7 +110,6 @@ mod tests {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: false,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             }
         }

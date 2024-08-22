@@ -26,7 +26,6 @@ impl Creep {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: parent.body().is_ally,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             sprite: AnimatedSprite::new("white", 3, 19, 22)

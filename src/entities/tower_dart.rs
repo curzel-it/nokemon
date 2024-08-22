@@ -27,7 +27,6 @@ impl TowerDart {
                 is_rigid: false,
                 z_index: 0,
                 is_ally: parent.body().is_ally,
-                is_bullet: true,
                 lifespan: 10.0,
             },
             sprite: AnimatedSprite::new("towerdart", 3, 10, 10)

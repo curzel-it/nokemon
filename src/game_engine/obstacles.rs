@@ -28,7 +28,6 @@ impl StaticObstacle {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: false,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             sprite: AnimatedSprite::new(sprite, 1, frame.width as u32, frame.height as u32)

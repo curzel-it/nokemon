@@ -30,7 +30,6 @@ impl Hero {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: true,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             time_to_next_shot: 3.0,

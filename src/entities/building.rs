@@ -63,7 +63,6 @@ impl Building {
                 is_rigid: true,
                 z_index: 0,
                 is_ally: true,
-                is_bullet: false,
                 lifespan: INFINITE_LIFESPAN,
             },      
             building_type,
