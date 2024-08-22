@@ -21,12 +21,12 @@ pub enum TextStyle {
 }
 
 pub enum Spacing {
-    Custom(f32),
     ZERO,
     XS, 
     SM, 
     MD,
-    LG
+    LG,
+    TextLineSpacing(TextStyle)
 }
 
 pub struct GridSpacing {
@@ -175,25 +175,30 @@ impl RenderingConfig {
         self.scaled_font_size(style) / 10.0
     }
 
-    pub fn font_lines_spacing(&self, style: &TextStyle) -> Spacing {
-        Spacing::Custom(self.scaled_font_size(style) / 3.0)
+    pub fn font_lines_spacing(&self, style: &TextStyle) -> f32 {
+        self.scaled_font_size(style) / 3.0
     }
 }
 
 impl Spacing {
     pub fn unscaled_value(&self) -> f32 {
         match self {
-            Spacing::Custom(value) => *value,
             Spacing::ZERO => 0.0,
             Spacing::XS => 2.0,
             Spacing::SM => 4.0,
             Spacing::MD => 8.0,
             Spacing::LG => 12.0,
+            Spacing::TextLineSpacing(_) => 4.0,
         }
     }
 
     fn value(&self, config: &RenderingConfig) -> f32 {
-        config.rendering_scale * self.unscaled_value()
+        match self {
+            Spacing::TextLineSpacing(style) => {
+                config.rendering_scale * config.font_lines_spacing(style)
+            },
+            _ => config.rendering_scale * self.unscaled_value()
+        }        
     }
 }
 
@@ -315,13 +320,12 @@ impl View {
             let font_spacing = config.scaled_font_spacing(style);
             d.draw_text_ex(font, text, position, font_size, font_spacing, Color::WHITE);
         } else {
-            let stack = self.multiline_text_to_vstack(config, style, text);
+            let stack = self.multiline_text_to_vstack(style, text);
             stack.render(d, config, position);
         }
     }
 
-    fn multiline_text_to_vstack(&self, config: &RenderingConfig, style: &TextStyle, text: &String) -> View {
-        let lines_spacing = config.font_lines_spacing(style);
+    fn multiline_text_to_vstack(&self, style: &TextStyle, text: &String) -> View {
         let lines = text.split("\n");
         let texts: Vec<View> = lines.map(|line_text|
             View::Text { 
@@ -329,7 +333,11 @@ impl View {
                 text: line_text.replace("\n", " ").to_string()
             }
         ).collect();
-        let lines_stack = View::VStack { spacing: lines_spacing, children: texts };
+        
+        let lines_stack = View::VStack { 
+            spacing: Spacing::TextLineSpacing(style.clone()), 
+            children: texts 
+        };
         lines_stack
         // spacing!(Spacing::LG)
     }
@@ -516,7 +524,7 @@ impl View {
             let size = font.measure_text(text, font_size, font_spacing);
             Vector2::new(size.x, size.y)
         } else {
-            let stack = self.multiline_text_to_vstack(config, style, text);
+            let stack = self.multiline_text_to_vstack(style, text);
             stack.calculate_size(config)
         }
     }

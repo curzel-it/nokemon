@@ -110,20 +110,21 @@ impl GameEngine {
     }
 
     pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {
-        let scale = self.rendering_scale_for_screen_width(width);
+        let (scale, font_scale) = self.rendering_scale_for_screen_width(width);
         self.ui_config.as_mut().unwrap().rendering_scale = scale;
-        self.ui_config.as_mut().unwrap().font_rendering_scale = scale;
+        self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.camera_viewport.width = width as f32 / scale;
         self.camera_viewport.height = height as f32 / scale;
     }
 
-    fn rendering_scale_for_screen_width(&self, width: i32) -> f32 {
+    fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
         if width < 500 {
-            1.0
+            (1.0, 1.2)
         } else if width < 1400 {
-            2.0
+            (2.0, 1.8)
         } else {
-            (width as f32 / 1000.0).ceil()
+            let value = (width as f32 / 1000.0).ceil();
+            (value, value)
         }
     }
 
