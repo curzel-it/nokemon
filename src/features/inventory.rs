@@ -1,6 +1,6 @@
 use raylib::{color::Color, math::{Rectangle, Vector2}};
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, hstack, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, vstack, zstack};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE, TILE_SIZE_X1_5, TILE_SIZE_X2}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, hstack, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -9,7 +9,8 @@ pub struct Inventory {
     pub stock: Vec<InventoryItem>,
     pub selected_index: usize,
     pub item_being_placed: Option<InventoryItemBeingPlaced>,
-    sprite_sheet_path: String
+    sprite_sheet_path: String,
+    columns: usize
 }
 
 #[derive(Debug)]
@@ -32,7 +33,8 @@ impl Inventory {
             stock: vec![],
             selected_index: 0,
             item_being_placed: None,
-            sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH)
+            sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH),
+            columns: 5
         }
     }
 
@@ -64,8 +66,14 @@ impl Inventory {
                 self.item_being_placed = None;
             }
         } else {
+            if keyboard_state.has_up_been_pressed && self.selected_index >= self.columns {
+                self.selected_index -= self.columns;
+            }
             if keyboard_state.has_right_been_pressed && self.selected_index < self.stock.len() - 1 {
                 self.selected_index += 1;
+            }
+            if keyboard_state.has_down_been_pressed && self.selected_index < self.stock.len() - self.columns {
+                self.selected_index += self.columns;
             }
             if keyboard_state.has_left_been_pressed && self.selected_index > 0 {
                 self.selected_index -= 1;
@@ -134,54 +142,6 @@ pub enum Stockable {
     Building(BuildingType),    
 }
 
-impl Inventory {
-    pub fn ui(&self) -> View {
-        padding(
-            Spacing::LG,
-            zstack!(
-                Spacing::LG,
-                Color::BLACK,
-                vstack!(
-                    Spacing::ZERO, 
-                    text!(TextStyle::Bold, "Inventory".to_string()),
-                    spacing!(Spacing::SM),
-                    text!(TextStyle::Regular, "1. Press space bar to select\n2. Use arrows to move it around the map\n3. Space again to place it.".to_string()),
-                    spacing!(Spacing::MD),
-                    View::VGrid {                        
-                        spacing: GridSpacing::SM(),
-                        columns: 5,
-                        children: self.stock.iter().enumerate().map(|(index, item)| {
-                            item.ui(index, self.selected_index)
-                        }).collect()
-                    }
-                )
-            )
-        )
-    }
-}
-
-impl InventoryItem {
-    pub fn ui(&self, index: usize, selected_index: usize) -> View {
-        if index == selected_index {
-            zstack!(
-                Spacing::XS, 
-                Color::YELLOW,
-                texture!(
-                    format!("{}/inventory.png", ASSETS_PATH), 
-                    self.item.texture_source_rect(), 
-                    Vector2::new(TILE_SIZE, TILE_SIZE)
-                )
-            )
-        } else {
-            texture!(
-                format!("{}/inventory.png", ASSETS_PATH), 
-                self.item.texture_source_rect(), 
-                Vector2::new(TILE_SIZE, TILE_SIZE)
-            )
-        }
-    }
-}
-
 impl Stockable {
     pub fn all_possible_items() -> Vec<Stockable> {
         vec![
@@ -227,6 +187,55 @@ impl Stockable {
             Stockable::Building(building_type) => match building_type {
                 BuildingType::House => (1, 2)
             }
+        }
+    }
+}
+
+impl Inventory {
+    pub fn ui(&self) -> View {
+        padding(
+            Spacing::LG,
+            zstack!(
+                Spacing::LG,
+                Color::BLACK,
+                vstack!(
+                    Spacing::LG, 
+                    text!(TextStyle::Title, "Inventory".to_string()),
+                    text!(TextStyle::Regular, "1. Press SPACE to select something\n2. Use arrows to move around\n3. Press SPACE to place it\n4. Press ESC to come back".to_string()),
+                    View::VGrid {                        
+                        spacing: GridSpacing::SM(),
+                        columns: self.columns,
+                        children: self.stock.iter().enumerate().map(|(index, item)| {
+                            item.ui(self.sprite_sheet_path.clone(), index, self.selected_index)
+                        }).collect()
+                    }
+                )
+            )
+        )
+    }
+}
+
+impl InventoryItem {
+    pub fn ui(&self, sprite_sheet: String, index: usize, selected_index: usize) -> View {
+        if index == selected_index {
+            zstack!(
+                Spacing::XS, 
+                Color::YELLOW,
+                texture!(
+                    sprite_sheet, 
+                    self.item.texture_source_rect(), 
+                    Vector2::new(
+                        TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value(), 
+                        TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value()
+                    )
+                )
+            )
+        } else {
+            texture!(
+                sprite_sheet, 
+                self.item.texture_source_rect(), 
+                Vector2::new(TILE_SIZE_X1_5, TILE_SIZE_X1_5)
+            )
         }
     }
 }

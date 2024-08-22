@@ -14,11 +14,14 @@ pub struct RenderingConfig {
 
 #[derive(Copy, Clone, Debug)]
 pub enum TextStyle {
-    Bold,
+    LargeTitle,
+    Title,
     Regular,
+    Bold
 }
 
 pub enum Spacing {
+    Custom(f32),
     ZERO,
     XS, 
     SM, 
@@ -161,8 +164,10 @@ impl GridSpacing {
 impl RenderingConfig {
     pub fn scaled_font_size(&self, style: &TextStyle) -> f32 {
         self.font_rendering_scale * match style {
-            TextStyle::Bold => 10.0,
-            TextStyle::Regular => 10.0,
+            TextStyle::LargeTitle => 12.0,
+            TextStyle::Title => 9.0,
+            TextStyle::Bold => 7.0,
+            TextStyle::Regular => 7.0,
         }
     }
 
@@ -170,14 +175,15 @@ impl RenderingConfig {
         self.scaled_font_size(style) / 10.0
     }
 
-    pub fn font_lines_spacing(&self, _: &TextStyle) -> Spacing {
-        Spacing::XS
+    pub fn font_lines_spacing(&self, style: &TextStyle) -> Spacing {
+        Spacing::Custom(self.scaled_font_size(style) / 3.0)
     }
 }
 
 impl Spacing {
-    fn value(&self, config: &RenderingConfig) -> f32 {
-        config.rendering_scale * match self {
+    pub fn unscaled_value(&self) -> f32 {
+        match self {
+            Spacing::Custom(value) => *value,
             Spacing::ZERO => 0.0,
             Spacing::XS => 2.0,
             Spacing::SM => 4.0,
@@ -185,11 +191,17 @@ impl Spacing {
             Spacing::LG => 12.0,
         }
     }
+
+    fn value(&self, config: &RenderingConfig) -> f32 {
+        config.rendering_scale * self.unscaled_value()
+    }
 }
 
 impl RenderingConfig {
     fn font(&self, style: &TextStyle) -> &Font {
         match style {
+            TextStyle::LargeTitle => &self.font_bold,
+            TextStyle::Title => &self.font_bold,
             TextStyle::Bold => &self.font_bold,
             TextStyle::Regular => &self.font,
         }

@@ -18,6 +18,10 @@ impl Insets {
         }
     }
 
+    pub fn all_side(value: f32) -> Self {
+        Self::new(value, value, value, value)
+    }
+
     pub fn zero() -> Self {
         Insets::new(0.0, 0.0, 0.0, 0.0)
     }
@@ -29,6 +33,21 @@ impl Insets {
             rect.width - self.left - self.right, 
             rect.height - self.top - self.bottom
         )
+    }
+}
+
+pub trait Insetsable {
+    fn inset(&self, insets: Insets) -> Self;
+    fn inset_by(&self, value: f32) -> Self;
+}
+
+impl Insetsable for Rectangle {
+    fn inset(&self, insets: Insets) -> Self {
+        insets.apply_to_rect(self)
+    }
+
+    fn inset_by(&self, value: f32) -> Self {
+        self.inset(Insets::all_side(value))
     }
 }
 
