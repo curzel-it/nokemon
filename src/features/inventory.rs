@@ -1,6 +1,6 @@
-use raylib::math::Rectangle;
+use raylib::{color::Color, math::{Rectangle, Vector2}};
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{Building, BuildingType}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, hstack, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -134,6 +134,51 @@ pub enum Stockable {
     Building(BuildingType),    
 }
 
+impl Inventory {
+    pub fn ui(&self) -> View {
+        padding(
+            Spacing::LG,
+            zstack!(
+                Spacing::LG,
+                Color::BLACK,
+                vstack!(
+                    Spacing::MD, 
+                    text!(TextStyle::Bold, "Inventory".to_string()),
+                    View::VGrid {                        
+                        spacing: GridSpacing::SM(),
+                        columns: 5,
+                        children: self.stock.iter().enumerate().map(|(index, item)| {
+                            item.ui(index, self.selected_index)
+                        }).collect()
+                    }
+                )
+            )
+        )
+    }
+}
+
+impl InventoryItem {
+    pub fn ui(&self, index: usize, selected_index: usize) -> View {
+        if index == selected_index {
+            zstack!(
+                Spacing::XS, 
+                Color::YELLOW,
+                texture!(
+                    format!("{}/inventory.png", ASSETS_PATH), 
+                    self.item.texture_source_rect(), 
+                    Vector2::new(1.5 * TILE_SIZE, 1.5 * TILE_SIZE)
+                )
+            )
+        } else {
+            texture!(
+                format!("{}/inventory.png", ASSETS_PATH), 
+                self.item.texture_source_rect(), 
+                Vector2::new(1.5 * TILE_SIZE, 1.5 * TILE_SIZE)
+            )
+        }
+    }
+}
+
 impl Stockable {
     pub fn all_possible_items() -> Vec<Stockable> {
         vec![
@@ -149,7 +194,7 @@ impl Stockable {
         ]
     }
 
-    pub fn texture_source_rect(&self) -> Rectangle {
+    fn texture_source_rect(&self) -> Rectangle {
         let (row, col) = self.texture_offsets();
 
         Rectangle {
