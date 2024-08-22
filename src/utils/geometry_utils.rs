@@ -1,4 +1,3 @@
-use raylib::math::{Rectangle, Vector2};
 use serde::{Deserialize, Serialize};
 
 use super::{rect::Rect, vector::Vector2d};

@@ -18,7 +18,7 @@ macro_rules! impl_embodied_entity {
                 &mut self.body
             }
             
-            fn center_in(&mut self, value: &crate::utils::rect::Rect) {
+            fn center_in(&mut self, value: &$crate::utils::rect::Rect) {
                 self.body.center_in(value);
             }
             
@@ -35,7 +35,7 @@ macro_rules! impl_embodied_entity {
                 self.body.frame.y = y;
             }
 
-            fn collision_frame(&self) -> crate::utils::rect::Rect {
+            fn collision_frame(&self) -> $crate::utils::rect::Rect {
                 self.body.collision_frame()
             }
         }
