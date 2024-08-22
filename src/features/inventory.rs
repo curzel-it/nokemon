@@ -121,10 +121,6 @@ impl Inventory {
         }
     }
 
-    pub fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path
-    }
-
     fn place_building(&self, camera_vieport: &Rectangle, building_type: BuildingType) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
         let mut building = Building::new(building_type, LEVEL_ID_HOUSE_INTERIOR);

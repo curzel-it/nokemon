@@ -34,7 +34,7 @@ fn main() {
         let time_since_last_update = rl.get_frame_time();
 
         if rl.is_window_resized() {
-            engine.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+            engine.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
         }
 
         engine.update_rl(time_since_last_update, &rl);

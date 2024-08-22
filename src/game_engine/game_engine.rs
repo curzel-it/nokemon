@@ -50,10 +50,11 @@ impl GameEngine {
             font_bold, 
             textures,
             rendering_scale: 2.0,
-            font_rendering_scale: 2.0
+            font_rendering_scale: 2.0,
+            canvas_size: Vector2::new(1.0, 1.0)
         });
 
-        self.adjust_camera_from_screen_size(rl.get_screen_width(), rl.get_screen_height());
+        self.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
 
         (rl, thread)
     }
@@ -109,19 +110,20 @@ impl GameEngine {
         textures
     }
 
-    pub fn adjust_camera_from_screen_size(&mut self, width: i32, height: i32) {
+    pub fn window_size_changed(&mut self, width: i32, height: i32) {
         let (scale, font_scale) = self.rendering_scale_for_screen_width(width);
         self.ui_config.as_mut().unwrap().rendering_scale = scale;
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
+        self.ui_config.as_mut().unwrap().canvas_size = Vector2::new(width as f32, height as f32);
         self.camera_viewport.width = width as f32 / scale;
         self.camera_viewport.height = height as f32 / scale;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
         if width < 500 {
-            (1.0, 1.2)
+            (1.0, 1.25)
         } else if width < 1400 {
-            (2.0, 1.8)
+            (2.0, 2.0)
         } else {
             let value = (width as f32 / 1000.0).ceil();
             (value, value)

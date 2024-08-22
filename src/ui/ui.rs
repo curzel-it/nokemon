@@ -10,6 +10,7 @@ pub struct RenderingConfig {
     pub textures: HashMap<String, Texture2D>,
     pub rendering_scale: f32,
     pub font_rendering_scale: f32,
+    pub canvas_size: Vector2
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -32,6 +33,13 @@ pub enum Spacing {
 pub struct GridSpacing {
     between_columns: Spacing,
     between_rows: Spacing,
+}
+
+pub enum Corner {
+    TopLeft,
+    TopRight,
+    BottomLeft,
+    BottomRight,
 }
 
 pub enum View {
@@ -136,6 +144,10 @@ pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, po
     view.render(d, config, position);
 }
 
+pub fn render_from(corner: Corner, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2) {
+    view.render_from(d, config, position, corner);
+}
+
 impl GridSpacing {
     pub fn new(between_rows: Spacing, between_columns: Spacing) -> Self {
         Self {
@@ -218,6 +230,29 @@ impl RenderingConfig {
 }
 
 impl View {
+    fn render_from(
+        &self, 
+        d: &mut RaylibDrawHandle, 
+        config: &RenderingConfig, 
+        position: &Vector2,
+        corner: Corner
+    ) {
+        if let Corner::TopLeft = corner {
+            return self.render(d, config, position);
+        }
+        let size = self.calculate_size(config);
+
+        let (x, y) = match corner {
+            Corner::TopLeft => (position.x, position.y),
+            Corner::TopRight => (position.x - size.x, position.y),
+            Corner::BottomRight => (position.x - size.x, position.y - size.y),
+            Corner::BottomLeft => (position.x, position.y - size.y)
+        };
+
+        let real_position = Vector2::new(x, y);
+        return self.render(d, config, &real_position);
+    }
+
     fn render(
         &self, 
         d: &mut RaylibDrawHandle, 
