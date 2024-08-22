@@ -56,7 +56,7 @@ pub enum View {
 #[macro_export]
 macro_rules! zstack {
     ($spacing:expr, $background_color:expr, $( $child:expr ),*) => {
-        crate::ui::ui::View::ZStack {
+        $crate::ui::ui::View::ZStack {
             spacing: $spacing,
             background_color: $background_color,
             children: vec![$($child),*],
@@ -67,7 +67,7 @@ macro_rules! zstack {
 #[macro_export]
 macro_rules! vstack {
     ($spacing:expr, $( $child:expr ),*) => {
-        crate::ui::ui::View::VStack {
+        $crate::ui::ui::View::VStack {
             spacing: $spacing,
             children: vec![$($child),*],
         }
@@ -77,7 +77,7 @@ macro_rules! vstack {
 #[macro_export]
 macro_rules! hstack {
     ($spacing:expr, $( $child:expr ),*) => {
-        crate::ui::ui::View::HStack {
+        $crate::ui::ui::View::HStack {
             spacing: $spacing,
             children: vec![$($child),*],
         }
@@ -87,7 +87,7 @@ macro_rules! hstack {
 #[macro_export]
 macro_rules! text {
     ($style:expr, $text:expr) => {
-        crate::ui::ui::View::Text {
+        $crate::ui::ui::View::Text {
             style: $style,
             text: $text,
         }
@@ -97,7 +97,7 @@ macro_rules! text {
 #[macro_export]
 macro_rules! texture {
     ($key:expr, $source_rect:expr, $size:expr) => {
-        crate::ui::ui::View::Texture {
+        $crate::ui::ui::View::Texture {
             key: $key,
             source_rect: $source_rect,
             size: $size,
@@ -108,7 +108,7 @@ macro_rules! texture {
 #[macro_export]
 macro_rules! spacing {
     ($size:expr) => {
-        crate::ui::ui::View::Spacing {
+        $crate::ui::ui::View::Spacing {
             size: $size,
         }
     };
@@ -117,7 +117,7 @@ macro_rules! spacing {
 #[macro_export]
 macro_rules! vgrid {
     ($columns:expr, $spacing:expr, $( $child:expr ),*) => {
-        crate::ui::ui::View::VGrid {
+        $crate::ui::ui::View::VGrid {
             columns: $columns,
             spacing: $spacing,
             children: vec![$($child),*],
@@ -128,7 +128,7 @@ macro_rules! vgrid {
 #[macro_export]
 macro_rules! hgrid {
     ($rows:expr, $spacing:expr, $( $child:expr ),*) => {
-        crate::ui::ui::View::HGrid {
+        $crate::ui::ui::View::HGrid {
             rows: $rows,
             spacing: $spacing,
             children: vec![$($child),*],
@@ -250,7 +250,7 @@ impl View {
         };
 
         let real_position = Vector2::new(x, y);
-        return self.render(d, config, &real_position);
+        self.render(d, config, &real_position)
     }
 
     fn render(
@@ -273,7 +273,7 @@ impl View {
                 self.render_text(d, config, position, style, text);
             }
             View::Texture { key, source_rect, size } => {
-                self.render_texture(d, config, key, source_rect, &position, size);
+                self.render_texture(d, config, key, source_rect, position, size);
             }
             View::Spacing { size: _ } => {
                 // Not visible
@@ -316,7 +316,7 @@ impl View {
         spacing: &Spacing,
     ) {
         let space = spacing.value(config);
-        let mut child_position = position.clone();
+        let mut child_position = *position;
 
         for child in children {
             child.render(d, config, &child_position);
@@ -333,7 +333,7 @@ impl View {
         spacing: &Spacing,
     ) {
         let space = spacing.value(config);
-        let mut child_position = position.clone();
+        let mut child_position = *position;
 
         for child in children {
             child.render(d, config, &child_position);
@@ -364,16 +364,16 @@ impl View {
         let lines = text.split("\n");
         let texts: Vec<View> = lines.map(|line_text|
             View::Text { 
-                style: style.clone(), 
+                style: *style, 
                 text: line_text.replace("\n", " ").to_string()
             }
         ).collect();
         
-        let lines_stack = View::VStack { 
-            spacing: Spacing::TextLineSpacing(style.clone()), 
+        
+        View::VStack { 
+            spacing: Spacing::TextLineSpacing(*style), 
             children: texts 
-        };
-        lines_stack
+        }
         // spacing!(Spacing::LG)
     }
 
@@ -415,7 +415,7 @@ impl View {
         children: &[View],
     ) {
         let row_space: f32 = spacing.between_rows.value(config);
-        let mut row_position: Vector2 = position.clone();        
+        let mut row_position: Vector2 = *position;        
         let rows = children.chunks(*columns);
 
         for row in rows {
@@ -435,7 +435,7 @@ impl View {
         children: &[View],
     ) {
         let column_space: f32 = spacing.between_columns.value(config);
-        let mut column_position: Vector2 = position.clone();        
+        let mut column_position: Vector2 = *position;        
         let columns = children.chunks(*rows);
 
         for column in columns {
@@ -519,7 +519,7 @@ impl View {
             total_height += size.y + space;
             max_width = max_width.max(size.x);
         }
-        if children.len() > 0 {
+        if !children.is_empty() {
             total_height -= space;
         }
         Vector2::new(max_width, total_height)
@@ -540,7 +540,7 @@ impl View {
             total_width += size.x + space;
             max_height = max_height.max(size.y);
         }
-        if children.len() > 0 {
+        if !children.is_empty() {
             total_width -= space;
         }
         Vector2::new(total_width, max_height)

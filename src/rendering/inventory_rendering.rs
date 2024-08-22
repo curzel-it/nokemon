@@ -13,7 +13,7 @@ pub fn render_inventory(d: &mut RaylibDrawHandle, engine: &GameEngine) {
             Corner::TopRight,
             engine.inventory.ui(),
             d, 
-            &ui_config, 
+            ui_config, 
             &Vector2::new(ui_config.canvas_size.x, 0.0)
         );
     }
