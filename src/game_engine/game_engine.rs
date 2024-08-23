@@ -1,10 +1,11 @@
 use std::{collections::HashMap, fs::File, io::BufReader};
-
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
-
-use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
 use raylib::prelude::*;
+use serde_json::Error;
+
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, maps::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+
+use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub inventory: Inventory,
@@ -41,16 +42,35 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
 
-        // self.push_world(LEVEL_DEMO_WORLD);
         let save_file_path = "save_game.json";    
         let file = File::open(save_file_path).unwrap();
-        let reader = BufReader::new(file);
-        let mut world: World = serde_json::from_reader(reader).unwrap();
-        world.setup();
-        world.update(0.001);
-        let hero_frame = world.cached_hero_props.frame;
-        self.worlds.push(world);
-        self.center_camera_in(&hero_frame);
+        let reader = BufReader::new(file);        
+        let result: Result<World, Error> = serde_json::from_reader(reader);
+
+        if let Ok(asd) = result {
+            let mut world = asd;
+            world.setup();
+            world.update(0.001);
+            let hero_frame = world.cached_hero_props.frame;
+            self.worlds.push(world);
+            self.center_camera_in(&hero_frame);
+        } else {
+            println!("Error loading save file: {:#?}", result);
+            let mut world = World::new(LEVEL_DEMO_WORLD);
+            let tiles: Vec<Vec<BiomeTile>> = (0..200).map(|row| {
+                (0..150).map(|column| {
+                    BiomeTile::from_data(row as usize, column as usize, (1, 1, 1, 1, 1))
+                }).collect()
+            }).collect();
+            let tile_set = TileSet::<BiomeTile>::with_tiles(SPRITE_SHEET_BIOME_TILES, tiles);
+
+            world.load_biome_tiles(tile_set);
+            world.setup();
+            world.update(0.001);
+            let hero_frame = world.cached_hero_props.frame;
+            self.worlds.push(world);
+            self.center_camera_in(&hero_frame);
+        }
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 

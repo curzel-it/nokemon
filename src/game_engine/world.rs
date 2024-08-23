@@ -164,7 +164,7 @@ impl Serialize for World {
             })
             .collect();
 
-        let mut state = serializer.serialize_struct("World", 3)?;
+        let mut state = serializer.serialize_struct("World", 4)?;
         state.serialize_field("level_id", &self.level_id)?;
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;

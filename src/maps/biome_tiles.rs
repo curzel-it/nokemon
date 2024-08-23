@@ -307,7 +307,7 @@ impl Biome {
 }
 
 impl BiomeTile {
-    fn from_data(row: usize, column: usize, data: (u32, u32, u32, u32, u32)) -> Self {
+    pub fn from_data(row: usize, column: usize, data: (u32, u32, u32, u32, u32)) -> Self {
         let mut tile = Self { 
             tile_type: Biome::from_int(data.0), 
             column: column as u32, 

@@ -8,22 +8,16 @@ mod rendering;
 mod ui;
 mod utils;
 
-use std::{env, fs::File, io::Write};
+use std::{env, fs::File, io::{Read, Write}};
 
 use game_engine::game_engine::GameEngine;
-// use maps::worldgen::create_map_binaries;
 use rendering::levels_rendering::render;
 
 fn main() {
     let save_file_path = "save_game.json";    
-
     let mut creative_mode = false;
 
     let args: Vec<String> = env::args().collect();
-    if args.contains(&"worldgen".to_owned()) {
-        // println!("Running world gen...");
-        // create_map_binaries();
-    }
     if true || args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
         creative_mode = true;
