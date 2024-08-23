@@ -1,6 +1,5 @@
-use crate::{entities::{building::{Building, BuildingType}, hero::Hero, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, world::World}};
+use crate::{entities::{hero::Hero, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, world::World}};
 
-use super::constants::LEVEL_ID_HOUSE_INTERIOR;
 
 pub fn level_setup_demo(world: &mut World) {
     // add_house(world);
