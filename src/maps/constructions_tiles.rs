@@ -1,3 +1,5 @@
+use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
+
 use crate::{constants::{SPRITE_SHEET_BLANK, TILE_TEXTURE_SIZE}, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
@@ -118,5 +120,84 @@ impl TileSet<ConstructionTile> {
             self.tiles[row][col+1].tile_left_type = new_biome;
             self.tiles[row][col+1].setup_textures();
         }
+    }
+}
+
+impl Serialize for TileSet<ConstructionTile> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+        let mut state = serializer.serialize_struct("TileSet", 2)?;
+        let serialized_tiles: Vec<Vec<(u32, u32, u32, u32, u32)>> = self.tiles.iter().map(|row| {
+            row.iter().map(|tile| {
+                (
+                    tile.tile_type.to_int(), 
+                    tile.tile_up_type.to_int(), 
+                    tile.tile_right_type.to_int(), 
+                    tile.tile_down_type.to_int(), 
+                    tile.tile_left_type.to_int(), 
+                )
+            }).collect()
+        }).collect();
+
+        state.serialize_field("tiles", &serialized_tiles)?;
+        state.serialize_field("sheet_id", &self.sheet_id)?;
+        state.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for TileSet<ConstructionTile> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
+        type TileData = (u32, u32, u32, u32, u32);
+
+        #[derive(Deserialize)]
+        struct TileSetData {
+            tiles: Vec<Vec<TileData>>,
+            sheet_id: u32,
+        }
+
+        let data = TileSetData::deserialize(deserializer)?;
+
+        let tiles: Vec<Vec<ConstructionTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
+            tile_row.into_iter().enumerate().map(|(column, tile_data)| {
+                ConstructionTile::from_data(row, column, tile_data)
+            }).collect()
+        }).collect();
+
+        Ok(TileSet::with_tiles(data.sheet_id, tiles))
+    }
+}
+
+impl Construction {
+    fn from_int(value: u32) -> Self {
+        match value {
+            0 => Construction::Nothing,
+            1 => Construction::WoodenFence,
+            _ => Construction::Nothing
+        }
+    }
+    fn to_int(self) -> u32 {
+        match self {
+            Construction::Nothing => 0,
+            Construction::WoodenFence => 1,
+        }
+    }
+}
+
+impl ConstructionTile {
+    fn from_data(row: usize, column: usize, data: (u32, u32, u32, u32, u32)) -> Self {
+        let mut tile = Self { 
+            tile_type: Construction::from_int(data.0), 
+            column: column as u32, 
+            row: row as u32, 
+            width: 1, 
+            height: 1, 
+            tile_up_type: Construction::from_int(data.1), 
+            tile_right_type: Construction::from_int(data.2), 
+            tile_down_type: Construction::from_int(data.3), 
+            tile_left_type: Construction::from_int(data.4), 
+            texture_offset_x: 0.0, 
+            texture_offset_y: 0.0 
+        };
+        tile.setup_textures();
+        tile
     }
 }

@@ -1,3 +1,5 @@
+use std::any::Any;
+
 use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate};
@@ -51,5 +53,9 @@ impl Entity for StaticObstacle {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite.sheet_id
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }

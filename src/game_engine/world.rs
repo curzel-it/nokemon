@@ -1,7 +1,8 @@
-use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
+use std::{any::Any, cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, entities::building::Building, levels::{constants::LEVEL_DEMO_WORLD, utils::setup_level}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
@@ -35,8 +36,6 @@ impl World {
     }
 
     pub fn setup(&mut self) {
-        self.load_biome_tiles();
-        self.load_construction_tiles();
         setup_level(self);
     }
 
@@ -145,5 +144,58 @@ impl World {
         let keyboard_state = KeyboardState::nothing();
         let viewport = self.bounds;
         self.update_rl(time_since_last_update, &viewport, keyboard_state)
+    }
+}
+
+#[derive(Serialize, Deserialize)]
+struct WorldData {
+    level_id: u32,
+    biome_tiles: TileSet<BiomeTile>,
+    constructions_tiles: TileSet<ConstructionTile>,
+    buildings: Vec<Building>,
+}
+
+impl Serialize for World {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+        let entities = self.entities.borrow();
+        let buildings: Vec<&Building> = entities.values()
+            .filter_map(|entity| {
+                entity.as_ref().as_any().downcast_ref::<Building>()
+            })
+            .collect();
+
+        let mut state = serializer.serialize_struct("World", 3)?;
+        state.serialize_field("level_id", &self.level_id)?;
+        state.serialize_field("biome_tiles", &self.biome_tiles)?;
+        state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
+        state.serialize_field("buildings", &buildings)?;
+        state.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for World {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
+        #[derive(Deserialize)]
+        struct WorldData {
+            level_id: u32,
+            biome_tiles: TileSet<BiomeTile>,
+            constructions_tiles: TileSet<ConstructionTile>,
+            buildings: Vec<Building>,
+        }
+
+        let WorldData {
+            level_id,
+            biome_tiles,
+            constructions_tiles,
+            buildings,
+        } = WorldData::deserialize(deserializer)?;
+
+        let mut world = World::new(level_id);
+        for building in buildings {
+            world.add_entity(Box::new(building));
+        }
+        world.load_biome_tiles(biome_tiles);
+        world.load_construction_tiles(constructions_tiles);
+        Ok(world)
     }
 }

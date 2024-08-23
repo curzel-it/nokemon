@@ -1,3 +1,5 @@
+use std::any::Any;
+
 use crate::{features::{autoremove::remove_automatically, linear_movement::move_linearly}, impl_embodied_entity, utils::rect::Rect};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
@@ -29,6 +31,10 @@ impl Entity for SimpleEntity {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite_sheet 
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 

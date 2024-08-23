@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fs::File, io::BufReader};
 
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
@@ -41,7 +41,16 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
 
-        self.push_world(LEVEL_DEMO_WORLD);
+        // self.push_world(LEVEL_DEMO_WORLD);
+        let save_file_path = "save_game.json";    
+        let file = File::open(save_file_path).unwrap();
+        let reader = BufReader::new(file);
+        let mut world: World = serde_json::from_reader(reader).unwrap();
+        world.setup();
+        world.update(0.001);
+        let hero_frame = world.cached_hero_props.frame;
+        self.worlds.push(world);
+        self.center_camera_in(&hero_frame);
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 

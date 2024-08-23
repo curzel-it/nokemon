@@ -1,4 +1,6 @@
 
+use std::any::Any;
+
 use crate::utils::{rect::Rect, vector::Vector2d};
 
 use super::{entity_body::EmbodiedEntity, world::World, state_updates::WorldStateUpdate};
@@ -7,6 +9,7 @@ pub trait Entity: EmbodiedEntity {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate>;
     fn texture_source_rect(&self) -> Rect;  
     fn sprite_sheet(&self) -> u32;
+    fn as_any(&self) -> &dyn Any;
 }
 
 impl PartialEq for dyn Entity {

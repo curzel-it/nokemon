@@ -1,3 +1,5 @@
+use std::any::Any;
+
 use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_CREEP}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
@@ -55,5 +57,9 @@ impl Entity for Creep {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite.sheet_id
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }

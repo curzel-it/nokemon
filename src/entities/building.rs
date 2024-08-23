@@ -1,6 +1,10 @@
+use std::any::Any;
+
+use serde::{Deserialize, Serialize};
+
 use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
     House
 }
@@ -31,7 +35,7 @@ impl BuildingType {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Building {
     body: EntityBody,
     building_type: BuildingType,
@@ -84,6 +88,10 @@ impl Entity for Building {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite_sheet
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 

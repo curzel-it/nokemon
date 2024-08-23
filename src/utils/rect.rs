@@ -79,19 +79,19 @@ impl Rect {
     }
 
     pub fn collides_with_rect(&self, other: &Rect) -> bool {
-        let no_overlap = self.x + self.w <= other.x ||
-                         other.x + other.w <= self.x ||
-                         self.y + self.h <= other.y ||
-                         other.y + other.h <= self.y;
-        !no_overlap
+        self.x < other.x + other.w &&
+        other.x < self.x + self.w &&
+        self.y < other.y + other.h &&
+        other.y < self.y + self.h
     }
 
     pub fn collision_area_with_rect(&self, other: &Rect) -> Option<Rect> {
-        if self.collides_with_rect(other) {
-            let overlap_x = self.x.max(other.x);
-            let overlap_y = self.y.max(other.y);
-            let overlap_w = (self.x + self.w).min(other.x + other.w) - overlap_x;
-            let overlap_h = (self.y + self.h).min(other.y + other.h) - overlap_y;
+        let overlap_x = self.x.max(other.x);
+        let overlap_y = self.y.max(other.y);
+        let overlap_w = (self.x + self.w).min(other.x + other.w) - overlap_x;
+        let overlap_h = (self.y + self.h).min(other.y + other.h) - overlap_y;
+    
+        if overlap_w > 0.0 && overlap_h > 0.0 {
             Some(Rect::new(overlap_x, overlap_y, overlap_w, overlap_h))
         } else {
             None

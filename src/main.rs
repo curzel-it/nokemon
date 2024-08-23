@@ -8,19 +8,21 @@ mod rendering;
 mod ui;
 mod utils;
 
-use std::env;
+use std::{env, fs::File, io::{BufReader, Write}};
 
-use game_engine::game_engine::GameEngine;
-use maps::worldgen::create_map_binaries;
+use game_engine::{game_engine::GameEngine, world::World};
+// use maps::worldgen::create_map_binaries;
 use rendering::levels_rendering::render;
 
 fn main() {
+    let save_file_path = "save_game.json";    
+
     let mut creative_mode = false;
 
     let args: Vec<String> = env::args().collect();
     if args.contains(&"worldgen".to_owned()) {
-        println!("Running world gen...");
-        create_map_binaries();
+        // println!("Running world gen...");
+        // create_map_binaries();
     }
     if true || args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
@@ -39,5 +41,19 @@ fn main() {
 
         engine.update_rl(time_since_last_update, &rl);
         render(&mut rl, &thread, engine.current_world(), &engine);  
+    }
+
+    if let Ok(serialized_world) = serde_json::to_string(&engine.current_world()) {
+        if let Ok(mut file) = File::create(save_file_path) {
+            if let Err(e) = file.write_all(serialized_world.as_bytes()) {
+                eprintln!("Failed to write save file: {}", e);
+            } else {
+                println!("Game saved successfully to {}", save_file_path);
+            }
+        } else {
+            eprintln!("Failed to create save file");
+        }
+    } else {
+        eprintln!("Failed to serialize game world");
     }
 }

@@ -1,4 +1,6 @@
 
+use std::any::Any;
+
 use crate::{constants::SPRITE_SHEET_TOWER_DART, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_bullet_sprite_update, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect}};
 
 #[derive(Debug)]
@@ -58,5 +60,9 @@ impl Entity for TowerDart {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite.sheet_id
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }

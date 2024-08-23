@@ -1,3 +1,5 @@
+use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
+
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
@@ -56,6 +58,19 @@ impl BiomeTile {
             Biome::Water => true,
             _ => false
         }
+    }
+
+    pub fn is_surrounded_by_water(&self) -> bool {
+        if let Biome::Water = self.tile_up_type {
+            if let Biome::Water = self.tile_right_type {
+                if let Biome::Water = self.tile_down_type {
+                    if let Biome::Water = self.tile_left_type {
+                        return true;
+                    }                    
+                }                
+            }
+        }
+        false
     }
 
     pub fn setup_textures(&mut self) {
@@ -153,7 +168,7 @@ impl BiomeTile {
     }
 }
 
-impl Biome {
+impl Biome {    
     fn number_of_combinations() -> u32 {
         15
     }
@@ -210,6 +225,104 @@ impl TileSet<BiomeTile> {
             self.tiles[row][col+1].tile_left_type = new_biome;
             self.tiles[row][col+1].setup_textures();
         }
+    }
+}
+
+impl Serialize for TileSet<BiomeTile> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+        let mut state = serializer.serialize_struct("TileSet", 2)?;
+        let serialized_tiles: Vec<Vec<(u32, u32, u32, u32, u32)>> = self.tiles.iter().map(|row| {
+            row.iter().map(|tile| {
+                (
+                    tile.tile_type.to_int(), 
+                    tile.tile_up_type.to_int(), 
+                    tile.tile_right_type.to_int(), 
+                    tile.tile_down_type.to_int(), 
+                    tile.tile_left_type.to_int(), 
+                )
+            }).collect()
+        }).collect();
+
+        state.serialize_field("tiles", &serialized_tiles)?;
+        state.serialize_field("sheet_id", &self.sheet_id)?;
+        state.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
+        type TileData = (u32, u32, u32, u32, u32);
+
+        #[derive(Deserialize)]
+        struct TileSetData {
+            tiles: Vec<Vec<TileData>>,
+            sheet_id: u32,
+        }
+
+        let data = TileSetData::deserialize(deserializer)?;
+
+        let mut tiles: Vec<Vec<BiomeTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
+            tile_row.into_iter().enumerate().map(|(column, tile_data)| {
+                BiomeTile::from_data(row, column, tile_data)
+            }).collect()
+        }).collect();
+
+        for row in 0..tiles.len() {
+            for col in 0..tiles[0].len() {
+                tiles[row][col].row = row as u32;
+                tiles[row][col].column = col as u32;
+            }
+        }
+
+        Ok(TileSet::with_tiles(data.sheet_id, tiles))
+    }
+}
+
+impl Biome {
+    fn from_int(value: u32) -> Self {
+        match value {
+            0 => Biome::Nothing,
+            1 => Biome::Grass,
+            2 => Biome::Water,
+            3 => Biome::Rock,
+            4 => Biome::Desert, 
+            5 => Biome::Snow, 
+            6 => Biome::DarkWood, 
+            7 => Biome::LightWood,
+            _ => Biome::Nothing
+        }
+    }
+    fn to_int(self) -> u32 {
+        match self {
+            Biome::Nothing => 0,
+            Biome::Grass => 1,
+            Biome::Water => 2,
+            Biome::Rock => 3,
+            Biome::Desert => 4,
+            Biome::Snow => 5,
+            Biome::DarkWood => 6,
+            Biome::LightWood => 7,
+        }
+    }
+}
+
+impl BiomeTile {
+    fn from_data(row: usize, column: usize, data: (u32, u32, u32, u32, u32)) -> Self {
+        let mut tile = Self { 
+            tile_type: Biome::from_int(data.0), 
+            column: column as u32, 
+            row: row as u32, 
+            width: 1, 
+            height: 1, 
+            tile_up_type: Biome::from_int(data.1), 
+            tile_right_type: Biome::from_int(data.2), 
+            tile_down_type: Biome::from_int(data.3), 
+            tile_left_type: Biome::from_int(data.4), 
+            texture_offset_x: 0.0, 
+            texture_offset_y: 0.0 
+        };
+        tile.setup_textures();
+        tile
     }
 }
 

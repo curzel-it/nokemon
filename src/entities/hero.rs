@@ -1,3 +1,5 @@
+use std::any::Any;
+
 use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_HERO}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
@@ -65,6 +67,10 @@ impl Entity for Hero {
 
     fn sprite_sheet(&self) -> u32 {
         self.sprite.sheet_id
+    }
+    
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 
