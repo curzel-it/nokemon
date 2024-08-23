@@ -22,18 +22,17 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::{entities::{hero::Hero, tower::Tower}, game_engine::{entity_body::EmbodiedEntity, game_engine::GameEngine}};
+    use crate::{constants::HERO_ENTITY_ID, entities::hero::Hero, game_engine::game_engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let tower = Tower::new();
-        let tower_id = tower.id();
-        world.add_entity(Box::new(tower));
+        let hero = Hero::new();
+        world.add_entity(Box::new(hero));
 
         let mut entities = world.entities.borrow_mut();
-        let actual_tower = entities.get_mut(&tower_id).unwrap();
+        let actual_tower = entities.get_mut(&HERO_ENTITY_ID).unwrap();
         let updates = actual_tower.update(&world, 60.0);
         
         assert!(!updates.is_empty());

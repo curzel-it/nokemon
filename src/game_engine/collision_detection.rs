@@ -82,7 +82,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 
 #[cfg(test)]
 mod tests {
-        use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{hero::Hero, tower::Tower}, features::shooter::Shooter, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, levels::constants::LEVEL_DEMO_WORLD, utils::vector::Vector2d};
+        use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, levels::constants::LEVEL_DEMO_WORLD, utils::vector::Vector2d};
 
     use super::{collision_area, compute_collisions};
 
@@ -94,12 +94,12 @@ mod tests {
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
         let mut world = World::new(LEVEL_DEMO_WORLD);
 
-        let tower = Tower::new();
-        let mut towerdart = tower.create_bullet();
-        towerdart.body_mut().id = 1;
-        towerdart.body_mut().direction = Vector2d::zero();
-        towerdart.place_at(0.0, 0.0);
-        world.add_entity(towerdart);
+        let mut tower = Building::new(BuildingType::House, 0);
+        tower.body_mut().requires_collision_detection = true;
+        tower.body_mut().id = 1;
+        tower.body_mut().direction = Vector2d::zero();
+        tower.place_at(0.0, 0.0);
+        world.add_entity(Box::new(tower));
 
         let mut hero = Hero::new();
         hero.body_mut().id = 2;
@@ -122,12 +122,12 @@ mod tests {
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
         let mut world = World::new(LEVEL_DEMO_WORLD);
 
-        let tower = Tower::new();
-        let mut towerdart = tower.create_bullet();
-        towerdart.body_mut().id = 1;
-        towerdart.body_mut().direction = Vector2d::zero();
-        towerdart.place_at(2000.0, 0.0);
-        world.add_entity(towerdart);
+        let mut tower = Building::new(BuildingType::House, 0);
+        tower.body_mut().requires_collision_detection = true;
+        tower.body_mut().id = 1;
+        tower.body_mut().direction = Vector2d::zero();
+        tower.place_at(2000.0, 0.0);
+        world.add_entity(Box::new(tower));
 
         let mut hero = Hero::new();
         hero.body_mut().id = 2;
