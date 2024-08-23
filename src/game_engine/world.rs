@@ -1,8 +1,8 @@
-use std::{any::Any, cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
+use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, entities::building::Building, levels::{constants::LEVEL_DEMO_WORLD, utils::setup_level}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, entities::building::Building, levels::utils::setup_level, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 

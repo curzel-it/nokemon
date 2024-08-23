@@ -1,6 +1,6 @@
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BLANK, TILE_SIZE}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_biome_binary_path, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_BLANK, TILE_SIZE}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, utils::rect::Rect};
 
-use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet};
+use super::{biome_tiles::BiomeTile, tiles::TileSet};
 
 impl World {    
     pub fn load_biome_tiles(&mut self, tiles: TileSet<BiomeTile>) {

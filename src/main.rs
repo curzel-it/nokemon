@@ -8,9 +8,9 @@ mod rendering;
 mod ui;
 mod utils;
 
-use std::{env, fs::File, io::{BufReader, Write}};
+use std::{env, fs::File, io::Write};
 
-use game_engine::{game_engine::GameEngine, world::World};
+use game_engine::game_engine::GameEngine;
 // use maps::worldgen::create_map_binaries;
 use rendering::levels_rendering::render;
 
