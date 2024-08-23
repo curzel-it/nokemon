@@ -1,7 +1,3 @@
-
-
-use serde::{Deserialize, Serialize};
-
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
@@ -14,7 +10,7 @@ pub const COLOR_SNOW: u32 = 0xFFFFFFff;
 pub const COLOR_LIGHT_WOOD: u32 = 0xBF6F4Aff;
 pub const COLOR_DARK_WOOD: u32 = 0x5D2C28ff;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Biome {
     Nothing,
     Grass,
@@ -26,7 +22,7 @@ pub enum Biome {
     LightWood
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct BiomeTile {
     pub tile_type: Biome,
     pub column: u32, 

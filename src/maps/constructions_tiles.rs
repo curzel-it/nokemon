@@ -1,18 +1,16 @@
-use serde::{Deserialize, Serialize};
-
 use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 
 pub const COLOR_WOODEN_FENCE: u32 = 0x391F21ff;
 
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum Construction {
     WoodenFence,
     Nothing,
 }
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy)]
 pub struct ConstructionTile {
     pub tile_type: Construction,
     pub column: u32,
