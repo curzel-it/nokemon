@@ -1,4 +1,4 @@
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_constructions_binary_path, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_CONSTRUCTION_TILES, TILE_SIZE}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_constructions_binary_path, utils::rect::Rect};
 
 use super::{constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
@@ -9,7 +9,7 @@ impl World {
         let matrix = to_construction_tile_matrix(&map);
         let groups = to_construction_tile_list(&map);
         make_obstacles(self, &groups);        
-        self.constructions_tiles = TileSet::with_tiles("tiles_constructions".to_owned(), matrix);
+        self.constructions_tiles = TileSet::with_tiles(SPRITE_SHEET_CONSTRUCTION_TILES, matrix);
     }
 }
 

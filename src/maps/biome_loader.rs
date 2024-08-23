@@ -1,4 +1,4 @@
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_biome_binary_path, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BLANK, TILE_SIZE}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, levels::utils::level_biome_binary_path, utils::rect::Rect};
 
 use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet, worldgen::{deserialize_tiled_map, TileItem, TiledMap}};
 
@@ -12,7 +12,7 @@ impl World {
         let width = matrix[0].len() as f32 * TILE_SIZE;
         let height = matrix.len() as f32 * TILE_SIZE;
         self.bounds = Rect::new(0.0, 0.0, width, height);
-        self.biome_tiles = TileSet::with_tiles("tiles_biome".to_owned(), matrix);
+        self.biome_tiles = TileSet::with_tiles(SPRITE_SHEET_BIOME_TILES, matrix);
     }
 }
 
@@ -75,7 +75,7 @@ fn to_biome_tile_list(tiled_map: &TiledMap) -> Vec<BiomeTile> {
 impl BiomeTile {
     fn into_obstacle_entity(&self) -> Box<dyn Entity> {
         let entity = StaticObstacle::new(
-            "invisible",
+            SPRITE_SHEET_BLANK,
             Rect::new(
                 self.column as f32 * TILE_SIZE, 
                 self.row as f32 * TILE_SIZE, 

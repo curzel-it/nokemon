@@ -9,7 +9,7 @@ pub struct StaticObstacle {
 }
 
 impl StaticObstacle {
-    pub fn new(sprite: &str, frame: Rect) -> Self {
+    pub fn new(sprite_sheet: u32, frame: Rect) -> Self {
         Self { 
             body: EntityBody {
                 id: get_next_entity_id(),
@@ -28,7 +28,12 @@ impl StaticObstacle {
                 is_ally: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new(sprite, 1, frame.w as u32, frame.h as u32)
+            sprite: AnimatedSprite::new(
+                sprite_sheet, 
+                1, 
+                frame.w as u32, 
+                frame.h as u32
+            )
         }
     }
 }
@@ -44,7 +49,7 @@ impl Entity for StaticObstacle {
         self.sprite.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite.sheet_path 
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite.sheet_id
     }
 }

@@ -1,4 +1,4 @@
-use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_BLANK, TILE_TEXTURE_SIZE}, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -75,10 +75,10 @@ impl ConstructionTile {
 }
 
 impl Construction {
-    pub fn sprite(&self) -> &str {
+    pub fn sprite(&self) -> u32 {
         match self {
-            Construction::Nothing => "invisible",
-            Construction::WoodenFence => "invisible",
+            Construction::Nothing => SPRITE_SHEET_BLANK,
+            Construction::WoodenFence => SPRITE_SHEET_BLANK,
         }
     }
 

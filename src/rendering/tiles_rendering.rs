@@ -8,7 +8,7 @@ pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine
 }
 
 fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprite_path = world.biome_tiles.sheet_path.as_str();
+    let sprite_path = world.biome_tiles.sheet_id;
 
     for tile in world.visible_biome_tiles(&engine.camera_viewport) {
         draw_tile(
@@ -22,7 +22,7 @@ fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
 }
 
 fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprite_path = world.constructions_tiles.sheet_path.as_str();
+    let sprite_path = world.constructions_tiles.sheet_id;
 
     for tile in world.visible_construction_tiles(&engine.camera_viewport) {
         draw_tile(
@@ -37,7 +37,7 @@ fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngi
 
 fn draw_tile<T: SpriteTile>(
     d: &mut RaylibDrawHandle, 
-    sprite_path: &str,
+    sprite_path: u32,
     tile: &T,
     variant: u32,
     engine: &GameEngine

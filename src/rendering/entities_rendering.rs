@@ -38,7 +38,7 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
 }
 
 fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
-    let sprite_path = item.sprite_sheet_path();
+    let sprite_path = item.sprite_sheet();
     let frame = item.body().frame;
     
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {

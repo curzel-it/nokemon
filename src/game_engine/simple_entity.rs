@@ -5,7 +5,7 @@ use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates
 #[derive(Debug)]
 pub struct SimpleEntity {
     body: EntityBody,
-    sprite_sheet_path: String,
+    sprite_sheet: u32,
 }
 
 impl_embodied_entity!(SimpleEntity);
@@ -27,14 +27,14 @@ impl Entity for SimpleEntity {
         )
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path 
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite_sheet 
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::ASSETS_PATH, game_engine::entity_body::EntityBody};
+    use crate::{constants::SPRITE_SHEET_BLANK, game_engine::entity_body::EntityBody};
 
     use super::SimpleEntity;
 
@@ -42,7 +42,7 @@ mod tests {
         pub fn new(body: EntityBody) -> Self {
             Self { 
                 body,
-                sprite_sheet_path: format!("{}/entity.png", ASSETS_PATH)
+                sprite_sheet: SPRITE_SHEET_BLANK
             }
         }
     }

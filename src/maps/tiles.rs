@@ -1,4 +1,4 @@
-use crate::{constants::{ASSETS_PATH, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{SPRITE_SHEET_BLANK, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 pub trait Tile: Clone {
     fn row(&self) -> u32;
@@ -11,19 +11,19 @@ pub trait SpriteTile: Tile {
 
 pub struct TileSet<T: Tile> {
     pub tiles: Vec<Vec<T>>,
-    pub sheet_path: String,
+    pub sheet_id: u32,
     sprite_counter: TimedContentProvider<u32>,
 }
 
 impl<T: Tile> TileSet<T> {
     pub fn empty() -> Self {
-        Self::with_tiles("".to_owned(), vec![])
+        Self::with_tiles(SPRITE_SHEET_BLANK, vec![])
     }
 
-    pub fn with_tiles(sheet_path: String, tiles: Vec<Vec<T>>) -> Self {
+    pub fn with_tiles(sheet_id: u32, tiles: Vec<Vec<T>>) -> Self {
         Self { 
             tiles,
-            sheet_path: format!("{}/{}.png", ASSETS_PATH, sheet_path),
+            sheet_id,
             sprite_counter: Self::content_provider()
         }
     }

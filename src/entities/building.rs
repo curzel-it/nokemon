@@ -1,6 +1,4 @@
-use crate::{constants::{ASSETS_PATH, INFINITE_LIFESPAN, NO_PARENT, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
-
-const BUILDINGS_SPRITE_SHEET: &str = "buildings";
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum BuildingType {
@@ -38,7 +36,7 @@ pub struct Building {
     body: EntityBody,
     building_type: BuildingType,
     interior_level_id: u32,
-    sprite_sheet_path: String
+    sprite_sheet: u32
 }
 
 impl Building {
@@ -65,7 +63,7 @@ impl Building {
             },      
             building_type,
             interior_level_id,
-            sprite_sheet_path: format!("{}/{}.png", ASSETS_PATH, BUILDINGS_SPRITE_SHEET),
+            sprite_sheet: SPRITE_SHEET_BUILDINGS,
         }
     }
 }
@@ -84,8 +82,8 @@ impl Entity for Building {
         self.building_type.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite_sheet_path
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite_sheet
     }
 }
 

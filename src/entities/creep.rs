@@ -1,4 +1,4 @@
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_CREEP}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly, position_seeker::set_direction_towards}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Creep {
@@ -26,7 +26,12 @@ impl Creep {
                 is_ally: parent.body().is_ally,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new("white", 3, 19, 22)
+            sprite: AnimatedSprite::new(
+                SPRITE_SHEET_CREEP, 
+                3, 
+                19, 
+                22
+            )
         }
     }
 }
@@ -48,7 +53,7 @@ impl Entity for Creep {
         self.sprite.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite.sheet_path 
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite.sheet_id
     }
 }

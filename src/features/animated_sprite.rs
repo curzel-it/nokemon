@@ -1,8 +1,8 @@
-use crate::{constants::{ANIMATIONS_FPS, ASSETS_PATH}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug)]
 pub struct AnimatedSprite {
-    pub sheet_path: String,
+    pub sheet_id: u32,
     pub row: f32,
     pub frames_provider: TimedContentProvider<f32>,
     pub width: f32,
@@ -10,9 +10,9 @@ pub struct AnimatedSprite {
 }
 
 impl AnimatedSprite {
-    pub fn new(sprite: &str, number_of_frames: u32, width: u32, height: u32) -> Self {
+    pub fn new(sheet_id: u32, number_of_frames: u32, width: u32, height: u32) -> Self {
         Self {
-            sheet_path: format!("{}/{}.png", ASSETS_PATH, sprite),
+            sheet_id,
             row: 0.0,
             frames_provider: TimedContentProvider::frames_counter(number_of_frames),
             width: width as f32,

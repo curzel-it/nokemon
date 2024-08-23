@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -9,7 +9,7 @@ pub struct Inventory {
     pub stock: Vec<InventoryItem>,
     pub selected_index: usize,
     pub item_being_placed: Option<InventoryItemBeingPlaced>,
-    sprite_sheet_path: String,
+    sprite_sheet: u32,
     columns: usize
 }
 
@@ -33,8 +33,8 @@ impl Inventory {
             stock: vec![],
             selected_index: 0,
             item_being_placed: None,
-            sprite_sheet_path: format!("{}/inventory.png", ASSETS_PATH),
-            columns: 5
+            sprite_sheet: SPRITE_SHEET_INVENTORY,
+            columns: 5,
         }
     }
 
@@ -202,7 +202,7 @@ impl Inventory {
                         spacing: GridSpacing::SM(),
                         columns: self.columns,
                         children: self.stock.iter().enumerate().map(|(index, item)| {
-                            item.ui(self.sprite_sheet_path.clone(), index, self.selected_index)
+                            item.ui(self.sprite_sheet.clone(), index, self.selected_index)
                         }).collect()
                     }
                 )
@@ -212,7 +212,7 @@ impl Inventory {
 }
 
 impl InventoryItem {
-    pub fn ui(&self, sprite_sheet: String, index: usize, selected_index: usize) -> View {
+    pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
         if index == selected_index {
             zstack!(
                 Spacing::XS, 

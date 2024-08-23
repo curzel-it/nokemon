@@ -1,5 +1,5 @@
 
-use crate::{features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_bullet_sprite_update, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect}};
+use crate::{constants::{SPRITE_SHEET_BLANK, SPRITE_SHEET_TOWER_DART}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, check_bullet_collisions::handle_collisions_for_bullet, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_bullet_sprite_update, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect}};
 
 #[derive(Debug)]
 pub struct TowerDart {
@@ -27,7 +27,12 @@ impl TowerDart {
                 is_ally: parent.body().is_ally,
                 lifespan: 10.0,
             },
-            sprite: AnimatedSprite::new("towerdart", 3, 10, 10)
+            sprite: AnimatedSprite::new(
+                SPRITE_SHEET_TOWER_DART, 
+                3, 
+                10, 
+                10
+            )
         };
         entity.center_in(&parent.body().frame);
         entity
@@ -51,7 +56,7 @@ impl Entity for TowerDart {
         self.sprite.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite.sheet_path
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite.sheet_id
     }
 }

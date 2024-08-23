@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{file_utils::list_files, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{file_utils::list_files, rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -43,8 +43,7 @@ impl GameEngine {
 
         self.push_world(LEVEL_DEMO_WORLD);
 
-        let all_assets = list_files(ASSETS_PATH, "png");
-        let textures = self.load_textures(&all_assets, &mut rl, &thread);
+        let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
             font, 
             font_bold, 
@@ -100,13 +99,18 @@ impl GameEngine {
         self.apply_state_updates(state_updates);
     } 
 
-    fn load_textures(&self, all_assets: &Vec<String>, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<String, Texture2D> {    
-        let mut textures: HashMap<String, Texture2D> = hash_map!();
-        for asset in all_assets {
-            println!("{}", asset);
-            let texture = rl.load_texture(thread, asset).unwrap();
-            textures.insert(asset.clone(), texture);
-        }
+    fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
+        let mut textures: HashMap<u32, Texture2D> = hash_map!();
+        textures.insert(SPRITE_SHEET_INVENTORY, texture(rl, thread, "inventory"));
+        textures.insert(SPRITE_SHEET_BIOME_TILES, texture(rl, thread, "tiles_biome"));
+        textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions"));
+        textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings"));
+        textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack"));
+        textures.insert(SPRITE_SHEET_TOWER, texture(rl, thread, "tower"));
+        textures.insert(SPRITE_SHEET_TOWER_DART, texture(rl, thread, "towerdart"));
+        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "white"));
+        textures.insert(SPRITE_SHEET_HERO, texture(rl, thread, "red"));
+        textures.insert(SPRITE_SHEET_CREEP, texture(rl, thread, "white"));
         textures
     }
 
@@ -226,4 +230,9 @@ mod tests {
         assert_ne!(world.bounds.w, 10.0);
         assert_ne!(world.bounds.h, 10.0);
     }
+}
+
+fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2D {
+    let path = format!("{}/{}.png", ASSETS_PATH, name);
+    rl.load_texture(thread, &path).unwrap()
 }

@@ -1,4 +1,4 @@
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_HERO}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly, shooter::{shoot_stuff, Shooter}}, game_engine::{entity::{Entity, EntityProps}, entity_body::{EmbodiedEntity, EntityBody}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, impl_shooter, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::surrounding_area_attack::SurroundingAreaAttack;
 
@@ -32,7 +32,12 @@ impl Hero {
             },
             time_to_next_shot: 3.0,
             time_between_shots: 7.0,
-            sprite: AnimatedSprite::new("red", 3, 19, 22)
+            sprite: AnimatedSprite::new(
+                SPRITE_SHEET_HERO, 
+                3, 
+                19, 
+                22
+            )
         }
     }
 }
@@ -58,8 +63,8 @@ impl Entity for Hero {
         self.sprite.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite.sheet_path
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite.sheet_id
     }
 }
 

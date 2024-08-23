@@ -2,12 +2,12 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, SPRITE_SHEET_INVENTORY, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,
     pub font_bold: Font,
-    pub textures: HashMap<String, Texture2D>,
+    pub textures: HashMap<u32, Texture2D>,
     pub rendering_scale: f32,
     pub font_rendering_scale: f32,
     pub canvas_size: Vector2d
@@ -47,7 +47,7 @@ pub enum View {
     VStack { spacing: Spacing, children: Vec<View> },
     HStack { spacing: Spacing, children: Vec<View> },
     Text { style: TextStyle, text: String },
-    Texture { key: String, source_rect: Rect, size: Vector2d },
+    Texture { key: u32, source_rect: Rect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
     HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> }
@@ -224,8 +224,8 @@ impl RenderingConfig {
         }
     }
 
-    pub fn get_texture(&self, key: &str) -> Option<&Texture2D> {
-        self.textures.get(key)
+    pub fn get_texture(&self, key: u32) -> Option<&Texture2D> {
+        self.textures.get(&key)
     }
 }
 
@@ -381,12 +381,12 @@ impl View {
         &self,
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
-        key: &String,
+        key: &u32,
         source_rect: &Rect,
         position: &Vector2d,
         size:  &Vector2d
     ) {
-        if let Some(texture) = config.get_texture(key) {
+        if let Some(texture) = config.get_texture(*key) {
             // d.draw_rectangle(position.x as i32, position.y as i32, size.x as i32, size.y as i32, Color::RED);
             
             d.draw_texture_pro(
@@ -641,13 +641,13 @@ pub fn showcase_view() -> View {
                             Spacing::SM, 
                             Color::YELLOW,
                             texture!(
-                                format!("{}/inventory.png", ASSETS_PATH), 
+                                SPRITE_SHEET_INVENTORY, 
                                 Rect::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
                                 Vector2d::new(5.0 * TILE_SIZE, 5.0 * TILE_SIZE)
                             )
                         ),
                         texture!(
-                            format!("{}/inventory.png", ASSETS_PATH), 
+                            SPRITE_SHEET_INVENTORY, 
                             Rect::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
                             Vector2d::new(10.0 * TILE_SIZE, 10.0 * TILE_SIZE)
                         )

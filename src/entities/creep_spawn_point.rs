@@ -1,4 +1,4 @@
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BASE_ATTACK}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::creep::Creep;
 
@@ -32,7 +32,12 @@ impl CreepSpawnPoint {
             },
             last_spawn_time: 0.0,
             time_to_spawn: 2.0,
-            sprite: AnimatedSprite::new("baseattack", 3, 50, 30)
+            sprite: AnimatedSprite::new(
+                SPRITE_SHEET_BASE_ATTACK, 
+                3, 
+                50, 
+                30
+            )
         }
     }
 }
@@ -59,8 +64,8 @@ impl Entity for CreepSpawnPoint {
         self.sprite.texture_source_rect()
     }
 
-    fn sprite_sheet_path(&self) -> &str {
-        &self.sprite.sheet_path 
+    fn sprite_sheet(&self) -> u32 {
+        self.sprite.sheet_id
     }
 }
 
