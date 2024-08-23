@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{ASSETS_PATH, INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -202,7 +202,7 @@ impl Inventory {
                         spacing: GridSpacing::SM(),
                         columns: self.columns,
                         children: self.stock.iter().enumerate().map(|(index, item)| {
-                            item.ui(self.sprite_sheet.clone(), index, self.selected_index)
+                            item.ui(self.sprite_sheet, index, self.selected_index)
                         }).collect()
                     }
                 )

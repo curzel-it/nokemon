@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{file_utils::list_files, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 use common_macros::hash_map;
@@ -204,6 +204,11 @@ impl GameEngine {
     }
 }
 
+fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2D {
+    let path = format!("{}/{}.png", ASSETS_PATH, name);
+    rl.load_texture(thread, &path).unwrap()
+}
+
 #[cfg(test)]
 mod tests {    
     use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, levels::constants::LEVEL_DEMO_WORLD};
@@ -230,9 +235,4 @@ mod tests {
         assert_ne!(world.bounds.w, 10.0);
         assert_ne!(world.bounds.h, 10.0);
     }
-}
-
-fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2D {
-    let path = format!("{}/{}.png", ASSETS_PATH, name);
-    rl.load_texture(thread, &path).unwrap()
 }
