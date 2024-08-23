@@ -1,10 +1,8 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{constants::{SPRITE_SHEET_BLANK, TILE_TEXTURE_SIZE}, impl_tile, utils::rect::Rect};
+use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
-
-pub const COLOR_WOODEN_FENCE: u32 = 0x391F21ff;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum Construction {
@@ -77,24 +75,10 @@ impl ConstructionTile {
 }
 
 impl Construction {
-    pub fn sprite(&self) -> u32 {
-        match self {
-            Construction::Nothing => SPRITE_SHEET_BLANK,
-            Construction::WoodenFence => SPRITE_SHEET_BLANK,
-        }
-    }
-
     fn texture_offset_x(&self) -> u32 {
         match self {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
-        }
-    }
-
-    pub fn from_color(color: u32) -> Construction {
-        match color {
-            COLOR_WOODEN_FENCE => Construction::WoodenFence,
-            _ => Construction::Nothing
         }
     }
 }

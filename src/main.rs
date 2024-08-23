@@ -8,7 +8,7 @@ mod rendering;
 mod ui;
 mod utils;
 
-use std::{env, fs::File, io::{Read, Write}};
+use std::{env, fs::File, io::Write};
 
 use game_engine::game_engine::GameEngine;
 use rendering::levels_rendering::render;

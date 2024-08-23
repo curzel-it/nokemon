@@ -4,14 +4,6 @@ use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::{geometry_utils::Dir
 
 use super::tiles::{SpriteTile, TileSet};
 
-pub const COLOR_GRASS: u32 = 0x00FF00ff;
-pub const COLOR_WATER: u32 = 0x0000FFff;
-pub const COLOR_ROCK: u32 = 0x7F7F7Fff;
-pub const COLOR_DESERT: u32 = 0xFFFF00ff;
-pub const COLOR_SNOW: u32 = 0xFFFFFFff;
-pub const COLOR_LIGHT_WOOD: u32 = 0xBF6F4Aff;
-pub const COLOR_DARK_WOOD: u32 = 0x5D2C28ff;
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Biome {
     Nothing,
@@ -189,19 +181,6 @@ impl Biome {
             Biome::DarkWood => 6,
         }
     }
-    
-    pub fn from_color(color: u32) -> Biome {
-        match color {
-            COLOR_GRASS => Biome::Grass,
-            COLOR_WATER => Biome::Water,
-            COLOR_ROCK => Biome::Rock,
-            COLOR_DESERT => Biome::Desert,
-            COLOR_SNOW => Biome::Snow,
-            COLOR_LIGHT_WOOD => Biome::LightWood,
-            COLOR_DARK_WOOD => Biome::DarkWood,
-            _ => Biome::Nothing
-        }
-    }
 }
 
 impl TileSet<BiomeTile> {
@@ -330,7 +309,30 @@ impl BiomeTile {
 mod tests {
     use crate::utils::geometry_utils::Direction;
 
-    use super::{Biome, BiomeTile, COLOR_WATER};
+    use super::{Biome, BiomeTile};
+
+    const COLOR_GRASS: u32 = 0x00FF00ff;
+    const COLOR_WATER: u32 = 0x0000FFff;
+    const COLOR_ROCK: u32 = 0x7F7F7Fff;
+    const COLOR_DESERT: u32 = 0xFFFF00ff;
+    const COLOR_SNOW: u32 = 0xFFFFFFff;
+    const COLOR_LIGHT_WOOD: u32 = 0xBF6F4Aff;
+    const COLOR_DARK_WOOD: u32 = 0x5D2C28ff;
+
+    impl Biome {
+        fn from_color(color: u32) -> Biome {
+            match color {
+                COLOR_GRASS => Biome::Grass,
+                COLOR_WATER => Biome::Water,
+                COLOR_ROCK => Biome::Rock,
+                COLOR_DESERT => Biome::Desert,
+                COLOR_SNOW => Biome::Snow,
+                COLOR_LIGHT_WOOD => Biome::LightWood,
+                COLOR_DARK_WOOD => Biome::DarkWood,
+                _ => Biome::Nothing
+            }
+        }
+    }
 
     impl BiomeTile {
         fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
