@@ -2,12 +2,12 @@ use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_ID_DEMO, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, features::interactions::handle_interactions, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
 
-use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
+use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
-    pub inventory: Inventory,
+    pub menu: Menu,
     pub worlds: Vec<World>,
     pub camera_viewport: Rect,    
     pub ui_config: Option<RenderingConfig>
@@ -16,7 +16,7 @@ pub struct GameEngine {
 impl GameEngine {
     pub fn new() -> Self {
         Self {
-            inventory: Inventory::new(),
+            menu: Menu::new(),
             worlds: vec![],
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             ui_config: None
@@ -25,7 +25,7 @@ impl GameEngine {
 
     pub fn with_options(creative_mode: bool) -> Self {
         let mut engine = Self::new();
-        engine.inventory.set_creative_mode(creative_mode);
+        engine.menu.set_creative_mode(creative_mode);
         engine
     }
 
@@ -71,32 +71,22 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
-        let world = self.current_world();
+        let mut engine_updates: Vec<EngineStateUpdate> = vec![];
         let camera_viewport = self.camera_viewport;
-        let inventory_is_open = self.inventory.is_open;
+        let keyboard_state = keyboard_events.state();
 
-        let handled = !inventory_is_open && handle_interactions(world);
-
-        let inventory_keyboard_state = if handled {
-            KeyboardState::nothing()
-        } else {
-            keyboard_events.state()
-        };
-
-        let world_keyboard_state = if inventory_is_open || handled {
-            KeyboardState::nothing()
-        } else {
-            keyboard_events.state()
-        };
+        let menu_update = self.menu.update(&self.camera_viewport, &keyboard_state);
 
         let world = self.current_world_mut();
-        let state_updates = world.update_rl(time_since_last_update, &camera_viewport, world_keyboard_state);
-                
-        let world_updates = self.inventory.update(&camera_viewport, &inventory_keyboard_state);
-        let world = self.current_world_mut();
-        world.apply_state_updates(world_updates);
+        let mut menu_engine_updates = world.apply_state_updates(menu_update.state_updates);
+        engine_updates.append(&mut menu_engine_updates);
 
-        self.apply_state_updates(state_updates);
+        if !menu_update.game_paused {
+            let mut updates = world.update_rl(time_since_last_update, &camera_viewport, keyboard_state);
+            engine_updates.append(&mut updates);
+        }
+
+        self.apply_state_updates(engine_updates);
     } 
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    

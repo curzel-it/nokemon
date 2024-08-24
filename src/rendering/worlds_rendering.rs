@@ -2,7 +2,7 @@ use raylib::prelude::*;
 
 use crate::game_engine::{game_engine::GameEngine, world::World};
 
-use super::{entities_rendering::render_entities, inventory_rendering::render_inventory, tiles_rendering::render_tiles};
+use super::{entities_rendering::render_entities, menu_rendering::render_menu, tiles_rendering::render_tiles};
 
 pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();
@@ -10,7 +10,7 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     d.clear_background(Color::BLACK);
     render_tiles(&mut d, world, engine);
     render_entities(&mut d, world, engine);
-    render_inventory(&mut d, engine);
+    render_menu(&mut d, engine);
     draw_debug_info(&mut d, fps);
 }
 

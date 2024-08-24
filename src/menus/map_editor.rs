@@ -2,35 +2,37 @@ use raylib::color::Color;
 
 use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, worlds::constants::WORLD_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
+use super::inventory::Stockable;
+
 #[derive(Debug)]
-pub struct Inventory {
-    pub is_open: bool,
+pub struct MapEditor {
     pub is_placing_item: bool,
-    pub stock: Vec<InventoryItem>,
+    pub stock: Vec<MapEditorItem>,
     pub selected_index: usize,
-    pub item_being_placed: Option<InventoryItemBeingPlaced>,
+    pub item_being_placed: Option<MapEditorItemBeingPlaced>,
     sprite_sheet: u32,
     columns: usize
 }
 
 #[derive(Debug)]
-pub struct InventoryItem {
+pub struct MapEditorItem {
     pub item: Stockable,
     pub stock: i32
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct InventoryItemBeingPlaced {
+pub struct MapEditorItemBeingPlaced {
     pub item: Stockable,
     pub frame: Rect
 }
 
-impl Inventory {
+impl MapEditor {
     pub fn new() -> Self {
         Self {
-            is_open: false,
             is_placing_item: false,
-            stock: vec![],
+            stock: Stockable::all_possible_items().into_iter()
+                .map(|item| { MapEditorItem { item, stock: INFINITE_STOCK } })
+                .collect(),
             selected_index: 0,
             item_being_placed: None,
             sprite_sheet: SPRITE_SHEET_INVENTORY,
@@ -39,12 +41,6 @@ impl Inventory {
     }
 
     pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if !self.is_open && keyboard_state.has_inventory_been_pressed {
-            self.is_open = true;
-        }
-        if !self.is_open {
-            return vec![];
-        }
         if self.is_placing_item {
             if keyboard_state.has_up_been_pressed {
                 self.item_being_placed.as_mut().unwrap().frame.y -= TILE_SIZE;
@@ -58,7 +54,7 @@ impl Inventory {
             if keyboard_state.has_left_been_pressed {
                 self.item_being_placed.as_mut().unwrap().frame.x -= TILE_SIZE;
             }
-            if keyboard_state.has_confirmation_been_pressed {
+            if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
                 return self.place(camera_vieport, self.item_being_placed.unwrap().item);
             }
             if keyboard_state.has_back_been_pressed {
@@ -78,9 +74,9 @@ impl Inventory {
             if keyboard_state.has_left_been_pressed && self.selected_index > 0 {
                 self.selected_index -= 1;
             }
-            if keyboard_state.has_confirmation_been_pressed {
+            if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
                 self.item_being_placed = Some(
-                    InventoryItemBeingPlaced {
+                    MapEditorItemBeingPlaced {
                         item: self.stock[self.selected_index].item,
                         frame: Rect::new(
                             (camera_vieport.x / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.x,
@@ -91,9 +87,6 @@ impl Inventory {
                     }
                 );
                 self.is_placing_item = true;
-            }
-            if keyboard_state.has_back_been_pressed {
-                self.is_open = false;
             }
         }
         vec![]
@@ -111,16 +104,6 @@ impl Inventory {
         }
     }
 
-    pub fn set_creative_mode(&mut self, is_enabled: bool) {        
-        if is_enabled {
-            self.stock = vec![];
-            Stockable::all_possible_items().into_iter().for_each(|item| {
-                self.stock.push(InventoryItem { item, stock: INFINITE_STOCK });
-            });
-            println!("Loaded up for creative mode: {:#?}", self.stock);
-        }
-    }
-
     fn place_building(&self, camera_vieport: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
         let mut building = Building::new(building_type, WORLD_ID_HOUSE_INTERIOR);
@@ -131,63 +114,7 @@ impl Inventory {
     }
 }
 
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum Stockable {
-    BiomeTile(Biome),
-    ConstructionTile(Construction),    
-    Building(BuildingType),    
-}
-
-impl Stockable {
-    pub fn all_possible_items() -> Vec<Stockable> {
-        vec![
-            Stockable::BiomeTile(Biome::Water),
-            Stockable::BiomeTile(Biome::Desert),
-            Stockable::BiomeTile(Biome::Grass),
-            Stockable::BiomeTile(Biome::Rock),
-            Stockable::BiomeTile(Biome::Snow),
-            Stockable::BiomeTile(Biome::LightWood),
-            Stockable::BiomeTile(Biome::DarkWood),
-            Stockable::ConstructionTile(Construction::WoodenFence),
-            Stockable::Building(BuildingType::House),
-        ]
-    }
-
-    fn texture_source_rect(&self) -> Rect {
-        let (row, col) = self.texture_offsets();
-
-        Rect {
-            x: col as f32 * TILE_SIZE,
-            y: row as f32 * TILE_SIZE,
-            w: TILE_SIZE, 
-            h: TILE_SIZE
-        }
-    }
-
-    fn texture_offsets(&self) -> (u32, u32) {
-         match self {
-            Stockable::BiomeTile(biome) => match biome {
-                Biome::Nothing => (0, 0),
-                Biome::Water => (0, 1),
-                Biome::Desert => (0, 2),
-                Biome::Grass => (0, 3),
-                Biome::Rock => (0, 4),
-                Biome::Snow => (0, 5),
-                Biome::LightWood => (0, 6),
-                Biome::DarkWood => (0, 7),
-            },
-            Stockable::ConstructionTile(construction) => match construction {
-                Construction::Nothing => (1, 0),
-                Construction::WoodenFence => (1, 1),
-            },
-            Stockable::Building(building_type) => match building_type {
-                BuildingType::House => (1, 2)
-            }
-        }
-    }
-}
-
-impl Inventory {
+impl MapEditor {
     pub fn ui(&self) -> View {
         padding(
             Spacing::LG,
@@ -196,7 +123,7 @@ impl Inventory {
                 Color::BLACK,
                 vstack!(
                     Spacing::LG, 
-                    text!(TextStyle::Title, "Inventory".to_string()),
+                    text!(TextStyle::Title, "MapEditor".to_string()),
                     text!(TextStyle::Regular, "1. Press SPACE to select something\n2. Use arrows to move around\n3. Press SPACE to place it\n4. Press ESC to come back".to_string()),
                     View::VGrid {                        
                         spacing: GridSpacing::SM(),
@@ -211,7 +138,7 @@ impl Inventory {
     }
 }
 
-impl InventoryItem {
+impl MapEditorItem {
     pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
         if index == selected_index {
             zstack!(

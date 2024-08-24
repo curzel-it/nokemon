@@ -2,11 +2,12 @@ mod constants;
 mod entities;
 mod features;
 mod game_engine;
-mod worlds;
 mod maps;
+mod menus;
 mod rendering;
 mod ui;
 mod utils;
+mod worlds;
 
 use std::env;
 
@@ -17,7 +18,7 @@ fn main() {
     let mut creative_mode = false;
 
     let args: Vec<String> = env::args().collect();
-    if true || args.contains(&"creative".to_owned()) {
+    if args.contains(&"creative".to_owned()) {
         println!("Running in creative mode...");
         creative_mode = true;
     }

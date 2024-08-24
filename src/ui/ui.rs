@@ -27,6 +27,7 @@ pub enum Spacing {
     SM, 
     MD,
     LG,
+    Custom(f32),
     TextLineSpacing(TextStyle)
 }
 
@@ -50,7 +51,9 @@ pub enum View {
     Texture { key: u32, source_rect: Rect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
-    HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> }
+    HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> },
+    FullScreenBackdrop { children: Vec<View> },
+    FixedPosition { position: Vector2d, children: Vec<View> }
 }
 
 #[macro_export]
@@ -140,6 +143,14 @@ pub fn padding(padding: Spacing, content: View) -> View {
     zstack!(padding, Color::BLACK.alpha(0.0), content)
 }
 
+pub fn with_backdrop(content: View) -> View {
+    View::FullScreenBackdrop { children: vec![content] }
+}
+
+pub fn with_fixed_position(position: Vector2d, content: View) -> View {
+    View::FixedPosition { position, children: vec![content] }
+}
+
 pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render(d, config, position);
 }
@@ -200,6 +211,7 @@ impl Spacing {
             Spacing::SM => 4.0,
             Spacing::MD => 8.0,
             Spacing::LG => 12.0,
+            Spacing::Custom(value) => *value,
             Spacing::TextLineSpacing(_) => 4.0,
         }
     }
@@ -283,6 +295,12 @@ impl View {
             }
             View::HGrid { rows, spacing, children } => {
                 self.render_hgrid(d, config, position, rows, spacing, children);
+            }
+            View::FullScreenBackdrop { children } => {
+                self.render_fullscreen_backdrop(d, config, position, children)
+            }
+            View::FixedPosition { position, children } => {
+                self.render_fixed_position(d, config, position, children)
             }
         }
     }
@@ -368,13 +386,11 @@ impl View {
                 text: line_text.replace("\n", " ").to_string()
             }
         ).collect();
-        
-        
+                
         View::VStack { 
             spacing: Spacing::TextLineSpacing(*style), 
             children: texts 
         }
-        // spacing!(Spacing::LG)
     }
 
     fn render_texture(
@@ -386,9 +402,7 @@ impl View {
         position: &Vector2d,
         size:  &Vector2d
     ) {
-        if let Some(texture) = config.get_texture(*key) {
-            // d.draw_rectangle(position.x as i32, position.y as i32, size.x as i32, size.y as i32, Color::RED);
-            
+        if let Some(texture) = config.get_texture(*key) {           
             d.draw_texture_pro(
                 texture,
                 source_rect.as_rr(),
@@ -444,6 +458,45 @@ impl View {
             column_position.x += column_size.x + column_space;
         }
     }
+
+    fn render_fullscreen_backdrop(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &RenderingConfig,
+        position: &Vector2d,
+        children: &[View],
+    ) {
+        d.draw_rectangle_v(
+            Vector2::zero(), 
+            config.canvas_size.as_rv(), 
+            Color::BLACK.alpha(0.4)
+        );
+        self.render_zstack(
+            d,
+            config,
+            position,
+            children,
+            &Spacing::ZERO,
+            Color::BLACK.alpha(0.0)
+        );
+    }
+
+    fn render_fixed_position(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &RenderingConfig,
+        position: &Vector2d,
+        children: &[View],
+    ) {
+        self.render_zstack(
+            d, 
+            config, 
+            &position.scaled(config.rendering_scale), 
+            children, 
+            &Spacing::ZERO, 
+            Color::BLACK.alpha(0.0)
+        );
+    }
 }
 
 impl View {
@@ -472,6 +525,12 @@ impl View {
             }
             View::HGrid { rows, spacing, children } => {
                 self.calculate_hgrid_size(config, rows, spacing, children)
+            }
+            View::FullScreenBackdrop { children } => {
+                self.calculate_fullscreen_backdrop_size(config, children)                
+            }
+            View::FixedPosition { position: _, children } => {
+                self.calculate_fixed_position_size(config, children)                
             }
         }
     }
@@ -617,6 +676,14 @@ impl View {
         width += (columns_count - 1).max(0) as f32 * spacing.between_columns.value(config);
 
         Vector2d::new(width, height)
+    }
+
+    fn calculate_fullscreen_backdrop_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
+        self.calculate_zstack_size(config, children, &Spacing::ZERO)
+    }
+
+    fn calculate_fixed_position_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
+        self.calculate_zstack_size(config, children, &Spacing::ZERO)
     }
 }
 

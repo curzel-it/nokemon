@@ -23,6 +23,10 @@ impl Rect {
         Self::new(0.0, 0.0, w, h)
     }
 
+    pub fn zero() -> Self {
+        Self::square_from_origin(0.0)
+    }
+
     pub fn square_from_origin(size: f32) -> Self {
         Self::new(0.0, 0.0, size, size)
     }
