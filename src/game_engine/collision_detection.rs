@@ -94,7 +94,7 @@ mod tests {
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
         let mut world = World::new(WORLD_ID_DEMO);
 
-        let mut tower = Building::new(BuildingType::House, 0);
+        let mut tower = Building::new(BuildingType::House);
         tower.body_mut().requires_collision_detection = true;
         tower.body_mut().id = 1;
         tower.body_mut().direction = Vector2d::zero();
@@ -122,7 +122,7 @@ mod tests {
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
         let mut world = World::new(WORLD_ID_DEMO);
 
-        let mut tower = Building::new(BuildingType::House, 0);
+        let mut tower = Building::new(BuildingType::House);
         tower.body_mut().requires_collision_detection = true;
         tower.body_mut().id = 1;
         tower.body_mut().direction = Vector2d::zero();

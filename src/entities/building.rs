@@ -2,7 +2,7 @@ use std::any::Any;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_building_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
@@ -44,12 +44,17 @@ pub struct Building {
 }
 
 impl Building {
-    pub fn new(building_type: BuildingType, interior_id: u32) -> Self {
+    pub fn new(building_type: BuildingType) -> Self {
+        Self::new_with_destination(building_type, None)
+    }
+
+    fn new_with_destination(building_type: BuildingType, interior_id: Option<u32>) -> Self {
+        let id = get_next_building_id();
         let frame = building_type.texture_source_rect();
 
         Self { 
             body: EntityBody {
-                id: get_next_entity_id(),
+                id,
                 parent_id: NO_PARENT,
                 frame: Rect::new(0.0, 0.0, frame.w, frame.h),
                 collision_insets: Insets::zero(),
@@ -66,7 +71,7 @@ impl Building {
                 lifespan: INFINITE_LIFESPAN,
             },      
             building_type,
-            interior_id,
+            interior_id: interior_id.unwrap_or(id),
             sprite_sheet: SPRITE_SHEET_BUILDINGS,
         }
     }

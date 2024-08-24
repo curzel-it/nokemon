@@ -106,7 +106,7 @@ impl MapEditor {
 
     fn place_building(&self, camera_vieport: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
-        let mut building = Building::new(building_type, WORLD_ID_HOUSE_INTERIOR);
+        let mut building = Building::new(building_type);
         building.body_mut().frame.x = camera_vieport.x + frame.x;
         building.body_mut().frame.y = camera_vieport.y + frame.y;
         let update = WorldStateUpdate::AddEntity(Box::new(building));

@@ -169,7 +169,7 @@ impl GameEngine {
             self.current_world_mut().move_hero_one_tile_down();
             self.current_world().save();
         }
-        let mut new_world = World::load_or_default(id);
+        let mut new_world = World::load_or_create(id);
         new_world.setup();
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;
