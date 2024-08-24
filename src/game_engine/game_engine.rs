@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use serde_json::Error;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, maps::{biome_tiles::BiomeTile, tiles::TileSet}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
@@ -57,14 +57,31 @@ impl GameEngine {
         } else {
             println!("Error loading save file: {:#?}", result);
             let mut world = World::new(LEVEL_DEMO_WORLD);
-            let tiles: Vec<Vec<BiomeTile>> = (0..200).map(|row| {
-                (0..150).map(|column| {
-                    BiomeTile::from_data(row as usize, column as usize, (1, 1, 1, 1, 1))
-                }).collect()
-            }).collect();
-            let tile_set = TileSet::<BiomeTile>::with_tiles(SPRITE_SHEET_BIOME_TILES, tiles);
 
-            world.load_biome_tiles(tile_set);
+            let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
+                SPRITE_SHEET_BIOME_TILES, 
+                (0..200).map(|row| {
+                    (0..150).map(|column| {
+                        let mut tile = BiomeTile::from_data(row as usize, column as usize, 1);
+                        tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
+                        tile
+                    }).collect()
+                }).collect()
+            );
+
+            let construction_tile_set = TileSet::<ConstructionTile>::with_tiles(
+                SPRITE_SHEET_CONSTRUCTION_TILES, 
+                (0..200).map(|row| {
+                    (0..150).map(|column| {
+                        let mut tile = ConstructionTile::from_data(row as usize, column as usize, 0);
+                        tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
+                        tile
+                    }).collect()
+                }).collect()
+            );
+
+            world.load_biome_tiles(biome_tile_set);
+            world.load_construction_tiles(construction_tile_set);
             world.setup();
             world.update(0.001);
             let hero_frame = world.cached_hero_props.frame;

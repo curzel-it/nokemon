@@ -65,7 +65,15 @@ impl BiomeTile {
         false
     }
 
-    pub fn setup_textures(&mut self) {
+    pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
+        self.tile_up_type = up;
+        self.tile_right_type = right;
+        self.tile_down_type = bottom;
+        self.tile_left_type = left;        
+        self.setup_textures();    
+    }
+
+    fn setup_textures(&mut self) {
         let x = self.texture_index_for_neighbors();
         let y = self.tile_type.texture_index(); 
         self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
@@ -207,18 +215,14 @@ impl TileSet<BiomeTile> {
     }
 }
 
-impl Serialize for TileSet<BiomeTile> {
+impl Serialize for TileSet<BiomeTile> {    
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+        type TileData = u32;
+
         let mut state = serializer.serialize_struct("TileSet", 2)?;
-        let serialized_tiles: Vec<Vec<(u32, u32, u32, u32, u32)>> = self.tiles.iter().map(|row| {
+        let serialized_tiles: Vec<Vec<TileData>> = self.tiles.iter().map(|row| {
             row.iter().map(|tile| {
-                (
-                    tile.tile_type.to_int(), 
-                    tile.tile_up_type.to_int(), 
-                    tile.tile_right_type.to_int(), 
-                    tile.tile_down_type.to_int(), 
-                    tile.tile_left_type.to_int(), 
-                )
+                tile.tile_type.to_int()
             }).collect()
         }).collect();
 
@@ -230,7 +234,7 @@ impl Serialize for TileSet<BiomeTile> {
 
 impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
-        type TileData = (u32, u32, u32, u32, u32);
+        type TileData = u32;
 
         #[derive(Deserialize)]
         struct TileSetData {
@@ -246,10 +250,19 @@ impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
             }).collect()
         }).collect();
 
-        for row in 0..tiles.len() {
-            for col in 0..tiles[0].len() {
+        let rows = tiles.len();
+        let columns = if rows > 0 { tiles[0].len() } else { 0 };
+
+        for row in 0..rows {
+            for col in 0..columns {
+                let up = if row > 0 { tiles[row-1][col].tile_type } else { Biome::Nothing };
+                let right = if col < columns - 1 { tiles[row][col+1].tile_type } else { Biome::Nothing };
+                let down = if row < rows - 1 { tiles[row+1][col].tile_type } else { Biome::Nothing };
+                let left = if col > 0 { tiles[row][col-1].tile_type } else { Biome::Nothing };
+
                 tiles[row][col].row = row as u32;
                 tiles[row][col].column = col as u32;
+                tiles[row][col].setup_neighbors(up, right, down, left)
             }
         }
 
@@ -286,17 +299,17 @@ impl Biome {
 }
 
 impl BiomeTile {
-    pub fn from_data(row: usize, column: usize, data: (u32, u32, u32, u32, u32)) -> Self {
+    pub fn from_data(row: usize, column: usize, data: u32) -> Self {
         let mut tile = Self { 
-            tile_type: Biome::from_int(data.0), 
+            tile_type: Biome::from_int(data), 
             column: column as u32, 
             row: row as u32, 
             width: 1, 
             height: 1, 
-            tile_up_type: Biome::from_int(data.1), 
-            tile_right_type: Biome::from_int(data.2), 
-            tile_down_type: Biome::from_int(data.3), 
-            tile_left_type: Biome::from_int(data.4), 
+            tile_up_type: Biome::Nothing,
+            tile_right_type: Biome::Nothing,
+            tile_down_type: Biome::Nothing,
+            tile_left_type: Biome::Nothing,
             texture_offset_x: 0.0, 
             texture_offset_y: 0.0 
         };
@@ -355,16 +368,6 @@ mod tests {
                 texture_offset_x: 0.0,
                 texture_offset_y: 0.0,
             }
-        }
-    }
-
-    impl BiomeTile {
-        fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
-            self.tile_up_type = up;
-            self.tile_right_type = right;
-            self.tile_down_type = bottom;
-            self.tile_left_type = left;        
-            self.setup_textures();    
         }
     }
         
