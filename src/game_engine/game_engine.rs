@@ -175,6 +175,7 @@ impl GameEngine {
     }
 
     fn pop_world(&mut self) {
+        self.current_world().save();
         self.worlds.pop();
         let hero_frame = self.current_world().cached_hero_props.frame;
         self.center_camera_in(&hero_frame);

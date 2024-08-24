@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, worlds::constants::WORLD_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::constants::WORLD_ID_HOUSE_INTERIOR, zstack};
 
 use super::inventory::Stockable;
 
@@ -121,19 +121,39 @@ impl MapEditor {
             zstack!(
                 Spacing::LG,
                 Color::BLACK,
-                vstack!(
-                    Spacing::LG, 
-                    text!(TextStyle::Title, "MapEditor".to_string()),
-                    text!(TextStyle::Regular, "1. Press SPACE to select something\n2. Use arrows to move around\n3. Press SPACE to place it\n4. Press ESC to come back".to_string()),
-                    View::VGrid {                        
-                        spacing: GridSpacing::SM(),
-                        columns: self.columns,
-                        children: self.stock.iter().enumerate().map(|(index, item)| {
-                            item.ui(self.sprite_sheet, index, self.selected_index)
-                        }).collect()
-                    }
-                )
+                if let Some(item) = self.item_being_placed {
+                    self.placement_ui(&item)
+                } else {
+                    self.regular_ui()
+                }
             )
+        )
+    }
+
+    fn placement_ui(&self, item: &MapEditorItemBeingPlaced) -> View {
+        vstack!(
+            Spacing::MD,
+            text!(TextStyle::LargeTitle, "Map Editor".to_string()),
+            text!(TextStyle::Regular, "Press SPACE to place\nPress ESC to go back".to_string()),
+            with_fixed_position(
+                Vector2d::new(item.frame.x, item.frame.y),
+                zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(item.frame.w)))
+            )   
+        )
+    }
+
+    fn regular_ui(&self) -> View {
+        vstack!(
+            Spacing::LG, 
+            text!(TextStyle::Title, "MapEditor".to_string()),
+            text!(TextStyle::Regular, "Press SPACE to select something".to_string()),
+            View::VGrid {                        
+                spacing: GridSpacing::SM(),
+                columns: self.columns,
+                children: self.stock.iter().enumerate().map(|(index, item)| {
+                    item.ui(self.sprite_sheet, index, self.selected_index)
+                }).collect()
+            }
         )
     }
 }

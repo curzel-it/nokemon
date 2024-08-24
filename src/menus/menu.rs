@@ -165,18 +165,7 @@ impl Menu {
             MenuState::Closed => spacing!(Spacing::ZERO),
             MenuState::Open => with_backdrop(self.menu_ui()),
             MenuState::MapEditor => with_backdrop(self.map_editor.ui()),
-            MenuState::PlaceItem => self.item_placement_indicator()
-        }
-    }
-
-    fn item_placement_indicator(&self) -> View {
-        if let Some(item) = self.map_editor.item_being_placed {
-            with_fixed_position(
-                Vector2d::new(item.frame.x, item.frame.y),
-                zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(item.frame.w)))
-            )            
-        } else {
-            text!(TextStyle::LargeTitle, "Idk, something went wrong".to_string())
+            MenuState::PlaceItem => self.map_editor.ui()
         }
     }
 

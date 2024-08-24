@@ -242,6 +242,13 @@ impl RenderingConfig {
 }
 
 impl View {
+    fn accounts_for_stack_size(&self) -> bool {
+        match self {
+            View::FixedPosition { position: _, children: _} => false,
+            _ => true
+        }
+    }
+
     fn render_from(
         &self, 
         d: &mut RaylibDrawHandle, 
@@ -338,7 +345,9 @@ impl View {
 
         for child in children {
             child.render(d, config, &child_position);
-            child_position.y += child.calculate_size(config).y + space;
+            if child.accounts_for_stack_size() { 
+                child_position.y += child.calculate_size(config).y + space;
+            }
         }
     }
 
@@ -355,7 +364,9 @@ impl View {
 
         for child in children {
             child.render(d, config, &child_position);
-            child_position.x += child.calculate_size(config).x + space;
+            if child.accounts_for_stack_size() { 
+                child_position.x += child.calculate_size(config).x + space;
+            }
         }
     }
 
@@ -575,8 +586,10 @@ impl View {
 
         for child in children {
             let size = child.calculate_size(config);
-            total_height += size.y + space;
-            max_width = max_width.max(size.x);
+            if child.accounts_for_stack_size() { 
+                total_height += size.y + space;
+                max_width = max_width.max(size.x);
+            }
         }
         if !children.is_empty() {
             total_height -= space;
@@ -596,8 +609,10 @@ impl View {
 
         for child in children {
             let size = child.calculate_size(config);
-            total_width += size.x + space;
-            max_height = max_height.max(size.y);
+            if child.accounts_for_stack_size() { 
+                total_width += size.x + space;
+                max_height = max_height.max(size.y);
+            }
         }
         if !children.is_empty() {
             total_width -= space;
