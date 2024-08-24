@@ -39,12 +39,12 @@ impl BuildingType {
 pub struct Building {
     body: EntityBody,
     building_type: BuildingType,
-    interior_level_id: u32,
+    interior_world_id: u32,
     sprite_sheet: u32
 }
 
 impl Building {
-    pub fn new(building_type: BuildingType, interior_level_id: u32) -> Self {
+    pub fn new(building_type: BuildingType, interior_world_id: u32) -> Self {
         let frame = building_type.texture_source_rect();
 
         Self { 
@@ -66,7 +66,7 @@ impl Building {
                 lifespan: INFINITE_LIFESPAN,
             },      
             building_type,
-            interior_level_id,
+            interior_world_id,
             sprite_sheet: SPRITE_SHEET_BUILDINGS,
         }
     }
@@ -115,7 +115,7 @@ impl Building {
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::ToggleWorld(self.interior_level_id)
+            EngineStateUpdate::ToggleWorld(self.interior_world_id)
         )
     }
 }

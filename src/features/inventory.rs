@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, levels::constants::LEVEL_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, worlds::constants::WORLD_ID_HOUSE_INTERIOR, maps::{biome_tiles::Biome, constructions_tiles::Construction}, text, texture, ui::ui::{padding, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -123,7 +123,7 @@ impl Inventory {
 
     fn place_building(&self, camera_vieport: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
         let frame = self.item_being_placed.unwrap().frame;
-        let mut building = Building::new(building_type, LEVEL_ID_HOUSE_INTERIOR);
+        let mut building = Building::new(building_type, WORLD_ID_HOUSE_INTERIOR);
         building.body_mut().frame.x = camera_vieport.x + frame.x;
         building.body_mut().frame.y = camera_vieport.y + frame.y;
         let update = WorldStateUpdate::AddEntity(Box::new(building));

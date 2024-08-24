@@ -82,7 +82,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
 
 #[cfg(test)]
 mod tests {
-        use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, levels::constants::LEVEL_DEMO_WORLD, utils::vector::Vector2d};
+        use crate::{constants::RECT_ORIGIN_SQUARE_100, entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, worlds::constants::WORLD_DEMO_WORLD, utils::vector::Vector2d};
 
     use super::{collision_area, compute_collisions};
 
@@ -92,7 +92,7 @@ mod tests {
 
     #[test]
     fn can_detect_collisions_of_entities_inside_camera_viewport() {
-        let mut world = World::new(LEVEL_DEMO_WORLD);
+        let mut world = World::new(WORLD_DEMO_WORLD);
 
         let mut tower = Building::new(BuildingType::House, 0);
         tower.body_mut().requires_collision_detection = true;
@@ -120,7 +120,7 @@ mod tests {
 
     #[test]
     fn can_not_detect_collisions_of_entities_outside_camera_viewport() {
-        let mut world = World::new(LEVEL_DEMO_WORLD);
+        let mut world = World::new(WORLD_DEMO_WORLD);
 
         let mut tower = Building::new(BuildingType::House, 0);
         tower.body_mut().requires_collision_detection = true;

@@ -2,19 +2,18 @@ mod constants;
 mod entities;
 mod features;
 mod game_engine;
-mod levels;
+mod worlds;
 mod maps;
 mod rendering;
 mod ui;
 mod utils;
 
-use std::{env, fs::File, io::Write};
+use std::env;
 
 use game_engine::game_engine::GameEngine;
-use rendering::levels_rendering::render;
+use rendering::worlds_rendering::render;
 
 fn main() {
-    let save_file_path = "save_game.json";    
     let mut creative_mode = false;
 
     let args: Vec<String> = env::args().collect();
@@ -37,17 +36,5 @@ fn main() {
         render(&mut rl, &thread, engine.current_world(), &engine);  
     }
 
-    if let Ok(serialized_world) = serde_json::to_string(&engine.current_world()) {
-        if let Ok(mut file) = File::create(save_file_path) {
-            if let Err(e) = file.write_all(serialized_world.as_bytes()) {
-                eprintln!("Failed to write save file: {}", e);
-            } else {
-                println!("Game saved successfully to {}", save_file_path);
-            }
-        } else {
-            eprintln!("Failed to create save file");
-        }
-    } else {
-        eprintln!("Failed to serialize game world");
-    }
+    engine.current_world().save();
 }

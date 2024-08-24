@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use serde_json::Error;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, levels::constants::LEVEL_DEMO_WORLD, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_DEMO_WORLD, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
@@ -41,53 +41,8 @@ impl GameEngine {
         let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
         // rl.set_target_fps(FPS);
-
-        let save_file_path = "save_game.json";    
-        let file = File::open(save_file_path).unwrap();
-        let reader = BufReader::new(file);        
-        let result: Result<World, Error> = serde_json::from_reader(reader);
-
-        if let Ok(asd) = result {
-            let mut world = asd;
-            world.setup();
-            world.update(0.001);
-            let hero_frame = world.cached_hero_props.frame;
-            self.worlds.push(world);
-            self.center_camera_in(&hero_frame);
-        } else {
-            println!("Error loading save file: {:#?}", result);
-            let mut world = World::new(LEVEL_DEMO_WORLD);
-
-            let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
-                SPRITE_SHEET_BIOME_TILES, 
-                (0..200).map(|row| {
-                    (0..150).map(|column| {
-                        let mut tile = BiomeTile::from_data(row as usize, column as usize, 1);
-                        tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
-                        tile
-                    }).collect()
-                }).collect()
-            );
-
-            let construction_tile_set = TileSet::<ConstructionTile>::with_tiles(
-                SPRITE_SHEET_CONSTRUCTION_TILES, 
-                (0..200).map(|row| {
-                    (0..150).map(|column| {
-                        let mut tile = ConstructionTile::from_data(row as usize, column as usize, 0);
-                        tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
-                        tile
-                    }).collect()
-                }).collect()
-            );
-
-            world.load_biome_tiles(biome_tile_set);
-            world.load_construction_tiles(construction_tile_set);
-            world.setup();
-            world.update(0.001);
-            let hero_frame = world.cached_hero_props.frame;
-            self.worlds.push(world);
-            self.center_camera_in(&hero_frame);
-        }
+        
+        self.push_world(WORLD_DEMO_WORLD);
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
@@ -208,7 +163,7 @@ impl GameEngine {
     }
 
     fn toggle_world(&mut self, id: u32) {
-        if self.current_world().level_id == id {
+        if self.current_world().world_id == id {
             self.pop_world();
         } else {
             self.push_world(id);
@@ -219,11 +174,11 @@ impl GameEngine {
         if !self.worlds.is_empty() {
             self.current_world_mut().move_hero_one_tile_down();
         }
-        let mut new_level = World::new(id);
-        new_level.setup();
-        new_level.update(0.001);
-        let hero_frame = new_level.cached_hero_props.frame;
-        self.worlds.push(new_level);
+        let mut new_world = World::load_or_default(id);
+        new_world.setup();
+        new_world.update(0.001);
+        let hero_frame = new_world.cached_hero_props.frame;
+        self.worlds.push(new_world);
         self.center_camera_in(&hero_frame);
     }
 
@@ -257,13 +212,13 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2
 
 #[cfg(test)]
 mod tests {    
-    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, levels::constants::LEVEL_DEMO_WORLD};
+    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, worlds::constants::WORLD_DEMO_WORLD};
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
-            let mut world = World::new(LEVEL_DEMO_WORLD);
+            let mut world = World::new(WORLD_DEMO_WORLD);
             world.setup();            
             world
         }

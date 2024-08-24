@@ -1,8 +1,7 @@
 use crate::{entities::{hero::Hero, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, world::World}};
 
-
-pub fn level_setup_demo(world: &mut World) {
-    // add_house(world);
+pub fn world_setup_house_interior(world: &mut World) {
+    add_teleporter(world);
     add_hero(world);
 }
 
