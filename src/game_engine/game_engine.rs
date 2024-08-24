@@ -145,7 +145,12 @@ impl GameEngine {
             EngineStateUpdate::PushWorld(id) => self.push_world(*id),
             EngineStateUpdate::PopWorld => self.pop_world(),
             EngineStateUpdate::ToggleWorld(id) => self.toggle_world(*id),
+            EngineStateUpdate::SaveGame => self.save()
         }
+    }
+
+    fn save(&self) {
+        self.current_world().save();
     }
 
     fn toggle_world(&mut self, id: u32) {
@@ -159,6 +164,7 @@ impl GameEngine {
     fn push_world(&mut self, id: u32) {
         if !self.worlds.is_empty() {
             self.current_world_mut().move_hero_one_tile_down();
+            self.current_world().save();
         }
         let mut new_world = World::load_or_default(id);
         new_world.setup();

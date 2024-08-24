@@ -18,6 +18,7 @@ pub enum EngineStateUpdate {
     PushWorld(u32),
     PopWorld,
     ToggleWorld(u32),
+    SaveGame,
 }
 
 #[cfg(test)]

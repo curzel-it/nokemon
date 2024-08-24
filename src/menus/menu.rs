@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::TILE_SIZE, game_engine::{keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, hstack, spacing, text, texture, ui::ui::{padding, with_backdrop, with_fixed_position, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::TILE_SIZE, game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, hstack, spacing, text, texture, ui::ui::{padding, with_backdrop, with_fixed_position, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 use super::map_editor::MapEditor;
 
@@ -101,7 +101,9 @@ impl Menu {
             }
         }
         if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
-            self.handle_selection_from_open();
+            if let Some(updates) = self.handle_selection_from_open() {
+                return updates;
+            }
         }
         if keyboard_state.has_back_been_pressed {
             self.state = MenuState::Closed;
@@ -128,15 +130,16 @@ impl Menu {
         self.map_editor.update(camera_vieport, keyboard_state)
     }
     
-    fn handle_selection_from_open(&mut self) {        
+    fn handle_selection_from_open(&mut self) -> Option<Vec<WorldStateUpdate>> {
         match self.items[self.selected_index] {
             MenuItem::MapEditor => {
                 self.state = MenuState::MapEditor;
             },
             MenuItem::Save => {
-                // ...
+                return Some(vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)]);
             },
         }
+        None
     }
 }
 
