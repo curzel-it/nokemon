@@ -2,13 +2,15 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::building::Building, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, worlds::constants::WORLD_DEMO_WORLD};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::building::Building, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, worlds::constants::WORLD_ID_DEMO};
 
-const save_file_path: &str = "save_game.json";    
+use super::utils::world_path;
 
 impl World {
     pub fn load(id: u32) -> Option<Self> {
-        if let Ok(file) = File::open(save_file_path) {
+        let path = world_path(id);
+
+        if let Ok(file) = File::open(path.clone()) {
             let reader = BufReader::new(file);        
             let result: Result<Self, Error> = serde_json::from_reader(reader);
 
@@ -16,10 +18,10 @@ impl World {
                 println!("Game saved successfully!");
                 return Some(world)
             } else {
-                println!("Failed to parse game {}: {:#?}", id, result.err());
+                println!("Failed to parse game {}: {:#?}", path, result.err());
             } 
         } else {
-            println!("Failed to load game file");
+            println!("Failed to load game file at {}", path);
         }
         None
     }
@@ -29,12 +31,14 @@ impl World {
     }
 
     pub fn save(&self) {
+        let path = world_path(self.id);
+
         if let Ok(serialized_world) = serde_json::to_string(self) {
-            if let Ok(mut file) = File::create(save_file_path) {
+            if let Ok(mut file) = File::create(path.clone()) {
                 if let Err(e) = file.write_all(serialized_world.as_bytes()) {
                     eprintln!("Failed to write save file: {}", e);
                 } else {
-                    println!("Game saved successfully to {}", save_file_path);
+                    println!("Game saved successfully to {}", path);
                 }
             } else {
                 eprintln!("Failed to create save file");
@@ -45,7 +49,7 @@ impl World {
     }
 
     fn empty() -> Self {
-        let mut world = World::new(WORLD_DEMO_WORLD);
+        let mut world = World::new(WORLD_ID_DEMO);
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
             SPRITE_SHEET_BIOME_TILES, 
@@ -77,7 +81,7 @@ impl World {
 
 #[derive(Serialize, Deserialize)]
 struct WorldData {
-    world_id: u32,
+    id: u32,
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
     buildings: Vec<Building>,
@@ -93,7 +97,7 @@ impl Serialize for World {
             .collect();
 
         let mut state = serializer.serialize_struct("World", 4)?;
-        state.serialize_field("world_id", &self.world_id)?;
+        state.serialize_field("id", &self.id)?;
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
         state.serialize_field("buildings", &buildings)?;
@@ -105,20 +109,20 @@ impl<'de> Deserialize<'de> for World {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
         #[derive(Deserialize)]
         struct WorldData {
-            world_id: u32,
+            id: u32,
             biome_tiles: TileSet<BiomeTile>,
             constructions_tiles: TileSet<ConstructionTile>,
             buildings: Vec<Building>,
         }
 
         let WorldData {
-            world_id,
+            id,
             biome_tiles,
             constructions_tiles,
             buildings,
         } = WorldData::deserialize(deserializer)?;
 
-        let mut world = World::new(world_id);
+        let mut world = World::new(id);
         for building in buildings {
             world.add_entity(Box::new(building));
         }

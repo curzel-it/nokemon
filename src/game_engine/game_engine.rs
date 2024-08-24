@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_DEMO_WORLD, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_ID_DEMO, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
@@ -41,7 +41,7 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
         
-        self.push_world(WORLD_DEMO_WORLD);
+        self.push_world(WORLD_ID_DEMO);
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
@@ -162,7 +162,7 @@ impl GameEngine {
     }
 
     fn toggle_world(&mut self, id: u32) {
-        if self.current_world().world_id == id {
+        if self.current_world().id == id {
             self.pop_world();
         } else {
             self.push_world(id);
@@ -211,13 +211,13 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2
 
 #[cfg(test)]
 mod tests {    
-    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, worlds::constants::WORLD_DEMO_WORLD};
+    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, worlds::constants::WORLD_ID_DEMO};
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
-            let mut world = World::new(WORLD_DEMO_WORLD);
+            let mut world = World::new(WORLD_ID_DEMO);
             world.setup();            
             world
         }

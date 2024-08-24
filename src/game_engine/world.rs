@@ -1,12 +1,12 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, worlds::utils::setup_world, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
-    pub world_id: u32,
+    pub id: u32,
     pub total_elapsed_time: f32,
     pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
@@ -19,9 +19,9 @@ pub struct World {
 }
 
 impl World {
-    pub fn new(world_id: u32) -> Self {
+    pub fn new(id: u32) -> Self {
         Self {
-            world_id,
+            id,
             total_elapsed_time: 0.0,
             bounds: RECT_ORIGIN_SQUARE_100,
             biome_tiles: TileSet::empty(),
@@ -32,10 +32,6 @@ impl World {
             cached_hero_props: EntityProps::default(),
             collisions: HashMap::new()
         }
-    }
-
-    pub fn setup(&mut self) {
-        setup_world(self);
     }
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
