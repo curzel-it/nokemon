@@ -4,7 +4,7 @@ use raylib::prelude::*;
 
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, features::interactions::handle_interactions, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
 
-use super::{keyboard_events_provider::KeyboardEventsProvider, state_updates::EngineStateUpdate, world::World};
+use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub menu: Menu,
@@ -81,10 +81,13 @@ impl GameEngine {
         let mut menu_engine_updates = world.apply_state_updates(menu_update.state_updates);
         engine_updates.append(&mut menu_engine_updates);
 
-        if !menu_update.game_paused {
-            let mut updates = world.update_rl(time_since_last_update, &camera_viewport, keyboard_state);
-            engine_updates.append(&mut updates);
-        }
+        let (world_keyboard_state, game_update_time) = if menu_update.game_paused {
+            (KeyboardState::nothing(), time_since_last_update/10.0)
+        } else {
+            (keyboard_state, time_since_last_update)
+        };
+        let mut updates = world.update_rl(game_update_time, &camera_viewport, world_keyboard_state);
+        engine_updates.append(&mut updates);
 
         self.apply_state_updates(engine_updates);
     } 
