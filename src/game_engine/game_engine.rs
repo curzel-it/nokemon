@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_CREEP, SPRITE_SHEET_HERO, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, SPRITE_SHEET_TOWER, SPRITE_SHEET_TOWER_DART}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_ID_DEMO, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, features::{interactions::handle_interactions, inventory::Inventory}, worlds::constants::WORLD_ID_DEMO, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
@@ -101,16 +101,13 @@ impl GameEngine {
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
         let mut textures: HashMap<u32, Texture2D> = hash_map!();
-        textures.insert(SPRITE_SHEET_INVENTORY, texture(rl, thread, "inventory"));
-        textures.insert(SPRITE_SHEET_BIOME_TILES, texture(rl, thread, "tiles_biome"));
-        textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions"));
-        textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings"));
-        textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack"));
-        textures.insert(SPRITE_SHEET_TOWER, texture(rl, thread, "tower"));
-        textures.insert(SPRITE_SHEET_TOWER_DART, texture(rl, thread, "towerdart"));
-        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "white"));
-        textures.insert(SPRITE_SHEET_HERO, texture(rl, thread, "red"));
-        textures.insert(SPRITE_SHEET_CREEP, texture(rl, thread, "white"));
+        textures.insert(SPRITE_SHEET_INVENTORY, texture(rl, thread, "inventory").unwrap());
+        textures.insert(SPRITE_SHEET_BIOME_TILES, texture(rl, thread, "tiles_biome").unwrap());
+        textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions").unwrap());
+        textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings").unwrap());
+        textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack").unwrap());
+        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "humanoids").unwrap());
+        textures.insert(SPRITE_SHEET_HUMANOIDS, texture(rl, thread, "humanoids").unwrap());
         textures
     }
 
@@ -204,9 +201,17 @@ impl GameEngine {
     }
 }
 
-fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Texture2D {
+fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<Texture2D> {
     let path = format!("{}/{}.png", ASSETS_PATH, name);
-    rl.load_texture(thread, &path).unwrap()
+    let result = rl.load_texture(thread, &path);
+    
+    match result {
+        Ok(texture) => Some(texture),
+        Err(err) => {
+            eprintln!("Failed to load texture at {}: {:#?}", path, err);
+            None
+        }
+    }
 }
 
 #[cfg(test)]

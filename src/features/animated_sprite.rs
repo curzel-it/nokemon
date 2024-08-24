@@ -3,6 +3,7 @@ use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provide
 #[derive(Debug)]
 pub struct AnimatedSprite {
     pub sheet_id: u32,
+    pub index: f32,
     pub row: f32,
     pub frames_provider: TimedContentProvider<f32>,
     pub width: f32,
@@ -13,8 +14,20 @@ impl AnimatedSprite {
     pub fn new(sheet_id: u32, number_of_frames: u32, width: u32, height: u32) -> Self {
         Self {
             sheet_id,
+            index: 0.0,
             row: 0.0,
             frames_provider: TimedContentProvider::frames_counter(number_of_frames),
+            width: width as f32,
+            height: height as f32
+        }
+    }
+
+    pub fn new_stepped(sheet_id: u32, number_of_frames: u32, index: u32, step: u32, width: u32, height: u32) -> Self {
+        Self {
+            sheet_id,
+            index: index as f32,
+            row: 0.0,
+            frames_provider: TimedContentProvider::stepped_frames_counter(number_of_frames, step),
             width: width as f32,
             height: height as f32
         }
@@ -26,7 +39,7 @@ impl AnimatedSprite {
 
     pub fn texture_source_rect(&self) -> Rect {
         Rect::new(
-            self.frames_provider.current_frame() * self.width,
+            (self.index + self.frames_provider.current_frame()) * self.width,
             self.row * self.height,
             self.width,
             self.height
@@ -37,6 +50,11 @@ impl AnimatedSprite {
 impl TimedContentProvider<f32> {
     pub fn frames_counter(n: u32) -> Self {
         let frames = Vec::from_iter((0..n).map(|v| v as f32));
+        Self::new(frames, ANIMATIONS_FPS)
+    }
+
+    pub fn stepped_frames_counter(n: u32, step: u32) -> Self {
+        let frames = Vec::from_iter((0..n).map(|v| step * v).map(|v| v as f32));
         Self::new(frames, ANIMATIONS_FPS)
     }
 }

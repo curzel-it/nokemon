@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_HERO}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -28,12 +28,14 @@ impl Hero {
                 is_ally: true,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new(
-                SPRITE_SHEET_HERO, 
+            sprite: AnimatedSprite::new_stepped(
+                SPRITE_SHEET_HUMANOIDS, 
                 3, 
+                0,
+                SPRITE_SHEET_HUMANOIDS_COUNT,
                 19, 
                 22
-            )
+            ),
         }
     }
 }
