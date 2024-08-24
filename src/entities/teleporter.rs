@@ -81,7 +81,7 @@ impl Teleporter {
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::ToggleWorld(self.destination)
+            EngineStateUpdate::SwitchWorld(self.destination)
         )
     }
 }

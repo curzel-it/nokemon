@@ -28,7 +28,7 @@ impl World {
 
     pub fn load_or_create(id: u32) -> Self {
         Self::load(id).unwrap_or_else(|| {
-            let new = Self::empty(id);
+            let new = Self::new_with_default_tiles(id);
             new.save();
             new
         })
@@ -52,7 +52,7 @@ impl World {
         }
     }
 
-    fn empty(id: u32) -> Self {
+    fn new_with_default_tiles(id: u32) -> Self {
         let mut world = World::new(id);
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(

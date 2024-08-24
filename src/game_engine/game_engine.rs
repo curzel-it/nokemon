@@ -2,13 +2,13 @@ use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub menu: Menu,
-    pub worlds: Vec<World>,
+    pub world: World,
     pub camera_viewport: Rect,    
     pub ui_config: Option<RenderingConfig>
 }
@@ -17,7 +17,7 @@ impl GameEngine {
     pub fn new() -> Self {
         Self {
             menu: Menu::new(),
-            worlds: vec![],
+            world: World::load_or_create(WORLD_ID_NONE),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             ui_config: None
         }
@@ -41,7 +41,7 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
         
-        self.push_world(WORLD_ID_DEMO);
+        self.switch_world(WORLD_ID_DEMO);
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
@@ -58,14 +58,6 @@ impl GameEngine {
         (rl, thread)
     }
 
-    pub fn current_world_mut(&mut self) -> &mut World {
-        self.worlds.last_mut().unwrap()
-    }
-
-    pub fn current_world(&self) -> &World {
-        self.worlds.last().unwrap()
-    }
-
     pub fn update_rl(
         &mut self, 
         time_since_last_update: f32,
@@ -77,8 +69,7 @@ impl GameEngine {
 
         let menu_update = self.menu.update(&self.camera_viewport, &keyboard_state);
 
-        let world = self.current_world_mut();
-        let mut menu_engine_updates = world.apply_state_updates(menu_update.state_updates);
+        let mut menu_engine_updates = self.world.apply_state_updates(menu_update.state_updates);
         engine_updates.append(&mut menu_engine_updates);
 
         let (world_keyboard_state, game_update_time) = if menu_update.game_paused {
@@ -86,7 +77,7 @@ impl GameEngine {
         } else {
             (keyboard_state, time_since_last_update)
         };
-        let mut updates = world.update_rl(game_update_time, &camera_viewport, world_keyboard_state);
+        let mut updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard_state);
         engine_updates.append(&mut updates);
 
         self.apply_state_updates(engine_updates);
@@ -99,7 +90,7 @@ impl GameEngine {
         textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions").unwrap());
         textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings").unwrap());
         textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack").unwrap());
-        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "humanoids").unwrap());
+        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "teleporter").unwrap());
         textures.insert(SPRITE_SHEET_HUMANOIDS, texture(rl, thread, "humanoids").unwrap());
         textures
     }
@@ -132,9 +123,9 @@ impl GameEngine {
             use EngineStateUpdate::*;
             
             match (a, b) {
-                (ToggleWorld(_), ToggleWorld(_)) => std::cmp::Ordering::Equal,
-                (ToggleWorld(_), _) => std::cmp::Ordering::Greater,
-                (_, ToggleWorld(_)) => std::cmp::Ordering::Less,
+                (SwitchWorld(_), SwitchWorld(_)) => std::cmp::Ordering::Equal,
+                (SwitchWorld(_), _) => std::cmp::Ordering::Greater,
+                (_, SwitchWorld(_)) => std::cmp::Ordering::Less,
                 _ => std::cmp::Ordering::Equal,
             }
         });
@@ -145,42 +136,24 @@ impl GameEngine {
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
             EngineStateUpdate::CenterCamera(x, y) => self.center_camera_at(*x, *y),            
-            EngineStateUpdate::PushWorld(id) => self.push_world(*id),
-            EngineStateUpdate::PopWorld => self.pop_world(),
-            EngineStateUpdate::ToggleWorld(id) => self.toggle_world(*id),
+            EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save()
         }
     }
 
     fn save(&self) {
-        self.current_world().save();
+        self.world.save();
     }
 
-    fn toggle_world(&mut self, id: u32) {
-        if self.current_world().id == id {
-            self.pop_world();
-        } else {
-            self.push_world(id);
-        }
-    }
-
-    fn push_world(&mut self, id: u32) {
-        if !self.worlds.is_empty() {
-            self.current_world_mut().move_hero_one_tile_down();
-            self.current_world().save();
-        }
+    fn switch_world(&mut self, id: u32) {
+        self.world.move_hero_one_tile_down();
+        self.world.save();
+        
         let mut new_world = World::load_or_create(id);
         new_world.setup();
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;
-        self.worlds.push(new_world);
-        self.center_camera_in(&hero_frame);
-    }
-
-    fn pop_world(&mut self) {
-        self.current_world().save();
-        self.worlds.pop();
-        let hero_frame = self.current_world().cached_hero_props.frame;
+        self.world = new_world;
         self.center_camera_in(&hero_frame);
     }
 

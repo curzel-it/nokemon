@@ -15,9 +15,7 @@ pub enum WorldStateUpdate {
 #[derive(Debug, Clone, Copy)]
 pub enum EngineStateUpdate {
     CenterCamera(f32, f32),
-    PushWorld(u32),
-    PopWorld,
-    ToggleWorld(u32),
+    SwitchWorld(u32),
     SaveGame,
 }
 

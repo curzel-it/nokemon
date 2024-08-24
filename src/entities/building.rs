@@ -2,7 +2,7 @@ use std::any::Any;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_building_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE, TILE_SIZE_HALF}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
@@ -49,7 +49,7 @@ impl Building {
     }
 
     fn new_with_destination(building_type: BuildingType, interior_id: Option<u32>) -> Self {
-        let id = get_next_building_id();
+        let id = get_next_entity_id();
         let frame = building_type.texture_source_rect();
 
         Self { 
@@ -120,7 +120,7 @@ impl Building {
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::ToggleWorld(self.interior_id)
+            EngineStateUpdate::SwitchWorld(self.interior_id)
         )
     }
 }

@@ -34,6 +34,6 @@ fn main() {
         }
 
         engine.update_rl(time_since_last_update, &rl);
-        render(&mut rl, &thread, engine.current_world(), &engine);  
+        render(&mut rl, &thread, &engine.world, &engine);  
     }
 }
