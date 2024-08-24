@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::TILE_SIZE, game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, hstack, spacing, text, texture, ui::ui::{padding, with_backdrop, with_fixed_position, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::rect::Rect, vstack, zstack};
 
 use super::map_editor::MapEditor;
 
