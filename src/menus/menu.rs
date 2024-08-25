@@ -1,3 +1,5 @@
+use std::cmp;
+
 use raylib::color::Color;
 
 use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
@@ -53,11 +55,7 @@ impl Menu {
     }
 
     pub fn is_open(&self) -> bool {
-        if let MenuState::Closed = self.state {
-            false
-        } else {
-            true
-        }
+        !matches!(&self.state, MenuState::Closed)
     }
 
     pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> MenuUpdateResult {
@@ -152,17 +150,14 @@ impl MenuItem {
     }
 
     fn is_map_editor(&self) -> bool {
-        match self {
-            MenuItem::MapEditor => true,
-            _ => false
-        }
+        matches!(self, MenuItem::MapEditor)
     }
 }
 
 impl Menu {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
         match self.state {
-            MenuState::Closed => spacing!(Spacing::ZERO),
+            MenuState::Closed => spacing!(Spacing::Zero),
             MenuState::Open => with_backdrop(self.menu_ui()),
             MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset)

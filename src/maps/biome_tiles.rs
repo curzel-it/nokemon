@@ -44,10 +44,7 @@ impl SpriteTile for BiomeTile {
 
 impl BiomeTile {
     pub fn is_water(&self) -> bool {
-        match &self.tile_type {
-            Biome::Water => true,
-            _ => false
-        }
+        matches!(&self.tile_type, Biome::Water)
     }
 
     pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
@@ -77,7 +74,7 @@ impl BiomeTile {
         0 
     }
 
-    fn texture_index_for_directions(&self, directions: &Vec<Direction>) -> u32 {
+    fn texture_index_for_directions(&self, directions: &[Direction]) -> u32 {
         if directions.len() == 1 {
             match directions[0] {
                 Direction::Up => return 0,

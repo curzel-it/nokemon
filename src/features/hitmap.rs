@@ -1,7 +1,10 @@
 use crate::game_engine::world::World;
 
+pub type Hitmap = Vec<Vec<bool>>;
+
 impl World {
-    pub fn compute_hitmap(&self) -> Vec<Vec<bool>> {
+    #[allow(clippy::needless_range_loop)]
+    pub fn compute_hitmap(&self) -> Hitmap {
         let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
         let entities = self.entities.borrow();
 

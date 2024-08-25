@@ -22,13 +22,13 @@ pub enum TextStyle {
 }
 
 pub enum Spacing {
-    ZERO,
+    Zero,
     XS, 
     SM, 
     MD,
     LG,
     Custom(f32),
-    TextLineSpacing(TextStyle)
+    TextLineSpacing(TextStyle),
 }
 
 pub struct GridSpacing {
@@ -194,7 +194,7 @@ impl RenderingConfig {
 impl Spacing {
     pub fn unscaled_value(&self) -> f32 {
         match self {
-            Spacing::ZERO => 0.0,
+            Spacing::Zero => 0.0,
             Spacing::XS => 2.0,
             Spacing::SM => 4.0,
             Spacing::MD => 8.0,
@@ -231,10 +231,7 @@ impl RenderingConfig {
 
 impl View {
     fn accounts_for_stack_size(&self) -> bool {
-        match self {
-            View::FixedPosition { position: _, children: _} => false,
-            _ => true
-        }
+        !matches!(self, View::FixedPosition { position: _, children: _})
     }
 
     fn render_from(
@@ -377,7 +374,7 @@ impl View {
         }
     }
 
-    fn multiline_text_to_vstack(&self, style: &TextStyle, text: &String) -> View {
+    fn multiline_text_to_vstack(&self, style: &TextStyle, text: &str) -> View {
         let lines = text.split("\n");
         let texts: Vec<View> = lines.map(|line_text|
             View::Text { 
@@ -482,7 +479,7 @@ impl View {
             config,
             position,
             children,
-            &Spacing::ZERO,
+            &Spacing::Zero,
             Color::BLACK.alpha(0.0)
         );
     }
@@ -499,7 +496,7 @@ impl View {
             config, 
             &position.scaled(config.rendering_scale), 
             children, 
-            &Spacing::ZERO, 
+            &Spacing::Zero, 
             Color::BLACK.alpha(0.0)
         );
     }
@@ -691,12 +688,12 @@ impl View {
         Vector2d::new(width, height)
     }
 
-    fn calculate_fullscreen_backdrop_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
-        self.calculate_zstack_size(config, children, &Spacing::ZERO)
+    fn calculate_fullscreen_backdrop_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
+        self.calculate_zstack_size(config, children, &Spacing::Zero)
     }
 
-    fn calculate_fixed_position_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
-        self.calculate_zstack_size(config, children, &Spacing::ZERO)
+    fn calculate_fixed_position_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
+        self.calculate_zstack_size(config, children, &Spacing::Zero)
     }
 }
 
@@ -710,7 +707,7 @@ pub fn showcase_view() -> View {
             hstack!(
                 Spacing::LG,
                 vstack!(
-                    Spacing::ZERO, 
+                    Spacing::Zero, 
                     text!(TextStyle::Bold, "Hello Bold".to_string()),
                     spacing!(Spacing::MD),
                     text!(TextStyle::Regular, "Hello Regular".to_string()),

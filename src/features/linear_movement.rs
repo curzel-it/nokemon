@@ -1,5 +1,7 @@
 use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, world::World}, utils::{rect::Rect, vector::Vector2d}};
 
+use super::hitmap::Hitmap;
+
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let body = entity.body();
 
@@ -54,7 +56,7 @@ fn would_exit_bounds(frame: &Rect, direction: &Vector2d, bounds: &Rect) -> bool 
     false
 }
 
-fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Vec<Vec<bool>>) -> bool {
+fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Hitmap) -> bool {
     if direction.x > 0.0 {
         return hitmap[frame.y as usize][frame.x as usize + 1]
     }

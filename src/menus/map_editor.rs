@@ -247,7 +247,7 @@ impl MapEditor {
                     TILE_SIZE * frame.x as f32 - camera_offset.x, 
                     TILE_SIZE * frame.y as f32 - camera_offset.y
                 ),
-                zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32)))
+                zstack!(Spacing::Zero, Color::RED, spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32)))
             )   
         )
     }
