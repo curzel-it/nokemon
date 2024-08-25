@@ -1,13 +1,13 @@
 use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
 #[derive(Debug)]
 pub struct MapEditor {
-    pub stock: Vec<MapEditorItem>,
+    pub stock: Vec<Stockable>,
     pub worlds: Vec<Uuid>,
     state: MapEditorState,
     sprite_sheet: u32,
@@ -22,18 +22,10 @@ enum MapEditorState {
     PlacingWorld(usize, Uuid, Rect),
 }
 
-#[derive(Debug)]
-pub struct MapEditorItem {
-    pub item: Stockable,
-    pub stock: i32
-}
-
 impl MapEditor {
     pub fn new() -> Self {
         Self {
-            stock: Stockable::all_possible_items().into_iter()
-                .map(|item| { MapEditorItem { item, stock: INFINITE_STOCK } })
-                .collect(),
+            stock: Stockable::all_possible_items().into_iter().collect(),
             worlds: list_worlds_with_none(),
             state: MapEditorState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
@@ -87,7 +79,7 @@ impl MapEditor {
         if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
             self.state = MapEditorState::PlacingItem(
                 selected_index, 
-                self.stock[selected_index].item, 
+                self.stock[selected_index], 
                 self.initial_selection_frame(camera_vieport)
             ) 
         }
@@ -279,7 +271,7 @@ impl MapEditor {
     }
 }
 
-impl MapEditorItem {
+impl Stockable {
     pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
         let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
 
@@ -289,14 +281,14 @@ impl MapEditorItem {
                 Color::YELLOW,
                 texture!(
                     sprite_sheet, 
-                    self.item.texture_source_rect(), 
+                    self.texture_source_rect(), 
                     Vector2d::new(selected_size, selected_size)
                 )
             )
         } else {
             texture!(
                 sprite_sheet, 
-                self.item.texture_source_rect(), 
+                self.texture_source_rect(), 
                 Vector2d::new(1.5, 1.5)
             )
         }
