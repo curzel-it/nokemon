@@ -87,7 +87,6 @@ impl World {
         match update {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
             WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
-            WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(&id, value),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
@@ -102,13 +101,6 @@ impl World {
 
     fn update_construction_tile(&mut self, row: usize, col: usize, new_construction: Construction) {
         self.constructions_tiles.update_tile(row, col, new_construction)
-    }
-
-    fn increase_entity_hp(&mut self, id: &Uuid, value: f32) {
-        let mut entities = self.entities.borrow_mut();
-        if let Some(entity) = entities.get_mut(id) {
-            entity.body_mut().hp += value;
-        }
     }
 
     pub fn visible_biome_tiles(&self, viewport: &Rect) -> Vec<&BiomeTile> {

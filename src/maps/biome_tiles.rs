@@ -21,8 +21,6 @@ pub struct BiomeTile {
     pub tile_type: Biome,
     pub column: u32, 
     pub row: u32,
-    pub width: u32,
-    pub height: u32,
     pub tile_up_type: Biome,
     pub tile_right_type: Biome,
     pub tile_down_type: Biome,
@@ -50,19 +48,6 @@ impl BiomeTile {
             Biome::Water => true,
             _ => false
         }
-    }
-
-    pub fn is_surrounded_by_water(&self) -> bool {
-        if let Biome::Water = self.tile_up_type {
-            if let Biome::Water = self.tile_right_type {
-                if let Biome::Water = self.tile_down_type {
-                    if let Biome::Water = self.tile_left_type {
-                        return true;
-                    }                    
-                }                
-            }
-        }
-        false
     }
 
     pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {
@@ -302,8 +287,6 @@ impl BiomeTile {
             tile_type: Biome::from_int(data), 
             column: column as u32, 
             row: row as u32, 
-            width: 1, 
-            height: 1, 
             tile_up_type: Biome::Nothing,
             tile_right_type: Biome::Nothing,
             tile_down_type: Biome::Nothing,
@@ -347,18 +330,16 @@ mod tests {
 
     impl BiomeTile {
         fn with_color_indeces(color: u32, column: u32, row: u32) -> Self {
-            Self::with_color_indeces_size(color, column, row, 1, 1)
+            Self::with_color_indeces_size(color, column, row)
         }
     
-        fn with_color_indeces_size(color: u32, column: u32, row: u32, width: u32, height: u32) -> Self {
+        fn with_color_indeces_size(color: u32, column: u32, row: u32) -> Self {
             let tile_type = Biome::from_color(color);
             
             Self {
                 tile_type,
                 column, 
                 row,
-                width,
-                height,
                 tile_up_type: Biome::Grass,
                 tile_right_type: Biome::Grass,
                 tile_down_type: Biome::Grass,

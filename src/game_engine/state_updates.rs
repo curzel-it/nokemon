@@ -7,7 +7,6 @@ use super::entity::{Entity, EntityProps};
 pub enum WorldStateUpdate {
     AddEntity(Box<dyn Entity>),
     RemoveEntity(Uuid),
-    IncreaseHp(Uuid, f32),
     CacheHeroProps(EntityProps),
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
