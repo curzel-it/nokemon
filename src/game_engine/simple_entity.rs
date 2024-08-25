@@ -22,8 +22,8 @@ impl Entity for SimpleEntity {
 
     fn texture_source_rect(&self) -> Rect {
         Rect::new(
-            0.0,
-            0.0,
+            0,
+            0,
             self.body.frame.w,
             self.body.frame.h
         )

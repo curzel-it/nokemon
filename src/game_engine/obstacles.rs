@@ -19,7 +19,7 @@ impl StaticObstacle {
                 id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
                 frame,
-                collision_insets: Insets::zero(),
+                offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,

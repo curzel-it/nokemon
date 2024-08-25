@@ -96,10 +96,10 @@ impl MapEditor {
 
     fn initial_selection_frame(&self, camera_vieport: &Rect) -> Rect {
         Rect::new(
-            (camera_vieport.x / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.x,
-            (camera_vieport.y / TILE_SIZE).ceil() * TILE_SIZE - camera_vieport.y,
-            TILE_SIZE, 
-            TILE_SIZE
+            camera_vieport.x,
+            camera_vieport.y,
+            1,
+            1
         )
     }
 
@@ -183,8 +183,8 @@ impl MapEditor {
         frame: &Rect, 
         camera_vieport: &Rect
     ) -> Vec<WorldStateUpdate> {
-        let row = ((camera_vieport.y + frame.y) / TILE_SIZE) as usize;
-        let col = ((camera_vieport.x + frame.x) / TILE_SIZE) as usize;
+        let row = (camera_vieport.y + frame.y) as usize;
+        let col = (camera_vieport.x + frame.x) as usize;
 
         match item {
            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
@@ -205,16 +205,16 @@ impl MapEditor {
         let mut updated_frame = frame.clone();
 
         if keyboard_state.has_up_been_pressed {
-            updated_frame = updated_frame.offset_y(-TILE_SIZE);
+            updated_frame = updated_frame.offset_y(-1);
         }
         if keyboard_state.has_right_been_pressed {
-            updated_frame = updated_frame.offset_x(TILE_SIZE);
+            updated_frame = updated_frame.offset_x(1);
         }
         if keyboard_state.has_down_been_pressed {
-            updated_frame = updated_frame.offset_y(TILE_SIZE);
+            updated_frame = updated_frame.offset_y(1);
         }
         if keyboard_state.has_left_been_pressed {
-            updated_frame = updated_frame.offset_x(-TILE_SIZE);
+            updated_frame = updated_frame.offset_x(-1);
         }     
         updated_frame   
     }
@@ -243,8 +243,8 @@ impl MapEditor {
             text!(TextStyle::LargeTitle, "Map Editor".to_string()),
             text!(TextStyle::Regular, "Press SPACE to place\nPress ESC to go back".to_string()),
             with_fixed_position(
-                Vector2d::new(frame.x, frame.y),
-                zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(frame.w)))
+                Vector2d::new(frame.x as f32, frame.y as f32).scaled(TILE_SIZE),
+                zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32)))
             )   
         )
     }

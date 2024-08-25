@@ -18,8 +18,8 @@ impl Teleporter {
             body: EntityBody {
                 id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
-                frame: Rect::new(0.0, 0.0, TILE_SIZE, TILE_SIZE),
-                collision_insets: Insets::zero(),
+                frame: Rect::new(0, 0, 1, 1),
+                offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
@@ -71,14 +71,14 @@ impl Entity for Teleporter {
 
 impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
-        let hero_frame = world.cached_hero_props.frame;
+     /* let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
         
         if let Some(collision) = self.body.frame.collision_area_with_rect(&hero_frame) {
             if collision.w.floor() <= TILE_SIZE_HALF { return false }
             if collision.h.floor() < TILE_SIZE_HALF { return false }
             return hero_direction.y != 0.0;
-        }
+        }*/
         false
     }
 

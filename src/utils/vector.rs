@@ -1,3 +1,5 @@
+use std::ops::Add;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Default, Debug, Serialize, Deserialize)]
@@ -29,5 +31,16 @@ impl Vector2d {
 
     pub fn scaled(&self, value: f32) -> Self {
         Self::new(self.x * value, self.y * value)
+    }
+}
+
+impl Add for Vector2d {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
     }
 }

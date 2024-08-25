@@ -1,23 +1,40 @@
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD}, game_engine::{collision_detection::Collision, entity::Entity, world::World}};
+use raylib::ffi::Vector2;
+
+use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, TILE_SIZE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}, maps::tiles, utils::vector::Vector2d};
+
+/*
+1. Compute a hitmap via WorldStateUpdates... rigid_bodies_map and collidables_map ?
+2. Check rows and cols
+3. Update offset if possible
+3. If offset > TILE_SIZE -> move to next tile
+*/
 
 pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_update: f32) { 
     let no_collisions: Vec<Collision> = vec![];
     let collisions = world.collisions.get(&entity.id()).unwrap_or(&no_collisions);
-    let frame = entity.body().frame;
     
-    let offset = entity.body().direction
-        .scaled(entity.body().current_speed)
-        .scaled(time_since_last_update)
-        .scaled(BASE_ENTITY_SPEED);
-    
-    let expected_x = frame.x + offset.x;
-    let expected_y = frame.y + offset.y;
-
     if has_blocking_collisions(entity, collisions) {
         return
     }
+    
+    let updated_offset = updated_offset(entity, time_since_last_update);    
+    let tiles_x = (updated_offset.x / TILE_SIZE).floor();
+    let tiles_y = (updated_offset.y / TILE_SIZE).floor();
+    
+    entity.body_mut().frame.x += tiles_x as u32;
+    entity.body_mut().frame.y += tiles_y as u32;
 
-    entity.place_at(expected_x, expected_y);
+    entity.body_mut().offset = Vector2d::new(
+        updated_offset.x - tiles_x * TILE_SIZE,
+        updated_offset.y - tiles_y * TILE_SIZE
+    );
+}
+
+fn updated_offset(entity: &dyn Entity, time_since_last_update: f32) -> Vector2d {
+    entity.body().offset + entity.body().direction
+        .scaled(entity.body().current_speed)
+        .scaled(time_since_last_update)
+        .scaled(BASE_ENTITY_SPEED)
 }
 
 fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> bool {
@@ -29,28 +46,28 @@ fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> 
 }
 
 fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collision>) -> bool {
-    let entity_center_x = entity.body().frame.x + entity.body().frame.w / 2.0;
-    let entity_center_y = entity.body().frame.y + entity.body().frame.h / 2.0;
+    let entity_center_x = entity.body().frame.x + entity.body().frame.w / 2;
+    let entity_center_y = entity.body().frame.y + entity.body().frame.h / 2;
     let direction = entity.body().direction;
 
     if direction.x > 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_x > entity_center_x && collision.overlapping_area.h > COLLISION_THRESHOLD
+            collision.center_x > entity_center_x
         });
     }
     if direction.x < 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_x < entity_center_x && collision.overlapping_area.h > COLLISION_THRESHOLD
+            collision.center_x < entity_center_x
         });
     }
     if direction.y > 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_y > entity_center_y && collision.overlapping_area.w > COLLISION_THRESHOLD
+            collision.center_y > entity_center_y
         });
     }
     if direction.y < 0.0 {
         return collisions.iter().any(|collision| {
-            collision.center_y < entity_center_y && collision.overlapping_area.w > COLLISION_THRESHOLD
+            collision.center_y < entity_center_y
         });
     }
     false
@@ -58,22 +75,26 @@ fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collisio
 
 #[cfg(test)]
 mod tests {
-        use crate::{constants::{BASE_ENTITY_SPEED, RECT_ORIGIN_SQUARE_100}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}, worlds::constants::WORLD_ID_DEMO, utils::vector::Vector2d};
+        use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
     
     #[test]
     fn can_move_on_update() {
         let world = World::new(WORLD_ID_DEMO);
         
         let mut body = EntityBody::test();
-        body.frame = RECT_ORIGIN_SQUARE_100;
+        body.frame = Rect::square_from_origin(100);
         body.current_speed = 1.0;        
         
         let mut entity = SimpleEntity::new(body);
         entity.body_mut().direction = Vector2d::new(1.0, 0.0);  
         entity.update(&world, 1.0);
 
-        assert_eq!(entity.body().frame.x, BASE_ENTITY_SPEED);
-        assert_eq!(entity.body().frame.y, 0.0);
+        let expected_x = (BASE_ENTITY_SPEED / TILE_SIZE).floor() as u32;
+        let expected_offset = BASE_ENTITY_SPEED - TILE_SIZE * expected_x as f32;
+
+        assert_eq!(entity.body().frame.x, expected_x);
+        assert_eq!(entity.body().offset.x, expected_offset);
+        assert_eq!(entity.body().frame.y, 0);
     }
 
     #[test]
@@ -81,14 +102,18 @@ mod tests {
         let world = World::new(WORLD_ID_DEMO);
         
         let mut body = EntityBody::test();
-        body.frame = RECT_ORIGIN_SQUARE_100;
+        body.frame = Rect::square_from_origin(100);
         body.current_speed = 1.0;
         
         let mut entity = SimpleEntity::new(body);
         entity.body_mut().direction = Vector2d::new(-1.0, 0.0);  
         entity.update(&world, 1.0);
 
-        assert_eq!(entity.body().frame.x, -BASE_ENTITY_SPEED);
-        assert_eq!(entity.body().frame.y, 0.0);
+        let expected_x = (-BASE_ENTITY_SPEED / TILE_SIZE).floor() as u32;
+        let expected_offset = BASE_ENTITY_SPEED - TILE_SIZE * expected_x as f32;
+
+        assert_eq!(entity.body().frame.x, expected_x);
+        assert_eq!(entity.body().offset.x, expected_offset);
+        assert_eq!(entity.body().frame.y, 0);
     }
 }

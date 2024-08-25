@@ -13,11 +13,9 @@ pub trait EmbodiedEntity: Debug {
 
     fn body(&self) -> &EntityBody;
     fn body_mut(&mut self) -> &mut EntityBody;
-    fn collision_frame(&self) -> Rect;
     
     fn center_in(&mut self, value: &Rect);
-    fn place_at(&mut self, x: f32, y: f32);
-    fn snap_to_nearest_tile(&mut self);
+    fn place_at(&mut self, x: u32, y: u32);
     fn props(&self) -> EntityProps;
 }
 
@@ -26,7 +24,7 @@ pub struct EntityBody {
     pub id: Uuid,
     pub parent_id: Uuid,
     pub frame: Rect,  
-    pub collision_insets: Insets,
+    pub offset: Vector2d,
     pub direction: Vector2d,
     pub current_speed: f32,
     pub base_speed: f32,
@@ -49,7 +47,7 @@ impl EntityBody {
         self.frame.center_at(value)
     }
     
-    pub fn resize(&mut self, w: f32, h: f32) {
+    pub fn resize(&mut self, w: u32, h: u32) {
         self.frame.resize(w, h)
     }
             
@@ -59,15 +57,6 @@ impl EntityBody {
             
     pub fn scale_speed(&mut self, scalar: f32) {
         self.current_speed = self.base_speed * scalar;
-    }
-
-    pub fn collision_frame(&self) -> Rect {
-        self.frame.inset(self.collision_insets)
-    }
-
-    pub fn snap_to_nearest_tile(&mut self) {
-        self.frame.x = (self.frame.x / TILE_SIZE).round() * TILE_SIZE;
-        self.frame.y = (self.frame.y / TILE_SIZE).round() * TILE_SIZE;
     }
 
     pub fn props(&self) -> EntityProps {
@@ -92,8 +81,8 @@ mod tests {
             EntityBody {
                 id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
-                frame: Rect::new(0.0, 0.0, 50.0, 50.0),
-                collision_insets: Insets::zero(),
+                frame: Rect::new(0, 0, 50, 50),
+                offset: Vector2d::zero(),
                 direction: Vector2d::new(0.0, 0.0),
                 current_speed: 1.0,
                 base_speed: 1.0,

@@ -42,10 +42,10 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn visible_tiles(&self, viewport: &Rect) -> Vec<&T> {
-        let first_row = (viewport.y / TILE_SIZE).floor() as usize;
-        let rows = (viewport.h / TILE_SIZE).ceil() as usize + 1;
-        let first_col = (viewport.x / TILE_SIZE).floor() as usize;
-        let cols = (viewport.w / TILE_SIZE).ceil() as usize + 1;
+        let first_row = (viewport.y - 1).max(0) as usize;
+        let rows = (viewport.h + 2) as usize;
+        let first_col = (viewport.x - 1).max(0) as usize;
+        let cols = (viewport.w + 2) as usize;
 
         let mut visible_tiles = Vec::new();
 

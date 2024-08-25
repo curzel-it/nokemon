@@ -25,10 +25,10 @@ impl ConstructionTile {
         let entity = StaticObstacle::new(
             SPRITE_SHEET_BLANK,
             Rect::new(
-                self.column as f32 * TILE_SIZE, 
-                self.row as f32 * TILE_SIZE, 
-                self.width as f32 * TILE_SIZE, 
-                self.height as f32 * TILE_SIZE
+                self.column,
+                self.row,
+                self.width,
+                self.height
             )
         );
         Box::new(entity)

@@ -104,8 +104,8 @@ impl GameEngine {
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
         self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
-        self.camera_viewport.w = width as f32 / scale;
-        self.camera_viewport.h = height as f32 / scale;
+        self.camera_viewport.w = (width as f32 / scale) as u32;
+        self.camera_viewport.h = (height as f32 / scale) as u32;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
@@ -160,19 +160,11 @@ impl GameEngine {
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {
-        self.center_camera_at(
-            frame.x + frame.w / 2.0,
-            frame.y + frame.h / 2.0
-        );
+        self.camera_viewport.center_in(frame);
     }
 
-    fn center_camera_at(&mut self, x: f32, y: f32) {
-        self.camera_viewport = Rect::new(
-            x - self.camera_viewport.w / 2.0,
-            y - self.camera_viewport.h / 2.0,
-            self.camera_viewport.w,
-            self.camera_viewport.h
-        );
+    fn center_camera_at(&mut self, x: u32, y: u32) {
+        self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
     }
 }
 
@@ -212,7 +204,7 @@ mod tests {
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
         let world = engine.start_headless();
-        assert_ne!(world.bounds.w, 10.0);
-        assert_ne!(world.bounds.h, 10.0);
+        assert_ne!(world.bounds.w, 10);
+        assert_ne!(world.bounds.h, 10);
     }
 }

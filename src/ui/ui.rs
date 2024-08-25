@@ -724,14 +724,14 @@ pub fn showcase_view() -> View {
                             Color::YELLOW,
                             texture!(
                                 SPRITE_SHEET_INVENTORY, 
-                                Rect::new(TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                                Vector2d::new(5.0 * TILE_SIZE, 5.0 * TILE_SIZE)
+                                Rect::new(1, 0, 1, 1), 
+                                Vector2d::new(5.0, 5.0)
                             )
                         ),
                         texture!(
                             SPRITE_SHEET_INVENTORY, 
-                            Rect::new(2.0 * TILE_SIZE, 0.0, TILE_SIZE, TILE_SIZE), 
-                            Vector2d::new(10.0 * TILE_SIZE, 10.0 * TILE_SIZE)
+                            Rect::new(2, 0, 1, 1), 
+                            Vector2d::new(10.0, 10.0)
                         )
                     )
                 ),

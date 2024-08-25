@@ -24,13 +24,7 @@ impl Stockable {
 
     pub fn texture_source_rect(&self) -> Rect {
         let (row, col) = self.texture_offsets();
-
-        Rect {
-            x: col as f32 * TILE_SIZE,
-            y: row as f32 * TILE_SIZE,
-            w: TILE_SIZE, 
-            h: TILE_SIZE
-        }
+        Rect::new(col, row, 1, 1)
     }
 
     fn texture_offsets(&self) -> (u32, u32) {

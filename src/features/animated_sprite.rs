@@ -5,11 +5,11 @@ use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provide
 #[derive(Debug)]
 pub struct AnimatedSprite {
     pub sheet_id: u32,
-    pub index: f32,
-    pub row: f32,
-    pub frames_provider: TimedContentProvider<f32>,
-    pub width: f32,
-    pub height: f32,
+    pub index: u32,
+    pub row: u32,
+    pub frames_provider: TimedContentProvider<u32>,
+    pub width: u32,
+    pub height: u32,
     step: u32,
     number_of_frames: u32,
 }
@@ -18,11 +18,11 @@ impl AnimatedSprite {
     pub fn new(sheet_id: u32, number_of_frames: u32, width: u32, height: u32) -> Self {
         Self {
             sheet_id,
-            index: 0.0,
-            row: 0.0,
+            index: 0,
+            row: 0,
             frames_provider: TimedContentProvider::frames_counter(number_of_frames),
-            width: width as f32,
-            height: height as f32,
+            width,
+            height,
             step: 0,
             number_of_frames,
         }
@@ -31,11 +31,11 @@ impl AnimatedSprite {
     pub fn new_stepped(sheet_id: u32, number_of_frames: u32, index: u32, step: u32, width: u32, height: u32) -> Self {
         Self {
             sheet_id,
-            index: index as f32,
-            row: 0.0,
+            index,
+            row: 0,
             frames_provider: TimedContentProvider::stepped_frames_counter(number_of_frames, step),
-            width: width as f32,
-            height: height as f32,
+            width,
+            height,
             step,
             number_of_frames,
         }
@@ -55,14 +55,14 @@ impl AnimatedSprite {
     }
 }
 
-impl TimedContentProvider<f32> {
+impl TimedContentProvider<u32> {
     pub fn frames_counter(n: u32) -> Self {
-        let frames = Vec::from_iter((0..n).map(|v| v as f32));
+        let frames = Vec::from_iter((0..n));
         Self::new(frames, ANIMATIONS_FPS)
     }
 
     pub fn stepped_frames_counter(n: u32, step: u32) -> Self {
-        let frames = Vec::from_iter((0..n).map(|v| step * v).map(|v| v as f32));
+        let frames = Vec::from_iter((0..n).map(|v| step * v));
         Self::new(frames, ANIMATIONS_FPS)
     }
 }
@@ -76,16 +76,16 @@ macro_rules! impl_humanoid_sprite_update {
                 let is_moving = self.body.current_speed != 0.0;
         
                 self.sprite.row = match (direction, is_moving) {
-                    ($crate::utils::geometry_utils::Direction::Up, true) => 0.0,
-                    ($crate::utils::geometry_utils::Direction::Up, false) => 1.0,
-                    ($crate::utils::geometry_utils::Direction::Right, true) => 2.0,
-                    ($crate::utils::geometry_utils::Direction::Right, false) => 3.0,
-                    ($crate::utils::geometry_utils::Direction::Down, true) => 4.0,
-                    ($crate::utils::geometry_utils::Direction::Down, false) => 5.0,
-                    ($crate::utils::geometry_utils::Direction::Left, true) => 6.0,
-                    ($crate::utils::geometry_utils::Direction::Left, false) => 7.0,
-                    ($crate::utils::geometry_utils::Direction::Unknown, true) => 5.0,
-                    ($crate::utils::geometry_utils::Direction::Unknown, false) => 5.0
+                    ($crate::utils::geometry_utils::Direction::Up, true) => 0,
+                    ($crate::utils::geometry_utils::Direction::Up, false) => 1,
+                    ($crate::utils::geometry_utils::Direction::Right, true) => 2,
+                    ($crate::utils::geometry_utils::Direction::Right, false) => 3,
+                    ($crate::utils::geometry_utils::Direction::Down, true) => 4,
+                    ($crate::utils::geometry_utils::Direction::Down, false) => 5,
+                    ($crate::utils::geometry_utils::Direction::Left, true) => 6,
+                    ($crate::utils::geometry_utils::Direction::Left, false) => 7,
+                    ($crate::utils::geometry_utils::Direction::Unknown, true) => 5,
+                    ($crate::utils::geometry_utils::Direction::Unknown, false) => 5
                 };
                 self.sprite.update(time_since_last_update);
             }
@@ -101,11 +101,11 @@ macro_rules! impl_bullet_sprite_update {
                 let direction = $crate::utils::geometry_utils::Direction::from_vector(self.body.direction);
         
                 self.sprite.row = match direction {
-                    $crate::utils::geometry_utils::Direction::Up => 2.0,
-                    $crate::utils::geometry_utils::Direction::Right => 0.0,
-                    $crate::utils::geometry_utils::Direction::Down => 3.0,
-                    $crate::utils::geometry_utils::Direction::Left => 1.0,
-                    $crate::utils::geometry_utils::Direction::Unknown => 3.0,
+                    $crate::utils::geometry_utils::Direction::Up => 2,
+                    $crate::utils::geometry_utils::Direction::Right => 0,
+                    $crate::utils::geometry_utils::Direction::Down => 3,
+                    $crate::utils::geometry_utils::Direction::Left => 1,
+                    $crate::utils::geometry_utils::Direction::Unknown => 3,
                 };
                 self.sprite.update(time_since_last_update);
             }
@@ -128,7 +128,7 @@ macro_rules! impl_single_animation_sprite_update {
 struct AnimatedSpriteData {
     sheet_id: u32,
     index: u32,
-    row: f32,
+    row: u32,
     width: u32,
     height: u32,
     step: u32,

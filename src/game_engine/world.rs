@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
 use uuid::Uuid;
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, entities::teleporter::{self, Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{HERO_ENTITY_ID, TILE_SIZE}, entities::teleporter::{self, Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
@@ -25,7 +25,7 @@ impl World {
         Self {
             id,
             total_elapsed_time: 0.0,
-            bounds: RECT_ORIGIN_SQUARE_100,
+            bounds: Rect::square_from_origin(100),
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),

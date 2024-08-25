@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::rect::Rect};
+use crate::{constants::TILE_SIZE, impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -21,20 +21,14 @@ pub struct ConstructionTile {
     pub tile_right_type: Construction,
     pub tile_down_type: Construction,
     pub tile_left_type: Construction,
-    pub texture_offset_x: f32,
-    pub texture_offset_y: f32,
+    pub texture_source_rect: Rect,
 }
 
 impl_tile!(ConstructionTile);
 
 impl SpriteTile for ConstructionTile {
     fn texture_source_rect(&self, _: u32) -> Rect {
-        Rect::new(
-            self.texture_offset_x,
-            self.texture_offset_y,
-            TILE_TEXTURE_SIZE,
-            TILE_TEXTURE_SIZE,
-        )
+        self.texture_source_rect
     }
 }
 
@@ -77,8 +71,8 @@ impl ConstructionTile {
             (true, true, true, true) => 15,
             _ => 0,
         };
-        self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
-        self.texture_offset_y = TILE_TEXTURE_SIZE * y as f32;
+        self.texture_source_rect.x = x;
+        self.texture_source_rect.y = y;
     }
 }
 
@@ -198,8 +192,7 @@ impl ConstructionTile {
             tile_right_type: Construction::Nothing, 
             tile_down_type: Construction::Nothing, 
             tile_left_type: Construction::Nothing, 
-            texture_offset_x: 0.0, 
-            texture_offset_y: 0.0 
+            texture_source_rect: Rect::square_from_origin(1) 
         };
         tile.setup_textures();
         tile

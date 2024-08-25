@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{constants::TILE_TEXTURE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
+use crate::{constants::TILE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -27,8 +27,8 @@ pub struct BiomeTile {
     pub tile_right_type: Biome,
     pub tile_down_type: Biome,
     pub tile_left_type: Biome,
-    pub texture_offset_x: f32,
-    pub texture_offset_y: f32,
+    pub texture_offset_x: u32,
+    pub texture_offset_y: u32,
 }
 
 impl_tile!(BiomeTile);
@@ -36,10 +36,10 @@ impl_tile!(BiomeTile);
 impl SpriteTile for BiomeTile {
     fn texture_source_rect(&self, variant: u32) -> Rect {
         Rect::new(
-            self.texture_offset_x,
-            self.texture_offset_y + TILE_TEXTURE_SIZE * (variant * Biome::number_of_biomes()) as f32,
-            TILE_TEXTURE_SIZE, 
-            TILE_TEXTURE_SIZE
+            self.texture_offset_x as u32,
+            self.texture_offset_y as u32 + variant * Biome::number_of_biomes(),
+            1, 
+            1
         )
     }
 }
@@ -74,10 +74,8 @@ impl BiomeTile {
     }
 
     fn setup_textures(&mut self) {
-        let x = self.texture_index_for_neighbors();
-        let y = self.tile_type.texture_index(); 
-        self.texture_offset_x = TILE_TEXTURE_SIZE * x as f32;
-        self.texture_offset_y = TILE_TEXTURE_SIZE * y as f32;
+        self.texture_offset_x = self.texture_index_for_neighbors();
+        self.texture_offset_y = self.tile_type.texture_index(); 
     }
 
     fn texture_index_for_neighbors(&self) -> u32 {
@@ -310,8 +308,8 @@ impl BiomeTile {
             tile_right_type: Biome::Nothing,
             tile_down_type: Biome::Nothing,
             tile_left_type: Biome::Nothing,
-            texture_offset_x: 0.0, 
-            texture_offset_y: 0.0 
+            texture_offset_x: 0, 
+            texture_offset_y: 0 
         };
         tile.setup_textures();
         tile
@@ -365,8 +363,8 @@ mod tests {
                 tile_right_type: Biome::Grass,
                 tile_down_type: Biome::Grass,
                 tile_left_type: Biome::Grass,
-                texture_offset_x: 0.0,
-                texture_offset_y: 0.0,
+                texture_offset_x: 0,
+                texture_offset_y: 0,
             }
         }
     }

@@ -11,20 +11,19 @@ impl World {
         } else {
             entity.center_in(&self.bounds);
         }
-        entity.snap_to_nearest_tile();
         entity.body_mut().direction = hero_direction.clone();
         
         if hero_direction.y < 0.0 {
-            entity.body_mut().frame.y -= TILE_SIZE;            
+            entity.body_mut().frame.y -= 1;            
         }
         if hero_direction.x > 0.0 {
-            entity.body_mut().frame.x += TILE_SIZE;
+            entity.body_mut().frame.x += 1;
         }
         if hero_direction.y > 0.0 {
-            entity.body_mut().frame.y += TILE_SIZE;            
+            entity.body_mut().frame.y += 1;            
         }
         if hero_direction.x < 0.0 {
-            entity.body_mut().frame.x -= TILE_SIZE;
+            entity.body_mut().frame.x -= 1;
         }
         self.add_entity(Box::new(entity));
     }    
