@@ -23,9 +23,6 @@ pub const FONT_BOLD: &str = "fonts/PixelOperator/PixelOperator8-Bold.ttf";
 // Tiles
 pub const TILE_VARIATIONS_FPS: f32 = 1.0;
 pub const TILE_SIZE: f32 = 16.0;
-pub const TILE_SIZE_HALF: f32 = TILE_SIZE / 2.0;
-pub const TILE_SIZE_X1_5: f32 = TILE_SIZE * 1.5;
-pub const TILE_SIZE_X2: f32 = TILE_SIZE * 2.0;
 pub const TILE_VARIATIONS_COUNT: u32 = 4;
 
 // Sprite Sheets

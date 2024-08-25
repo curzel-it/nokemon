@@ -1,7 +1,7 @@
 use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::{constants::WORLD_ID_NONE, utils::{list_worlds_with_none, world_name}}, zstack};
+use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::{constants::WORLD_ID_NONE, utils::{list_worlds_with_none, world_name}}, zstack};
 
 use super::inventory::Stockable;
 
@@ -278,6 +278,8 @@ impl MapEditor {
 
 impl MapEditorItem {
     pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
+        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
+
         if index == selected_index {
             zstack!(
                 Spacing::XS, 
@@ -285,17 +287,14 @@ impl MapEditorItem {
                 texture!(
                     sprite_sheet, 
                     self.item.texture_source_rect(), 
-                    Vector2d::new(
-                        TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value(), 
-                        TILE_SIZE_X1_5 - 2.0 * Spacing::XS.unscaled_value()
-                    )
+                    Vector2d::new(selected_size, selected_size)
                 )
             )
         } else {
             texture!(
                 sprite_sheet, 
                 self.item.texture_source_rect(), 
-                Vector2d::new(TILE_SIZE_X1_5, TILE_SIZE_X1_5)
+                Vector2d::new(1.5, 1.5)
             )
         }
     }

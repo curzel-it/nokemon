@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::{constants::SPRITE_SHEET_INVENTORY, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,
@@ -409,20 +409,27 @@ impl View {
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
         key: &u32,
-        source_rect: &Rect,
+        source: &Rect,
         position: &Vector2d,
         size:  &Vector2d
     ) {
         if let Some(texture) = config.get_texture(*key) {           
+            let source_rect = Rectangle::new(
+                TILE_SIZE * source.x as f32, 
+                TILE_SIZE * source.y as f32, 
+                TILE_SIZE * source.w as f32,
+                TILE_SIZE * source.h as f32
+            );
+            let dest_rect = Rectangle::new(
+                position.x, 
+                position.y, 
+                config.rendering_scale * TILE_SIZE * size.x, 
+                config.rendering_scale * TILE_SIZE * size.y
+            );
             d.draw_texture_pro(
                 texture,
-                source_rect.as_rr(),
-                Rectangle::new(
-                    position.x, 
-                    position.y, 
-                    config.rendering_scale * size.x, 
-                    config.rendering_scale * size.y
-                ),
+                source_rect, 
+                dest_rect,
                 Vector2::zero(), 
                 0.0,
                 Color::WHITE,
@@ -547,7 +554,10 @@ impl View {
     }
 
     fn calculate_texture_size(&self, config: &RenderingConfig, size: &Vector2d) -> Vector2d {
-        Vector2d::new(size.x * config.rendering_scale, size.y * config.rendering_scale)
+        Vector2d::new(
+            size.x * TILE_SIZE * config.rendering_scale, 
+            size.y * TILE_SIZE * config.rendering_scale
+        )
     }
 
     fn calculate_spacing_size(&self, config: &RenderingConfig, size: &Spacing) -> Vector2d {
