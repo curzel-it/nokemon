@@ -96,8 +96,8 @@ impl MapEditor {
 
     fn initial_selection_frame(&self, camera_vieport: &Rect) -> Rect {
         Rect::new(
-            camera_vieport.x,
-            camera_vieport.y,
+            camera_vieport.w / 2,
+            camera_vieport.h / 2,
             1,
             1
         )
