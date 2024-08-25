@@ -144,7 +144,8 @@ impl GameEngine {
         match update {
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
-            EngineStateUpdate::SaveGame => self.save()
+            EngineStateUpdate::SaveGame => self.save(),
+            EngineStateUpdate::BuildingInteraction(id) => self.menu.show_building_interaction(id),
         }
     }
 

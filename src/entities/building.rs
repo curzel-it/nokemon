@@ -3,7 +3,7 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_BUILDINGS}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_BUILDINGS}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
@@ -53,7 +53,16 @@ impl Building {
 impl_embodied_entity!(Building);
 
 impl Entity for Building {
-    fn update(&mut self, _: &World, _: f32) -> Vec<WorldStateUpdate> {
+    fn update(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {
+        if world.creative_mode && world.keyboard_state.has_confirmation_been_pressed {
+            return vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::BuildingInteraction(
+                        self.body.id
+                    )
+                )
+            ];   
+        }
         vec![]
     }
 

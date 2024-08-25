@@ -19,6 +19,7 @@ impl Stockable {
             Stockable::BiomeTile(Biome::DarkWood),
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::Building(BuildingType::House),
+            Stockable::ConstructionTile(Construction::Nothing),
         ]
     }
 
@@ -40,7 +41,7 @@ impl Stockable {
                 Biome::DarkWood => (0, 7),
             },
             Stockable::ConstructionTile(construction) => match construction {
-                Construction::Nothing => (1, 0),
+                Construction::Nothing => (1, 4),
                 Construction::WoodenFence => (1, 1),
             },
             Stockable::Building(building_type) => match building_type {

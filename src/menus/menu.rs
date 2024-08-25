@@ -1,5 +1,6 @@
 
 use raylib::color::Color;
+use uuid::Uuid;
 
 use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
@@ -18,7 +19,8 @@ enum MenuState {
     Closed,
     Open,
     MapEditor,
-    PlaceItem
+    PlaceItem,
+    BuildingInteraction(Uuid)
 }
 
 pub struct MenuUpdateResult {
@@ -57,12 +59,17 @@ impl Menu {
         !matches!(&self.state, MenuState::Closed)
     }
 
+    pub fn show_building_interaction(&mut self, id: &Uuid) {
+        self.state = MenuState::BuildingInteraction(id.clone());
+    }
+
     pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> MenuUpdateResult {
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard_state),
             MenuState::Open => self.update_from_open(keyboard_state),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard_state),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard_state),
+            MenuState::BuildingInteraction(id) => self.update_from_building_interaction(id, keyboard_state),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -72,6 +79,18 @@ impl Menu {
 }
 
 impl Menu {
+    fn update_from_building_interaction(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+        if keyboard_state.has_back_been_pressed {
+            self.state = MenuState::Closed;
+        }
+        if keyboard_state.has_confirmation_been_pressed {
+            self.state = MenuState::Closed;
+            let remove_building = WorldStateUpdate::RemoveEntity(id);
+            return vec![remove_building];
+        }
+        vec![]
+    }
+
     fn update_from_close(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_menu_been_pressed {
             self.state = MenuState::Open;
@@ -159,8 +178,24 @@ impl Menu {
             MenuState::Closed => spacing!(Spacing::Zero),
             MenuState::Open => with_backdrop(self.menu_ui()),
             MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
-            MenuState::PlaceItem => self.map_editor.ui(camera_offset)
+            MenuState::PlaceItem => self.map_editor.ui(camera_offset),
+            MenuState::BuildingInteraction(_) => with_backdrop(self.remove_building_ui())
         }
+    }
+
+    fn remove_building_ui(&self) -> View {
+        padding(
+            Spacing::LG,
+            zstack!(
+                Spacing::LG,
+                Color::BLACK,
+                vstack!(
+                    Spacing::LG, 
+                    text!(TextStyle::Title, "Remove Building?".to_string()),
+                    text!(TextStyle::Regular, "Press SPACE to remove the building.\nPress ESC to cancel.".to_string())
+                )
+            )
+        )
     }
 
     fn menu_ui(&self) -> View {        

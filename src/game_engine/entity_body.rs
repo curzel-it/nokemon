@@ -39,29 +39,3 @@ impl EntityBody {
         self.current_speed = self.base_speed * scalar;
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use uuid::Uuid;
-
-    use crate::{constants::INFINITE_LIFESPAN, utils::{rect::Rect, vector::Vector2d}};
-
-    use super::EntityBody;
-
-    impl EntityBody {
-        pub fn test() -> Self {
-            EntityBody {
-                id: Uuid::new_v4(),
-                frame: Rect::new(0, 0, 50, 50),
-                offset: Vector2d::zero(),
-                direction: Vector2d::new(0.0, 0.0),
-                current_speed: 1.0,
-                base_speed: 1.0,
-                creation_time: 0.0,
-                is_rigid: true,
-                z_index: 0,
-                lifespan: INFINITE_LIFESPAN,
-            }
-        }
-    }
-}
