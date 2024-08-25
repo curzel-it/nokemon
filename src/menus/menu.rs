@@ -1,6 +1,6 @@
-use raylib::color::Color;
+use raylib::{color::Color, ffi::Vector2};
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::rect::Rect, vstack, zstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 use super::map_editor::MapEditor;
 
@@ -160,12 +160,12 @@ impl MenuItem {
 }
 
 impl Menu {
-    pub fn ui(&self) -> View {
+    pub fn ui(&self, camera_offset: &Vector2d) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::ZERO),
             MenuState::Open => with_backdrop(self.menu_ui()),
-            MenuState::MapEditor => with_backdrop(self.map_editor.ui()),
-            MenuState::PlaceItem => self.map_editor.ui()
+            MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
+            MenuState::PlaceItem => self.map_editor.ui(camera_offset)
         }
     }
 

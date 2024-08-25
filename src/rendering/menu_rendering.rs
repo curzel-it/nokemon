@@ -7,7 +7,7 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
 
     render_from(
         Corner::TopRight,
-        engine.menu.ui(),
+        engine.menu.ui(&engine.camera_viewport_offset),
         d, 
         ui_config, 
         &Vector2d::new(ui_config.canvas_size.x, 0.0)

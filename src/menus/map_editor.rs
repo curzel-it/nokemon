@@ -221,7 +221,7 @@ impl MapEditor {
 }
 
 impl MapEditor {
-    pub fn ui(&self) -> View {
+    pub fn ui(&self, camera_offset: &Vector2d) -> View {
         padding(
             Spacing::LG,
             zstack!(
@@ -230,20 +230,23 @@ impl MapEditor {
                 match self.state {
                     MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
                     MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
-                    MapEditorState::PlacingItem(_, _, frame) => self.placement_ui(&frame),
-                    MapEditorState::PlacingWorld(_, _, frame) => self.placement_ui(&frame),
+                    MapEditorState::PlacingItem(_, _, frame) => self.placement_ui(camera_offset, &frame),
+                    MapEditorState::PlacingWorld(_, _, frame) => self.placement_ui(camera_offset, &frame),
                 }
             )
         )
     }
 
-    fn placement_ui(&self, frame: &Rect) -> View {
+    fn placement_ui(&self, camera_offset: &Vector2d, frame: &Rect) -> View {
         vstack!(
             Spacing::MD,
             text!(TextStyle::LargeTitle, "Map Editor".to_string()),
             text!(TextStyle::Regular, "Press SPACE to place\nPress ESC to go back".to_string()),
             with_fixed_position(
-                Vector2d::new(frame.x as f32, frame.y as f32).scaled(TILE_SIZE),
+                Vector2d::new(
+                    TILE_SIZE * frame.x as f32 - camera_offset.x, 
+                    TILE_SIZE * frame.y as f32 - camera_offset.y
+                ),
                 zstack!(Spacing::ZERO, Color::RED, spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32)))
             )   
         )
