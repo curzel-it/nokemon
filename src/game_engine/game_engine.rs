@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use uuid::Uuid;
 
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER, TILE_SIZE}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
@@ -104,8 +104,8 @@ impl GameEngine {
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
         self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
-        self.camera_viewport.w = (width as f32 / scale) as u32;
-        self.camera_viewport.h = (height as f32 / scale) as u32;
+        self.camera_viewport.w = (width as f32 / (scale * TILE_SIZE)) as u32;
+        self.camera_viewport.h = (height as f32 / (scale * TILE_SIZE)) as u32;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {

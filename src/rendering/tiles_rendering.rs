@@ -46,10 +46,17 @@ fn draw_tile<T: SpriteTile>(
     tile: &T,
     variant: u32,
     engine: &GameEngine
-) {
-    let source_rect = tile.texture_source_rect(variant).as_rr();
-    
+) {    
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
+        let source = tile.texture_source_rect(variant);
+
+        let source_rect = Rectangle {
+            x: TILE_SIZE * source.x as f32,
+            y: TILE_SIZE * source.y as f32,
+            width: TILE_SIZE * source.w as f32,
+            height: TILE_SIZE * source.h as f32,
+        };
+
         let dest_rect = Rectangle {
             x: (tile.column() - engine.camera_viewport.x) as f32 * scale, 
             y: (tile.row() - engine.camera_viewport.y) as f32 * scale, 
