@@ -1,14 +1,15 @@
 use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 use crate::{constants::TILE_SIZE, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 use super::entity::EntityProps;
 
 pub trait EmbodiedEntity: Debug {
-    fn id(&self) -> u32;    
-    fn parent_id(&self) -> u32;
+    fn id(&self) -> Uuid;    
+    fn parent_id(&self) -> Uuid;
 
     fn body(&self) -> &EntityBody;
     fn body_mut(&mut self) -> &mut EntityBody;
@@ -22,8 +23,8 @@ pub trait EmbodiedEntity: Debug {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EntityBody {
-    pub id: u32,
-    pub parent_id: u32,
+    pub id: Uuid,
+    pub parent_id: Uuid,
     pub frame: Rect,  
     pub collision_insets: Insets,
     pub direction: Vector2d,
@@ -80,14 +81,16 @@ impl EntityBody {
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, game_engine::entity_factory::get_next_entity_id, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+    use uuid::Uuid;
+
+    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
     use super::EntityBody;
 
     impl EntityBody {
         pub fn test() -> Self {
             EntityBody {
-                id: get_next_entity_id(),
+                id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
                 frame: Rect::new(0.0, 0.0, 50.0, 50.0),
                 collision_insets: Insets::zero(),

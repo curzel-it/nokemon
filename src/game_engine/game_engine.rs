@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
+use uuid::Uuid;
 
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_TELEPORTER}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
 
@@ -10,7 +11,8 @@ pub struct GameEngine {
     pub menu: Menu,
     pub world: World,
     pub camera_viewport: Rect,    
-    pub ui_config: Option<RenderingConfig>
+    pub ui_config: Option<RenderingConfig>,
+    creative_mode: bool,
 }
 
 impl GameEngine {
@@ -19,14 +21,15 @@ impl GameEngine {
             menu: Menu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
-            ui_config: None
+            ui_config: None,
+            creative_mode: false
         }
     }
 
-    pub fn with_options(creative_mode: bool) -> Self {
-        let mut engine = Self::new();
-        engine.menu.set_creative_mode(creative_mode);
-        engine
+    pub fn set_creative_mode(&mut self, enabled: bool) {
+        self.menu.set_creative_mode(enabled);
+        self.world.creative_mode = enabled;
+        self.creative_mode = enabled;
     }
 
     pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {
@@ -107,12 +110,11 @@ impl GameEngine {
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
         if width < 500 {
-            (1.0, 1.25)
+            (1.0, 1.0)
         } else if width < 1400 {
             (2.0, 2.0)
         } else {
-            let value = (width as f32 / 1000.0).ceil();
-            (value, value)
+            ((width as f32 / 1000.0).ceil(), 3.0)
         }
     }
 
@@ -145,11 +147,12 @@ impl GameEngine {
         self.world.save();
     }
 
-    fn switch_world(&mut self, id: u32) {
+    fn switch_world(&mut self, id: Uuid) {
         self.world.move_hero_one_tile_down();
         self.world.save();
         
         let mut new_world = World::load_or_create(id);
+        new_world.creative_mode = self.creative_mode;
         new_world.setup();
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;

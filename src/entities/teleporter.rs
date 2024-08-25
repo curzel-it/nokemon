@@ -1,21 +1,22 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_HOUSE_INTERIOR, WORLD_ID_NONE}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
     body: EntityBody,
-    destination: u32,
+    destination: Uuid,
     sprite: AnimatedSprite,
 }
 
 impl Teleporter {
-    pub fn new(destination: u32) -> Self {
+    pub fn new(destination: Uuid) -> Self {
         Self { 
             body: EntityBody {
-                id: get_next_entity_id(),
+                id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
                 frame: Rect::new(0.0, 0.0, TILE_SIZE, TILE_SIZE),
                 collision_insets: Insets::zero(),

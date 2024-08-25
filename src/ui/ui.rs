@@ -187,19 +187,19 @@ impl GridSpacing {
 impl RenderingConfig {
     pub fn scaled_font_size(&self, style: &TextStyle) -> f32 {
         self.font_rendering_scale * match style {
-            TextStyle::LargeTitle => 12.0,
-            TextStyle::Title => 9.0,
-            TextStyle::Bold => 7.0,
-            TextStyle::Regular => 7.0,
+            TextStyle::LargeTitle => 16.0,
+            TextStyle::Title => 12.0,
+            TextStyle::Bold => 8.0,
+            TextStyle::Regular => 8.0,
         }
     }
 
-    pub fn scaled_font_spacing(&self, style: &TextStyle) -> f32 {
-        self.scaled_font_size(style) / 10.0
+    pub fn scaled_font_spacing(&self, _: &TextStyle) -> f32 {
+        0.0 
     }
 
     pub fn font_lines_spacing(&self, style: &TextStyle) -> f32 {
-        self.scaled_font_size(style) / 3.0
+        self.scaled_font_size(style) / 2.0
     }
 }
 

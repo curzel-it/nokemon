@@ -1,3 +1,5 @@
+use uuid::Uuid;
+
 use crate::utils::rect::Rect;
 
 pub const FPS: u32 = 60;
@@ -9,8 +11,8 @@ pub const COLLISION_THRESHOLD: f32 = TILE_SIZE / 3.0;
 pub const INFINITE_STOCK: i32 = -420;
 
 // Knonw entities
-pub const NO_PARENT: u32 = 0;
-pub const HERO_ENTITY_ID: u32 = 69;
+pub const NO_PARENT: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,]);
+pub const HERO_ENTITY_ID: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1,]);
 
 // Paths
 pub const ASSETS_PATH: &str = "assets";

@@ -1,6 +1,8 @@
 use std::any::Any;
 
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use uuid::Uuid;
+
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Npc {
@@ -12,7 +14,7 @@ impl Npc {
     pub fn new(parent: &dyn Entity) -> Self {
         Self {             
             body: EntityBody {
-                id: get_next_entity_id(),
+                id: Uuid::new_v4(),
                 parent_id: parent.id(),
                 frame: Rect::new(0.0, 0.0, 19.0, 22.0),
                 collision_insets: Insets::new(8.0, 1.0, 0.0, 1.0),

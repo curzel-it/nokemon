@@ -1,10 +1,12 @@
 use std::collections::HashSet;
 
+use uuid::Uuid;
+
 use crate::utils::rect::Rect;
 
 use super::world::World;
 
-pub fn compute_visible_entities(world: &World, viewport: &Rect) -> HashSet<u32> {
+pub fn compute_visible_entities(world: &World, viewport: &Rect) -> HashSet<Uuid> {
     world.entities.borrow()
         .values()
         .filter(|e| is_visible(&e.body().frame, viewport))

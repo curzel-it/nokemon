@@ -1,8 +1,10 @@
 use std::any::Any;
 
+use uuid::Uuid;
+
 use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
-use super::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, world::World, state_updates::WorldStateUpdate};
+use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
 
 #[derive(Debug)]
 pub struct StaticObstacle {
@@ -14,7 +16,7 @@ impl StaticObstacle {
     pub fn new(sprite_sheet: u32, frame: Rect) -> Self {
         Self { 
             body: EntityBody {
-                id: get_next_entity_id(),
+                id: Uuid::new_v4(),
                 parent_id: NO_PARENT,
                 frame,
                 collision_insets: Insets::zero(),

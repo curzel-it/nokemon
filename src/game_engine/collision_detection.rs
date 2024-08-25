@@ -1,12 +1,14 @@
 use std::collections::HashMap;
 
+use uuid::Uuid;
+
 use crate::utils::rect::Rect;
 
 use super::{entity::Entity, world::World};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Collision {
-    pub other_id: u32,
+    pub other_id: Uuid,
     pub other_was_rigid: bool,
     pub are_same_faction: bool,
     pub overlapping_area: Rect,
@@ -14,8 +16,8 @@ pub struct Collision {
     pub center_y: f32,
 }
 
-pub fn compute_collisions(world: &World) -> HashMap<u32, Vec<Collision>> {
-    let mut collisions: HashMap<u32, Vec<Collision>> = HashMap::new();
+pub fn compute_collisions(world: &World) -> HashMap<Uuid, Vec<Collision>> {
+    let mut collisions: HashMap<Uuid, Vec<Collision>> = HashMap::new();
     let visible_entities = &world.visible_entities;
     let entities = world.entities.borrow();
 
@@ -95,14 +97,14 @@ mod tests {
         let mut world = World::new(WORLD_ID_DEMO);
 
         let mut tower = Building::new(BuildingType::House);
+        let tower_id = tower.id();
         tower.body_mut().requires_collision_detection = true;
-        tower.body_mut().id = 1;
         tower.body_mut().direction = Vector2d::zero();
         tower.place_at(0.0, 0.0);
         world.add_entity(Box::new(tower));
 
         let mut hero = Hero::new();
-        hero.body_mut().id = 2;
+        let hero_id = hero.id();
         hero.body_mut().direction = Vector2d::zero();
         hero.place_at(0.0, 0.0);
         world.add_entity(Box::new(hero));
@@ -110,7 +112,10 @@ mod tests {
         world.visible_entities = compute_visible_entities(&world, &RECT_ORIGIN_SQUARE_100);
 
         let entities = world.entities.borrow();
-        let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
+        let do_collide = is_valid_collision(
+            entities.get(&tower_id).unwrap(), 
+            entities.get(&hero_id).unwrap()
+        );
         assert!(do_collide);
         drop(entities);
 
@@ -124,13 +129,13 @@ mod tests {
 
         let mut tower = Building::new(BuildingType::House);
         tower.body_mut().requires_collision_detection = true;
-        tower.body_mut().id = 1;
+        let tower_id = tower.id();
         tower.body_mut().direction = Vector2d::zero();
         tower.place_at(2000.0, 0.0);
         world.add_entity(Box::new(tower));
 
         let mut hero = Hero::new();
-        hero.body_mut().id = 2;
+        let hero_id = hero.id();
         hero.body_mut().direction = Vector2d::zero();
         hero.place_at(2000.0, 0.0);
         world.add_entity(Box::new(hero));
@@ -138,7 +143,10 @@ mod tests {
         world.visible_entities = compute_visible_entities(&world, &RECT_ORIGIN_SQUARE_100);
 
         let entities = world.entities.borrow();
-        let do_collide = is_valid_collision(entities.get(&1).unwrap(), entities.get(&2).unwrap());
+        let do_collide = is_valid_collision(
+            entities.get(&tower_id).unwrap(), 
+            entities.get(&hero_id).unwrap()
+        );
         assert!(do_collide);
         drop(entities);
 

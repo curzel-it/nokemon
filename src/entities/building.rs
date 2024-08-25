@@ -1,8 +1,9 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
@@ -32,7 +33,7 @@ pub struct Building {
 
 impl Building {
     pub fn new(building_type: BuildingType) -> Self {
-        let id = get_next_entity_id();
+        let id = Uuid::new_v4();
         let frame = building_type.texture_source_rect();
 
         Self { 

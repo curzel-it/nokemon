@@ -23,7 +23,9 @@ fn main() {
         creative_mode = true;
     }
 
-    let mut engine = GameEngine::with_options(creative_mode);
+    let mut engine = GameEngine::new();
+    engine.set_creative_mode(creative_mode);
+    
     let (mut rl, thread) = engine.start_rl();
 
     while !(rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE)) {     

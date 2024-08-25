@@ -2,12 +2,13 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
+use uuid::Uuid;
 use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::{building::Building, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, worlds::constants::WORLD_ID_DEMO};
 
 use super::utils::world_path;
 
 impl World {
-    pub fn load(id: u32) -> Option<Self> {
+    pub fn load(id: Uuid) -> Option<Self> {
         let path = world_path(id);
 
         if let Ok(file) = File::open(path.clone()) {
@@ -26,7 +27,7 @@ impl World {
         None
     }
 
-    pub fn load_or_create(id: u32) -> Self {
+    pub fn load_or_create(id: Uuid) -> Self {
         Self::load(id).unwrap_or_else(|| {
             let new = Self::new_with_default_tiles(id);
             new.save();
@@ -52,7 +53,7 @@ impl World {
         }
     }
 
-    fn new_with_default_tiles(id: u32) -> Self {
+    fn new_with_default_tiles(id: Uuid) -> Self {
         let mut world = World::new(id);
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
@@ -85,7 +86,7 @@ impl World {
 
 #[derive(Serialize, Deserialize)]
 struct WorldData {
-    id: u32,
+    id: Uuid,
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
     buildings: Vec<Building>,

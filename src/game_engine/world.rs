@@ -1,25 +1,27 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
+use uuid::Uuid;
 use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
-    pub id: u32,
+    pub id: Uuid,
     pub total_elapsed_time: f32,
     pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
-    pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
-    pub visible_entities: HashSet<u32>,
+    pub entities: RefCell<HashMap<Uuid, Box<dyn Entity>>>,    
+    pub visible_entities: HashSet<Uuid>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_props: EntityProps,
-    pub collisions: HashMap<u32, Vec<Collision>>
+    pub collisions: HashMap<Uuid, Vec<Collision>>,
+    pub creative_mode: bool,
 }
 
 impl World {
-    pub fn new(id: u32) -> Self {
+    pub fn new(id: Uuid) -> Self {
         Self {
             id,
             total_elapsed_time: 0.0,
@@ -30,11 +32,12 @@ impl World {
             visible_entities: hash_set![],
             keyboard_state: KeyboardState::default(),
             cached_hero_props: EntityProps::default(),
-            collisions: HashMap::new()
+            collisions: HashMap::new(),
+            creative_mode: false,
         }
     }
 
-    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
+    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> Uuid {
         let id = entity.id();
         self.entities.borrow_mut().insert(id, entity);
 
@@ -44,7 +47,7 @@ impl World {
         id
     }
 
-    pub fn remove_entity(&mut self, id: &u32) {
+    pub fn remove_entity(&mut self, id: &Uuid) {
         self.entities.borrow_mut().remove(id);
     }
 
@@ -84,7 +87,7 @@ impl World {
         match update {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
             WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
-            WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(id, value),
+            WorldStateUpdate::IncreaseHp(id, value) => self.increase_entity_hp(&id, value),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
@@ -101,7 +104,7 @@ impl World {
         self.constructions_tiles.update_tile(row, col, new_construction)
     }
 
-    fn increase_entity_hp(&mut self, id: u32, value: f32) {
+    fn increase_entity_hp(&mut self, id: &Uuid, value: f32) {
         let mut entities = self.entities.borrow_mut();
         if let Some(entity) = entities.get_mut(&id) {
             entity.body_mut().hp += value;
