@@ -20,7 +20,7 @@ pub fn compute_collisions(world: &World) -> HashMap<Uuid, Vec<Collision>> {
     let mut collisions: HashMap<Uuid, Vec<Collision>> = HashMap::new();
     let visible_entities = &world.visible_entities;
     let entities = world.entities.borrow();
-
+/*
     for &id1 in visible_entities {
         if let Some(entity1) = entities.get(&id1) {
             for &id2 in visible_entities {
@@ -33,11 +33,11 @@ pub fn compute_collisions(world: &World) -> HashMap<Uuid, Vec<Collision>> {
                 }
             }
         }
-    }
+    } */
 
     collisions
 }
-
+/*
 fn collision_area(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> Option<Rect> {
     if !entity1.body().requires_collision_detection {
         return None;
@@ -81,11 +81,11 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
     
     (first_collision, second_collision)
 }
-
+ */
 #[cfg(test)]
 mod tests {
-        use crate::{entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
-
+    use crate::{entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
+/*
     use super::{collision_area, compute_collisions};
 
     fn is_valid_collision(entity1: &Box<dyn Entity>, entity2: &Box<dyn Entity>) -> bool {
@@ -152,5 +152,5 @@ mod tests {
 
         let collisions = compute_collisions(&world);
         assert_eq!(collisions.len(), 0);
-    }    
+    }    */
 }

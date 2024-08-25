@@ -36,7 +36,10 @@ impl Rect {
     }
 
     pub fn center(&self) -> Vector2d {
-        Vector2d::new((self.x + self.w) as f32 / 2.0, (self.y + self.h) as f32 / 2.0)
+        Vector2d::new(
+            self.x as f32 + self.w as f32 / 2.0, 
+            self.y as f32 + self.h as f32 / 2.0
+        )
     }
 
     pub fn center_in(&mut self, other: &Rect) {
@@ -44,8 +47,8 @@ impl Rect {
     }
 
     pub fn center_at(&mut self, point: &Vector2d) {
-        self.x = (point.x - self.w as f32 / 2.0) as u32;
-        self.y = (point.y - self.h as f32 / 2.0) as u32;
+        self.x = (point.x - (self.w as f32 / 2.0)) as u32;
+        self.y = (point.y - (self.h as f32 / 2.0)) as u32;
     }
 
     pub fn resize(&mut self, w: u32, h: u32) {
@@ -93,19 +96,6 @@ impl Rect {
         self.y < other.y + other.h &&
         other.y < self.y + self.h
     }
-
-    pub fn collision_area_with_rect(&self, other: &Rect) -> Option<Rect> {
-        let overlap_x = self.x.max(other.x);
-        let overlap_y = self.y.max(other.y);
-        let overlap_w = (self.x + self.w).min(other.x + other.w) - overlap_x;
-        let overlap_h = (self.y + self.h).min(other.y + other.h) - overlap_y;
-    
-        if overlap_w > 0 && overlap_h > 0 {
-            Some(Rect::new(overlap_x, overlap_y, overlap_w, overlap_h))
-        } else {
-            None
-        }
-    }
 }
 
 #[cfg(test)]
@@ -149,20 +139,6 @@ mod tests {
         
         let rect3 = Rect::new(15, 15, 5, 5);
         assert!(!rect1.collides_with_rect(&rect3));
-    }
-
-    #[test]
-    fn test_collision_area_with_rect() {
-        let rect1 = Rect::new(0, 0, 10, 10);
-        let rect2 = Rect::new(5, 5, 10, 10);
-        let collision_area = rect1.collision_area_with_rect(&rect2).unwrap();
-        assert_eq!(collision_area.x, 5);
-        assert_eq!(collision_area.y, 5);
-        assert_eq!(collision_area.w, 5);
-        assert_eq!(collision_area.h, 5);
-
-        let rect3 = Rect::new(20, 20, 5, 5);
-        assert!(rect1.collision_area_with_rect(&rect3).is_none());
     }
 
     #[test]

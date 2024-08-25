@@ -18,12 +18,15 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     }
     
     let updated_offset = updated_offset(entity, time_since_last_update);    
-    let tiles_x = (updated_offset.x / TILE_SIZE).floor();
-    let tiles_y = (updated_offset.y / TILE_SIZE).floor();
+    let tiles_x_f = updated_offset.x / TILE_SIZE;
+    let tiles_y_f = updated_offset.y / TILE_SIZE;
+    let tiles_x = if updated_offset.x > 0.0 { tiles_x_f.floor() } else { tiles_x_f.ceil() };
+    let tiles_y = if updated_offset.y > 0.0 { tiles_y_f.floor() } else { tiles_y_f.ceil() };
     
-    entity.body_mut().frame.x += tiles_x as u32;
-    entity.body_mut().frame.y += tiles_y as u32;
-
+    entity.body_mut().frame = entity.body().frame.offset(
+        tiles_x as i32, 
+        tiles_y as i32
+    );
     entity.body_mut().offset = Vector2d::new(
         updated_offset.x - tiles_x * TILE_SIZE,
         updated_offset.y - tiles_y * TILE_SIZE
@@ -75,10 +78,10 @@ fn has_blocking_rigid_collisions(entity: &dyn Entity, collisions: &Vec<&Collisio
 
 #[cfg(test)]
 mod tests {
-        use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
+    use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::{EmbodiedEntity, EntityBody}, simple_entity::SimpleEntity, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
     
     #[test]
-    fn can_move_on_update() {
+    fn can_move_right_on_update() {
         let world = World::new(WORLD_ID_DEMO);
         
         let mut body = EntityBody::test();
@@ -98,7 +101,29 @@ mod tests {
     }
 
     #[test]
-    fn can_move_outside_of_bounds() {
+    fn can_move_left_on_update() {
+        let world = World::new(WORLD_ID_DEMO);
+        
+        let mut body = EntityBody::test();
+        body.frame = Rect::square_from_origin(100);
+        body.current_speed = 1.0;
+        
+        let mut entity = SimpleEntity::new(body);
+        entity.body_mut().frame.x = 50;
+        entity.body_mut().direction = Vector2d::new(-1.0, 0.0);  
+        entity.update(&world, 1.0);
+
+        let speed_tiles = (BASE_ENTITY_SPEED / TILE_SIZE).floor() as u32;
+        let expected_x = 50 - speed_tiles;
+        let expected_offset = TILE_SIZE * speed_tiles as f32 - BASE_ENTITY_SPEED;
+
+        assert_eq!(entity.body().frame.x, expected_x);
+        assert_eq!(entity.body().offset.x, expected_offset);
+        assert_eq!(entity.body().frame.y, 0);
+    }
+
+    #[test]
+    fn can_not_move_outside_of_bounds() {
         let world = World::new(WORLD_ID_DEMO);
         
         let mut body = EntityBody::test();
@@ -109,11 +134,7 @@ mod tests {
         entity.body_mut().direction = Vector2d::new(-1.0, 0.0);  
         entity.update(&world, 1.0);
 
-        let expected_x = (-BASE_ENTITY_SPEED / TILE_SIZE).floor() as u32;
-        let expected_offset = BASE_ENTITY_SPEED - TILE_SIZE * expected_x as f32;
-
-        assert_eq!(entity.body().frame.x, expected_x);
-        assert_eq!(entity.body().offset.x, expected_offset);
+        assert_eq!(entity.body().frame.x, 0);
         assert_eq!(entity.body().frame.y, 0);
     }
 }
