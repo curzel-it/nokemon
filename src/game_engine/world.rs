@@ -2,9 +2,9 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
 use uuid::Uuid;
-use crate::{entities::teleporter::{Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
+use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: Uuid,
@@ -16,7 +16,7 @@ pub struct World {
     pub visible_entities: HashSet<Uuid>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_props: EntityProps,
-    pub collisions: HashMap<Uuid, Vec<Collision>>,
+    pub hitmap: Vec<Vec<bool>>,
     pub creative_mode: bool,
 }
 
@@ -32,7 +32,7 @@ impl World {
             visible_entities: hash_set![],
             keyboard_state: KeyboardState::default(),
             cached_hero_props: EntityProps::default(),
-            collisions: HashMap::new(),
+            hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
         }
     }
@@ -59,8 +59,8 @@ impl World {
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
         self.keyboard_state = keyboard_state;
-        self.visible_entities = compute_visible_entities(self, viewport);
-        self.collisions = compute_collisions(self);
+        self.visible_entities = self.compute_visible_entities(viewport);
+        self.hitmap = self.compute_hitmap();
 
         let mut state_updates: Vec<WorldStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();

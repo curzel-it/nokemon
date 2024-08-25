@@ -9,6 +9,8 @@ pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INITIAL_CAMERA_VIEWPORT: Rect = Rect::new(0, 0, 60, 40);
 pub const COLLISION_THRESHOLD: f32 = TILE_SIZE / 3.0;
 pub const INFINITE_STOCK: i32 = -420;
+pub const WORLD_SIZE_ROWS: usize = 150;
+pub const WORLD_SIZE_COLUMNS: usize = 200;
 
 // Knonw entities
 pub const NO_PARENT: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,]);

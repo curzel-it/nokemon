@@ -9,7 +9,6 @@ pub struct KeyboardState {
     pub is_down_down: bool, 
     pub is_left_down: bool,
     pub has_back_been_pressed: bool,
-    pub has_map_editor_been_pressed: bool,
     pub has_menu_been_pressed: bool,
     pub has_confirmation_been_pressed: bool,
     pub has_up_been_pressed: bool,
@@ -26,7 +25,6 @@ impl KeyboardState {
             is_down_down: false, 
             is_left_down: false,
             has_back_been_pressed: false,
-            has_map_editor_been_pressed: false,
             has_menu_been_pressed: false,
             has_confirmation_been_pressed: false,
             has_up_been_pressed: false,
@@ -36,13 +34,22 @@ impl KeyboardState {
         }
     }
 
-    pub fn direction_based_on_down_keys(&self) -> Option<Vector2d> {
-        directions_based_direction_vector_4d(
-            self.is_up_down, 
-            self.is_right_down, 
-            self.is_down_down, 
-            self.is_left_down
-        )
+    pub fn direction_based_on_down_keys(&self, current: &Vector2d) -> Option<Vector2d> {
+        if !self.is_any_arrow_key_down() {
+            return None
+        }
+
+        let direction = directions_based_direction_vector_4d(
+            current.y >= 0.0 && self.is_up_down, 
+            current.x <= 0.0 && self.is_right_down, 
+            current.y <= 0.0 && self.is_down_down, 
+            current.x >= 0.0 && self.is_left_down
+        );
+        Some(direction.unwrap_or(*current))
+    }
+
+    fn is_any_arrow_key_down(&self) -> bool {
+        self.is_up_down || self.is_right_down || self.is_down_down || self.is_left_down
     }
 }
 
@@ -58,7 +65,6 @@ impl KeyboardEventsProvider for RaylibHandle {
             is_down_down: self.is_key_down(KeyboardKey::KEY_S) || self.is_key_down(KeyboardKey::KEY_DOWN),
             is_left_down: self.is_key_down(KeyboardKey::KEY_A) || self.is_key_down(KeyboardKey::KEY_LEFT),
             has_back_been_pressed: self.is_key_pressed(KeyboardKey::KEY_ESCAPE),
-            has_map_editor_been_pressed: self.is_key_pressed(KeyboardKey::KEY_I),
             has_menu_been_pressed: self.is_key_pressed(KeyboardKey::KEY_ENTER),
             has_confirmation_been_pressed: self.is_key_pressed(KeyboardKey::KEY_SPACE),
             has_up_been_pressed: self.is_key_pressed(KeyboardKey::KEY_W) || self.is_key_pressed(KeyboardKey::KEY_UP),

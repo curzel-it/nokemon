@@ -1,4 +1,3 @@
-pub mod collision_detection;
 pub mod entity;
 pub mod entity_body;
 pub mod entity_macro;

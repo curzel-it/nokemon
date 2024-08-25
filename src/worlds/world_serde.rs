@@ -3,7 +3,7 @@ use std::{fs::File, io::{BufReader, Write}};
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
 use uuid::Uuid;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::{building::Building, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{building::Building, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -58,8 +58,8 @@ impl World {
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
             SPRITE_SHEET_BIOME_TILES, 
-            (0..200).map(|row| {
-                (0..150).map(|column| {
+            (0..WORLD_SIZE_ROWS).map(|row| {
+                (0..WORLD_SIZE_COLUMNS).map(|column| {
                     let mut tile = BiomeTile::from_data(row as usize, column as usize, 1);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
@@ -70,8 +70,8 @@ impl World {
 
         let construction_tile_set = TileSet::<ConstructionTile>::with_tiles(
             SPRITE_SHEET_CONSTRUCTION_TILES, 
-            (0..150).map(|row| {
-                (0..200).map(|column| {
+            (0..WORLD_SIZE_ROWS).map(|row| {
+                (0..WORLD_SIZE_COLUMNS).map(|column| {
                     let mut tile = ConstructionTile::from_data(row as usize, column as usize, 0);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
