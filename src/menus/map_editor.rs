@@ -255,7 +255,7 @@ impl MapEditor {
             text!(TextStyle::Title, "MapEditor".to_string()),
             text!(TextStyle::Regular, "Press SPACE to select something".to_string()),
             View::VGrid {                        
-                spacing: GridSpacing::SM(),
+                spacing: GridSpacing::sm(),
                 columns: self.columns,
                 children: self.stock.iter().enumerate().map(|(index, item)| {
                     item.ui(self.sprite_sheet, index, selected_item_index)
