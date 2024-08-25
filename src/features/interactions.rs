@@ -1,5 +1,5 @@
 use crate::game_engine::world::World;
 
-pub fn handle_interactions(world: &World) -> bool {
+pub fn handle_interactions(_world: &World) -> bool {
     false
 }

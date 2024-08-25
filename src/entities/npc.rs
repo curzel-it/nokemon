@@ -2,7 +2,7 @@ use std::any::Any;
 
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, autoremove::remove_automatically, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Npc {
@@ -11,11 +11,11 @@ pub struct Npc {
 }
 
 impl Npc {
-    pub fn new(parent: &dyn Entity) -> Self {
+    pub fn new() -> Self {
         Self {             
             body: EntityBody {
                 id: Uuid::new_v4(),
-                parent_id: parent.id(),
+                parent_id: NO_PARENT,
                 frame: Rect::new(0, 0, 1, 1),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
@@ -27,7 +27,7 @@ impl Npc {
                 requires_collision_detection: true,
                 is_rigid: true,
                 z_index: 0,
-                is_ally: parent.body().is_ally,
+                is_ally: true,
                 lifespan: INFINITE_LIFESPAN,
             },
             sprite: AnimatedSprite::new_stepped(
