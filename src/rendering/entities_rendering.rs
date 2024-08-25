@@ -39,11 +39,12 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
 }
 
 fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, scale: f32, engine: &GameEngine) {
-    let sprite_path = item.sprite_sheet();
-    let frame = item.body().frame;
+    let sprite_key = item.sprite_sheet();
     
-    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
+    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {
         let source = item.texture_source_rect();
+        let offset = item.body().offset;
+        let frame = item.body().frame;
 
         let source_rect = Rectangle {
             x: source.x as f32 * scale, 
@@ -53,8 +54,8 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, scale: f32, engine: &G
         };
 
         let dest_rect = Rectangle {
-            x: (frame.x - engine.camera_viewport.x) as f32 * scale, 
-            y: (frame.y - engine.camera_viewport.y) as f32 * scale,
+            x: ((frame.x - engine.camera_viewport.x) as f32 + offset.x) * scale, 
+            y: ((frame.y - engine.camera_viewport.y) as f32 + offset.y) * scale,
             width: frame.w as f32 * scale,
             height: frame.h as f32 * scale,
         };

@@ -33,8 +33,8 @@ impl Hero {
                 3, 
                 0,
                 SPRITE_SHEET_HUMANOIDS_COUNT,
-                19, 
-                22
+                1, 
+                1
             ),
         }
     }

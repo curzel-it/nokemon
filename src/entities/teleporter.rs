@@ -36,8 +36,8 @@ impl Teleporter {
             sprite: AnimatedSprite::new(
                 SPRITE_SHEET_TELEPORTER, 
                 3, 
-                TILE_SIZE as u32, 
-                TILE_SIZE as u32
+                1, 
+                1
             ),
         }
     }

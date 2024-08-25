@@ -70,8 +70,8 @@ impl World {
 
         let construction_tile_set = TileSet::<ConstructionTile>::with_tiles(
             SPRITE_SHEET_CONSTRUCTION_TILES, 
-            (0..200).map(|row| {
-                (0..150).map(|column| {
+            (0..150).map(|row| {
+                (0..200).map(|column| {
                     let mut tile = ConstructionTile::from_data(row as usize, column as usize, 0);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile

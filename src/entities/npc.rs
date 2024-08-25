@@ -35,8 +35,8 @@ impl Npc {
                 3, 
                 1,
                 SPRITE_SHEET_HUMANOIDS_COUNT,
-                19, 
-                22
+                1, 
+                1
             ),
         }
     }

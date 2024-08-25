@@ -8,13 +8,13 @@ pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine
 }
 
 fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprite_path = world.biome_tiles.sheet_id;
+    let sprite_key = world.biome_tiles.sheet_id;
     let scale = engine.ui_config.as_ref().unwrap().rendering_scale * TILE_SIZE;
 
     for tile in world.visible_biome_tiles(&engine.camera_viewport) {
         draw_tile(
             d, 
-            sprite_path, 
+            sprite_key, 
             scale,
             tile, 
             world.biome_tiles.current_variant(tile.row, tile.column), 
@@ -24,13 +24,13 @@ fn draw_biome(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
 }
 
 fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {    
-    let sprite_path = world.constructions_tiles.sheet_id;
+    let sprite_key = world.constructions_tiles.sheet_id;
     let scale = engine.ui_config.as_ref().unwrap().rendering_scale * TILE_SIZE;
 
     for tile in world.visible_construction_tiles(&engine.camera_viewport) {
         draw_tile(
             d, 
-            sprite_path, 
+            sprite_key, 
             scale,
             tile, 
             0, 
@@ -41,13 +41,13 @@ fn draw_constructions(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngi
 
 fn draw_tile<T: SpriteTile>(
     d: &mut RaylibDrawHandle, 
-    sprite_path: u32,
+    sprite_key: u32,
     scale: f32,
     tile: &T,
     variant: u32,
     engine: &GameEngine
 ) {    
-    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_path) {
+    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {
         let source = tile.texture_source_rect(variant);
 
         let source_rect = Rectangle {

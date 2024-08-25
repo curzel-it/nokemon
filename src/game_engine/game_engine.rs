@@ -33,8 +33,11 @@ impl GameEngine {
     }
 
     pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {
+        let width = (TILE_SIZE * self.camera_viewport.w as f32) as i32;
+        let height = (TILE_SIZE * self.camera_viewport.h as f32) as i32;
+
         let (mut rl, thread) = raylib::init()
-            .size(self.camera_viewport.w as i32, self.camera_viewport.h as i32)
+            .size(width, height)
             .resizable()
             .title("Totally not Pokemon")
             .build();        

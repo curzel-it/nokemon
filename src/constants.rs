@@ -6,7 +6,7 @@ pub const FPS: u32 = 60;
 pub const ANIMATIONS_FPS: f32 = 10.0;
 pub const BASE_ENTITY_SPEED: f32 = 30.0;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
-pub const INITIAL_CAMERA_VIEWPORT: Rect = Rect::new(0, 0, 1000, 750);
+pub const INITIAL_CAMERA_VIEWPORT: Rect = Rect::new(0, 0, 60, 40);
 pub const COLLISION_THRESHOLD: f32 = TILE_SIZE / 3.0;
 pub const INFINITE_STOCK: i32 = -420;
 
