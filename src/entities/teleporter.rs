@@ -71,14 +71,12 @@ impl Entity for Teleporter {
 
 impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
-     /* let hero_frame = world.cached_hero_props.frame;
+        let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
         
-        if let Some(collision) = self.body.frame.collision_area_with_rect(&hero_frame) {
-            if collision.w.floor() <= TILE_SIZE_HALF { return false }
-            if collision.h.floor() < TILE_SIZE_HALF { return false }
+        if hero_frame.collides_with_rect(&self.body.frame) {
             return hero_direction.y != 0.0;
-        }*/
+        }
         false
     }
 
