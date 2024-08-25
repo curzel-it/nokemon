@@ -57,17 +57,19 @@ fn would_exit_bounds(frame: &Rect, direction: &Vector2d, bounds: &Rect) -> bool 
 }
 
 fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Hitmap) -> bool {
+    let base_y = (frame.y + frame.h - 1) as usize;
+
     if direction.x > 0.0 {
-        return hitmap[frame.y as usize][frame.x as usize + 1]
+        return hitmap[base_y][frame.x as usize + 1]
     }
     if direction.x < 0.0 {
-        return hitmap[frame.y as usize][frame.x as usize - 1]
+        return hitmap[base_y][frame.x as usize - 1]
     }
     if direction.y > 0.0 {
-        return hitmap[frame.y as usize + 1][frame.x as usize]
+        return hitmap[base_y + 1][frame.x as usize]
     }
     if direction.y < 0.0 {
-        return hitmap[frame.y as usize - 1][frame.x as usize]
+        return hitmap[base_y - 1][frame.x as usize]
     }
     false
 }

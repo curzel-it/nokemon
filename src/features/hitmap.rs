@@ -1,4 +1,4 @@
-use crate::game_engine::world::World;
+use crate::{constants::HERO_ENTITY_ID, game_engine::world::World};
 
 pub type Hitmap = Vec<Vec<bool>>;
 
@@ -9,6 +9,9 @@ impl World {
         let entities = self.entities.borrow();
 
         for id in &self.visible_entities {
+            if *id == HERO_ENTITY_ID {
+                continue;
+            }
             if let Some(entity) = entities.get(id) {
                 if entity.body().is_rigid {                
                     let frame = entity.body().frame;

@@ -2,7 +2,7 @@ use std::any::Any;
 
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Npc {
@@ -15,7 +15,7 @@ impl Npc {
         Self {             
             body: EntityBody {
                 id: Uuid::new_v4(),
-                frame: Rect::new(0, 0, 1, 1),
+                frame: Rect::new(0, 0, 1, 2),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 1.5,
@@ -25,14 +25,7 @@ impl Npc {
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new_stepped(
-                SPRITE_SHEET_HUMANOIDS, 
-                3, 
-                1,
-                SPRITE_SHEET_HUMANOIDS_COUNT,
-                1, 
-                1
-            ),
+            sprite: AnimatedSprite::new_humanoid(0),
         }
     }
 }
@@ -42,10 +35,9 @@ impl_humanoid_sprite_update!(Npc);
 
 impl Entity for Npc {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        let mut world_updates: Vec<WorldStateUpdate> = vec![];
         move_linearly(self, world, time_since_last_update);
         self.update_sprite(time_since_last_update);
-        world_updates
+        vec![]
     }
 
     fn texture_source_rect(&self) -> Rect {

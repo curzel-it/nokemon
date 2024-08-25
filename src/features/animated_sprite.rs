@@ -1,6 +1,6 @@
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_HUMANOIDS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug)]
 pub struct AnimatedSprite {
@@ -10,7 +10,6 @@ pub struct AnimatedSprite {
     pub frames_provider: TimedContentProvider<u32>,
     pub width: u32,
     pub height: u32,
-    step: u32,
     number_of_frames: u32,
 }
 
@@ -23,22 +22,19 @@ impl AnimatedSprite {
             frames_provider: TimedContentProvider::frames_counter(number_of_frames),
             width,
             height,
-            step: 0,
             number_of_frames,
         }
     }
 
-    pub fn new_stepped(sheet_id: u32, number_of_frames: u32, index: u32, step: u32, width: u32, height: u32) -> Self {
-        Self {
-            sheet_id,
-            index,
-            row: 0,
-            frames_provider: TimedContentProvider::stepped_frames_counter(number_of_frames, step),
-            width,
-            height,
-            step,
-            number_of_frames,
-        }
+    pub fn new_humanoid(index: u32) -> Self {
+        let mut sprite = AnimatedSprite::new(
+            SPRITE_SHEET_HUMANOIDS, 
+            4, 
+            1, 
+            2
+        );
+        sprite.index = index;
+        sprite
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
@@ -47,7 +43,7 @@ impl AnimatedSprite {
 
     pub fn texture_source_rect(&self) -> Rect {
         Rect::new(
-            (self.index + self.frames_provider.current_frame()) * self.width,
+            (self.index * self.width * self.number_of_frames) + self.frames_provider.current_frame(),
             self.row * self.height,
             self.width,
             self.height
@@ -58,11 +54,6 @@ impl AnimatedSprite {
 impl TimedContentProvider<u32> {
     pub fn frames_counter(n: u32) -> Self {
         let frames = Vec::from_iter(0..n);
-        Self::new(frames, ANIMATIONS_FPS)
-    }
-
-    pub fn stepped_frames_counter(n: u32, step: u32) -> Self {
-        let frames = Vec::from_iter((0..n).map(|v| step * v));
         Self::new(frames, ANIMATIONS_FPS)
     }
 }
@@ -128,10 +119,8 @@ macro_rules! impl_single_animation_sprite_update {
 struct AnimatedSpriteData {
     sheet_id: u32,
     index: u32,
-    row: u32,
     width: u32,
     height: u32,
-    step: u32,
     number_of_frames: u32,
 }
 
@@ -140,10 +129,8 @@ impl Serialize for AnimatedSprite {
         let data = AnimatedSpriteData {
             sheet_id: self.sheet_id,
             index: self.index,
-            row: self.row,
             width: self.width,
             height: self.height,
-            step: self.step,
             number_of_frames: self.number_of_frames,
         };
         data.serialize(serializer)
@@ -153,11 +140,8 @@ impl Serialize for AnimatedSprite {
 impl<'de> Deserialize<'de> for AnimatedSprite {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
         let data = AnimatedSpriteData::deserialize(deserializer)?;
-        let sprite = if data.step == 0 {
-            AnimatedSprite::new(data.sheet_id, data.number_of_frames, data.width, data.height)
-        } else {
-            AnimatedSprite::new_stepped(data.sheet_id, data.number_of_frames, data.index, data.step, data.width, data.height)
-        };
+        let mut sprite = AnimatedSprite::new(data.sheet_id, data.number_of_frames, data.width, data.height);
+        sprite.index = data.index;
         Ok(sprite)
     }
 }

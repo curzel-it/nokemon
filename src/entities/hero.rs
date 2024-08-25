@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_HUMANOIDS_COUNT}, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN}, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_according_to_keyboard_state, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -13,7 +13,7 @@ impl Hero {
         Self { 
             body: EntityBody {
                 id: HERO_ENTITY_ID,
-                frame: Rect::new(0, 0, 1, 1),
+                frame: Rect::new(0, 0, 1, 2),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 3.0,
@@ -23,14 +23,7 @@ impl Hero {
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new_stepped(
-                SPRITE_SHEET_HUMANOIDS, 
-                3, 
-                0,
-                SPRITE_SHEET_HUMANOIDS_COUNT,
-                1, 
-                1
-            ),
+            sprite: AnimatedSprite::new_humanoid(2),
         }
     }
 }

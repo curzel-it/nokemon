@@ -45,6 +45,8 @@ impl Entity for Teleporter {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         self.update_sprite(time_since_last_update);
 
+        self.sprite.row = if world.creative_mode { 0 } else { 1 };
+
         if self.should_teleport(world) {
             return vec![self.engine_update_push_world()];
         }
@@ -68,8 +70,14 @@ impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
         let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
+
+        if hero_frame.w == 0 || hero_frame.h == 0 {
+            return false
+        }
+
+        let base_y = hero_frame.y + hero_frame.h - 1;
         
-        if hero_frame.y == self.body.frame.y {
+        if base_y == self.body.frame.y {
             if hero_frame.x == self.body.frame.x + 1 {
                 return hero_direction.x < 0.0;
             }
@@ -78,10 +86,10 @@ impl Teleporter {
             }
         }
         if hero_frame.x == self.body.frame.x {
-            if hero_frame.y == self.body.frame.y + 1 {
+            if base_y == self.body.frame.y + 1 {
                 return hero_direction.y < 0.0;
             }
-            if hero_frame.y == self.body.frame.y - 1 {
+            if base_y == self.body.frame.y - 1 {
                 return hero_direction.y > 0.0;
             }
         }
