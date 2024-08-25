@@ -350,18 +350,18 @@ mod tests {
     #[test]
     fn can_return_correct_index_from_directions() {
         let tile = BiomeTile::with_color_indeces(COLOR_WATER, 0, 0);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up]), 0);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Right]), 1);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Down]), 2);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Left]), 3);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up, Direction::Left]), 4);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up, Direction::Right]), 5);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Right, Direction::Down]), 6);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Down, Direction::Left]), 7);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up, Direction::Right, Direction::Down]), 8);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Right, Direction::Down, Direction::Left]), 9);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up, Direction::Down, Direction::Left]), 10);
-        assert_eq!(tile.texture_index_for_directions(&vec![Direction::Up, Direction::Right, Direction::Left]), 11);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up]), 0);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Right]), 1);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Down]), 2);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Left]), 3);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up, Direction::Left]), 4);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up, Direction::Right]), 5);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Right, Direction::Down]), 6);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Down, Direction::Left]), 7);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up, Direction::Right, Direction::Down]), 8);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Right, Direction::Down, Direction::Left]), 9);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up, Direction::Down, Direction::Left]), 10);
+        assert_eq!(tile.texture_index_for_directions(&[Direction::Up, Direction::Right, Direction::Left]), 11);
     }
 
     #[test]

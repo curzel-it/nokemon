@@ -203,11 +203,6 @@ mod tests {
             world.setup(&WORLD_ID_NONE, &Vector2d::zero());            
             world
         }
-
-        pub fn update(&mut self, time_since_last_update: f32) {
-            let nokb = NoKeyboardEvents {};
-            self.update_rl(time_since_last_update, &nokb);
-        } 
     }
 
     #[test]

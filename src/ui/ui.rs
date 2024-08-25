@@ -619,7 +619,7 @@ impl View {
         &self,
         config: &RenderingConfig,
         style: &TextStyle,
-        text: &String,
+        text: &str,
     ) -> Vector2d {
         if !text.contains("\n") {
             let font = config.font(style);
