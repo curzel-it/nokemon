@@ -1,4 +1,4 @@
-use crate::{constants::TILE_SIZE, entities::building::BuildingType, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::rect::Rect};
+use crate::{entities::building::BuildingType, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::rect::Rect};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {

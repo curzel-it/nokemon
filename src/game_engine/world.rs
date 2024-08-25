@@ -2,7 +2,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
 use uuid::Uuid;
-use crate::{constants::{HERO_ENTITY_ID, TILE_SIZE}, entities::teleporter::{self, Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{entities::teleporter::{Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
@@ -106,7 +106,7 @@ impl World {
 
     fn increase_entity_hp(&mut self, id: &Uuid, value: f32) {
         let mut entities = self.entities.borrow_mut();
-        if let Some(entity) = entities.get_mut(&id) {
+        if let Some(entity) = entities.get_mut(id) {
             entity.body_mut().hp += value;
         }
     }
@@ -123,7 +123,7 @@ impl World {
         self.entities.borrow().values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .find(|t| t.destination == *destination)
-            .map(|t| t.body().frame.clone())
+            .map(|t| t.body().frame)
     }
 }
 

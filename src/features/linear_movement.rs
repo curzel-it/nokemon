@@ -1,6 +1,5 @@
-use raylib::ffi::Vector2;
 
-use crate::{constants::{BASE_ENTITY_SPEED, COLLISION_THRESHOLD, TILE_SIZE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}, maps::tiles, utils::vector::Vector2d};
+use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{collision_detection::Collision, entity::Entity, world::World}, utils::vector::Vector2d};
 
 /*
 1. Compute a hitmap via WorldStateUpdates... rigid_bodies_map and collidables_map ?

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{geometry_utils::Insets, vector::Vector2d};
+use super::vector::Vector2d;
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Rect {

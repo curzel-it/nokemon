@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{constants::TILE_SIZE, impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
+use crate::{impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -36,8 +36,8 @@ impl_tile!(BiomeTile);
 impl SpriteTile for BiomeTile {
     fn texture_source_rect(&self, variant: u32) -> Rect {
         Rect::new(
-            self.texture_offset_x as u32,
-            self.texture_offset_y as u32 + variant * Biome::number_of_biomes(),
+            self.texture_offset_x,
+            self.texture_offset_y + variant * Biome::number_of_biomes(),
             1, 
             1
         )

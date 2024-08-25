@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, game_engine::{game_engine::GameEngine, world::World}, maps::tiles::SpriteTile, utils::rect::Rect};
+use crate::{constants::TILE_SIZE, game_engine::{game_engine::GameEngine, world::World}, maps::tiles::SpriteTile};
 
 pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     draw_biome(d, world, engine);

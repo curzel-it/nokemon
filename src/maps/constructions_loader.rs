@@ -1,4 +1,4 @@
-use crate::{constants::{SPRITE_SHEET_BLANK, TILE_SIZE}, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, utils::rect::Rect};
+use crate::{constants::SPRITE_SHEET_BLANK, game_engine::{entity::Entity, obstacles::StaticObstacle, world::World}, utils::rect::Rect};
 
 use super::{constructions_tiles::ConstructionTile, tiles::TileSet};
 

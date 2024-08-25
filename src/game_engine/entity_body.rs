@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::TILE_SIZE, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::utils::{rect::Rect, vector::Vector2d};
 
 use super::entity::EntityProps;
 
@@ -72,7 +72,7 @@ impl EntityBody {
 mod tests {
     use uuid::Uuid;
 
-    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+    use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, utils::{rect::Rect, vector::Vector2d}};
 
     use super::EntityBody;
 

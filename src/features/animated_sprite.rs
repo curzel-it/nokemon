@@ -57,7 +57,7 @@ impl AnimatedSprite {
 
 impl TimedContentProvider<u32> {
     pub fn frames_counter(n: u32) -> Self {
-        let frames = Vec::from_iter((0..n));
+        let frames = Vec::from_iter(0..n);
         Self::new(frames, ANIMATIONS_FPS)
     }
 
@@ -139,10 +139,10 @@ impl Serialize for AnimatedSprite {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
         let data = AnimatedSpriteData {
             sheet_id: self.sheet_id,
-            index: self.index as u32,
+            index: self.index,
             row: self.row,
-            width: self.width as u32,
-            height: self.height as u32,
+            width: self.width,
+            height: self.height,
             step: self.step,
             number_of_frames: self.number_of_frames,
         };

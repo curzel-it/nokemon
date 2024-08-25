@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{constants::TILE_SIZE, impl_tile, utils::rect::Rect};
+use crate::{impl_tile, utils::rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 

@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 use crate::utils::rect::Rect;
 
-use super::{entity::Entity, world::World};
+use super::world::World;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Collision {
@@ -17,7 +17,7 @@ pub struct Collision {
 }
 
 pub fn compute_collisions(world: &World) -> HashMap<Uuid, Vec<Collision>> {
-    let mut collisions: HashMap<Uuid, Vec<Collision>> = HashMap::new();
+    let collisions: HashMap<Uuid, Vec<Collision>> = HashMap::new();
     let visible_entities = &world.visible_entities;
     let entities = world.entities.borrow();
 /*
@@ -84,7 +84,7 @@ fn collisions_pair(first: &Box<dyn Entity>, second: &Box<dyn Entity>, overlappin
  */
 #[cfg(test)]
 mod tests {
-    use crate::{entities::{building::{Building, BuildingType}, hero::Hero}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, visible_entities::compute_visible_entities, world::World}, utils::{rect::Rect, vector::Vector2d}, worlds::constants::WORLD_ID_DEMO};
+    
 /*
     use super::{collision_area, compute_collisions};
 

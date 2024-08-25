@@ -2,7 +2,7 @@ use std::any::Any;
 
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
 
@@ -35,8 +35,8 @@ impl StaticObstacle {
             sprite: AnimatedSprite::new(
                 sprite_sheet, 
                 1, 
-                frame.w as u32, 
-                frame.h as u32
+                frame.w, 
+                frame.h
             )
         }
     }

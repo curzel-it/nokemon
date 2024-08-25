@@ -1,6 +1,6 @@
 use uuid::Uuid;
 
-use crate::{constants::TILE_SIZE, entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}, utils::vector::Vector2d};
+use crate::{entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}, utils::vector::Vector2d};
 
 impl World {
     pub fn setup(&mut self, source: &Uuid, hero_direction: &Vector2d) {
@@ -11,7 +11,7 @@ impl World {
         } else {
             entity.center_in(&self.bounds);
         }
-        entity.body_mut().direction = hero_direction.clone();
+        entity.body_mut().direction = *hero_direction;
         
         if hero_direction.y < 0.0 {
             entity.body_mut().frame.y -= 1;            

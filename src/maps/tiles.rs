@@ -1,5 +1,5 @@
 
-use crate::{constants::{SPRITE_SHEET_BLANK, TILE_SIZE, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{SPRITE_SHEET_BLANK, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 pub trait Tile: Clone {
     fn row(&self) -> u32;

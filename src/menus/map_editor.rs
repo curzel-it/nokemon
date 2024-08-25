@@ -202,7 +202,7 @@ impl MapEditor {
     }
 
     fn updated_frame(&self, frame: &Rect, keyboard_state: &KeyboardState) -> Rect {
-        let mut updated_frame = frame.clone();
+        let mut updated_frame = *frame;
 
         if keyboard_state.has_up_been_pressed {
             updated_frame = updated_frame.offset_y(-1);

@@ -15,7 +15,7 @@ pub fn list_worlds_with_none() -> Vec<Uuid> {
 }
 
 pub fn list_worlds() -> Vec<Uuid> {
-    list_files(&LEVELS_PATH, "json")
+    list_files(LEVELS_PATH, "json")
         .into_iter()
         .filter_map(|path| {
             if let Some(filename) = std::path::Path::new(&path).file_stem() {
