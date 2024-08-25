@@ -98,15 +98,11 @@ impl Serialize for World {
         let entities = self.entities.borrow();
 
         let buildings: Vec<&Building> = entities.values()
-            .filter_map(|entity| {
-                entity.as_ref().as_any().downcast_ref::<Building>()
-            })
+            .filter_map(|e| e.as_ref().as_any().downcast_ref::<Building>())
             .collect();
 
         let teleporters: Vec<&Teleporter> = entities.values()
-            .filter_map(|entity| {
-                entity.as_ref().as_any().downcast_ref::<Teleporter>()
-            })
+            .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .collect();
 
         let mut state = serializer.serialize_struct("World", 4)?;

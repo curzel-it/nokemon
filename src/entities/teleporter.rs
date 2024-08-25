@@ -8,7 +8,7 @@ use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER, T
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
     body: EntityBody,
-    destination: Uuid,
+    pub destination: Uuid,
     sprite: AnimatedSprite,
 }
 

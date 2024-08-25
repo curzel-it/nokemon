@@ -2,9 +2,9 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
 use uuid::Uuid;
-use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{HERO_ENTITY_ID, RECT_ORIGIN_SQUARE_100, TILE_SIZE}, entities::teleporter::{self, Teleporter}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
-use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
+use super::{collision_detection::{compute_collisions, Collision}, entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}, visible_entities::compute_visible_entities};
 
 pub struct World {
     pub id: Uuid,
@@ -111,20 +111,19 @@ impl World {
         }
     }
 
-    pub fn move_hero_one_tile_down(&mut self) {
-        let mut entities = self.entities.borrow_mut();
-        if let Some(hero) = entities.get_mut(&HERO_ENTITY_ID) {
-            hero.body_mut().frame.y += TILE_SIZE;
-            self.cached_hero_props = hero.props();
-        }
-    }
-
     pub fn visible_biome_tiles(&self, viewport: &Rect) -> Vec<&BiomeTile> {
         self.biome_tiles.visible_tiles(viewport)
     }
 
     pub fn visible_construction_tiles(&self, viewport: &Rect) -> Vec<&ConstructionTile> {
         self.constructions_tiles.visible_tiles(viewport)
+    }
+
+    pub fn find_teleporter_for_destination(&self, destination: &Uuid) -> Option<Rect> {
+        self.entities.borrow().values()
+            .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
+            .find(|t| t.destination == *destination)
+            .map(|t| t.body().frame.clone())
     }
 }
 
