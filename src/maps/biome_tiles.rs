@@ -322,13 +322,13 @@ mod tests {
 
     use super::{Biome, BiomeTile};
 
-    const COLOR_GRASS: u32 = 0x00FF00ff;
-    const COLOR_WATER: u32 = 0x0000FFff;
-    const COLOR_ROCK: u32 = 0x7F7F7Fff;
-    const COLOR_DESERT: u32 = 0xFFFF00ff;
-    const COLOR_SNOW: u32 = 0xFFFFFFff;
-    const COLOR_LIGHT_WOOD: u32 = 0xBF6F4Aff;
-    const COLOR_DARK_WOOD: u32 = 0x5D2C28ff;
+    const COLOR_GRASS: u32 = 0x00FF00FF;
+    const COLOR_WATER: u32 = 0x0000FFFF;
+    const COLOR_ROCK: u32 = 0x7F7F7FFF;
+    const COLOR_DESERT: u32 = 0xFFFF00FF;
+    const COLOR_SNOW: u32 = 0xFFFFFFFF;
+    const COLOR_LIGHT_WOOD: u32 = 0xBF6F4AFF;
+    const COLOR_DARK_WOOD: u32 = 0x5D2C28FF;
 
     impl Biome {
         fn from_color(color: u32) -> Biome {

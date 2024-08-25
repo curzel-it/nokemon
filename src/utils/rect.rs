@@ -28,7 +28,7 @@ impl Rect {
     }
 
     pub fn square_from_origin(size: u32) -> Self {
-        Self::new(0, 0, size, size)
+        Self::from_origin(size, size)
     }
 
     pub fn origin(&self) -> Vector2d {
