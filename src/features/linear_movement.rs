@@ -21,7 +21,9 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     let tiles_y_f = updated_offset.y / TILE_SIZE;
     let tiles_x = if updated_offset.x > 0.0 { tiles_x_f.floor() } else { tiles_x_f.ceil() };
     let tiles_y = if updated_offset.y > 0.0 { tiles_y_f.floor() } else { tiles_y_f.ceil() };
-    
+
+    println!("Moving {:#?}, {} + {}, {:#?}", updated_offset, tiles_x, tiles_y, entity.body().frame);
+
     entity.body_mut().frame = entity.body().frame.offset(
         tiles_x as i32, 
         tiles_y as i32
@@ -33,10 +35,10 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
 }
 
 fn updated_offset(entity: &dyn Entity, time_since_last_update: f32) -> Vector2d {
-    entity.body().offset + entity.body().direction
+    entity.body().direction
         .scaled(entity.body().current_speed)
         .scaled(time_since_last_update)
-        .scaled(BASE_ENTITY_SPEED)
+        .scaled(BASE_ENTITY_SPEED) + entity.body().offset
 }
 
 fn has_blocking_collisions(entity: &dyn Entity, collisions: &Vec<Collision>) -> bool {

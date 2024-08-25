@@ -167,7 +167,12 @@ impl GameEngine {
     }
 
     fn center_camera_at(&mut self, x: u32, y: u32) {
+        println!("Moving camera to {} {}", x, y);
         self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
+    }
+
+    pub fn rendering_scale(&self) -> f32 {
+        self.ui_config.as_ref().unwrap().rendering_scale
     }
 }
 

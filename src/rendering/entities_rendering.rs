@@ -7,7 +7,6 @@ use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, game_engine::Gam
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;
     let entities_map = world.entities.borrow();    
-    let scale = engine.ui_config.as_ref().unwrap().rendering_scale * TILE_SIZE;
     
     let mut entities: Vec<&Box<dyn Entity>> = entities_map
         .iter()
@@ -34,12 +33,14 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
     });
 
     for item in entities {
-        draw_item(d, item.borrow(), scale, engine);
+        draw_item(d, item.borrow(), engine);
     }
 }
 
-fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, scale: f32, engine: &GameEngine) {
+fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
     let sprite_key = item.sprite_sheet();
+    let scale = engine.rendering_scale();
+    let tile_scale = TILE_SIZE * scale;
     
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {
         let source = item.texture_source_rect();
@@ -47,17 +48,17 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, scale: f32, engine: &G
         let frame = item.body().frame;
 
         let source_rect = Rectangle {
-            x: source.x as f32 * scale, 
-            y: source.y as f32 * scale,
-            width: source.w as f32 * scale,
-            height: source.h as f32 * scale,
+            x: source.x as f32 * TILE_SIZE, 
+            y: source.y as f32 * TILE_SIZE,
+            width: source.w as f32 * TILE_SIZE,
+            height: source.h as f32 * TILE_SIZE,
         };
 
         let dest_rect = Rectangle {
-            x: ((frame.x - engine.camera_viewport.x) as f32 + offset.x) * scale, 
-            y: ((frame.y - engine.camera_viewport.y) as f32 + offset.y) * scale,
-            width: frame.w as f32 * scale,
-            height: frame.h as f32 * scale,
+            x: (frame.x - engine.camera_viewport.x) as f32 * tile_scale + offset.x * scale,
+            y: (frame.y - engine.camera_viewport.y) as f32 * tile_scale + offset.y * scale,
+            width: frame.w as f32 * tile_scale,
+            height: frame.h as f32 * tile_scale,
         };
 
         d.draw_texture_pro(
