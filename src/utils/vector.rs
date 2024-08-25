@@ -17,16 +17,8 @@ impl Vector2d {
         raylib::math::Vector2::new(self.x, self.y)
     }
 
-    pub fn square(x: f32) -> Self {
-        Self::new(x, x)
-    }
-
     pub fn zero() -> Self {
         Self::new(0.0, 0.0)
-    }
-
-    pub fn one() -> Self {
-        Self::new(1.0, 1.0)
     }
 
     pub fn scaled(&self, value: f32) -> Self {

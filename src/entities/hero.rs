@@ -78,8 +78,7 @@ impl Hero {
     fn props(&self) -> EntityProps {
         EntityProps {
             frame: self.body.frame, 
-            direction: self.body.direction, 
-            speed: self.body.current_speed
+            direction: self.body.direction
         }            
     }
 

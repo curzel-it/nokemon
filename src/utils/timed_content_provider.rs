@@ -24,10 +24,6 @@ impl<T> TimedContentProvider<T> {
         }
     }
 
-    pub fn number_of_frames(&self) -> usize {
-        self.frames.len()
-    }
-
     pub fn current_frame(&self) -> &T {
         &self.frames[self.current_frame_index]
     }
@@ -52,17 +48,6 @@ impl<T> TimedContentProvider<T> {
             self.completed_loops += 1;
         }
     }    
-    
-    pub fn jump_to_frame(&mut self, frame_index: usize) {
-        if frame_index >= self.frames.len() {
-            return;
-        }
-        if frame_index < self.current_frame_index {
-            self.completed_loops += 1;
-        }
-        self.leftover = 0.0;
-        self.current_frame_index = frame_index;
-    }
 }
 
 #[cfg(test)]

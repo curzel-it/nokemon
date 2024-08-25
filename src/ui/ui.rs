@@ -167,20 +167,8 @@ impl GridSpacing {
         }
     }
 
-    pub fn zero() -> Self {
-        Self::new(Spacing::ZERO, Spacing::ZERO)
-    }
-
     pub fn sm() -> Self {
         Self::new(Spacing::SM, Spacing::SM)
-    }
-
-    pub fn md() -> Self {
-        Self::new(Spacing::MD, Spacing::MD)
-    }
-
-    pub fn lg() -> Self {
-        Self::new(Spacing::LG, Spacing::LG)
     }
 }
 

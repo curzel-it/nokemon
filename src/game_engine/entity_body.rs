@@ -5,18 +5,11 @@ use uuid::Uuid;
 
 use crate::utils::{rect::Rect, vector::Vector2d};
 
-use super::entity::EntityProps;
-
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> Uuid;    
-    fn parent_id(&self) -> Uuid;
-
     fn body(&self) -> &EntityBody;
-    fn body_mut(&mut self) -> &mut EntityBody;
-    
+    fn body_mut(&mut self) -> &mut EntityBody;    
     fn center_in(&mut self, value: &Rect);
-    fn place_at(&mut self, x: u32, y: u32);
-    fn props(&self) -> EntityProps;
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -42,14 +35,6 @@ impl EntityBody {
     pub fn center_in(&mut self, value: &Rect) {
         self.frame.center_in(value)
     }
-    
-    pub fn center_at(&mut self, value: &Vector2d) {
-        self.frame.center_at(value)
-    }
-    
-    pub fn resize(&mut self, w: u32, h: u32) {
-        self.frame.resize(w, h)
-    }
             
     pub fn reset_speed(&mut self) {
         self.scale_speed(1.0);
@@ -57,14 +42,6 @@ impl EntityBody {
             
     pub fn scale_speed(&mut self, scalar: f32) {
         self.current_speed = self.base_speed * scalar;
-    }
-
-    pub fn props(&self) -> EntityProps {
-        EntityProps { 
-            direction: self.direction, 
-            frame: self.frame, 
-            speed: self.current_speed 
-        }
     }
 }
 

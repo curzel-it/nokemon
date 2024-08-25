@@ -21,16 +21,5 @@ impl PartialEq for dyn Entity {
 #[derive(Debug, Default, Copy, Clone)]
 pub struct EntityProps {
     pub direction: Vector2d,
-    pub frame: Rect,
-    pub speed: f32,
-}
-
-impl EntityProps {
-    pub fn position(&self) -> Vector2d {
-        self.frame.origin()
-    }
-
-    pub fn center(&self) -> Vector2d {
-        self.frame.center()
-    }
+    pub frame: Rect
 }

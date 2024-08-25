@@ -69,7 +69,6 @@ impl ConstructionTile {
             (true, true, false, true) => 13,
             (false, true, true, true) => 14,
             (true, true, true, true) => 15,
-            _ => 0,
         };
         self.texture_source_rect.x = x;
         self.texture_source_rect.y = y;
