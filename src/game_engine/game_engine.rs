@@ -152,7 +152,7 @@ impl GameEngine {
         
         let mut new_world = World::load_or_create(id);
         new_world.creative_mode = self.creative_mode;
-        new_world.setup(&self.world.id);
+        new_world.setup(&self.world.id, &self.world.cached_hero_props.direction);
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;
         self.world = new_world;
@@ -191,14 +191,14 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
 
 #[cfg(test)]
 mod tests {    
-    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
+    use crate::{game_engine::{keyboard_events_provider::NoKeyboardEvents, world::World}, utils::vector::Vector2d, worlds::constants::{WORLD_ID_DEMO, WORLD_ID_NONE}};
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
             let mut world = World::new(WORLD_ID_DEMO);
-            world.setup(&WORLD_ID_NONE);            
+            world.setup(&WORLD_ID_NONE, &Vector2d::zero());            
             world
         }
 
