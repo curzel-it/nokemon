@@ -2,7 +2,7 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::building::Building, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, worlds::constants::WORLD_ID_DEMO};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES}, entities::{building::Building, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}, worlds::constants::WORLD_ID_DEMO};
 
 use super::utils::world_path;
 
@@ -89,14 +89,22 @@ struct WorldData {
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
     buildings: Vec<Building>,
+    teleporters: Vec<Teleporter>,
 }
 
 impl Serialize for World {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
         let entities = self.entities.borrow();
+
         let buildings: Vec<&Building> = entities.values()
             .filter_map(|entity| {
                 entity.as_ref().as_any().downcast_ref::<Building>()
+            })
+            .collect();
+
+        let teleporters: Vec<&Teleporter> = entities.values()
+            .filter_map(|entity| {
+                entity.as_ref().as_any().downcast_ref::<Teleporter>()
             })
             .collect();
 
@@ -105,31 +113,24 @@ impl Serialize for World {
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
         state.serialize_field("buildings", &buildings)?;
+        state.serialize_field("teleporters", &teleporters)?;
         state.end()
     }
 }
 
 impl<'de> Deserialize<'de> for World {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
-        #[derive(Deserialize)]
-        struct WorldData {
-            id: u32,
-            biome_tiles: TileSet<BiomeTile>,
-            constructions_tiles: TileSet<ConstructionTile>,
-            buildings: Vec<Building>,
-        }
-
         let WorldData {
             id,
             biome_tiles,
             constructions_tiles,
             buildings,
+            teleporters,
         } = WorldData::deserialize(deserializer)?;
 
         let mut world = World::new(id);
-        for building in buildings {
-            world.add_entity(Box::new(building));
-        }
+        buildings.into_iter().for_each(|b| { world.add_entity(Box::new(b)); });
+        teleporters.into_iter().for_each(|b| { world.add_entity(Box::new(b)); });
         world.load_biome_tiles(biome_tiles);
         world.load_construction_tiles(constructions_tiles);
         Ok(world)

@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::building::{Building, BuildingType}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::{constants::WORLD_ID_HOUSE_INTERIOR, utils::list_worlds}, zstack};
+use crate::{constants::{INFINITE_STOCK, SPRITE_SHEET_INVENTORY, TILE_SIZE, TILE_SIZE_X1_5}, entities::{building::{Building, BuildingType}, teleporter::{self, Teleporter}}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate, world::World}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::{constants::{WORLD_ID_HOUSE_INTERIOR, WORLD_ID_NONE}, utils::{get_next_world_id, list_worlds, world_name}}, zstack};
 
 use super::inventory::Stockable;
 
@@ -27,19 +27,17 @@ pub struct MapEditorItem {
     pub stock: i32
 }
 
-#[derive(Debug, Clone, Copy)]
-pub struct MapEditorItemBeingPlaced {
-    pub item: Stockable,
-    pub frame: Rect
-}
-
 impl MapEditor {
     pub fn new() -> Self {
         Self {
             stock: Stockable::all_possible_items().into_iter()
                 .map(|item| { MapEditorItem { item, stock: INFINITE_STOCK } })
                 .collect(),
-            worlds: list_worlds(),
+            worlds: {
+                let mut options = list_worlds();
+                options.push(WORLD_ID_NONE);
+                options
+            },
             state: MapEditorState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 5,
@@ -113,7 +111,7 @@ impl MapEditor {
             if selected_index > 0 {
                 self.state = MapEditorState::SelectingWorld(selected_index - 1);            
             } else {
-                self.state = MapEditorState::SelectingItem(self.stock.len() - 0);
+                self.state = MapEditorState::SelectingItem(self.stock.len() - 1);
             }
         }
         if keyboard_state.has_down_been_pressed && selected_index < self.stock.len() - 1 {
@@ -150,12 +148,16 @@ impl MapEditor {
     }
 
     fn place_world(&self, destination_id: u32, frame: &Rect, camera_vieport: &Rect) -> Vec<WorldStateUpdate> {
-        /*let mut building = Building::new(building_type);
-        building.body_mut().frame.x = camera_vieport.x + frame.x;
-        building.body_mut().frame.y = camera_vieport.y + frame.y;
-        let update = WorldStateUpdate::AddEntity(Box::new(building));
-        vec![update]*/
-        vec![]
+        let actual_destination_id = if destination_id == WORLD_ID_NONE { 
+            get_next_world_id()
+        } else {
+            destination_id
+        };
+        let mut teleporter = Teleporter::new(actual_destination_id);
+        teleporter.body_mut().frame.x = camera_vieport.x + frame.x;
+        teleporter.body_mut().frame.y = camera_vieport.y + frame.y;
+        let update = WorldStateUpdate::AddEntity(Box::new(teleporter));
+        vec![update]
     }
 
     fn update_item_placement(
@@ -265,10 +267,11 @@ impl MapEditor {
             View::VStack { 
                 spacing: Spacing::SM, 
                 children: self.worlds.iter().enumerate().map(|(index, item)| {
+                    let name = world_name(item);
                     if index == selected_world_index {
-                        text!(TextStyle::Bold, format!("> {}", item))
+                        text!(TextStyle::Bold, format!("> {}", name))
                     } else {
-                        text!(TextStyle::Regular, format!("{}", item))
+                        text!(TextStyle::Regular, format!("{}", name))
                     }
                 }).collect()
             }

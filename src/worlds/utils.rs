@@ -1,5 +1,7 @@
 use crate::{constants::LEVELS_PATH, utils::file_utils::list_files};
 
+use super::constants::{WORLD_ID_DEMO, WORLD_ID_NONE};
+
 pub fn world_path(id: u32) -> String {
     format!("{}/{}.json", LEVELS_PATH, id)
 }
@@ -22,5 +24,14 @@ pub fn list_worlds() -> Vec<u32> {
                 None
             }
         })
+        .filter(|id| *id > 0) 
         .collect()
+}
+
+pub fn world_name(id: &u32) -> String {
+    match *id {
+        WORLD_ID_NONE => "New World".to_string(),
+        WORLD_ID_DEMO => "Demo World".to_string(),
+        _ => format!("World #{}", id),
+    }
 }

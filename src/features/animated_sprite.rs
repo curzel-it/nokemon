@@ -1,3 +1,5 @@
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
 use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug)]
@@ -7,7 +9,9 @@ pub struct AnimatedSprite {
     pub row: f32,
     pub frames_provider: TimedContentProvider<f32>,
     pub width: f32,
-    pub height: f32
+    pub height: f32,
+    step: u32,
+    number_of_frames: u32,
 }
 
 impl AnimatedSprite {
@@ -18,7 +22,9 @@ impl AnimatedSprite {
             row: 0.0,
             frames_provider: TimedContentProvider::frames_counter(number_of_frames),
             width: width as f32,
-            height: height as f32
+            height: height as f32,
+            step: 0,
+            number_of_frames,
         }
     }
 
@@ -29,7 +35,9 @@ impl AnimatedSprite {
             row: 0.0,
             frames_provider: TimedContentProvider::stepped_frames_counter(number_of_frames, step),
             width: width as f32,
-            height: height as f32
+            height: height as f32,
+            step,
+            number_of_frames,
         }
     }
 
@@ -114,4 +122,42 @@ macro_rules! impl_single_animation_sprite_update {
             }
         }
     };
+}
+
+#[derive(Serialize, Deserialize)]
+struct AnimatedSpriteData {
+    sheet_id: u32,
+    index: u32,
+    row: f32,
+    width: u32,
+    height: u32,
+    step: u32,
+    number_of_frames: u32,
+}
+
+impl Serialize for AnimatedSprite {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+        let data = AnimatedSpriteData {
+            sheet_id: self.sheet_id,
+            index: self.index as u32,
+            row: self.row,
+            width: self.width as u32,
+            height: self.height as u32,
+            step: self.step,
+            number_of_frames: self.number_of_frames,
+        };
+        data.serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for AnimatedSprite {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
+        let data = AnimatedSpriteData::deserialize(deserializer)?;
+        let sprite = if data.step == 0 {
+            AnimatedSprite::new(data.sheet_id, data.number_of_frames, data.width, data.height)
+        } else {
+            AnimatedSprite::new_stepped(data.sheet_id, data.number_of_frames, data.index, data.step, data.width, data.height)
+        };
+        Ok(sprite)
+    }
 }
