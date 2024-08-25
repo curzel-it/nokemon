@@ -51,7 +51,7 @@ fn would_exit_bounds(frame: &Rect, direction: &Vector2d, bounds: &Rect) -> bool 
     if direction.y < 0.0 && frame.y <= bounds.y {
         return true
     }
-    return false
+    false
 }
 
 fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Vec<Vec<bool>>) -> bool {
@@ -67,5 +67,5 @@ fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Vec<Vec<bool>>) ->
     if direction.y < 0.0 {
         return hitmap[frame.y as usize - 1][frame.x as usize]
     }
-    return false
+    false
 }

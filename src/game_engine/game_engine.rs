@@ -170,7 +170,7 @@ impl GameEngine {
 
     fn center_camera_at(&mut self, x: u32, y: u32, offset: &Vector2d) {
         self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
-        self.camera_viewport_offset = offset.clone();
+        self.camera_viewport_offset = *offset;
     }
 
     pub fn rendering_scale(&self) -> f32 {

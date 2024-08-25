@@ -60,7 +60,7 @@ impl World {
             SPRITE_SHEET_BIOME_TILES, 
             (0..WORLD_SIZE_ROWS).map(|row| {
                 (0..WORLD_SIZE_COLUMNS).map(|column| {
-                    let mut tile = BiomeTile::from_data(row as usize, column as usize, 1);
+                    let mut tile = BiomeTile::from_data(row, column, 1);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
                 }).collect()
@@ -72,7 +72,7 @@ impl World {
             SPRITE_SHEET_CONSTRUCTION_TILES, 
             (0..WORLD_SIZE_ROWS).map(|row| {
                 (0..WORLD_SIZE_COLUMNS).map(|column| {
-                    let mut tile = ConstructionTile::from_data(row as usize, column as usize, 0);
+                    let mut tile = ConstructionTile::from_data(row, column, 0);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
                 }).collect()

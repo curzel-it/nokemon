@@ -21,7 +21,7 @@ impl World {
             }
         }
 
-        if self.biome_tiles.tiles.len() > 0 {
+        if !self.biome_tiles.tiles.is_empty() {
             let rows_count = self.bounds.h as i32;
             let columns_count = self.bounds.w as i32;
 
