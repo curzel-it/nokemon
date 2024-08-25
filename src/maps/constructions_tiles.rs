@@ -9,6 +9,7 @@ pub enum Construction {
     Nothing,
     WoodenFence,
     DarkRock,
+    LightWall,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -80,6 +81,7 @@ impl Construction {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
             Construction::DarkRock => 3,
+            Construction::LightWall => 4,
         }
     }
 }
@@ -169,6 +171,7 @@ impl Construction {
             0 => Construction::Nothing,
             1 => Construction::WoodenFence,
             3 => Construction::DarkRock,
+            4 => Construction::LightWall,
             _ => Construction::Nothing
         }
     }
@@ -177,6 +180,7 @@ impl Construction {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
             Construction::DarkRock => 3,
+            Construction::LightWall => 4
         }
     }
 }
