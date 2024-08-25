@@ -55,13 +55,6 @@ impl Rect {
     pub fn offset_y(&self, dy: i32) -> Self {
         self.offset(0, dy)
     }
-
-    pub fn collides_with_rect(&self, other: &Rect) -> bool {
-        self.x < other.x + other.w &&
-        other.x < self.x + self.w &&
-        self.y < other.y + other.h &&
-        other.y < self.y + self.h
-    }
 }
 
 #[cfg(test)]
@@ -84,15 +77,5 @@ mod tests {
         rect.center_in(&outer_rect);
         assert_eq!(rect.x, 15);
         assert_eq!(rect.y, 15);
-    }
-
-    #[test]
-    fn test_collides_with_rect() {
-        let rect1 = Rect::new(0, 0, 10, 10);
-        let rect2 = Rect::new(5, 5, 10, 10);
-        assert!(rect1.collides_with_rect(&rect2));
-        
-        let rect3 = Rect::new(15, 15, 5, 5);
-        assert!(!rect1.collides_with_rect(&rect3));
     }
 }

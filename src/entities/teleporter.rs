@@ -69,8 +69,21 @@ impl Teleporter {
         let hero_frame = world.cached_hero_props.frame;
         let hero_direction = world.cached_hero_props.direction;
         
-        if hero_frame.collides_with_rect(&self.body.frame) {
-            return hero_direction.y != 0.0;
+        if hero_frame.y == self.body.frame.y {
+            if hero_frame.x == self.body.frame.x + 1 {
+                return hero_direction.x < 0.0;
+            }
+            if hero_frame.x == self.body.frame.x - 1 {
+                return hero_direction.x > 0.0;
+            }
+        }
+        if hero_frame.x == self.body.frame.x {
+            if hero_frame.y == self.body.frame.y + 1 {
+                return hero_direction.y < 0.0;
+            }
+            if hero_frame.y == self.body.frame.y - 1 {
+                return hero_direction.y > 0.0;
+            }
         }
         false
     }

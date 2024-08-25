@@ -13,7 +13,8 @@ pub enum Biome {
     Desert, 
     Snow, 
     DarkWood, 
-    LightWood
+    LightWood,
+    DarkRock
 }
 
 #[derive(Debug, Clone)]
@@ -68,6 +69,8 @@ impl BiomeTile {
                 (Biome::Grass, Biome::Desert) => 0,
                 (Biome::Grass, Biome::Rock) => 0,
                 (Biome::Snow, Biome::Rock) => 0,
+                (Biome::Grass, Biome::DarkRock) => 0,
+                (Biome::Water, Biome::Rock) => 0,
                 _ => neighbor.texture_index() * Biome::number_of_combinations() + self.texture_index_for_directions(&directions) + 1
             }
         }        
@@ -154,12 +157,11 @@ impl Biome {
     }
 
     fn number_of_biomes() -> u32 {
-        7
+        9
     }
 
     fn texture_index(&self) -> u32 {
         match self {
-            Biome::Nothing => 0,
             Biome::Water => 0,
             Biome::Desert => 1,
             Biome::Grass => 2,
@@ -167,6 +169,8 @@ impl Biome {
             Biome::Snow => 4,
             Biome::LightWood => 5,
             Biome::DarkWood => 6,
+            Biome::Nothing => 7,
+            Biome::DarkRock => 8,
         }
     }
 }
@@ -261,6 +265,7 @@ impl Biome {
             5 => Biome::Snow, 
             6 => Biome::DarkWood, 
             7 => Biome::LightWood,
+            8 => Biome::DarkRock,
             _ => Biome::Nothing
         }
     }
@@ -274,6 +279,7 @@ impl Biome {
             Biome::Snow => 5,
             Biome::DarkWood => 6,
             Biome::LightWood => 7,
+            Biome::DarkRock => 8,
         }
     }
 }

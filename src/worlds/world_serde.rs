@@ -60,7 +60,9 @@ impl World {
             SPRITE_SHEET_BIOME_TILES, 
             (0..WORLD_SIZE_ROWS).map(|row| {
                 (0..WORLD_SIZE_COLUMNS).map(|column| {
-                    let mut tile = BiomeTile::from_data(row, column, 1);
+                    let is_border = row == 0 || column == 0 || row == WORLD_SIZE_ROWS-1 || column == WORLD_SIZE_COLUMNS-1;
+                    let tile_type = if is_border { 2 } else { 0 };
+                    let mut tile = BiomeTile::from_data(row, column, tile_type);
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
                 }).collect()

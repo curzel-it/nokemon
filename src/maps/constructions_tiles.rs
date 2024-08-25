@@ -6,8 +6,9 @@ use super::tiles::{SpriteTile, TileSet};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum Construction {
-    WoodenFence,
     Nothing,
+    WoodenFence,
+    DarkRock,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -78,6 +79,7 @@ impl Construction {
         match self {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
+            Construction::DarkRock => 3,
         }
     }
 }
@@ -166,6 +168,7 @@ impl Construction {
         match value {
             0 => Construction::Nothing,
             1 => Construction::WoodenFence,
+            3 => Construction::DarkRock,
             _ => Construction::Nothing
         }
     }
@@ -173,6 +176,7 @@ impl Construction {
         match self {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,
+            Construction::DarkRock => 3,
         }
     }
 }
