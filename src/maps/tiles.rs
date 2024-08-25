@@ -42,13 +42,18 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn visible_tiles(&self, viewport: &Rect) -> Vec<&T> {
-        let last_row_index = self.tiles.len() as u32 - 1;
-        let last_col_index = self.tiles[0].len() as u32 - 1;
+        let rows_count = self.tiles.len() as i32;
+        let columns_count = self.tiles[0].len() as i32;
 
-        let min_row = viewport.y.max(0).min(last_row_index-1) as usize;
-        let max_row = (viewport.y + viewport.h).max(last_row_index) as usize;
-        let min_col = viewport.x.max(0).min(last_col_index-1) as usize;
-        let max_col = (viewport.x + viewport.w).max(last_col_index) as usize;
+        let min_y = viewport.y as i32 - 2;
+        let max_y = (viewport.y + viewport.h) as i32 + 4;
+        let min_x = viewport.x as i32 - 2;
+        let max_x = (viewport.x + viewport.w) as i32 + 4;
+
+        let min_row = min_y.max(0).min(rows_count) as usize;
+        let max_row = max_y.max(0).min(rows_count) as usize;
+        let min_col = min_x.max(0).min(columns_count) as usize;
+        let max_col = max_x.max(0).min(columns_count) as usize;
 
         let mut visible_tiles = Vec::new();
 

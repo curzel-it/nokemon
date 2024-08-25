@@ -86,7 +86,9 @@ impl Hero {
     fn move_camera_update(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::CenterCamera(
-                self.body.frame.x, self.body.frame.y
+                self.body.frame.x, 
+                self.body.frame.y,
+                self.body.offset
             )
         )
     }

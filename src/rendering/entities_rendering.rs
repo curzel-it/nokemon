@@ -55,8 +55,8 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
         };
 
         let dest_rect = Rectangle {
-            x: (frame.x - engine.camera_viewport.x) as f32 * tile_scale + offset.x * scale,
-            y: (frame.y - engine.camera_viewport.y) as f32 * tile_scale + offset.y * scale,
+            x: (frame.x - engine.camera_viewport.x) as f32 * tile_scale + (offset.x - engine.camera_viewport_offset.x) * scale,
+            y: (frame.y - engine.camera_viewport.y) as f32 * tile_scale + (offset.y - engine.camera_viewport_offset.y) * scale,
             width: frame.w as f32 * tile_scale,
             height: frame.h as f32 * tile_scale,
         };

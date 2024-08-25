@@ -1,6 +1,6 @@
 use uuid::Uuid;
 
-use crate::maps::{biome_tiles::Biome, constructions_tiles::Construction};
+use crate::{maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityProps};
 
@@ -16,7 +16,7 @@ pub enum WorldStateUpdate {
 
 #[derive(Debug, Clone, Copy)]
 pub enum EngineStateUpdate {
-    CenterCamera(u32, u32),
+    CenterCamera(u32, u32, Vector2d),
     SwitchWorld(Uuid),
     SaveGame,
 }

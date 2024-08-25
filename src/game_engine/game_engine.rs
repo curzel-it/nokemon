@@ -10,7 +10,8 @@ use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, s
 pub struct GameEngine {
     pub menu: Menu,
     pub world: World,
-    pub camera_viewport: Rect,    
+    pub camera_viewport: Rect,
+    pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
     creative_mode: bool,
 }
@@ -21,6 +22,7 @@ impl GameEngine {
             menu: Menu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
+            camera_viewport_offset: Vector2d::zero(),
             ui_config: None,
             creative_mode: false
         }
@@ -140,7 +142,7 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::CenterCamera(x, y) => self.center_camera_at(*x, *y),            
+            EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save()
         }
@@ -166,9 +168,9 @@ impl GameEngine {
         self.camera_viewport.center_in(frame);
     }
 
-    fn center_camera_at(&mut self, x: u32, y: u32) {
-        println!("Moving camera to {} {}", x, y);
+    fn center_camera_at(&mut self, x: u32, y: u32, offset: &Vector2d) {
         self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
+        self.camera_viewport_offset = offset.clone();
     }
 
     pub fn rendering_scale(&self) -> f32 {

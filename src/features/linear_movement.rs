@@ -22,8 +22,6 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
     let tiles_x = if updated_offset.x > 0.0 { tiles_x_f.floor() } else { tiles_x_f.ceil() };
     let tiles_y = if updated_offset.y > 0.0 { tiles_y_f.floor() } else { tiles_y_f.ceil() };
 
-    println!("Moving {:#?}, {} + {}, {:#?}", updated_offset, tiles_x, tiles_y, entity.body().frame);
-
     entity.body_mut().frame = entity.body().frame.offset(
         tiles_x as i32, 
         tiles_y as i32
