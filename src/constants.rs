@@ -14,8 +14,11 @@ pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INFINITE_STOCK: i32 = -420;
 
 // Known entities
-pub const NO_PARENT: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,]);
 pub const HERO_ENTITY_ID: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1,]);
+
+// Known locations
+pub const WORLD_ID_NONE: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0]);
+pub const WORLD_ID_DEMO: Uuid = Uuid::from_bytes([0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1]);
 
 // Paths
 pub const ASSETS_PATH: &str = "assets";

@@ -3,7 +3,7 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
@@ -17,19 +17,14 @@ impl Teleporter {
         Self { 
             body: EntityBody {
                 id: Uuid::new_v4(),
-                parent_id: NO_PARENT,
                 frame: Rect::new(0, 0, 1, 1),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
-                hp: 100.0,
-                dp: 0.0,
                 creation_time: 0.0,
-                requires_collision_detection: true,
                 is_rigid: false,
                 z_index: 0,
-                is_ally: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             destination,

@@ -2,7 +2,7 @@ use std::any::Any;
 
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT}, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::animated_sprite::AnimatedSprite, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{entity::Entity, entity_body::EntityBody, world::World, state_updates::WorldStateUpdate};
 
@@ -17,19 +17,14 @@ impl StaticObstacle {
         Self { 
             body: EntityBody {
                 id: Uuid::new_v4(),
-                parent_id: NO_PARENT,
                 frame,
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
-                hp: 100.0,
-                dp: 0.0,
                 creation_time: 0.0,
-                requires_collision_detection: false,
                 is_rigid: true,
                 z_index: 0,
-                is_ally: false,
                 lifespan: INFINITE_LIFESPAN,
             },
             sprite: AnimatedSprite::new(

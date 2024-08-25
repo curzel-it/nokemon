@@ -3,7 +3,7 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_BUILDINGS}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_BUILDINGS}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
@@ -34,19 +34,14 @@ impl Building {
         Self { 
             body: EntityBody {
                 id,
-                parent_id: NO_PARENT,
                 frame: Rect::new(0, 0, frame.w, frame.h),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),
                 current_speed: 0.0,
                 base_speed: 0.0,
-                hp: 1000.0,
-                dp: 0.0,
                 creation_time: 0.0,
-                requires_collision_detection: false,
                 is_rigid: true,
                 z_index: 0,
-                is_ally: true,
                 lifespan: INFINITE_LIFESPAN,
             },      
             building_type,

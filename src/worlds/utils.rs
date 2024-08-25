@@ -1,8 +1,6 @@
 use uuid::Uuid;
 
-use crate::{constants::LEVELS_PATH, utils::file_utils::list_files};
-
-use super::constants::{WORLD_ID_DEMO, WORLD_ID_NONE};
+use crate::{constants::{LEVELS_PATH, WORLD_ID_DEMO, WORLD_ID_NONE}, utils::file_utils::list_files};
 
 pub fn world_path(id: Uuid) -> String {
     format!("{}/{}.json", LEVELS_PATH, id)
