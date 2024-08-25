@@ -117,7 +117,7 @@ impl Menu {
         }
         self.map_editor.update(camera_vieport, keyboard_state);
 
-        if self.map_editor.item_being_placed.is_some() {
+        if self.map_editor.is_placing_item() {
             self.state = MenuState::PlaceItem;
         }
         vec![]

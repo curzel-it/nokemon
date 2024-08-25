@@ -53,7 +53,7 @@ pub enum View {
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
     HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
-    FixedPosition { position: Vector2d, children: Vec<View> }
+    FixedPosition { position: Vector2d, children: Vec<View> },
 }
 
 #[macro_export]

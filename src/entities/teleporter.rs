@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, worlds::constants::WORLD_ID_HOUSE_INTERIOR, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, NO_PARENT, SPRITE_SHEET_TELEPORTER, TILE_SIZE, TILE_SIZE_HALF}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, entity_factory::get_next_entity_id, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{geometry_utils::Insets, rect::Rect, vector::Vector2d}, worlds::constants::{WORLD_ID_HOUSE_INTERIOR, WORLD_ID_NONE}};
 
 #[derive(Debug)]
 pub struct Teleporter {
@@ -29,7 +29,7 @@ impl Teleporter {
                 is_ally: false,
                 lifespan: INFINITE_LIFESPAN,
             },
-            destination: WORLD_ID_HOUSE_INTERIOR,
+            destination: WORLD_ID_NONE,
             sprite: AnimatedSprite::new(
                 SPRITE_SHEET_TELEPORTER, 
                 3, 
