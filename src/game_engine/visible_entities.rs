@@ -15,10 +15,11 @@ impl World {
 
         self.entities.borrow().values()
             .filter(|e| {
-                e.body().frame.y >= min_row &&
-                e.body().frame.y <= max_row &&
-                e.body().frame.x >= min_col &&
-                e.body().frame.x <= max_col
+                let frame = e.body().frame;
+                frame.y + frame.h >= min_row &&
+                frame.y <= max_row &&
+                frame.x + frame.w >= min_col &&
+                frame.x <= max_col
             })
             .map(|e| e.id())
             .collect()

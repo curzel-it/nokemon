@@ -54,9 +54,15 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &dyn Entity, engine: &GameEngine) {
             height: source.h as f32 * TILE_SIZE,
         };
 
+        let actual_col = frame.x as f32 - engine.camera_viewport.x as f32;
+        let actual_offset_x = offset.x as f32 - engine.camera_viewport_offset.x as f32;
+
+        let actual_row = frame.y as f32 - engine.camera_viewport.y as f32;
+        let actual_offset_y = offset.y as f32 - engine.camera_viewport_offset.y as f32;
+
         let dest_rect = Rectangle {
-            x: (frame.x - engine.camera_viewport.x) as f32 * tile_scale + (offset.x - engine.camera_viewport_offset.x) * scale,
-            y: (frame.y - engine.camera_viewport.y) as f32 * tile_scale + (offset.y - engine.camera_viewport_offset.y) * scale,
+            x: actual_col * tile_scale + actual_offset_x * scale,
+            y: actual_row * tile_scale + actual_offset_y * scale,
             width: frame.w as f32 * tile_scale,
             height: frame.h as f32 * tile_scale,
         };
