@@ -13,7 +13,7 @@ pub enum BuildingType {
 impl BuildingType {
     fn texture_source_rect(&self) -> Rect {
         let (row, w, h) = match self {
-            BuildingType::House => (0, 5, 5)
+            BuildingType::House => (0, 5, 4)
         };
         Rect::new(0, row, w, h)
     }
