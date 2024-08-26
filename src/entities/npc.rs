@@ -1,17 +1,33 @@
 use std::any::Any;
 
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
+pub enum NpcType {
+    OldMan
+}
+
+impl NpcType {
+    fn build_sprite(&self) -> AnimatedSprite {
+        let index = match self {
+            NpcType::OldMan => 0,
+        };
+        AnimatedSprite::new_humanoid(index)
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Npc {
     body: EntityBody,
+    npc_type: NpcType,
     sprite: AnimatedSprite,
 }
 
 impl Npc {
-    pub fn new() -> Self {
+    pub fn new(npc_type: NpcType) -> Self {
         Self {             
             body: EntityBody {
                 id: Uuid::new_v4(),
@@ -25,7 +41,8 @@ impl Npc {
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new_humanoid(0),
+            npc_type,
+            sprite: npc_type.build_sprite()
         }
     }
 }

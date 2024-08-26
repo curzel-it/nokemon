@@ -54,16 +54,32 @@ impl_embodied_entity!(Building);
 
 impl Entity for Building {
     fn update(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {
-        if world.creative_mode && world.keyboard_state.has_confirmation_been_pressed {
-            return vec![
-                WorldStateUpdate::EngineUpdate(
-                    EngineStateUpdate::BuildingInteraction(
-                        self.body.id
-                    )
+        let hero = world.cached_hero_props.hittable_frame;
+        let hero_direction = world.cached_hero_props.direction;
+        let frame = self.body.frame;
+
+        if !world.creative_mode { return vec![] }
+        if !world.keyboard_state.has_confirmation_been_pressed { return vec![] }
+
+        let mut x_matches: bool = false;
+        x_matches = x_matches || hero.x == frame.x.max(1) - 1 && hero_direction.x == 1.0;
+        x_matches = x_matches || hero.x == frame.x + frame.w && hero_direction.x == -1.0;
+        x_matches = x_matches && hero.y >= frame.y && hero.y <= frame.y + frame.h;
+
+        let mut y_matches: bool = false;
+        y_matches = y_matches || hero.y == frame.y.max(1) - 1 && hero_direction.y == 1.0;
+        y_matches = y_matches || hero.y == frame.y + frame.h && hero_direction.y == -1.0;
+        y_matches = y_matches && hero.x >= frame.x && hero.x <= frame.x + frame.w;
+
+        if !x_matches && !y_matches { return vec![] }
+        
+        return vec![
+            WorldStateUpdate::EngineUpdate(
+                EngineStateUpdate::BuildingInteraction(
+                    self.body.id
                 )
-            ];   
-        }
-        vec![]
+            )
+        ];   
     }
 
     fn texture_source_rect(&self) -> Rect {

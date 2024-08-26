@@ -3,7 +3,7 @@ use std::{fs::File, io::{BufReader, Write}};
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
 use uuid::Uuid;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{building::Building, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{building::Building, npc::Npc, teleporter::Teleporter}, game_engine::world::World, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -91,8 +91,15 @@ struct WorldData {
     id: Uuid,
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
+
+    #[serde(default)]
     buildings: Vec<Building>,
+
+    #[serde(default)]
     teleporters: Vec<Teleporter>,
+
+    #[serde(default)]
+    npcs: Vec<Npc>,
 }
 
 impl Serialize for World {
@@ -107,12 +114,17 @@ impl Serialize for World {
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .collect();
 
+        let npcs: Vec<&Npc> = entities.values()
+            .filter_map(|e| e.as_ref().as_any().downcast_ref::<Npc>())
+            .collect();
+
         let mut state = serializer.serialize_struct("World", 4)?;
         state.serialize_field("id", &self.id)?;
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
         state.serialize_field("buildings", &buildings)?;
         state.serialize_field("teleporters", &teleporters)?;
+        state.serialize_field("npcs", &npcs)?;
         state.end()
     }
 }
@@ -125,11 +137,13 @@ impl<'de> Deserialize<'de> for World {
             constructions_tiles,
             buildings,
             teleporters,
+            npcs,
         } = WorldData::deserialize(deserializer)?;
 
         let mut world = World::new(id);
         buildings.into_iter().for_each(|b| { world.add_entity(Box::new(b)); });
         teleporters.into_iter().for_each(|b| { world.add_entity(Box::new(b)); });
+        npcs.into_iter().for_each(|b| { world.add_entity(Box::new(b)); });
         world.load_biome_tiles(biome_tiles);
         world.load_construction_tiles(constructions_tiles);
         Ok(world)

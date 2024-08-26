@@ -18,8 +18,19 @@ impl PartialEq for dyn Entity {
     }
 }
 
-#[derive(Debug, Default, Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct EntityProps {
     pub direction: Vector2d,
-    pub frame: Rect
+    pub frame: Rect,
+    pub hittable_frame: Rect,
+}
+
+impl Default for EntityProps {
+    fn default() -> Self {
+        Self { 
+            direction: Default::default(), 
+            frame: Rect::square_from_origin(1), 
+            hittable_frame: Rect::square_from_origin(1) 
+        }
+    }
 }

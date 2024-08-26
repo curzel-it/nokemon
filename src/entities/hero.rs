@@ -63,9 +63,17 @@ impl Hero {
     }
 
     fn props(&self) -> EntityProps {
+        let frame = self.body.frame;
+
         EntityProps {
-            frame: self.body.frame, 
-            direction: self.body.direction
+            frame,
+            direction: self.body.direction,
+            hittable_frame: Rect {
+                x: frame.x,
+                y: frame.y + frame.h - 1,
+                w: 1,
+                h: 1,
+            }
         }            
     }
 

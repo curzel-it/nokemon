@@ -28,12 +28,7 @@ impl Teleporter {
                 lifespan: INFINITE_LIFESPAN,
             },
             destination,
-            sprite: AnimatedSprite::new(
-                SPRITE_SHEET_TELEPORTER, 
-                3, 
-                1, 
-                1
-            ),
+            sprite: AnimatedSprite::new(SPRITE_SHEET_TELEPORTER, 3, 1, 1),
         }
     }
 }
@@ -68,28 +63,22 @@ impl Entity for Teleporter {
 
 impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
-        let hero_frame = world.cached_hero_props.frame;
+        let hero = world.cached_hero_props.hittable_frame;
         let hero_direction = world.cached_hero_props.direction;
-
-        if hero_frame.w == 0 || hero_frame.h == 0 {
-            return false
-        }
-
-        let base_y = hero_frame.y + hero_frame.h - 1;
         
-        if base_y == self.body.frame.y {
-            if hero_frame.x == self.body.frame.x + 1 {
+        if hero.y == self.body.frame.y {
+            if hero.x == self.body.frame.x + 1 {
                 return hero_direction.x < 0.0;
             }
-            if hero_frame.x == self.body.frame.x - 1 {
+            if hero.x == self.body.frame.x - 1 {
                 return hero_direction.x > 0.0;
             }
         }
-        if hero_frame.x == self.body.frame.x {
-            if base_y == self.body.frame.y + 1 {
+        if hero.x == self.body.frame.x {
+            if hero.y == self.body.frame.y + 1 {
                 return hero_direction.y < 0.0;
             }
-            if base_y == self.body.frame.y - 1 {
+            if hero.y == self.body.frame.y - 1 {
                 return hero_direction.y > 0.0;
             }
         }

@@ -1,7 +1,7 @@
 use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -182,6 +182,7 @@ impl MapEditor {
            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
            Stockable::ConstructionTile(construction) => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
            Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
+           Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
         }
     }
 
@@ -190,6 +191,14 @@ impl MapEditor {
         building.body_mut().frame.x = camera_vieport.x + frame.x;
         building.body_mut().frame.y = camera_vieport.y + frame.y;
         let update = WorldStateUpdate::AddEntity(Box::new(building));
+        vec![update]
+    }
+
+    fn place_npc(&self, camera_vieport: &Rect, frame: &Rect, npc_type: NpcType) -> Vec<WorldStateUpdate> {
+        let mut npc = Npc::new(npc_type);
+        npc.body_mut().frame.x = camera_vieport.x + frame.x;
+        npc.body_mut().frame.y = camera_vieport.y + frame.y;
+        let update = WorldStateUpdate::AddEntity(Box::new(npc));
         vec![update]
     }
 

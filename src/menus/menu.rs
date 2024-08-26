@@ -179,11 +179,11 @@ impl Menu {
             MenuState::Open => with_backdrop(self.menu_ui()),
             MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(_) => with_backdrop(self.remove_building_ui())
+            MenuState::BuildingInteraction(uuid) => with_backdrop(self.remove_building_ui(&uuid))
         }
     }
 
-    fn remove_building_ui(&self) -> View {
+    fn remove_building_ui(&self, uuid: &Uuid) -> View {
         padding(
             Spacing::LG,
             zstack!(
@@ -192,6 +192,7 @@ impl Menu {
                 vstack!(
                     Spacing::LG, 
                     text!(TextStyle::Title, "Remove Building?".to_string()),
+                    text!(TextStyle::Regular, format!("{}", uuid)),
                     text!(TextStyle::Regular, "Press SPACE to remove the building.\nPress ESC to cancel.".to_string())
                 )
             )

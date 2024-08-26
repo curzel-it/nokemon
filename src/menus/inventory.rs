@@ -1,10 +1,11 @@
-use crate::{entities::building::BuildingType, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::rect::Rect};
+use crate::{entities::{building::BuildingType, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::rect::Rect};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
     BiomeTile(Biome),
     ConstructionTile(Construction),    
-    Building(BuildingType),    
+    Building(BuildingType),   
+    Npc(NpcType), 
 }
 
 impl Stockable {
@@ -22,6 +23,7 @@ impl Stockable {
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
             Stockable::Building(BuildingType::House),
+            Stockable::Npc(NpcType::OldMan),
             Stockable::ConstructionTile(Construction::Nothing),
         ]
     }
@@ -52,6 +54,9 @@ impl Stockable {
             },
             Stockable::Building(building_type) => match building_type {
                 BuildingType::House => (1, 2)
+            },
+            Stockable::Npc(npc_type) => match npc_type {
+                NpcType::OldMan => (2, 1)
             }
         }
     }
