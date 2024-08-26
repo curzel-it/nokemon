@@ -23,7 +23,7 @@ impl Hero {
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
             },
-            sprite: AnimatedSprite::new_humanoid(2),
+            sprite: AnimatedSprite::new_humanoid(3),
         }
     }
 }
