@@ -71,6 +71,7 @@ impl BiomeTile {
                 (Biome::Snow, Biome::Rock) => 0,
                 (Biome::Grass, Biome::DarkRock) => 0,
                 (Biome::Water, Biome::DarkRock) => 0,
+                (_, Biome::Nothing) => 0,
                 _ => neighbor.texture_index() * Biome::number_of_combinations() + self.texture_index_for_directions(&directions) + 1
             }
         }        
