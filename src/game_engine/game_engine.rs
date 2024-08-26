@@ -146,6 +146,7 @@ impl GameEngine {
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::BuildingInteraction(id) => self.menu.show_building_interaction(id),
+            EngineStateUpdate::NpcInteraction(id) => self.menu.show_npc_interaction(id),
         }
     }
 

@@ -19,6 +19,7 @@ pub enum EngineStateUpdate {
     SwitchWorld(Uuid),
     SaveGame,
     BuildingInteraction(Uuid),
+    NpcInteraction(Uuid),
 }
 
 #[cfg(test)]

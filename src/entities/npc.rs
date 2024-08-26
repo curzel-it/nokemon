@@ -3,7 +3,7 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -52,6 +52,21 @@ impl_humanoid_sprite_update!(Npc);
 
 impl Entity for Npc {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+        if world.keyboard_state.has_confirmation_been_pressed { 
+            let hero = world.cached_hero_props.hittable_frame;
+            let hero_direction = world.cached_hero_props.direction;
+
+            if hero.is_around_and_pointed_at(&hero_direction, &self.body.frame) {      
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::NpcInteraction(
+                            self.body.id
+                        )
+                    )
+                ];   
+            }
+        }
+
         move_linearly(self, world, time_since_last_update);
         self.update_sprite(time_since_last_update);
         vec![]

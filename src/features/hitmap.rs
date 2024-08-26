@@ -15,11 +15,16 @@ impl World {
             if let Some(entity) = entities.get(id) {
                 if entity.body().is_rigid {                
                     let frame = entity.body().frame;
-                    let row = frame.y as usize;
                     let col = frame.x as usize;
+                    
+                    let (row, height) = if frame.h == 1 { 
+                        (frame.y as usize, 1) 
+                    } else { 
+                        (frame.y  as usize + 1, frame.h as usize - 1) 
+                    };
 
                     for offset_x in 0..frame.w as usize {
-                        for offset_y in 0..frame.h as usize {
+                        for offset_y in 0..height as usize {
                             hitmap[row + offset_y][col + offset_x] = true;
                         }                    
                     }

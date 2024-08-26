@@ -20,7 +20,8 @@ enum MenuState {
     Open,
     MapEditor,
     PlaceItem,
-    BuildingInteraction(Uuid)
+    BuildingInteraction(Uuid),
+    NpcInteraction(Uuid),
 }
 
 pub struct MenuUpdateResult {
@@ -63,6 +64,10 @@ impl Menu {
         self.state = MenuState::BuildingInteraction(id.clone());
     }
 
+    pub fn show_npc_interaction(&mut self, id: &Uuid) {
+        self.state = MenuState::NpcInteraction(id.clone());
+    }
+
     pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> MenuUpdateResult {
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard_state),
@@ -70,6 +75,7 @@ impl Menu {
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard_state),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard_state),
             MenuState::BuildingInteraction(id) => self.update_from_building_interaction(id, keyboard_state),
+            MenuState::NpcInteraction(id) => self.update_from_npc_interaction(id, keyboard_state),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -79,14 +85,26 @@ impl Menu {
 }
 
 impl Menu {
+    fn update_from_npc_interaction(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+        if keyboard_state.has_back_been_pressed {
+            self.state = MenuState::Closed;
+        }
+        if keyboard_state.has_confirmation_been_pressed {
+            self.state = MenuState::Closed;
+            let remove = WorldStateUpdate::RemoveEntity(id);
+            return vec![remove];
+        }
+        vec![]
+    }
+
     fn update_from_building_interaction(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
         if keyboard_state.has_confirmation_been_pressed {
             self.state = MenuState::Closed;
-            let remove_building = WorldStateUpdate::RemoveEntity(id);
-            return vec![remove_building];
+            let remove = WorldStateUpdate::RemoveEntity(id);
+            return vec![remove];
         }
         vec![]
     }
@@ -179,8 +197,25 @@ impl Menu {
             MenuState::Open => with_backdrop(self.menu_ui()),
             MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(uuid) => with_backdrop(self.remove_building_ui(&uuid))
+            MenuState::BuildingInteraction(uuid) => with_backdrop(self.remove_building_ui(&uuid)),
+            MenuState::NpcInteraction(uuid) => with_backdrop(self.remove_npc_ui(&uuid)),
         }
+    }
+
+    fn remove_npc_ui(&self, uuid: &Uuid) -> View {
+        padding(
+            Spacing::LG,
+            zstack!(
+                Spacing::LG,
+                Color::BLACK,
+                vstack!(
+                    Spacing::LG, 
+                    text!(TextStyle::Title, "Remove NPC?".to_string()),
+                    text!(TextStyle::Regular, format!("{}", uuid)),
+                    text!(TextStyle::Regular, "Press SPACE to remove the NPC.\nPress ESC to cancel.".to_string())
+                )
+            )
+        )
     }
 
     fn remove_building_ui(&self, uuid: &Uuid) -> View {
