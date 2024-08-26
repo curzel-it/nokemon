@@ -58,3 +58,69 @@ impl World {
         hitmap
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use crate::{entities::npc::{Npc, NpcType}, game_engine::entity_body::EmbodiedEntity, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::rect::Rect};
+    
+    use uuid::Uuid;
+
+    #[test]
+    fn test_hitmap_with_rigid_entity_excludes_top_row() {
+        let mut world = World::new(Uuid::new_v4());        
+        let mut npc = Npc::new(NpcType::OldMan);
+        npc.body_mut().frame = Rect::new(5, 5, 2, 2);         
+        let id = world.add_entity(Box::new(npc));
+        world.visible_entities.insert(id);
+        
+        let hitmap = world.compute_hitmap();
+        assert!(hitmap[6][5]);
+        assert!(hitmap[6][6]);
+        assert!(!hitmap[5][5]);
+        assert!(!hitmap[5][6]);
+    }
+
+    #[test]
+    fn test_hitmap_ignores_non_rigid_entity() {
+        let mut world = World::new(Uuid::new_v4());
+        let mut npc = Npc::new(NpcType::OldMan);
+        npc.body_mut().frame = Rect::new(5, 5, 2, 2);
+        npc.body_mut().is_rigid = false;
+        
+        let id = world.add_entity(Box::new(npc));
+        world.visible_entities.insert(id);
+        
+        let hitmap = world.compute_hitmap();
+        assert!(!hitmap[6][5]);
+        assert!(!hitmap[6][6]);
+        assert!(!hitmap[5][5]);
+        assert!(!hitmap[5][6]);
+    }
+
+    #[test]
+    fn test_hitmap_with_biome_tiles() {
+        let mut world = World::new(Uuid::new_v4());
+        world.bounds = Rect::new(0, 0, 10, 10);
+        world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
+        
+        world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data(0, 0, 0); 10]; 10];
+        world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, 0); 10]; 10];
+        world.biome_tiles.tiles[5][5].tile_type = Biome::Water;
+        
+        let hitmap = world.compute_hitmap();
+
+        assert!(!hitmap[4][4]);
+        assert!(!hitmap[4][5]);
+        assert!(!hitmap[4][6]);
+
+        assert!(!hitmap[5][4]);
+        assert!(hitmap[5][5]);
+        assert!(!hitmap[5][6]);
+
+        assert!(!hitmap[6][4]);
+        assert!(!hitmap[6][5]);
+        assert!(!hitmap[6][6]);
+    }
+}
