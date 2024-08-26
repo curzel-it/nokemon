@@ -24,8 +24,7 @@ impl BuildingType {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Building {
     body: EntityBody,
-    building_type: BuildingType,
-    sprite_sheet: u32
+    building_type: BuildingType
 }
 
 impl Building {
@@ -46,8 +45,7 @@ impl Building {
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
             },      
-            building_type,
-            sprite_sheet: SPRITE_SHEET_BUILDINGS,
+            building_type
         }
     }
 }
@@ -79,7 +77,7 @@ impl Entity for Building {
     }
 
     fn sprite_sheet(&self) -> u32 {
-        self.sprite_sheet
+        SPRITE_SHEET_BUILDINGS
     }
     
     fn as_any(&self) -> &dyn Any {

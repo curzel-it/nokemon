@@ -3,13 +3,13 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, features::animated_sprite::AnimatedSprite, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_single_animation_sprite_update, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
     body: EntityBody,
     pub destination: Uuid,
-    sprite: AnimatedSprite,
+    creative_mode: bool
 }
 
 impl Teleporter {
@@ -28,19 +28,16 @@ impl Teleporter {
                 lifespan: INFINITE_LIFESPAN,
             },
             destination,
-            sprite: AnimatedSprite::new(SPRITE_SHEET_TELEPORTER, 3, 1, 1),
+            creative_mode: false
         }
     }
 }
 
 impl_embodied_entity!(Teleporter);
-impl_single_animation_sprite_update!(Teleporter);
 
 impl Entity for Teleporter {
-    fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        self.update_sprite(time_since_last_update);
-
-        self.sprite.row = if world.creative_mode { 0 } else { 1 };
+    fn update(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {
+        self.creative_mode = world.creative_mode;
 
         if self.should_teleport(world) {
             return vec![self.engine_update_push_world()];
@@ -49,11 +46,12 @@ impl Entity for Teleporter {
     }
 
     fn texture_source_rect(&self) -> Rect {
-        self.sprite.texture_source_rect()
+        let row = if self.creative_mode { 0 } else { 1 };
+        Rect::new(0, row, 1, 1)
     }
 
     fn sprite_sheet(&self) -> u32 {
-        self.sprite.sheet_id
+        SPRITE_SHEET_TELEPORTER
     }
     
     fn as_any(&self) -> &dyn Any {
