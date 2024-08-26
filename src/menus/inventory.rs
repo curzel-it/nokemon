@@ -23,6 +23,7 @@ impl Stockable {
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
             Stockable::Building(BuildingType::House),
+            Stockable::Building(BuildingType::HouseTwoFloors),
             Stockable::Npc(NpcType::OldMan),
             Stockable::ConstructionTile(Construction::Nothing),
         ]
@@ -53,7 +54,8 @@ impl Stockable {
                 Construction::LightWall => (1, 6),
             },
             Stockable::Building(building_type) => match building_type {
-                BuildingType::House => (1, 2)
+                BuildingType::House => (1, 2),
+                BuildingType::HouseTwoFloors => (1, 7)
             },
             Stockable::Npc(npc_type) => match npc_type {
                 NpcType::OldMan => (2, 1)

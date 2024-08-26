@@ -7,15 +7,17 @@ use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_BUILDINGS}, game_engine:
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
-    House
+    House,
+    HouseTwoFloors,
 }
 
 impl BuildingType {
     fn texture_source_rect(&self) -> Rect {
-        let (row, w, h) = match self {
-            BuildingType::House => (0, 5, 4)
+        let (x, y, w, h) = match self {
+            BuildingType::House => (0, 0, 5, 4),
+            BuildingType::HouseTwoFloors => (5, 0, 5, 5),
         };
-        Rect::new(0, row, w, h)
+        Rect::new(x, y, w, h)
     }
 }
 
