@@ -104,17 +104,6 @@ macro_rules! impl_bullet_sprite_update {
     };
 }
 
-#[macro_export]
-macro_rules! impl_single_animation_sprite_update {
-    ($struct_name:ident) => {
-        impl $struct_name {
-            fn update_sprite(&mut self, time_since_last_update: f32) {
-                self.sprite.update(time_since_last_update);
-            }
-        }
-    };
-}
-
 #[derive(Serialize, Deserialize)]
 struct AnimatedSpriteData {
     sheet_id: u32,
