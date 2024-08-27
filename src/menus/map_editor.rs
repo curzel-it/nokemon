@@ -1,7 +1,7 @@
 use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -183,7 +183,16 @@ impl MapEditor {
            Stockable::ConstructionTile(construction) => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
            Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
            Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
+           Stockable::HouseholdObject(household_object) => self.place_household_object(camera_vieport, frame, household_object),
         }
+    }
+
+    fn place_household_object(&self, camera_vieport: &Rect, frame: &Rect, object_type: HouseholdObject) -> Vec<WorldStateUpdate> {
+        let mut building = object_type.make_entity();
+        building.body_mut().frame.x = camera_vieport.x + frame.x;
+        building.body_mut().frame.y = camera_vieport.y + frame.y;
+        let update = WorldStateUpdate::AddEntity(Box::new(building));
+        vec![update]
     }
 
     fn place_building(&self, camera_vieport: &Rect, frame: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
