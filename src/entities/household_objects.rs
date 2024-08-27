@@ -10,25 +10,19 @@ pub enum HouseholdObject {
 impl HouseholdObject {
     pub fn make_entity(&self) -> SimpleEntity {
         let is_rigid = self.is_rigid();
-        let (width, height) = self.entity_size();
+        let frame = self.texture_source_rect();
         
         SimpleEntity::new(
             is_rigid, 
-            width, height, 
+            frame.w, frame.h, 
             SPRITE_SHEET_HOUSEHOLD_OBJECTS, 
-            self.texture_source_rect()
+            frame
         )
     }
 
     fn is_rigid(&self) -> bool {
         match self {
             HouseholdObject::Stairs => true,
-        }
-    }
-
-    fn entity_size(&self) -> (u32, u32) {
-        match self {
-            HouseholdObject::Stairs => (1, 1),
         }
     }
 

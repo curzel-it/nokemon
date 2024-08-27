@@ -100,7 +100,7 @@ impl GameEngine {
         textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack").unwrap());
         textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "teleporter").unwrap());
         textures.insert(SPRITE_SHEET_HUMANOIDS, texture(rl, thread, "humanoids").unwrap());
-        textures.insert(SPRITE_SHEET_HOUSEHOLD_OBJECTS, texture(rl, thread, "household_object").unwrap());
+        textures.insert(SPRITE_SHEET_HOUSEHOLD_OBJECTS, texture(rl, thread, "household_objects").unwrap());
         textures
     }
 
