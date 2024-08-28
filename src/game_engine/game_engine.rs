@@ -13,6 +13,7 @@ pub struct GameEngine {
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
+    pub is_running: bool,
     creative_mode: bool,
 }
 
@@ -24,6 +25,7 @@ impl GameEngine {
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
             ui_config: None,
+            is_running: true,
             creative_mode: false
         }
     }
@@ -146,9 +148,14 @@ impl GameEngine {
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
+            EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::BuildingInteraction(id) => self.menu.show_building_interaction(id),
             EngineStateUpdate::NpcInteraction(id) => self.menu.show_npc_interaction(id),
         }
+    }
+
+    fn exit(&mut self) {
+        self.is_running = false;
     }
 
     fn save(&self) {

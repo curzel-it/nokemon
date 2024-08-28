@@ -27,12 +27,15 @@ fn main() {
     engine.set_creative_mode(creative_mode);
     
     let (mut rl, thread) = engine.start_rl();
-
-    while !rl.window_should_close() || rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE) {     
+    
+    while engine.is_running {
         let time_since_last_update = rl.get_frame_time();
 
         if rl.is_window_resized() {
             engine.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
+        }
+        if rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE) {
+            engine.is_running = false;
         }
 
         engine.update_rl(time_since_last_update, &rl);

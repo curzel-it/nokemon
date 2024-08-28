@@ -236,7 +236,7 @@ impl MapEditor {
             Spacing::LG,
             zstack!(
                 Spacing::LG,
-                Color::BLACK,
+                self.background_color(),
                 match self.state {
                     MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
                     MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
@@ -247,10 +247,17 @@ impl MapEditor {
         )
     }
 
+    fn background_color(&self) -> Color {
+        match self.state {
+            MapEditorState::PlacingItem(_, _, _) => Color::BLACK.alpha(0.3),
+            MapEditorState::PlacingWorld(_, _, _) => Color::BLACK.alpha(0.3),
+            _ => Color::BLACK
+        }
+    }
+
     fn placement_ui(&self, camera_offset: &Vector2d, frame: &Rect) -> View {
         vstack!(
             Spacing::MD,
-            text!(TextStyle::LargeTitle, "Map Editor".to_string()),
             text!(TextStyle::Regular, "Press SPACE to place\nPress ESC to go back".to_string()),
             with_fixed_position(
                 Vector2d::new(

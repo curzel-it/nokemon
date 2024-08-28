@@ -18,7 +18,8 @@ pub enum TextStyle {
     LargeTitle,
     Title,
     Regular,
-    Bold
+    Bold,
+    Caption
 }
 
 pub enum Spacing {
@@ -27,6 +28,7 @@ pub enum Spacing {
     SM, 
     MD,
     LG,
+    XL,
     Custom(f32),
     TextLineSpacing(TextStyle),
 }
@@ -36,10 +38,13 @@ pub struct GridSpacing {
     between_rows: Spacing,
 }
 
-pub enum Corner {
+pub enum AnchorPoint {
     TopLeft,
+    TopCenter,
     TopRight,
+    Center,
     BottomLeft,
+    BottomCenter,
     BottomRight,
 }
 
@@ -155,8 +160,8 @@ pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, po
     view.render(d, config, position);
 }
 
-pub fn render_from(corner: Corner, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
-    view.render_from(d, config, position, corner);
+pub fn render_from(anchor_point: AnchorPoint, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
+    view.render_from(d, config, position, anchor_point);
 }
 
 impl GridSpacing {
@@ -179,6 +184,7 @@ impl RenderingConfig {
             TextStyle::Title => 12.0,
             TextStyle::Bold => 8.0,
             TextStyle::Regular => 8.0,
+            TextStyle::Caption => 4.0
         }
     }
 
@@ -199,6 +205,7 @@ impl Spacing {
             Spacing::SM => 4.0,
             Spacing::MD => 8.0,
             Spacing::LG => 12.0,
+            Spacing::XL => 20.0,
             Spacing::Custom(value) => *value,
             Spacing::TextLineSpacing(_) => 4.0,
         }
@@ -221,6 +228,7 @@ impl RenderingConfig {
             TextStyle::Title => &self.font_bold,
             TextStyle::Bold => &self.font_bold,
             TextStyle::Regular => &self.font,
+            TextStyle::Caption => &self.font,
         }
     }
 
@@ -239,18 +247,21 @@ impl View {
         d: &mut RaylibDrawHandle, 
         config: &RenderingConfig, 
         position: &Vector2d,
-        corner: Corner
+        anchor_point: AnchorPoint
     ) {
-        if let Corner::TopLeft = corner {
+        if let AnchorPoint::TopLeft = anchor_point {
             return self.render(d, config, position);
         }
         let size = self.calculate_size(config);
 
-        let (x, y) = match corner {
-            Corner::TopLeft => (position.x, position.y),
-            Corner::TopRight => (position.x - size.x, position.y),
-            Corner::BottomRight => (position.x - size.x, position.y - size.y),
-            Corner::BottomLeft => (position.x, position.y - size.y)
+        let (x, y) = match anchor_point {
+            AnchorPoint::TopLeft => (position.x, position.y),
+            AnchorPoint::TopCenter => (position.x - size.x / 2.0, position.y),
+            AnchorPoint::TopRight => (position.x - size.x, position.y),
+            AnchorPoint::Center => (position.x - size.x / 2.0, position.y - size.y / 2.0),
+            AnchorPoint::BottomRight => (position.x - size.x, position.y - size.y),
+            AnchorPoint::BottomCenter => (position.x - size.x / 2.0, position.y - size.y),
+            AnchorPoint::BottomLeft => (position.x, position.y - size.y)
         };
 
         let real_position = Vector2d::new(x, y);

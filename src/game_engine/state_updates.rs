@@ -18,6 +18,7 @@ pub enum EngineStateUpdate {
     CenterCamera(u32, u32, Vector2d),
     SwitchWorld(Uuid),
     SaveGame,
+    Exit,
     BuildingInteraction(Uuid),
     NpcInteraction(Uuid),
 }

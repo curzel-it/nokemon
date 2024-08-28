@@ -33,6 +33,7 @@ pub struct MenuUpdateResult {
 enum MenuItem {
     Save,
     MapEditor,
+    Exit,
 }
 
 impl Menu {
@@ -43,16 +44,14 @@ impl Menu {
             map_editor: MapEditor::new(),
             items: vec![
                 MenuItem::Save,
-                MenuItem::MapEditor,
+                MenuItem::Exit,
             ]
         }
     }
 
     pub fn set_creative_mode(&mut self, creative_mode: bool) {
-        self.items = self.items.clone().into_iter().filter(|item| !item.is_map_editor()).collect();
-
         if creative_mode {
-            self.items.push(MenuItem::MapEditor)
+            self.items.insert(1, MenuItem::MapEditor);
         }
     }
 
@@ -172,6 +171,12 @@ impl Menu {
             MenuItem::Save => {
                 return Some(vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)]);
             },
+            MenuItem::Exit => {
+                return Some(vec![
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit)
+                ]);
+            },
         }
         None
     }
@@ -181,12 +186,9 @@ impl MenuItem {
     fn title(&self) -> String {
         match self {
             MenuItem::Save => "Save Game".to_string(),
-            MenuItem::MapEditor => "MapEditor".to_string(),
+            MenuItem::MapEditor => "Map Editor".to_string(),
+            MenuItem::Exit => "Save & Exit".to_string(),
         }
-    }
-
-    fn is_map_editor(&self) -> bool {
-        matches!(self, MenuItem::MapEditor)
     }
 }
 
@@ -241,18 +243,19 @@ impl Menu {
                 Spacing::LG,
                 Color::BLACK,
                 vstack!(
-                    Spacing::LG, 
+                    Spacing::XL, 
                     text!(TextStyle::Title, "Game Menu".to_string()),
                     View::VStack {                        
-                        spacing: Spacing::MD,
+                        spacing: Spacing::LG,
                         children: self.items.iter().enumerate().map(|(index, item)| {
                             if index == self.selected_index {
-                                text!(TextStyle::Bold, format!("> {}", item.title()))
+                                text!(TextStyle::Bold, format!(" > {}", item.title()))
                             } else {
-                                text!(TextStyle::Regular, item.title())
+                                text!(TextStyle::Regular, format!(" {}", item.title()))
                             }                            
                         }).collect()
-                    }
+                    },
+                    text!(TextStyle::Caption, "Thanks for playing. @HiddenMugs".to_string())
                 )
             )
         )
