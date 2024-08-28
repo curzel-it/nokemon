@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,
@@ -59,6 +59,24 @@ pub enum View {
     HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
     FixedPosition { position: Vector2d, children: Vec<View> },
+    TexturedBorder { borders: BordersTextures, children: Vec<View> }
+}
+
+pub struct TextureInfo {
+    pub key: u32,
+    pub source_rect: Rect
+}
+
+pub struct BordersTextures {
+    pub corner_top_left: TextureInfo,
+    pub corner_top_right: TextureInfo,
+    pub corner_bottom_right: TextureInfo,
+    pub corner_bottom_left: TextureInfo,
+    pub side_top: TextureInfo,
+    pub side_right: TextureInfo,
+    pub side_bottom: TextureInfo,
+    pub side_left: TextureInfo,
+    pub fill: TextureInfo,
 }
 
 #[macro_export]
@@ -154,6 +172,38 @@ pub fn with_backdrop(content: View) -> View {
 
 pub fn with_fixed_position(position: Vector2d, content: View) -> View {
     View::FixedPosition { position, children: vec![content] }
+}
+
+pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
+    View::TexturedBorder { borders, children: vec![content] }
+}
+
+pub fn scaffold_with_bg(background_color: Color, content: View) -> View {
+    let key = SPRITE_SHEET_MENU;
+
+    with_backdrop(
+        padding(
+            Spacing::LG,
+            with_textured_border(
+                BordersTextures {
+                    corner_top_left: TextureInfo { key, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
+                    corner_top_right: TextureInfo { key, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
+                    corner_bottom_right: TextureInfo { key, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
+                    corner_bottom_left: TextureInfo { key, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
+                    side_top: TextureInfo { key, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
+                    side_right: TextureInfo { key, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
+                    side_bottom: TextureInfo { key, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
+                    side_left: TextureInfo { key, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
+                    fill: TextureInfo { key, source_rect: Rect { x: 1, y: 1, w: 1, h: 1 } },
+                }, 
+                zstack!(Spacing::LG, background_color, content)
+            )
+        )
+    )
+}
+
+pub fn scaffold(content: View) -> View {
+    scaffold_with_bg(Color::BLACK, content)
 }
 
 pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
@@ -305,7 +355,75 @@ impl View {
             View::FixedPosition { position, children } => {
                 self.render_fixed_position(d, config, position, children)
             }
+            View::TexturedBorder { borders, children } => {
+                self.render_textured_borders(d, config, borders, position, children)
+            }
         }
+    }
+
+    fn render_textured_borders(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &RenderingConfig,
+        borders: &BordersTextures,
+        position: &Vector2d,
+        children: &[View]
+    ) {
+        let content_size = self.calculate_zstack_size(config, children, &Spacing::Zero);
+        let base_texture_size = self.calculate_texture_size(config, &Vector2d::new(1.0, 1.0)).x;
+        let size_one = Vector2d::new(1.0, 1.0);
+
+        let top_left = Vector2d { 
+            x: position.x - base_texture_size / 2.0, 
+            y: position.y - base_texture_size / 2.0, 
+        };
+        let top_right = Vector2d { 
+            x: position.x + content_size.x - base_texture_size / 2.0, 
+            y: position.y - base_texture_size / 2.0, 
+        };
+        let bottom_right = Vector2d { 
+            x: position.x + content_size.x - base_texture_size / 2.0,
+            y: position.y + content_size.y - base_texture_size / 2.0,
+        };
+        let bottom_left = Vector2d { 
+            x: position.x - base_texture_size / 2.0, 
+            y: position.y + content_size.y - base_texture_size / 2.0,
+        };
+        let side_top = Vector2d { 
+            x: position.x + base_texture_size / 2.0, 
+            y: position.y - base_texture_size / 2.0, 
+        };
+        let side_right = Vector2d { 
+            x: position.x + content_size.x - base_texture_size / 2.0, 
+            y: position.y + base_texture_size / 2.0, 
+        };
+        let side_bottom = Vector2d { 
+            x: position.x + base_texture_size / 2.0, 
+            y: position.y + content_size.y - base_texture_size / 2.0, 
+        };
+        let side_left = Vector2d { 
+            x: position.x - base_texture_size / 2.0, 
+            y: position.y + base_texture_size / 2.0, 
+        };
+        let side_horizontal_size = Vector2d { 
+            x: (content_size.x / config.rendering_scale) / TILE_SIZE - 1.0, 
+            y: 1.0
+        };
+        let side_vertical_size = Vector2d { 
+            x: 1.0, 
+            y: (content_size.y / config.rendering_scale) / TILE_SIZE - 1.0, 
+        };
+
+        self.render_texture(d, config, &borders.fill.key, &borders.fill.source_rect, &position, &content_size);        
+        self.render_zstack(d, config, position, children, &Spacing::Zero, Color::RED.alpha(0.0));        
+        self.render_texture(d, config, &borders.corner_top_left.key, &borders.corner_top_left.source_rect, &top_left, &size_one);
+        self.render_texture(d, config, &borders.corner_top_right.key, &borders.corner_top_right.source_rect, &top_right, &size_one);
+        self.render_texture(d, config, &borders.corner_bottom_right.key, &borders.corner_bottom_right.source_rect, &bottom_right, &size_one);
+        self.render_texture(d, config, &borders.corner_bottom_left.key, &borders.corner_bottom_left.source_rect, &bottom_left, &size_one);        
+        self.render_texture(d, config, &borders.side_top.key, &borders.side_top.source_rect, &side_top, &side_horizontal_size);
+        self.render_texture(d, config, &borders.side_right.key, &borders.side_right.source_rect, &side_right, &side_vertical_size);
+        self.render_texture(d, config, &borders.side_bottom.key, &borders.side_bottom.source_rect, &side_bottom, &side_horizontal_size);
+        self.render_texture(d, config, &borders.side_left.key, &borders.side_left.source_rect, &side_left, &side_vertical_size);
     }
 
     fn render_zstack(
@@ -546,7 +664,14 @@ impl View {
             View::FixedPosition { position: _, children } => {
                 self.calculate_fixed_position_size(config, children)                
             }
+            View::TexturedBorder { borders: _, children } => {
+                self.calculate_textured_border_size(config, children)                
+            }
         }
+    }
+
+    fn calculate_textured_border_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
+        self.calculate_zstack_size(config, children, &Spacing::Zero)
     }
 
     fn calculate_texture_size(&self, config: &RenderingConfig, size: &Vector2d) -> Vector2d {

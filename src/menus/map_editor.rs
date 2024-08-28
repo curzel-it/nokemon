@@ -1,7 +1,7 @@
 use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{padding, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -232,18 +232,14 @@ impl MapEditor {
 
 impl MapEditor {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
-        padding(
-            Spacing::LG,
-            zstack!(
-                Spacing::LG,
-                self.background_color(),
-                match self.state {
-                    MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
-                    MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
-                    MapEditorState::PlacingItem(_, _, frame) => self.placement_ui(camera_offset, &frame),
-                    MapEditorState::PlacingWorld(_, _, frame) => self.placement_ui(camera_offset, &frame),
-                }
-            )
+        scaffold_with_bg(
+            self.background_color(),
+            match self.state {
+                MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
+                MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
+                MapEditorState::PlacingItem(_, _, frame) => self.placement_ui(camera_offset, &frame),
+                MapEditorState::PlacingWorld(_, _, frame) => self.placement_ui(camera_offset, &frame),
+            }
         )
     }
 

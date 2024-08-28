@@ -1,8 +1,6 @@
-
-use raylib::color::Color;
 use uuid::Uuid;
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{padding, with_backdrop, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack};
 
 use super::map_editor::MapEditor;
 
@@ -196,67 +194,52 @@ impl Menu {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::Zero),
-            MenuState::Open => with_backdrop(self.menu_ui()),
-            MenuState::MapEditor => with_backdrop(self.map_editor.ui(camera_offset)),
+            MenuState::Open => self.menu_ui(),
+            MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(uuid) => with_backdrop(self.remove_building_ui(&uuid)),
-            MenuState::NpcInteraction(uuid) => with_backdrop(self.remove_npc_ui(&uuid)),
+            MenuState::BuildingInteraction(uuid) => self.remove_building_ui(&uuid),
+            MenuState::NpcInteraction(uuid) => self.remove_npc_ui(&uuid),
         }
     }
 
-    fn remove_npc_ui(&self, uuid: &Uuid) -> View {
-        padding(
-            Spacing::LG,
-            zstack!(
-                Spacing::LG,
-                Color::BLACK,
-                vstack!(
-                    Spacing::LG, 
-                    text!(TextStyle::Title, "Remove NPC?".to_string()),
-                    text!(TextStyle::Regular, format!("{}", uuid)),
-                    text!(TextStyle::Regular, "Press SPACE to remove the NPC.\nPress ESC to cancel.".to_string())
-                )
+    fn remove_npc_ui(&self, uuid: &Uuid) -> View {     
+        scaffold(
+            vstack!(
+                Spacing::LG, 
+                text!(TextStyle::Title, "Remove NPC?".to_string()),
+                text!(TextStyle::Regular, format!("{}", uuid)),
+                text!(TextStyle::Regular, "Press SPACE to remove the NPC.\nPress ESC to cancel.".to_string())
             )
         )
     }
 
-    fn remove_building_ui(&self, uuid: &Uuid) -> View {
-        padding(
-            Spacing::LG,
-            zstack!(
-                Spacing::LG,
-                Color::BLACK,
-                vstack!(
-                    Spacing::LG, 
-                    text!(TextStyle::Title, "Remove Building?".to_string()),
-                    text!(TextStyle::Regular, format!("{}", uuid)),
-                    text!(TextStyle::Regular, "Press SPACE to remove the building.\nPress ESC to cancel.".to_string())
-                )
+    fn remove_building_ui(&self, uuid: &Uuid) -> View {     
+        scaffold(
+            vstack!(
+                Spacing::LG, 
+                text!(TextStyle::Title, "Remove Building?".to_string()),
+                text!(TextStyle::Regular, format!("{}", uuid)),
+                text!(TextStyle::Regular, "Press SPACE to remove the building.\nPress ESC to cancel.".to_string())
             )
         )
     }
 
-    fn menu_ui(&self) -> View {        
-        padding(
-            Spacing::LG,
-            zstack!(
-                Spacing::LG,
-                Color::BLACK,
-                vstack!(
-                    Spacing::XL, 
-                    text!(TextStyle::Title, "Game Menu".to_string()),
-                    View::VStack {                        
-                        spacing: Spacing::LG,
-                        children: self.items.iter().enumerate().map(|(index, item)| {
-                            if index == self.selected_index {
-                                text!(TextStyle::Bold, format!(" > {}", item.title()))
-                            } else {
-                                text!(TextStyle::Regular, format!(" {}", item.title()))
-                            }                            
-                        }).collect()
-                    },
-                    text!(TextStyle::Caption, "Thanks for playing. @HiddenMugs".to_string())
-                )
+    fn menu_ui(&self) -> View {            
+        scaffold(
+            vstack!(
+                Spacing::XL, 
+                text!(TextStyle::Title, "Game Menu".to_string()),
+                View::VStack {                        
+                    spacing: Spacing::LG,
+                    children: self.items.iter().enumerate().map(|(index, item)| {
+                        if index == self.selected_index {
+                            text!(TextStyle::Bold, format!(" > {}", item.title()))
+                        } else {
+                            text!(TextStyle::Regular, format!(" {}", item.title()))
+                        }                            
+                    }).collect()
+                },
+                text!(TextStyle::Caption, "Thanks for playing. @HiddenMugs".to_string())
             )
         )
     }
