@@ -21,6 +21,7 @@ pub enum EngineStateUpdate {
     Exit,
     BuildingInteraction(Uuid),
     NpcInteraction(Uuid),
+    EntityInteraction(Uuid)
 }
 
 #[cfg(test)]

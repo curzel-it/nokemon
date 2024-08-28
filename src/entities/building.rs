@@ -60,7 +60,7 @@ impl Entity for Building {
         if !world.creative_mode { return vec![] }
         if !world.keyboard_state.has_confirmation_been_pressed { return vec![] }
 
-        if hero.is_around_and_pointed_at(&hero_direction, &self.body.frame) {        
+        if hero.is_around_and_pointed_at(&self.body.frame, &hero_direction) {      
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::BuildingInteraction(
@@ -68,7 +68,7 @@ impl Entity for Building {
                     )
                 )
             ];   
-        } 
+        }
         vec![]
     }
 

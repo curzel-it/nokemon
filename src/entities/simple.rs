@@ -3,7 +3,7 @@ use std::any::Any;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::WorldStateUpdate, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SimpleEntity {
@@ -36,7 +36,22 @@ impl SimpleEntity {
 impl_embodied_entity!(SimpleEntity);
 
 impl Entity for SimpleEntity {
-    fn update(&mut self, _: &World, _: f32) -> Vec<WorldStateUpdate> {
+    fn update(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {
+        let hero = world.cached_hero_props.hittable_frame;
+        let hero_direction = world.cached_hero_props.direction;
+        
+        if !world.creative_mode { return vec![] }
+        if !world.keyboard_state.has_confirmation_been_pressed { return vec![] }
+
+        if hero.is_around_and_pointed_at(&self.body.frame, &hero_direction) {      
+            return vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::EntityInteraction(
+                        self.body.id
+                    )
+                )
+            ];   
+        }
         vec![]
     }
 

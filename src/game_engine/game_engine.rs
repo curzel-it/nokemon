@@ -152,6 +152,7 @@ impl GameEngine {
             EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::BuildingInteraction(id) => self.menu.show_building_interaction(id),
             EngineStateUpdate::NpcInteraction(id) => self.menu.show_npc_interaction(id),
+            EngineStateUpdate::EntityInteraction(id) => self.menu.show_entity_interaction(id),
         }
     }
 

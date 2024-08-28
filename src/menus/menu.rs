@@ -20,6 +20,7 @@ enum MenuState {
     PlaceItem,
     BuildingInteraction(Uuid),
     NpcInteraction(Uuid),
+    EntityInteraction(Uuid),
 }
 
 pub struct MenuUpdateResult {
@@ -61,6 +62,10 @@ impl Menu {
         self.state = MenuState::BuildingInteraction(id.clone());
     }
 
+    pub fn show_entity_interaction(&mut self, id: &Uuid) {
+        self.state = MenuState::EntityInteraction(id.clone());
+    }
+
     pub fn show_npc_interaction(&mut self, id: &Uuid) {
         self.state = MenuState::NpcInteraction(id.clone());
     }
@@ -71,8 +76,9 @@ impl Menu {
             MenuState::Open => self.update_from_open(keyboard_state),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard_state),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard_state),
-            MenuState::BuildingInteraction(id) => self.update_from_building_interaction(id, keyboard_state),
-            MenuState::NpcInteraction(id) => self.update_from_npc_interaction(id, keyboard_state),
+            MenuState::BuildingInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
+            MenuState::NpcInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
+            MenuState::EntityInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -82,19 +88,7 @@ impl Menu {
 }
 
 impl Menu {
-    fn update_from_npc_interaction(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_back_been_pressed {
-            self.state = MenuState::Closed;
-        }
-        if keyboard_state.has_confirmation_been_pressed {
-            self.state = MenuState::Closed;
-            let remove = WorldStateUpdate::RemoveEntity(id);
-            return vec![remove];
-        }
-        vec![]
-    }
-
-    fn update_from_building_interaction(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+    fn close_or_remove_entity(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
@@ -197,29 +191,19 @@ impl Menu {
             MenuState::Open => self.menu_ui(),
             MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(uuid) => self.remove_building_ui(&uuid),
-            MenuState::NpcInteraction(uuid) => self.remove_npc_ui(&uuid),
+            MenuState::BuildingInteraction(uuid) => self.remove_entity_ui(&uuid),
+            MenuState::NpcInteraction(uuid) => self.remove_entity_ui(&uuid),
+            MenuState::EntityInteraction(uuid) => self.remove_entity_ui(&uuid),
         }
     }
 
-    fn remove_npc_ui(&self, uuid: &Uuid) -> View {     
+    fn remove_entity_ui(&self, uuid: &Uuid) -> View {     
         scaffold(
             vstack!(
                 Spacing::LG, 
-                text!(TextStyle::Title, "Remove NPC?".to_string()),
+                text!(TextStyle::Title, "Remove Entity?".to_string()),
                 text!(TextStyle::Regular, format!("{}", uuid)),
-                text!(TextStyle::Regular, "Press SPACE to remove the NPC.\nPress ESC to cancel.".to_string())
-            )
-        )
-    }
-
-    fn remove_building_ui(&self, uuid: &Uuid) -> View {     
-        scaffold(
-            vstack!(
-                Spacing::LG, 
-                text!(TextStyle::Title, "Remove Building?".to_string()),
-                text!(TextStyle::Regular, format!("{}", uuid)),
-                text!(TextStyle::Regular, "Press SPACE to remove the building.\nPress ESC to cancel.".to_string())
+                text!(TextStyle::Regular, "Press SPACE to remove.\nPress ESC to cancel.".to_string())
             )
         )
     }

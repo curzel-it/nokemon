@@ -70,7 +70,7 @@ impl Hero {
             direction: self.body.direction,
             hittable_frame: Rect {
                 x: frame.x,
-                y: frame.y + frame.h - 1,
+                y: frame.y + 1,
                 w: 1,
                 h: 1,
             }

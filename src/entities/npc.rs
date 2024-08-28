@@ -56,7 +56,7 @@ impl Entity for Npc {
             let hero = world.cached_hero_props.hittable_frame;
             let hero_direction = world.cached_hero_props.direction;
 
-            if hero.is_around_and_pointed_at(&hero_direction, &self.body.frame) {      
+            if hero.is_around_and_pointed_at(&self.body.frame, &hero_direction) {      
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::NpcInteraction(
