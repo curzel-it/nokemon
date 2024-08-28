@@ -1,5 +1,3 @@
-use uuid::Uuid;
-
 use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack};
 
 use super::map_editor::MapEditor;
@@ -18,9 +16,9 @@ enum MenuState {
     Open,
     MapEditor,
     PlaceItem,
-    BuildingInteraction(Uuid),
-    NpcInteraction(Uuid),
-    EntityInteraction(Uuid),
+    BuildingInteraction(u32),
+    NpcInteraction(u32),
+    EntityInteraction(u32),
 }
 
 pub struct MenuUpdateResult {
@@ -58,15 +56,15 @@ impl Menu {
         !matches!(&self.state, MenuState::Closed)
     }
 
-    pub fn show_building_interaction(&mut self, id: &Uuid) {
+    pub fn show_building_interaction(&mut self, id: &u32) {
         self.state = MenuState::BuildingInteraction(id.clone());
     }
 
-    pub fn show_entity_interaction(&mut self, id: &Uuid) {
+    pub fn show_entity_interaction(&mut self, id: &u32) {
         self.state = MenuState::EntityInteraction(id.clone());
     }
 
-    pub fn show_npc_interaction(&mut self, id: &Uuid) {
+    pub fn show_npc_interaction(&mut self, id: &u32) {
         self.state = MenuState::NpcInteraction(id.clone());
     }
 
@@ -88,7 +86,7 @@ impl Menu {
 }
 
 impl Menu {
-    fn close_or_remove_entity(&mut self, id: Uuid, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+    fn close_or_remove_entity(&mut self, id: u32, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
@@ -191,13 +189,13 @@ impl Menu {
             MenuState::Open => self.menu_ui(),
             MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(uuid) => self.remove_entity_ui(&uuid),
-            MenuState::NpcInteraction(uuid) => self.remove_entity_ui(&uuid),
-            MenuState::EntityInteraction(uuid) => self.remove_entity_ui(&uuid),
+            MenuState::BuildingInteraction(u32) => self.remove_entity_ui(&u32),
+            MenuState::NpcInteraction(u32) => self.remove_entity_ui(&u32),
+            MenuState::EntityInteraction(u32) => self.remove_entity_ui(&u32),
         }
     }
 
-    fn remove_entity_ui(&self, uuid: &Uuid) -> View {     
+    fn remove_entity_ui(&self, uuid: &u32) -> View {     
         scaffold(
             vstack!(
                 Spacing::LG, 

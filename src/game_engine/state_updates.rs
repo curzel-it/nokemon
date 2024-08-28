@@ -1,12 +1,10 @@
-use uuid::Uuid;
-
 use crate::{maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityProps};
 
 pub enum WorldStateUpdate {
     AddEntity(Box<dyn Entity>),
-    RemoveEntity(Uuid),
+    RemoveEntity(u32),
     CacheHeroProps(EntityProps),
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
@@ -16,12 +14,12 @@ pub enum WorldStateUpdate {
 #[derive(Debug, Clone, Copy)]
 pub enum EngineStateUpdate {
     CenterCamera(u32, u32, Vector2d),
-    SwitchWorld(Uuid),
+    SwitchWorld(u32),
     SaveGame,
     Exit,
-    BuildingInteraction(Uuid),
-    NpcInteraction(Uuid),
-    EntityInteraction(Uuid)
+    BuildingInteraction(u32),
+    NpcInteraction(u32),
+    EntityInteraction(u32)
 }
 
 #[cfg(test)]

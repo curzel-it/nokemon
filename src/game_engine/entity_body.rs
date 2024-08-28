@@ -1,12 +1,10 @@
 use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
-
 use crate::utils::{rect::Rect, vector::Vector2d};
 
 pub trait EmbodiedEntity: Debug {
-    fn id(&self) -> Uuid;    
+    fn id(&self) -> u32;    
     fn body(&self) -> &EntityBody;
     fn body_mut(&mut self) -> &mut EntityBody;    
     fn center_in(&mut self, value: &Rect);
@@ -14,7 +12,7 @@ pub trait EmbodiedEntity: Debug {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EntityBody {
-    pub id: Uuid,
+    pub id: u32,
     pub frame: Rect,  
     pub offset: Vector2d,
     pub direction: Vector2d,

@@ -1,19 +1,18 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use uuid::Uuid;
 use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
-    pub id: Uuid,
+    pub id: u32,
     pub total_elapsed_time: f32,
     pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
-    pub entities: RefCell<HashMap<Uuid, Box<dyn Entity>>>,    
-    pub visible_entities: HashSet<Uuid>,
+    pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
+    pub visible_entities: HashSet<u32>,
     pub keyboard_state: KeyboardState,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
@@ -21,7 +20,7 @@ pub struct World {
 }
 
 impl World {
-    pub fn new(id: Uuid) -> Self {
+    pub fn new(id: u32) -> Self {
         Self {
             id,
             total_elapsed_time: 0.0,
@@ -37,7 +36,7 @@ impl World {
         }
     }
 
-    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> Uuid {
+    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
         let id = entity.id();
         self.entities.borrow_mut().insert(id, entity);
 
@@ -47,7 +46,7 @@ impl World {
         id
     }
 
-    pub fn remove_entity(&mut self, id: &Uuid) {
+    pub fn remove_entity(&mut self, id: &u32) {
         self.entities.borrow_mut().remove(id);
     }
 
@@ -111,7 +110,7 @@ impl World {
         self.constructions_tiles.visible_tiles(viewport)
     }
 
-    pub fn find_teleporter_for_destination(&self, destination: &Uuid) -> Option<Rect> {
+    pub fn find_teleporter_for_destination(&self, destination: &u32) -> Option<Rect> {
         self.entities.borrow().values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .find(|t| t.destination == *destination)

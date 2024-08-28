@@ -1,22 +1,20 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
-
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
     body: EntityBody,
-    pub destination: Uuid,
+    pub destination: u32,
     creative_mode: bool
 }
 
 impl Teleporter {
-    pub fn new(destination: Uuid) -> Self {
+    pub fn new(destination: u32) -> Self {
         Self { 
             body: EntityBody {
-                id: Uuid::new_v4(),
+                id: get_next_id(),
                 frame: Rect::new(0, 0, 1, 1),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),

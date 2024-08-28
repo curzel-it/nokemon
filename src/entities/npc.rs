@@ -1,9 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
-
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -30,7 +28,7 @@ impl Npc {
     pub fn new(npc_type: NpcType) -> Self {
         Self {             
             body: EntityBody {
-                id: Uuid::new_v4(),
+                id: get_next_id(),
                 frame: Rect::new(0, 0, 1, 2),
                 offset: Vector2d::zero(),
                 direction: Vector2d::zero(),

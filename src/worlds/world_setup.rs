@@ -1,9 +1,7 @@
-use uuid::Uuid;
-
 use crate::{entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}, utils::vector::Vector2d};
 
 impl World {
-    pub fn setup(&mut self, source: &Uuid, hero_direction: &Vector2d) {
+    pub fn setup(&mut self, source: &u32, hero_direction: &Vector2d) {
         let mut entity = Hero::new();
         if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
             entity.body_mut().frame.x = teleporter_position.x;

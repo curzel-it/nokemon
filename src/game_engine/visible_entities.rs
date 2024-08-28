@@ -1,13 +1,11 @@
 use std::collections::HashSet;
 
-use uuid::Uuid;
-
 use crate::utils::rect::Rect;
 
 use super::world::World;
 
 impl World {
-    pub fn compute_visible_entities(&self, viewport: &Rect) -> HashSet<Uuid> {
+    pub fn compute_visible_entities(&self, viewport: &Rect) -> HashSet<u32> {
         let min_row = viewport.y;
         let max_row = viewport.y + viewport.h;
         let min_col = viewport.x;

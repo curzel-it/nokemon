@@ -63,13 +63,12 @@ impl World {
 mod tests {
     use super::*;
 
-    use crate::{entities::npc::{Npc, NpcType}, game_engine::entity_body::EmbodiedEntity, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::rect::Rect};
+    use crate::{entities::npc::{Npc, NpcType}, game_engine::entity_body::EmbodiedEntity, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
     
-    use uuid::Uuid;
-
+    
     #[test]
     fn test_hitmap_with_rigid_entity_excludes_top_row() {
-        let mut world = World::new(Uuid::new_v4());        
+        let mut world = World::new(get_next_id());        
         let mut npc = Npc::new(NpcType::OldMan);
         npc.body_mut().frame = Rect::new(5, 5, 2, 2);         
         let id = world.add_entity(Box::new(npc));
@@ -84,7 +83,7 @@ mod tests {
 
     #[test]
     fn test_hitmap_ignores_non_rigid_entity() {
-        let mut world = World::new(Uuid::new_v4());
+        let mut world = World::new(get_next_id());
         let mut npc = Npc::new(NpcType::OldMan);
         npc.body_mut().frame = Rect::new(5, 5, 2, 2);
         npc.body_mut().is_rigid = false;
@@ -101,7 +100,7 @@ mod tests {
 
     #[test]
     fn test_hitmap_with_biome_tiles() {
-        let mut world = World::new(Uuid::new_v4());
+        let mut world = World::new(get_next_id());
         world.bounds = Rect::new(0, 0, 10, 10);
         world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
         

@@ -1,14 +1,12 @@
 use raylib::color::Color;
-use uuid::Uuid;
-
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
 #[derive(Debug)]
 pub struct MapEditor {
     pub stock: Vec<Stockable>,
-    pub worlds: Vec<Uuid>,
+    pub worlds: Vec<u32>,
     state: MapEditorState,
     sprite_sheet: u32,
     columns: usize
@@ -19,7 +17,7 @@ enum MapEditorState {
     SelectingItem(usize),
     SelectingWorld(usize),
     PlacingItem(usize, Stockable, Rect),
-    PlacingWorld(usize, Uuid, Rect),
+    PlacingWorld(usize, u32, Rect),
 }
 
 impl MapEditor {
@@ -29,7 +27,7 @@ impl MapEditor {
             worlds: list_worlds_with_none(),
             state: MapEditorState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
-            columns: 5,
+            columns: 8,
         }
     }
 
@@ -119,7 +117,7 @@ impl MapEditor {
     fn update_world_placement(
         &mut self, 
         selected_index: usize, 
-        destination_id: Uuid,
+        destination_id: u32,
         frame: &Rect, 
         camera_vieport: &Rect, 
         keyboard_state: &KeyboardState
@@ -136,9 +134,9 @@ impl MapEditor {
         vec![]
     }
 
-    fn place_world(&self, destination_id: Uuid, frame: &Rect, camera_vieport: &Rect) -> Vec<WorldStateUpdate> {
+    fn place_world(&self, destination_id: u32, frame: &Rect, camera_vieport: &Rect) -> Vec<WorldStateUpdate> {
         let actual_destination_id = if destination_id == WORLD_ID_NONE { 
-            Uuid::new_v4()
+            get_next_id()
         } else {
             destination_id
         };

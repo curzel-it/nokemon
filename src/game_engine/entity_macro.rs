@@ -2,7 +2,7 @@
 macro_rules! impl_embodied_entity {
     ($struct_name:ident) => {
         impl $crate::game_engine::entity_body::EmbodiedEntity for $struct_name {
-            fn id(&self) -> uuid::Uuid {
+            fn id(&self) -> u32 {
                 self.body.id
             }
 

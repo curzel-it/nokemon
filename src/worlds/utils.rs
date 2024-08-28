@@ -1,23 +1,21 @@
-use uuid::Uuid;
+use crate::{constants::*, utils::file_utils::list_files};
 
-use crate::{constants::{LEVELS_PATH, WORLD_ID_DEMO, WORLD_ID_NONE}, utils::file_utils::list_files};
-
-pub fn world_path(id: Uuid) -> String {
+pub fn world_path(id: u32) -> String {
     format!("{}/{}.json", LEVELS_PATH, id)
 }
 
-pub fn list_worlds_with_none() -> Vec<Uuid> {
-    let mut ids: Vec<Uuid> = list_worlds().into_iter().filter(|uuid| *uuid != WORLD_ID_NONE).collect();
+pub fn list_worlds_with_none() -> Vec<u32> {
+    let mut ids: Vec<u32> = list_worlds().into_iter().filter(|uuid| *uuid != WORLD_ID_NONE).collect();
     ids.push(WORLD_ID_NONE);
     ids
 }
 
-pub fn list_worlds() -> Vec<Uuid> {
+pub fn list_worlds() -> Vec<u32> {
     list_files(LEVELS_PATH, "json")
         .into_iter()
         .filter_map(|path| {
             if let Some(filename) = std::path::Path::new(&path).file_stem() {
-                filename.to_str().and_then(|s| s.parse::<Uuid>().ok())
+                filename.to_str().and_then(|s| s.parse::<u32>().ok())
             } else {
                 None
             }
@@ -25,10 +23,11 @@ pub fn list_worlds() -> Vec<Uuid> {
         .collect()
 }
 
-pub fn world_name(id: &Uuid) -> String {
+pub fn world_name(id: &u32) -> String {
     match *id {
         WORLD_ID_NONE => "New World".to_string(),
         WORLD_ID_DEMO => "Demo World".to_string(),
+        WORLD_ID_DEMO_HOUSE_INTERIOR => "Demo House Interior".to_string(),
         _ => format!("World {}", id),
     }
 }
