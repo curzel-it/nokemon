@@ -28,6 +28,8 @@ pub fn world_name(id: &u32) -> String {
         WORLD_ID_NONE => "New World".to_string(),
         WORLD_ID_DEMO => "Demo World".to_string(),
         WORLD_ID_DEMO_HOUSE_INTERIOR => "Demo House Interior".to_string(),
+        WORLD_ID_DEMO_HOUSE_TWO_FLOORS_INTERIOR => "Demo Two-Floors House | 1st Floor".to_string(),
+        WORLD_ID_DEMO_HOUSE_TWO_FLOORS_SECOND_FLOOR => "Demo Two-Floors House | 2nd Floor".to_string(),
         _ => format!("World {}", id),
     }
 }

@@ -1,4 +1,4 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::list_worlds_with_none};
 
 use super::map_editor::MapEditor;
 
@@ -101,6 +101,7 @@ impl Menu {
     fn update_from_close(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
         if keyboard_state.has_menu_been_pressed {
             self.state = MenuState::Open;
+            self.map_editor.worlds = list_worlds_with_none();
         }
         vec![]
     }

@@ -204,7 +204,7 @@ impl MapEditor {
     fn place_npc(&self, camera_vieport: &Rect, frame: &Rect, npc_type: NpcType) -> Vec<WorldStateUpdate> {
         let mut npc = Npc::new(npc_type);
         npc.body_mut().frame.x = camera_vieport.x + frame.x;
-        npc.body_mut().frame.y = camera_vieport.y + frame.y;
+        npc.body_mut().frame.y = camera_vieport.y + frame.y - 1;
         let update = WorldStateUpdate::AddEntity(Box::new(npc));
         vec![update]
     }
