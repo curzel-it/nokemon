@@ -50,19 +50,14 @@ impl_humanoid_sprite_update!(Npc);
 
 impl Entity for Npc {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        if world.keyboard_state.has_confirmation_been_pressed { 
-            let hero = world.cached_hero_props.hittable_frame;
-            let hero_direction = world.cached_hero_props.direction;
-
-            if hero.is_around_and_pointed_at(&self.body.frame, &hero_direction) {      
-                return vec![
-                    WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::NpcInteraction(
-                            self.body.id
-                        )
+        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.body.frame) {
+            return vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::NpcInteraction(
+                        self.body.id
                     )
-                ];   
-            }
+                )
+            ];   
         }
 
         move_linearly(self, world, time_since_last_update);

@@ -52,13 +52,7 @@ impl_embodied_entity!(Building);
 
 impl Entity for Building {
     fn update(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {
-        let hero = world.cached_hero_props.hittable_frame;
-        let hero_direction = world.cached_hero_props.direction;
-        
-        if !world.creative_mode { return vec![] }
-        if !world.keyboard_state.has_confirmation_been_pressed { return vec![] }
-
-        if hero.is_around_and_pointed_at(&self.body.frame, &hero_direction) {      
+        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.body.frame) {
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::BuildingInteraction(

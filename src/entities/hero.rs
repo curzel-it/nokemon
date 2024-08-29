@@ -6,6 +6,7 @@ use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN}, features::{animated_
 pub struct Hero {
     body: EntityBody,
     sprite: AnimatedSprite,
+    time_immobilized: f32,
 }
 
 impl Hero {
@@ -24,6 +25,7 @@ impl Hero {
                 lifespan: INFINITE_LIFESPAN,
             },
             sprite: AnimatedSprite::new_humanoid(3),
+            time_immobilized: 0.0,
         }
     }
 }
@@ -34,8 +36,14 @@ impl_humanoid_sprite_update!(Hero);
 impl Entity for Hero {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
+        
         set_direction_according_to_keyboard_state(self, &world.keyboard_state);
-        move_linearly(self, world, time_since_last_update);
+        
+        self.time_immobilized -= time_since_last_update;
+        if self.time_immobilized <= 0.0 {
+            move_linearly(self, world, time_since_last_update);
+        }
+        
         self.update_sprite(time_since_last_update);
         world_updates.push(self.cache_props());
         world_updates.push(self.move_camera_update());
@@ -56,6 +64,10 @@ impl Entity for Hero {
 }
 
 impl Hero {
+    pub fn immobilize_for_seconds(&mut self, seconds: f32) {
+        self.time_immobilized = seconds;
+    }
+
     fn cache_props(&self) -> WorldStateUpdate {
         WorldStateUpdate::CacheHeroProps(
             self.props()           

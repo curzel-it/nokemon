@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::rect::Rect};
+use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -115,6 +115,13 @@ impl World {
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .find(|t| t.destination == *destination)
             .map(|t| t.body().frame)
+    }
+
+    pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
+        let hero = self.cached_hero_props.hittable_frame;
+        let hero_direction: Vector2d = self.cached_hero_props.direction;        
+        if !self.keyboard_state.has_confirmation_been_pressed { return false }
+        hero.is_around_and_pointed_at(target, &hero_direction)
     }
 }
 
