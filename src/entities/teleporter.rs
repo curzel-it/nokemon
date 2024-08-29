@@ -61,21 +61,25 @@ impl Teleporter {
     fn should_teleport(&self, world: &World) -> bool {
         let hero = world.cached_hero_props.hittable_frame;
         let hero_direction = world.cached_hero_props.direction;
-        
+        let hero_speed = world.cached_hero_props.speed;
+
+        if !world.keyboard_state.is_any_arrow_key_down() { return false }
+        if hero_speed <= 0.0 { return false }
+
         if hero.y == self.body.frame.y {
             if hero.x == self.body.frame.x + 1 {
-                return hero_direction.x < 0.0;
+                return hero_direction.x < 0.0
             }
             if hero.x == self.body.frame.x - 1 {
-                return hero_direction.x > 0.0;
+                return hero_direction.x > 0.0
             }
         }
         if hero.x == self.body.frame.x {
             if hero.y == self.body.frame.y + 1 {
-                return hero_direction.y < 0.0;
-            }
+                return hero_direction.y < 0.0
+            } 
             if hero.y == self.body.frame.y - 1 {
-                return hero_direction.y > 0.0;
+                return hero_direction.y > 0.0
             }
         }
         false

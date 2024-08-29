@@ -22,6 +22,7 @@ impl PartialEq for dyn Entity {
 pub struct EntityProps {
     pub direction: Vector2d,
     pub frame: Rect,
+    pub speed: f32,
     pub hittable_frame: Rect,
 }
 
@@ -30,6 +31,7 @@ impl Default for EntityProps {
         Self { 
             direction: Default::default(), 
             frame: Rect::square_from_origin(1), 
+            speed: 0.0,
             hittable_frame: Rect::square_from_origin(1) 
         }
     }

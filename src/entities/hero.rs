@@ -80,6 +80,7 @@ impl Hero {
         EntityProps {
             frame,
             direction: self.body.direction,
+            speed: self.body.current_speed,
             hittable_frame: Rect {
                 x: frame.x,
                 y: frame.y + 1,

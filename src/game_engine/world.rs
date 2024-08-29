@@ -120,7 +120,7 @@ impl World {
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
         let hero = self.cached_hero_props.hittable_frame;
         let hero_direction: Vector2d = self.cached_hero_props.direction;        
-        if !self.keyboard_state.has_confirmation_been_pressed { return false }
+        if !self.keyboard_state.has_confirmation_been_pressed { return false }  
         hero.is_around_and_pointed_at(target, &hero_direction)
     }
 }

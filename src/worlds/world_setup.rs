@@ -4,8 +4,9 @@ impl World {
     pub fn setup(&mut self, source: &u32, hero_direction: &Vector2d) {
         let mut entity = Hero::new();
         if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
+            let offset_x = if hero_direction.x > 0.0 { 1 } else { 0 };
             let offset_y = if hero_direction.y > 0.0 { 2 } else { 1 };
-            entity.body_mut().frame.x = teleporter_position.x + hero_direction.x as u32;
+            entity.body_mut().frame.x = teleporter_position.x + hero_direction.x as u32 - offset_x;
             entity.body_mut().frame.y = teleporter_position.y + hero_direction.y as u32 - offset_y;
         } else {
             entity.center_in(&self.bounds);

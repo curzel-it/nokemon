@@ -48,7 +48,7 @@ impl KeyboardState {
         Some(direction.unwrap_or(*current))
     }
 
-    fn is_any_arrow_key_down(&self) -> bool {
+    pub fn is_any_arrow_key_down(&self) -> bool {
         self.is_up_down || self.is_right_down || self.is_down_down || self.is_left_down
     }
 }
