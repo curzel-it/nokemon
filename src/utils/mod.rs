@@ -1,3 +1,4 @@
+pub mod animator;
 pub mod file_utils;
 pub mod geometry_utils;
 pub mod ids;

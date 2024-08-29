@@ -1,13 +1,14 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub menu: Menu,
     pub world: World,
+    pub loading_screen: LoadingScreen,
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
@@ -20,6 +21,7 @@ impl GameEngine {
         Self {
             menu: Menu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
+            loading_screen: LoadingScreen::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
             ui_config: None,
@@ -71,6 +73,11 @@ impl GameEngine {
         time_since_last_update: f32,
         keyboard_events: &dyn KeyboardEventsProvider
     ) {
+        self.loading_screen.update(time_since_last_update);
+        if self.loading_screen.progress() < 0.4 {
+            return;
+        }
+
         let mut engine_updates: Vec<EngineStateUpdate> = vec![];
         let camera_viewport = self.camera_viewport;
         let keyboard_state = keyboard_events.state();
@@ -163,6 +170,7 @@ impl GameEngine {
     }
 
     fn switch_world(&mut self, id: u32) {
+        self.loading_screen.animate_world_transition();
         self.world.save();
         
         let mut new_world = World::load_or_create(id);
