@@ -44,8 +44,8 @@ impl SpriteTile for BiomeTile {
 }
 
 impl BiomeTile {
-    pub fn is_water(&self) -> bool {
-        matches!(&self.tile_type, Biome::Water)
+    pub fn is_obstacle(&self) -> bool {
+        matches!(&self.tile_type, Biome::Water) || matches!(&self.tile_type, Biome::Nothing)
     }
 
     pub fn setup_neighbors(&mut self, up: Biome, right: Biome, bottom: Biome, left: Biome) {

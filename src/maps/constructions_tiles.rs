@@ -33,7 +33,7 @@ impl SpriteTile for ConstructionTile {
 }
 
 impl ConstructionTile {
-    pub fn is_something(&self) -> bool {
+    pub fn is_obstacle(&self) -> bool {
         self.tile_type != Construction::Nothing
     }
 

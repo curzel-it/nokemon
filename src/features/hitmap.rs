@@ -48,9 +48,9 @@ impl World {
 
             for row in min_row..max_row {
                 for col in min_col..max_col {
-                    let is_water = self.biome_tiles.tiles[row][col].is_water();
-                    let is_construction = self.constructions_tiles.tiles[row][col].is_something();
-                    hitmap[row][col] = hitmap[row][col] || is_water || is_construction;
+                    let is_biome_obstacle = self.biome_tiles.tiles[row][col].is_obstacle();
+                    let is_construction_obstacle = self.constructions_tiles.tiles[row][col].is_obstacle();
+                    hitmap[row][col] = hitmap[row][col] || is_biome_obstacle || is_construction_obstacle;
                 }
             }
         }
