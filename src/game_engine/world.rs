@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 use common_macros::hash_set;
 use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{rect::Rect, vector::Vector2d}};
 
-use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -13,10 +13,12 @@ pub struct World {
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
     pub visible_entities: HashSet<u32>,
-    pub keyboard_state: KeyboardState,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
     pub creative_mode: bool,
+    pub direction_according_to_keyboard: Option<Vector2d>,
+    pub is_any_arrow_key_down: bool,
+    pub has_confirmation_key_been_pressed: bool,
 }
 
 impl World {
@@ -29,10 +31,12 @@ impl World {
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(HashMap::new()),
             visible_entities: hash_set![],
-            keyboard_state: KeyboardState::default(),
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
+            direction_according_to_keyboard: None,
+            is_any_arrow_key_down: false,
+            has_confirmation_key_been_pressed: false,
         }
     }
 
@@ -54,10 +58,12 @@ impl World {
         &mut self, 
         time_since_last_update: f32,
         viewport: &Rect,
-        keyboard_state: KeyboardState
+        keyboard: &KeyboardEventsProvider
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
-        self.keyboard_state = keyboard_state;
+        self.direction_according_to_keyboard = keyboard.direction_based_on_down_keys(&self.cached_hero_props.direction);
+        self.is_any_arrow_key_down = keyboard.is_any_arrow_key_down();
+        self.has_confirmation_key_been_pressed = keyboard.has_confirmation_been_pressed;
         self.visible_entities = self.compute_visible_entities(viewport);
         self.hitmap = self.compute_hitmap();
 
@@ -121,7 +127,7 @@ impl World {
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
         let hero = self.cached_hero_props.hittable_frame;
         let hero_direction: Vector2d = self.cached_hero_props.direction;        
-        if !self.keyboard_state.has_confirmation_been_pressed { return false }  
+        if !self.has_confirmation_key_been_pressed { return false }  
         hero.is_around_and_pointed_at(target, &hero_direction)
     }
 
@@ -152,8 +158,8 @@ impl Debug for World {
 
 impl World {        
     pub fn update(&mut self, time_since_last_update: f32) -> Vec<EngineStateUpdate> {
-        let keyboard_state = KeyboardState::nothing();
+        let keyboard = &NO_KEYBOARD_EVENTS;
         let viewport = self.bounds;
-        self.update_rl(time_since_last_update, &viewport, keyboard_state)
+        self.update_rl(time_since_last_update, &viewport, keyboard)
     }
 }

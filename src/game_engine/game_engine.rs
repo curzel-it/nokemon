@@ -3,12 +3,13 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
-use super::{keyboard_events_provider::{KeyboardEventsProvider, KeyboardState}, state_updates::EngineStateUpdate, world::World};
+use super::{keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub menu: Menu,
     pub world: World,
     pub loading_screen: LoadingScreen,
+    pub keyboard: KeyboardEventsProvider,
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
@@ -22,6 +23,7 @@ impl GameEngine {
             menu: Menu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
+            keyboard: KeyboardEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
             ui_config: None,
@@ -70,9 +72,14 @@ impl GameEngine {
 
     pub fn update_rl(
         &mut self, 
+        rl: &RaylibHandle,
         time_since_last_update: f32,
-        keyboard_events: &dyn KeyboardEventsProvider
     ) {
+        self.keyboard.update(rl, time_since_last_update);
+        self.update(time_since_last_update);
+    } 
+
+    fn update(&mut self, time_since_last_update: f32,) {
         self.loading_screen.update(time_since_last_update);
         if self.loading_screen.progress() < 0.4 {
             return;
@@ -80,19 +87,18 @@ impl GameEngine {
 
         let mut engine_updates: Vec<EngineStateUpdate> = vec![];
         let camera_viewport = self.camera_viewport;
-        let keyboard_state = keyboard_events.state();
 
-        let menu_update = self.menu.update(&self.camera_viewport, &keyboard_state);
+        let menu_update = self.menu.update(&self.camera_viewport, &self.keyboard);
 
         let mut menu_engine_updates = self.world.apply_state_updates(menu_update.state_updates);
         engine_updates.append(&mut menu_engine_updates);
 
-        let (world_keyboard_state, game_update_time) = if menu_update.game_paused {
-            (KeyboardState::nothing(), time_since_last_update/10.0)
+        let (world_keyboard, game_update_time) = if menu_update.game_paused {
+            (&NO_KEYBOARD_EVENTS, time_since_last_update/10.0)
         } else {
-            (keyboard_state, time_since_last_update)
+            (&self.keyboard, time_since_last_update)
         };
-        let mut updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard_state);
+        let mut updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard);
         engine_updates.append(&mut updates);
 
         self.apply_state_updates(engine_updates);

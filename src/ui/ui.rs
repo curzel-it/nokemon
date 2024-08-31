@@ -19,6 +19,7 @@ pub enum TextStyle {
     Title,
     Regular,
     Bold,
+    Selected,
     Caption
 }
 
@@ -233,6 +234,7 @@ impl RenderingConfig {
             TextStyle::LargeTitle => 16.0,
             TextStyle::Title => 12.0,
             TextStyle::Bold => 8.0,
+            TextStyle::Selected => 8.0,
             TextStyle::Regular => 8.0,
             TextStyle::Caption => 4.0
         }
@@ -272,11 +274,19 @@ impl Spacing {
 }
 
 impl RenderingConfig {
+    fn text_color(&self, style: &TextStyle) -> &Color {
+        match style {
+            TextStyle::Selected => &Color::YELLOW,
+            _ => &Color::WHITE
+        }
+    }
+
     fn font(&self, style: &TextStyle) -> &Font {
         match style {
             TextStyle::LargeTitle => &self.font_bold,
             TextStyle::Title => &self.font_bold,
             TextStyle::Bold => &self.font_bold,
+            TextStyle::Selected => &self.font_bold,
             TextStyle::Regular => &self.font,
             TextStyle::Caption => &self.font,
         }
@@ -496,7 +506,8 @@ impl View {
             let font = config.font(style);
             let font_size = config.scaled_font_size(style);
             let font_spacing = config.scaled_font_spacing(style);
-            d.draw_text_ex(font, text, position.as_rv(), font_size, font_spacing, Color::WHITE);
+            let color = config.text_color(style);
+            d.draw_text_ex(font, text, position.as_rv(), font_size, font_spacing, color);
         } else {
             let stack = self.multiline_text_to_vstack(style, text);
             stack.render(d, config, position);

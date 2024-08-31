@@ -10,6 +10,7 @@ pub const WORLD_SIZE_ROWS: usize = 150;
 pub const WORLD_SIZE_COLUMNS: usize = 200;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INFINITE_STOCK: i32 = -420;
+pub const KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS: f32 = 0.2;
 
 // Known entities
 pub const HERO_ENTITY_ID: u32 = 420;

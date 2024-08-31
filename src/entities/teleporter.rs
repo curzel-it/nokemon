@@ -63,7 +63,7 @@ impl Teleporter {
         let hero_direction = world.cached_hero_props.direction;
         let hero_speed = world.cached_hero_props.speed;
 
-        if !world.keyboard_state.is_any_arrow_key_down() { return false }
+        if !world.is_any_arrow_key_down { return false }
         if hero_speed <= 0.0 { return false }
 
         if hero.y == self.body.frame.y {

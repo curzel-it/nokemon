@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -40,41 +40,41 @@ impl MapEditor {
         }
     }
 
-    pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
+    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         match self.state {
             MapEditorState::SelectingItem(selected_index) => {
-                self.update_item_selection(selected_index, camera_vieport, keyboard_state)
+                self.update_item_selection(selected_index, camera_vieport, keyboard)
             },
             MapEditorState::SelectingWorld(selected_index) => {
-                self.update_world_selection(selected_index, camera_vieport, keyboard_state)
+                self.update_world_selection(selected_index, camera_vieport, keyboard)
             },
             MapEditorState::PlacingItem(selected_index, item, frame) => {
-                self.update_item_placement(selected_index, item, &frame, camera_vieport, keyboard_state)
+                self.update_item_placement(selected_index, item, &frame, camera_vieport, keyboard)
             },
             MapEditorState::PlacingWorld(selected_index, destination_id, frame) => {
-                self.update_world_placement(selected_index, destination_id, &frame, camera_vieport, keyboard_state)
+                self.update_world_placement(selected_index, destination_id, &frame, camera_vieport, keyboard)
             },
         }
     }
 
-    fn update_item_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_up_been_pressed && selected_index >= self.columns {
+    fn update_item_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.direction_up.is_pressed && selected_index >= self.columns {
             self.state = MapEditorState::SelectingItem(selected_index - self.columns);            
         }
-        if keyboard_state.has_right_been_pressed && selected_index < self.stock.len() - 1 {
+        if keyboard.direction_right.is_pressed && selected_index < self.stock.len() - 1 {
             self.state = MapEditorState::SelectingItem(selected_index + 1);
         }
-        if keyboard_state.has_down_been_pressed {
+        if keyboard.direction_down.is_pressed {
             if selected_index < self.stock.len() - self.columns {
                 self.state = MapEditorState::SelectingItem(selected_index + self.columns);
             } else {
                 self.state = MapEditorState::SelectingWorld(0);
             }
         } 
-        if keyboard_state.has_left_been_pressed && selected_index > 0 {
+        if keyboard.direction_left.is_pressed && selected_index > 0 {
             self.state = MapEditorState::SelectingItem(selected_index - 1);
         }
-        if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             self.state = MapEditorState::PlacingItem(
                 selected_index, 
                 self.stock[selected_index], 
@@ -93,18 +93,18 @@ impl MapEditor {
         )
     }
 
-    fn update_world_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_up_been_pressed {
+    fn update_world_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.direction_up.is_pressed {
             if selected_index > 0 {
                 self.state = MapEditorState::SelectingWorld(selected_index - 1);            
             } else {
                 self.state = MapEditorState::SelectingItem(self.stock.len() - 1);
             }
         }
-        if keyboard_state.has_down_been_pressed && selected_index < self.stock.len() - 1 {
+        if keyboard.direction_down.is_pressed && selected_index < self.worlds.len() - 1 {
             self.state = MapEditorState::SelectingWorld(selected_index + 1);    
         }        
-        if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             self.state = MapEditorState::PlacingWorld(
                 selected_index, 
                 self.worlds[selected_index],
@@ -120,16 +120,16 @@ impl MapEditor {
         destination_id: u32,
         frame: &Rect, 
         camera_vieport: &Rect, 
-        keyboard_state: &KeyboardState
+        keyboard: &KeyboardEventsProvider
     ) -> Vec<WorldStateUpdate> {        
-        if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             return self.place_world(destination_id, frame, camera_vieport);
         }
-        if keyboard_state.has_back_been_pressed {
+        if keyboard.has_back_been_pressed {
             self.state = MapEditorState::SelectingWorld(selected_index);
             return vec![];
         }        
-        let updated_frame = self.updated_frame(frame, keyboard_state);
+        let updated_frame = self.updated_frame(frame, keyboard);
         self.state = MapEditorState::PlacingWorld(selected_index, destination_id, updated_frame);
         vec![]
     }
@@ -153,16 +153,16 @@ impl MapEditor {
         item: Stockable, 
         frame: &Rect, 
         camera_vieport: &Rect, 
-        keyboard_state: &KeyboardState
+        keyboard: &KeyboardEventsProvider
     ) -> Vec<WorldStateUpdate> {        
-        if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             return self.place_item(item, frame, camera_vieport);
         }
-        if keyboard_state.has_back_been_pressed {
+        if keyboard.has_back_been_pressed {
             self.state = MapEditorState::SelectingItem(selected_index);
             return vec![];
         }        
-        let updated_frame = self.updated_frame(frame, keyboard_state);
+        let updated_frame = self.updated_frame(frame, keyboard);
         self.state = MapEditorState::PlacingItem(selected_index, item, updated_frame);
         vec![]
     }
@@ -216,19 +216,19 @@ impl MapEditor {
         vec![update]
     }
 
-    fn updated_frame(&self, frame: &Rect, keyboard_state: &KeyboardState) -> Rect {
+    fn updated_frame(&self, frame: &Rect, keyboard: &KeyboardEventsProvider) -> Rect {
         let mut updated_frame = *frame;
 
-        if keyboard_state.has_up_been_pressed {
+        if keyboard.direction_up.is_pressed {
             updated_frame = updated_frame.offset_y(-1);
         }
-        if keyboard_state.has_right_been_pressed {
+        if keyboard.direction_right.is_pressed {
             updated_frame = updated_frame.offset_x(1);
         }
-        if keyboard_state.has_down_been_pressed {
+        if keyboard.direction_down.is_pressed {
             updated_frame = updated_frame.offset_y(1);
         }
-        if keyboard_state.has_left_been_pressed {
+        if keyboard.direction_left.is_pressed {
             updated_frame = updated_frame.offset_x(-1);
         }     
         updated_frame   
@@ -287,7 +287,7 @@ impl MapEditor {
                 children: self.worlds.iter().enumerate().map(|(index, item)| {
                     let name = world_name(item);
                     if index == selected_world_index {
-                        text!(TextStyle::Bold, format!("> {}", name))
+                        text!(TextStyle::Selected, format!("> {}", name))
                     } else {
                         text!(TextStyle::Regular, format!("{}", name))
                     }

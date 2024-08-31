@@ -1,4 +1,4 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardState, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::list_worlds_with_none};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, vstack, worlds::utils::list_worlds_with_none};
 
 use super::map_editor::MapEditor;
 
@@ -68,15 +68,15 @@ impl Menu {
         self.state = MenuState::NpcInteraction(id.clone());
     }
 
-    pub fn update(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> MenuUpdateResult {
+    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdateResult {
         let updates = match self.state {
-            MenuState::Closed => self.update_from_close(keyboard_state),
-            MenuState::Open => self.update_from_open(keyboard_state),
-            MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard_state),
-            MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard_state),
-            MenuState::BuildingInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
-            MenuState::NpcInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
-            MenuState::EntityInteraction(id) => self.close_or_remove_entity(id, keyboard_state),
+            MenuState::Closed => self.update_from_close(keyboard),
+            MenuState::Open => self.update_from_open(keyboard),
+            MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
+            MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
+            MenuState::BuildingInteraction(id) => self.close_or_remove_entity(id, keyboard),
+            MenuState::NpcInteraction(id) => self.close_or_remove_entity(id, keyboard),
+            MenuState::EntityInteraction(id) => self.close_or_remove_entity(id, keyboard),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -86,11 +86,11 @@ impl Menu {
 }
 
 impl Menu {
-    fn close_or_remove_entity(&mut self, id: u32, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_back_been_pressed {
+    fn close_or_remove_entity(&mut self, id: u32, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
-        if keyboard_state.has_confirmation_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             self.state = MenuState::Closed;
             let remove = WorldStateUpdate::RemoveEntity(id);
             return vec![remove];
@@ -98,48 +98,48 @@ impl Menu {
         vec![]
     }
 
-    fn update_from_close(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_menu_been_pressed {
+    fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.has_menu_been_pressed {
             self.state = MenuState::Open;
             self.map_editor.worlds = list_worlds_with_none();
         }
         vec![]
     }
 
-    fn update_from_open(&mut self, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_back_been_pressed {
+    fn update_from_open(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
-        if keyboard_state.has_up_been_pressed {
+        if keyboard.direction_up.is_pressed {
             if self.selected_index == 0 {
                 self.selected_index = self.items.len() - 1;
             } else if self.selected_index > 0 {
                 self.selected_index -= 1;
             }
         }
-        if keyboard_state.has_down_been_pressed {
+        if keyboard.direction_down.is_pressed {
             if self.selected_index < self.items.len() - 1 {
                 self.selected_index += 1;
-            } else if keyboard_state.has_down_been_pressed && self.selected_index == self.items.len() - 1 {
+            } else if keyboard.direction_down.is_pressed && self.selected_index == self.items.len() - 1 {
                 self.selected_index = 0;
             }
         }
-        if keyboard_state.has_confirmation_been_pressed || keyboard_state.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             if let Some(updates) = self.handle_selection_from_open() {
                 return updates;
             }
         }
-        if keyboard_state.has_back_been_pressed {
+        if keyboard.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
         vec![]
     }
 
-    fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_back_been_pressed {
+    fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.has_back_been_pressed {
             self.state = MenuState::Open;
         }
-        self.map_editor.update(camera_vieport, keyboard_state);
+        self.map_editor.update(camera_vieport, keyboard);
 
         if self.map_editor.is_placing_item() {
             self.state = MenuState::PlaceItem;
@@ -147,11 +147,11 @@ impl Menu {
         vec![]
     }
 
-    fn update_from_place_item(&mut self, camera_vieport: &Rect, keyboard_state: &KeyboardState) -> Vec<WorldStateUpdate> {
-        if keyboard_state.has_back_been_pressed {
+    fn update_from_place_item(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+        if keyboard.has_back_been_pressed {
             self.state = MenuState::MapEditor;
         }
-        self.map_editor.update(camera_vieport, keyboard_state)
+        self.map_editor.update(camera_vieport, keyboard)
     }
     
     fn handle_selection_from_open(&mut self) -> Option<Vec<WorldStateUpdate>> {
@@ -216,7 +216,7 @@ impl Menu {
                     spacing: Spacing::LG,
                     children: self.items.iter().enumerate().map(|(index, item)| {
                         if index == self.selected_index {
-                            text!(TextStyle::Bold, format!(" > {}", item.title()))
+                            text!(TextStyle::Selected, format!(" > {}", item.title()))
                         } else {
                             text!(TextStyle::Regular, format!(" {}", item.title()))
                         }                            

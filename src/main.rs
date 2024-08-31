@@ -38,7 +38,7 @@ fn main() {
             engine.is_running = false;
         }
 
-        engine.update_rl(time_since_last_update, &rl);
+        engine.update_rl(&rl, time_since_last_update);
         render(&mut rl, &thread, &engine.world, &engine);  
     }
 }
