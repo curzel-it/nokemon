@@ -1,6 +1,3 @@
-use std::{borrow::Borrow, rc::Rc};
-use std::cell::RefCell;
-
 use raylib::color::Color;
 
 use crate::ui::ui::scaffold_with_bg;
@@ -10,9 +7,9 @@ pub struct Menu<Item: MenuItem> {
     title: String,
     is_open: bool,
     selected_index: usize,
-    items: Vec<Item>,
+    pub items: Vec<Item>,
     animator: Animator,
-    on_selection: OnMenuItemSelection<Item>,
+    pub on_selection: OnMenuItemSelection<Item>,
 }
 
 pub trait MenuItem: Clone {
@@ -46,25 +43,20 @@ impl<Item: MenuItem> Menu<Item> {
         self.is_open
     }
 
+    pub fn selected_item(&self) -> Item {
+        self.items[self.selected_index].clone()
+    }
+
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider) -> MenuUpdate {
-        let updates = if self.is_open {
-            self.update_from_open(keyboard)
-        } else {
-            self.update_from_close(keyboard)
-        };
-        (self.is_open, updates)
+        if self.is_open {
+            return (true, self.do_update(keyboard))
+        }
+        (false, vec![])
     }
 }
 
 impl<Item: MenuItem> Menu<Item> {
-    fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
-        if keyboard.has_menu_been_pressed {
-            self.is_open = true;
-        }
-        vec![]
-    }
-
-    fn update_from_open(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+    fn do_update(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.is_open = false;
         }
