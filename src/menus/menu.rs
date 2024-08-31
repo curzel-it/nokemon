@@ -2,14 +2,14 @@ use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, stat
 
 use super::map_editor::MapEditor;
 
+pub type MenuUpdate = (bool, Vec<WorldStateUpdate>);
+
 #[derive(Debug)]
 pub struct Menu {
     state: MenuState,
     map_editor: MapEditor,
     pub selected_index: usize,
-    items: Vec<MenuItem>,
-    pub selected_entity_option: usize,
-    entity_options: Vec<EntityOption>,
+    items: Vec<MenuItem>
 }
 
 #[derive(Debug)]
@@ -18,12 +18,6 @@ enum MenuState {
     Open,
     MapEditor,
     PlaceItem,
-    EntityOptions(u32),
-}
-
-pub struct MenuUpdateResult {
-    pub game_paused: bool,
-    pub state_updates: Vec<WorldStateUpdate>
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -65,10 +59,6 @@ impl Menu {
             items: vec![
                 MenuItem::Save,
                 MenuItem::Exit,
-            ],
-            selected_entity_option: 0,
-            entity_options: vec![
-                EntityOption::Remove,
             ]
         }
     }
@@ -83,52 +73,18 @@ impl Menu {
         !matches!(&self.state, MenuState::Closed)
     }
 
-    pub fn show_entity_options(&mut self, id: &u32) {
-        self.state = MenuState::EntityOptions(id.clone());
-    }
-
-    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdateResult {
+    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdate {
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard),
             MenuState::Open => self.update_from_open(keyboard),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
-            MenuState::EntityOptions(id) => self.update_from_entity_options(id, keyboard),
         };
-        MenuUpdateResult {
-            game_paused: self.is_open(),
-            state_updates: updates
-        }
+        (self.is_open(), updates)
     }
 }
 
 impl Menu {
-    fn update_from_entity_options(&mut self, id: u32, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
-        if keyboard.has_back_been_pressed {
-            self.state = MenuState::Closed;
-        }
-        if keyboard.direction_up.is_pressed {
-            if self.selected_entity_option == 0 {
-                self.selected_entity_option = self.entity_options.len() - 1;
-            } else if self.selected_entity_option > 0 {
-                self.selected_entity_option -= 1;
-            }
-        }
-        if keyboard.direction_down.is_pressed {
-            if self.selected_entity_option < self.entity_options.len() - 1 {
-                self.selected_entity_option += 1;
-            } else if keyboard.direction_down.is_pressed && self.selected_entity_option == self.entity_options.len() - 1 {
-                self.selected_entity_option = 0;
-            }
-        }
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
-            if let Some(updates) = self.handle_selection_from_entity_options(id) {
-                return updates;
-            }
-        }
-        vec![]
-    }
-
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_menu_been_pressed {
             self.state = MenuState::Open;
@@ -199,15 +155,6 @@ impl Menu {
         }
         None
     }
-    
-    fn handle_selection_from_entity_options(&mut self, id: u32) -> Option<Vec<WorldStateUpdate>> {        
-        match self.entity_options[self.selected_entity_option] {
-            EntityOption::Remove => {
-                self.state = MenuState::Closed;
-                return Some(vec![WorldStateUpdate::RemoveEntity(id)])
-            },
-        }
-    }
 }
 
 impl Menu {
@@ -217,28 +164,7 @@ impl Menu {
             MenuState::Open => self.menu_ui(),
             MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::EntityOptions(u32) => self.entity_options_ui(&u32),
         }
-    }
-
-    fn entity_options_ui(&self, id: &u32) -> View {     
-        scaffold(
-            vstack!(
-                Spacing::LG, 
-                text!(TextStyle::Title, "Entity Options".to_string()),
-                text!(TextStyle::Caption, format!("Id: #{}", id)),
-                View::VStack {                        
-                    spacing: Spacing::LG,
-                    children: self.entity_options.iter().enumerate().map(|(index, item)| {
-                        if index == self.selected_entity_option {
-                            text!(TextStyle::Selected, format!(" > {}", item.title()))
-                        } else {
-                            text!(TextStyle::Regular, format!(" {}", item.title()))
-                        }                            
-                    }).collect()
-                }
-            )
-        )
     }
 
     fn menu_ui(&self) -> View {            

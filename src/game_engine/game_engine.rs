@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::menu::Menu, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, menu::Menu}, ui::ui::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
@@ -9,6 +9,7 @@ pub struct GameEngine {
     pub menu: Menu,
     pub world: World,
     pub loading_screen: LoadingScreen,
+    pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
@@ -23,6 +24,7 @@ impl GameEngine {
             menu: Menu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
+            entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
@@ -81,28 +83,42 @@ impl GameEngine {
 
     fn update(&mut self, time_since_last_update: f32,) {
         self.loading_screen.update(time_since_last_update);
-        if self.loading_screen.progress() < 0.4 {
+        if self.loading_screen.progress() < 0.4 { 
             return;
         }
 
-        let mut engine_updates: Vec<EngineStateUpdate> = vec![];
         let camera_viewport = self.camera_viewport;
+        let is_game_paused = self.update_menus();
 
-        let menu_update = self.menu.update(&self.camera_viewport, &self.keyboard);
-
-        let mut menu_engine_updates = self.world.apply_state_updates(menu_update.state_updates);
-        engine_updates.append(&mut menu_engine_updates);
-
-        let (world_keyboard, game_update_time) = if menu_update.game_paused {
+        let (world_keyboard, game_update_time) = if is_game_paused {
             (&NO_KEYBOARD_EVENTS, time_since_last_update/10.0)
         } else {
             (&self.keyboard, time_since_last_update)
         };
-        let mut updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard);
-        engine_updates.append(&mut updates);
 
-        self.apply_state_updates(engine_updates);
+        let updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard);
+        self.apply_state_updates(updates);
     } 
+
+    fn update_menus(&mut self) -> bool {
+        let mut is_game_paused = false;
+
+        if !is_game_paused {
+            let (pause, world_updates) = self.menu.update(&self.camera_viewport, &self.keyboard);
+            is_game_paused = is_game_paused || pause;
+            let engine_updates = self.world.apply_state_updates(world_updates);
+            self.apply_state_updates(engine_updates);
+        }
+
+        if !is_game_paused {
+            let (pause, world_updates) = self.entity_options_menu.update(&self.keyboard);
+            is_game_paused = is_game_paused || pause;
+            let engine_updates = self.world.apply_state_updates(world_updates);
+            self.apply_state_updates(engine_updates);
+        }
+        
+        is_game_paused
+    }
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
         let mut textures: HashMap<u32, Texture2D> = hash_map!();
@@ -161,7 +177,7 @@ impl GameEngine {
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
-            EngineStateUpdate::ShowEntityOptions(id) => self.menu.show_entity_options(id),
+            EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(id),
         }
     }
 

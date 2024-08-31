@@ -207,11 +207,11 @@ pub fn scaffold(content: View) -> View {
     scaffold_with_bg(Color::BLACK, content)
 }
 
-pub fn render(view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
+pub fn render(view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render(d, config, position);
 }
 
-pub fn render_from(anchor_point: AnchorPoint, view: View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
+pub fn render_from(anchor_point: AnchorPoint, view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render_from(d, config, position, anchor_point);
 }
 
