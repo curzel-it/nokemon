@@ -500,7 +500,7 @@ impl View {
         config: &RenderingConfig,
         position: &Vector2d,
         style: &TextStyle,
-        text: &String,
+        text: &str,
     ) { 
         if !text.contains("\n") {
             let font = config.font(style);
@@ -681,7 +681,7 @@ impl View {
         }
     }
 
-    fn calculate_textured_border_size(&self, config: &RenderingConfig, children: &Vec<View>) -> Vector2d {
+    fn calculate_textured_border_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
         self.calculate_zstack_size(config, children, &Spacing::Zero)
     }
 
