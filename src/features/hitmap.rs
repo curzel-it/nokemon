@@ -24,7 +24,7 @@ impl World {
                     };
 
                     for offset_x in 0..frame.w as usize {
-                        for offset_y in 0..height as usize {
+                        for offset_y in 0..height {
                             hitmap[row + offset_y][col + offset_x] = true;
                         }                    
                     }

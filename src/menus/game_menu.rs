@@ -104,12 +104,7 @@ impl GameMenu {
             self.state = MenuState::Closed;
             return updates
         }
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
-            match self.menu.selected_item() {
-                GameMenuItem::MapEditor => self.state = MenuState::MapEditor,
-                _ => {}
-            }
-        }
+        if (keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed) && self.menu.selected_item() == GameMenuItem::MapEditor { self.state = MenuState::MapEditor }
         vec![]
     }
 

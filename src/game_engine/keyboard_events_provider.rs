@@ -63,14 +63,12 @@ impl HoldableKey {
         
         if self.is_pressed {
             self.time_to_next_press_event = KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS;
-        } else {
-            if self.is_down {
-                self.time_to_next_press_event -= time_since_last_update;                
+        } else if self.is_down {
+            self.time_to_next_press_event -= time_since_last_update;                
 
-                if self.time_to_next_press_event <= 0.0 {
-                    self.is_pressed = true;
-                    self.time_to_next_press_event = KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS;
-                }
+            if self.time_to_next_press_event <= 0.0 {
+                self.is_pressed = true;
+                self.time_to_next_press_event = KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS;
             }
         }
     }

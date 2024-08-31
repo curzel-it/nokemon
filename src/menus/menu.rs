@@ -1,7 +1,7 @@
 use raylib::color::Color;
 
 use crate::ui::ui::scaffold_with_bg;
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
     title: String,

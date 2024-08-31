@@ -424,7 +424,7 @@ impl View {
             y: (content_size.y / config.rendering_scale) / TILE_SIZE - 1.0, 
         };
 
-        self.render_texture(d, config, &borders.fill.key, &borders.fill.source_rect, &position, &content_size);        
+        self.render_texture(d, config, &borders.fill.key, &borders.fill.source_rect, position, &content_size);        
         self.render_zstack(d, config, position, children, &Spacing::Zero, Color::RED.alpha(0.0));        
         self.render_texture(d, config, &borders.corner_top_left.key, &borders.corner_top_left.source_rect, &top_left, &size_one);
         self.render_texture(d, config, &borders.corner_top_right.key, &borders.corner_top_right.source_rect, &top_right, &size_one);
