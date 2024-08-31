@@ -1,6 +1,6 @@
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, vstack};
 
-use super::menu::MenuUpdate;
+use super::game_menu::MenuUpdate;
 
 #[derive(Debug)]
 pub struct EntityOptionsMenu {

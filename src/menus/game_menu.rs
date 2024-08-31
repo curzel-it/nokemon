@@ -5,7 +5,7 @@ use super::map_editor::MapEditor;
 pub type MenuUpdate = (bool, Vec<WorldStateUpdate>);
 
 #[derive(Debug)]
-pub struct Menu {
+pub struct GameMenu {
     state: MenuState,
     map_editor: MapEditor,
     pub selected_index: usize,
@@ -50,7 +50,7 @@ impl EntityOption {
     }
 }
 
-impl Menu {
+impl GameMenu {
     pub fn new() -> Self {
         Self {
             state: MenuState::Closed,
@@ -84,7 +84,7 @@ impl Menu {
     }
 }
 
-impl Menu {
+impl GameMenu {
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_menu_been_pressed {
             self.state = MenuState::Open;
@@ -157,7 +157,7 @@ impl Menu {
     }
 }
 
-impl Menu {
+impl GameMenu {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::Zero),
@@ -171,7 +171,7 @@ impl Menu {
         scaffold(
             vstack!(
                 Spacing::XL, 
-                text!(TextStyle::Title, "Game Menu".to_string()),
+                text!(TextStyle::Title, "Game GameMenu".to_string()),
                 View::VStack {                        
                     spacing: Spacing::LG,
                     children: self.items.iter().enumerate().map(|(index, item)| {
