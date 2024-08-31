@@ -42,8 +42,8 @@ impl EntityOptionsMenu {
         self.menu.show()
     }
 
-    pub fn update(&mut self, keyboard: &KeyboardEventsProvider) -> MenuUpdate {
-        self.menu.update(keyboard)
+    pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        self.menu.update(keyboard, time_since_last_update)
     }
 
     pub fn ui(&self) -> View {

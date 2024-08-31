@@ -88,7 +88,7 @@ impl GameEngine {
         }
 
         let camera_viewport = self.camera_viewport;
-        let is_game_paused = self.update_menus();
+        let is_game_paused = self.update_menus(time_since_last_update);
 
         let (world_keyboard, game_update_time) = if is_game_paused {
             (&NO_KEYBOARD_EVENTS, time_since_last_update/10.0)
@@ -100,18 +100,18 @@ impl GameEngine {
         self.apply_state_updates(updates);
     } 
 
-    fn update_menus(&mut self) -> bool {
+    fn update_menus(&mut self, time_since_last_update: f32) -> bool {
         let mut is_game_paused = false;
 
         if !is_game_paused {
-            let (pause, world_updates) = self.menu.update(&self.camera_viewport, &self.keyboard);
+            let (pause, world_updates) = self.menu.update(&self.camera_viewport, &self.keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
         }
 
         if !is_game_paused {
-            let (pause, world_updates) = self.entity_options_menu.update(&self.keyboard);
+            let (pause, world_updates) = self.entity_options_menu.update(&self.keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);

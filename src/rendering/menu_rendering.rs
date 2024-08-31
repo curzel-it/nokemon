@@ -8,19 +8,6 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     render_centered_menu(d, ui_config, &engine.entity_options_menu.ui());
 }
 
-fn render_game_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {
-    render_from(
-        AnchorPoint::BottomCenter,
-        view,
-        d, 
-        ui_config, 
-        &Vector2d::new(
-            ui_config.canvas_size.x / 2.0, 
-            ui_config.canvas_size.y
-        )
-    );
-}
-
 fn render_centered_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {
     render_from(
         AnchorPoint::BottomCenter,

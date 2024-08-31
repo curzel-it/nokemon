@@ -79,10 +79,10 @@ impl GameMenu {
         !matches!(self.state, MenuState::Closed)
     }
 
-    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdate {
+    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard),
-            MenuState::Open => self.update_from_open(keyboard),
+            MenuState::Open => self.update_from_open(keyboard, time_since_last_update),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
         };
@@ -98,13 +98,17 @@ impl GameMenu {
         vec![]
     }
 
-    fn update_from_open(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
-        let (is_open, updates) = self.menu.update(keyboard);
+    fn update_from_open(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+        let (is_open, updates) = self.menu.update(keyboard, time_since_last_update);
         if !is_open {
             self.state = MenuState::Closed;
             return updates
         }
-        if (keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed) && self.menu.selected_item() == GameMenuItem::MapEditor { self.state = MenuState::MapEditor }
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+            if matches!(self.menu.selected_item(), GameMenuItem::MapEditor) { 
+                self.state = MenuState::MapEditor 
+            }
+        } 
         vec![]
     }
 

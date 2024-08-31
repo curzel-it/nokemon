@@ -1,4 +1,4 @@
-use crate::utils::animator::{AnimationCurve, Animator};
+use crate::{constants::WORLD_TRANSITION_TIME, utils::animator::Animator};
 
 pub struct LoadingScreen {
     pub text: String,
@@ -26,6 +26,6 @@ impl LoadingScreen {
     }
 
     pub fn animate_world_transition(&mut self) {
-        self.animator.animate(0.0, 1.0, 0.3, AnimationCurve::Linear);
+        self.animator.animate(0.0, 1.0, WORLD_TRANSITION_TIME);
     }
 }

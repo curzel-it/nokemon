@@ -1,5 +1,6 @@
 use raylib::color::Color;
 
+use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
 use crate::ui::ui::scaffold_with_bg;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
@@ -37,17 +38,25 @@ impl<Item: MenuItem> Menu<Item> {
 
     pub fn show(&mut self) {
         self.is_open = true;
+        self.animator.animate(0.0, 1.0, MENU_OPEN_TIME)
     }
 
     pub fn is_open(&self) -> bool {
         self.is_open
     }
 
+    fn close(&mut self) {
+        self.is_open = false;
+        self.animator.animate(1.0, 0.0, MENU_CLOSE_TIME)
+    }
+
     pub fn selected_item(&self) -> Item {
         self.items[self.selected_index].clone()
     }
 
-    pub fn update(&mut self, keyboard: &KeyboardEventsProvider) -> MenuUpdate {
+    pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        self.animator.update(time_since_last_update);
+
         if self.is_open {
             return (true, self.do_update(keyboard))
         }
@@ -58,7 +67,7 @@ impl<Item: MenuItem> Menu<Item> {
 impl<Item: MenuItem> Menu<Item> {
     fn do_update(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
-            self.is_open = false;
+            self.close();
         }
         if keyboard.direction_up.is_pressed {
             if self.selected_index == 0 {
@@ -99,7 +108,7 @@ impl<Item: MenuItem> Menu<Item> {
 
     fn menu_ui(&self) -> View {            
         scaffold_with_bg(
-            Color::BLACK.alpha(1.0),
+            Color::BLACK.alpha(self.animator.current_value),
             vstack!(
                 Spacing::XL, 
                 text!(TextStyle::Title, self.title.clone()),

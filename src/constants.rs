@@ -22,6 +22,11 @@ pub const WORLD_ID_DEMO_HOUSE_INTERIOR: u32 = 1002;
 pub const WORLD_ID_DEMO_HOUSE_TWO_FLOORS_INTERIOR: u32 = 1003;
 pub const WORLD_ID_DEMO_HOUSE_TWO_FLOORS_SECOND_FLOOR: u32 = 1004;
 
+// Animations
+pub const WORLD_TRANSITION_TIME: f32 = 0.3;
+pub const MENU_CLOSE_TIME: f32 = 0.2;
+pub const MENU_OPEN_TIME: f32 = 0.1;
+
 // Paths
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";

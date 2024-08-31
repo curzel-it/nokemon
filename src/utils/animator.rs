@@ -1,8 +1,3 @@
-#[derive(Debug, Clone, Copy)]
-pub enum AnimationCurve {
-    Linear,
-}
-
 #[derive(Debug)]
 pub struct Animator {
     initial_value: f32,
@@ -10,26 +5,23 @@ pub struct Animator {
     pub current_value: f32,
     increment_per_second: f32,
     pub is_active: bool,
-    animation_curve: AnimationCurve,
 }
 
 impl Animator {
     pub fn new() -> Self {
         Animator {
             initial_value: 0.0,
-            final_value: 0.0,
-            current_value: 0.0,
+            final_value: 1.0,
+            current_value: 1.0,
             increment_per_second: 0.0,
             is_active: false,
-            animation_curve: AnimationCurve::Linear,
         }
     }
 
-    pub fn animate(&mut self, initial_value: f32, final_value: f32, duration: f32, animation_curve: AnimationCurve) {
+    pub fn animate(&mut self, initial_value: f32, final_value: f32, duration: f32) {
         self.current_value = initial_value;
         self.initial_value = initial_value;
         self.final_value = final_value;
-        self.animation_curve = animation_curve;
 
         let diff = final_value - initial_value;
         self.increment_per_second = diff / duration;
@@ -61,7 +53,7 @@ mod tests {
     fn test_can_initialize_animator() {
         let mut animator = Animator::new();
 
-        animator.animate(0.0, 1.0, 10.0, AnimationCurve::Linear);
+        animator.animate(0.0, 1.0, 10.0);
 
         assert_eq!(animator.current_value, 0.0);
     }
@@ -70,7 +62,7 @@ mod tests {
     fn test_can_animate_value_linearly() {
         let mut animator = Animator::new();
 
-        animator.animate(0.0, 1.0, 10.0, AnimationCurve::Linear);
+        animator.animate(0.0, 1.0, 10.0);
 
         assert_eq!(animator.current_value, 0.0);
         animator.update(1.0);
@@ -99,7 +91,7 @@ mod tests {
     fn test_value_does_not_go_over_final_value() {
         let mut animator = Animator::new();
 
-        animator.animate(0.0, 1.0, 10.0, AnimationCurve::Linear);
+        animator.animate(0.0, 1.0, 10.0);
 
         assert_eq!(animator.current_value, 0.0);
         animator.update(1.0);
