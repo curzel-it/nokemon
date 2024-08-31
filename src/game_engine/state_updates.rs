@@ -5,6 +5,7 @@ use super::entity::{Entity, EntityProps};
 pub enum WorldStateUpdate {
     AddEntity(Box<dyn Entity>),
     RemoveEntity(u32),
+    RemoveEntityAtCoordinates(usize, usize),
     CacheHeroProps(EntityProps),
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
@@ -19,7 +20,7 @@ pub enum EngineStateUpdate {
     Exit,
     BuildingInteraction(u32),
     NpcInteraction(u32),
-    EntityInteraction(u32)
+    EntityInteraction(u32),
 }
 
 #[cfg(test)]

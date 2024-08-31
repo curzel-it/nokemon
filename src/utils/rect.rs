@@ -72,6 +72,9 @@ impl Rect {
         false
     }
     
+    pub fn contains_or_touches_point(&self, x: u32, y: u32) -> bool {
+        self.x <= x && x <= self.x + self.w && self.y <= y && y <= self.y + self.h
+    }
 }
 
 #[cfg(test)]

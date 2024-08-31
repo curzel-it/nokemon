@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardState, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -177,11 +177,18 @@ impl MapEditor {
         let col = (camera_vieport.x + frame.x) as usize;
 
         match item {
-           Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
-           Stockable::ConstructionTile(construction) => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
-           Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
-           Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
-           Stockable::HouseholdObject(household_object) => self.place_household_object(camera_vieport, frame, household_object),
+            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
+            Stockable::ConstructionTile(construction) => match construction {
+                Construction::Nothing => vec![
+                    WorldStateUpdate::BiomeTileChange(row, col, Biome::Nothing),
+                    WorldStateUpdate::ConstructionTileChange(row, col, Construction::Nothing),
+                    WorldStateUpdate::RemoveEntityAtCoordinates(row, col),
+                ],
+                _ => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
+            }
+            Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
+            Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
+            Stockable::HouseholdObject(household_object) => self.place_household_object(camera_vieport, frame, household_object),
         }
     }
 

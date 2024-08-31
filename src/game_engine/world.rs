@@ -86,6 +86,7 @@ impl World {
         match update {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
             WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
+            WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => self.remove_entity_coords(row, col),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
@@ -122,6 +123,21 @@ impl World {
         let hero_direction: Vector2d = self.cached_hero_props.direction;        
         if !self.keyboard_state.has_confirmation_been_pressed { return false }  
         hero.is_around_and_pointed_at(target, &hero_direction)
+    }
+
+    pub fn find_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
+        for entity in self.entities.borrow().values() {
+            if entity.body().frame.contains_or_touches_point(col as u32, row as u32) {
+                return Some(entity.id())
+            }
+        }
+        None
+    }
+
+    fn remove_entity_coords(&mut self, row: usize, col: usize) {
+        while let Some(id) = self.find_entity_at_coords(row, col) {
+            self.remove_entity(&id)
+        }      
     }
 }
 
