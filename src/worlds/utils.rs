@@ -5,7 +5,7 @@ pub fn world_path(id: u32) -> String {
 }
 
 pub fn list_worlds_with_none() -> Vec<u32> {
-    let mut ids: Vec<u32> = list_worlds().into_iter().filter(|uuid| *uuid != WORLD_ID_NONE).collect();
+    let mut ids: Vec<u32> = list_worlds().into_iter().filter(|id| *id != WORLD_ID_NONE).collect();
     ids.push(WORLD_ID_NONE);
     ids
 }

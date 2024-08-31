@@ -18,7 +18,7 @@ pub enum EngineStateUpdate {
     SwitchWorld(u32),
     SaveGame,
     Exit,
-    RemoveEntity(u32),
+    ShowEntityOptions(u32),
 }
 
 #[cfg(test)]

@@ -4,10 +4,12 @@ use super::map_editor::MapEditor;
 
 #[derive(Debug)]
 pub struct Menu {
-    pub selected_index: usize,
     state: MenuState,
-    items: Vec<MenuItem>,
     map_editor: MapEditor,
+    pub selected_index: usize,
+    items: Vec<MenuItem>,
+    pub selected_entity_option: usize,
+    entity_options: Vec<EntityOption>,
 }
 
 #[derive(Debug)]
@@ -16,7 +18,7 @@ enum MenuState {
     Open,
     MapEditor,
     PlaceItem,
-    RemoveEntity(u32),
+    EntityOptions(u32),
 }
 
 pub struct MenuUpdateResult {
@@ -31,15 +33,42 @@ enum MenuItem {
     Exit,
 }
 
+impl MenuItem {
+    fn title(&self) -> String {
+        match self {
+            MenuItem::Save => "Save Game".to_string(),
+            MenuItem::MapEditor => "Map Editor".to_string(),
+            MenuItem::Exit => "Save & Exit".to_string(),
+        }
+    }
+}
+
+#[derive(Debug, Copy, Clone)]
+enum EntityOption {
+    Remove,
+}
+
+impl EntityOption {
+    fn title(&self) -> String {
+        match self {
+            EntityOption::Remove => "Remove".to_string(),
+        }
+    }
+}
+
 impl Menu {
     pub fn new() -> Self {
         Self {
-            selected_index: 0,
             state: MenuState::Closed,
             map_editor: MapEditor::new(),
+            selected_index: 0,
             items: vec![
                 MenuItem::Save,
                 MenuItem::Exit,
+            ],
+            selected_entity_option: 0,
+            entity_options: vec![
+                EntityOption::Remove,
             ]
         }
     }
@@ -54,8 +83,8 @@ impl Menu {
         !matches!(&self.state, MenuState::Closed)
     }
 
-    pub fn show_remove_entity(&mut self, id: &u32) {
-        self.state = MenuState::RemoveEntity(id.clone());
+    pub fn show_entity_options(&mut self, id: &u32) {
+        self.state = MenuState::EntityOptions(id.clone());
     }
 
     pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdateResult {
@@ -64,7 +93,7 @@ impl Menu {
             MenuState::Open => self.update_from_open(keyboard),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
-            MenuState::RemoveEntity(id) => self.close_or_remove_entity(id, keyboard),
+            MenuState::EntityOptions(id) => self.update_from_entity_options(id, keyboard),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -74,14 +103,28 @@ impl Menu {
 }
 
 impl Menu {
-    fn close_or_remove_entity(&mut self, id: u32, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_from_entity_options(&mut self, id: u32, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::Closed;
         }
-        if keyboard.has_confirmation_been_pressed {
-            self.state = MenuState::Closed;
-            let remove = WorldStateUpdate::RemoveEntity(id);
-            return vec![remove];
+        if keyboard.direction_up.is_pressed {
+            if self.selected_entity_option == 0 {
+                self.selected_entity_option = self.entity_options.len() - 1;
+            } else if self.selected_entity_option > 0 {
+                self.selected_entity_option -= 1;
+            }
+        }
+        if keyboard.direction_down.is_pressed {
+            if self.selected_entity_option < self.entity_options.len() - 1 {
+                self.selected_entity_option += 1;
+            } else if keyboard.direction_down.is_pressed && self.selected_entity_option == self.entity_options.len() - 1 {
+                self.selected_entity_option = 0;
+            }
+        }
+        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+            if let Some(updates) = self.handle_selection_from_entity_options(id) {
+                return updates;
+            }
         }
         vec![]
     }
@@ -116,9 +159,6 @@ impl Menu {
             if let Some(updates) = self.handle_selection_from_open() {
                 return updates;
             }
-        }
-        if keyboard.has_back_been_pressed {
-            self.state = MenuState::Closed;
         }
         vec![]
     }
@@ -159,14 +199,13 @@ impl Menu {
         }
         None
     }
-}
-
-impl MenuItem {
-    fn title(&self) -> String {
-        match self {
-            MenuItem::Save => "Save Game".to_string(),
-            MenuItem::MapEditor => "Map Editor".to_string(),
-            MenuItem::Exit => "Save & Exit".to_string(),
+    
+    fn handle_selection_from_entity_options(&mut self, id: u32) -> Option<Vec<WorldStateUpdate>> {        
+        match self.entity_options[self.selected_entity_option] {
+            EntityOption::Remove => {
+                self.state = MenuState::Closed;
+                return Some(vec![WorldStateUpdate::RemoveEntity(id)])
+            },
         }
     }
 }
@@ -178,17 +217,26 @@ impl Menu {
             MenuState::Open => self.menu_ui(),
             MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::RemoveEntity(u32) => self.remove_entity_ui(&u32),
+            MenuState::EntityOptions(u32) => self.entity_options_ui(&u32),
         }
     }
 
-    fn remove_entity_ui(&self, uuid: &u32) -> View {     
+    fn entity_options_ui(&self, id: &u32) -> View {     
         scaffold(
             vstack!(
                 Spacing::LG, 
-                text!(TextStyle::Title, "Remove Entity?".to_string()),
-                text!(TextStyle::Regular, format!("{}", uuid)),
-                text!(TextStyle::Regular, "Press SPACE to remove.\nPress ESC to cancel.".to_string())
+                text!(TextStyle::Title, "Entity Options".to_string()),
+                text!(TextStyle::Caption, format!("Id: #{}", id)),
+                View::VStack {                        
+                    spacing: Spacing::LG,
+                    children: self.entity_options.iter().enumerate().map(|(index, item)| {
+                        if index == self.selected_entity_option {
+                            text!(TextStyle::Selected, format!(" > {}", item.title()))
+                        } else {
+                            text!(TextStyle::Regular, format!(" {}", item.title()))
+                        }                            
+                    }).collect()
+                }
             )
         )
     }
