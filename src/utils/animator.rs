@@ -1,8 +1,9 @@
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 pub enum AnimationCurve {
     Linear,
 }
 
+#[derive(Debug)]
 pub struct Animator {
     initial_value: f32,
     pub final_value: f32,
