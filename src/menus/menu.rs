@@ -16,9 +16,7 @@ enum MenuState {
     Open,
     MapEditor,
     PlaceItem,
-    BuildingInteraction(u32),
-    NpcInteraction(u32),
-    EntityInteraction(u32),
+    RemoveEntity(u32),
 }
 
 pub struct MenuUpdateResult {
@@ -56,16 +54,8 @@ impl Menu {
         !matches!(&self.state, MenuState::Closed)
     }
 
-    pub fn show_building_interaction(&mut self, id: &u32) {
-        self.state = MenuState::BuildingInteraction(id.clone());
-    }
-
-    pub fn show_entity_interaction(&mut self, id: &u32) {
-        self.state = MenuState::EntityInteraction(id.clone());
-    }
-
-    pub fn show_npc_interaction(&mut self, id: &u32) {
-        self.state = MenuState::NpcInteraction(id.clone());
+    pub fn show_remove_entity(&mut self, id: &u32) {
+        self.state = MenuState::RemoveEntity(id.clone());
     }
 
     pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> MenuUpdateResult {
@@ -74,9 +64,7 @@ impl Menu {
             MenuState::Open => self.update_from_open(keyboard),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
-            MenuState::BuildingInteraction(id) => self.close_or_remove_entity(id, keyboard),
-            MenuState::NpcInteraction(id) => self.close_or_remove_entity(id, keyboard),
-            MenuState::EntityInteraction(id) => self.close_or_remove_entity(id, keyboard),
+            MenuState::RemoveEntity(id) => self.close_or_remove_entity(id, keyboard),
         };
         MenuUpdateResult {
             game_paused: self.is_open(),
@@ -190,9 +178,7 @@ impl Menu {
             MenuState::Open => self.menu_ui(),
             MenuState::MapEditor => self.map_editor.ui(camera_offset),
             MenuState::PlaceItem => self.map_editor.ui(camera_offset),
-            MenuState::BuildingInteraction(u32) => self.remove_entity_ui(&u32),
-            MenuState::NpcInteraction(u32) => self.remove_entity_ui(&u32),
-            MenuState::EntityInteraction(u32) => self.remove_entity_ui(&u32),
+            MenuState::RemoveEntity(u32) => self.remove_entity_ui(&u32),
         }
     }
 

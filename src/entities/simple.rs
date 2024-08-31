@@ -38,7 +38,7 @@ impl Entity for SimpleEntity {
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.body.frame) {
             return vec![
                 WorldStateUpdate::EngineUpdate(
-                    EngineStateUpdate::EntityInteraction(
+                    EngineStateUpdate::RemoveEntity(
                         self.body.id
                     )
                 )
