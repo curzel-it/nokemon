@@ -171,7 +171,7 @@ impl GameMenu {
         scaffold(
             vstack!(
                 Spacing::XL, 
-                text!(TextStyle::Title, "Game GameMenu".to_string()),
+                text!(TextStyle::Title, "Game Menu".to_string()),
                 View::VStack {                        
                     spacing: Spacing::LG,
                     children: self.items.iter().enumerate().map(|(index, item)| {

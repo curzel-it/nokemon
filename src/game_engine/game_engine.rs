@@ -177,7 +177,7 @@ impl GameEngine {
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
-            EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(id),
+            EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(*id),
         }
     }
 

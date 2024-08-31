@@ -1,6 +1,9 @@
 use std::{borrow::Borrow, rc::Rc};
 use std::cell::RefCell;
 
+use raylib::color::Color;
+
+use crate::ui::ui::scaffold_with_bg;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{scaffold, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
 pub struct Menu<Item: MenuItem> {
@@ -33,6 +36,10 @@ impl<Item: MenuItem> Menu<Item> {
             animator: Animator::new(),
             on_selection,
         }
+    }
+
+    pub fn show(&mut self) {
+        self.is_open = true;
     }
 
     pub fn is_open(&self) -> bool {
@@ -99,7 +106,8 @@ impl<Item: MenuItem> Menu<Item> {
     }
 
     fn menu_ui(&self) -> View {            
-        scaffold(
+        scaffold_with_bg(
+            Color::BLACK.alpha(1.0),
             vstack!(
                 Spacing::XL, 
                 text!(TextStyle::Title, self.title.clone()),
