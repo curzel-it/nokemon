@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::vector::Vector2d};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, hstack, spacing, text, ui::components::{scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}};
 
 use super::utils::localized_dialogue;
 
@@ -10,6 +10,7 @@ pub struct DialogueMenu {
     dialogue: Vec<String>,
     current_line: usize,
     time_since_last_closed: f32,
+    text_animator: Animator,
     width: f32,
     height: f32,
 }
@@ -22,6 +23,7 @@ impl DialogueMenu {
             dialogue: vec![],
             current_line: 0,
             time_since_last_closed: 1.0,
+            text_animator: Animator::new(),
             width: 0.0,
             height: 0.0,
         }
@@ -33,6 +35,7 @@ impl DialogueMenu {
             self.npc_id = npc_id;
             self.current_line = 0;
             self.setup_dialog(dialogue_id, config);
+            self.text_animator.animate(0.0, 1.0, 0.3);
         }
     }
 
@@ -43,7 +46,7 @@ impl DialogueMenu {
         let font_spacing = config.scaled_font_spacing(&style);        
         let dialogue = localized_dialogue(dialogue_id);
 
-        self.width = (config.canvas_size.x - Spacing::LG.value(config) * 2.0).min(600.0);
+        self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(600.0);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
 
         self.dialogue = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
@@ -78,10 +81,13 @@ impl DialogueMenu {
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> (bool, Vec<WorldStateUpdate>) {
+        self.text_animator.update(time_since_last_update);
+
         if self.is_open {
             if keyboard.has_confirmation_been_pressed {
                 if self.current_line < self.dialogue.len() - 1 {
                     self.current_line += 1;
+                    self.text_animator.animate(0.0, 1.0, 0.3);
                 } else {
                     self.time_since_last_closed = 0.0;
                     self.is_open = false;
@@ -99,13 +105,21 @@ impl DialogueMenu {
     }
 
     pub fn ui(&self) -> View {
+
         if self.is_open {
             let current_dialogue = &self.dialogue[self.current_line];
+            let animated_text_length = (current_dialogue.len() as f32 * self.text_animator.current_value).round() as usize;
+            let animated_text = &current_dialogue[..animated_text_length.min(current_dialogue.len())];
+            // text!(TextStyle::Regular, animated_text.to_string())
+
             scaffold_background(
                 Color::BLACK,
                 with_fixed_size(
                     Vector2d::new(self.width, self.height), 
-                    text!(TextStyle::Regular, current_dialogue.clone())
+                    hstack!(
+                        Spacing::Zero,
+                        text!(TextStyle::Regular, animated_text.to_string())
+                    )                    
                 )                
             )
         } else {
