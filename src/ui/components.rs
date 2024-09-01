@@ -179,26 +179,28 @@ pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
     View::TexturedBorder { borders, children: vec![content] }
 }
 
-pub fn scaffold_with_bg(background_color: Color, content: View) -> View {
+pub fn scaffold_background_backdrop(background_color: Color, content: View) -> View {
+    with_backdrop(scaffold_background(background_color, content))
+}
+
+pub fn scaffold_background(background_color: Color, content: View) -> View {
     let key = SPRITE_SHEET_MENU;
 
-    with_backdrop(
-        padding(
-            Spacing::LG,
-            with_textured_border(
-                BordersTextures {
-                    corner_top_left: TextureInfo { key, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
-                    corner_top_right: TextureInfo { key, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
-                    corner_bottom_right: TextureInfo { key, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
-                    corner_bottom_left: TextureInfo { key, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
-                    side_top: TextureInfo { key, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
-                    side_right: TextureInfo { key, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
-                    side_bottom: TextureInfo { key, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
-                    side_left: TextureInfo { key, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
-                    fill: TextureInfo { key, source_rect: Rect { x: 1, y: 1, w: 1, h: 1 } },
-                }, 
-                zstack!(Spacing::LG, background_color, content)
-            )
+    padding(
+        Spacing::LG,
+        with_textured_border(
+            BordersTextures {
+                corner_top_left: TextureInfo { key, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
+                corner_top_right: TextureInfo { key, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
+                corner_bottom_right: TextureInfo { key, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
+                corner_bottom_left: TextureInfo { key, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
+                side_top: TextureInfo { key, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
+                side_right: TextureInfo { key, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
+                side_bottom: TextureInfo { key, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
+                side_left: TextureInfo { key, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
+                fill: TextureInfo { key, source_rect: Rect { x: 1, y: 1, w: 1, h: 1 } },
+            }, 
+            zstack!(Spacing::LG, background_color, content)
         )
     )
 }
@@ -255,7 +257,7 @@ impl Spacing {
         }
     }
 
-    fn value(&self, config: &RenderingConfig) -> f32 {
+    pub fn value(&self, config: &RenderingConfig) -> f32 {
         match self {
             Spacing::TextLineSpacing(style) => {
                 config.rendering_scale * config.font_lines_spacing(style)
@@ -273,7 +275,7 @@ impl RenderingConfig {
         }
     }
 
-    fn font(&self, style: &TextStyle) -> &Font {
+    pub fn font(&self, style: &TextStyle) -> &Font {
         match style {
             TextStyle::LargeTitle => &self.font_bold,
             TextStyle::Title => &self.font_bold,

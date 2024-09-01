@@ -1,7 +1,7 @@
 use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
-use crate::ui::components::scaffold_with_bg;
+use crate::ui::components::scaffold_background_backdrop;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
@@ -107,7 +107,7 @@ impl<Item: MenuItem> Menu<Item> {
     }
 
     fn menu_ui(&self) -> View {            
-        scaffold_with_bg(
+        scaffold_background_backdrop(
             Color::BLACK.alpha(self.animator.current_value),
             vstack!(
                 Spacing::XL, 

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::{dialogue_menu::DialogueMenu, entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::{dialogue_menu::DialogueMenu, entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::{RenderingConfig, TextStyle}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
@@ -185,7 +185,7 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.dialogue_menu.show(*npc_id, *dialogue),
+            EngineStateUpdate::ShowDialogue(npc_id, dialogue_id) => self.show_dialogue(npc_id, dialogue_id),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
@@ -193,6 +193,11 @@ impl GameEngine {
             EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(*id),
         }
     }
+
+    fn show_dialogue(&mut self, npc_id: &u32, dialogue_id: &u32) {
+        let config = self.ui_config.as_ref().unwrap();
+        self.dialogue_menu.showfrfr(*npc_id, *dialogue_id, config);
+    }    
 
     fn exit(&mut self) {
         println!("Got exit request!");
