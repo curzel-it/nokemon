@@ -1,6 +1,6 @@
 use raylib::{ffi::KeyboardKey, RaylibHandle};
 
-use crate::{constants::KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS, utils::directions::Direction};
+use crate::{constants::{KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS, KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST}, utils::directions::Direction};
 
 pub const NO_KEYBOARD_EVENTS: KeyboardEventsProvider = KeyboardEventsProvider::new();
 
@@ -79,7 +79,7 @@ impl HoldableKey {
         self.is_pressed = rl.is_key_pressed(self.key1) || rl.is_key_pressed(self.key2);
         
         if self.is_pressed {
-            self.time_to_next_press_event = KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS;
+            self.time_to_next_press_event = KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST;
         } else if self.is_down {
             self.time_to_next_press_event -= time_since_last_update;                
 
