@@ -39,7 +39,7 @@ fn draw_tile<T: SpriteTile>(
     d: &mut RaylibDrawHandle, 
     sprite_key: u32,
     tile: &T,
-    variant: u32,
+    variant: i32,
     engine: &GameEngine
 ) {    
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {

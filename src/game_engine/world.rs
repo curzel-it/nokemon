@@ -135,7 +135,7 @@ impl World {
 
     pub fn find_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
         for entity in self.entities.borrow().values() {
-            if entity.body().frame.contains_or_touches_point(col as u32, row as u32) {
+            if entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
                 return Some(entity.id())
             }
         }
@@ -147,7 +147,7 @@ impl World {
             if entity.id() == HERO_ENTITY_ID {
                 continue
             }
-            if entity.body().frame.contains_or_touches_point(col as u32, row as u32) {
+            if entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
                 return Some(entity.id())
             }
         }

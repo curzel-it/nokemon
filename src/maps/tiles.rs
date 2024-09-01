@@ -7,13 +7,13 @@ pub trait Tile: Clone {
 }
 
 pub trait SpriteTile: Tile {
-    fn texture_source_rect(&self, variant: u32) -> Rect;
+    fn texture_source_rect(&self, variant: i32) -> Rect;
 }
 
 pub struct TileSet<T: Tile> {
     pub tiles: Vec<Vec<T>>,
     pub sheet_id: u32,
-    sprite_counter: TimedContentProvider<u32>,
+    sprite_counter: TimedContentProvider<i32>,
 }
 
 impl<T: Tile> TileSet<T> {
@@ -29,7 +29,7 @@ impl<T: Tile> TileSet<T> {
         }
     }
 
-    pub fn content_provider() -> TimedContentProvider<u32> {
+    pub fn content_provider() -> TimedContentProvider<i32> {
         TimedContentProvider::new(Vec::from_iter(0..TILE_VARIATIONS_COUNT), TILE_VARIATIONS_FPS)
     }
 
@@ -37,8 +37,8 @@ impl<T: Tile> TileSet<T> {
         self.sprite_counter.update(time_since_last_update);
     }
 
-    pub fn current_variant(&self, row: u32, col: u32) -> u32 {
-        (*self.sprite_counter.current_frame() + row + col) % TILE_VARIATIONS_COUNT
+    pub fn current_variant(&self, row: u32, col: u32) -> i32 {
+        (*self.sprite_counter.current_frame() + row as i32 + col as i32) % TILE_VARIATIONS_COUNT
     }
 
     pub fn visible_tiles(&self, viewport: &Rect) -> Vec<&T> {

@@ -142,8 +142,8 @@ impl GameEngine {
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
         self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
-        self.camera_viewport.w = (width as f32 / (scale * TILE_SIZE)) as u32;
-        self.camera_viewport.h = (height as f32 / (scale * TILE_SIZE)) as u32;
+        self.camera_viewport.w = (width as f32 / (scale * TILE_SIZE)) as i32;
+        self.camera_viewport.h = (height as f32 / (scale * TILE_SIZE)) as i32;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
@@ -210,7 +210,7 @@ impl GameEngine {
         self.camera_viewport.center_in(frame);
     }
 
-    fn center_camera_at(&mut self, x: u32, y: u32, offset: &Vector2d) {
+    fn center_camera_at(&mut self, x: i32, y: i32, offset: &Vector2d) {
         self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
         self.camera_viewport_offset = *offset;
     }

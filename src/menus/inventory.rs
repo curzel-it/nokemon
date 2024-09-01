@@ -36,7 +36,7 @@ impl Stockable {
         Rect::new(col, row, 1, 1)
     }
 
-    fn texture_offsets(&self) -> (u32, u32) {
+    fn texture_offsets(&self) -> (i32, i32) {
          match self {
             Stockable::BiomeTile(biome) => match biome {
                 Biome::Nothing => (0, 0),

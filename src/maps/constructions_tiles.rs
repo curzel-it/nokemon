@@ -27,7 +27,7 @@ pub struct ConstructionTile {
 impl_tile!(ConstructionTile);
 
 impl SpriteTile for ConstructionTile {
-    fn texture_source_rect(&self, _: u32) -> Rect {
+    fn texture_source_rect(&self, _: i32) -> Rect {
         self.texture_source_rect
     }
 }
@@ -76,7 +76,7 @@ impl ConstructionTile {
 }
 
 impl Construction {
-    fn texture_offset_x(&self) -> u32 {
+    fn texture_offset_x(&self) -> i32 {
         match self {
             Construction::Nothing => 0,
             Construction::WoodenFence => 1,

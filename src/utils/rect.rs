@@ -4,22 +4,22 @@ use super::{directions::Direction, vector::Vector2d};
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Rect {
-    pub x: u32,
-    pub y: u32,
-    pub w: u32,
-    pub h: u32,
+    pub x: i32,
+    pub y: i32,
+    pub w: i32,
+    pub h: i32,
 }
 
 impl Rect {
-    pub const fn new(x: u32, y: u32, w: u32, h: u32) -> Self {
+    pub const fn new(x: i32, y: i32, w: i32, h: i32) -> Self {
         Rect { x, y, w, h }
     }
 
-    pub fn from_origin(w: u32, h: u32) -> Self {
+    pub fn from_origin(w: i32, h: i32) -> Self {
         Self::new(0, 0, w, h)
     }
 
-    pub fn square_from_origin(size: u32) -> Self {
+    pub fn square_from_origin(size: i32) -> Self {
         Self::from_origin(size, size)
     }
 
@@ -35,17 +35,12 @@ impl Rect {
     }
 
     pub fn center_at(&mut self, point: &Vector2d) {
-        self.x = (point.x - (self.w as f32 / 2.0)) as u32;
-        self.y = (point.y - (self.h as f32 / 2.0)) as u32;
+        self.x = (point.x - (self.w as f32 / 2.0)) as i32;
+        self.y = (point.y - (self.h as f32 / 2.0)) as i32;
     }
 
     pub fn offset(&self, dx: i32, dy: i32) -> Self {
-        Self::new(
-            (self.x as i32 + dx).max(0) as u32, 
-            (self.y as i32 + dy).max(0) as u32, 
-            self.w, 
-            self.h
-        )
+        Self::new(self.x + dx, self.y + dy, self.w, self.h)
     }
 
     pub fn offset_x(&self, dx: i32) -> Self {
@@ -66,7 +61,7 @@ impl Rect {
         }
     }
     
-    pub fn contains_or_touches_point(&self, x: u32, y: u32) -> bool {
+    pub fn contains_or_touches_point(&self, x: i32, y: i32) -> bool {
         self.x <= x && x <= self.x + self.w && self.y <= y && y <= self.y + self.h
     }
 }

@@ -1,20 +1,20 @@
 use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
-pub fn new_building(source_world_id: u32, x: u32, y: u32, building_type: BuildingType) -> Vec<Box<dyn Entity>> {
+pub fn new_building(source_world_id: u32, x: i32, y: i32, building_type: BuildingType) -> Vec<Box<dyn Entity>> {
     match building_type {
         BuildingType::House => new_house(source_world_id, x, y),
         BuildingType::HouseTwoFloors => new_house_two_floors(source_world_id, x, y),
     }
 }
 
-fn new_house(source_world_id: u32, x: u32, y: u32) -> Vec<Box<dyn Entity>> {
+fn new_house(source_world_id: u32, x: i32, y: i32) -> Vec<Box<dyn Entity>> {
     let mut building = Building::new(BuildingType::House);
     building.body_mut().frame.x = x;
     building.body_mut().frame.y = y;
 
     let first_floor_id = get_next_id();
     let mut door = Teleporter::new(first_floor_id);
-    door.body_mut().frame.x = x + (building.body().frame.w as f32 / 2.0).ceil() as u32;
+    door.body_mut().frame.x = x + (building.body().frame.w as f32 / 2.0).ceil() as i32;
     door.body_mut().frame.y = y + 3;
 
     let mut first_floor = World::load_or_create(first_floor_id);
@@ -34,8 +34,8 @@ fn new_house(source_world_id: u32, x: u32, y: u32) -> Vec<Box<dyn Entity>> {
     }
 
     let mut door_back1 = Teleporter::new(source_world_id);
-    door_back1.body_mut().frame.x = (HOUSE_INTERIOR_COLUMNS as f32 / 2.0).ceil() as u32;
-    door_back1.body_mut().frame.y = (HOUSE_INTERIOR_ROWS + 2) as u32;
+    door_back1.body_mut().frame.x = (HOUSE_INTERIOR_COLUMNS as f32 / 2.0).ceil() as i32;
+    door_back1.body_mut().frame.y = (HOUSE_INTERIOR_ROWS + 2) as i32;
 
     let mut door_back2 = Teleporter::new(source_world_id);
     door_back2.body_mut().frame.x = door_back1.body().frame.x + 1;
@@ -51,7 +51,7 @@ fn new_house(source_world_id: u32, x: u32, y: u32) -> Vec<Box<dyn Entity>> {
     ]   
 }
 
-fn new_house_two_floors(source_world_id: u32, x: u32, y: u32) -> Vec<Box<dyn Entity>> {
+fn new_house_two_floors(source_world_id: u32, x: i32, y: i32) -> Vec<Box<dyn Entity>> {
     let mut building = Building::new(BuildingType::House);
     building.body_mut().frame.x = x;
     building.body_mut().frame.y = y;

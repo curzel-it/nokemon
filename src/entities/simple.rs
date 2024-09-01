@@ -11,7 +11,7 @@ pub struct SimpleEntity {
 }
 
 impl SimpleEntity {
-    pub fn new(is_rigid: bool, width: u32, height: u32, sprite_sheet: u32, texture_source_rect: Rect) -> Self {
+    pub fn new(is_rigid: bool, width: i32, height: i32, sprite_sheet: u32, texture_source_rect: Rect) -> Self {
         Self { 
             body: EntityBody {
                 id: get_next_id(),

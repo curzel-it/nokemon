@@ -11,8 +11,8 @@ impl World {
                 Direction::Left => (-1, -1),
                 Direction::Unknown => (0, 0),
             };
-            entity.body_mut().frame.x = (teleporter_position.x as i32 + offset_x) as u32;
-            entity.body_mut().frame.y = (teleporter_position.y as i32 + offset_y) as u32;
+            entity.body_mut().frame.x = teleporter_position.x + offset_x;
+            entity.body_mut().frame.y = teleporter_position.y + offset_y;
         } else {
             entity.center_in(&self.bounds);
         }

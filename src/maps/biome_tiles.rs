@@ -26,14 +26,14 @@ pub struct BiomeTile {
     pub tile_right_type: Biome,
     pub tile_down_type: Biome,
     pub tile_left_type: Biome,
-    pub texture_offset_x: u32,
-    pub texture_offset_y: u32,
+    pub texture_offset_x: i32,
+    pub texture_offset_y: i32,
 }
 
 impl_tile!(BiomeTile);
 
 impl SpriteTile for BiomeTile {
-    fn texture_source_rect(&self, variant: u32) -> Rect {
+    fn texture_source_rect(&self, variant: i32) -> Rect {
         Rect::new(
             self.texture_offset_x,
             self.texture_offset_y + variant * Biome::number_of_biomes(),
@@ -61,7 +61,7 @@ impl BiomeTile {
         self.texture_offset_y = self.tile_type.texture_index(); 
     }
 
-    fn texture_index_for_neighbors(&self) -> u32 {
+    fn texture_index_for_neighbors(&self) -> i32 {
         if let Some((neighbor, directions)) = self.best_neighbor() {            
             return match (self.tile_type, neighbor) {
                 (Biome::Water, Biome::Desert) => 0,
@@ -78,7 +78,7 @@ impl BiomeTile {
         0 
     }
 
-    fn texture_index_for_directions(&self, directions: &[Direction]) -> u32 {
+    fn texture_index_for_directions(&self, directions: &[Direction]) -> i32 {
         if directions.len() == 1 {
             match directions[0] {
                 Direction::Up => return 0,
@@ -153,15 +153,15 @@ impl BiomeTile {
 }
 
 impl Biome {    
-    fn number_of_combinations() -> u32 {
+    fn number_of_combinations() -> i32 {
         15
     }
 
-    fn number_of_biomes() -> u32 {
+    fn number_of_biomes() -> i32 {
         9
     }
 
-    fn texture_index(&self) -> u32 {
+    fn texture_index(&self) -> i32 {
         match self {
             Biome::Water => 0,
             Biome::Desert => 1,

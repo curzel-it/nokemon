@@ -14053,7 +14053,7 @@
         1,
         1,
         1,
-        1,
+        0,
         1,
         1,
         1,
@@ -60656,6 +60656,29 @@
         "lifespan": -420.0
       },
       "building_type": "HouseTwoFloors"
+    },
+    {
+      "body": {
+        "id": 1725181976,
+        "frame": {
+          "x": 110,
+          "y": 68,
+          "w": 5,
+          "h": 4
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": "House"
     }
   ],
   "teleporters": [
@@ -60705,6 +60728,30 @@
         "lifespan": -420.0
       },
       "destination": 1003,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725181978,
+        "frame": {
+          "x": 113,
+          "y": 71,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725181977,
       "creative_mode": true
     }
   ],

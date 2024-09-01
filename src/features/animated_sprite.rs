@@ -5,16 +5,16 @@ use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_HUMANOIDS}, utils::{rect::R
 #[derive(Debug)]
 pub struct AnimatedSprite {
     pub sheet_id: u32,
-    pub index: u32,
-    pub row: u32,
-    pub frames_provider: TimedContentProvider<u32>,
-    pub width: u32,
-    pub height: u32,
-    number_of_frames: u32,
+    pub index: i32,
+    pub row: i32,
+    pub frames_provider: TimedContentProvider<i32>,
+    pub width: i32,
+    pub height: i32,
+    number_of_frames: i32,
 }
 
 impl AnimatedSprite {
-    pub fn new(sheet_id: u32, number_of_frames: u32, width: u32, height: u32) -> Self {
+    pub fn new(sheet_id: u32, number_of_frames: i32, width: i32, height: i32) -> Self {
         Self {
             sheet_id,
             index: 0,
@@ -26,7 +26,7 @@ impl AnimatedSprite {
         }
     }
 
-    pub fn new_humanoid(index: u32) -> Self {
+    pub fn new_humanoid(index: i32) -> Self {
         let mut sprite = AnimatedSprite::new(
             SPRITE_SHEET_HUMANOIDS, 
             4, 
@@ -51,8 +51,8 @@ impl AnimatedSprite {
     }
 }
 
-impl TimedContentProvider<u32> {
-    pub fn frames_counter(n: u32) -> Self {
+impl TimedContentProvider<i32> {
+    pub fn frames_counter(n: i32) -> Self {
         let frames = Vec::from_iter(0..n);
         Self::new(frames, ANIMATIONS_FPS)
     }
@@ -106,10 +106,10 @@ macro_rules! impl_bullet_sprite_update {
 #[derive(Serialize, Deserialize)]
 struct AnimatedSpriteData {
     sheet_id: u32,
-    index: u32,
-    width: u32,
-    height: u32,
-    number_of_frames: u32,
+    index: i32,
+    width: i32,
+    height: i32,
+    number_of_frames: i32,
 }
 
 impl Serialize for AnimatedSprite {
