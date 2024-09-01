@@ -64,7 +64,6 @@ impl Stockable {
                 NpcType::OldMan => (2, 1)
             },
             Stockable::HouseholdObject(item) => match item {
-                HouseholdObject::Stairs => (3, 1),
                 HouseholdObject::StairsUp => (3, 2),
                 HouseholdObject::StairsDown => (3, 3)
             },

@@ -13,6 +13,10 @@ lazy_static::lazy_static! {
                 
                 "entity.menu.title".to_string() => "Entity Options".to_string(),
                 "entity.menu.remove".to_string() => "Remove".to_string(),
+                
+                "world.names.new_world".to_string() => "New World".to_string(),
+                "world.names.demo".to_string() => "Demo World".to_string(),
+                "world.names.with_id".to_string() => "World".to_string(),
             },
         }
     };

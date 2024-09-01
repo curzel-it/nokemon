@@ -133,15 +133,6 @@ impl World {
         hero.is_around_and_pointed_at(target, &hero_direction)
     }
 
-    pub fn find_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
-        for entity in self.entities.borrow().values() {
-            if entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
-                return Some(entity.id())
-            }
-        }
-        None
-    }
-
     pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
         for entity in self.entities.borrow().values() {
             if entity.id() == HERO_ENTITY_ID {

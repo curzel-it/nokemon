@@ -4,7 +4,6 @@ use super::simple::SimpleEntity;
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum HouseholdObject {
-    Stairs,
     StairsUp,
     StairsDown,
 }
@@ -24,7 +23,6 @@ impl HouseholdObject {
 
     fn is_rigid(&self) -> bool {
         match self {
-            HouseholdObject::Stairs => true,
             HouseholdObject::StairsUp => true,
             HouseholdObject::StairsDown => true,
         }
@@ -32,7 +30,6 @@ impl HouseholdObject {
 
     fn texture_source_rect(&self) -> Rect {
         let (x, y, w, h) = match self {
-            HouseholdObject::Stairs => (0, 0, 1, 1),
             HouseholdObject::StairsUp => (1, 0, 1, 2),
             HouseholdObject::StairsDown => (2, 0, 1, 2),
         };
