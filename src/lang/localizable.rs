@@ -77,7 +77,7 @@ fn parse_line(line: &str) -> Option<(String, String)> {
         let value = trimmed_line[equal_sign_pos + 1..]
             .trim()
             .trim_matches('"')
-            .trim_end_matches("\";") //.to_string();
+            .trim_end_matches("\";")
             .replace(r"\n", "\n")
             .replace(r#"\""#, r#"""#)
             .replace(r"\\", "\\")
