@@ -184,6 +184,7 @@ impl GameEngine {
     }
 
     fn exit(&mut self) {
+        println!("Got exit request!");
         self.is_running = false;
     }
 
@@ -204,6 +205,7 @@ impl GameEngine {
         self.center_camera_in(&hero_frame);
 
         self.menu.current_world_id = self.world.id;
+        self.keyboard.on_world_changed();
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {

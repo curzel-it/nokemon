@@ -117,7 +117,7 @@ impl GameMenu {
             self.state = MenuState::MapEditor;
             self.map_editor.current_world_id = self.current_world_id;
         } 
-        vec![]
+        updates
     }
 
     fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {

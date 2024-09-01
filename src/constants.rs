@@ -18,9 +18,6 @@ pub const HERO_ENTITY_ID: u32 = 420;
 // Known locations
 pub const WORLD_ID_NONE: u32 = 1000;
 pub const WORLD_ID_DEMO: u32 = 1001;
-pub const WORLD_ID_DEMO_HOUSE_INTERIOR: u32 = 1002;
-pub const WORLD_ID_DEMO_HOUSE_TWO_FLOORS_INTERIOR: u32 = 1003;
-pub const WORLD_ID_DEMO_HOUSE_TWO_FLOORS_SECOND_FLOOR: u32 = 1004;
 
 // Animations
 pub const WORLD_TRANSITION_TIME: f32 = 0.3;

@@ -13,6 +13,8 @@ pub struct KeyboardEventsProvider {
     pub direction_right: HoldableKey,
     pub direction_down: HoldableKey,
     pub direction_left: HoldableKey,
+
+    discard_direction_events_until_next_arrow_key_is_pressed: bool,
 }
 
 impl KeyboardEventsProvider {
@@ -25,10 +27,21 @@ impl KeyboardEventsProvider {
             direction_right: HoldableKey::new(KeyboardKey::KEY_D, KeyboardKey::KEY_RIGHT),
             direction_down: HoldableKey::new(KeyboardKey::KEY_S, KeyboardKey::KEY_DOWN),
             direction_left: HoldableKey::new(KeyboardKey::KEY_A, KeyboardKey::KEY_LEFT),
+            discard_direction_events_until_next_arrow_key_is_pressed: false
         }
     }
 
     pub fn update(&mut self, rl: &RaylibHandle, time_since_last_update: f32) {
+        self.discard_direction_events_until_next_arrow_key_is_pressed = self.discard_direction_events_until_next_arrow_key_is_pressed &&
+            !rl.is_key_pressed(KeyboardKey::KEY_W) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_D) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_S) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_A) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_UP) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_RIGHT) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_DOWN) &&
+            !rl.is_key_pressed(KeyboardKey::KEY_LEFT);
+
         self.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE);
         self.has_menu_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ENTER);
         self.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_SPACE);        
@@ -37,6 +50,10 @@ impl KeyboardEventsProvider {
         self.direction_down.update(rl, time_since_last_update);
         self.direction_left.update(rl, time_since_last_update);        
     }
+
+    pub fn on_world_changed(&mut self) {
+        self.discard_direction_events_until_next_arrow_key_is_pressed = true;
+    } 
 }
 
 pub struct HoldableKey {
@@ -76,6 +93,10 @@ impl HoldableKey {
 
 impl KeyboardEventsProvider {
     pub fn direction_based_on_current_keys(&self, current: Direction) -> Direction {
+        if self.discard_direction_events_until_next_arrow_key_is_pressed {
+            return Direction::Unknown;
+        }
+
         let direction_from_new_keys = Direction::from_data(
             !matches!(current, Direction::Up) && self.direction_up.is_down, 
             !matches!(current, Direction::Right) && self.direction_right.is_down, 
@@ -85,6 +106,7 @@ impl KeyboardEventsProvider {
         if direction_from_new_keys != current && direction_from_new_keys != Direction::Unknown {
             return direction_from_new_keys;
         }
+
         Direction::from_data(
             self.direction_up.is_down, 
             self.direction_right.is_down, 

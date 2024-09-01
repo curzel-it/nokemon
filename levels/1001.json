@@ -14053,7 +14053,7 @@
         1,
         1,
         1,
-        0,
+        1,
         1,
         1,
         1,
@@ -60613,10 +60613,10 @@
   "buildings": [
     {
       "body": {
-        "id": 12345601,
+        "id": 1725207093,
         "frame": {
-          "x": 101,
-          "y": 74,
+          "x": 102,
+          "y": 71,
           "w": 5,
           "h": 4
         },
@@ -60636,10 +60636,10 @@
     },
     {
       "body": {
-        "id": 1724882880,
+        "id": 1725207098,
         "frame": {
-          "x": 107,
-          "y": 73,
+          "x": 108,
+          "y": 70,
           "w": 5,
           "h": 5
         },
@@ -60656,38 +60656,15 @@
         "lifespan": -420.0
       },
       "building_type": "HouseTwoFloors"
-    },
-    {
-      "body": {
-        "id": 1725181976,
-        "frame": {
-          "x": 110,
-          "y": 68,
-          "w": 5,
-          "h": 4
-        },
-        "offset": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "direction": 4,
-        "current_speed": 0.0,
-        "base_speed": 0.0,
-        "creation_time": 0.0,
-        "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
-      },
-      "building_type": "House"
     }
   ],
   "teleporters": [
     {
       "body": {
-        "id": 12345603,
+        "id": 1725207095,
         "frame": {
-          "x": 104,
-          "y": 77,
+          "x": 105,
+          "y": 74,
           "w": 1,
           "h": 1
         },
@@ -60703,15 +60680,15 @@
         "z_index": 0,
         "lifespan": -420.0
       },
-      "destination": 1002,
-      "creative_mode": true
+      "destination": 1725207094,
+      "creative_mode": false
     },
     {
       "body": {
-        "id": 1724882883,
+        "id": 1725207101,
         "frame": {
-          "x": 110,
-          "y": 77,
+          "x": 111,
+          "y": 74,
           "w": 1,
           "h": 1
         },
@@ -60727,32 +60704,8 @@
         "z_index": 0,
         "lifespan": -420.0
       },
-      "destination": 1003,
-      "creative_mode": true
-    },
-    {
-      "body": {
-        "id": 1725181978,
-        "frame": {
-          "x": 113,
-          "y": 71,
-          "w": 1,
-          "h": 1
-        },
-        "offset": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "direction": 4,
-        "current_speed": 0.0,
-        "base_speed": 0.0,
-        "creation_time": 0.0,
-        "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
-      },
-      "destination": 1725181977,
-      "creative_mode": true
+      "destination": 1725207099,
+      "creative_mode": false
     }
   ],
   "npcs": [],
