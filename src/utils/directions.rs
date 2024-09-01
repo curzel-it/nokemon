@@ -3,11 +3,13 @@ use super::vector::Vector2d;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
+#[derive(Default)]
 pub enum Direction {
     Up = 0,
     Down = 1,
     Right = 2,
     Left = 3,
+    #[default]
     Unknown = 4,
 }
 
@@ -36,8 +38,3 @@ impl Direction {
     }
 }
 
-impl Default for Direction {
-    fn default() -> Self {
-        Direction::Unknown
-    }
-}

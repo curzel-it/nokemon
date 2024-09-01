@@ -20,7 +20,6 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
     if args.contains(&"creative".to_owned()) {
-        println!("Running in creative mode...");
         creative_mode = true;
     }
 

@@ -66,7 +66,7 @@ impl Teleporter {
         if !world.is_any_arrow_key_down { return false }
         if hero_speed <= 0.0 { return false }
 
-        return match hero_direction {
+        match hero_direction {
             Direction::Up => hero.x == self.body.frame.x && hero.y == self.body.frame.y + 1,
             Direction::Right => hero.y == self.body.frame.y && hero.x == self.body.frame.x - 1,
             Direction::Down => hero.x == self.body.frame.x && hero.y == self.body.frame.y - 1,
