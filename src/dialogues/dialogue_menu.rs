@@ -1,6 +1,15 @@
 use raylib::prelude::*;
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, hstack, spacing, text, ui::components::{scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}};
+use crate::{
+    game_engine::{
+        keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate,
+    },
+    hstack, spacing, text,
+    ui::components::{
+        scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View,
+    },
+    utils::{animator::Animator, vector::Vector2d},
+};
 
 use super::utils::localized_dialogue;
 
@@ -43,7 +52,7 @@ impl DialogueMenu {
         let style = TextStyle::Regular;
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
-        let font_spacing = config.scaled_font_spacing(&style);        
+        let font_spacing = config.scaled_font_spacing(&style);
         let dialogue = localized_dialogue(dialogue_id);
 
         self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(600.0);
@@ -52,7 +61,13 @@ impl DialogueMenu {
         self.dialogue = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
     }
 
-    fn split_dialogue_into_lines(&self, dialogue: &str, font_size: f32, font_spacing: f32, font: &Font) -> Vec<String> {
+    fn split_dialogue_into_lines(
+        &self,
+        dialogue: &str,
+        font_size: f32,
+        font_spacing: f32,
+        font: &Font,
+    ) -> Vec<String> {
         let mut lines = Vec::new();
         let mut current_line = String::new();
 
@@ -76,11 +91,14 @@ impl DialogueMenu {
         if !current_line.is_empty() {
             lines.push(current_line);
         }
-
         lines
     }
 
-    pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> (bool, Vec<WorldStateUpdate>) {
+    pub fn update(
+        &mut self,
+        keyboard: &KeyboardEventsProvider,
+        time_since_last_update: f32,
+    ) -> (bool, Vec<WorldStateUpdate>) {
         self.text_animator.update(time_since_last_update);
 
         if self.is_open {
@@ -96,7 +114,6 @@ impl DialogueMenu {
         } else {
             self.time_since_last_closed += time_since_last_update;
         }
-
         (self.is_open, vec![])
     }
 
@@ -105,25 +122,31 @@ impl DialogueMenu {
     }
 
     pub fn ui(&self) -> View {
-
         if self.is_open {
             let current_dialogue = &self.dialogue[self.current_line];
             let animated_text_length = (current_dialogue.len() as f32 * self.text_animator.current_value).round() as usize;
             let animated_text = &current_dialogue[..animated_text_length.min(current_dialogue.len())];
-            // text!(TextStyle::Regular, animated_text.to_string())
+            let has_more_lines = self.current_line < self.dialogue.len() - 1;
+
+            let (spacing, next_icon) = if has_more_lines {
+                (Spacing::MD, ">>")
+            } else {
+                (Spacing::Zero, "")
+            };
 
             scaffold_background(
                 Color::BLACK,
-                with_fixed_size(
-                    Vector2d::new(self.width, self.height), 
-                    hstack!(
-                        Spacing::Zero,
+                hstack!(
+                    spacing,
+                    with_fixed_size(
+                        Vector2d::new(self.width, self.height),
                         text!(TextStyle::Regular, animated_text.to_string())
-                    )                    
-                )                
+                    ),
+                    text!(TextStyle::Bold, next_icon.to_string())
+                ),
             )
         } else {
             spacing!(Spacing::Zero)
         }
-   }   
+    }
 }
