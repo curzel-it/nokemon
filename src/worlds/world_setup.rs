@@ -5,10 +5,10 @@ impl World {
         let mut entity = Hero::new();
         if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
             let (offset_x, offset_y): (i32, i32) = match hero_direction {
-                Direction::Up => (0, -1),
-                Direction::Right => (1, 0),
-                Direction::Down => (0, 1),
-                Direction::Left => (-1, 0),
+                Direction::Up => (0, -2),
+                Direction::Right => (1, -1),
+                Direction::Down => (0, 0),
+                Direction::Left => (-1, -1),
                 Direction::Unknown => (0, 0),
             };
             entity.body_mut().frame.x = (teleporter_position.x as i32 + offset_x) as u32;

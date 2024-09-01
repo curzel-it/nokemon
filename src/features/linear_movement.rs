@@ -51,7 +51,7 @@ fn would_exit_bounds(frame: &Rect, direction: &Direction, bounds: &Rect) -> bool
 }
 
 fn would_collide(frame: &Rect, direction: &Direction, hitmap: &Hitmap) -> bool {
-    let (row_offset, col_offset) = direction.as_row_col_offset();
+    let (row_offset, col_offset) = direction.as_col_row_offset();
     let base_y = (frame.y + frame.h - 1) as i32;
     let base_x = frame.x as i32;
     return hitmap[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize]

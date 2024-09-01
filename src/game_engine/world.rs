@@ -16,7 +16,7 @@ pub struct World {
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
     pub creative_mode: bool,
-    pub direction_according_to_keyboard: Direction,
+    pub direction_based_on_current_keys: Direction,
     pub is_any_arrow_key_down: bool,
     pub has_confirmation_key_been_pressed: bool,
 }
@@ -34,7 +34,7 @@ impl World {
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
-            direction_according_to_keyboard: Direction::Unknown,
+            direction_based_on_current_keys: Direction::Unknown,
             is_any_arrow_key_down: false,
             has_confirmation_key_been_pressed: false,
         }
@@ -61,7 +61,7 @@ impl World {
         keyboard: &KeyboardEventsProvider
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
-        self.direction_according_to_keyboard = keyboard.direction_based_on_down_keys(&self.cached_hero_props.direction);
+        self.direction_based_on_current_keys = keyboard.direction_based_on_current_keys(self.cached_hero_props.direction);
         self.is_any_arrow_key_down = keyboard.is_any_arrow_key_down();
         self.has_confirmation_key_been_pressed = keyboard.has_confirmation_been_pressed;
         self.visible_entities = self.compute_visible_entities(viewport);

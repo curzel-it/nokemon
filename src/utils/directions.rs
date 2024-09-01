@@ -13,11 +13,11 @@ pub enum Direction {
 
 impl Direction {
     pub fn as_vector(&self) -> Vector2d {
-        let (row, col) = self.as_row_col_offset();
+        let (col, row) = self.as_col_row_offset();
         Vector2d::new(col as f32, row as f32)
     }
 
-    pub fn as_row_col_offset(&self) -> (i32, i32) {
+    pub fn as_col_row_offset(&self) -> (i32, i32) {
         match self {
             Direction::Up => (0, -1),
             Direction::Right => (1, 0),

@@ -75,21 +75,22 @@ impl HoldableKey {
 }
 
 impl KeyboardEventsProvider {
-    pub fn direction_based_on_down_keys(&self, current: &Direction) -> Direction {
-        if !self.is_any_arrow_key_down() {
-            return Direction::Unknown
-        }
-
-        let direction = Direction::from_data(
-            matches!(current, Direction::Down) && self.direction_up.is_down, 
-            matches!(current, Direction::Left) && self.direction_right.is_down, 
-            matches!(current, Direction::Up) && self.direction_down.is_down, 
-            matches!(current, Direction::Right) && self.direction_left.is_down
+    pub fn direction_based_on_current_keys(&self, current: Direction) -> Direction {
+        let direction_from_new_keys = Direction::from_data(
+            !matches!(current, Direction::Up) && self.direction_up.is_down, 
+            !matches!(current, Direction::Right) && self.direction_right.is_down, 
+            !matches!(current, Direction::Down) && self.direction_down.is_down, 
+            !matches!(current, Direction::Left) && self.direction_left.is_down
         );
-        if matches!(direction, Direction::Unknown) {
-            return *current;
+        if direction_from_new_keys != current && direction_from_new_keys != Direction::Unknown {
+            return direction_from_new_keys;
         }
-        direction
+        Direction::from_data(
+            self.direction_up.is_down, 
+            self.direction_right.is_down, 
+            self.direction_down.is_down, 
+            self.direction_left.is_down
+        )
     }
 
     pub fn is_any_arrow_key_down(&self) -> bool {
