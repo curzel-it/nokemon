@@ -27,6 +27,9 @@ pub const WORLD_TRANSITION_TIME: f32 = 0.3;
 pub const MENU_CLOSE_TIME: f32 = 0.2;
 pub const MENU_OPEN_TIME: f32 = 0.1;
 
+// Localization
+pub const DEFAULT_LANG: &str = "en";
+
 // Paths
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";

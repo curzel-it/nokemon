@@ -1,5 +1,5 @@
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, ui::ui::View};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::ui::View};
 
 use super::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection};
 
@@ -9,9 +9,9 @@ pub enum EntityOptionMenuItem {
 }
 
 impl MenuItem for EntityOptionMenuItem {
-    fn title(&self) -> &str {
+    fn title(&self) -> String {
         match self {
-            EntityOptionMenuItem::RemoveEntity(_) => "Remove",
+            EntityOptionMenuItem::RemoveEntity(_) => "entity.menu.remove".localized(),
         }
     }
 }
@@ -31,7 +31,7 @@ impl EntityOptionsMenu {
         });
 
         Self {
-            menu: Menu::new("Entity Options", vec![], on_selection),
+            menu: Menu::new("entity.menu.title".localized(), vec![], on_selection),
         }
     }
 

@@ -2,6 +2,7 @@ mod constants;
 mod entities;
 mod features;
 mod game_engine;
+mod lang;
 mod maps;
 mod menus;
 mod rendering;

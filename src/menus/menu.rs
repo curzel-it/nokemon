@@ -14,7 +14,7 @@ pub struct Menu<Item: MenuItem> {
 }
 
 pub trait MenuItem: Clone {
-    fn title(&self) -> &str;
+    fn title(&self) -> String;
 }
 
 pub type MenuUpdate = (bool, Vec<WorldStateUpdate>);
@@ -22,12 +22,12 @@ pub type OnMenuItemSelection<Item> = Box<dyn FnMut(Item) -> (bool, Vec<WorldStat
 
 impl<Item: MenuItem> Menu<Item> {
     pub fn new(
-        title: &str, 
+        title: String, 
         items: Vec<Item>, 
         on_selection: OnMenuItemSelection<Item>
     ) -> Self {
         Self {
-            title: title.to_owned(),
+            title,
             is_open: false,
             selected_index: 0,
             items,

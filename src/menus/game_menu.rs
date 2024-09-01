@@ -1,4 +1,4 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, spacing, ui::ui::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, worlds::utils::list_worlds_with_none};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::ui::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, worlds::utils::list_worlds_with_none};
 
 use super::{map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
@@ -24,23 +24,25 @@ enum GameMenuItem {
 }
 
 impl MenuItem for GameMenuItem {
-    fn title(&self) -> &str {
+    fn title(&self) -> String {
         match self {
-            GameMenuItem::Save => "Save Game",
-            GameMenuItem::MapEditor => "Map Editor",
-            GameMenuItem::Exit => "Save & Exit",
+            GameMenuItem::Save => "game.menu.save".localized(),
+            GameMenuItem::MapEditor => "game.menu.map_editor".localized(),
+            GameMenuItem::Exit => "game.menu.save_and_exit".localized(),
         }
     }
 }
 
 impl GameMenu {
     pub fn new() -> Self {
-        let menu_items = vec![
-            GameMenuItem::Save,
-            GameMenuItem::Exit,
-        ];
-
-        let menu = Menu::new("Game Menu", menu_items, Box::new(GameMenu::on_menu_item_selected));
+        let menu = Menu::new(
+            "game.menu.title".localized(), 
+            vec![
+                GameMenuItem::Save,
+                GameMenuItem::Exit,
+            ], 
+            Box::new(GameMenu::on_menu_item_selected)
+        );
 
         Self {
             state: MenuState::Closed,
