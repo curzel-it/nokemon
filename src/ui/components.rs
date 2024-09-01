@@ -83,7 +83,7 @@ pub struct BordersTextures {
 #[macro_export]
 macro_rules! zstack {
     ($spacing:expr, $background_color:expr, $( $child:expr ),*) => {
-        $crate::ui::ui::View::ZStack {
+        $crate::ui::components::View::ZStack {
             spacing: $spacing,
             background_color: $background_color,
             children: vec![$($child),*],
@@ -94,7 +94,7 @@ macro_rules! zstack {
 #[macro_export]
 macro_rules! vstack {
     ($spacing:expr, $( $child:expr ),*) => {
-        $crate::ui::ui::View::VStack {
+        $crate::ui::components::View::VStack {
             spacing: $spacing,
             children: vec![$($child),*],
         }
@@ -104,7 +104,7 @@ macro_rules! vstack {
 #[macro_export]
 macro_rules! hstack {
     ($spacing:expr, $( $child:expr ),*) => {
-        $crate::ui::ui::View::HStack {
+        $crate::ui::components::View::HStack {
             spacing: $spacing,
             children: vec![$($child),*],
         }
@@ -114,7 +114,7 @@ macro_rules! hstack {
 #[macro_export]
 macro_rules! text {
     ($style:expr, $text:expr) => {
-        $crate::ui::ui::View::Text {
+        $crate::ui::components::View::Text {
             style: $style,
             text: $text,
         }
@@ -124,7 +124,7 @@ macro_rules! text {
 #[macro_export]
 macro_rules! texture {
     ($key:expr, $source_rect:expr, $size:expr) => {
-        $crate::ui::ui::View::Texture {
+        $crate::ui::components::View::Texture {
             key: $key,
             source_rect: $source_rect,
             size: $size,
@@ -135,7 +135,7 @@ macro_rules! texture {
 #[macro_export]
 macro_rules! spacing {
     ($size:expr) => {
-        $crate::ui::ui::View::Spacing {
+        $crate::ui::components::View::Spacing {
             size: $size,
         }
     };
@@ -144,7 +144,7 @@ macro_rules! spacing {
 #[macro_export]
 macro_rules! vgrid {
     ($columns:expr, $spacing:expr, $( $child:expr ),*) => {
-        $crate::ui::ui::View::VGrid {
+        $crate::ui::components::View::VGrid {
             columns: $columns,
             spacing: $spacing,
             children: vec![$($child),*],
@@ -155,7 +155,7 @@ macro_rules! vgrid {
 #[macro_export]
 macro_rules! hgrid {
     ($rows:expr, $spacing:expr, $( $child:expr ),*) => {
-        $crate::ui::ui::View::HGrid {
+        $crate::ui::components::View::HGrid {
             rows: $rows,
             spacing: $spacing,
             children: vec![$($child),*],
@@ -201,14 +201,6 @@ pub fn scaffold_with_bg(background_color: Color, content: View) -> View {
             )
         )
     )
-}
-
-pub fn scaffold(content: View) -> View {
-    scaffold_with_bg(Color::BLACK, content)
-}
-
-pub fn render(view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
-    view.render(d, config, position);
 }
 
 pub fn render_from(anchor_point: AnchorPoint, view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {

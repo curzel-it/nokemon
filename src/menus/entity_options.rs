@@ -1,5 +1,5 @@
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::ui::View};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::components::View};
 
 use super::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection};
 

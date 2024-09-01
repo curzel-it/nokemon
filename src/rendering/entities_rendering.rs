@@ -2,7 +2,7 @@ use std::{borrow::Borrow, cmp::Ordering};
 
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, game_engine::GameEngine, world::World}};
+use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, engine::GameEngine, world::World}};
 
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;

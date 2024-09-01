@@ -60627,7 +60627,7 @@
         "direction": 4,
         "current_speed": 0.0,
         "base_speed": 0.0,
-        "creation_time": 0.8391685,
+        "creation_time": 0.0,
         "is_rigid": true,
         "z_index": 0,
         "lifespan": -420.0
@@ -60652,7 +60652,7 @@
         "direction": 4,
         "current_speed": 0.0,
         "base_speed": 0.0,
-        "creation_time": 0.8391685,
+        "creation_time": 0.0,
         "is_rigid": false,
         "z_index": 0,
         "lifespan": -420.0

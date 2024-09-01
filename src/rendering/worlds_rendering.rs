@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::game_engine::{game_engine::GameEngine, world::World};
+use crate::game_engine::{engine::GameEngine, world::World};
 
 use super::{entities_rendering::render_entities, menu_rendering::render_menu, tiles_rendering::render_tiles, loading_screen_rendering::render_loading_screen};
 

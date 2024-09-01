@@ -13,7 +13,7 @@ mod worlds;
 
 use std::env;
 
-use game_engine::game_engine::GameEngine;
+use game_engine::engine::GameEngine;
 use rendering::worlds_rendering::render;
 
 fn main() {

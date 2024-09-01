@@ -1,8 +1,8 @@
 use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
-use crate::ui::ui::scaffold_with_bg;
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::ui::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
+use crate::ui::components::scaffold_with_bg;
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
     title: String,
