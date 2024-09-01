@@ -60,6 +60,7 @@ pub enum View {
     HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
     FixedPosition { position: Vector2d, children: Vec<View> },
+    FixedSize { size: Vector2d, children: Vec<View> },
     TexturedBorder { borders: BordersTextures, children: Vec<View> }
 }
 
@@ -173,6 +174,10 @@ pub fn with_backdrop(content: View) -> View {
 
 pub fn with_fixed_position(position: Vector2d, content: View) -> View {
     View::FixedPosition { position, children: vec![content] }
+}
+
+pub fn with_fixed_size(size: Vector2d, content: View) -> View {
+    View::FixedSize { size, children: vec![content] }
 }
 
 pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
@@ -358,6 +363,9 @@ impl View {
             }
             View::FixedPosition { position, children } => {
                 self.render_fixed_position(d, config, position, children)
+            }
+            View::FixedSize { size, children } => {
+                self.render_fixed_size(d, config, position, size, children)
             }
             View::TexturedBorder { borders, children } => {
                 self.render_textured_borders(d, config, borders, position, children)
@@ -634,6 +642,22 @@ impl View {
             Color::BLACK.alpha(0.0)
         );
     }
+
+    fn render_fixed_size(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &RenderingConfig,
+        position: &Vector2d,
+        size: &Vector2d,
+        children: &[View],
+    ) {
+        let child_position = Vector2d::new(position.x, position.y);
+        d.draw_rectangle_v(position.as_rv(), size.as_rv(), Color::BLACK.alpha(0.0));
+
+        for child in children {
+            child.render(d, config, &child_position);
+        }
+    }
 }
 
 impl View {
@@ -668,6 +692,9 @@ impl View {
             }
             View::FixedPosition { position: _, children } => {
                 self.calculate_fixed_position_size(config, children)                
+            }
+            View::FixedSize { size, children: _ } => {
+                size.clone()
             }
             View::TexturedBorder { borders: _, children } => {
                 self.calculate_textured_border_size(config, children)                

@@ -196,7 +196,7 @@ impl GameEngine {
 
     fn show_dialogue(&mut self, npc_id: &u32, dialogue_id: &u32) {
         let config = self.ui_config.as_ref().unwrap();
-        self.dialogue_menu.showfrfr(*npc_id, *dialogue_id, config);
+        self.dialogue_menu.show(*npc_id, *dialogue_id, config);
     }    
 
     fn exit(&mut self) {

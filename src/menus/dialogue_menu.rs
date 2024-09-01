@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{scaffold_background, RenderingConfig, Spacing, TextStyle, View}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::vector::Vector2d};
 
 pub struct DialogueMenu {
     is_open: bool,
@@ -8,6 +8,8 @@ pub struct DialogueMenu {
     dialogue: Vec<String>,
     current_line: usize,
     time_since_last_closed: f32,
+    width: f32,
+    height: f32,
 }
 
 impl DialogueMenu {
@@ -18,30 +20,38 @@ impl DialogueMenu {
             dialogue: vec![],
             current_line: 0,
             time_since_last_closed: 1.0,
+            width: 0.0,
+            height: 0.0,
         }
     }
 
-    pub fn showfrfr(&mut self, npc_id: u32, dialogue_id: u32, config: &RenderingConfig) {
+    pub fn show(&mut self, npc_id: u32, dialogue_id: u32, config: &RenderingConfig) {
         if self.time_since_last_closed >= 0.5 {
             self.is_open = true;
             self.npc_id = npc_id;
-            self.dialogue = self.load_dialog(dialogue_id, config);
             self.current_line = 0;
+            self.setup_dialog(dialogue_id, config);
         }
     }
 
-    fn load_dialog(&self, _dialogue_id: u32, config: &RenderingConfig) -> Vec<String> {
+    fn setup_dialog(&mut self, dialogue_id: u32, config: &RenderingConfig) {
         let style = TextStyle::Regular;
-        let max_width = (config.canvas_size.x - Spacing::LG.value(config) * 2.0).min(600.0);
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
-        let font_spacing = config.scaled_font_spacing(&style);
-        
-        let dialogue = "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol";
-        self.split_dialogue_into_lines(dialogue, max_width, font_size, font_spacing, font)
+        let font_spacing = config.scaled_font_spacing(&style);        
+        let dialogue = self.load_dialog(dialogue_id);
+
+        self.width = (config.canvas_size.x - Spacing::LG.value(config) * 2.0).min(600.0);
+        self.height = font.measure_text("measure me", font_size, font_spacing).y;
+
+        self.dialogue = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
     }
 
-    fn split_dialogue_into_lines(&self, dialogue: &str, max_width: f32, font_size: f32, font_spacing: f32, font: &Font) -> Vec<String> {
+    fn load_dialog(&self, dialogue_id: u32) -> String {
+        "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol".to_string()
+    }
+
+    fn split_dialogue_into_lines(&self, dialogue: &str, font_size: f32, font_spacing: f32, font: &Font) -> Vec<String> {
         let mut lines = Vec::new();
         let mut current_line = String::new();
 
@@ -54,7 +64,7 @@ impl DialogueMenu {
 
             let line_width = font.measure_text(&potential_line, font_size, font_spacing).x;
 
-            if line_width <= max_width {
+            if line_width <= self.width {
                 current_line = potential_line;
             } else {
                 lines.push(current_line);
@@ -95,7 +105,10 @@ impl DialogueMenu {
             let current_dialogue = &self.dialogue[self.current_line];
             scaffold_background(
                 Color::BLACK,
-                text!(TextStyle::Regular, current_dialogue.clone())
+                with_fixed_size(
+                    Vector2d::new(self.width, self.height), 
+                    text!(TextStyle::Regular, current_dialogue.clone())
+                )                
             )
         } else {
             spacing!(Spacing::Zero)
