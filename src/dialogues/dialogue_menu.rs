@@ -2,6 +2,8 @@ use raylib::prelude::*;
 
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::vector::Vector2d};
 
+use super::utils::localized_dialogue;
+
 pub struct DialogueMenu {
     is_open: bool,
     npc_id: u32,
@@ -39,16 +41,12 @@ impl DialogueMenu {
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
         let font_spacing = config.scaled_font_spacing(&style);        
-        let dialogue = self.load_dialog(dialogue_id);
+        let dialogue = localized_dialogue(dialogue_id);
 
         self.width = (config.canvas_size.x - Spacing::LG.value(config) * 2.0).min(600.0);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
 
         self.dialogue = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
-    }
-
-    fn load_dialog(&self, dialogue_id: u32) -> String {
-        "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol".to_string()
     }
 
     fn split_dialogue_into_lines(&self, dialogue: &str, font_size: f32, font_spacing: f32, font: &Font) -> Vec<String> {

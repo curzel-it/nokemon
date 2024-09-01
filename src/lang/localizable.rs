@@ -32,8 +32,7 @@ lazy_static! {
 }
 
 fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
-    let mut localized_strings = HashMap::new();
-    
+    let mut localized_strings = HashMap::new();    
     let paths = fs::read_dir(LOCALIZED_STRINGS_PATH).expect("Failed to read localized strings directory");
 
     for path in paths {
@@ -47,7 +46,6 @@ fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
             }
         }
     }
-
     localized_strings
 }
 

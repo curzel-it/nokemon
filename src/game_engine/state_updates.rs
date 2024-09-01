@@ -20,6 +20,7 @@ pub enum EngineStateUpdate {
     Exit,
     ShowEntityOptions(u32),
     ShowDialogue(u32, u32), 
+    ShowNpcOptions(u32, u32)
 }
 
 #[cfg(test)]

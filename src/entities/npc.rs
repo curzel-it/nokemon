@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{DIALOGUE_ID_NONE, INFINITE_LIFESPAN}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -22,6 +22,9 @@ pub struct Npc {
     body: EntityBody,
     npc_type: NpcType,
     sprite: AnimatedSprite,
+
+    #[serde(default)]
+    dialogue_id: u32,
 }
 
 impl Npc {
@@ -40,7 +43,8 @@ impl Npc {
                 lifespan: INFINITE_LIFESPAN,
             },
             npc_type,
-            sprite: npc_type.build_sprite()
+            sprite: npc_type.build_sprite(),
+            dialogue_id: DIALOGUE_ID_NONE
         }
     }
 }
@@ -51,23 +55,25 @@ impl_humanoid_sprite_update!(Npc);
 impl Entity for Npc {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         if world.is_hero_around_and_on_collision_with(&self.body.frame) {
-            return if world.creative_mode {
-                vec![
+            if world.creative_mode {
+                return vec![
                     WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowEntityOptions(
-                            self.body.id
+                        EngineStateUpdate::ShowNpcOptions(
+                            self.body.id, self.dialogue_id
                         )
                     )
                 ]  
             } else {
-                vec![
-                    WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowDialogue(
-                            self.body.id,
-                            0,
+                if self.dialogue_id != DIALOGUE_ID_NONE {
+                    return vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::ShowDialogue(
+                                self.body.id,
+                                0,
+                            )
                         )
-                    )
-                ]
+                    ]
+                }
             }             
         }
 

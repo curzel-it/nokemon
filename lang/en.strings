@@ -1,12 +1,22 @@
+"dialogue.1001" = "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol";
+
+"entity.menu.title" = "Entity Options";
+"entity.menu.remove" = "Remove";
+
 "game.menu.title" = "Game Menu";
 "game.menu.save" = "Save Game";
 "game.menu.map_editor" = "Map Editor";
 "game.menu.save_and_exit" = "Save & Exit";
-"entity.menu.title" = "Entity Options";
-"entity.menu.remove" = "Remove";
-"world.names.new_world" = "New World";
-"world.names.demo" = "Demo World";
-"world.names.with_id" = "World";
+
 "map_editor.title" = "Map Editor";
 "map_editor.subtitle" = "Press SPACE to select something";
 "map_editor.placement" = "Press SPACE to place\nPress ESC to go back";
+
+"npc.menu.title" = "NPC Options";
+"npc.menu.remove" = "Remove";
+"npc.menu.play_dialog" = "Play dialog";
+"npc.menu.assign_dialog" = "Assign dialog";
+
+"world.names.new_world" = "New World";
+"world.names.demo" = "Demo World";
+"world.names.with_id" = "World";
