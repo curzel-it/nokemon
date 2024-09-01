@@ -6,7 +6,6 @@ use crate::{
 pub enum NpcOptionsMenuItem {
     RemoveEntity(u32),
     PlayDialog(u32),
-    AssignDialog(u32),
 }
 
 impl MenuItem for NpcOptionsMenuItem {
@@ -14,7 +13,6 @@ impl MenuItem for NpcOptionsMenuItem {
         match self {
             NpcOptionsMenuItem::RemoveEntity(_) => "npc.menu.remove".localized(),
             NpcOptionsMenuItem::PlayDialog(_) => "npc.menu.play_dialog".localized(),
-            NpcOptionsMenuItem::AssignDialog(_) => "npc.menu.assign_dialog".localized(),
         }
     }
 }
@@ -35,10 +33,6 @@ impl NpcOptionsMenu {
                         EngineStateUpdate::ShowDialogue(dialogue_id, dialogue_id),
                     )])
                 }
-                NpcOptionsMenuItem::AssignDialog(_) => {
-                    println!("TODO: Assign dialog to NPC");
-                    (false, vec![])
-                }
             }
         });
 
@@ -51,7 +45,6 @@ impl NpcOptionsMenu {
         self.menu.items = vec![
             NpcOptionsMenuItem::RemoveEntity(id),
             NpcOptionsMenuItem::PlayDialog(dialogue_id),
-            NpcOptionsMenuItem::AssignDialog(dialogue_id),
         ];
         self.menu.show()
     }

@@ -45,7 +45,7 @@ impl<Item: MenuItem> Menu<Item> {
         self.is_open
     }
 
-    fn close(&mut self) {
+    pub fn close(&mut self) {
         self.is_open = false;
         self.animator.animate(1.0, 0.0, MENU_CLOSE_TIME)
     }

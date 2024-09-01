@@ -15,7 +15,6 @@
 "npc.menu.title" = "NPC Options";
 "npc.menu.remove" = "Remove";
 "npc.menu.play_dialog" = "Play dialog";
-"npc.menu.assign_dialog" = "Assign dialog";
 
 "world.names.new_world" = "New World";
 "world.names.demo" = "Demo World";

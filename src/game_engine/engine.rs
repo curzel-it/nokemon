@@ -78,7 +78,7 @@ impl GameEngine {
 
     pub fn update_rl(
         &mut self, 
-        rl: &RaylibHandle,
+        rl: &mut RaylibHandle,
         time_since_last_update: f32,
     ) {
         self.keyboard.update(rl, time_since_last_update);

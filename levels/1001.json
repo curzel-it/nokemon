@@ -60684,6 +60684,7 @@
         "lifespan": -420.0
       },
       "npc_type": "OldMan",
+      "dialogue_id": 1001,
       "sprite": {
         "sheet_id": 1009,
         "index": 0,

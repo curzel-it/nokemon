@@ -8,6 +8,7 @@ pub struct KeyboardEventsProvider {
     pub has_back_been_pressed: bool,
     pub has_menu_been_pressed: bool,
     pub has_confirmation_been_pressed: bool,
+    pub has_backspace_been_pressed: bool,
 
     pub direction_up: HoldableKey,
     pub direction_right: HoldableKey,
@@ -15,6 +16,7 @@ pub struct KeyboardEventsProvider {
     pub direction_left: HoldableKey,
 
     discard_direction_events_until_next_arrow_key_is_pressed: bool,
+    currently_pressed_character: Option<char>,
 }
 
 impl KeyboardEventsProvider {
@@ -23,15 +25,17 @@ impl KeyboardEventsProvider {
             has_back_been_pressed: false,
             has_menu_been_pressed: false,
             has_confirmation_been_pressed: false,
+            has_backspace_been_pressed: false,
             direction_up: HoldableKey::new(KeyboardKey::KEY_W, KeyboardKey::KEY_UP),
             direction_right: HoldableKey::new(KeyboardKey::KEY_D, KeyboardKey::KEY_RIGHT),
             direction_down: HoldableKey::new(KeyboardKey::KEY_S, KeyboardKey::KEY_DOWN),
             direction_left: HoldableKey::new(KeyboardKey::KEY_A, KeyboardKey::KEY_LEFT),
-            discard_direction_events_until_next_arrow_key_is_pressed: false
+            discard_direction_events_until_next_arrow_key_is_pressed: false,
+            currently_pressed_character: None
         }
     }
 
-    pub fn update(&mut self, rl: &RaylibHandle, time_since_last_update: f32) {
+    pub fn update(&mut self, rl: &mut RaylibHandle, time_since_last_update: f32) {
         self.discard_direction_events_until_next_arrow_key_is_pressed = self.discard_direction_events_until_next_arrow_key_is_pressed &&
             !rl.is_key_pressed(KeyboardKey::KEY_W) &&
             !rl.is_key_pressed(KeyboardKey::KEY_D) &&
@@ -45,10 +49,18 @@ impl KeyboardEventsProvider {
         self.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE);
         self.has_menu_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ENTER);
         self.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_SPACE);        
+        self.has_backspace_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE);
+
         self.direction_up.update(rl, time_since_last_update);
         self.direction_right.update(rl, time_since_last_update);
         self.direction_down.update(rl, time_since_last_update);
-        self.direction_left.update(rl, time_since_last_update);        
+        self.direction_left.update(rl, time_since_last_update);
+
+        self.currently_pressed_character = rl.get_char_pressed();
+    }
+
+    pub fn pressed_character(&self) -> Option<char> {
+        self.currently_pressed_character
     }
 
     pub fn on_world_changed(&mut self) {
