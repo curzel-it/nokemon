@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::prefabs::new_building, spacing, text, texture, ui::components::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::prefabs::new_building, spacing, text, texture, ui::components::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -263,7 +263,7 @@ impl MapEditor {
     fn placement_ui(&self, camera_offset: &Vector2d, frame: &Rect) -> View {
         vstack!(
             Spacing::MD,
-            text!(TextStyle::Regular, "Press SPACE to place\nPress ESC to go back".to_string()),
+            text!(TextStyle::Regular, "map_editor.placement".localized()),
             with_fixed_position(
                 Vector2d::new(
                     TILE_SIZE * frame.x as f32 - camera_offset.x, 
@@ -277,8 +277,8 @@ impl MapEditor {
     fn regular_ui(&self, selected_item_index: usize, selected_world_index: usize) -> View {
         vstack!(
             Spacing::LG, 
-            text!(TextStyle::Title, "MapEditor".to_string()),
-            text!(TextStyle::Regular, "Press SPACE to select something".to_string()),
+            text!(TextStyle::Title, "map_editor.title".localized()),
+            text!(TextStyle::Regular, "map_editor.subtitle".localized()),
             View::VGrid {                        
                 spacing: GridSpacing::sm(),
                 columns: self.columns,

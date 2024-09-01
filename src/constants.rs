@@ -39,6 +39,7 @@ pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";
 pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";
 pub const FONT_BOLD: &str = "fonts/PixelOperator/PixelOperator8-Bold.ttf";
+pub const LOCALIZED_STRINGS_PATH: &str = "lang";
 
 // Tiles
 pub const TILE_VARIATIONS_FPS: f32 = 1.0;

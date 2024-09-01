@@ -28,11 +28,13 @@ fn main() {
     engine.set_creative_mode(creative_mode);
     
     let (mut rl, thread) = engine.start_rl();
+    rl.set_window_min_size(360, 240);
     
     while engine.is_running {
         let time_since_last_update = rl.get_frame_time();
 
         if rl.is_window_resized() {
+            println!("Window resized to {}x{}", rl.get_screen_width(), rl.get_screen_height());
             engine.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
         }
         if rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE) {
