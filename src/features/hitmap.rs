@@ -65,7 +65,6 @@ mod tests {
 
     use crate::{entities::npc::{Npc, NpcType}, game_engine::entity_body::EmbodiedEntity, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
     
-    
     #[test]
     fn test_hitmap_with_rigid_entity_excludes_top_row() {
         let mut world = World::new(get_next_id());        

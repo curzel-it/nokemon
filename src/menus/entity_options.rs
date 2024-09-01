@@ -42,6 +42,10 @@ impl EntityOptionsMenu {
         self.menu.show()
     }
 
+    pub fn is_open(&self) -> bool {
+        self.menu.is_open()
+    }
+
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         self.menu.update(keyboard, time_since_last_update)
     }

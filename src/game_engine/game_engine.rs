@@ -104,14 +104,16 @@ impl GameEngine {
         let mut is_game_paused = false;
 
         if !is_game_paused {
-            let (pause, world_updates) = self.menu.update(&self.camera_viewport, &self.keyboard, time_since_last_update);
+            let keyboard = if self.entity_options_menu.is_open() { &NO_KEYBOARD_EVENTS } else { &self.keyboard };
+            let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
         }
 
         if !is_game_paused {
-            let (pause, world_updates) = self.entity_options_menu.update(&self.keyboard, time_since_last_update);
+            let keyboard = if self.menu.is_open() { &NO_KEYBOARD_EVENTS } else { &self.keyboard };
+            let (pause, world_updates) = self.entity_options_menu.update(keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);

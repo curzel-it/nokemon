@@ -5,6 +5,7 @@ mod game_engine;
 mod lang;
 mod maps;
 mod menus;
+mod prefabs;
 mod rendering;
 mod ui;
 mod utils;

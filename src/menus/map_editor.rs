@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::buildings::new_building, spacing, text, texture, ui::ui::{scaffold_with_bg, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::inventory::Stockable;
 
@@ -201,11 +201,13 @@ impl MapEditor {
     }
 
     fn place_building(&self, camera_vieport: &Rect, frame: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
-        let mut building = Building::new(building_type);
-        building.body_mut().frame.x = camera_vieport.x + frame.x;
-        building.body_mut().frame.y = camera_vieport.y + frame.y;
-        let update = WorldStateUpdate::AddEntity(Box::new(building));
-        vec![update]
+        let x = camera_vieport.x + frame.x;
+        let y = camera_vieport.y + frame.y;
+        
+        new_building(x, y, building_type)
+            .into_iter()
+            .map(|e| WorldStateUpdate::AddEntity(e))
+            .collect()
     }
 
     fn place_npc(&self, camera_vieport: &Rect, frame: &Rect, npc_type: NpcType) -> Vec<WorldStateUpdate> {
