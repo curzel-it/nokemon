@@ -30,6 +30,10 @@ pub const MENU_OPEN_TIME: f32 = 0.1;
 // Localization
 pub const DEFAULT_LANG: &str = "en";
 
+// Prefabs
+pub const HOUSE_INTERIOR_ROWS: usize = 8;
+pub const HOUSE_INTERIOR_COLUMNS: usize = 15;
+
 // Paths
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";

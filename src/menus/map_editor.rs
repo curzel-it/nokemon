@@ -7,6 +7,7 @@ use super::inventory::Stockable;
 pub struct MapEditor {
     pub stock: Vec<Stockable>,
     pub worlds: Vec<u32>,
+    pub current_world_id: u32,
     state: MapEditorState,
     sprite_sheet: u32,
     columns: usize
@@ -25,6 +26,7 @@ impl MapEditor {
         Self {
             stock: Stockable::all_possible_items().into_iter().collect(),
             worlds: list_worlds_with_none(),
+            current_world_id: WORLD_ID_NONE,
             state: MapEditorState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 8,
@@ -204,7 +206,7 @@ impl MapEditor {
         let x = camera_vieport.x + frame.x;
         let y = camera_vieport.y + frame.y;
         
-        new_building(x, y, building_type)
+        new_building(self.current_world_id, x, y, building_type)
             .into_iter()
             .map(|e| WorldStateUpdate::AddEntity(e))
             .collect()

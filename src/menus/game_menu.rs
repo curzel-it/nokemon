@@ -1,8 +1,9 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::ui::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, worlds::utils::list_worlds_with_none};
+use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::ui::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, worlds::utils::list_worlds_with_none};
 
 use super::{map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
 pub struct GameMenu {
+    pub current_world_id: u32,
     state: MenuState,
     menu: Menu<GameMenuItem>,
     map_editor: MapEditor,
@@ -45,6 +46,7 @@ impl GameMenu {
         );
 
         Self {
+            current_world_id: WORLD_ID_NONE,
             state: MenuState::Closed,
             menu,
             map_editor: MapEditor::new(),
@@ -81,7 +83,12 @@ impl GameMenu {
         !matches!(self.state, MenuState::Closed)
     }
 
-    pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+    pub fn update(
+        &mut self, 
+        camera_vieport: &Rect, 
+        keyboard: &KeyboardEventsProvider, 
+        time_since_last_update: f32
+    ) -> MenuUpdate {
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard),
             MenuState::Open => self.update_from_open(keyboard, time_since_last_update),
@@ -107,7 +114,8 @@ impl GameMenu {
             return updates
         }
         if (keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed) && matches!(self.menu.selected_item(), GameMenuItem::MapEditor) { 
-            self.state = MenuState::MapEditor 
+            self.state = MenuState::MapEditor;
+            self.map_editor.current_world_id = self.current_world_id;
         } 
         vec![]
     }

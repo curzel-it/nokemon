@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -51,7 +51,9 @@ impl World {
     }
 
     pub fn remove_entity(&mut self, id: &u32) {
-        self.entities.borrow_mut().remove(id);
+        if id != &HERO_ENTITY_ID {
+            self.entities.borrow_mut().remove(id);
+        }
     }
 
     pub fn update_rl(
@@ -140,8 +142,20 @@ impl World {
         None
     }
 
+    pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
+        for entity in self.entities.borrow().values() {
+            if entity.id() == HERO_ENTITY_ID {
+                continue
+            }
+            if entity.body().frame.contains_or_touches_point(col as u32, row as u32) {
+                return Some(entity.id())
+            }
+        }
+        None
+    }
+
     fn remove_entity_coords(&mut self, row: usize, col: usize) {
-        while let Some(id) = self.find_entity_at_coords(row, col) {
+        while let Some(id) = self.find_non_hero_entity_at_coords(row, col) {
             self.remove_entity(&id)
         }      
     }

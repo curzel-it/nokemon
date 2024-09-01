@@ -202,6 +202,8 @@ impl GameEngine {
         let hero_frame = new_world.cached_hero_props.frame;
         self.world = new_world;
         self.center_camera_in(&hero_frame);
+
+        self.menu.current_world_id = self.world.id;
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {
