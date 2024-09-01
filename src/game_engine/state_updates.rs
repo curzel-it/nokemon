@@ -23,7 +23,7 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::{constants::HERO_ENTITY_ID, entities::hero::Hero, game_engine::game_engine::GameEngine};
+    use crate::{constants::HERO_ENTITY_ID, entities::hero::Hero, game_engine::engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
