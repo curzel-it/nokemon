@@ -50,14 +50,25 @@ impl_humanoid_sprite_update!(Npc);
 
 impl Entity for Npc {
     fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.body.frame) {
-            return vec![
-                WorldStateUpdate::EngineUpdate(
-                    EngineStateUpdate::ShowEntityOptions(
-                        self.body.id
+        if world.is_hero_around_and_on_collision_with(&self.body.frame) {
+            return if world.creative_mode {
+                vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowEntityOptions(
+                            self.body.id
+                        )
                     )
-                )
-            ];   
+                ]  
+            } else {
+                vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowDialogue(
+                            self.body.id,
+                            0,
+                        )
+                    )
+                ]
+            }             
         }
 
         move_linearly(self, world, time_since_last_update);

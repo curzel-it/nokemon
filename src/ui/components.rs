@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{SPRITE_SHEET_MENU, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,

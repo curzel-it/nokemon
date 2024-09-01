@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, features::loading_screen::LoadingScreen, menus::{dialogue_menu::DialogueMenu, entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
@@ -9,6 +9,7 @@ pub struct GameEngine {
     pub menu: GameMenu,
     pub world: World,
     pub loading_screen: LoadingScreen,
+    pub dialogue_menu: DialogueMenu,
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
     pub camera_viewport: Rect,
@@ -24,6 +25,7 @@ impl GameEngine {
             menu: GameMenu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
+            dialogue_menu: DialogueMenu::new(),
             entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
@@ -104,7 +106,15 @@ impl GameEngine {
         let mut is_game_paused = false;
 
         if !is_game_paused {
-            let keyboard = if self.entity_options_menu.is_open() { &NO_KEYBOARD_EVENTS } else { &self.keyboard };
+            let keyboard = if self.dialogue_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let (pause, world_updates) = self.dialogue_menu.update(keyboard, time_since_last_update);
+            is_game_paused = is_game_paused || pause;
+            let engine_updates = self.world.apply_state_updates(world_updates);
+            self.apply_state_updates(engine_updates);
+        }
+
+        if !is_game_paused {
+            let keyboard = if self.menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
@@ -112,7 +122,7 @@ impl GameEngine {
         }
 
         if !is_game_paused {
-            let keyboard = if self.menu.is_open() { &NO_KEYBOARD_EVENTS } else { &self.keyboard };
+            let keyboard = if self.entity_options_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.entity_options_menu.update(keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
@@ -175,6 +185,7 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
+            EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.dialogue_menu.show(*npc_id, dialogue.clone()),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),

@@ -14,7 +14,7 @@ mod worlds;
 use std::env;
 
 use game_engine::engine::GameEngine;
-use rendering::worlds_rendering::render;
+use rendering::worlds::render;
 
 fn main() {
     let mut creative_mode = false;
