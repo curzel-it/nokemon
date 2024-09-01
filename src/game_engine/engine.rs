@@ -185,7 +185,7 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.dialogue_menu.show(*npc_id, dialogue.clone()),
+            EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.dialogue_menu.show(*npc_id, *dialogue),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),

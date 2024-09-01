@@ -1,4 +1,4 @@
-use crate::{game_engine::{keyboard_events_provider::{self, KeyboardEventsProvider}, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, spacing, text, ui::components::{Spacing, TextStyle, View}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{Spacing, TextStyle, View}, vstack};
 
 pub struct DialogueMenu {
     is_open: bool,
