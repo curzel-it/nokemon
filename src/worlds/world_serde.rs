@@ -108,22 +108,26 @@ impl Serialize for World {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
         let entities = self.entities.borrow();
 
-        let buildings: Vec<&Building> = entities.values()
+        let mut buildings: Vec<&Building> = entities.values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Building>())
             .collect();
+        buildings.sort_by_key(|e| e.id());
 
-        let teleporters: Vec<&Teleporter> = entities.values()
+        let mut teleporters: Vec<&Teleporter> = entities.values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .collect();
+        teleporters.sort_by_key(|e| e.id());
 
-        let npcs: Vec<&Npc> = entities.values()
+        let mut npcs: Vec<&Npc> = entities.values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Npc>())
             .collect();
+        npcs.sort_by_key(|e| e.id());
 
-        let rigid_entities: Vec<&SimpleEntity> = entities.values()
+        let mut rigid_entities: Vec<&SimpleEntity> = entities.values()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<SimpleEntity>())
             .filter(|e| e.body().is_rigid)
             .collect();
+        rigid_entities.sort_by_key(|e| e.id());
 
         let mut state = serializer.serialize_struct("World", 4)?;
         state.serialize_field("id", &self.id)?;
