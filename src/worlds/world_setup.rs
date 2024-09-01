@@ -1,31 +1,23 @@
-use crate::{entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}, utils::vector::Vector2d};
+use crate::{entities::hero::Hero, game_engine::{entity_body::EmbodiedEntity, world::World}, utils::directions::Direction};
 
 impl World {
-    pub fn setup(&mut self, source: &u32, hero_direction: &Vector2d) {
+    pub fn setup(&mut self, source: &u32, hero_direction: &Direction) {
         let mut entity = Hero::new();
         if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
-            let offset_x = if hero_direction.x > 0.0 { 1 } else { 0 };
-            let offset_y = if hero_direction.y > 0.0 { 2 } else { 1 };
-            entity.body_mut().frame.x = teleporter_position.x + hero_direction.x as u32 - offset_x;
-            entity.body_mut().frame.y = teleporter_position.y + hero_direction.y as u32 - offset_y;
+            let (offset_x, offset_y): (i32, i32) = match hero_direction {
+                Direction::Up => (0, -1),
+                Direction::Right => (1, 0),
+                Direction::Down => (0, 1),
+                Direction::Left => (-1, 0),
+                Direction::Unknown => (0, 0),
+            };
+            entity.body_mut().frame.x = (teleporter_position.x as i32 + offset_x) as u32;
+            entity.body_mut().frame.y = (teleporter_position.y as i32 + offset_y) as u32;
         } else {
             entity.center_in(&self.bounds);
         }
         entity.body_mut().direction = *hero_direction;
-        entity.immobilize_for_seconds(0.2);
-        
-        if hero_direction.y < 0.0 {
-            entity.body_mut().frame.y -= 1;            
-        }
-        if hero_direction.x > 0.0 {
-            entity.body_mut().frame.x += 1;
-        }
-        if hero_direction.y > 0.0 {
-            entity.body_mut().frame.y += 1;            
-        }
-        if hero_direction.x < 0.0 {
-            entity.body_mut().frame.x -= 1;
-        }
+        entity.immobilize_for_seconds(0.2);        
         self.add_entity(Box::new(entity));
     }    
 }

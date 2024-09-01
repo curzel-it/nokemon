@@ -37,7 +37,7 @@ impl World {
     pub fn save(&self) {
         let path = world_path(self.id);
 
-        if let Ok(serialized_world) = serde_json::to_string(self) {
+        if let Ok(serialized_world) = serde_json::to_string_pretty(self) {
             if let Ok(mut file) = File::create(path.clone()) {
                 if let Err(e) = file.write_all(serialized_world.as_bytes()) {
                     eprintln!("Failed to write save file: {}", e);

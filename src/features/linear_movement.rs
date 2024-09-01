@@ -1,4 +1,4 @@
-use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, world::World}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, entity_body::EntityBody, world::World}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::hitmap::Hitmap;
 
@@ -34,42 +34,25 @@ pub fn move_linearly(entity: &mut dyn Entity, world: &World, time_since_last_upd
 }
 
 fn updated_offset(body: &EntityBody, time_since_last_update: f32) -> Vector2d {
-    body.direction
+    body.direction.as_vector()
         .scaled(body.current_speed)
         .scaled(time_since_last_update)
         .scaled(BASE_ENTITY_SPEED) + body.offset
 }
 
-fn would_exit_bounds(frame: &Rect, direction: &Vector2d, bounds: &Rect) -> bool {
-    if direction.x > 0.0 && (frame.x + frame.w) >= (bounds.x + bounds.w) {
-        return true
+fn would_exit_bounds(frame: &Rect, direction: &Direction, bounds: &Rect) -> bool {
+    match direction {
+        Direction::Up => frame.y <= bounds.y,
+        Direction::Right => (frame.x + frame.w) >= (bounds.x + bounds.w),
+        Direction::Down => (frame.y + frame.h) >= (bounds.y + bounds.h),
+        Direction::Left => frame.x <= bounds.x,
+        Direction::Unknown => false
     }
-    if direction.x < 0.0 && frame.x <= bounds.x {
-        return true
-    }
-    if direction.y > 0.0 && (frame.y + frame.h) >= (bounds.y + bounds.h) {
-        return true
-    }
-    if direction.y < 0.0 && frame.y <= bounds.y {
-        return true
-    }
-    false
 }
 
-fn would_collide(frame: &Rect, direction: &Vector2d, hitmap: &Hitmap) -> bool {
-    let base_y = (frame.y + frame.h - 1) as usize;
-
-    if direction.x > 0.0 {
-        return hitmap[base_y][frame.x as usize + 1]
-    }
-    if direction.x < 0.0 {
-        return hitmap[base_y][frame.x as usize - 1]
-    }
-    if direction.y > 0.0 {
-        return hitmap[base_y + 1][frame.x as usize]
-    }
-    if direction.y < 0.0 {
-        return hitmap[base_y - 1][frame.x as usize]
-    }
-    false
+fn would_collide(frame: &Rect, direction: &Direction, hitmap: &Hitmap) -> bool {
+    let (row_offset, col_offset) = direction.as_row_col_offset();
+    let base_y = (frame.y + frame.h - 1) as i32;
+    let base_x = frame.x as i32;
+    return hitmap[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize]
 }

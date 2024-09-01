@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -16,7 +16,7 @@ pub struct World {
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
     pub creative_mode: bool,
-    pub direction_according_to_keyboard: Option<Vector2d>,
+    pub direction_according_to_keyboard: Direction,
     pub is_any_arrow_key_down: bool,
     pub has_confirmation_key_been_pressed: bool,
 }
@@ -34,7 +34,7 @@ impl World {
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
-            direction_according_to_keyboard: None,
+            direction_according_to_keyboard: Direction::Unknown,
             is_any_arrow_key_down: false,
             has_confirmation_key_been_pressed: false,
         }
@@ -126,7 +126,7 @@ impl World {
 
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
         let hero = self.cached_hero_props.hittable_frame;
-        let hero_direction: Vector2d = self.cached_hero_props.direction;        
+        let hero_direction: Direction = self.cached_hero_props.direction;        
         if !self.has_confirmation_key_been_pressed { return false }  
         hero.is_around_and_pointed_at(target, &hero_direction)
     }

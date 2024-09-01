@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use crate::utils::rect::Rect;
+use crate::{constants::HERO_ENTITY_ID, utils::rect::Rect};
 
 use super::world::World;
 
@@ -11,7 +11,7 @@ impl World {
         let min_col = viewport.x;
         let max_col = viewport.x + viewport.w;
 
-        self.entities.borrow().values()
+        let mut ids: HashSet<u32> = self.entities.borrow().values()
             .filter(|e| {
                 let frame = e.body().frame;
                 frame.y + frame.h >= min_row &&
@@ -20,6 +20,9 @@ impl World {
                 frame.x <= max_col
             })
             .map(|e| e.id())
-            .collect()
+            .collect();
+
+        ids.insert(HERO_ENTITY_ID);
+        ids
     }
 }

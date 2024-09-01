@@ -1,6 +1,6 @@
 use raylib::{ffi::KeyboardKey, RaylibHandle};
 
-use crate::{constants::KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS, utils::{vector::Vector2d, vector_utils::directions_based_direction_vector_4d}};
+use crate::{constants::KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS, utils::directions::Direction};
 
 pub const NO_KEYBOARD_EVENTS: KeyboardEventsProvider = KeyboardEventsProvider::new();
 
@@ -75,18 +75,21 @@ impl HoldableKey {
 }
 
 impl KeyboardEventsProvider {
-    pub fn direction_based_on_down_keys(&self, current: &Vector2d) -> Option<Vector2d> {
+    pub fn direction_based_on_down_keys(&self, current: &Direction) -> Direction {
         if !self.is_any_arrow_key_down() {
-            return None
+            return Direction::Unknown
         }
 
-        let direction = directions_based_direction_vector_4d(
-            current.y >= 0.0 && self.direction_up.is_down, 
-            current.x <= 0.0 && self.direction_right.is_down, 
-            current.y <= 0.0 && self.direction_down.is_down, 
-            current.x >= 0.0 && self.direction_left.is_down
+        let direction = Direction::from_data(
+            matches!(current, Direction::Down) && self.direction_up.is_down, 
+            matches!(current, Direction::Left) && self.direction_right.is_down, 
+            matches!(current, Direction::Up) && self.direction_down.is_down, 
+            matches!(current, Direction::Right) && self.direction_left.is_down
         );
-        Some(direction.unwrap_or(*current))
+        if matches!(direction, Direction::Unknown) {
+            return *current;
+        }
+        direction
     }
 
     pub fn is_any_arrow_key_down(&self) -> bool {

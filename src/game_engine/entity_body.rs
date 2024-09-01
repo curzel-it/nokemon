@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
-use crate::utils::{rect::Rect, vector::Vector2d};
+use crate::utils::{directions::Direction, rect::Rect, vector::Vector2d};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -15,7 +15,7 @@ pub struct EntityBody {
     pub id: u32,
     pub frame: Rect,  
     pub offset: Vector2d,
-    pub direction: Vector2d,
+    pub direction: Direction,
     pub current_speed: f32,
     pub base_speed: f32,
     pub creation_time: f32,

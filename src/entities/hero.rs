@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN}, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_according_to_keyboard, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN}, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_according_to_keyboard, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -16,7 +16,7 @@ impl Hero {
                 id: HERO_ENTITY_ID,
                 frame: Rect::new(0, 0, 1, 2),
                 offset: Vector2d::zero(),
-                direction: Vector2d::zero(),
+                direction: Direction::Unknown,
                 current_speed: 3.0,
                 base_speed: 3.0,
                 creation_time: 0.0,

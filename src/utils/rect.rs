@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::vector::Vector2d;
+use super::{directions::Direction, vector::Vector2d};
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Rect {
@@ -56,20 +56,14 @@ impl Rect {
         self.offset(0, dy)
     }
 
-    pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Vector2d) -> bool {        
-        if self.y == other.y + other.h && direction.y < 0.0 {
-            return self.x >= other.x && self.x < other.x + other.w;
+    pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {        
+        match direction {
+            Direction::Up => self.y == other.y + other.h && self.x >= other.x && self.x < other.x + other.w,
+            Direction::Right => self.x == other.x.max(1) - 1 && self.y > other.y && self.y < other.y + other.h,
+            Direction::Down => self.y == other.y && self.x >= other.x && self.x < other.x + other.w,
+            Direction::Left => self.x == other.x + other.w && self.y > other.y && self.y < other.y + other.h,
+            Direction::Unknown => false,
         }
-        if self.y == other.y && direction.y > 0.0 {
-            return self.x >= other.x && self.x < other.x + other.w;
-        }
-        if self.x == other.x + other.w && direction.x < 0.0 {
-            return self.y > other.y && self.y < other.y + other.h;
-        }
-        if self.x == other.x.max(1) - 1 && direction.x > 0.0 {
-            return self.y > other.y && self.y < other.y + other.h;
-        }
-        false
     }
     
     pub fn contains_or_touches_point(&self, x: u32, y: u32) -> bool {

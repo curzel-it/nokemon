@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
@@ -17,7 +17,7 @@ impl Teleporter {
                 id: get_next_id(),
                 frame: Rect::new(0, 0, 1, 1),
                 offset: Vector2d::zero(),
-                direction: Vector2d::zero(),
+                direction: Direction::Unknown,
                 current_speed: 0.0,
                 base_speed: 0.0,
                 creation_time: 0.0,
@@ -66,23 +66,13 @@ impl Teleporter {
         if !world.is_any_arrow_key_down { return false }
         if hero_speed <= 0.0 { return false }
 
-        if hero.y == self.body.frame.y {
-            if hero.x == self.body.frame.x + 1 {
-                return hero_direction.x < 0.0
-            }
-            if hero.x == self.body.frame.x - 1 {
-                return hero_direction.x > 0.0
-            }
+        return match hero_direction {
+            Direction::Up => hero.x == self.body.frame.x && hero.y == self.body.frame.y + 1,
+            Direction::Right => hero.y == self.body.frame.y && hero.x == self.body.frame.x - 1,
+            Direction::Down => hero.x == self.body.frame.x && hero.y == self.body.frame.y - 1,
+            Direction::Left => hero.y == self.body.frame.y && hero.x == self.body.frame.x + 1,
+            Direction::Unknown => false
         }
-        if hero.x == self.body.frame.x {
-            if hero.y == self.body.frame.y + 1 {
-                return hero_direction.y < 0.0
-            } 
-            if hero.y == self.body.frame.y - 1 {
-                return hero_direction.y > 0.0
-            }
-        }
-        false
     }
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {

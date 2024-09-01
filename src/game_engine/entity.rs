@@ -1,7 +1,7 @@
 
 use std::any::Any;
 
-use crate::utils::{rect::Rect, vector::Vector2d};
+use crate::utils::{directions::Direction, rect::Rect};
 
 use super::{entity_body::EmbodiedEntity, world::World, state_updates::WorldStateUpdate};
 
@@ -20,7 +20,7 @@ impl PartialEq for dyn Entity {
 
 #[derive(Debug, Copy, Clone)]
 pub struct EntityProps {
-    pub direction: Vector2d,
+    pub direction: Direction,
     pub frame: Rect,
     pub speed: f32,
     pub hittable_frame: Rect,

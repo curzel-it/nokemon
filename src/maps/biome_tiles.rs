@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{impl_tile, utils::{geometry_utils::Direction, rect::Rect}};
+use crate::{impl_tile, utils::{directions::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -305,7 +305,7 @@ impl BiomeTile {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::geometry_utils::Direction;
+    use crate::utils::directions::Direction;
 
     use super::{Biome, BiomeTile};
 

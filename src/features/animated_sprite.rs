@@ -63,20 +63,19 @@ macro_rules! impl_humanoid_sprite_update {
     ($struct_name:ident) => {
         impl $struct_name {
             fn update_sprite(&mut self, time_since_last_update: f32) {
-                let direction = $crate::utils::geometry_utils::Direction::from_vector(self.body.direction);
                 let is_moving = self.body.current_speed != 0.0;
         
-                self.sprite.row = match (direction, is_moving) {
-                    ($crate::utils::geometry_utils::Direction::Up, true) => 0,
-                    ($crate::utils::geometry_utils::Direction::Up, false) => 1,
-                    ($crate::utils::geometry_utils::Direction::Right, true) => 2,
-                    ($crate::utils::geometry_utils::Direction::Right, false) => 3,
-                    ($crate::utils::geometry_utils::Direction::Down, true) => 4,
-                    ($crate::utils::geometry_utils::Direction::Down, false) => 5,
-                    ($crate::utils::geometry_utils::Direction::Left, true) => 6,
-                    ($crate::utils::geometry_utils::Direction::Left, false) => 7,
-                    ($crate::utils::geometry_utils::Direction::Unknown, true) => 5,
-                    ($crate::utils::geometry_utils::Direction::Unknown, false) => 5
+                self.sprite.row = match (self.body.direction, is_moving) {
+                    ($crate::utils::directions::Direction::Up, true) => 0,
+                    ($crate::utils::directions::Direction::Up, false) => 1,
+                    ($crate::utils::directions::Direction::Right, true) => 2,
+                    ($crate::utils::directions::Direction::Right, false) => 3,
+                    ($crate::utils::directions::Direction::Down, true) => 4,
+                    ($crate::utils::directions::Direction::Down, false) => 5,
+                    ($crate::utils::directions::Direction::Left, true) => 6,
+                    ($crate::utils::directions::Direction::Left, false) => 7,
+                    ($crate::utils::directions::Direction::Unknown, true) => 5,
+                    ($crate::utils::directions::Direction::Unknown, false) => 5
                 };
                 self.sprite.update(time_since_last_update);
             }
@@ -89,14 +88,14 @@ macro_rules! impl_bullet_sprite_update {
     ($struct_name:ident) => {
         impl $struct_name {
             fn update_sprite(&mut self, time_since_last_update: f32) {
-                let direction = $crate::utils::geometry_utils::Direction::from_vector(self.body.direction);
+                let direction = $crate::utils::directions::Direction::from_vector(self.body.direction);
         
                 self.sprite.row = match direction {
-                    $crate::utils::geometry_utils::Direction::Up => 2,
-                    $crate::utils::geometry_utils::Direction::Right => 0,
-                    $crate::utils::geometry_utils::Direction::Down => 3,
-                    $crate::utils::geometry_utils::Direction::Left => 1,
-                    $crate::utils::geometry_utils::Direction::Unknown => 3,
+                    $crate::utils::directions::Direction::Up => 2,
+                    $crate::utils::directions::Direction::Right => 0,
+                    $crate::utils::directions::Direction::Down => 3,
+                    $crate::utils::directions::Direction::Left => 1,
+                    $crate::utils::directions::Direction::Unknown => 3,
                 };
                 self.sprite.update(time_since_last_update);
             }

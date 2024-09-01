@@ -231,14 +231,14 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
 
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::{WORLD_ID_DEMO, WORLD_ID_NONE}, game_engine::world::World, utils::vector::Vector2d};
+    use crate::{constants::{WORLD_ID_DEMO, WORLD_ID_NONE}, game_engine::world::World, utils::directions::Direction};
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
             let mut world = World::new(WORLD_ID_DEMO);
-            world.setup(&WORLD_ID_NONE, &Vector2d::zero());            
+            world.setup(&WORLD_ID_NONE, &Direction::Unknown);
             world
         }
     }
