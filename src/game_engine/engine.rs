@@ -116,7 +116,8 @@ impl GameEngine {
         }
 
         if !is_game_paused {
-            let keyboard = if self.menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open() && !self.npc_options_menu.is_open();
+            let keyboard = if self.menu.is_open() || other_menus_are_closed { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);

@@ -60610,57 +60610,8 @@
     ],
     "sheet_id": 1003
   },
-  "buildings": [
-    {
-      "body": {
-        "id": 1725209327,
-        "frame": {
-          "x": 99,
-          "y": 71,
-          "w": 5,
-          "h": 4
-        },
-        "offset": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "direction": 4,
-        "current_speed": 0.0,
-        "base_speed": 0.0,
-        "creation_time": 0.0,
-        "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
-      },
-      "building_type": "House"
-    }
-  ],
-  "teleporters": [
-    {
-      "body": {
-        "id": 1725209329,
-        "frame": {
-          "x": 102,
-          "y": 74,
-          "w": 1,
-          "h": 1
-        },
-        "offset": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "direction": 4,
-        "current_speed": 0.0,
-        "base_speed": 0.0,
-        "creation_time": 0.0,
-        "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
-      },
-      "destination": 1725209328,
-      "creative_mode": true
-    }
-  ],
+  "buildings": [],
+  "teleporters": [],
   "npcs": [
     {
       "body": {
@@ -60678,20 +60629,20 @@
         "direction": 4,
         "current_speed": 1.5,
         "base_speed": 1.5,
-        "creation_time": 1.1803836,
+        "creation_time": 0.0,
         "is_rigid": true,
         "z_index": 0,
         "lifespan": -420.0
       },
       "npc_type": "OldMan",
-      "dialogue_id": 1001,
       "sprite": {
         "sheet_id": 1009,
         "index": 0,
         "width": 1,
         "height": 2,
         "number_of_frames": 4
-      }
+      },
+      "dialogue_id": 1001
     }
   ],
   "rigid_entities": []

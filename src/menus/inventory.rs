@@ -23,8 +23,12 @@ impl Stockable {
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
-            Stockable::Building(BuildingType::House),
-            Stockable::Building(BuildingType::HouseTwoFloors),
+            Stockable::Building(BuildingType::House(0)),
+            Stockable::Building(BuildingType::HouseTwoFloors(0)),
+            Stockable::Building(BuildingType::House(1)),
+            Stockable::Building(BuildingType::HouseTwoFloors(1)),
+            Stockable::Building(BuildingType::House(2)),
+            Stockable::Building(BuildingType::HouseTwoFloors(2)),
             Stockable::Npc(NpcType::OldMan),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::HouseholdObject(HouseholdObject::StairsUp),
@@ -57,8 +61,8 @@ impl Stockable {
                 Construction::LightWall => (1, 6),
             },
             Stockable::Building(building_type) => match building_type {
-                BuildingType::House => (1, 2),
-                BuildingType::HouseTwoFloors => (1, 7)
+                BuildingType::House(variant) => (4, variant * 2 + 1),
+                BuildingType::HouseTwoFloors(variant) => (4, variant * 2 + 2),
             },
             Stockable::Npc(npc_type) => match npc_type {
                 NpcType::OldMan => (2, 1)

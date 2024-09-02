@@ -1,7 +1,7 @@
 use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{building::{Building, BuildingType}, teleporter::Teleporter}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
-pub fn new_house_single_floor(source_world_id: u32, x: i32, y: i32) -> Vec<Box<dyn Entity>> {
-    let mut building = Building::new(BuildingType::House);
+pub fn new_house_single_floor(variant: i32, source_world_id: u32, x: i32, y: i32) -> Vec<Box<dyn Entity>> {
+    let mut building = Building::new(BuildingType::House(variant));
     building.body_mut().frame.x = x;
     building.body_mut().frame.y = y;
 

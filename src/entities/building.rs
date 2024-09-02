@@ -5,15 +5,15 @@ use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_BUILDINGS}, game_engine:
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {
-    House,
-    HouseTwoFloors,
+    House(i32),
+    HouseTwoFloors(i32),
 }
 
 impl BuildingType {
     fn texture_source_rect(&self) -> Rect {
         let (x, y, w, h) = match self {
-            BuildingType::House => (0, 0, 5, 4),
-            BuildingType::HouseTwoFloors => (5, 0, 5, 5),
+            BuildingType::House(variant) => (0, 5 * variant + 1, 5, 4),
+            BuildingType::HouseTwoFloors(variant) => (5, 5 * variant + 0, 5, 5),
         };
         Rect::new(x, y, w, h)
     }
