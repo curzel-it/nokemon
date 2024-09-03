@@ -11,7 +11,7 @@ pub enum NpcType {
 impl NpcType {
     fn build_sprite(&self) -> AnimatedSprite {
         let index = match self {
-            NpcType::OldMan => 0,
+            NpcType::OldMan => 1,
         };
         AnimatedSprite::new_humanoid(index)
     }

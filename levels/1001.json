@@ -60637,7 +60637,7 @@
       "npc_type": "OldMan",
       "sprite": {
         "sheet_id": 1009,
-        "index": 0,
+        "index": 1,
         "width": 1,
         "height": 2,
         "number_of_frames": 4

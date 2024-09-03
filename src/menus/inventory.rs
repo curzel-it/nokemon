@@ -65,7 +65,7 @@ impl Stockable {
                 BuildingType::HouseTwoFloors(variant) => (4, variant * 2 + 2),
             },
             Stockable::Npc(npc_type) => match npc_type {
-                NpcType::OldMan => (2, 1)
+                NpcType::OldMan => (2, 2)
             },
             Stockable::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => (3, 2),
