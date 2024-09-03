@@ -1,17 +1,8 @@
 use raylib::prelude::*;
 
-use crate::{
-    game_engine::{
-        keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate,
-    },
-    hstack, spacing, text,
-    ui::components::{
-        scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View,
-    },
-    utils::{animator::Animator, vector::Vector2d},
-};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, hstack, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
-use super::{tree::Dialogue, utils::localized_dialogue};
+use super::tree::Dialogue;
 
 pub struct DialogueMenu {
     is_open: bool,
@@ -22,6 +13,20 @@ pub struct DialogueMenu {
     text_animator: Animator,
     width: f32,
     height: f32,
+    options_submenu: Menu<DialogueOptionMenuItem>
+}
+
+#[derive(Clone)]
+enum DialogueOptionMenuItem {
+    Value(u32, String)
+}
+
+impl MenuItem for DialogueOptionMenuItem {
+    fn title(&self) -> String {
+        match self {
+            DialogueOptionMenuItem::Value(_, text) => text.clone()
+        }
+    }
 }
 
 impl DialogueMenu {
@@ -35,6 +40,7 @@ impl DialogueMenu {
             text_animator: Animator::new(),
             width: 0.0,
             height: 0.0,
+            options_submenu: Menu::empty()
         }
     }
 
@@ -53,12 +59,17 @@ impl DialogueMenu {
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
         let font_spacing = config.scaled_font_spacing(&style);
-        let dialogue = localized_dialogue(dialogue.id);
-
+        let text = dialogue.localized_text();
         self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(600.0);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
+        self.lines = self.split_dialogue_into_lines(&text, font_size, font_spacing, font);
 
-        self.lines = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
+        self.options_submenu.close();
+        self.options_submenu.items = dialogue
+            .localized_options()
+            .iter()
+            .map(|(id, text)| DialogueOptionMenuItem::Value(*id, text.clone()))
+            .collect();
     }
 
     fn split_dialogue_into_lines(
@@ -114,6 +125,18 @@ impl DialogueMenu {
         } else {
             self.time_since_last_closed += time_since_last_update;
         }
+
+        if !self.options_submenu.is_open() {
+            let is_last_line = !self.lines.is_empty() && self.current_line == self.lines.len() - 1;
+            let has_options = !self.options_submenu.items.is_empty();
+            
+            if has_options && is_last_line {
+                self.options_submenu.show();
+            }
+        } else {
+            self.options_submenu.update(keyboard, time_since_last_update);
+        }
+
         (self.is_open, vec![])
     }
 
@@ -134,16 +157,20 @@ impl DialogueMenu {
                 (Spacing::Zero, "")
             };
 
-            scaffold_background(
-                Color::BLACK,
-                hstack!(
-                    spacing,
-                    with_fixed_size(
-                        Vector2d::new(self.width, self.height),
-                        text!(TextStyle::Regular, animated_text.to_string())
+            vstack!(
+                Spacing::Zero,
+                scaffold_background(
+                    Color::BLACK,
+                    hstack!(
+                        spacing,
+                        with_fixed_size(
+                            Vector2d::new(self.width, self.height),
+                            text!(TextStyle::Regular, animated_text.to_string())
+                        ),
+                        text!(TextStyle::Bold, next_icon.to_string())
                     ),
-                    text!(TextStyle::Bold, next_icon.to_string())
                 ),
+                self.options_submenu.ui()
             )
         } else {
             spacing!(Spacing::Zero)

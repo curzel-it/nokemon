@@ -197,7 +197,7 @@ impl GameEngine {
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
             EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.show_dialogue(npc_id, dialogue),
-            EngineStateUpdate::ShowNpcOptions(id, dialogue) => self.npc_options_menu.show(*id, *dialogue),
+            EngineStateUpdate::ShowNpcOptions(id, dialogue) => self.npc_options_menu.show(*id, dialogue.clone()),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
@@ -208,7 +208,7 @@ impl GameEngine {
 
     fn show_dialogue(&mut self, npc_id: &u32, dialogue: &Dialogue) {
         let config = self.ui_config.as_ref().unwrap();
-        self.dialogue_menu.show(*npc_id, *dialogue, config);
+        self.dialogue_menu.show(*npc_id, dialogue.clone(), config);
     }    
 
     fn exit(&mut self) {

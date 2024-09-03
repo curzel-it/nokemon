@@ -12,7 +12,7 @@ pub enum WorldStateUpdate {
     EngineUpdate(EngineStateUpdate),
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub enum EngineStateUpdate {
     CenterCamera(i32, i32, Vector2d),
     SwitchWorld(u32),

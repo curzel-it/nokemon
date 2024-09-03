@@ -210,6 +210,10 @@ pub fn scaffold_background(background_color: Color, content: View) -> View {
     )
 }
 
+pub fn empty_view() -> View {
+    with_fixed_position(Vector2d::zero(), spacing!(Spacing::Zero))
+}
+
 pub fn render_from(anchor_point: AnchorPoint, view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
     view.render_from(d, config, position, anchor_point);
 }

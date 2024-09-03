@@ -1,7 +1,7 @@
 use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
-use crate::ui::components::scaffold_background_backdrop;
+use crate::ui::components::{empty_view, scaffold_background_backdrop};
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
@@ -34,6 +34,18 @@ impl<Item: MenuItem> Menu<Item> {
             animator: Animator::new(),
             on_selection,
         }
+    }
+
+    pub fn empty() -> Self {
+        Self::empty_with_title("".to_string())
+    }
+
+    pub fn empty_with_title(title: String) -> Self {
+        Self::new(
+            title, 
+            vec![], 
+            Box::new(|_| { (false, vec![]) })
+        )
     }
 
     pub fn show(&mut self) {
@@ -102,7 +114,7 @@ impl<Item: MenuItem> Menu<Item> {
         if self.is_open {
             self.menu_ui()
         } else {
-            spacing!(Spacing::Zero)
+            empty_view()
         }
     }
 
@@ -111,7 +123,11 @@ impl<Item: MenuItem> Menu<Item> {
             Color::BLACK.alpha(self.animator.current_value),
             vstack!(
                 Spacing::XL, 
-                text!(TextStyle::Title, self.title.clone()),
+                if self.title.is_empty() {
+                    empty_view()
+                } else {
+                    text!(TextStyle::Title, self.title.clone())
+                },
                 View::VStack {                        
                     spacing: Spacing::LG,
                     children: self.items.iter().enumerate().map(|(index, item)| {
@@ -121,8 +137,7 @@ impl<Item: MenuItem> Menu<Item> {
                             text!(TextStyle::Regular, format!(" {}", item.title()))
                         }                            
                     }).collect()
-                },
-                text!(TextStyle::Caption, "Thanks for playing. @HiddenMugs".to_string())
+                }
             )
         )
     }

@@ -2,7 +2,7 @@ use crate::{
     dialogues::tree::Dialogue, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection}, ui::components::View
 };
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 pub enum NpcOptionsMenuItem {
     RemoveEntity(u32),
     PlayDialog(u32, Dialogue),
