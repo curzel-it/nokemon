@@ -5,13 +5,15 @@ use crate::{constants::{DIALOGUE_ID_NONE, INFINITE_LIFESPAN}, features::{animate
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
-    OldMan
+    OldMan,
+    OldWoman,
 }
 
 impl NpcType {
     fn build_sprite(&self) -> AnimatedSprite {
         let index = match self {
             NpcType::OldMan => 1,
+            NpcType::OldWoman => 2,
         };
         AnimatedSprite::new_humanoid(index)
     }
