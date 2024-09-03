@@ -1,4 +1,4 @@
-use crate::{maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::tree::Dialogue, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityProps};
 
@@ -19,8 +19,8 @@ pub enum EngineStateUpdate {
     SaveGame,
     Exit,
     ShowEntityOptions(u32),
-    ShowDialogue(u32, u32), 
-    ShowNpcOptions(u32, u32)
+    ShowDialogue(u32, Dialogue), 
+    ShowNpcOptions(u32, Option<Dialogue>)
 }
 
 #[cfg(test)]

@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::{DIALOGUE_ID_NONE, INFINITE_LIFESPAN}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, dialogues::tree::{next_dialogue, Dialogue}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -24,9 +24,6 @@ pub struct Npc {
     body: EntityBody,
     npc_type: NpcType,
     sprite: AnimatedSprite,
-
-    #[serde(default)]
-    dialogue_id: u32,
 }
 
 impl Npc {
@@ -46,7 +43,6 @@ impl Npc {
             },
             npc_type,
             sprite: npc_type.build_sprite(),
-            dialogue_id: DIALOGUE_ID_NONE
         }
     }
 }
@@ -61,20 +57,20 @@ impl Entity for Npc {
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowNpcOptions(
-                            self.body.id, self.dialogue_id
+                            self.body.id, next_dialogue(self.body.id, world)
                         )
                     )
-                ]  
+                ];  
             } else {
-                if self.dialogue_id != DIALOGUE_ID_NONE {
+                if let Some(dialogue) = next_dialogue(self.body.id, world) {
                     return vec![
                         WorldStateUpdate::EngineUpdate(
                             EngineStateUpdate::ShowDialogue(
                                 self.body.id,
-                                0,
+                                dialogue,
                             )
                         )
-                    ]
+                    ];
                 }
             }             
         }

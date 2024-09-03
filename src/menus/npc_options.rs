@@ -1,18 +1,18 @@
 use crate::{
-    game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection}, ui::components::View
+    dialogues::tree::Dialogue, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection}, ui::components::View
 };
 
 #[derive(Debug, Copy, Clone)]
 pub enum NpcOptionsMenuItem {
     RemoveEntity(u32),
-    PlayDialog(u32),
+    PlayDialog(u32, Dialogue),
 }
 
 impl MenuItem for NpcOptionsMenuItem {
     fn title(&self) -> String {
         match self {
             NpcOptionsMenuItem::RemoveEntity(_) => "npc.menu.remove".localized(),
-            NpcOptionsMenuItem::PlayDialog(_) => "npc.menu.play_dialog".localized(),
+            NpcOptionsMenuItem::PlayDialog(_, _) => "npc.menu.play_dialog".localized(),
         }
     }
 }
@@ -28,9 +28,9 @@ impl NpcOptionsMenu {
                 NpcOptionsMenuItem::RemoveEntity(id) => {
                     (false, vec![WorldStateUpdate::RemoveEntity(id)])
                 }
-                NpcOptionsMenuItem::PlayDialog(dialogue_id) => {
+                NpcOptionsMenuItem::PlayDialog(npc_id, dialogue) => {
                     (false, vec![WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowDialogue(dialogue_id, dialogue_id),
+                        EngineStateUpdate::ShowDialogue(npc_id, dialogue),
                     )])
                 }
             }
@@ -41,11 +41,14 @@ impl NpcOptionsMenu {
         }
     }
 
-    pub fn show(&mut self, id: u32, dialogue_id: u32) {
-        self.menu.items = vec![
-            NpcOptionsMenuItem::RemoveEntity(id),
-            NpcOptionsMenuItem::PlayDialog(dialogue_id),
-        ];
+    pub fn show(&mut self, id: u32, dialogue: Option<Dialogue>) {
+        self.menu.items = vec![NpcOptionsMenuItem::RemoveEntity(id)];
+
+        if let Some(dialogue) = dialogue {
+            self.menu.items.push(
+                NpcOptionsMenuItem::PlayDialog(id, dialogue)    
+            );            
+        }
         self.menu.show()
     }
 

@@ -10,7 +10,6 @@ pub const WORLD_SIZE_ROWS: usize = 150;
 pub const WORLD_SIZE_COLUMNS: usize = 200;
 pub const INFINITE_LIFESPAN: f32 = -420.0;
 pub const INFINITE_STOCK: i32 = -420;
-pub const DIALOGUE_ID_NONE: u32 = 0;
 
 // Input
 pub const KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST: f32 = 0.4;

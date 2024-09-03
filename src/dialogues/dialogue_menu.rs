@@ -11,12 +11,12 @@ use crate::{
     utils::{animator::Animator, vector::Vector2d},
 };
 
-use super::utils::localized_dialogue;
+use super::{tree::Dialogue, utils::localized_dialogue};
 
 pub struct DialogueMenu {
     is_open: bool,
     npc_id: u32,
-    dialogue: Vec<String>,
+    lines: Vec<String>,
     current_line: usize,
     time_since_last_closed: f32,
     text_animator: Animator,
@@ -29,7 +29,7 @@ impl DialogueMenu {
         Self {
             is_open: false,
             npc_id: 0,
-            dialogue: vec![],
+            lines: vec![],
             current_line: 0,
             time_since_last_closed: 1.0,
             text_animator: Animator::new(),
@@ -38,27 +38,27 @@ impl DialogueMenu {
         }
     }
 
-    pub fn show(&mut self, npc_id: u32, dialogue_id: u32, config: &RenderingConfig) {
+    pub fn show(&mut self, npc_id: u32, dialogue: Dialogue, config: &RenderingConfig) {
         if self.time_since_last_closed >= 0.5 {
             self.is_open = true;
             self.npc_id = npc_id;
             self.current_line = 0;
-            self.setup_dialog(dialogue_id, config);
+            self.setup(dialogue, config);
             self.text_animator.animate(0.0, 1.0, 0.3);
         }
     }
 
-    fn setup_dialog(&mut self, dialogue_id: u32, config: &RenderingConfig) {
+    fn setup(&mut self, dialogue: Dialogue, config: &RenderingConfig) {
         let style = TextStyle::Regular;
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
         let font_spacing = config.scaled_font_spacing(&style);
-        let dialogue = localized_dialogue(dialogue_id);
+        let dialogue = localized_dialogue(dialogue.id);
 
         self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(600.0);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
 
-        self.dialogue = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
+        self.lines = self.split_dialogue_into_lines(&dialogue, font_size, font_spacing, font)
     }
 
     fn split_dialogue_into_lines(
@@ -103,7 +103,7 @@ impl DialogueMenu {
 
         if self.is_open {
             if keyboard.has_confirmation_been_pressed {
-                if self.current_line < self.dialogue.len() - 1 {
+                if self.current_line < self.lines.len() - 1 {
                     self.current_line += 1;
                     self.text_animator.animate(0.0, 1.0, 0.3);
                 } else {
@@ -123,10 +123,10 @@ impl DialogueMenu {
 
     pub fn ui(&self) -> View {
         if self.is_open {
-            let current_dialogue = &self.dialogue[self.current_line];
+            let current_dialogue = &self.lines[self.current_line];
             let animated_text_length = (current_dialogue.len() as f32 * self.text_animator.current_value).round() as usize;
             let animated_text = &current_dialogue[..animated_text_length.min(current_dialogue.len())];
-            let has_more_lines = self.current_line < self.dialogue.len() - 1;
+            let has_more_lines = self.current_line < self.lines.len() - 1;
 
             let (spacing, next_icon) = if has_more_lines {
                 (Spacing::MD, ">>")

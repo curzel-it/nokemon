@@ -60615,7 +60615,7 @@
   "npcs": [
     {
       "body": {
-        "id": 1725210376,
+        "id": 1001,
         "frame": {
           "x": 96,
           "y": 74,
@@ -60641,8 +60641,7 @@
         "width": 1,
         "height": 2,
         "number_of_frames": 4
-      },
-      "dialogue_id": 1001
+      }
     }
   ],
   "rigid_entities": []
