@@ -7,7 +7,8 @@ use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, stat
 pub struct Menu<Item: MenuItem> {
     title: String,
     is_open: bool,
-    selected_index: usize,
+    pub selected_index: usize,
+    pub selection_has_been_confirmed: bool,
     pub items: Vec<Item>,
     animator: Animator,
     pub on_selection: OnMenuItemSelection<Item>,
@@ -30,6 +31,7 @@ impl<Item: MenuItem> Menu<Item> {
             title,
             is_open: false,
             selected_index: 0,
+            selection_has_been_confirmed: false,
             items,
             animator: Animator::new(),
             on_selection,
@@ -102,6 +104,7 @@ impl<Item: MenuItem> Menu<Item> {
     }
     
     fn handle_selection(&mut self) -> Vec<WorldStateUpdate> {
+        self.selection_has_been_confirmed = true;
         let selected_item = self.items[self.selected_index].clone();
         let (is_open, updates) = (self.on_selection)(selected_item);
         self.is_open = is_open;

@@ -1,8 +1,10 @@
+use std::rc::Rc;
+
 use raylib::prelude::*;
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, hstack, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
-use super::tree::Dialogue;
+use super::tree::{next_dialogue, Dialogue};
 
 pub struct DialogueMenu {
     is_open: bool,
@@ -13,18 +15,18 @@ pub struct DialogueMenu {
     text_animator: Animator,
     width: f32,
     height: f32,
-    options_submenu: Menu<DialogueOptionMenuItem>
+    options_submenu: Menu<DialogueOptionMenuItem>,
 }
 
 #[derive(Clone)]
 enum DialogueOptionMenuItem {
-    Value(u32, String)
+    Value(String)
 }
 
 impl MenuItem for DialogueOptionMenuItem {
     fn title(&self) -> String {
         match self {
-            DialogueOptionMenuItem::Value(_, text) => text.clone()
+            DialogueOptionMenuItem::Value(text) => text.clone()
         }
     }
 }
@@ -40,7 +42,7 @@ impl DialogueMenu {
             text_animator: Animator::new(),
             width: 0.0,
             height: 0.0,
-            options_submenu: Menu::empty()
+            options_submenu: Menu::empty(),
         }
     }
 
@@ -65,10 +67,9 @@ impl DialogueMenu {
         self.lines = self.split_dialogue_into_lines(&text, font_size, font_spacing, font);
 
         self.options_submenu.close();
-        self.options_submenu.items = dialogue
-            .localized_options()
+        self.options_submenu.items = dialogue.options
             .iter()
-            .map(|(id, text)| DialogueOptionMenuItem::Value(*id, text.clone()))
+            .map(|option| DialogueOptionMenuItem::Value(option.localized_text()))
             .collect();
     }
 
@@ -135,6 +136,13 @@ impl DialogueMenu {
             }
         } else {
             self.options_submenu.update(keyboard, time_since_last_update);
+        }
+
+        if self.options_submenu.selection_has_been_confirmed {
+            if let Some(next) = next_dialogue(self.npc_id, self.options_submenu.selected_index) {
+                let show_next_dialogue = WorldStateUpdate::EngineUpdate(EngineStateUpdate::ShowDialogue(self.npc_id, next));
+                return (self.is_open, vec![show_next_dialogue]);
+            }
         }
 
         (self.is_open, vec![])

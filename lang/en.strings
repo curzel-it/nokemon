@@ -1,9 +1,9 @@
 "dialogue.select_option" = "Select an option:";
-"dialogue.1001.0" = "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol";
-"dialogue.1001.0.0" = "Yes, I can see it"
-"dialogue.1001.0.0.0" = "Hell yeah!"
-"dialogue.1001.0.1" = "Nope, does not work"
-"dialogue.1001.0.1.1" = "Ok, seems like I still have some more work to do"
+"dialogue.1001" = "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol";
+"dialogue.1001.0" = "Yes, I can see it"
+"dialogue.1001.0.0" = "Hell yeah!"
+"dialogue.1001.1" = "Nope, does not work"
+"dialogue.1001.1.1" = "Ok, seems like I still have some more work to do"
 
 "entity.menu.title" = "Entity Options";
 "entity.menu.remove" = "Remove";

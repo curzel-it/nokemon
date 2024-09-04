@@ -15645,12 +15645,12 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
         1,
         1,
         1,
@@ -15847,12 +15847,12 @@
         1,
         1,
         1,
+        2,
+        2,
+        2,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
+        2,
         1,
         1,
         1,
@@ -16049,12 +16049,12 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
         1,
         1,
         1,
@@ -60610,8 +60610,304 @@
     ],
     "sheet_id": 1003
   },
-  "buildings": [],
-  "teleporters": [],
+  "buildings": [
+    {
+      "body": {
+        "id": 1725433333,
+        "frame": {
+          "x": 91,
+          "y": 69,
+          "w": 5,
+          "h": 4
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "House": 0
+      }
+    },
+    {
+      "body": {
+        "id": 1725433338,
+        "frame": {
+          "x": 96,
+          "y": 68,
+          "w": 5,
+          "h": 5
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "HouseTwoFloors": 0
+      }
+    },
+    {
+      "body": {
+        "id": 1725433348,
+        "frame": {
+          "x": 101,
+          "y": 69,
+          "w": 5,
+          "h": 4
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "House": 1
+      }
+    },
+    {
+      "body": {
+        "id": 1725433353,
+        "frame": {
+          "x": 106,
+          "y": 68,
+          "w": 5,
+          "h": 5
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "HouseTwoFloors": 1
+      }
+    },
+    {
+      "body": {
+        "id": 1725433363,
+        "frame": {
+          "x": 102,
+          "y": 75,
+          "w": 5,
+          "h": 4
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "House": 2
+      }
+    },
+    {
+      "body": {
+        "id": 1725433368,
+        "frame": {
+          "x": 107,
+          "y": 74,
+          "w": 5,
+          "h": 5
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "building_type": {
+        "HouseTwoFloors": 2
+      }
+    }
+  ],
+  "teleporters": [
+    {
+      "body": {
+        "id": 1725433335,
+        "frame": {
+          "x": 94,
+          "y": 72,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433334,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725433341,
+        "frame": {
+          "x": 99,
+          "y": 72,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433339,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725433350,
+        "frame": {
+          "x": 104,
+          "y": 72,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433349,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725433356,
+        "frame": {
+          "x": 109,
+          "y": 72,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433354,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725433365,
+        "frame": {
+          "x": 105,
+          "y": 78,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433364,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725433371,
+        "frame": {
+          "x": 110,
+          "y": 78,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "destination": 1725433369,
+      "creative_mode": true
+    }
+  ],
   "npcs": [
     {
       "body": {
@@ -60638,6 +60934,36 @@
       "sprite": {
         "sheet_id": 1009,
         "index": 1,
+        "width": 1,
+        "height": 2,
+        "number_of_frames": 4
+      }
+    },
+    {
+      "body": {
+        "id": 1725433332,
+        "frame": {
+          "x": 94,
+          "y": 74,
+          "w": 1,
+          "h": 2
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 1.5,
+        "base_speed": 1.5,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 0,
+        "lifespan": -420.0
+      },
+      "npc_type": "OldWoman",
+      "sprite": {
+        "sheet_id": 1009,
+        "index": 2,
         "width": 1,
         "height": 2,
         "number_of_frames": 4

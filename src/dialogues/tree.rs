@@ -1,39 +1,63 @@
-use crate::{game_engine::world::World, lang::localizable::LocalizableText};
+use std::{collections::HashMap, sync::RwLock};
+
+use lazy_static::lazy_static;
+
+use crate::lang::localizable::LocalizableText;
 
 #[derive(Debug, Clone)]
 pub struct Dialogue {
-    pub npc_id: u32,
-    pub chain: Vec<u32>,
-    pub options: Vec<u32>
+    pub id: String,
+    pub options: Vec<Dialogue>
 }
 
 impl Dialogue {
+    fn new(id: &str, options: Vec<Dialogue>) -> Self {
+        Self { id: id.to_string(), options }
+    }
+
     pub fn localized_text(&self) -> String {
-        self.localization_key(None).localized()
-    }
-
-    pub fn localized_options(&self) -> Vec<(u32, String)> {
-        self.options
-            .iter()
-            .map(|id| {
-                let key = self.localization_key(Some(id.to_string()));
-                (*id, key.localized())
-            })
-            .collect()
-    }
-
-    fn localization_key(&self, extra: Option<String>) -> String {
-        let mut chain_str: Vec<String> = self.chain.iter().map(|n| n.to_string()).collect();
-        chain_str.insert(0, "dialogue".to_string());
-        chain_str.insert(1, self.npc_id.to_string());
-
-        if let Some(extra) = extra {
-            chain_str.push(extra);
-        }
-        chain_str.join(".")
+        format!("dialogue.{}", self.id).localized()
     }
 }
 
-pub fn next_dialogue(npc_id: u32, world: &World) -> Option<Dialogue> {
-    Some(Dialogue { npc_id, chain: vec![0], options: vec![0, 1] })
+type NpcId = u32;
+type DialogueSelection = usize;
+
+const NO_SELECTIONS: Vec<usize> = vec![];
+
+lazy_static! {
+    pub static ref DIALOGUE_SELECTIONS: RwLock<HashMap<NpcId, Vec<DialogueSelection>>> = RwLock::new(HashMap::new());    
+
+    pub static ref DIALOGUES: HashMap<NpcId, Dialogue> = vec!(
+        (1001, Dialogue::new("1001", vec![
+            Dialogue::new("1001.0", vec![
+                Dialogue::new("1001.0.0", vec![]),
+                Dialogue::new("1001.0.1", vec![]),
+            ]),
+            Dialogue::new("1001.1", vec![
+                Dialogue::new("1001.1.0", vec![]),
+                Dialogue::new("1001.1.1", vec![]),
+            ])
+        ]))
+    ).into_iter().collect();
+}
+
+pub fn current_dialogue(npc_id: u32) -> Option<Dialogue> {
+    if let Some(mut dialogue) = DIALOGUES.get(&npc_id).cloned() {
+        let selections = DIALOGUE_SELECTIONS.read().unwrap().get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
+
+        for choice in selections {
+            dialogue = dialogue.options[choice].clone();
+        }
+        return Some(dialogue);
+    }
+    None
+}
+
+pub fn next_dialogue(npc_id: u32, new_choice: usize) -> Option<Dialogue> {
+    let mut selections = DIALOGUE_SELECTIONS.write().unwrap();
+    let mut chain = selections.get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
+    chain.push(new_choice);
+    selections.insert(npc_id, chain.clone());
+    current_dialogue(npc_id)
 }
