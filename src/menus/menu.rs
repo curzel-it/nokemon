@@ -12,6 +12,7 @@ pub struct Menu<Item: MenuItem> {
     pub items: Vec<Item>,
     animator: Animator,
     pub on_selection: OnMenuItemSelection<Item>,
+    pub uses_backdrop: bool,
 }
 
 pub trait MenuItem: Clone {
@@ -35,6 +36,7 @@ impl<Item: MenuItem> Menu<Item> {
             items,
             animator: Animator::new(),
             on_selection,
+            uses_backdrop: true,
         }
     }
 
@@ -66,6 +68,11 @@ impl<Item: MenuItem> Menu<Item> {
 
     pub fn selected_item(&self) -> Item {
         self.items[self.selected_index].clone()
+    }
+
+    pub fn clear_selection(&mut self) {
+        self.selected_index = 0;
+        self.selection_has_been_confirmed = false;
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
@@ -123,6 +130,7 @@ impl<Item: MenuItem> Menu<Item> {
 
     fn menu_ui(&self) -> View {            
         scaffold_background_backdrop(
+            self.uses_backdrop,
             Color::BLACK.alpha(self.animator.current_value),
             vstack!(
                 Spacing::XL, 

@@ -184,8 +184,14 @@ pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
     View::TexturedBorder { borders, children: vec![content] }
 }
 
-pub fn scaffold_background_backdrop(background_color: Color, content: View) -> View {
-    with_backdrop(scaffold_background(background_color, content))
+pub fn scaffold_background_backdrop(backdrop: bool, background_color: Color, content: View) -> View {
+    let actual_content = scaffold_background(background_color, content);
+
+    if backdrop {
+        with_backdrop(scaffold_background(background_color, actual_content))
+    } else {
+        actual_content
+    }    
 }
 
 pub fn scaffold_background(background_color: Color, content: View) -> View {

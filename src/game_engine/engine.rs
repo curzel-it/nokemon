@@ -158,7 +158,10 @@ impl GameEngine {
     }
 
     pub fn window_size_changed(&mut self, width: i32, height: i32) {
+        println!("Window size changed to {}x{}", width, height);
         let (scale, font_scale) = self.rendering_scale_for_screen_width(width);
+        println!("Updated rendering scale to {}", scale);
+        println!("Updated font scale to {}", scale);
         self.ui_config.as_mut().unwrap().rendering_scale = scale;
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
@@ -173,7 +176,8 @@ impl GameEngine {
         } else if width < 1400 {
             (2.0, 2.0)
         } else {
-            ((width as f32 / 1000.0).ceil(), 3.0)
+            let scale = (width as f32 / 1000.0).ceil();
+            (scale, scale)
         }
     }
 
@@ -207,6 +211,9 @@ impl GameEngine {
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, dialogue: &Dialogue) {
+        if self.dialogue_menu.is_open() {
+            return
+        }
         let config = self.ui_config.as_ref().unwrap();
         self.dialogue_menu.show(*npc_id, dialogue.clone(), config);
     }    

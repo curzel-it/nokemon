@@ -242,6 +242,7 @@ impl MapEditor {
 impl MapEditor {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
         scaffold_background_backdrop(
+            true, 
             self.background_color(),
             match self.state {
                 MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),

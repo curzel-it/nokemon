@@ -44,20 +44,27 @@ lazy_static! {
 
 pub fn current_dialogue(npc_id: u32) -> Option<Dialogue> {
     if let Some(mut dialogue) = DIALOGUES.get(&npc_id).cloned() {
-        let selections = DIALOGUE_SELECTIONS.read().unwrap().get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
+        let dialogues = DIALOGUE_SELECTIONS.read().unwrap();
+        let selections = dialogues.get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
 
         for choice in selections {
             dialogue = dialogue.options[choice].clone();
         }
+        drop(dialogues);
         return Some(dialogue);
     }
     None
 }
 
 pub fn next_dialogue(npc_id: u32, new_choice: usize) -> Option<Dialogue> {
-    let mut selections = DIALOGUE_SELECTIONS.write().unwrap();
-    let mut chain = selections.get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
-    chain.push(new_choice);
-    selections.insert(npc_id, chain.clone());
+    update_dialogue_chain(npc_id, new_choice);
     current_dialogue(npc_id)
+}
+
+fn update_dialogue_chain(npc_id: u32, new_choice: usize) {
+    let mut dialogues = DIALOGUE_SELECTIONS.write().unwrap();
+    let mut chain = dialogues.get(&npc_id).unwrap_or(&NO_SELECTIONS).clone();
+    chain.push(new_choice);
+    dialogues.insert(npc_id, chain.clone());
+    drop(dialogues);
 }

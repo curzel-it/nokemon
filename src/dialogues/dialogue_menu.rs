@@ -33,6 +33,9 @@ impl MenuItem for DialogueOptionMenuItem {
 
 impl DialogueMenu {
     pub fn new() -> Self {
+        let mut options_menu = Menu::empty();
+        options_menu.uses_backdrop = false;
+
         Self {
             is_open: false,
             npc_id: 0,
@@ -42,7 +45,7 @@ impl DialogueMenu {
             text_animator: Animator::new(),
             width: 0.0,
             height: 0.0,
-            options_submenu: Menu::empty(),
+            options_submenu: options_menu,
         }
     }
 
@@ -62,7 +65,8 @@ impl DialogueMenu {
         let font_size = config.scaled_font_size(&style);
         let font_spacing = config.scaled_font_spacing(&style);
         let text = dialogue.localized_text();
-        self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(600.0);
+        let max_width = config.rendering_scale * 340.0;
+        self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(max_width);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
         self.lines = self.split_dialogue_into_lines(&text, font_size, font_spacing, font);
 
@@ -141,7 +145,11 @@ impl DialogueMenu {
         if self.options_submenu.selection_has_been_confirmed {
             if let Some(next) = next_dialogue(self.npc_id, self.options_submenu.selected_index) {
                 let show_next_dialogue = WorldStateUpdate::EngineUpdate(EngineStateUpdate::ShowDialogue(self.npc_id, next));
+                println!("Got next dialogue!");
+                self.options_submenu.clear_selection();
                 return (self.is_open, vec![show_next_dialogue]);
+            } else {
+                println!("No more dialogues");
             }
         }
 

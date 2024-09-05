@@ -60785,7 +60785,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433334,
-      "creative_mode": true
+      "creative_mode": false
     },
     {
       "body": {
@@ -60809,7 +60809,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433339,
-      "creative_mode": true
+      "creative_mode": false
     },
     {
       "body": {
@@ -60833,7 +60833,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433349,
-      "creative_mode": true
+      "creative_mode": false
     },
     {
       "body": {
@@ -60857,7 +60857,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433354,
-      "creative_mode": true
+      "creative_mode": false
     },
     {
       "body": {
@@ -60881,7 +60881,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433364,
-      "creative_mode": true
+      "creative_mode": false
     },
     {
       "body": {
@@ -60905,7 +60905,7 @@
         "lifespan": -420.0
       },
       "destination": 1725433369,
-      "creative_mode": true
+      "creative_mode": false
     }
   ],
   "npcs": [
