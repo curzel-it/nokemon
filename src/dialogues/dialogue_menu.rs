@@ -99,7 +99,7 @@ impl DialogueMenu {
     }
 
     fn handle_answer(&mut self, stops: bool, answer: u32) -> Vec<WorldStateUpdate> {
-        let mut updates: Vec<WorldStateUpdate> = vec![];
+        let updates: Vec<WorldStateUpdate> = vec![];
 
         set_value_for_key(StorageKey::dialogue_answer(self.dialogue.id), answer);       
         self.menu.clear_selection();
