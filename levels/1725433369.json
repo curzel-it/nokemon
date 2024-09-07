@@ -60695,7 +60695,7 @@
     }
   ],
   "npcs": [],
-  "rigid_entities": [
+  "simple_entities": [
     {
       "body": {
         "id": 1725433374,

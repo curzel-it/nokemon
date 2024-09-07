@@ -60695,7 +60695,7 @@
     }
   ],
   "npcs": [],
-  "rigid_entities": [
+  "simple_entities": [
     {
       "body": {
         "id": 1725433344,
@@ -60758,6 +60758,134 @@
         "y": 0,
         "w": 2,
         "h": 2
+      }
+    },
+    {
+      "body": {
+        "id": 1725750693,
+        "frame": {
+          "x": 1,
+          "y": 6,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 100,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite_sheet": 1010,
+      "texture_source_rect": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      }
+    },
+    {
+      "body": {
+        "id": 1725750694,
+        "frame": {
+          "x": 2,
+          "y": 6,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 100,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite_sheet": 1010,
+      "texture_source_rect": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      }
+    },
+    {
+      "body": {
+        "id": 1725750695,
+        "frame": {
+          "x": 2,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 100,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite_sheet": 1010,
+      "texture_source_rect": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      }
+    },
+    {
+      "body": {
+        "id": 1725750696,
+        "frame": {
+          "x": 1,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 100,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite_sheet": 1010,
+      "texture_source_rect": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
       }
     }
   ]
