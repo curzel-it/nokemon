@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, dialogues::dialogues::{Dialogue, EntityDialogues}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -43,12 +43,23 @@ impl Npc {
                 is_rigid: true,
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
-                dialogue: None,
+                dialogues: EntityDialogues::empty(),
             },
             npc_type,
             name: "npc.default_name".localized(),
             sprite: npc_type.build_sprite(),
         }
+    }
+
+    fn next_dialogue(&self) -> Option<Dialogue> {
+        for option in &self.body.dialogues.options {
+            if let Some(value) = get_value_for_key(&option.key) {
+                if value == option.expected_value {
+                    return Some(option.dialogue.clone())
+                }
+            }
+        }
+        None
     }
 }
 
@@ -62,11 +73,11 @@ impl Entity for Npc {
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowNpcOptions(
-                            self.body.id, self.name.clone(), self.body.dialogue.clone()
+                            self.body.id, self.name.clone(), self.next_dialogue()
                         )
                     )
                 ];  
-            } else if let Some(dialogue) = self.body.dialogue.clone() {
+            } else if let Some(dialogue) = self.next_dialogue() {
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowDialogue(

@@ -1,4 +1,4 @@
-use crate::{dialogues::models::Dialogue, entities::npc::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::dialogues::Dialogue, entities::npc::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityProps};
 

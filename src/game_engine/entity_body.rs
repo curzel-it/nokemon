@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
-use crate::{dialogues::models::Dialogue, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{dialogues::dialogues::EntityDialogues, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
@@ -24,7 +24,7 @@ pub struct EntityBody {
     pub lifespan: f32,
 
     #[serde(default)]
-    pub dialogue: Option<Dialogue>,
+    pub dialogues: EntityDialogues,
 }
 
 impl EntityBody {            

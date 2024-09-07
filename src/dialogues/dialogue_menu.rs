@@ -1,6 +1,6 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, storage::{set_value_for_key, StorageKey}}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
 
-use super::models::{dialogue_by_id, Dialogue};
+use super::dialogues::{dialogue_by_id, Dialogue};
 
 pub struct DialogueMenu {
     pub npc_id: u32,
@@ -100,19 +100,24 @@ impl DialogueMenu {
 
     fn handle_answer(&mut self, stops: bool, answer: u32) -> Vec<WorldStateUpdate> {
         let mut updates: Vec<WorldStateUpdate> = vec![];
-        
-        if let Some(next_dialogue) = dialogue_by_id(answer) {                
-            self.menu.clear_selection();
-            let update_dialogue = WorldStateUpdate::ProgressConversation(self.npc_id, next_dialogue.clone());
-            updates.push(update_dialogue);
 
-            if stops {
+        set_value_for_key(StorageKey::dialogue_answer(self.dialogue.id), answer);       
+        self.menu.clear_selection();
+        
+        if let Some(next_dialogue) = dialogue_by_id(answer) {         
+            // let update_dialogue = WorldStateUpdate::ProgressConversation(self.npc_id, next_dialogue.clone());
+            // updates.push(update_dialogue);
+
+            if stops {            
                 self.dialogue = Dialogue::empty();
                 self.menu.close();
             } else {
                 self.show_now(self.npc_id, self.npc_name.clone(), next_dialogue);
             }
-        } 
+        }  else {
+            self.dialogue = Dialogue::empty();
+            self.menu.close();
+        }
         updates
     }
 

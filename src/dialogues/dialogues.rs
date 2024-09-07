@@ -14,6 +14,30 @@ pub struct Dialogue {
     pub options: Vec<(DialogueAnswerId, DialogueId)>,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct EntityDialogues {
+    pub options: Vec<EntityDialogue>
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct EntityDialogue {
+    pub key: String,
+    pub expected_value: u32,
+    pub dialogue: Dialogue,
+}
+
+impl EntityDialogues {
+    pub fn empty() -> Self {
+        Self { options: vec![] }
+    }
+}
+
+impl Default for EntityDialogues {
+    fn default() -> Self {
+        Self::empty()
+    }
+}
+
 impl Dialogue {
     pub const fn empty() -> Self {
         Self { id: 0, options: vec![] }
@@ -35,7 +59,7 @@ fn load_dialogues_from_json(file_path: &str) -> HashMap<u32, Dialogue> {
 }
 
 lazy_static! {
-    pub static ref DIALOGUES: HashMap<u32, Dialogue> = load_dialogues_from_json(DIALOGUES_PATH);
+    static ref DIALOGUES: HashMap<u32, Dialogue> = load_dialogues_from_json(DIALOGUES_PATH);
 }
 
 pub fn dialogue_by_id(id: u32) -> Option<Dialogue> {

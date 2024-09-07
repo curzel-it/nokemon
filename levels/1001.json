@@ -60929,9 +60929,17 @@
         "is_rigid": true,
         "z_index": 0,
         "lifespan": -420.0,
-        "dialogue": {
-            "id": 101,
-            "options": [[1, 107]]
+        "dialogues": {
+            "options": [
+                {
+                    "key": "always",
+                    "expected_value": 0,
+                    "dialogue": {
+                        "id": 101,
+                        "options": [[1, 107]]
+                    }
+                }
+            ]
         }
       },
       "name": "Old Man",
@@ -60964,9 +60972,33 @@
         "is_rigid": true,
         "z_index": 0,
         "lifespan": -420.0,
-        "dialogue": {
-            "id": 106,
-            "options": [[0, 106]]
+        "dialogues": {
+            "options": [
+                {
+                    "key": "dialogue.answer.108",
+                    "expected_value": 104,
+                    "dialogue": {
+                        "id": 109,
+                        "options": [[0, 109]]
+                    }
+                },
+                {
+                    "key": "dialogue.answer.108",
+                    "expected_value": 105,
+                    "dialogue": {
+                        "id": 110,
+                        "options": [[0, 110]]
+                    }
+                },
+                {
+                    "key": "always",
+                    "expected_value": 0,
+                    "dialogue": {
+                        "id": 106,
+                        "options": [[0, 106]]
+                    }
+                }
+            ]
         }
       },
       "name": "Old Lady",
