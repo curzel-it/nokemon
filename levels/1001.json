@@ -60613,10 +60613,10 @@
   "buildings": [
     {
       "body": {
-        "id": 1725433333,
+        "id": 1725751144,
         "frame": {
-          "x": 91,
-          "y": 69,
+          "x": 94,
+          "y": 68,
           "w": 5,
           "h": 4
         },
@@ -60641,10 +60641,10 @@
     },
     {
       "body": {
-        "id": 1725433338,
+        "id": 1725751154,
         "frame": {
-          "x": 96,
-          "y": 68,
+          "x": 100,
+          "y": 67,
           "w": 5,
           "h": 5
         },
@@ -60669,10 +60669,10 @@
     },
     {
       "body": {
-        "id": 1725433348,
+        "id": 1725751169,
         "frame": {
-          "x": 101,
-          "y": 69,
+          "x": 106,
+          "y": 68,
           "w": 5,
           "h": 4
         },
@@ -60697,10 +60697,10 @@
     },
     {
       "body": {
-        "id": 1725433353,
+        "id": 1725751179,
         "frame": {
           "x": 106,
-          "y": 68,
+          "y": 73,
           "w": 5,
           "h": 5
         },
@@ -60725,10 +60725,10 @@
     },
     {
       "body": {
-        "id": 1725433363,
+        "id": 1725751194,
         "frame": {
-          "x": 102,
-          "y": 75,
+          "x": 99,
+          "y": 76,
           "w": 5,
           "h": 4
         },
@@ -60753,10 +60753,10 @@
     },
     {
       "body": {
-        "id": 1725433368,
+        "id": 1725751204,
         "frame": {
-          "x": 107,
-          "y": 74,
+          "x": 94,
+          "y": 79,
           "w": 5,
           "h": 5
         },
@@ -60783,10 +60783,10 @@
   "teleporters": [
     {
       "body": {
-        "id": 1725433335,
+        "id": 1725751146,
         "frame": {
-          "x": 94,
-          "y": 72,
+          "x": 97,
+          "y": 71,
           "w": 1,
           "h": 1
         },
@@ -60799,21 +60799,21 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 200,
+        "z_index": 0,
         "lifespan": -420.0,
         "dialogues": {
           "options": []
         }
       },
-      "destination": 1725433334,
+      "destination": 1725751145,
       "creative_mode": true
     },
     {
       "body": {
-        "id": 1725433341,
+        "id": 1725751157,
         "frame": {
-          "x": 99,
-          "y": 72,
+          "x": 103,
+          "y": 71,
           "w": 1,
           "h": 1
         },
@@ -60826,48 +60826,21 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 200,
+        "z_index": 0,
         "lifespan": -420.0,
         "dialogues": {
           "options": []
         }
       },
-      "destination": 1725433339,
+      "destination": 1725751155,
       "creative_mode": true
     },
     {
       "body": {
-        "id": 1725433350,
-        "frame": {
-          "x": 104,
-          "y": 72,
-          "w": 1,
-          "h": 1
-        },
-        "offset": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "direction": 4,
-        "current_speed": 0.0,
-        "base_speed": 0.0,
-        "creation_time": 0.0,
-        "is_rigid": false,
-        "z_index": 200,
-        "lifespan": -420.0,
-        "dialogues": {
-          "options": []
-        }
-      },
-      "destination": 1725433349,
-      "creative_mode": true
-    },
-    {
-      "body": {
-        "id": 1725433356,
+        "id": 1725751171,
         "frame": {
           "x": 109,
-          "y": 72,
+          "y": 71,
           "w": 1,
           "h": 1
         },
@@ -60880,21 +60853,21 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 200,
+        "z_index": 0,
         "lifespan": -420.0,
         "dialogues": {
           "options": []
         }
       },
-      "destination": 1725433354,
+      "destination": 1725751170,
       "creative_mode": true
     },
     {
       "body": {
-        "id": 1725433365,
+        "id": 1725751182,
         "frame": {
-          "x": 105,
-          "y": 78,
+          "x": 109,
+          "y": 77,
           "w": 1,
           "h": 1
         },
@@ -60907,21 +60880,21 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 200,
+        "z_index": 0,
         "lifespan": -420.0,
         "dialogues": {
           "options": []
         }
       },
-      "destination": 1725433364,
+      "destination": 1725751180,
       "creative_mode": true
     },
     {
       "body": {
-        "id": 1725433371,
+        "id": 1725751196,
         "frame": {
-          "x": 110,
-          "y": 78,
+          "x": 102,
+          "y": 79,
           "w": 1,
           "h": 1
         },
@@ -60934,13 +60907,40 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 200,
+        "z_index": 0,
         "lifespan": -420.0,
         "dialogues": {
           "options": []
         }
       },
-      "destination": 1725433369,
+      "destination": 1725751195,
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725751207,
+        "frame": {
+          "x": 97,
+          "y": 83,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "destination": 1725751205,
       "creative_mode": true
     }
   ],

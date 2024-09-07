@@ -45,10 +45,35 @@ pub fn new_house_two_floors(variant: i32, source_world_id: u32, x: i32, y: i32) 
         first_floor.constructions_tiles.update_tile(row, 0, Construction::LightWall);
     }
 
+    let mut table = HouseholdObject::Table.make_entity();
+    table.body_mut().frame.x = 1;
+    table.body_mut().frame.y = 4;
+
+    let mut seat1 = HouseholdObject::SeatGreen.make_entity();
+    seat1.body_mut().frame.x = 1;
+    seat1.body_mut().frame.y = 4;
+
+    let mut seat2 = HouseholdObject::SeatGreen.make_entity();
+    seat2.body_mut().frame.x = 2;
+    seat2.body_mut().frame.y = 4;
+
+    let mut seat3 = HouseholdObject::SeatGreen.make_entity();
+    seat3.body_mut().frame.x = 1;
+    seat3.body_mut().frame.y = 6;
+
+    let mut seat4 = HouseholdObject::SeatGreen.make_entity();
+    seat4.body_mut().frame.x = 2;
+    seat4.body_mut().frame.y = 6;
+
     first_floor.add_entity(Box::new(door_back1));
     first_floor.add_entity(Box::new(door_back2));
     first_floor.add_entity(Box::new(stairs_up));
     first_floor.add_entity(Box::new(stairs_up_door));
+    first_floor.add_entity(Box::new(table));
+    first_floor.add_entity(Box::new(seat1));
+    first_floor.add_entity(Box::new(seat2));
+    first_floor.add_entity(Box::new(seat3));
+    first_floor.add_entity(Box::new(seat4));
     first_floor.save();    
 
     let mut stairs_down = HouseholdObject::StairsDown.make_entity();
