@@ -59,6 +59,8 @@ impl DialogueMenu {
             self.current_line = 0;
             self.setup(config);
             self.text_animator.animate(0.0, 1.0, 0.3);
+        } else {
+            println!("Dialog request throttled")
         }
     }
 
@@ -146,21 +148,28 @@ impl DialogueMenu {
 
         if self.options_submenu.selection_has_been_confirmed {
             let mut updates: Vec<WorldStateUpdate> = vec![];
-            let answer = self.dialogue.options[self.options_submenu.selected_index];
+            let (answer_text, answer) = self.dialogue.options[self.options_submenu.selected_index];
+            let stops = answer_text == 0;
+            println!("Confirmed selection index {}, links to {}", self.options_submenu.selected_index, answer);
             
             if let Some(next_dialogue) = dialogue_by_id(answer) {                
+                println!("Found new dialogue: {:#?}", next_dialogue);
                 let update_dialogue = WorldStateUpdate::ProgressConversation(self.npc_id, next_dialogue.clone());
                 updates.push(update_dialogue);
 
-                if !self.dialogue.stops {
+                if !stops {
+                    println!("Pushing dialogue");
+                    self.time_since_last_closed = 1.0;
                     let show_next_dialogue = WorldStateUpdate::EngineUpdate(EngineStateUpdate::ShowDialogue(self.npc_id, next_dialogue));
                     updates.push(show_next_dialogue);
+                } else {
+                    println!("Got dialogue stop");
                 }
+            } else {
+                println!("Broken dialogue link! {} -> {}", self.dialogue.id, answer);
             }
             self.options_submenu.clear_selection();
             return (self.is_open, updates);
-        } else {
-            println!("No more dialogues");
         }
 
         (self.is_open, vec![])

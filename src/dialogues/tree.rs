@@ -11,13 +11,12 @@ pub type DialogueAnswerId = u32;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dialogue {
     pub id: DialogueId,
-    pub options: Vec<DialogueAnswerId>,
-    pub stops: bool,
+    pub options: Vec<(DialogueAnswerId, DialogueId)>,
 }
 
 impl Dialogue {
     pub const fn empty() -> Self {
-        Self { id: 0, options: vec![], stops: true }
+        Self { id: 0, options: vec![] }
     }
 
     pub fn localized_text(&self) -> String {
@@ -25,48 +24,16 @@ impl Dialogue {
     }
 
     pub fn localized_options(&self) -> Vec<String> {
-        self.options.iter().map(|o| format!("dialogue.{}", o).localized()).collect()        
+        self.options.iter().map(|o| format!("dialogue.{}", o.0).localized()).collect()        
     }
-}
-
-macro_rules! dialogue_with_options {
-    ($id:expr, $( $option:expr ),*) => {
-        Dialogue {
-            id: $id,
-            options: vec![$($option),*],
-            stops: false
-        }
-    };
-}
-
-macro_rules! dialogue_answer {
-    ($id:expr, $option:expr) => {
-        Dialogue {
-            id: $id,
-            options: vec![$option],
-            stops: false
-        }
-    };
-}
-
-macro_rules! dialogue_stopper {
-    ($id:expr, $option:expr) => {
-        Dialogue {
-            id: $id,
-            options: vec![$option],
-            stops: true
-        }
-    };
 }
 
 lazy_static! {
     pub static ref DIALOGUES: HashMap<u32, Dialogue> = vec!(
         // Old man in main village
-        dialogue_with_options!(1, 2, 3),
-            dialogue_answer!(2, 4),
-                dialogue_stopper!(4, 1),
-        dialogue_answer!(3, 5),
-            dialogue_stopper!(5, 1)
+        Dialogue { id: 1, options: vec![(2, 4), (3, 5)] },
+        Dialogue { id: 4, options: vec![(0, 1)] },
+        Dialogue { id: 5, options: vec![(0, 1)] },
     )
     .into_iter()
     .map(|d| (d.id, d))

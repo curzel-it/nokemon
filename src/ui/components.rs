@@ -188,7 +188,7 @@ pub fn scaffold_background_backdrop(backdrop: bool, background_color: Color, con
     let actual_content = scaffold_background(background_color, content);
 
     if backdrop {
-        with_backdrop(scaffold_background(background_color, actual_content))
+        with_backdrop(actual_content)
     } else {
         actual_content
     }    

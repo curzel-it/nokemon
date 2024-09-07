@@ -60931,8 +60931,7 @@
         "lifespan": -420.0,
         "dialogue": {
             "id": 1,
-            "options": [2, 3],
-            "stops": false
+            "options": [[2, 4], [3, 5]]
         }
       },
       "npc_type": "OldMan",
