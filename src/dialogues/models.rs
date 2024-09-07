@@ -39,9 +39,5 @@ lazy_static! {
 }
 
 pub fn dialogue_by_id(id: u32) -> Option<Dialogue> {
-    if let Some(dialogue) = DIALOGUES.get(&id) {
-        Some(dialogue.clone())
-    } else {
-        None
-    }
+    DIALOGUES.get(&id).cloned()
 }

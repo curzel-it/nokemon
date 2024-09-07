@@ -13,7 +13,7 @@ impl BuildingType {
     fn texture_source_rect(&self) -> Rect {
         let (x, y, w, h) = match self {
             BuildingType::House(variant) => (0, 5 * variant + 1, 5, 4),
-            BuildingType::HouseTwoFloors(variant) => (5, 5 * variant + 0, 5, 5),
+            BuildingType::HouseTwoFloors(variant) => (5, 5 * variant, 5, 5),
         };
         Rect::new(x, y, w, h)
     }

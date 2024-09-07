@@ -59,10 +59,6 @@ impl KeyboardEventsProvider {
         self.currently_pressed_character = rl.get_char_pressed();
     }
 
-    pub fn pressed_character(&self) -> Option<char> {
-        self.currently_pressed_character
-    }
-
     pub fn on_world_changed(&mut self) {
         self.discard_direction_events_until_next_arrow_key_is_pressed = true;
     } 

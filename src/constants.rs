@@ -1,4 +1,4 @@
-use crate::{dialogues::tree::Dialogue, utils::rect::Rect};
+use crate::utils::rect::Rect;
 
 // Fps
 pub const FPS: u32 = 60;

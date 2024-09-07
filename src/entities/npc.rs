@@ -66,16 +66,14 @@ impl Entity for Npc {
                         )
                     )
                 ];  
-            } else {
-                if let Some(dialogue) = self.body.dialogue.clone() {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::ShowDialogue(
-                                self.body.id, self.name.clone(), dialogue,
-                            )
+            } else if let Some(dialogue) = self.body.dialogue.clone() {
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowDialogue(
+                            self.body.id, self.name.clone(), dialogue,
                         )
-                    ];
-                }
+                    )
+                ];
             }             
         }
 

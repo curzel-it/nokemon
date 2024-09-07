@@ -1,6 +1,6 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, scaffold_background_backdrop, with_fixed_size, with_fixed_width, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
 
-use super::tree::{dialogue_by_id, Dialogue};
+use super::models::{dialogue_by_id, Dialogue};
 
 pub struct DialogueMenu {
     pub npc_id: u32,

@@ -729,7 +729,7 @@ impl View {
                 self.calculate_fixed_position_size(config, children)                
             }
             View::FixedSize { size, children: _ } => {
-                size.clone()
+                *size
             }
             View::FixedWidth { width, children} => {
                 self.calculate_fixed_width_size(config, width, children)                
@@ -904,6 +904,6 @@ impl View {
 
     fn calculate_fixed_width_size(&self, config: &RenderingConfig, width: &f32, children: &[View]) -> Vector2d {
         let height = self.calculate_zstack_size(config, children, &Spacing::Zero).y;
-        return Vector2d::new(*width, height);
+        Vector2d::new(*width, height)
     }
 }
