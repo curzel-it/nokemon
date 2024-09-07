@@ -200,8 +200,8 @@ impl GameEngine {
 
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
-            EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.show_dialogue(npc_id, dialogue),
-            EngineStateUpdate::ShowNpcOptions(id, dialogue) => self.npc_options_menu.show(*id, dialogue),
+            EngineStateUpdate::ShowDialogue(npc_id, npc_name, dialogue) => self.show_dialogue(npc_id, npc_name, dialogue),
+            EngineStateUpdate::ShowNpcOptions(id, npc_name, dialogue) => self.npc_options_menu.show(*id, npc_name, dialogue),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
@@ -210,11 +210,11 @@ impl GameEngine {
         }
     }
 
-    fn show_dialogue(&mut self, npc_id: &u32, dialogue: &Dialogue) {
+    fn show_dialogue(&mut self, npc_id: &u32, npc_name: &String, dialogue: &Dialogue) {
         if self.dialogue_menu.is_open() {
             return
         }
-        self.dialogue_menu.show(*npc_id, dialogue.clone());
+        self.dialogue_menu.show(*npc_id, npc_name.clone(), dialogue.clone());
     }    
 
     fn exit(&mut self) {

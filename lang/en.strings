@@ -18,6 +18,7 @@
 "map_editor.subtitle" = "Press SPACE to select something";
 "map_editor.placement" = "Press SPACE to place\nPress ESC to go back";
 
+"npc.default_name" = "Some rando";
 "npc.menu.title" = "NPC Options";
 "npc.menu.remove" = "Remove";
 "npc.menu.play_dialog" = "Play dialog";

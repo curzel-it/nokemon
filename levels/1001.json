@@ -60934,6 +60934,7 @@
             "options": [[2, 4], [3, 5]]
         }
       },
+      "name": "Old Man",
       "npc_type": "OldMan",
       "sprite": {
         "sheet_id": 1009,
@@ -60964,6 +60965,7 @@
         "z_index": 0,
         "lifespan": -420.0
       },
+      "name": "Old Lady",
       "npc_type": "OldWoman",
       "sprite": {
         "sheet_id": 1009,

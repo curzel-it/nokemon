@@ -20,8 +20,8 @@ pub enum EngineStateUpdate {
     SaveGame,
     Exit,
     ShowEntityOptions(u32),
-    ShowDialogue(NpcId, Dialogue), 
-    ShowNpcOptions(NpcId, Option<Dialogue>)
+    ShowDialogue(NpcId, String, Dialogue), 
+    ShowNpcOptions(NpcId, String, Option<Dialogue>)
 }
 
 #[cfg(test)]

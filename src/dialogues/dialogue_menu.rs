@@ -1,11 +1,10 @@
-use raylib::color::Color;
-
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, scaffold_background_backdrop, with_fixed_size, with_fixed_width, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
 use super::tree::{dialogue_by_id, Dialogue};
 
 pub struct DialogueMenu {
     pub npc_id: u32,
+    pub npc_name: String,
     pub dialogue: Dialogue,
     time_since_last_closed: f32,
     text_animator: Animator,
@@ -29,10 +28,11 @@ impl MenuItem for DialogueAnswerItem {
 impl DialogueMenu {
     pub fn new() -> Self {
         let mut options_menu = Menu::empty();
-        options_menu.uses_backdrop = false;
+        options_menu.uses_backdrop = false;        
 
         Self {
             npc_id: 0,
+            npc_name: "".to_string(),
             dialogue: Dialogue::empty(),
             time_since_last_closed: 1.0,
             text_animator: Animator::new(),
@@ -41,16 +41,20 @@ impl DialogueMenu {
         }
     }
 
-    pub fn show(&mut self, npc_id: u32, dialogue: Dialogue) {
+    pub fn show(&mut self, npc_id: u32, npc_name: String, dialogue: Dialogue) {
         if self.time_since_last_closed >= 0.5 {
-            self.show_now(npc_id, dialogue);
+            self.show_now(npc_id, npc_name, dialogue);
         }
     }
 
-    fn show_now(&mut self, npc_id: u32, dialogue: Dialogue) {
+    fn show_now(&mut self, npc_id: u32, npc_name: String, dialogue: Dialogue) {
         self.npc_id = npc_id;
+        self.npc_name = npc_name;
         self.dialogue = dialogue;       
+        
+        self.menu.title = format!("{: <45}", format!("{}:", self.npc_name));
         self.text = self.dialogue.localized_text();
+
         self.text_animator.animate(0.0, 1.0, self.text.len() as f32 / 80.0);
         self.time_since_last_closed = 0.0;
         
@@ -75,11 +79,9 @@ impl DialogueMenu {
         if !self.menu.is_open() {
             self.time_since_last_closed += time_since_last_update;
         }
-
         if self.menu.is_open() {
             self.menu.update(keyboard, time_since_last_update);
         }
-
         if self.menu.selection_has_been_confirmed {
             let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
             let stops = answer_text == 0;
@@ -102,7 +104,7 @@ impl DialogueMenu {
                 self.dialogue = Dialogue::empty();
                 self.menu.close();
             } else {
-                self.show_now(self.npc_id, next_dialogue);
+                self.show_now(self.npc_id, self.npc_name.clone(), next_dialogue);
             }
         } 
         updates

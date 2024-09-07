@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -25,6 +25,7 @@ impl NpcType {
 pub struct Npc {
     body: EntityBody,
     npc_type: NpcType,
+    name: String,
     sprite: AnimatedSprite,
 }
 
@@ -45,6 +46,7 @@ impl Npc {
                 dialogue: None,
             },
             npc_type,
+            name: "npc.default_name".localized(),
             sprite: npc_type.build_sprite(),
         }
     }
@@ -60,7 +62,7 @@ impl Entity for Npc {
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowNpcOptions(
-                            self.body.id, self.body.dialogue.clone()
+                            self.body.id, self.name.clone(), self.body.dialogue.clone()
                         )
                     )
                 ];  
@@ -69,8 +71,7 @@ impl Entity for Npc {
                     return vec![
                         WorldStateUpdate::EngineUpdate(
                             EngineStateUpdate::ShowDialogue(
-                                self.body.id,
-                                dialogue,
+                                self.body.id, self.name.clone(), dialogue,
                             )
                         )
                     ];
