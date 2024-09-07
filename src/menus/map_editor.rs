@@ -3,6 +3,8 @@ use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entit
 
 use super::inventory::Stockable;
 
+const MAX_VISIBLE_WORLDS: usize = 4;
+
 #[derive(Debug)]
 pub struct MapEditor {
     pub stock: Vec<Stockable>,
@@ -10,7 +12,8 @@ pub struct MapEditor {
     pub current_world_id: u32,
     state: MapEditorState,
     sprite_sheet: u32,
-    columns: usize
+    columns: usize,
+    offset: usize, 
 }
 
 #[derive(Debug)]
@@ -30,6 +33,7 @@ impl MapEditor {
             state: MapEditorState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 8,
+            offset: 0, 
         }
     }
 
@@ -95,26 +99,42 @@ impl MapEditor {
         )
     }
 
-    fn update_world_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_world_selection(
+        &mut self,
+        selected_index: usize,
+        camera_vieport: &Rect,
+        keyboard: &KeyboardEventsProvider
+    ) -> Vec<WorldStateUpdate> {
+        let total_worlds = self.worlds.len();
+    
         if keyboard.direction_up.is_pressed {
             if selected_index > 0 {
-                self.state = MapEditorState::SelectingWorld(selected_index - 1);            
+                self.state = MapEditorState::SelectingWorld(selected_index - 1);
             } else {
                 self.state = MapEditorState::SelectingItem(self.stock.len() - 1);
+                return vec![]; 
             }
         }
-        if keyboard.direction_down.is_pressed && selected_index < self.worlds.len() - 1 {
-            self.state = MapEditorState::SelectingWorld(selected_index + 1);    
-        }        
+    
+        if keyboard.direction_down.is_pressed && selected_index < total_worlds - 1 {
+            self.state = MapEditorState::SelectingWorld(selected_index + 1);
+        }
+    
+        if selected_index < self.offset {
+            self.offset = selected_index;
+        } else if selected_index >= self.offset + MAX_VISIBLE_WORLDS {
+            self.offset = selected_index - MAX_VISIBLE_WORLDS + 1;
+        }
+    
         if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             self.state = MapEditorState::PlacingWorld(
-                selected_index, 
+                selected_index,
                 self.worlds[selected_index],
                 self.initial_selection_frame(camera_vieport)
-            ) 
-        }
+            );
+        }    
         vec![]
-    }
+    }    
 
     fn update_world_placement(
         &mut self, 
@@ -274,31 +294,45 @@ impl MapEditor {
             )   
         )
     }
-
+    
     fn regular_ui(&self, selected_item_index: usize, selected_world_index: usize) -> View {
-        vstack!(
-            Spacing::LG, 
+        let total_worlds = self.worlds.len();
+
+        let visible_worlds = &self.worlds[self.offset..(self.offset + MAX_VISIBLE_WORLDS).min(total_worlds)];
+
+        let world_views: Vec<View> = visible_worlds.iter().enumerate().map(|(index, &world_id)| {
+            let world_index = self.offset + index; 
+            let name = world_name(&world_id);
+            if world_index == selected_world_index {
+                text!(TextStyle::Selected, format!("> {}", name))
+            } else {
+                text!(TextStyle::Regular, format!("{}", name))
+            }
+        }).collect();
+
+        let mut ui_elements = vec![
             text!(TextStyle::Title, "map_editor.title".localized()),
             text!(TextStyle::Regular, "map_editor.subtitle".localized()),
-            View::VGrid {                        
+            View::VGrid {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
                 children: self.stock.iter().enumerate().map(|(index, item)| {
                     item.ui(self.sprite_sheet, index, selected_item_index)
                 }).collect()
             },
-            View::VStack { 
-                spacing: Spacing::SM, 
-                children: self.worlds.iter().enumerate().map(|(index, item)| {
-                    let name = world_name(item);
-                    if index == selected_world_index {
-                        text!(TextStyle::Selected, format!("> {}", name))
-                    } else {
-                        text!(TextStyle::Regular, format!("{}", name))
-                    }
-                }).collect()
-            }
-        )
+        ];
+
+        if self.offset > 0 {
+            ui_elements.push(text!(TextStyle::Regular, "^".to_string()));
+        }
+
+        ui_elements.extend(world_views);
+
+        if self.offset + MAX_VISIBLE_WORLDS < total_worlds {
+            ui_elements.push(text!(TextStyle::Regular, "...".to_string()));
+        }
+
+        View::VStack { spacing: Spacing::LG, children: ui_elements }
     }
 }
 
