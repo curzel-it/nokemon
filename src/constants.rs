@@ -37,6 +37,7 @@ pub const HOUSE_INTERIOR_COLUMNS: usize = 10;
 // Paths
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";
+pub const DIALOGUES_PATH: &str = "levels/dialogues.json";
 pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";
 pub const FONT_BOLD: &str = "fonts/PixelOperator/PixelOperator8-Bold.ttf";
 pub const LOCALIZED_STRINGS_PATH: &str = "lang";

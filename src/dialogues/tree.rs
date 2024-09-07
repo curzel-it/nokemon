@@ -1,9 +1,9 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fs::File, io::BufReader};
 
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
-use crate::lang::localizable::LocalizableText;
+use crate::{constants::DIALOGUES_PATH, lang::localizable::LocalizableText};
 
 pub type DialogueId = u32;
 pub type DialogueAnswerId = u32;
@@ -28,21 +28,14 @@ impl Dialogue {
     }
 }
 
-lazy_static! {
-    pub static ref DIALOGUES: HashMap<u32, Dialogue> = vec!(
-        // Old man in main village
-        Dialogue { id: 101, options: vec![(1, 107)] },
-        Dialogue { id: 107, options: vec![(1, 108)] },
-        Dialogue { id: 108, options: vec![(102, 104), (103, 105)] },
-        Dialogue { id: 104, options: vec![(0, 101)] },
-        Dialogue { id: 105, options: vec![(0, 101)] },
+fn load_dialogues_from_json(file_path: &str) -> HashMap<u32, Dialogue> {
+    let file = File::open(file_path).expect("Failed to open dialogues.json file");    
+    let reader = BufReader::new(file);
+    serde_json::from_reader(reader).expect("Failed to deserialize dialogues from JSON")
+}
 
-        // Old lady in main village
-        Dialogue { id: 6, options: vec![(0, 6)] },
-    )
-    .into_iter()
-    .map(|d| (d.id, d))
-    .collect();
+lazy_static! {
+    pub static ref DIALOGUES: HashMap<u32, Dialogue> = load_dialogues_from_json(DIALOGUES_PATH);
 }
 
 pub fn dialogue_by_id(id: u32) -> Option<Dialogue> {
