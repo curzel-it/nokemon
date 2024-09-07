@@ -5,13 +5,13 @@ use crate::ui::components::{empty_view, scaffold_background_backdrop};
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, spacing, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
-    title: String,
+    pub title: String,
     pub text: Option<String>,
     is_open: bool,
     pub selected_index: usize,
     pub selection_has_been_confirmed: bool,
     pub items: Vec<Item>,
-    animator: Animator,
+    pub animator: Animator,
     pub on_selection: OnMenuItemSelection<Item>,
     pub uses_backdrop: bool,
 }

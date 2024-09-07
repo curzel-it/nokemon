@@ -1,4 +1,6 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
+use raylib::color::Color;
+
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, scaffold_background_backdrop, with_fixed_size, with_fixed_width, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
 use super::tree::{dialogue_by_id, Dialogue};
 
@@ -7,6 +9,7 @@ pub struct DialogueMenu {
     pub dialogue: Dialogue,
     time_since_last_closed: f32,
     text_animator: Animator,
+    text: String,
     menu: Menu<DialogueAnswerItem>,
 }
 
@@ -33,6 +36,7 @@ impl DialogueMenu {
             dialogue: Dialogue::empty(),
             time_since_last_closed: 1.0,
             text_animator: Animator::new(),
+            text: "".to_owned(),
             menu: options_menu,
         }
     }
@@ -46,10 +50,10 @@ impl DialogueMenu {
     fn show_now(&mut self, npc_id: u32, dialogue: Dialogue) {
         self.npc_id = npc_id;
         self.dialogue = dialogue;       
-        self.text_animator.animate(0.0, 1.0, 0.3);
+        self.text = self.dialogue.localized_text();
+        self.text_animator.animate(0.0, 1.0, self.text.len() as f32 / 80.0);
         self.time_since_last_closed = 0.0;
         
-        self.menu.text = Some(self.dialogue.localized_text());
         self.menu.items = self.dialogue.localized_options().iter()
             .map(|option| DialogueAnswerItem::Value(option.clone()))
             .collect();
@@ -63,6 +67,10 @@ impl DialogueMenu {
         time_since_last_update: f32,
     ) -> (bool, Vec<WorldStateUpdate>) {
         self.text_animator.update(time_since_last_update);
+        
+        let animated_text_length = (self.text.len() as f32 * self.text_animator.current_value).round() as usize;
+        let animated_text = &self.text[..animated_text_length.min(self.text.len())];
+        self.menu.text = Some(animated_text.to_owned());
 
         if !self.menu.is_open() {
             self.time_since_last_closed += time_since_last_update;
@@ -106,6 +114,5 @@ impl DialogueMenu {
 
     pub fn ui(&self) -> View {
         self.menu.ui()
-    }
-    
+    }    
 }
