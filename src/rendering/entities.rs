@@ -23,10 +23,13 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
         let a = entity_a.body();
         let b = entity_b.body();
 
+        let ay = a.frame.y + if a.frame.h > 1 { 1 } else { 0 };
+        let by = b.frame.y + if b.frame.h > 1 { 1 } else { 0 };
+
+        if ay < by { return Ordering::Less; }
+        if ay > by { return Ordering::Greater; }
         if a.z_index < b.z_index { return Ordering::Less; }
         if a.z_index > b.z_index { return Ordering::Greater; }
-        if a.frame.y < b.frame.y { return Ordering::Less; }
-        if a.frame.y > b.frame.y { return Ordering::Greater; }
         if a.frame.x < b.frame.x { return Ordering::Less; }
         if a.frame.x > b.frame.x { return Ordering::Greater; }
         Ordering::Equal

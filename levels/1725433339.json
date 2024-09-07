@@ -60630,11 +60630,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1001,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60654,11 +60657,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1001,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60678,11 +60684,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433340,
-      "creative_mode": false
+      "creative_mode": true
     }
   ],
   "npcs": [],
@@ -60705,14 +60714,49 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "sprite_sheet": 1010,
       "texture_source_rect": {
         "x": 1,
         "y": 0,
         "w": 1,
+        "h": 2
+      }
+    },
+    {
+      "body": {
+        "id": 1725749423,
+        "frame": {
+          "x": 1,
+          "y": 4,
+          "w": 2,
+          "h": 2
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "creation_time": 0.0,
+        "is_rigid": true,
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite_sheet": 1010,
+      "texture_source_rect": {
+        "x": 4,
+        "y": 0,
+        "w": 2,
         "h": 2
       }
     }

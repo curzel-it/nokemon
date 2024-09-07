@@ -60630,11 +60630,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1001,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60654,11 +60657,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1001,
-      "creative_mode": false
+      "creative_mode": true
     }
   ],
   "npcs": [],

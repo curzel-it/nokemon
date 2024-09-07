@@ -21,7 +21,7 @@ impl Hero {
                 base_speed: 3.0,
                 creation_time: 0.0,
                 is_rigid: true,
-                z_index: 0,
+                z_index: 150,
                 lifespan: INFINITE_LIFESPAN,
                 dialogues: EntityDialogues::empty(),
             },

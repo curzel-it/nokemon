@@ -34,6 +34,12 @@ impl Stockable {
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::HouseholdObject(HouseholdObject::StairsUp),
             Stockable::HouseholdObject(HouseholdObject::StairsDown),
+            Stockable::HouseholdObject(HouseholdObject::SeatBrown),
+            Stockable::HouseholdObject(HouseholdObject::SeatGreen),
+            Stockable::HouseholdObject(HouseholdObject::SeatOrange),
+            Stockable::HouseholdObject(HouseholdObject::SeatPink),
+            Stockable::HouseholdObject(HouseholdObject::Table),
+            Stockable::HouseholdObject(HouseholdObject::Bed),
         ]
     }
 
@@ -71,7 +77,13 @@ impl Stockable {
             },
             Stockable::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => (3, 2),
-                HouseholdObject::StairsDown => (3, 3)
+                HouseholdObject::StairsDown => (3, 3),
+                HouseholdObject::SeatBrown => (3, 4),
+                HouseholdObject::SeatGreen => (3, 5),
+                HouseholdObject::SeatOrange => (3, 6),
+                HouseholdObject::SeatPink => (3, 7),
+                HouseholdObject::Table => (3, 8),
+                HouseholdObject::Bed => (3, 9),
             },
         }
     }

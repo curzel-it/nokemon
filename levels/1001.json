@@ -60629,8 +60629,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "House": 0
@@ -60654,8 +60657,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "HouseTwoFloors": 0
@@ -60679,8 +60685,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "House": 1
@@ -60704,8 +60713,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "HouseTwoFloors": 1
@@ -60729,8 +60741,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "House": 2
@@ -60754,8 +60769,11 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "building_type": {
         "HouseTwoFloors": 2
@@ -60781,11 +60799,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433334,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60805,11 +60826,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433339,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60829,11 +60853,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433349,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60853,11 +60880,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433354,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60877,11 +60907,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433364,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -60901,11 +60934,14 @@
         "base_speed": 0.0,
         "creation_time": 0.0,
         "is_rigid": false,
-        "z_index": 0,
-        "lifespan": -420.0
+        "z_index": 200,
+        "lifespan": -420.0,
+        "dialogues": {
+          "options": []
+        }
       },
       "destination": 1725433369,
-      "creative_mode": false
+      "creative_mode": true
     }
   ],
   "npcs": [
@@ -60927,23 +60963,28 @@
         "base_speed": 1.5,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
+        "z_index": 200,
         "lifespan": -420.0,
         "dialogues": {
-            "options": [
-                {
-                    "key": "always",
-                    "expected_value": 0,
-                    "dialogue": {
-                        "id": 101,
-                        "options": [[1, 107]]
-                    }
-                }
-            ]
+          "options": [
+            {
+              "key": "always",
+              "expected_value": 0,
+              "dialogue": {
+                "id": 101,
+                "options": [
+                  [
+                    1,
+                    107
+                  ]
+                ]
+              }
+            }
+          ]
         }
       },
-      "name": "Old Man",
       "npc_type": "OldMan",
+      "name": "Old Man",
       "sprite": {
         "sheet_id": 1009,
         "index": 1,
@@ -60970,39 +61011,54 @@
         "base_speed": 1.5,
         "creation_time": 0.0,
         "is_rigid": true,
-        "z_index": 0,
+        "z_index": 200,
         "lifespan": -420.0,
         "dialogues": {
-            "options": [
-                {
-                    "key": "dialogue.answer.108",
-                    "expected_value": 104,
-                    "dialogue": {
-                        "id": 109,
-                        "options": [[0, 109]]
-                    }
-                },
-                {
-                    "key": "dialogue.answer.108",
-                    "expected_value": 105,
-                    "dialogue": {
-                        "id": 110,
-                        "options": [[0, 110]]
-                    }
-                },
-                {
-                    "key": "always",
-                    "expected_value": 0,
-                    "dialogue": {
-                        "id": 106,
-                        "options": [[0, 106]]
-                    }
-                }
-            ]
+          "options": [
+            {
+              "key": "dialogue.answer.108",
+              "expected_value": 104,
+              "dialogue": {
+                "id": 109,
+                "options": [
+                  [
+                    0,
+                    109
+                  ]
+                ]
+              }
+            },
+            {
+              "key": "dialogue.answer.108",
+              "expected_value": 105,
+              "dialogue": {
+                "id": 110,
+                "options": [
+                  [
+                    0,
+                    110
+                  ]
+                ]
+              }
+            },
+            {
+              "key": "always",
+              "expected_value": 0,
+              "dialogue": {
+                "id": 106,
+                "options": [
+                  [
+                    0,
+                    106
+                  ]
+                ]
+              }
+            }
+          ]
         }
       },
-      "name": "Old Lady",
       "npc_type": "OldWoman",
+      "name": "Old Lady",
       "sprite": {
         "sheet_id": 1009,
         "index": 2,
