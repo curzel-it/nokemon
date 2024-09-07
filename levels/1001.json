@@ -60930,8 +60930,8 @@
         "z_index": 0,
         "lifespan": -420.0,
         "dialogue": {
-            "id": 1,
-            "options": [[2, 4], [3, 5]]
+            "id": 101,
+            "options": [[1, 107]]
         }
       },
       "name": "Old Man",
@@ -60963,7 +60963,11 @@
         "creation_time": 0.0,
         "is_rigid": true,
         "z_index": 0,
-        "lifespan": -420.0
+        "lifespan": -420.0,
+        "dialogue": {
+            "id": 106,
+            "options": [[0, 106]]
+        }
       },
       "name": "Old Lady",
       "npc_type": "OldWoman",

@@ -7,7 +7,7 @@ use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, stat
 pub struct Menu<Item: MenuItem> {
     pub title: String,
     pub text: Option<String>,
-    is_open: bool,
+    pub is_open: bool,
     pub selected_index: usize,
     pub selection_has_been_confirmed: bool,
     pub items: Vec<Item>,

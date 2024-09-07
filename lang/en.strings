@@ -1,10 +1,14 @@
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
-"dialogue.1" = "Hello world! This is a dialog demo. Does it fit?\nIdk!\nThis is a long line just to see what happens...\nIf you can read this at all lol";
-"dialogue.2" = "Yes, I can see it"
-"dialogue.3" = "Nope, does not work"
-"dialogue.4" = "Hell yeah!"
-"dialogue.5" = "Damn it!"
+"dialogue.1" = "Continue >>"
+"dialogue.101" = "Hello world! This is a dialog demo. Does it fit?";
+"dialogue.107" = "What about `This is a long line just to see what happens`...?"
+"dialogue.108" = "Were you able to read it all?";
+"dialogue.102" = "Yes, I can see it"
+"dialogue.103" = "Nope, does not work"
+"dialogue.104" = "Hell yeah!"
+"dialogue.105" = "Damn it!"
+"dialogue.106" = "I'm busy now, talk to my husband."
 
 "entity.menu.title" = "Entity Options";
 "entity.menu.remove" = "Remove";

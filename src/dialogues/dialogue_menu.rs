@@ -83,10 +83,16 @@ impl DialogueMenu {
             self.menu.update(keyboard, time_since_last_update);
         }
         if self.menu.selection_has_been_confirmed {
-            let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
-            let stops = answer_text == 0;
-            let updates = self.handle_answer(stops, answer);
-            return (self.menu.is_open(), updates);
+            if self.text_animator.is_active {
+                self.menu.is_open = true;
+                self.menu.selection_has_been_confirmed = false;
+                return (true, vec![]);
+            } else {
+                let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
+                let stops = answer_text == 0;
+                let updates = self.handle_answer(stops, answer);
+                return (self.menu.is_open(), updates);
+            }
         }
 
         (self.menu.is_open(), vec![])
