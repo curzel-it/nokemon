@@ -20,7 +20,11 @@ impl Dialogue {
     }
 
     pub fn localized_text(&self) -> String {
-        format!("dialogue.{}", self.id).localized()
+        format!("dialogue.{}", self.id)
+            .localized()
+            .replace(". ", ".\n")
+            .replace("? ", "?\n")
+            .replace("! ", "!\n")
     }
 
     pub fn localized_options(&self) -> Vec<String> {

@@ -6,6 +6,7 @@ use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, stat
 
 pub struct Menu<Item: MenuItem> {
     title: String,
+    pub text: Option<String>,
     is_open: bool,
     pub selected_index: usize,
     pub selection_has_been_confirmed: bool,
@@ -30,6 +31,7 @@ impl<Item: MenuItem> Menu<Item> {
     ) -> Self {
         Self {
             title,
+            text: None,
             is_open: false,
             selected_index: 0,
             selection_has_been_confirmed: false,
@@ -138,6 +140,11 @@ impl<Item: MenuItem> Menu<Item> {
                     empty_view()
                 } else {
                     text!(TextStyle::Title, self.title.clone())
+                },
+                if let Some(text) = self.text.clone() {
+                    text!(TextStyle::Regular, text)
+                } else {
+                    empty_view()
                 },
                 View::VStack {                        
                     spacing: Spacing::LG,

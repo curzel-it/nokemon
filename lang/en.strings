@@ -1,4 +1,5 @@
 "dialogue.select_option" = "Select an option:";
+"dialogue.0" = "Ok"
 "dialogue.1" = "Hello world! This is a dialog demo. Does it fit? Idk! This is a long line just to see what happens... Or doesn't happen lol";
 "dialogue.2" = "Yes, I can see it"
 "dialogue.3" = "Nope, does not work"

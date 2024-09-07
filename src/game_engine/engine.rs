@@ -211,14 +211,10 @@ impl GameEngine {
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, dialogue: &Dialogue) {
-        println!("Request to show dialogue {}, {:#?}", npc_id, dialogue);
-        if self.dialogue_menu.dialogue.id == dialogue.id {
-            println!("Same id as current dialogue");
+        if self.dialogue_menu.is_open() {
             return
         }
-        let config = self.ui_config.as_ref().unwrap();
-        println!("showing....");
-        self.dialogue_menu.show(*npc_id, dialogue.clone(), config);
+        self.dialogue_menu.show(*npc_id, dialogue.clone());
     }    
 
     fn exit(&mut self) {
