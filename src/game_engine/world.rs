@@ -98,17 +98,9 @@ impl World {
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
-            WorldStateUpdate::ProgressConversation(npc_id, dialogue) => self.update_npc_conversation(npc_id, dialogue),
             WorldStateUpdate::EngineUpdate(update) => return Some(update),
         };
         None
-    }
-
-    fn update_npc_conversation(&mut self, npc_id: u32, dialogue: Dialogue) {
-        let mut entities = self.entities.borrow_mut();
-        if let Some(npc) = entities.get_mut(&npc_id) {
-            // npc.body_mut().dialogue = Some(dialogue);
-        }
     }
 
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {

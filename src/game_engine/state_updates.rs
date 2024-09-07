@@ -10,7 +10,6 @@ pub enum WorldStateUpdate {
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
-    ProgressConversation(NpcId, Dialogue), 
 }
 
 #[derive(Debug, Clone)]

@@ -86,28 +86,21 @@ impl DialogueMenu {
             if self.text_animator.is_active {
                 self.menu.is_open = true;
                 self.menu.selection_has_been_confirmed = false;
-                return (true, vec![]);
             } else {
                 let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
                 let stops = answer_text == 0;
-                let updates = self.handle_answer(stops, answer);
-                return (self.menu.is_open(), updates);
+                self.handle_answer(stops, answer);
             }
         }
 
         (self.menu.is_open(), vec![])
     }
 
-    fn handle_answer(&mut self, stops: bool, answer: u32) -> Vec<WorldStateUpdate> {
-        let updates: Vec<WorldStateUpdate> = vec![];
-
+    fn handle_answer(&mut self, stops: bool, answer: u32) {
         set_value_for_key(StorageKey::dialogue_answer(self.dialogue.id), answer);       
         self.menu.clear_selection();
         
         if let Some(next_dialogue) = dialogue_by_id(answer) {         
-            // let update_dialogue = WorldStateUpdate::ProgressConversation(self.npc_id, next_dialogue.clone());
-            // updates.push(update_dialogue);
-
             if stops {            
                 self.dialogue = Dialogue::empty();
                 self.menu.close();
@@ -118,7 +111,6 @@ impl DialogueMenu {
             self.dialogue = Dialogue::empty();
             self.menu.close();
         }
-        updates
     }
 
     pub fn is_open(&self) -> bool {
