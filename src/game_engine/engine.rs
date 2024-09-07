@@ -1,4 +1,4 @@
-use std::{collections::HashMap, rc::Rc, sync::Mutex};
+use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{dialogue_menu::DialogueMenu, tree::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu, npc_options::NpcOptionsMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
@@ -201,7 +201,7 @@ impl GameEngine {
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
             EngineStateUpdate::ShowDialogue(npc_id, dialogue) => self.show_dialogue(npc_id, dialogue),
-            EngineStateUpdate::ShowNpcOptions(id, dialogue) => self.npc_options_menu.show(*id, dialogue.clone()),
+            EngineStateUpdate::ShowNpcOptions(id, dialogue) => self.npc_options_menu.show(*id, dialogue),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
@@ -211,7 +211,7 @@ impl GameEngine {
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, dialogue: &Dialogue) {
-        if self.dialogue_menu.is_open() {
+        if self.dialogue_menu.dialogue.id == dialogue.id {
             return
         }
         let config = self.ui_config.as_ref().unwrap();

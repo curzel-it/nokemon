@@ -1,14 +1,15 @@
-use std::rc::Rc;
-
 use raylib::prelude::*;
 
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, hstack, menus::menu::{Menu, MenuItem}, spacing, text, ui::components::{empty_view, scaffold_background, with_fixed_size, RenderingConfig, Spacing, TextStyle, View}, utils::{animator::Animator, vector::Vector2d}, vstack};
 
-use super::tree::{next_dialogue, Dialogue};
+use super::tree::{dialogue_by_id, Dialogue};
+
+const LINES_TO_DISPLAY: i32 = 2;
 
 pub struct DialogueMenu {
     is_open: bool,
-    npc_id: u32,
+    pub npc_id: u32,
+    pub dialogue: Dialogue,
     lines: Vec<String>,
     current_line: usize,
     time_since_last_closed: f32,
@@ -39,6 +40,7 @@ impl DialogueMenu {
         Self {
             is_open: false,
             npc_id: 0,
+            dialogue: Dialogue::empty(),
             lines: vec![],
             current_line: 0,
             time_since_last_closed: 1.0,
@@ -53,27 +55,27 @@ impl DialogueMenu {
         if self.time_since_last_closed >= 0.5 {
             self.is_open = true;
             self.npc_id = npc_id;
+            self.dialogue = dialogue;
             self.current_line = 0;
-            self.setup(dialogue, config);
+            self.setup(config);
             self.text_animator.animate(0.0, 1.0, 0.3);
         }
     }
 
-    fn setup(&mut self, dialogue: Dialogue, config: &RenderingConfig) {
+    fn setup(&mut self, config: &RenderingConfig) {
         let style = TextStyle::Regular;
         let font = config.font(&style);
         let font_size = config.scaled_font_size(&style);
         let font_spacing = config.scaled_font_spacing(&style);
-        let text = dialogue.localized_text();
+        let text = self.dialogue.localized_text();
         let max_width = config.rendering_scale * 340.0;
         self.width = (config.canvas_size.x - Spacing::XL.value(config) * 2.0).min(max_width);
         self.height = font.measure_text("measure me", font_size, font_spacing).y;
         self.lines = self.split_dialogue_into_lines(&text, font_size, font_spacing, font);
 
         self.options_submenu.close();
-        self.options_submenu.items = dialogue.options
-            .iter()
-            .map(|option| DialogueOptionMenuItem::Value(option.localized_text()))
+        self.options_submenu.items = self.dialogue.localized_options().iter()
+            .map(|option| DialogueOptionMenuItem::Value(option.clone()))
             .collect();
     }
 
@@ -119,7 +121,7 @@ impl DialogueMenu {
 
         if self.is_open {
             if keyboard.has_confirmation_been_pressed {
-                if self.current_line < self.lines.len() - 1 {
+                if (self.current_line as i32) < (self.lines.len() as i32) - LINES_TO_DISPLAY {
                     self.current_line += 1;
                     self.text_animator.animate(0.0, 1.0, 0.3);
                 } else {
@@ -132,7 +134,7 @@ impl DialogueMenu {
         }
 
         if !self.options_submenu.is_open() {
-            let is_last_line = !self.lines.is_empty() && self.current_line == self.lines.len() - 1;
+            let is_last_line = !self.lines.is_empty() && (self.current_line as i32) >= (self.lines.len() as i32 - LINES_TO_DISPLAY);
             let has_options = !self.options_submenu.items.is_empty();
             
             if has_options && is_last_line {
@@ -143,14 +145,22 @@ impl DialogueMenu {
         }
 
         if self.options_submenu.selection_has_been_confirmed {
-            if let Some(next) = next_dialogue(self.npc_id, self.options_submenu.selected_index) {
-                let show_next_dialogue = WorldStateUpdate::EngineUpdate(EngineStateUpdate::ShowDialogue(self.npc_id, next));
-                println!("Got next dialogue!");
-                self.options_submenu.clear_selection();
-                return (self.is_open, vec![show_next_dialogue]);
-            } else {
-                println!("No more dialogues");
+            let mut updates: Vec<WorldStateUpdate> = vec![];
+            let answer = self.dialogue.options[self.options_submenu.selected_index];
+            
+            if let Some(next_dialogue) = dialogue_by_id(answer) {                
+                let update_dialogue = WorldStateUpdate::ProgressConversation(self.npc_id, next_dialogue.clone());
+                updates.push(update_dialogue);
+
+                if !self.dialogue.stops {
+                    let show_next_dialogue = WorldStateUpdate::EngineUpdate(EngineStateUpdate::ShowDialogue(self.npc_id, next_dialogue));
+                    updates.push(show_next_dialogue);
+                }
             }
+            self.options_submenu.clear_selection();
+            return (self.is_open, updates);
+        } else {
+            println!("No more dialogues");
         }
 
         (self.is_open, vec![])
@@ -161,35 +171,68 @@ impl DialogueMenu {
     }
 
     pub fn ui(&self) -> View {
-        if self.is_open {
-            let current_dialogue = &self.lines[self.current_line];
-            let animated_text_length = (current_dialogue.len() as f32 * self.text_animator.current_value).round() as usize;
-            let animated_text = &current_dialogue[..animated_text_length.min(current_dialogue.len())];
-            let has_more_lines = self.current_line < self.lines.len() - 1;
+        if !self.is_open {
+            return spacing!(Spacing::Zero)
+        }
+        let current_dialogue = &self.lines[self.current_line];
 
-            let (spacing, next_icon) = if has_more_lines {
-                (Spacing::MD, ">>")
-            } else {
-                (Spacing::Zero, "")
-            };
+        // Get the animated text length for the current line
+        let animated_text_length = (current_dialogue.len() as f32 * self.text_animator.current_value).round() as usize;
+        let animated_text = &current_dialogue[..animated_text_length.min(current_dialogue.len())];
 
-            vstack!(
-                Spacing::Zero,
-                scaffold_background(
-                    Color::BLACK,
+        // Ensure we are not going out of bounds when getting lines
+        let start_index = if self.current_line + 1 >= self.lines.len() {
+            self.current_line
+        } else {
+            self.current_line
+        };
+
+        // Get the lines to display
+        let first_line = &self.lines[start_index];
+        let second_line = if start_index + 1 < self.lines.len() {
+            &self.lines[start_index + 1]
+        } else {
+            ""
+        };
+
+        // Animate the second line only
+        let animated_line_to_display = if self.current_line + 1 < self.lines.len() {
+            &second_line[..animated_text_length.min(second_line.len())]
+        } else {
+            animated_text
+        };
+
+        let has_more_lines = start_index as i32 + LINES_TO_DISPLAY - 1 < self.lines.len() as i32 - 1;
+        let (spacing, next_icon) = if has_more_lines {
+            (Spacing::MD, ">>")
+        } else {
+            (Spacing::Zero, "")
+        };
+
+        vstack!(
+            Spacing::Zero,
+            self.options_submenu.ui(),
+            scaffold_background(
+                Color::BLACK,
+                vstack!(
+                    Spacing::SM,
+                    // First line (static)
+                    with_fixed_size(
+                        Vector2d::new(self.width, self.height),
+                        text!(TextStyle::Regular, first_line.to_string())
+                    ),
+                    // Second line (animated)
                     hstack!(
                         spacing,
                         with_fixed_size(
                             Vector2d::new(self.width, self.height),
-                            text!(TextStyle::Regular, animated_text.to_string())
+                            text!(TextStyle::Regular, animated_line_to_display.to_string())
                         ),
                         text!(TextStyle::Bold, next_icon.to_string())
-                    ),
+                    )
                 ),
-                self.options_submenu.ui()
             )
-        } else {
-            spacing!(Spacing::Zero)
-        }
+        )
     }
+    
 }

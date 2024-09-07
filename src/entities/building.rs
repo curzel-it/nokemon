@@ -42,6 +42,7 @@ impl Building {
                 is_rigid: true,
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
+                dialogue: None
             },      
             building_type
         }

@@ -41,12 +41,12 @@ impl NpcOptionsMenu {
         }
     }
 
-    pub fn show(&mut self, id: u32, dialogue: Option<Dialogue>) {
+    pub fn show(&mut self, id: u32, dialogue: &Option<Dialogue>) {
         self.menu.items = vec![NpcOptionsMenuItem::RemoveEntity(id)];
 
         if let Some(dialogue) = dialogue {
             self.menu.items.push(
-                NpcOptionsMenuItem::PlayDialog(id, dialogue)    
+                NpcOptionsMenuItem::PlayDialog(id, dialogue.clone())    
             );            
         }
         self.menu.show()

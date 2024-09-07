@@ -24,6 +24,7 @@ impl Teleporter {
                 is_rigid: false,
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
+                dialogue: None,
             },
             destination,
             creative_mode: false

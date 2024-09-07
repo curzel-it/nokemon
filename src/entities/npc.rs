@@ -1,13 +1,15 @@
-use std::{any::Any, thread::current};
+use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::INFINITE_LIFESPAN, dialogues::tree::{current_dialogue, next_dialogue, Dialogue}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::INFINITE_LIFESPAN, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
     OldMan,
     OldWoman,
 }
+
+pub type NpcId = u32;
 
 impl NpcType {
     fn build_sprite(&self) -> AnimatedSprite {
@@ -40,6 +42,7 @@ impl Npc {
                 is_rigid: true,
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
+                dialogue: None,
             },
             npc_type,
             sprite: npc_type.build_sprite(),
@@ -57,12 +60,12 @@ impl Entity for Npc {
                 return vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowNpcOptions(
-                            self.body.id, current_dialogue(self.body.id)
+                            self.body.id, self.body.dialogue.clone()
                         )
                     )
                 ];  
             } else {
-                if let Some(dialogue) = current_dialogue(self.body.id) {
+                if let Some(dialogue) = self.body.dialogue.clone() {
                     return vec![
                         WorldStateUpdate::EngineUpdate(
                             EngineStateUpdate::ShowDialogue(

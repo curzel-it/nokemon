@@ -1,4 +1,4 @@
-use crate::{dialogues::tree::Dialogue, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::tree::Dialogue, entities::npc::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityProps};
 
@@ -10,6 +10,7 @@ pub enum WorldStateUpdate {
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
+    ProgressConversation(NpcId, Dialogue), 
 }
 
 #[derive(Debug, Clone)]
@@ -19,8 +20,8 @@ pub enum EngineStateUpdate {
     SaveGame,
     Exit,
     ShowEntityOptions(u32),
-    ShowDialogue(u32, Dialogue), 
-    ShowNpcOptions(u32, Option<Dialogue>)
+    ShowDialogue(NpcId, Dialogue), 
+    ShowNpcOptions(NpcId, Option<Dialogue>)
 }
 
 #[cfg(test)]

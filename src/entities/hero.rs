@@ -23,6 +23,7 @@ impl Hero {
                 is_rigid: true,
                 z_index: 0,
                 lifespan: INFINITE_LIFESPAN,
+                dialogue: None,
             },
             sprite: AnimatedSprite::new_humanoid(3),
             time_immobilized: 0.0,

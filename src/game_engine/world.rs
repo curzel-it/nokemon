@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, dialogues::tree::Dialogue, entities::{npc::Npc, teleporter::Teleporter}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -98,9 +98,17 @@ impl World {
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
-            WorldStateUpdate::EngineUpdate(update) => return Some(update)
+            WorldStateUpdate::ProgressConversation(npc_id, dialogue) => self.update_npc_conversation(npc_id, dialogue),
+            WorldStateUpdate::EngineUpdate(update) => return Some(update),
         };
         None
+    }
+
+    fn update_npc_conversation(&mut self, npc_id: u32, dialogue: Dialogue) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(npc) = entities.get_mut(&npc_id) {
+            npc.body_mut().dialogue = Some(dialogue);
+        }
     }
 
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
