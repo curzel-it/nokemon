@@ -14,6 +14,8 @@ pub struct Menu<Item: MenuItem> {
     pub animator: Animator,
     pub on_selection: OnMenuItemSelection<Item>,
     pub uses_backdrop: bool,
+    pub visible_item_count: usize,
+    pub scroll_offset: usize, 
 }
 
 pub trait MenuItem: Clone {
@@ -39,6 +41,8 @@ impl<Item: MenuItem> Menu<Item> {
             animator: Animator::new(),
             on_selection,
             uses_backdrop: true,
+            visible_item_count: 3,
+            scroll_offset: 0, 
         }
     }
 
@@ -92,25 +96,44 @@ impl<Item: MenuItem> Menu<Item> {
         if keyboard.has_back_been_pressed {
             self.close();
         }
+    
+        let max_index = self.items.len() - 1;
+        
         if keyboard.direction_up.is_pressed {
-            if self.selected_index == 0 {
-                self.selected_index = self.items.len() - 1;
-            } else if self.selected_index > 0 {
+            if self.selected_index > 0 {
                 self.selected_index -= 1;
+    
+                // Scroll up if selected_index is above the current window
+                if self.selected_index < self.scroll_offset {
+                    self.scroll_offset -= 1;
+                }
+            } else {
+                self.selected_index = max_index;
+                self.scroll_offset = max_index.saturating_sub(self.visible_item_count - 1);
             }
         }
+    
         if keyboard.direction_down.is_pressed {
-            if self.selected_index < self.items.len() - 1 {
+            if self.selected_index < max_index {
                 self.selected_index += 1;
-            } else if keyboard.direction_down.is_pressed && self.selected_index == self.items.len() - 1 {
+    
+                // Scroll down if selected_index is below the current window
+                if self.selected_index >= self.scroll_offset + self.visible_item_count {
+                    self.scroll_offset += 1;
+                }
+            } else {
                 self.selected_index = 0;
+                self.scroll_offset = 0;
             }
         }
+    
         if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             return self.handle_selection();
         }
+    
         vec![]
     }
+    
     
     fn handle_selection(&mut self) -> Vec<WorldStateUpdate> {
         self.selection_has_been_confirmed = true;
@@ -130,7 +153,38 @@ impl<Item: MenuItem> Menu<Item> {
         }
     }
 
-    fn menu_ui(&self) -> View {            
+    fn menu_ui(&self) -> View {
+        let start_index = self.scroll_offset;
+        let end_index = (self.scroll_offset + self.visible_item_count).min(self.items.len());
+    
+        let visible_items: Vec<View> = self.items[start_index..end_index]
+            .iter()
+            .enumerate()
+            .map(|(i, item)| {
+                let actual_index = start_index + i;
+                if actual_index == self.selected_index {
+                    text!(TextStyle::Selected, format!(" > {}", item.title()))
+                } else {
+                    text!(TextStyle::Regular, format!(" {}", item.title()))
+                }
+            })
+            .collect();
+    
+        let mut children: Vec<View> = Vec::new();
+    
+        // Add scroll up marker if necessary
+        if self.scroll_offset > 0 {
+            children.push(text!(TextStyle::Regular, "^".to_owned()));
+        }
+    
+        // Add the visible items
+        children.extend(visible_items);
+    
+        // Add scroll down marker if necessary
+        if self.scroll_offset + self.visible_item_count < self.items.len() {
+            children.push(text!(TextStyle::Regular, "⌄".to_owned()));
+        }
+    
         scaffold_background_backdrop(
             self.uses_backdrop,
             Color::BLACK.alpha(self.animator.current_value),
@@ -146,17 +200,12 @@ impl<Item: MenuItem> Menu<Item> {
                 } else {
                     empty_view()
                 },
-                View::VStack {                        
+                View::VStack {
                     spacing: Spacing::LG,
-                    children: self.items.iter().enumerate().map(|(index, item)| {
-                        if index == self.selected_index {
-                            text!(TextStyle::Selected, format!(" > {}", item.title()))
-                        } else {
-                            text!(TextStyle::Regular, format!(" {}", item.title()))
-                        }                            
-                    }).collect()
+                    children
                 }
             )
         )
     }
+    
 }
