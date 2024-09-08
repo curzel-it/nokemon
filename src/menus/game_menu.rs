@@ -41,10 +41,6 @@ impl GameMenu {
             vec![
                 GameMenuItem::Save,
                 GameMenuItem::Exit,
-                GameMenuItem::Save,
-                GameMenuItem::Exit,
-                GameMenuItem::Save,
-                GameMenuItem::Exit,
             ], 
             Box::new(GameMenu::on_menu_item_selected)
         );

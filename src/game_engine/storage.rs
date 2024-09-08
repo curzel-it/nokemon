@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
+use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use crate::constants::KEY_VALUE_STORAGE_PATH;
 
@@ -10,13 +10,13 @@ impl StorageKey {
     }
 }
 
-fn load_stored_values(file_path: &str) -> HashMap<String, u32> {
+fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {
     let file = File::open(file_path).expect("Failed to open save.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize save file from JSON")
 }
 
-fn save_stored_values(path: &str, data: &HashMap<String, u32>) {
+fn save_stored_values(path: &str, data: &BTreeMap<String, u32>) {
     if let Ok(serialized_world) = serde_json::to_string_pretty(data) {
         if let Ok(mut file) = File::create(path) {
             if let Err(e) = file.write_all(serialized_world.as_bytes()) {
@@ -33,10 +33,10 @@ fn save_stored_values(path: &str, data: &HashMap<String, u32>) {
 }
 
 lazy_static! {
-    static ref KEY_VALUE_STORAGE: RwLock<HashMap<String, u32>> = RwLock::new(load_stored_values(KEY_VALUE_STORAGE_PATH));
+    static ref KEY_VALUE_STORAGE: RwLock<BTreeMap<String, u32>> = RwLock::new(load_stored_values(KEY_VALUE_STORAGE_PATH));
     
-    static ref SAVE_THREAD: (Sender<HashMap<String, u32>>, thread::JoinHandle<()>) = {
-        let (tx, rx) = mpsc::channel::<HashMap<String, u32>>();
+    static ref SAVE_THREAD: (Sender<BTreeMap<String, u32>>, thread::JoinHandle<()>) = {
+        let (tx, rx) = mpsc::channel::<BTreeMap<String, u32>>();
         let file_path = KEY_VALUE_STORAGE_PATH.to_string();
         
         let handle = thread::spawn(move || {

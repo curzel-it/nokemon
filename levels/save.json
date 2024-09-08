@@ -1,11 +1,11 @@
 {
-  "dialogue.answer.101": 107,
-  "dialogue.answer.105": 101,
-  "dialogue.answer.110": 110,
-  "dialogue.answer.109": 109,
-  "dialogue.answer.107": 108,
-  "dialogue.answer.104": 101,
   "always": 0,
+  "dialogue.answer.101": 107,
+  "dialogue.answer.104": 101,
+  "dialogue.answer.105": 101,
+  "dialogue.answer.106": 106,
+  "dialogue.answer.107": 108,
   "dialogue.answer.108": 104,
-  "dialogue.answer.106": 106
+  "dialogue.answer.109": 109,
+  "dialogue.answer.110": 110
 }
