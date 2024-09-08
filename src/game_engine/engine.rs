@@ -17,7 +17,7 @@ pub struct GameEngine {
     pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
     pub is_running: bool,
-    creative_mode: bool,
+    pub creative_mode: bool,
 }
 
 impl GameEngine {

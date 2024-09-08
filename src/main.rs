@@ -1,6 +1,5 @@
 mod constants;
 mod dialogues;
-mod entities;
 mod features;
 mod game_engine;
 mod lang;

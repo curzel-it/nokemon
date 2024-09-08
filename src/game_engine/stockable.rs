@@ -1,6 +1,8 @@
 use raylib::color::Color;
 
-use crate::{constants::TILE_SIZE, entities::{pickable_objects::PickableObject, building::BuildingType, household_objects::HouseholdObject, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::TILE_SIZE, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
+
+use super::concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
@@ -14,12 +16,7 @@ pub enum Stockable {
 
 impl Stockable {
     pub fn texture_source_rect(&self) -> Rect {
-        let (row, col) = self.texture_offsets();
-        Rect::new(col, row, 1, 1)
-    }
-
-    fn texture_offsets(&self) -> (i32, i32) {
-         match self {
+        let (x, y) = match self {
             Stockable::BiomeTile(biome) => match biome {
                 Biome::Nothing => (0, 0),
                 Biome::Water => (0, 1),
@@ -37,28 +34,12 @@ impl Stockable {
                 Construction::DarkRock => (1, 5),
                 Construction::LightWall => (1, 6),
             },
-            Stockable::Building(building_type) => match building_type {
-                BuildingType::House(variant) => (4, variant * 2 + 1),
-                BuildingType::HouseTwoFloors(variant) => (4, variant * 2 + 2),
-            },
-            Stockable::Npc(npc_type) => match npc_type {
-                NpcType::OldMan => (2, 2),
-                NpcType::OldWoman => (2, 3),
-            },
-            Stockable::HouseholdObject(item) => match item {
-                HouseholdObject::StairsUp => (3, 2),
-                HouseholdObject::StairsDown => (3, 3),
-                HouseholdObject::SeatBrown => (3, 4),
-                HouseholdObject::SeatGreen => (3, 5),
-                HouseholdObject::SeatOrange => (3, 6),
-                HouseholdObject::SeatPink => (3, 7),
-                HouseholdObject::Table => (3, 8),
-                HouseholdObject::Bed => (3, 9),
-            },
-            Stockable::PickableObject(pickable_object) => match pickable_object {
-                PickableObject::Key => (5, 1),
-            },
-        }
+            Stockable::Building(item) => EntityType::Building(*item).inventory_texture_offsets(),
+            Stockable::Npc(item) => EntityType::Npc(*item).inventory_texture_offsets(),
+            Stockable::HouseholdObject(item) => EntityType::HouseholdObject(*item).inventory_texture_offsets(),
+            Stockable::PickableObject(item) => EntityType::PickableObject(*item).inventory_texture_offsets(),
+        };
+        Rect::new(x, y, 1, 1)
     }
 }
 

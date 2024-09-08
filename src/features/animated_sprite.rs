@@ -63,9 +63,9 @@ macro_rules! impl_humanoid_sprite_update {
     ($struct_name:ident) => {
         impl $struct_name {
             fn update_sprite(&mut self, time_since_last_update: f32) {
-                let is_moving = self.body.current_speed != 0.0;
+                let is_moving = self.current_speed != 0.0;
         
-                self.sprite.row = match (self.body.direction, is_moving) {
+                self.sprite.row = match (self.direction, is_moving) {
                     ($crate::utils::directions::Direction::Up, true) => 0,
                     ($crate::utils::directions::Direction::Up, false) => 1,
                     ($crate::utils::directions::Direction::Right, true) => 2,
@@ -88,7 +88,7 @@ macro_rules! impl_bullet_sprite_update {
     ($struct_name:ident) => {
         impl $struct_name {
             fn update_sprite(&mut self, time_since_last_update: f32) {
-                let direction = $crate::utils::directions::Direction::from_vector(self.body.direction);
+                let direction = $crate::utils::directions::Direction::from_vector(self.direction);
         
                 self.sprite.row = match direction {
                     $crate::utils::directions::Direction::Up => 2,

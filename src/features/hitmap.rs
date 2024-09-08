@@ -12,19 +12,18 @@ impl World {
             if *id == HERO_ENTITY_ID {
                 continue;
             }
-            let body = entities[*index].body();
+            let entity = &entities[*index];
 
-            if body.is_rigid {                
-                let frame = body.frame;
-                let col = frame.x as usize;
+            if entity.is_rigid {                
+                let col = entity.frame.x as usize;
                 
-                let (row, height) = if frame.h == 1 { 
-                    (frame.y as usize, 1) 
+                let (row, height) = if entity.frame.h == 1 { 
+                    (entity.frame.y as usize, 1) 
                 } else { 
-                    (frame.y  as usize + 1, frame.h as usize - 1) 
+                    (entity.frame.y  as usize + 1, entity.frame.h as usize - 1) 
                 };
 
-                for offset_x in 0..frame.w as usize {
+                for offset_x in 0..entity.frame.w as usize {
                     for offset_y in 0..height {
                         hitmap[row + offset_y][col + offset_x] = true;
                     }                    
@@ -63,15 +62,15 @@ impl World {
 mod tests {
     use super::*;
 
-    use crate::{entities::npc::{Npc, NpcType}, game_engine::entity_body::EmbodiedEntity, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
+    use crate::{game_engine::concrete_entity::{EntityType, NpcType}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
     
     #[test]
     fn test_hitmap_with_rigid_entity_excludes_top_row() {
         let mut world = World::new(get_next_id());        
-        let mut npc = Npc::new(NpcType::OldMan);
-        npc.body_mut().frame.x = 5;
-        npc.body_mut().frame.y = 5;
-        world.add_entity(Box::new(npc));
+        let mut npc = EntityType::Npc(NpcType::OldMan).make_entity();
+        npc.frame.x = 5;
+        npc.frame.y = 5;
+        world.add_entity(npc);
         world.visible_entities = world.compute_visible_entities(&Rect::square_from_origin(20));
         
         let hitmap = world.compute_hitmap();
@@ -83,11 +82,11 @@ mod tests {
     #[test]
     fn test_hitmap_ignores_non_rigid_entity() {
         let mut world = World::new(get_next_id());
-        let mut npc = Npc::new(NpcType::OldMan);
-        npc.body_mut().frame = Rect::new(5, 5, 2, 2);
-        npc.body_mut().is_rigid = false;
+        let mut npc = EntityType::Npc(NpcType::OldMan).make_entity();
+        npc.frame = Rect::new(5, 5, 2, 2);
+        npc.is_rigid = false;
         
-        world.add_entity(Box::new(npc));
+        world.add_entity(npc);
         world.compute_visible_entities(&Rect::square_from_origin(20));
         
         let hitmap = world.compute_hitmap();

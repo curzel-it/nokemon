@@ -310,9 +310,5 @@
     ],
     "sheet_id": 1003
   },
-  "buildings": [],
-  "teleporters": [],
-  "npcs": [],
-  "simple_entities": [],
-  "animated_entities": []
+  "entities": []
 }

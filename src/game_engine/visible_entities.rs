@@ -14,8 +14,8 @@ impl World {
         self.entities.borrow().iter()
             .enumerate()
             .filter_map(|(index, e)| {
-                let id = e.id();
-                let frame = e.body().frame;
+                let id = e.id;
+                let frame = e.frame;
                 let max_y = frame.y + frame.h;
                 let max_x = frame.x + frame.w;
                 let is_inside_viewport = max_y >= min_row && frame.y <= max_row && max_x >= min_col && frame.x <= max_col;

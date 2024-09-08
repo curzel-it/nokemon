@@ -1,9 +1,9 @@
-use crate::{dialogues::models::Dialogue, entities::npc::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
-use super::entity::{Entity, EntityProps};
+use super::concrete_entity::{ConcreteEntity, EntityProps, NpcId};
 
 pub enum WorldStateUpdate {
-    AddEntity(Box<dyn Entity>),
+    AddEntity(ConcreteEntity),
     RemoveEntity(u32),
     RemoveEntityAtCoordinates(usize, usize),
     CacheHeroProps(EntityProps),
@@ -25,14 +25,14 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::{entities::hero::Hero, game_engine::engine::GameEngine};
+    use crate::game_engine::{concrete_entity::EntityType, engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = Hero::new();
-        let (hero_index, _) = world.add_entity(Box::new(hero));
+        let hero = EntityType::Hero.make_entity();
+        let (hero_index, _) = world.add_entity(hero);
 
         let mut entities = world.entities.borrow_mut();
         let actual_tower = &mut entities[hero_index];
@@ -45,8 +45,8 @@ mod tests {
     fn entity_can_relay_engine_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = Hero::new();
-        world.add_entity(Box::new(hero));
+        let hero = EntityType::Hero.make_entity();
+        world.add_entity(hero);
 
         let updates = world.update(60.0);
 

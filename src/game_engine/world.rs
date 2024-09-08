@@ -1,9 +1,9 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
-use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{concrete_entity::{ConcreteEntity, EntityProps, EntityType}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -11,7 +11,7 @@ pub struct World {
     pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
-    pub entities: RefCell<Vec<Box<dyn Entity>>>,    
+    pub entities: RefCell<Vec<ConcreteEntity>>,    
     pub visible_entities: HashSet<(usize, u32)>,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
@@ -40,8 +40,8 @@ impl World {
         }
     }
 
-    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> (usize, u32) {
-        let id = entity.id();
+    pub fn add_entity(&mut self, entity: ConcreteEntity) -> (usize, u32) {
+        let id = entity.id;
         let mut entities = self.entities.borrow_mut();
         entities.push(entity);
         (entities.len() - 1, id)
@@ -62,7 +62,7 @@ impl World {
     fn index_for_entity(&self, id: u32) -> Option<usize> {
         self.entities.borrow().iter()
             .enumerate()
-            .find(|(_, entity)|{ entity.id() == id })
+            .find(|(_, entity)|{ entity.id == id })
             .map(|(index, _)| index)
     }
 
@@ -129,9 +129,8 @@ impl World {
 
     pub fn find_teleporter_for_destination(&self, destination: &u32) -> Option<Rect> {
         self.entities.borrow().iter()
-            .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
-            .find(|t| t.destination == *destination)
-            .map(|t| t.body().frame)
+            .find(|t| t.species == EntityType::Teleporter && t.destination == *destination)
+            .map(|t| t.frame)
     }
 
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
@@ -145,9 +144,9 @@ impl World {
         self.entities.borrow().iter()
             .enumerate()
             .find(|(_, entity)| {
-                entity.id() != HERO_ENTITY_ID && entity.body().frame.contains_or_touches_tile(col as i32, row as i32)
+                entity.id != HERO_ENTITY_ID && entity.frame.contains_or_touches_tile(col as i32, row as i32)
             })
-            .map(|(index, e)| (index, e.id()))
+            .map(|(index, e)| (index, e.id))
     }
 
     fn remove_entities_by_coords(&mut self, row: usize, col: usize) {
