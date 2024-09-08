@@ -1,4 +1,6 @@
-use crate::{entities::{building::BuildingType, household_objects::HouseholdObject, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::rect::Rect};
+use raylib::color::Color;
+
+use crate::{constants::TILE_SIZE, entities::{building::BuildingType, household_objects::HouseholdObject, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
@@ -52,6 +54,30 @@ impl Stockable {
                 HouseholdObject::Table => (3, 8),
                 HouseholdObject::Bed => (3, 9),
             },
+        }
+    }
+}
+
+impl Stockable {
+    pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
+        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
+
+        if index == selected_index {
+            zstack!(
+                Spacing::XS, 
+                Color::YELLOW,
+                texture!(
+                    sprite_sheet, 
+                    self.texture_source_rect(), 
+                    Vector2d::new(selected_size, selected_size)
+                )
+            )
+        } else {
+            texture!(
+                sprite_sheet, 
+                self.texture_source_rect(), 
+                Vector2d::new(1.5, 1.5)
+            )
         }
     }
 }

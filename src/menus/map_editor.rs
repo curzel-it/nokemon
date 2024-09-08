@@ -368,27 +368,3 @@ impl MapEditor {
         View::VStack { spacing: Spacing::LG, children: ui_elements }
     }
 }
-
-impl Stockable {
-    pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
-        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
-
-        if index == selected_index {
-            zstack!(
-                Spacing::XS, 
-                Color::YELLOW,
-                texture!(
-                    sprite_sheet, 
-                    self.texture_source_rect(), 
-                    Vector2d::new(selected_size, selected_size)
-                )
-            )
-        } else {
-            texture!(
-                sprite_sheet, 
-                self.texture_source_rect(), 
-                Vector2d::new(1.5, 1.5)
-            )
-        }
-    }
-}

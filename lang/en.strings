@@ -17,8 +17,12 @@
 
 "game.menu.title" = "Game Menu";
 "game.menu.save" = "Save Game";
+"game.menu.inventory" = "Inventory";
 "game.menu.map_editor" = "Map Editor";
 "game.menu.save_and_exit" = "Save & Exit";
+
+"inventory.title" = "Inventory";
+"inventory.subtitle" = "Stuff in your backpack";
 
 "map_editor.title" = "Map Editor";
 "map_editor.subtitle" = "Press SPACE to select something";
