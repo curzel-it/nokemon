@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::prefabs::new_building, spacing, text, texture, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::SPRITE_SHEET_INVENTORY, entities::household_objects::HouseholdObject, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -48,10 +48,8 @@ impl Inventory {
         if keyboard.direction_right.is_pressed && selected_index < self.stock.len() - 1 {
             self.state = InventoryState::SelectingItem(selected_index + 1);
         }
-        if keyboard.direction_down.is_pressed {
-            if selected_index < self.stock.len() - self.columns {
-                self.state = InventoryState::SelectingItem(selected_index + self.columns);
-            }
+        if keyboard.direction_down.is_pressed && selected_index < self.stock.len() - self.columns {
+            self.state = InventoryState::SelectingItem(selected_index + self.columns);
         } 
         if keyboard.direction_left.is_pressed && selected_index > 0 {
             self.state = InventoryState::SelectingItem(selected_index - 1);
