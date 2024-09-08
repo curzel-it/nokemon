@@ -18,10 +18,8 @@ pub struct EntityBody {
     pub direction: Direction,
     pub current_speed: f32,
     pub base_speed: f32,
-    pub creation_time: f32,
     pub is_rigid: bool,
     pub z_index: i32,
-    pub lifespan: f32,
 
     #[serde(default)]
     pub dialogues: EntityDialogues,

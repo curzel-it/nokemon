@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::{INFINITE_LIFESPAN, SPRITE_SHEET_TELEPORTER}, dialogues::dialogues::EntityDialogues, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{SPRITE_SHEET_TELEPORTER}, dialogues::dialogues::EntityDialogues, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Teleporter {
@@ -20,10 +20,8 @@ impl Teleporter {
                 direction: Direction::Unknown,
                 current_speed: 0.0,
                 base_speed: 0.0,
-                creation_time: 0.0,
                 is_rigid: false,
                 z_index: 0,
-                lifespan: INFINITE_LIFESPAN,
                 dialogues: EntityDialogues::empty(),
             },
             destination,

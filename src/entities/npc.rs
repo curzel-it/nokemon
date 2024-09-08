@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::INFINITE_LIFESPAN, dialogues::dialogues::{Dialogue, EntityDialogues}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{dialogues::dialogues::{Dialogue, EntityDialogues}, features::{animated_sprite::AnimatedSprite, linear_movement::move_linearly}, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
@@ -39,10 +39,8 @@ impl Npc {
                 direction: Direction::Unknown,
                 current_speed: 1.5,
                 base_speed: 1.5,
-                creation_time: 0.0,
                 is_rigid: true,
                 z_index: 0,
-                lifespan: INFINITE_LIFESPAN,
                 dialogues: EntityDialogues::empty(),
             },
             npc_type,

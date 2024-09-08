@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::{constants::{HERO_ENTITY_ID, INFINITE_LIFESPAN}, dialogues::dialogues::EntityDialogues, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_based_on_current_keys, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::HERO_ENTITY_ID, dialogues::dialogues::EntityDialogues, features::{animated_sprite::AnimatedSprite, keyboard_directions::set_direction_based_on_current_keys, linear_movement::move_linearly}, game_engine::{entity::{Entity, EntityProps}, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, impl_humanoid_sprite_update, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug)]
 pub struct Hero {
@@ -19,10 +19,8 @@ impl Hero {
                 direction: Direction::Unknown,
                 current_speed: 3.0,
                 base_speed: 3.0,
-                creation_time: 0.0,
                 is_rigid: true,
                 z_index: 150,
-                lifespan: INFINITE_LIFESPAN,
                 dialogues: EntityDialogues::empty(),
             },
             sprite: AnimatedSprite::new_humanoid(3),

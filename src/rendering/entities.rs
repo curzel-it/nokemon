@@ -8,15 +8,8 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
     let visible_entities = &world.visible_entities;
     let entities_map = world.entities.borrow();    
     
-    let mut entities: Vec<&Box<dyn Entity>> = entities_map
-        .iter()
-        .filter_map(|(id, e)| {
-            if visible_entities.contains(id) {
-                Some(e)
-            } else {
-                None
-            }
-        })
+    let mut entities: Vec<&Box<dyn Entity>> = visible_entities.iter()
+        .map(|(index, _)| &entities_map[*index])
         .collect();
     
     entities.sort_by(|entity_a, entity_b| {

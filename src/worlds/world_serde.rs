@@ -106,22 +106,22 @@ impl Serialize for World {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
         let entities = self.entities.borrow();
 
-        let mut buildings: Vec<&Building> = entities.values()
+        let mut buildings: Vec<&Building> = entities.iter()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Building>())
             .collect();
         buildings.sort_by_key(|e| e.id());
 
-        let mut teleporters: Vec<&Teleporter> = entities.values()
+        let mut teleporters: Vec<&Teleporter> = entities.iter()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .collect();
         teleporters.sort_by_key(|e| e.id());
 
-        let mut npcs: Vec<&Npc> = entities.values()
+        let mut npcs: Vec<&Npc> = entities.iter()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Npc>())
             .collect();
         npcs.sort_by_key(|e| e.id());
 
-        let mut simple_entities: Vec<&SimpleEntity> = entities.values()
+        let mut simple_entities: Vec<&SimpleEntity> = entities.iter()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<SimpleEntity>())            
             .collect();
         simple_entities.sort_by_key(|e| e.id());

@@ -8,26 +8,26 @@ impl World {
         let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
         let entities = self.entities.borrow();
 
-        for id in &self.visible_entities {
+        for (index, id) in &self.visible_entities {
             if *id == HERO_ENTITY_ID {
                 continue;
             }
-            if let Some(entity) = entities.get(id) {
-                if entity.body().is_rigid {                
-                    let frame = entity.body().frame;
-                    let col = frame.x as usize;
-                    
-                    let (row, height) = if frame.h == 1 { 
-                        (frame.y as usize, 1) 
-                    } else { 
-                        (frame.y  as usize + 1, frame.h as usize - 1) 
-                    };
+            let body = entities[*index].body();
 
-                    for offset_x in 0..frame.w as usize {
-                        for offset_y in 0..height {
-                            hitmap[row + offset_y][col + offset_x] = true;
-                        }                    
-                    }
+            if body.is_rigid {                
+                let frame = body.frame;
+                let col = frame.x as usize;
+                
+                let (row, height) = if frame.h == 1 { 
+                    (frame.y as usize, 1) 
+                } else { 
+                    (frame.y  as usize + 1, frame.h as usize - 1) 
+                };
+
+                for offset_x in 0..frame.w as usize {
+                    for offset_y in 0..height {
+                        hitmap[row + offset_y][col + offset_x] = true;
+                    }                    
                 }
             }
         }
@@ -70,8 +70,8 @@ mod tests {
         let mut world = World::new(get_next_id());        
         let mut npc = Npc::new(NpcType::OldMan);
         npc.body_mut().frame = Rect::new(5, 5, 2, 2);         
-        let id = world.add_entity(Box::new(npc));
-        world.visible_entities.insert(id);
+        world.add_entity(Box::new(npc));
+        world.compute_visible_entities(&Rect::square_from_origin(20));
         
         let hitmap = world.compute_hitmap();
         assert!(hitmap[6][5]);
@@ -87,8 +87,8 @@ mod tests {
         npc.body_mut().frame = Rect::new(5, 5, 2, 2);
         npc.body_mut().is_rigid = false;
         
-        let id = world.add_entity(Box::new(npc));
-        world.visible_entities.insert(id);
+        world.add_entity(Box::new(npc));
+        world.compute_visible_entities(&Rect::square_from_origin(20));
         
         let hitmap = world.compute_hitmap();
         assert!(!hitmap[6][5]);

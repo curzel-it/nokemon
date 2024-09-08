@@ -1,7 +1,7 @@
-use std::{cell::RefCell, collections::{HashMap, HashSet}, fmt::{self, Debug}};
+use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, dialogues::dialogues::Dialogue, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::teleporter::Teleporter, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
 use super::{entity::{Entity, EntityProps}, entity_body::EmbodiedEntity, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -11,8 +11,8 @@ pub struct World {
     pub bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
-    pub entities: RefCell<HashMap<u32, Box<dyn Entity>>>,    
-    pub visible_entities: HashSet<u32>,
+    pub entities: RefCell<Vec<Box<dyn Entity>>>,    
+    pub visible_entities: HashSet<(usize, u32)>,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
     pub creative_mode: bool,
@@ -29,7 +29,7 @@ impl World {
             bounds: Rect::square_from_origin(100),
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
-            entities: RefCell::new(HashMap::new()),
+            entities: RefCell::new(vec![]),
             visible_entities: hash_set![],
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
@@ -42,18 +42,27 @@ impl World {
 
     pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
         let id = entity.id();
-        self.entities.borrow_mut().insert(id, entity);
-
-        if let Some(new_entity) = self.entities.borrow_mut().get_mut(&id) {
-            new_entity.body_mut().creation_time = self.total_elapsed_time;
-        }
+        self.entities.borrow_mut().push(entity);
         id
     }
 
-    pub fn remove_entity(&mut self, id: &u32) {
-        if id != &HERO_ENTITY_ID {
-            self.entities.borrow_mut().remove(id);
+    fn remove_entity_by_id(&mut self, id: u32) {
+        if id != HERO_ENTITY_ID {
+            if let Some(index) = self.index_for_entity(id) {
+                self.remove_entity_at_index(index);
+            }
         }
+    }
+
+    fn remove_entity_at_index(&mut self, index: usize) {
+        self.entities.borrow_mut().swap_remove(index);
+    }
+
+    fn index_for_entity(&self, id: u32) -> Option<usize> {
+        self.entities.borrow().iter()
+            .enumerate()
+            .find(|(_, entity)|{ entity.id() == id })
+            .map(|(index, _)| index)
     }
 
     pub fn update_rl(
@@ -72,11 +81,9 @@ impl World {
         let mut state_updates: Vec<WorldStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();
 
-        for id in &self.visible_entities {
-            if let Some(entity) = entities.get_mut(id) {
-                let mut updates = entity.update(self, time_since_last_update);
-                state_updates.append(&mut updates);
-            }
+        for (index, _) in &self.visible_entities {
+            let mut updates = entities[*index].update(self, time_since_last_update);
+            state_updates.append(&mut updates);
         }
 
         self.biome_tiles.update(time_since_last_update);
@@ -93,8 +100,8 @@ impl World {
     fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
         match update {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            WorldStateUpdate::RemoveEntity(id) => self.remove_entity(&id),
-            WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => self.remove_entity_coords(row, col),
+            WorldStateUpdate::RemoveEntity(id) => self.remove_entity_by_id(id),
+            WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => self.remove_entities_by_coords(row, col),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
@@ -120,7 +127,7 @@ impl World {
     }
 
     pub fn find_teleporter_for_destination(&self, destination: &u32) -> Option<Rect> {
-        self.entities.borrow().values()
+        self.entities.borrow().iter()
             .filter_map(|e| e.as_ref().as_any().downcast_ref::<Teleporter>())
             .find(|t| t.destination == *destination)
             .map(|t| t.body().frame)
@@ -133,21 +140,22 @@ impl World {
         hero.is_around_and_pointed_at(target, &hero_direction)
     }
 
-    pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<u32> {
-        for entity in self.entities.borrow().values() {
-            if entity.id() == HERO_ENTITY_ID {
-                continue
-            }
-            if entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
-                return Some(entity.id())
-            }
-        }
-        None
+    pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {
+        self.entities.borrow().iter()
+            .enumerate()
+            .find(|(_, entity)| {
+                if entity.id() != HERO_ENTITY_ID && entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
+                    true
+                } else {
+                    false
+                }
+            })
+            .map(|(index, e)| (index, e.id()))
     }
 
-    fn remove_entity_coords(&mut self, row: usize, col: usize) {
-        while let Some(id) = self.find_non_hero_entity_at_coords(row, col) {
-            self.remove_entity(&id)
+    fn remove_entities_by_coords(&mut self, row: usize, col: usize) {
+        while let Some((index, _)) = self.find_non_hero_entity_at_coords(row, col) {
+            self.remove_entity_at_index(index)
         }      
     }
 }
