@@ -1,7 +1,7 @@
 use crate::{constants::STEP_INPUT_THRESHOLD, game_engine::concrete_entity::ConcreteEntity, utils::directions::Direction};
 
 impl ConcreteEntity {
-    pub fn set_direction_based_on_current_keys(&mut self, new_direction: Direction) {
+    pub fn update_direction_for_current_keys(&mut self, new_direction: Direction) {
         let current_direction = self.direction;
 
         if self.offset.x.abs() < STEP_INPUT_THRESHOLD && self.offset.y.abs() < STEP_INPUT_THRESHOLD {

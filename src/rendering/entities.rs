@@ -39,7 +39,7 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &ConcreteEntity, engine: &GameEngin
     let tile_scale = TILE_SIZE * scale;
     
     if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {
-        let source = item.texture_source_rect(engine.creative_mode);
+        let source = item.texture_source_rect();
         let offset = item.offset;
         let frame = item.frame;
 

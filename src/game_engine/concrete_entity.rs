@@ -66,11 +66,9 @@ impl Default for EntityProps {
 
 impl EntityType {
     pub fn make_entity(&self) -> ConcreteEntity {
-        let frame = self.texture_source_rect(Direction::Unknown, 0.0, false);
-
         ConcreteEntity {
             id: get_next_id(),
-            frame,  
+            frame: self.texture_source_rect(false),  
             species: self.clone(),  
             offset: Vector2d::zero(),
             direction: Direction::Unknown,
@@ -88,12 +86,10 @@ impl EntityType {
 
 impl EntityType {
     fn make_sprite(&self, creative_mode: bool) -> AnimatedSprite {
-        let frame = self.texture_source_rect(Direction::Unknown, 0.0, creative_mode);
         AnimatedSprite::new(
             self.sprite_sheet(), 
+            self.texture_source_rect(creative_mode), 
             self.number_of_frames(), 
-            frame.w, 
-            frame.h
         )
     }
 }
@@ -116,8 +112,7 @@ impl EntityType {
             }
             EntityType::PickableObject(_) => 200,
             EntityType::Teleporter => 200,
-        }
-        
+        }        
     }
     
     pub fn base_speed(&self) -> f32 {
@@ -164,16 +159,16 @@ impl EntityType {
         }
     }
 
-    fn texture_source_rect(&self, direction: Direction, speed: f32, creative_mode: bool) -> Rect {
+    fn texture_source_rect(&self, creative_mode: bool) -> Rect {
         let (x, y, w, h) = match self {
-            EntityType::Hero => humanoid_texture_source_rect(12, direction, speed),
+            EntityType::Hero => (12, 0, 1, 2),
             EntityType::Building(building_type) => match building_type {
                 BuildingType::House(variant) => (0, 5 * variant + 1, 5, 4),
                 BuildingType::HouseTwoFloors(variant) => (5, 5 * variant, 5, 5),
             },
             EntityType::Npc(npc_type) => match npc_type {
-                NpcType::OldMan => humanoid_texture_source_rect(4, direction, speed),
-                NpcType::OldWoman => humanoid_texture_source_rect(8, direction, speed),
+                NpcType::OldMan => (4, 0, 1, 2),
+                NpcType::OldWoman => (8, 0, 1, 2),
             },
             EntityType::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => (1, 0, 1, 2),
@@ -207,28 +202,24 @@ impl EntityType {
     }
 }
 
-fn humanoid_texture_source_rect(column: i32, direction: Direction, speed: f32) -> (i32, i32, i32, i32) {
-    let row = match (direction, speed != 0.0) {
-        (Direction::Up, true) => 0,
-        (Direction::Up, false) => 1,
-        (Direction::Right, true) => 2,
-        (Direction::Right, false) => 3,
-        (Direction::Down, true) => 4,
-        (Direction::Down, false) => 5,
-        (Direction::Left, true) => 6,
-        (Direction::Left, false) => 7,
-        (Direction::Unknown, true) => 5,
-        (Direction::Unknown, false) => 5
-    };
-    (column, row, 1, 2)
+impl ConcreteEntity {
+    fn update_sprite_for_current_direction(&mut self) {
+        self.sprite.frame.y = match (self.direction, self.current_speed != 0.0) {
+            (Direction::Up, true) => 0,
+            (Direction::Up, false) => 2,
+            (Direction::Right, true) => 4,
+            (Direction::Right, false) => 6,
+            (Direction::Down, true) => 8,
+            (Direction::Down, false) => 10,
+            (Direction::Left, true) => 12,
+            (Direction::Left, false) => 14,
+            (Direction::Unknown, true) => 10,
+            (Direction::Unknown, false) => 10
+        }
+    }
 }
 
 impl EntityType {
-    pub fn inventory_texture_source_rect(&self) -> Rect {
-        let (row, col) = self.inventory_texture_offsets();
-        Rect::new(col, row, 1, 1)
-    }
-
     pub fn inventory_texture_offsets(&self) -> (i32, i32) {
         match self {
             EntityType::Hero => (0, 0),
@@ -300,8 +291,8 @@ impl ConcreteEntity {
         self.species.sprite_sheet()
     }
 
-    pub fn texture_source_rect(&self, creative_mode: bool) -> Rect {
-        self.species.texture_source_rect(self.direction, self.current_speed, creative_mode)
+    pub fn texture_source_rect(&self) -> Rect {
+        self.sprite.texture_source_rect()
     }
 
     pub fn immobilize_for_seconds(&mut self, seconds: f32) {
@@ -329,10 +320,11 @@ impl ConcreteEntity {
 }
 
 impl ConcreteEntity {
-    fn update_hero(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
+    fn update_hero(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         
-        self.set_direction_based_on_current_keys(world.direction_based_on_current_keys);
+        self.update_direction_for_current_keys(world.direction_based_on_current_keys);
+        self.update_sprite_for_current_direction();
         
         world_updates.push(self.cache_props());
         world_updates.push(self.move_camera_update());
@@ -371,7 +363,9 @@ impl ConcreteEntity {
 }
 
 impl ConcreteEntity {
-    fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
+    fn update_npc(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
+        self.update_sprite_for_current_direction();
+        
         if world.is_hero_around_and_on_collision_with(&self.frame) {
             if world.creative_mode {
                 return vec![
@@ -411,7 +405,7 @@ impl ConcreteEntity {
 }
 
 impl ConcreteEntity {
-    fn update_pickable_object(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
+    fn update_pickable_object(&mut self, _: &World, _: f32) -> Vec<WorldStateUpdate> {        
         vec![]
     }
 }
@@ -424,6 +418,7 @@ impl ConcreteEntity {
             vec![]
         }        
     }
+
     fn should_teleport(&self, world: &World) -> bool {
         let hero = world.cached_hero_props.hittable_frame;
         let hero_direction = world.cached_hero_props.direction;
