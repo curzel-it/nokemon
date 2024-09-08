@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, features::animated_sprite::AnimatedSprite, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, features::animated_sprite::AnimatedSprite, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -78,7 +78,7 @@ impl EntityType {
             sprite: self.make_sprite(false),
             dialogues: EntityDialogues::empty(),
             time_immobilized: 0.0,
-            name: "".to_string(),
+            name: self.default_name(),
             destination: WORLD_ID_NONE,
         }
     }
@@ -99,9 +99,35 @@ impl EntityType {
             self.number_of_frames(), 
         )
     }
-}
+    
+    fn default_name(&self) -> String {
+        match self {
+            EntityType::Hero => "".to_string(),
+            EntityType::Npc(item) => match item {
+                NpcType::OldMan => "npc.name.old_man".localized(),
+                NpcType::OldWoman => "npc.name.old_woman".localized(),
+            }
+            EntityType::Building(item) => match item {
+                BuildingType::House(_) => "building.name.house".localized(),
+                BuildingType::HouseTwoFloors(_) => "building.name.house_two_floors".localized()
+            }
+            EntityType::HouseholdObject(item) => match item {
+                HouseholdObject::StairsUp => "objects.name.stairs_up".localized(),
+                HouseholdObject::StairsDown => "objects.name.stairs_down".localized(),
+                HouseholdObject::SeatBrown => "objects.name.seat_brown".localized(),
+                HouseholdObject::SeatGreen => "objects.name.seat_green".localized(),
+                HouseholdObject::SeatOrange => "objects.name.seat_orange".localized(),
+                HouseholdObject::SeatPink => "objects.name.seat_pink".localized(),
+                HouseholdObject::Table => "objects.name.table".localized(),
+                HouseholdObject::Bed => "objects.name.bed".localized(),
+            }
+            EntityType::PickableObject(item) => match item {
+                PickableObject::Key => "objects.name.key".localized(),
+            },
+            EntityType::Teleporter => "teleporter.name".localized(),
+        }        
+    }
 
-impl EntityType {
     fn z_index(&self) -> i32 {
         match self {
             EntityType::Hero => 150,

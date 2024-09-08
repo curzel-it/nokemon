@@ -1,3 +1,6 @@
+"building.name.house" = "House"
+"building.name.house_two_floors" = "House (two stories)"
+
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"
@@ -28,10 +31,24 @@
 "map_editor.subtitle" = "Press SPACE to select something";
 "map_editor.placement" = "Press SPACE to place\nPress ESC to go back";
 
-"npc.default_name" = "Some rando";
+"npc.name.default" = "Some rando";
+"npc.name.old_man" = "Old Man"
+"npc.name.old_woman" = "Old Lady"
 "npc.menu.title" = "NPC Options";
 "npc.menu.remove" = "Remove";
 "npc.menu.play_dialog" = "Play dialog";
+
+"objects.name.stairs_up" = "Stairs (Up)"
+"objects.name.stairs_down" = "Stairs (Down)"
+"objects.name.seat_brown" = "Brown Seat"
+"objects.name.seat_green" = "Green Seat"
+"objects.name.seat_orange" = "Orange Seat"
+"objects.name.seat_pink" = "Pink Seat"
+"objects.name.table" = "Table"
+"objects.name.bed" = "Bed"
+"objects.name.key" = "Key"
+
+"teleporter.name" = "Teleporter"
 
 "world.names.new_world" = "New World";
 "world.names.demo" = "Demo World";

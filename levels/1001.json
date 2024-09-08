@@ -319,7 +319,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "",
+      "name": "Old Man",
       "species": {
         "Npc": "OldMan"
       },
@@ -342,9 +342,15 @@
         "number_of_frames": 4
       },
       "dialogues": {
-        "options": []
+        "options": [
+          {
+            "key": "always",
+            "expected_value": 0,
+            "dialogue": 101
+          }
+        ]
       },
-      "time_immobilized": -6.919134,
+      "time_immobilized": -14.290696,
       "destination": 1000
     },
     {
@@ -355,7 +361,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "",
+      "name": "Old Lady",
       "species": {
         "Npc": "OldWoman"
       },
@@ -378,9 +384,25 @@
         "number_of_frames": 4
       },
       "dialogues": {
-        "options": []
+        "options": [
+          {
+            "key": "dialogue.answer.108",
+            "expected_value": 104,
+            "dialogue": 109
+          },
+          {
+            "key": "dialogue.answer.108",
+            "expected_value": 105,
+            "dialogue": 110
+          },
+          {
+            "key": "always",
+            "expected_value": 0,
+            "dialogue": 106
+          }
+        ]
       },
-      "time_immobilized": -0.7985225,
+      "time_immobilized": -8.170056,
       "destination": 1000
     }
   ]
