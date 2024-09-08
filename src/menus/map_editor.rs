@@ -1,7 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::prefabs::new_building, spacing, text, texture, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
-
-use super::inventory::Stockable;
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::prefabs::new_building, spacing, text, texture, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -27,7 +25,7 @@ enum MapEditorState {
 impl MapEditor {
     pub fn new() -> Self {
         Self {
-            stock: Stockable::all_possible_items().into_iter().collect(),
+            stock: MapEditor::all_possible_items().into_iter().collect(),
             worlds: list_worlds_with_none(),
             current_world_id: WORLD_ID_NONE,
             state: MapEditorState::SelectingItem(0),
@@ -256,6 +254,41 @@ impl MapEditor {
             updated_frame = updated_frame.offset_x(-1);
         }     
         updated_frame   
+    }
+}
+
+impl MapEditor {
+    fn all_possible_items() -> Vec<Stockable> {
+        vec![
+            Stockable::BiomeTile(Biome::Water),
+            Stockable::BiomeTile(Biome::Desert),
+            Stockable::BiomeTile(Biome::Grass),
+            Stockable::BiomeTile(Biome::Rock),
+            Stockable::BiomeTile(Biome::DarkRock),
+            Stockable::BiomeTile(Biome::Snow),
+            Stockable::BiomeTile(Biome::LightWood),
+            Stockable::BiomeTile(Biome::DarkWood),
+            Stockable::ConstructionTile(Construction::WoodenFence),
+            Stockable::ConstructionTile(Construction::DarkRock),
+            Stockable::ConstructionTile(Construction::LightWall),
+            Stockable::Building(BuildingType::House(0)),
+            Stockable::Building(BuildingType::HouseTwoFloors(0)),
+            Stockable::Building(BuildingType::House(1)),
+            Stockable::Building(BuildingType::HouseTwoFloors(1)),
+            Stockable::Building(BuildingType::House(2)),
+            Stockable::Building(BuildingType::HouseTwoFloors(2)),
+            Stockable::Npc(NpcType::OldMan),
+            Stockable::Npc(NpcType::OldWoman),
+            Stockable::ConstructionTile(Construction::Nothing),
+            Stockable::HouseholdObject(HouseholdObject::StairsUp),
+            Stockable::HouseholdObject(HouseholdObject::StairsDown),
+            Stockable::HouseholdObject(HouseholdObject::SeatBrown),
+            Stockable::HouseholdObject(HouseholdObject::SeatGreen),
+            Stockable::HouseholdObject(HouseholdObject::SeatOrange),
+            Stockable::HouseholdObject(HouseholdObject::SeatPink),
+            Stockable::HouseholdObject(HouseholdObject::Table),
+            Stockable::HouseholdObject(HouseholdObject::Bed),
+        ]
     }
 }
 
