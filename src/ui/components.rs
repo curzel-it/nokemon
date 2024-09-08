@@ -29,7 +29,7 @@ pub enum Spacing {
     LG,
     XL,
     Custom(f32),
-    TextLineSpacing(TextStyle),
+    TextLine(TextStyle),
 }
 
 pub struct GridSpacing {
@@ -269,13 +269,13 @@ impl Spacing {
             Spacing::LG => 12.0,
             Spacing::XL => 20.0,
             Spacing::Custom(value) => *value,
-            Spacing::TextLineSpacing(_) => 4.0,
+            Spacing::TextLine(_) => 4.0,
         }
     }
 
     pub fn value(&self, config: &RenderingConfig) -> f32 {
         match self {
-            Spacing::TextLineSpacing(style) => {
+            Spacing::TextLine(style) => {
                 config.rendering_scale * config.font_lines_spacing(style)
             },
             _ => config.rendering_scale * self.unscaled_value()
@@ -538,7 +538,7 @@ impl View {
         ).collect();
                 
         View::VStack { 
-            spacing: Spacing::TextLineSpacing(*style), 
+            spacing: Spacing::TextLine(*style), 
             children: texts 
         }
     }

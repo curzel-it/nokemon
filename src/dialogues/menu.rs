@@ -41,16 +41,16 @@ impl DialogueMenu {
         }
     }
 
-    pub fn show(&mut self, npc_id: u32, npc_name: String, dialogue: Dialogue) {
+    pub fn show(&mut self, npc_id: u32, npc_name: &str, dialogue: &Dialogue) {
         if self.time_since_last_closed >= 0.5 {
             self.show_now(npc_id, npc_name, dialogue);
         }
     }
 
-    fn show_now(&mut self, npc_id: u32, npc_name: String, dialogue: Dialogue) {
+    fn show_now(&mut self, npc_id: u32, npc_name: &str, dialogue: &Dialogue) {
         self.npc_id = npc_id;
-        self.npc_name = npc_name;
-        self.dialogue = dialogue;       
+        self.npc_name = npc_name.to_string();
+        self.dialogue = dialogue.clone();       
         
         self.menu.title = format!("{: <45}", format!("{}:", self.npc_name));
         self.text = self.dialogue.localized_text();
@@ -105,7 +105,7 @@ impl DialogueMenu {
                 self.dialogue = Dialogue::empty();
                 self.menu.close();
             } else {
-                self.show_now(self.npc_id, self.npc_name.clone(), next_dialogue);
+                self.show_now(self.npc_id, &self.npc_name.clone(), &next_dialogue);
             }
         }  else {
             self.dialogue = Dialogue::empty();

@@ -9,7 +9,7 @@ fn load_dialogues_from_json(file_path: &str) -> HashMap<u32, Dialogue> {
 
     let json_string: String = reader
         .lines()
-        .filter_map(|line| line.ok()) 
+        .map_while(Result::ok) 
         .filter(|line| !line.trim_start().starts_with("//"))  
         .collect::<Vec<String>>()
         .join("\n");

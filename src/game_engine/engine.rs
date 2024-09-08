@@ -210,11 +210,11 @@ impl GameEngine {
         }
     }
 
-    fn show_dialogue(&mut self, npc_id: &u32, npc_name: &String, dialogue: &Dialogue) {
+    fn show_dialogue(&mut self, npc_id: &u32, npc_name: &str, dialogue: &Dialogue) {
         if self.dialogue_menu.is_open() {
             return
         }
-        self.dialogue_menu.show(*npc_id, npc_name.clone(), dialogue.clone());
+        self.dialogue_menu.show(*npc_id, npc_name, dialogue);
     }    
 
     fn exit(&mut self) {

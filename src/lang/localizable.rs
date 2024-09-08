@@ -33,16 +33,16 @@ lazy_static! {
 
 fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
     let mut localized_strings = HashMap::new();    
-    let paths = fs::read_dir(LOCALIZED_STRINGS_PATH).expect("Failed to read localized strings directory");
+    let paths = fs::read_dir(LOCALIZED_STRINGS_PATH)
+        .expect("Failed to read localized strings directory")
+        .flatten()
+        .map(|p| p.path());
 
-    for path in paths {
-        if let Ok(entry) = path {
-            let file_path = entry.path();
-            if file_path.extension() == Some(std::ffi::OsStr::new("strings")) {
-                if let Some(locale) = file_path.file_stem().and_then(|os_str| os_str.to_str()) {
-                    let strings = load_strings_from_file(&file_path);
-                    localized_strings.insert(locale.to_string(), strings);
-                }
+    for file_path in paths {        
+        if file_path.extension() == Some(std::ffi::OsStr::new("strings")) {
+            if let Some(locale) = file_path.file_stem().and_then(|os_str| os_str.to_str()) {
+                let strings = load_strings_from_file(&file_path);
+                localized_strings.insert(locale.to_string(), strings);
             }
         }
     }
