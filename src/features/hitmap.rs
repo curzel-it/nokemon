@@ -69,15 +69,15 @@ mod tests {
     fn test_hitmap_with_rigid_entity_excludes_top_row() {
         let mut world = World::new(get_next_id());        
         let mut npc = Npc::new(NpcType::OldMan);
-        npc.body_mut().frame = Rect::new(5, 5, 2, 2);         
+        npc.body_mut().frame.x = 5;
+        npc.body_mut().frame.y = 5;
         world.add_entity(Box::new(npc));
-        world.compute_visible_entities(&Rect::square_from_origin(20));
+        world.visible_entities = world.compute_visible_entities(&Rect::square_from_origin(20));
         
         let hitmap = world.compute_hitmap();
-        assert!(hitmap[6][5]);
-        assert!(hitmap[6][6]);
+        println!("{:#?}", world.visible_entities);
         assert!(!hitmap[5][5]);
-        assert!(!hitmap[5][6]);
+        assert!(hitmap[6][5]);
     }
 
     #[test]

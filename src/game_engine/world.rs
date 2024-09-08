@@ -40,10 +40,11 @@ impl World {
         }
     }
 
-    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> u32 {
+    pub fn add_entity(&mut self, entity: Box<dyn Entity>) -> (usize, u32) {
         let id = entity.id();
-        self.entities.borrow_mut().push(entity);
-        id
+        let mut entities = self.entities.borrow_mut();
+        entities.push(entity);
+        (entities.len() - 1, id)
     }
 
     fn remove_entity_by_id(&mut self, id: u32) {
