@@ -144,7 +144,7 @@ impl World {
         self.entities.borrow().iter()
             .enumerate()
             .find(|(_, entity)| {
-                entity.id != HERO_ENTITY_ID && entity.frame.contains_or_touches_tile(col as i32, row as i32)
+                entity.species != EntityType::Hero && entity.frame.contains_or_touches_tile(col as i32, row as i32)
             })
             .map(|(index, e)| (index, e.id))
     }

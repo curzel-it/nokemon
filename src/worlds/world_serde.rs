@@ -2,7 +2,7 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::{concrete_entity::ConcreteEntity, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::{concrete_entity::{ConcreteEntity, EntityType}, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -92,12 +92,17 @@ struct WorldData {
 }
 
 impl Serialize for World {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {       
+        let borrowed_entities = self.entities.borrow();
+        let entities: Vec<&ConcreteEntity> = borrowed_entities.iter()
+            .filter(|e| e.species != EntityType::Hero)
+            .collect();
+
         let mut state = serializer.serialize_struct("World", 4)?;
         state.serialize_field("id", &self.id)?;
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
-        state.serialize_field("entities", &self.entities)?;
+        state.serialize_field("entities", &entities)?;
         state.end()
     }
 }
@@ -111,8 +116,8 @@ impl<'de> Deserialize<'de> for World {
             entities,
         } = WorldData::deserialize(deserializer)?;
 
-        let mut world = World::new(id);        
-        entities.into_iter().for_each(|e| _ = world.add_entity(e));
+        let mut world = World::new(id);                
+        entities.into_iter().for_each(|e| _ = world.add_entity(e));        
         world.load_biome_tiles(biome_tiles);
         world.load_construction_tiles(constructions_tiles);
         Ok(world)

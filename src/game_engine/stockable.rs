@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::TILE_SIZE, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 use super::concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject};
 
@@ -16,7 +16,7 @@ pub enum Stockable {
 
 impl Stockable {
     pub fn texture_source_rect(&self) -> Rect {
-        let (x, y) = match self {
+        let (y, x) = match self {
             Stockable::BiomeTile(biome) => match biome {
                 Biome::Nothing => (0, 0),
                 Biome::Water => (0, 1),
@@ -29,10 +29,10 @@ impl Stockable {
                 Biome::DarkRock => (0, 8),
             },
             Stockable::ConstructionTile(construction) => match construction {
-                Construction::Nothing => (1, 4),
+                Construction::Nothing => (6, 1),
                 Construction::WoodenFence => (1, 1),
-                Construction::DarkRock => (1, 5),
-                Construction::LightWall => (1, 6),
+                Construction::DarkRock => (1, 2),
+                Construction::LightWall => (1, 3),
             },
             Stockable::Building(item) => EntityType::Building(*item).inventory_texture_offsets(),
             Stockable::Npc(item) => EntityType::Npc(*item).inventory_texture_offsets(),
@@ -44,7 +44,7 @@ impl Stockable {
 }
 
 impl Stockable {
-    pub fn ui(&self, sprite_sheet: u32, index: usize, selected_index: usize) -> View {
+    pub fn ui(&self, index: usize, selected_index: usize) -> View {
         let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
 
         if index == selected_index {
@@ -52,14 +52,14 @@ impl Stockable {
                 Spacing::XS, 
                 Color::YELLOW,
                 texture!(
-                    sprite_sheet, 
+                    SPRITE_SHEET_INVENTORY, 
                     self.texture_source_rect(), 
                     Vector2d::new(selected_size, selected_size)
                 )
             )
         } else {
             texture!(
-                sprite_sheet, 
+                SPRITE_SHEET_INVENTORY, 
                 self.texture_source_rect(), 
                 Vector2d::new(1.5, 1.5)
             )

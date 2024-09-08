@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, features::animated_sprite::AnimatedSprite, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, features::animated_sprite::AnimatedSprite, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -67,7 +67,7 @@ impl Default for EntityProps {
 impl EntityType {
     pub fn make_entity(&self) -> ConcreteEntity {
         ConcreteEntity {
-            id: get_next_id(),
+            id: self.next_entity_id(),
             frame: self.texture_source_rect(false),  
             species: self.clone(),  
             offset: Vector2d::zero(),
@@ -80,6 +80,13 @@ impl EntityType {
             time_immobilized: 0.0,
             name: "".to_string(),
             destination: WORLD_ID_NONE,
+        }
+    }
+
+    fn next_entity_id(&self) -> u32 {
+        match self {
+            EntityType::Hero => HERO_ENTITY_ID,
+            _ => get_next_id()
         }
     }
 }
@@ -232,14 +239,14 @@ impl EntityType {
                 NpcType::OldWoman => (2, 3),
             },
             EntityType::HouseholdObject(item) => match item {
-                HouseholdObject::StairsUp => (3, 2),
-                HouseholdObject::StairsDown => (3, 3),
-                HouseholdObject::SeatBrown => (3, 4),
-                HouseholdObject::SeatGreen => (3, 5),
-                HouseholdObject::SeatOrange => (3, 6),
-                HouseholdObject::SeatPink => (3, 7),
-                HouseholdObject::Table => (3, 8),
-                HouseholdObject::Bed => (3, 9),
+                HouseholdObject::StairsUp => (3, 1),
+                HouseholdObject::StairsDown => (3, 2),
+                HouseholdObject::SeatBrown => (3, 3),
+                HouseholdObject::SeatGreen => (3, 4),
+                HouseholdObject::SeatOrange => (3, 5),
+                HouseholdObject::SeatPink => (3, 6),
+                HouseholdObject::Table => (3, 7),
+                HouseholdObject::Bed => (3, 8),
             },
             EntityType::PickableObject(pickable_object) => match pickable_object {
                 PickableObject::Key => (5, 1),

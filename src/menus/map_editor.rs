@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, game_engine::{concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject}, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, game_engine::{concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject}, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -10,7 +10,6 @@ pub struct MapEditor {
     pub worlds: Vec<u32>,
     pub current_world_id: u32,
     state: MapEditorState,
-    sprite_sheet: u32,
     columns: usize,
     offset: usize, 
 }
@@ -30,7 +29,6 @@ impl MapEditor {
             worlds: list_worlds_with_none(),
             current_world_id: WORLD_ID_NONE,
             state: MapEditorState::SelectingItem(0),
-            sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 8,
             offset: 0, 
         }
@@ -282,7 +280,6 @@ impl MapEditor {
             Stockable::Building(BuildingType::HouseTwoFloors(2)),
             Stockable::Npc(NpcType::OldMan),
             Stockable::Npc(NpcType::OldWoman),
-            Stockable::ConstructionTile(Construction::Nothing),
             Stockable::HouseholdObject(HouseholdObject::StairsUp),
             Stockable::HouseholdObject(HouseholdObject::StairsDown),
             Stockable::HouseholdObject(HouseholdObject::SeatBrown),
@@ -291,6 +288,7 @@ impl MapEditor {
             Stockable::HouseholdObject(HouseholdObject::SeatPink),
             Stockable::HouseholdObject(HouseholdObject::Table),
             Stockable::HouseholdObject(HouseholdObject::Bed),
+            Stockable::ConstructionTile(Construction::Nothing),
             Stockable::PickableObject(PickableObject::Key),
         ]
     }
@@ -354,7 +352,7 @@ impl MapEditor {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
                 children: self.stock.iter().enumerate().map(|(index, item)| {
-                    item.ui(self.sprite_sheet, index, selected_item_index)
+                    item.ui(index, selected_item_index)
                 }).collect()
             },
         ];

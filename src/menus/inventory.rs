@@ -1,11 +1,10 @@
 use raylib::color::Color;
-use crate::{constants::SPRITE_SHEET_INVENTORY, game_engine::{concrete_entity::HouseholdObject, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
+use crate::{game_engine::{concrete_entity::HouseholdObject, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
 
 #[derive(Debug)]
 pub struct Inventory {
     pub stock: Vec<Stockable>,
     state: InventoryState,
-    sprite_sheet: u32,
     columns: usize,
 }
 
@@ -24,7 +23,6 @@ impl Inventory {
                 Stockable::HouseholdObject(HouseholdObject::SeatPink),
             ],
             state: InventoryState::SelectingItem(0),
-            sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 8,
         }
     }
@@ -80,7 +78,7 @@ impl Inventory {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
                 children: self.stock.iter().enumerate().map(|(index, item)| {
-                    item.ui(self.sprite_sheet, index, selected_item_index)
+                    item.ui(index, selected_item_index)
                 }).collect()
             },
         ];

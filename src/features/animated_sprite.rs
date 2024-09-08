@@ -6,6 +6,7 @@ use crate::{constants::ANIMATIONS_FPS, utils::{rect::Rect, timed_content_provide
 pub struct AnimatedSprite {
     sheet_id: u32, 
     pub frame: Rect,
+    original_frame: Rect,
     number_of_frames: i32,
     frames_provider: TimedContentProvider<i32>,
 }
@@ -15,6 +16,7 @@ impl AnimatedSprite {
         Self {
             sheet_id, 
             frame,
+            original_frame: frame,
             number_of_frames,
             frames_provider: TimedContentProvider::frames(frame.x, number_of_frames, frame.w),
         }
@@ -48,7 +50,7 @@ impl Serialize for AnimatedSprite {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
         let data = AnimatedSpriteData {
             sheet_id: self.sheet_id, 
-            frame: self.frame, 
+            frame: self.original_frame, 
             number_of_frames: self.number_of_frames,
         };
         data.serialize(serializer)
