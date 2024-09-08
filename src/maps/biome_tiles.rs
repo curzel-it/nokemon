@@ -200,14 +200,61 @@ impl TileSet<BiomeTile> {
     }
 }
 
+impl Biome {
+    fn from_char(c: char) -> Self {
+        match c {
+            '0' => Biome::Nothing,
+            '1' => Biome::Grass,
+            '2' => Biome::Water,
+            '3' => Biome::Rock,
+            '4' => Biome::Desert,
+            '5' => Biome::Snow,
+            '6' => Biome::DarkWood,
+            '7' => Biome::LightWood,
+            '8' => Biome::DarkRock,
+            _ => Biome::Nothing,
+        }
+    }
+
+    pub fn to_char(self) -> char {
+        match self {
+            Biome::Nothing => '0',
+            Biome::Grass => '1',
+            Biome::Water => '2',
+            Biome::Rock => '3',
+            Biome::Desert => '4',
+            Biome::Snow => '5',
+            Biome::DarkWood => '6',
+            Biome::LightWood => '7',
+            Biome::DarkRock => '8',
+        }
+    }
+}
+
+impl BiomeTile {
+    pub fn from_data(row: usize, column: usize, data: char) -> Self {
+        let mut tile = Self { 
+            tile_type: Biome::from_char(data), 
+            column: column as u32, 
+            row: row as u32, 
+            tile_up_type: Biome::Nothing,
+            tile_right_type: Biome::Nothing,
+            tile_down_type: Biome::Nothing,
+            tile_left_type: Biome::Nothing,
+            texture_offset_x: 0, 
+            texture_offset_y: 0 
+        };
+        tile.setup_textures();
+        tile
+    }
+}
+
 impl Serialize for TileSet<BiomeTile> {    
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
-        type TileData = u32;
-
         let mut state = serializer.serialize_struct("TileSet", 2)?;
-        let serialized_tiles: Vec<Vec<TileData>> = self.tiles.iter().map(|row| {
+        let serialized_tiles: Vec<String> = self.tiles.iter().map(|row| {
             row.iter().map(|tile| {
-                tile.tile_type.to_int()
+                tile.tile_type.to_char()
             }).collect()
         }).collect();
 
@@ -219,19 +266,17 @@ impl Serialize for TileSet<BiomeTile> {
 
 impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
-        type TileData = u32;
-
         #[derive(Deserialize)]
         struct TileSetData {
-            tiles: Vec<Vec<TileData>>,
+            tiles: Vec<String>,
             sheet_id: u32,
         }
 
         let data = TileSetData::deserialize(deserializer)?;
 
         let mut tiles: Vec<Vec<BiomeTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
-            tile_row.into_iter().enumerate().map(|(column, tile_data)| {
-                BiomeTile::from_data(row, column, tile_data)
+            tile_row.chars().enumerate().map(|(column, tile_char)| {
+                BiomeTile::from_data(row, column, tile_char)
             }).collect()
         }).collect();
 
@@ -245,61 +290,11 @@ impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
                 let down = if row < rows - 1 { tiles[row+1][col].tile_type } else { Biome::Nothing };
                 let left = if col > 0 { tiles[row][col-1].tile_type } else { Biome::Nothing };
 
-                tiles[row][col].row = row as u32;
-                tiles[row][col].column = col as u32;
                 tiles[row][col].setup_neighbors(up, right, down, left)
             }
         }
 
         Ok(TileSet::with_tiles(data.sheet_id, tiles))
-    }
-}
-
-impl Biome {
-    fn from_int(value: u32) -> Self {
-        match value {
-            0 => Biome::Nothing,
-            1 => Biome::Grass,
-            2 => Biome::Water,
-            3 => Biome::Rock,
-            4 => Biome::Desert, 
-            5 => Biome::Snow, 
-            6 => Biome::DarkWood, 
-            7 => Biome::LightWood,
-            8 => Biome::DarkRock,
-            _ => Biome::Nothing
-        }
-    }
-    fn to_int(self) -> u32 {
-        match self {
-            Biome::Nothing => 0,
-            Biome::Grass => 1,
-            Biome::Water => 2,
-            Biome::Rock => 3,
-            Biome::Desert => 4,
-            Biome::Snow => 5,
-            Biome::DarkWood => 6,
-            Biome::LightWood => 7,
-            Biome::DarkRock => 8,
-        }
-    }
-}
-
-impl BiomeTile {
-    pub fn from_data(row: usize, column: usize, data: u32) -> Self {
-        let mut tile = Self { 
-            tile_type: Biome::from_int(data), 
-            column: column as u32, 
-            row: row as u32, 
-            tile_up_type: Biome::Nothing,
-            tile_right_type: Biome::Nothing,
-            tile_down_type: Biome::Nothing,
-            tile_left_type: Biome::Nothing,
-            texture_offset_x: 0, 
-            texture_offset_y: 0 
-        };
-        tile.setup_textures();
-        tile
     }
 }
 

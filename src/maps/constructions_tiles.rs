@@ -110,14 +110,50 @@ impl TileSet<ConstructionTile> {
     }
 }
 
+impl Construction {
+    fn from_char(c: char) -> Self {
+        match c {
+            '0' => Construction::Nothing,
+            '1' => Construction::WoodenFence,
+            '3' => Construction::DarkRock,
+            '4' => Construction::LightWall,
+            _ => Construction::Nothing,
+        }
+    }
+
+    pub fn to_char(self) -> char {
+        match self {
+            Construction::Nothing => '0',
+            Construction::WoodenFence => '1',
+            Construction::DarkRock => '3',
+            Construction::LightWall => '4',
+        }
+    }
+}
+
+impl ConstructionTile {
+    pub fn from_data(row: usize, column: usize, data: char) -> Self {
+        let mut tile = Self { 
+            tile_type: Construction::from_char(data), 
+            column: column as u32, 
+            row: row as u32, 
+            tile_up_type: Construction::Nothing,
+            tile_right_type: Construction::Nothing, 
+            tile_down_type: Construction::Nothing, 
+            tile_left_type: Construction::Nothing, 
+            texture_source_rect: Rect::square_from_origin(1) 
+        };
+        tile.setup_textures();
+        tile
+    }
+}
+
 impl Serialize for TileSet<ConstructionTile> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
-        type TileData = u32;
-
         let mut state = serializer.serialize_struct("TileSet", 2)?;
-        let serialized_tiles: Vec<Vec<TileData>> = self.tiles.iter().map(|row| {
+        let serialized_tiles: Vec<String> = self.tiles.iter().map(|row| {
             row.iter().map(|tile| {
-                tile.tile_type.to_int()
+                tile.tile_type.to_char()
             }).collect()
         }).collect();
 
@@ -129,19 +165,17 @@ impl Serialize for TileSet<ConstructionTile> {
 
 impl<'de> Deserialize<'de> for TileSet<ConstructionTile> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
-        type TileData = u32;
-
         #[derive(Deserialize)]
         struct TileSetData {
-            tiles: Vec<Vec<TileData>>,
+            tiles: Vec<String>,
             sheet_id: u32,
         }
 
         let data = TileSetData::deserialize(deserializer)?;
 
         let mut tiles: Vec<Vec<ConstructionTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
-            tile_row.into_iter().enumerate().map(|(column, tile_data)| {
-                ConstructionTile::from_data(row, column, tile_data)
+            tile_row.chars().enumerate().map(|(column, tile_char)| {
+                ConstructionTile::from_data(row, column, tile_char)
             }).collect()
         }).collect();
 
@@ -155,49 +189,10 @@ impl<'de> Deserialize<'de> for TileSet<ConstructionTile> {
                 let down = if row < rows - 1 { tiles[row+1][col].tile_type } else { Construction::Nothing };
                 let left = if col > 0 { tiles[row][col-1].tile_type } else { Construction::Nothing };
 
-                tiles[row][col].row = row as u32;
-                tiles[row][col].column = col as u32;
                 tiles[row][col].setup_neighbors(up, right, down, left)
             }
         }
 
         Ok(TileSet::with_tiles(data.sheet_id, tiles))
-    }
-}
-
-impl Construction {
-    fn from_int(value: u32) -> Self {
-        match value {
-            0 => Construction::Nothing,
-            1 => Construction::WoodenFence,
-            3 => Construction::DarkRock,
-            4 => Construction::LightWall,
-            _ => Construction::Nothing
-        }
-    }
-    fn to_int(self) -> u32 {
-        match self {
-            Construction::Nothing => 0,
-            Construction::WoodenFence => 1,
-            Construction::DarkRock => 3,
-            Construction::LightWall => 4
-        }
-    }
-}
-
-impl ConstructionTile {
-    pub fn from_data(row: usize, column: usize, data: u32) -> Self {
-        let mut tile = Self { 
-            tile_type: Construction::from_int(data), 
-            column: column as u32, 
-            row: row as u32, 
-            tile_up_type: Construction::Nothing,
-            tile_right_type: Construction::Nothing, 
-            tile_down_type: Construction::Nothing, 
-            tile_left_type: Construction::Nothing, 
-            texture_source_rect: Rect::square_from_origin(1) 
-        };
-        tile.setup_textures();
-        tile
     }
 }
