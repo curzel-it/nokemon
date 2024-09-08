@@ -644,15 +644,7 @@
             {
               "key": "always",
               "expected_value": 0,
-              "dialogue": {
-                "id": 101,
-                "options": [
-                  [
-                    1,
-                    107
-                  ]
-                ]
-              }
+              "dialogue": 101
             }
           ]
         }
@@ -690,41 +682,17 @@
             {
               "key": "dialogue.answer.108",
               "expected_value": 104,
-              "dialogue": {
-                "id": 109,
-                "options": [
-                  [
-                    0,
-                    109
-                  ]
-                ]
-              }
+              "dialogue": 109
             },
             {
               "key": "dialogue.answer.108",
               "expected_value": 105,
-              "dialogue": {
-                "id": 110,
-                "options": [
-                  [
-                    0,
-                    110
-                  ]
-                ]
-              }
+              "dialogue": 110
             },
             {
               "key": "always",
               "expected_value": 0,
-              "dialogue": {
-                "id": 106,
-                "options": [
-                  [
-                    0,
-                    106
-                  ]
-                ]
-              }
+              "dialogue": 106
             }
           ]
         }

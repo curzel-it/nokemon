@@ -20,7 +20,7 @@ pub struct EntityDialogues {
 pub struct EntityDialogue {
     pub key: String,
     pub expected_value: u32,
-    pub dialogue: Dialogue,
+    pub dialogue: DialogueId,
 }
 
 impl EntityDialogues {
