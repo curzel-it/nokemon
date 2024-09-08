@@ -99,25 +99,21 @@ impl<Item: MenuItem> Menu<Item> {
     
         let max_index = self.items.len() - 1;
         
-        if keyboard.direction_up.is_pressed {
-            if self.selected_index > 0 {
-                self.selected_index -= 1;
-    
-                if self.selected_index < self.scroll_offset {
-                    self.scroll_offset -= 1;
+        if keyboard.direction_up.is_pressed && self.selected_index > 0 {
+                    self.selected_index -= 1;
+        
+                    if self.selected_index < self.scroll_offset {
+                        self.scroll_offset -= 1;
+                    }
                 }
-            }
-        }
     
-        if keyboard.direction_down.is_pressed {
-            if self.selected_index < max_index {
-                self.selected_index += 1;
-    
-                if self.selected_index >= self.scroll_offset + self.visible_item_count {
-                    self.scroll_offset += 1;
+        if keyboard.direction_down.is_pressed && self.selected_index < max_index {
+                    self.selected_index += 1;
+        
+                    if self.selected_index >= self.scroll_offset + self.visible_item_count {
+                        self.scroll_offset += 1;
+                    }
                 }
-            }
-        }
     
         if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             return self.handle_selection();

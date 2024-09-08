@@ -145,11 +145,7 @@ impl World {
         self.entities.borrow().iter()
             .enumerate()
             .find(|(_, entity)| {
-                if entity.id() != HERO_ENTITY_ID && entity.body().frame.contains_or_touches_point(col as i32, row as i32) {
-                    true
-                } else {
-                    false
-                }
+                entity.id() != HERO_ENTITY_ID && entity.body().frame.contains_or_touches_point(col as i32, row as i32)
             })
             .map(|(index, e)| (index, e.id()))
     }
