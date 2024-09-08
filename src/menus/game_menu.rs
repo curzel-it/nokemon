@@ -140,7 +140,7 @@ impl GameMenu {
         updates
     }
 
-    fn update_from_inventory(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
+    fn update_from_inventory(&mut self, keyboard: &KeyboardEventsProvider, _: f32) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::Open;
         }

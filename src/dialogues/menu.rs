@@ -1,6 +1,6 @@
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, storage::{set_value_for_key, StorageKey}}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
 
-use super::dialogues::{dialogue_by_id, Dialogue};
+use super::{models::Dialogue, repository::dialogue_by_id};
 
 pub struct DialogueMenu {
     pub npc_id: u32,

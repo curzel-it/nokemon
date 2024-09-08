@@ -1,5 +1,5 @@
 use crate::{
-    dialogues::dialogues::Dialogue, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection}, ui::components::View
+    dialogues::models::Dialogue, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection}, ui::components::View
 };
 
 #[derive(Debug, Clone)]

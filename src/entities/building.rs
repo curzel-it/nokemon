@@ -1,7 +1,7 @@
 use std::any::Any;
 
 use serde::{Deserialize, Serialize};
-use crate::{constants::{SPRITE_SHEET_BUILDINGS}, dialogues::dialogues::EntityDialogues, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{SPRITE_SHEET_BUILDINGS}, dialogues::models::EntityDialogues, game_engine::{entity::Entity, entity_body::EntityBody, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, impl_embodied_entity, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BuildingType {

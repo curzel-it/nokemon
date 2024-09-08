@@ -15,12 +15,10 @@ pub struct RenderingConfig {
 
 #[derive(Copy, Clone, Debug)]
 pub enum TextStyle {
-    LargeTitle,
     Title,
     Regular,
     Bold,
     Selected,
-    Caption
 }
 
 pub enum Spacing {
@@ -245,12 +243,10 @@ impl GridSpacing {
 impl RenderingConfig {
     pub fn scaled_font_size(&self, style: &TextStyle) -> f32 {
         self.font_rendering_scale * match style {
-            TextStyle::LargeTitle => 16.0,
             TextStyle::Title => 12.0,
             TextStyle::Bold => 8.0,
             TextStyle::Selected => 8.0,
             TextStyle::Regular => 8.0,
-            TextStyle::Caption => 4.0
         }
     }
 
@@ -297,12 +293,10 @@ impl RenderingConfig {
 
     pub fn font(&self, style: &TextStyle) -> &Font {
         match style {
-            TextStyle::LargeTitle => &self.font_bold,
             TextStyle::Title => &self.font_bold,
             TextStyle::Bold => &self.font_bold,
             TextStyle::Selected => &self.font_bold,
             TextStyle::Regular => &self.font,
-            TextStyle::Caption => &self.font,
         }
     }
 

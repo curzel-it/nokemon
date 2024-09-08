@@ -1,15 +1,12 @@
 use raylib::color::Color;
 use crate::{constants::SPRITE_SHEET_INVENTORY, entities::household_objects::HouseholdObject, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
 
-const MAX_VISIBLE_WORLDS: usize = 4;
-
 #[derive(Debug)]
 pub struct Inventory {
     pub stock: Vec<Stockable>,
     state: InventoryState,
     sprite_sheet: u32,
     columns: usize,
-    offset: usize, 
 }
 
 #[derive(Debug)]
@@ -29,7 +26,6 @@ impl Inventory {
             state: InventoryState::SelectingItem(0),
             sprite_sheet: SPRITE_SHEET_INVENTORY,
             columns: 8,
-            offset: 0, 
         }
     }
 

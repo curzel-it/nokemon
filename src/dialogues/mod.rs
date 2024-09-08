@@ -1,2 +1,3 @@
-pub mod dialogue_menu;
-pub mod dialogues;
+pub mod menu;
+pub mod models;
+pub mod repository;

@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
-use crate::{dialogues::dialogues::EntityDialogues, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{dialogues::models::EntityDialogues, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 pub trait EmbodiedEntity: Debug {
     fn id(&self) -> u32;    
