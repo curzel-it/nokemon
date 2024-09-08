@@ -9,7 +9,8 @@ use super::models::Dialogue;
 fn load_dialogues_from_json(file_path: &str) -> HashMap<u32, Dialogue> {
     let file = File::open(file_path).expect("Failed to open dialogues.json file");    
     let reader = BufReader::new(file);
-    serde_json::from_reader(reader).expect("Failed to deserialize dialogues from JSON")
+    let data: Vec<Dialogue> = serde_json::from_reader(reader).expect("Failed to deserialize dialogues from JSON");
+    return data.into_iter().map(|d| (d.id, d)).collect()
 }
 
 lazy_static! {
