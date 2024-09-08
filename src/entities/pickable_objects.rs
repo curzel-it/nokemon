@@ -1,8 +1,10 @@
+use serde::{Deserialize, Serialize};
+
 use crate::{constants::SPRITE_SHEET_ANIMATED_OBJECTS, features::animated_sprite::AnimatedSprite, game_engine::{entity::{Entity, EntityConvertible}, entity_body::EmbodiedEntity}, utils::rect::Rect};
 
 use super::animated_entity::AnimatedEntity;
 
-#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
+#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum PickableObject {
     Key
 }

@@ -1,3 +1,4 @@
+pub mod concrete_entity;
 pub mod entity;
 pub mod entity_body;
 pub mod entity_macro;

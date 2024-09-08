@@ -1,8 +1,10 @@
+use serde::{Deserialize, Serialize};
+
 use crate::{constants::SPRITE_SHEET_HOUSEHOLD_OBJECTS, game_engine::{entity::{Entity, EntityConvertible}, entity_body::EmbodiedEntity}, utils::rect::Rect};
 
 use super::simple_entity::SimpleEntity;
 
-#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
+#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum HouseholdObject {
     StairsUp,
     StairsDown,
