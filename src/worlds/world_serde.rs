@@ -2,7 +2,7 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{building::Building, npc::Npc, simple::SimpleEntity, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{animated_entity::AnimatedEntity, building::Building, npc::Npc, simple_entity::SimpleEntity, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -100,6 +100,9 @@ struct WorldData {
 
     #[serde(default)]
     simple_entities: Vec<SimpleEntity>,
+
+    #[serde(default)]
+    animated_entities: Vec<AnimatedEntity>,
 }
 
 impl Serialize for World {
@@ -126,6 +129,11 @@ impl Serialize for World {
             .collect();
         simple_entities.sort_by_key(|e| e.id());
 
+        let mut animated_entities: Vec<&AnimatedEntity> = entities.iter()
+            .filter_map(|e| e.as_ref().as_any().downcast_ref::<AnimatedEntity>())            
+            .collect();
+        animated_entities.sort_by_key(|e| e.id());
+
         let mut state = serializer.serialize_struct("World", 4)?;
         state.serialize_field("id", &self.id)?;
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
@@ -134,6 +142,7 @@ impl Serialize for World {
         state.serialize_field("teleporters", &teleporters)?;
         state.serialize_field("npcs", &npcs)?;
         state.serialize_field("simple_entities", &simple_entities)?;
+        state.serialize_field("animated_entities", &animated_entities)?;
         state.end()
     }
 }
@@ -148,6 +157,7 @@ impl<'de> Deserialize<'de> for World {
             teleporters,
             npcs,
             simple_entities,
+            animated_entities,
         } = WorldData::deserialize(deserializer)?;
 
         let mut world = World::new(id);
@@ -156,6 +166,7 @@ impl<'de> Deserialize<'de> for World {
         teleporters.into_iter().for_each(|e| { world.add_entity(Box::new(e)); });
         npcs.into_iter().for_each(|e| { world.add_entity(Box::new(e)); });
         simple_entities.into_iter().for_each(|e| { world.add_entity(Box::new(e)); });
+        animated_entities.into_iter().for_each(|e| { world.add_entity(Box::new(e)); });
 
         world.load_biome_tiles(biome_tiles);
         world.load_construction_tiles(constructions_tiles);

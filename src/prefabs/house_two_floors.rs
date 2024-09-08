@@ -1,4 +1,4 @@
-use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, teleporter::Teleporter}, game_engine::{entity::Entity, entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
+use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{building::{Building, BuildingType}, household_objects::HouseholdObject, teleporter::Teleporter}, game_engine::{entity::{Entity, EntityConvertible}, entity_body::EmbodiedEntity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
 pub fn new_house_two_floors(variant: i32, source_world_id: u32, x: i32, y: i32) -> Vec<Box<dyn Entity>> {
     let mut building = Building::new(BuildingType::HouseTwoFloors(variant));
@@ -67,13 +67,13 @@ pub fn new_house_two_floors(variant: i32, source_world_id: u32, x: i32, y: i32) 
 
     first_floor.add_entity(Box::new(door_back1));
     first_floor.add_entity(Box::new(door_back2));
-    first_floor.add_entity(Box::new(stairs_up));
+    first_floor.add_entity(stairs_up);
     first_floor.add_entity(Box::new(stairs_up_door));
-    first_floor.add_entity(Box::new(table));
-    first_floor.add_entity(Box::new(seat1));
-    first_floor.add_entity(Box::new(seat2));
-    first_floor.add_entity(Box::new(seat3));
-    first_floor.add_entity(Box::new(seat4));
+    first_floor.add_entity(table);
+    first_floor.add_entity(seat1);
+    first_floor.add_entity(seat2);
+    first_floor.add_entity(seat3);
+    first_floor.add_entity(seat4);
     first_floor.save();    
 
     let mut stairs_down = HouseholdObject::StairsDown.make_entity();
@@ -100,7 +100,7 @@ pub fn new_house_two_floors(variant: i32, source_world_id: u32, x: i32, y: i32) 
         second_floor.constructions_tiles.update_tile(row, 0, Construction::LightWall);
     }
 
-    second_floor.add_entity(Box::new(stairs_down));
+    second_floor.add_entity(stairs_down);
     second_floor.add_entity(Box::new(stairs_down_door));
     second_floor.save();    
 

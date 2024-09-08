@@ -466,6 +466,32 @@
       "building_type": {
         "HouseTwoFloors": 2
       }
+    },
+    {
+      "body": {
+        "id": 1725808097,
+        "frame": {
+          "x": 89,
+          "y": 72,
+          "w": 5,
+          "h": 4
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "z_index": 200,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "building_type": {
+        "House": 0
+      }
     }
   ],
   "teleporters": [
@@ -492,7 +518,7 @@
         }
       },
       "destination": 1725751145,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -517,7 +543,7 @@
         }
       },
       "destination": 1725751155,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -542,7 +568,7 @@
         }
       },
       "destination": 1725751170,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -567,7 +593,7 @@
         }
       },
       "destination": 1725751180,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -592,7 +618,7 @@
         }
       },
       "destination": 1725751195,
-      "creative_mode": false
+      "creative_mode": true
     },
     {
       "body": {
@@ -617,7 +643,32 @@
         }
       },
       "destination": 1725751205,
-      "creative_mode": false
+      "creative_mode": true
+    },
+    {
+      "body": {
+        "id": 1725808099,
+        "frame": {
+          "x": 92,
+          "y": 75,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "z_index": 0,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "destination": 1725808098,
+      "creative_mode": true
     }
   ],
   "npcs": [
@@ -708,5 +759,37 @@
       }
     }
   ],
-  "simple_entities": []
+  "simple_entities": [],
+  "animated_entities": [
+    {
+      "body": {
+        "id": 1725808650,
+        "frame": {
+          "x": 95,
+          "y": 76,
+          "w": 1,
+          "h": 1
+        },
+        "offset": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "direction": 4,
+        "current_speed": 0.0,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "z_index": 200,
+        "dialogues": {
+          "options": []
+        }
+      },
+      "sprite": {
+        "sheet_id": 1012,
+        "index": 0,
+        "width": 1,
+        "height": 1,
+        "number_of_frames": 8
+      }
+    }
+  ]
 }

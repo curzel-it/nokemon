@@ -61,8 +61,10 @@ impl Rect {
         }
     }
     
-    pub fn contains_or_touches_point(&self, x: i32, y: i32) -> bool {
-        self.x <= x && x <= self.x + self.w && self.y <= y && y <= self.y + self.h
+    pub fn contains_or_touches_tile(&self, x: i32, y: i32) -> bool {
+        let max_x = self.x + self.w;
+        let max_y = self.y + self.h;
+        self.x <= x && x < max_x && self.y <= y && y < max_y
     }
 }
 

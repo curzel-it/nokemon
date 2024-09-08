@@ -41,7 +41,7 @@ impl<Item: MenuItem> Menu<Item> {
             animator: Animator::new(),
             on_selection,
             uses_backdrop: true,
-            visible_item_count: 3,
+            visible_item_count: 5,
             scroll_offset: 0, 
         }
     }

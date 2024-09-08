@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::TILE_SIZE, entities::{building::BuildingType, household_objects::HouseholdObject, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::TILE_SIZE, entities::{pickable_objects::PickableObject, building::BuildingType, household_objects::HouseholdObject, npc::NpcType}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
@@ -9,6 +9,7 @@ pub enum Stockable {
     Building(BuildingType),   
     Npc(NpcType), 
     HouseholdObject(HouseholdObject),
+    PickableObject(PickableObject),
 }
 
 impl Stockable {
@@ -53,6 +54,9 @@ impl Stockable {
                 HouseholdObject::SeatPink => (3, 7),
                 HouseholdObject::Table => (3, 8),
                 HouseholdObject::Bed => (3, 9),
+            },
+            Stockable::PickableObject(pickable_object) => match pickable_object {
+                PickableObject::Key => (5, 1),
             },
         }
     }

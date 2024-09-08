@@ -1,6 +1,6 @@
-use crate::{constants::SPRITE_SHEET_HOUSEHOLD_OBJECTS, game_engine::entity_body::EmbodiedEntity, utils::rect::Rect};
+use crate::{constants::SPRITE_SHEET_HOUSEHOLD_OBJECTS, game_engine::{entity::{Entity, EntityConvertible}, entity_body::EmbodiedEntity}, utils::rect::Rect};
 
-use super::simple::SimpleEntity;
+use super::simple_entity::SimpleEntity;
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum HouseholdObject {
@@ -14,8 +14,8 @@ pub enum HouseholdObject {
     Bed,
 }
 
-impl HouseholdObject {
-    pub fn make_entity(&self) -> SimpleEntity {
+impl EntityConvertible for HouseholdObject {
+    fn make_entity(&self) -> Box<dyn Entity> {
         let is_rigid = self.is_rigid();
         let frame = self.texture_source_rect();
         
@@ -26,9 +26,11 @@ impl HouseholdObject {
             frame
         );
         entity.body_mut().z_index = self.z_index();
-        entity
+        Box::new(entity)
     }
+}
 
+impl HouseholdObject {
     fn z_index(&self) -> i32 {
         match self {
             HouseholdObject::StairsUp => 1000,

@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{pickable_objects::{self, PickableObject}, building::BuildingType, household_objects::HouseholdObject, npc::{Npc, NpcType}, teleporter::Teleporter}, game_engine::{entity::EntityConvertible, entity_body::EmbodiedEntity, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -208,15 +208,16 @@ impl MapEditor {
             }
             Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
             Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
-            Stockable::HouseholdObject(household_object) => self.place_household_object(camera_vieport, frame, household_object),
+            Stockable::HouseholdObject(household_object) => self.place_convertible(camera_vieport, frame, household_object),
+            Stockable::PickableObject(pickable_object) => self.place_convertible(camera_vieport, frame, pickable_object),
         }
     }
 
-    fn place_household_object(&self, camera_vieport: &Rect, frame: &Rect, object_type: HouseholdObject) -> Vec<WorldStateUpdate> {
-        let mut building = object_type.make_entity();
-        building.body_mut().frame.x = camera_vieport.x + frame.x;
-        building.body_mut().frame.y = camera_vieport.y + frame.y;
-        let update = WorldStateUpdate::AddEntity(Box::new(building));
+    fn place_convertible<T: EntityConvertible>(&self, camera_vieport: &Rect, frame: &Rect, object_type: T) -> Vec<WorldStateUpdate> {
+        let mut entity = object_type.make_entity();
+        entity.body_mut().frame.x = camera_vieport.x + frame.x;
+        entity.body_mut().frame.y = camera_vieport.y + frame.y;
+        let update = WorldStateUpdate::AddEntity(entity);
         vec![update]
     }
 
@@ -288,6 +289,7 @@ impl MapEditor {
             Stockable::HouseholdObject(HouseholdObject::SeatPink),
             Stockable::HouseholdObject(HouseholdObject::Table),
             Stockable::HouseholdObject(HouseholdObject::Bed),
+            Stockable::PickableObject(PickableObject::Key),
         ]
     }
 }

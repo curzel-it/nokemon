@@ -36,3 +36,7 @@ impl Default for EntityProps {
         }
     }
 }
+
+pub trait EntityConvertible {
+    fn make_entity(&self) -> Box<dyn Entity>;
+}
