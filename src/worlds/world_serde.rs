@@ -2,7 +2,7 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::{concrete_entity::{ConcreteEntity, EntityType}, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::{entity::{Entity, Species}, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -88,14 +88,14 @@ struct WorldData {
     id: u32,
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
-    entities: Vec<ConcreteEntity>
+    entities: Vec<Entity>
 }
 
 impl Serialize for World {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {       
         let borrowed_entities = self.entities.borrow();
-        let entities: Vec<&ConcreteEntity> = borrowed_entities.iter()
-            .filter(|e| e.species != EntityType::Hero)
+        let entities: Vec<&Entity> = borrowed_entities.iter()
+            .filter(|e| e.species != Species::Hero)
             .collect();
 
         let mut state = serializer.serialize_struct("World", 4)?;

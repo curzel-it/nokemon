@@ -2,13 +2,13 @@ use std::cmp::Ordering;
 
 use raylib::prelude::*;
 
-use crate::{constants::TILE_SIZE, game_engine::{concrete_entity::ConcreteEntity, engine::GameEngine, world::World}};
+use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, engine::GameEngine, world::World}};
 
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;
     let entities_map = world.entities.borrow();    
     
-    let mut entities: Vec<&ConcreteEntity> = visible_entities.iter()
+    let mut entities: Vec<&Entity> = visible_entities.iter()
         .map(|(index, _)| &entities_map[*index])
         .collect();
     
@@ -33,7 +33,7 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
     }
 }
 
-fn draw_item(d: &mut RaylibDrawHandle, item: &ConcreteEntity, engine: &GameEngine) {
+fn draw_item(d: &mut RaylibDrawHandle, item: &Entity, engine: &GameEngine) {
     let sprite_key = item.sprite_sheet();
     let scale = engine.rendering_scale();
     let tile_scale = TILE_SIZE * scale;

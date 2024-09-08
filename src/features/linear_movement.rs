@@ -1,8 +1,8 @@
-use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{concrete_entity::ConcreteEntity, world::World}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{BASE_ENTITY_SPEED, TILE_SIZE}, game_engine::{entity::Entity, world::World}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::hitmap::Hitmap;
 
-impl ConcreteEntity {
+impl Entity {
     pub fn move_linearly(&mut self, world: &World, time_since_last_update: f32) { 
         if self.current_speed == 0.0 || matches!(self.direction, Direction::Unknown) {
             return

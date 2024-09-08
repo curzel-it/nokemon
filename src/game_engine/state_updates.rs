@@ -1,9 +1,9 @@
 use crate::{dialogues::models::Dialogue, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
-use super::concrete_entity::{ConcreteEntity, EntityProps, NpcId};
+use super::entity::{Entity, EntityProps, NpcId};
 
 pub enum WorldStateUpdate {
-    AddEntity(ConcreteEntity),
+    AddEntity(Entity),
     RemoveEntity(u32),
     RemoveEntityAtCoordinates(usize, usize),
     CacheHeroProps(EntityProps),
@@ -25,13 +25,13 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::game_engine::{concrete_entity::EntityType, engine::GameEngine};
+    use crate::game_engine::{entity::Species, engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = EntityType::Hero.make_entity();
+        let hero = Species::Hero.make_entity();
         let (hero_index, _) = world.add_entity(hero);
 
         let mut entities = world.entities.borrow_mut();
@@ -45,7 +45,7 @@ mod tests {
     fn entity_can_relay_engine_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = EntityType::Hero.make_entity();
+        let hero = Species::Hero.make_entity();
         world.add_entity(hero);
 
         let updates = world.update(60.0);

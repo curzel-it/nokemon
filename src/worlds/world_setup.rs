@@ -1,10 +1,10 @@
-use crate::{game_engine::{concrete_entity::EntityType, world::World}, utils::directions::Direction};
+use crate::{game_engine::{entity::Species, world::World}, utils::directions::Direction};
 
 impl World {
     pub fn setup(&mut self, source: &u32, hero_direction: &Direction) {
         self.compute_hitmap();
 
-        let mut entity = EntityType::Hero.make_entity();
+        let mut entity = Species::Hero.make_entity();
         if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
             let (offset_x, offset_y): (i32, i32) = match hero_direction {
                 Direction::Up => (0, -2),

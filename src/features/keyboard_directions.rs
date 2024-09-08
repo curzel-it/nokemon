@@ -1,6 +1,6 @@
-use crate::{constants::STEP_INPUT_THRESHOLD, game_engine::concrete_entity::ConcreteEntity, utils::directions::Direction};
+use crate::{constants::STEP_INPUT_THRESHOLD, game_engine::entity::Entity, utils::directions::Direction};
 
-impl ConcreteEntity {
+impl Entity {
     pub fn update_direction_for_current_keys(&mut self, new_direction: Direction) {
         let current_direction = self.direction;
 

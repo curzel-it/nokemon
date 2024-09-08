@@ -5,7 +5,7 @@ use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SH
 use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
-pub enum EntityType {
+pub enum Species {
     Hero,
     Building(BuildingType),   
     Npc(NpcType), 
@@ -64,9 +64,9 @@ impl Default for EntityProps {
     }
 }
 
-impl EntityType {
-    pub fn make_entity(&self) -> ConcreteEntity {
-        ConcreteEntity {
+impl Species {
+    pub fn make_entity(&self) -> Entity {
+        Entity {
             id: self.next_entity_id(),
             frame: self.texture_source_rect(false),  
             species: self.clone(),  
@@ -85,13 +85,13 @@ impl EntityType {
 
     fn next_entity_id(&self) -> u32 {
         match self {
-            EntityType::Hero => HERO_ENTITY_ID,
+            Species::Hero => HERO_ENTITY_ID,
             _ => get_next_id()
         }
     }
 }
 
-impl EntityType {
+impl Species {
     fn make_sprite(&self, creative_mode: bool) -> AnimatedSprite {
         AnimatedSprite::new(
             self.sprite_sheet(), 
@@ -102,16 +102,16 @@ impl EntityType {
     
     fn default_name(&self) -> String {
         match self {
-            EntityType::Hero => "".to_string(),
-            EntityType::Npc(item) => match item {
+            Species::Hero => "".to_string(),
+            Species::Npc(item) => match item {
                 NpcType::OldMan => "npc.name.old_man".localized(),
                 NpcType::OldWoman => "npc.name.old_woman".localized(),
             }
-            EntityType::Building(item) => match item {
+            Species::Building(item) => match item {
                 BuildingType::House(_) => "building.name.house".localized(),
                 BuildingType::HouseTwoFloors(_) => "building.name.house_two_floors".localized()
             }
-            EntityType::HouseholdObject(item) => match item {
+            Species::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => "objects.name.stairs_up".localized(),
                 HouseholdObject::StairsDown => "objects.name.stairs_down".localized(),
                 HouseholdObject::SeatBrown => "objects.name.seat_brown".localized(),
@@ -121,19 +121,19 @@ impl EntityType {
                 HouseholdObject::Table => "objects.name.table".localized(),
                 HouseholdObject::Bed => "objects.name.bed".localized(),
             }
-            EntityType::PickableObject(item) => match item {
+            Species::PickableObject(item) => match item {
                 PickableObject::Key => "objects.name.key".localized(),
             },
-            EntityType::Teleporter => "teleporter.name".localized(),
+            Species::Teleporter => "teleporter.name".localized(),
         }        
     }
 
     fn z_index(&self) -> i32 {
         match self {
-            EntityType::Hero => 150,
-            EntityType::Npc(_) => 0,
-            EntityType::Building(_) => 0,
-            EntityType::HouseholdObject(item_type) => match item_type {
+            Species::Hero => 150,
+            Species::Npc(_) => 0,
+            Species::Building(_) => 0,
+            Species::HouseholdObject(item_type) => match item_type {
                 HouseholdObject::StairsUp => 1000,
                 HouseholdObject::StairsDown => 1000,
                 HouseholdObject::SeatBrown => 100,
@@ -143,28 +143,28 @@ impl EntityType {
                 HouseholdObject::Table => 200,
                 HouseholdObject::Bed => 200,
             }
-            EntityType::PickableObject(_) => 200,
-            EntityType::Teleporter => 200,
+            Species::PickableObject(_) => 200,
+            Species::Teleporter => 200,
         }        
     }
     
     pub fn base_speed(&self) -> f32 {
         match self {
-            EntityType::Hero => 3.0,
-            EntityType::Npc(_) => 2.0,
-            EntityType::Building(_) => 2.0,
-            EntityType::HouseholdObject(_) => 0.0,
-            EntityType::PickableObject(_) => 0.0,
-            EntityType::Teleporter => 0.0,
+            Species::Hero => 3.0,
+            Species::Npc(_) => 2.0,
+            Species::Building(_) => 2.0,
+            Species::HouseholdObject(_) => 0.0,
+            Species::PickableObject(_) => 0.0,
+            Species::Teleporter => 0.0,
         }
     }
 
     fn is_rigid(&self) -> bool {
         match self {
-            EntityType::Hero => true,
-            EntityType::Building(_) => true,
-            EntityType::Npc(_) => true,
-            EntityType::HouseholdObject(item) => match item {
+            Species::Hero => true,
+            Species::Building(_) => true,
+            Species::Npc(_) => true,
+            Species::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => true,
                 HouseholdObject::StairsDown => true,
                 HouseholdObject::SeatBrown => false,
@@ -174,36 +174,36 @@ impl EntityType {
                 HouseholdObject::Table => true,
                 HouseholdObject::Bed => true,
             },
-            EntityType::PickableObject(pickable_object) => match pickable_object {
+            Species::PickableObject(pickable_object) => match pickable_object {
                 PickableObject::Key => false,
             },
-            EntityType::Teleporter => false,
+            Species::Teleporter => false,
         }
     }
 
     fn sprite_sheet(&self) -> u32 {
         match self {
-            EntityType::Hero => SPRITE_SHEET_HUMANOIDS,
-            EntityType::Building(_) => SPRITE_SHEET_BUILDINGS,
-            EntityType::Npc(_) => SPRITE_SHEET_HUMANOIDS,
-            EntityType::HouseholdObject(_) => SPRITE_SHEET_HOUSEHOLD_OBJECTS,
-            EntityType::PickableObject(_) => SPRITE_SHEET_ANIMATED_OBJECTS,
-            EntityType::Teleporter => SPRITE_SHEET_TELEPORTER,
+            Species::Hero => SPRITE_SHEET_HUMANOIDS,
+            Species::Building(_) => SPRITE_SHEET_BUILDINGS,
+            Species::Npc(_) => SPRITE_SHEET_HUMANOIDS,
+            Species::HouseholdObject(_) => SPRITE_SHEET_HOUSEHOLD_OBJECTS,
+            Species::PickableObject(_) => SPRITE_SHEET_ANIMATED_OBJECTS,
+            Species::Teleporter => SPRITE_SHEET_TELEPORTER,
         }
     }
 
     fn texture_source_rect(&self, creative_mode: bool) -> Rect {
         let (x, y, w, h) = match self {
-            EntityType::Hero => (12, 0, 1, 2),
-            EntityType::Building(building_type) => match building_type {
+            Species::Hero => (12, 0, 1, 2),
+            Species::Building(building_type) => match building_type {
                 BuildingType::House(variant) => (0, 5 * variant + 1, 5, 4),
                 BuildingType::HouseTwoFloors(variant) => (5, 5 * variant, 5, 5),
             },
-            EntityType::Npc(npc_type) => match npc_type {
+            Species::Npc(npc_type) => match npc_type {
                 NpcType::OldMan => (4, 0, 1, 2),
                 NpcType::OldWoman => (8, 0, 1, 2),
             },
-            EntityType::HouseholdObject(item) => match item {
+            Species::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => (1, 0, 1, 2),
                 HouseholdObject::StairsDown => (2, 0, 1, 2),
                 HouseholdObject::SeatBrown => (3, 0, 1, 1),
@@ -213,29 +213,29 @@ impl EntityType {
                 HouseholdObject::Table => (4, 0, 2, 2),
                 HouseholdObject::Bed => (0, 2, 1, 2),
             },
-            EntityType::PickableObject(pickable_object) => match pickable_object {
+            Species::PickableObject(pickable_object) => match pickable_object {
                 PickableObject::Key => (0, 0, 1, 1),
             },
-            EntityType::Teleporter => (0, if creative_mode { 0 } else { 1 }, 1, 1),
+            Species::Teleporter => (0, if creative_mode { 0 } else { 1 }, 1, 1),
         };
         Rect::new(x, y, w, h)
     }
 
     fn number_of_frames(&self) -> i32 {
         match self {
-            EntityType::Hero => 4,
-            EntityType::Building(_) => 1,
-            EntityType::Npc(_) => 4,
-            EntityType::HouseholdObject(_) => 1,
-            EntityType::PickableObject(pickable_object) => match pickable_object {
+            Species::Hero => 4,
+            Species::Building(_) => 1,
+            Species::Npc(_) => 4,
+            Species::HouseholdObject(_) => 1,
+            Species::PickableObject(pickable_object) => match pickable_object {
                 PickableObject::Key => 8,
             },
-            EntityType::Teleporter => 1,
+            Species::Teleporter => 1,
         }
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_sprite_for_current_direction(&mut self) {
         self.sprite.frame.y = match (self.direction, self.current_speed != 0.0) {
             (Direction::Up, true) => 0,
@@ -252,19 +252,19 @@ impl ConcreteEntity {
     }
 }
 
-impl EntityType {
+impl Species {
     pub fn inventory_texture_offsets(&self) -> (i32, i32) {
         match self {
-            EntityType::Hero => (0, 0),
-            EntityType::Building(building_type) => match building_type {
+            Species::Hero => (0, 0),
+            Species::Building(building_type) => match building_type {
                 BuildingType::House(variant) => (4, variant * 2 + 1),
                 BuildingType::HouseTwoFloors(variant) => (4, variant * 2 + 2),
             },
-            EntityType::Npc(npc_type) => match npc_type {
+            Species::Npc(npc_type) => match npc_type {
                 NpcType::OldMan => (2, 2),
                 NpcType::OldWoman => (2, 3),
             },
-            EntityType::HouseholdObject(item) => match item {
+            Species::HouseholdObject(item) => match item {
                 HouseholdObject::StairsUp => (3, 1),
                 HouseholdObject::StairsDown => (3, 2),
                 HouseholdObject::SeatBrown => (3, 3),
@@ -274,20 +274,20 @@ impl EntityType {
                 HouseholdObject::Table => (3, 7),
                 HouseholdObject::Bed => (3, 8),
             },
-            EntityType::PickableObject(pickable_object) => match pickable_object {
+            Species::PickableObject(pickable_object) => match pickable_object {
                 PickableObject::Key => (5, 1),
             },
-            EntityType::Teleporter => (0, 0),
+            Species::Teleporter => (0, 0),
         }
     }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ConcreteEntity {
+pub struct Entity {
     pub id: u32,
     pub frame: Rect,  
     pub name: String,  
-    pub species: EntityType,  
+    pub species: Species,  
     pub offset: Vector2d,
     pub direction: Direction,
     pub current_speed: f32,
@@ -299,15 +299,15 @@ pub struct ConcreteEntity {
     pub destination: u32,
 }
 
-impl ConcreteEntity {
+impl Entity {
     pub fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {      
         let updates = match self.species {
-            EntityType::Hero => self.update_hero(world, time_since_last_update),
-            EntityType::Npc(_) => self.update_npc(world, time_since_last_update),
-            EntityType::Building(_) => self.update_generic(world, time_since_last_update),
-            EntityType::HouseholdObject(_) => self.update_generic(world, time_since_last_update),
-            EntityType::PickableObject(_) => self.update_pickable_object(world, time_since_last_update),
-            EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
+            Species::Hero => self.update_hero(world, time_since_last_update),
+            Species::Npc(_) => self.update_npc(world, time_since_last_update),
+            Species::Building(_) => self.update_generic(world, time_since_last_update),
+            Species::HouseholdObject(_) => self.update_generic(world, time_since_last_update),
+            Species::PickableObject(_) => self.update_pickable_object(world, time_since_last_update),
+            Species::Teleporter => self.update_teleporter(world, time_since_last_update),
         };
         
         self.time_immobilized -= time_since_last_update;
@@ -352,7 +352,7 @@ impl ConcreteEntity {
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_hero(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         
@@ -395,7 +395,7 @@ impl ConcreteEntity {
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_npc(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
         self.update_sprite_for_current_direction();
         
@@ -422,7 +422,7 @@ impl ConcreteEntity {
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_generic(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
             return vec![
@@ -437,13 +437,13 @@ impl ConcreteEntity {
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_pickable_object(&mut self, _: &World, _: f32) -> Vec<WorldStateUpdate> {        
         vec![]
     }
 }
 
-impl ConcreteEntity {
+impl Entity {
     fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {      
         if self.should_teleport(world) {
             vec![self.engine_update_push_world()]

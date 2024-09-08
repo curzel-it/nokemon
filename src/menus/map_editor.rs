@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, game_engine::{concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject}, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, game_engine::{entity::{BuildingType, Species, HouseholdObject, NpcType, PickableObject}, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -159,7 +159,7 @@ impl MapEditor {
         } else {
             destination_id
         };
-        let mut teleporter = EntityType::Teleporter.make_entity();
+        let mut teleporter = Species::Teleporter.make_entity();
         teleporter.destination = actual_destination_id;
         teleporter.frame.x = camera_vieport.x + frame.x;
         teleporter.frame.y = camera_vieport.y + frame.y;
@@ -208,13 +208,13 @@ impl MapEditor {
             }
             Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
             Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
-            Stockable::HouseholdObject(item) => self.place_convertible(camera_vieport, frame, EntityType::HouseholdObject(item)),
-            Stockable::PickableObject(item) => self.place_convertible(camera_vieport, frame, EntityType::PickableObject(item)),
+            Stockable::HouseholdObject(item) => self.place_convertible(camera_vieport, frame, Species::HouseholdObject(item)),
+            Stockable::PickableObject(item) => self.place_convertible(camera_vieport, frame, Species::PickableObject(item)),
         }
     }
 
-    fn place_convertible(&self, camera_vieport: &Rect, frame: &Rect, entity_type: EntityType) -> Vec<WorldStateUpdate> {
-        let mut entity = entity_type.make_entity();
+    fn place_convertible(&self, camera_vieport: &Rect, frame: &Rect, species: Species) -> Vec<WorldStateUpdate> {
+        let mut entity = species.make_entity();
         entity.frame.x = camera_vieport.x + frame.x;
         entity.frame.y = camera_vieport.y + frame.y;
         let update = WorldStateUpdate::AddEntity(entity);
@@ -232,7 +232,7 @@ impl MapEditor {
     }
 
     fn place_npc(&self, camera_vieport: &Rect, frame: &Rect, npc_type: NpcType) -> Vec<WorldStateUpdate> {
-        let mut npc = EntityType::Npc(npc_type).make_entity();
+        let mut npc = Species::Npc(npc_type).make_entity();
         npc.frame.x = camera_vieport.x + frame.x;
         npc.frame.y = camera_vieport.y + frame.y - 1;
         let update = WorldStateUpdate::AddEntity(npc);

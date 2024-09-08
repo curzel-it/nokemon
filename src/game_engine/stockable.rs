@@ -2,7 +2,7 @@ use raylib::color::Color;
 
 use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
-use super::concrete_entity::{BuildingType, EntityType, HouseholdObject, NpcType, PickableObject};
+use super::entity::{BuildingType, Species, HouseholdObject, NpcType, PickableObject};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
@@ -34,10 +34,10 @@ impl Stockable {
                 Construction::DarkRock => (1, 2),
                 Construction::LightWall => (1, 3),
             },
-            Stockable::Building(item) => EntityType::Building(*item).inventory_texture_offsets(),
-            Stockable::Npc(item) => EntityType::Npc(*item).inventory_texture_offsets(),
-            Stockable::HouseholdObject(item) => EntityType::HouseholdObject(*item).inventory_texture_offsets(),
-            Stockable::PickableObject(item) => EntityType::PickableObject(*item).inventory_texture_offsets(),
+            Stockable::Building(item) => Species::Building(*item).inventory_texture_offsets(),
+            Stockable::Npc(item) => Species::Npc(*item).inventory_texture_offsets(),
+            Stockable::HouseholdObject(item) => Species::HouseholdObject(*item).inventory_texture_offsets(),
+            Stockable::PickableObject(item) => Species::PickableObject(*item).inventory_texture_offsets(),
         };
         Rect::new(x, y, 1, 1)
     }

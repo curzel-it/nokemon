@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{game_engine::{concrete_entity::HouseholdObject, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
+use crate::{game_engine::{entity::HouseholdObject, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
 
 #[derive(Debug)]
 pub struct Inventory {
