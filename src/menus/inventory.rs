@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{entities::household_objects::HouseholdObject, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
 
 #[derive(Debug)]
 pub struct Inventory {
@@ -16,12 +16,7 @@ enum InventoryState {
 impl Inventory {
     pub fn new() -> Self {
         Self {
-            stock: vec![
-                Stockable::HouseholdObject(HouseholdObject::SeatBrown),
-                Stockable::HouseholdObject(HouseholdObject::SeatGreen),
-                Stockable::HouseholdObject(HouseholdObject::SeatOrange),
-                Stockable::HouseholdObject(HouseholdObject::SeatPink),
-            ],
+            stock: vec![],
             state: InventoryState::SelectingItem(0),
             columns: 8,
         }

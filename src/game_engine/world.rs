@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::species::Species, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::Species}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
 use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -129,7 +129,7 @@ impl World {
 
     pub fn find_teleporter_for_destination(&self, destination: &u32) -> Option<Rect> {
         self.entities.borrow().iter()
-            .find(|t| t.species == Species::Teleporter && t.destination == *destination)
+            .find(|t| t.species.id == SPECIES_TELEPORTER && t.destination == *destination)
             .map(|t| t.frame)
     }
 
@@ -144,7 +144,7 @@ impl World {
         self.entities.borrow().iter()
             .enumerate()
             .find(|(_, entity)| {
-                entity.species != Species::Hero && entity.frame.contains_or_touches_tile(col as i32, row as i32)
+                entity.species.id != SPECIES_HERO && entity.frame.contains_or_touches_tile(col as i32, row as i32)
             })
             .map(|(index, e)| (index, e.id))
     }

@@ -1,22 +1,22 @@
-use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{buildings::BuildingType, household_objects::HouseholdObject, species::Species}, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
+use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{known_species::{SPECIES_SEAT_GREEN, SPECIES_TABLE, SPECIES_TELEPORTER}, species::{make_entity_by_species, Species, SpeciesConvertible}}, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
-pub fn new_house_single_floor(variant: i32, source_world_id: u32, x: i32, y: i32) -> Vec<Entity> {
-    let mut building = Species::Building(BuildingType::House(variant)).make_entity();
+pub fn new_house_single_floor(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<Entity> {
+    let mut building = species.make_entity();
     building.frame.x = x;
     building.frame.y = y;
 
     let first_floor_id = get_next_id();
-    let mut door = Species::Teleporter.make_entity();
+    let mut door = make_entity_by_species(SPECIES_TELEPORTER);
     door.destination = first_floor_id;
     door.frame.x = x + (building.frame.w as f32 / 2.0).ceil() as i32;
     door.frame.y = y + 3;
 
-    let mut door_back1 = Species::Teleporter.make_entity();
+    let mut door_back1 = make_entity_by_species(SPECIES_TELEPORTER);
     door_back1.destination = source_world_id;
     door_back1.frame.x = (HOUSE_INTERIOR_COLUMNS as f32 / 2.0).ceil() as i32;
     door_back1.frame.y = (HOUSE_INTERIOR_ROWS + 2) as i32;
 
-    let mut door_back2 = Species::Teleporter.make_entity();
+    let mut door_back2 = make_entity_by_species(SPECIES_TELEPORTER);
     door_back2.destination = source_world_id;
     door_back2.frame.x = door_back1.frame.x + 1;
     door_back2.frame.y = door_back1.frame.y;
@@ -39,23 +39,23 @@ pub fn new_house_single_floor(variant: i32, source_world_id: u32, x: i32, y: i32
         first_floor.constructions_tiles.update_tile(row, 0, Construction::LightWall);
     }
 
-    let mut table = Species::HouseholdObject(HouseholdObject::Table).make_entity();
+    let mut table = make_entity_by_species(SPECIES_TABLE);
     table.frame.x = 1;
     table.frame.y = 4;
 
-    let mut seat1 = Species::HouseholdObject(HouseholdObject::SeatGreen).make_entity();
+    let mut seat1 = make_entity_by_species(SPECIES_SEAT_GREEN);
     seat1.frame.x = 1;
     seat1.frame.y = 4;
 
-    let mut seat2 = Species::HouseholdObject(HouseholdObject::SeatGreen).make_entity();
+    let mut seat2 = make_entity_by_species(SPECIES_SEAT_GREEN);
     seat2.frame.x = 2;
     seat2.frame.y = 4;
 
-    let mut seat3 = Species::HouseholdObject(HouseholdObject::SeatGreen).make_entity();
+    let mut seat3 = make_entity_by_species(SPECIES_SEAT_GREEN);
     seat3.frame.x = 1;
     seat3.frame.y = 6;
 
-    let mut seat4 = Species::HouseholdObject(HouseholdObject::SeatGreen).make_entity();
+    let mut seat4 = make_entity_by_species(SPECIES_SEAT_GREEN);
     seat4.frame.x = 2;
     seat4.frame.y = 6;
 

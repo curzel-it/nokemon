@@ -1,5 +1,6 @@
 [
     {
+        "id": 1001,
         "name": "Hero",
         "entity_type": "Hero",
         "variant": 0,
@@ -13,13 +14,14 @@
         "sprite_frame": {
             "x": 12,
             "y": 0,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4
     },
     {
+        "id": 1002,
         "name": "building.name.house",
         "entity_type": "Building",
         "variant": 0,
@@ -33,13 +35,14 @@
         "sprite_frame": {
             "x": 0,
             "y": 1,
-            "width": 5,
-            "height": 4
+            "w": 5,
+            "h": 4
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1003,
         "name": "building.name.house",
         "entity_type": "Building",
         "variant": 1,
@@ -53,13 +56,14 @@
         "sprite_frame": {
             "x": 0,
             "y": 6,
-            "width": 5,
-            "height": 4
+            "w": 5,
+            "h": 4
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1004,
         "name": "building.name.house",
         "entity_type": "Building",
         "variant": 2,
@@ -73,13 +77,14 @@
         "sprite_frame": {
             "x": 0,
             "y": 11,
-            "width": 5,
-            "height": 4
+            "w": 5,
+            "h": 4
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1005,
         "name": "building.name.house_two_floors",
         "entity_type": "Building",
         "variant": 0,
@@ -93,13 +98,14 @@
         "sprite_frame": {
             "x": 5,
             "y": 0,
-            "width": 5,
-            "height": 5
+            "w": 5,
+            "h": 5
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1006,
         "name": "building.name.house_two_floors",
         "entity_type": "Building",
         "variant": 1,
@@ -113,13 +119,14 @@
         "sprite_frame": {
             "x": 5,
             "y": 5,
-            "width": 5,
-            "height": 5
+            "w": 5,
+            "h": 5
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1007,
         "name": "building.name.house_two_floors",
         "entity_type": "Building",
         "variant": 2,
@@ -133,14 +140,16 @@
         "sprite_frame": {
             "x": 5,
             "y": 10,
-            "width": 5,
-            "height": 5
+            "w": 5,
+            "h": 5
         },
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1008,
         "name": "npc.name.old_man",
+        "entity_type": "Npc",
         "variant": 0,
         "z_index": 0,
         "base_speed": 2.0,
@@ -152,14 +161,16 @@
         "sprite_frame": {
             "x": 4,
             "y": 0,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4
     },
     {
+        "id": 1009,
         "name": "npc.name.old_woman",
+        "entity_type": "Npc",
         "variant": 0,
         "z_index": 0,
         "base_speed": 2.0,
@@ -171,14 +182,16 @@
         "sprite_frame": {
             "x": 8,
             "y": 0,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4
     },
     {
+        "id": 1010,
         "name": "objects.name.stairs_up",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 1000,
         "base_speed": 0.0,
@@ -190,14 +203,16 @@
         "sprite_frame": {
             "x": 1,
             "y": 0,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1011,
         "name": "objects.name.stairs_down",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 1000,
         "base_speed": 0.0,
@@ -209,14 +224,16 @@
         "sprite_frame": {
             "x": 2,
             "y": 0,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1012,
         "name": "objects.name.seat_brown",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 100,
         "base_speed": 0.0,
@@ -228,14 +245,16 @@
         "sprite_frame": {
             "x": 3,
             "y": 0,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1013,
         "name": "objects.name.seat_green",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 100,
         "base_speed": 0.0,
@@ -247,14 +266,16 @@
         "sprite_frame": {
             "x": 3,
             "y": 1,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1015,
         "name": "objects.name.seat_orange",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 100,
         "base_speed": 0.0,
@@ -266,14 +287,16 @@
         "sprite_frame": {
             "x": 3,
             "y": 2,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1014,
         "name": "objects.name.seat_pink",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 100,
         "base_speed": 0.0,
@@ -285,14 +308,16 @@
         "sprite_frame": {
             "x": 3,
             "y": 3,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1016,
         "name": "objects.name.table",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 200,
         "base_speed": 0.0,
@@ -304,14 +329,16 @@
         "sprite_frame": {
             "x": 4,
             "y": 0,
-            "width": 2,
-            "height": 2
+            "w": 2,
+            "h": 2
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1017,
         "name": "objects.name.bed",
+        "entity_type": "HouseholdObject",
         "variant": 0,
         "z_index": 200,
         "base_speed": 0.0,
@@ -323,14 +350,16 @@
         "sprite_frame": {
             "x": 0,
             "y": 2,
-            "width": 1,
-            "height": 2
+            "w": 1,
+            "h": 2
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
     },
     {
+        "id": 1018,
         "name": "objects.name.key",
+        "entity_type": "PickableObject",
         "variant": 0,
         "z_index": 200,
         "base_speed": 0.0,
@@ -342,14 +371,16 @@
         "sprite_frame": {
             "x": 0,
             "y": 0,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 8
     },
     {
+        "id": 1019,
         "name": "Teleporter",
+        "entity_type": "Teleporter",
         "variant": 0,
         "z_index": 200,
         "base_speed": 0.0,
@@ -361,8 +392,8 @@
         "sprite_frame": {
             "x": 0,
             "y": 1,
-            "width": 1,
-            "height": 1
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1008,
         "sprite_number_of_frames": 1

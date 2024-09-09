@@ -25,13 +25,13 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::{entities::species::Species, game_engine::engine::GameEngine};
+    use crate::{entities::{known_species::SPECIES_HERO, species::make_entity_by_species}, game_engine::engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = Species::Hero.make_entity();
+        let hero = make_entity_by_species(SPECIES_HERO);
         let (hero_index, _) = world.add_entity(hero);
 
         let mut entities = world.entities.borrow_mut();
@@ -45,7 +45,7 @@ mod tests {
     fn entity_can_relay_engine_state_updates() {
         let mut engine = GameEngine::new();
         let mut world = engine.start_headless();
-        let hero = Species::Hero.make_entity();
+        let hero = make_entity_by_species(SPECIES_HERO);
         world.add_entity(hero);
 
         let updates = world.update(60.0);

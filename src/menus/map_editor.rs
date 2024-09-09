@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, entities::{buildings::BuildingType, household_objects::HouseholdObject, npcs::NpcType, pickable_objects::PickableObject, species::Species}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::SPECIES_TELEPORTER, species::{make_entity_by_species, EntityType, Species, SpeciesConvertible, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -14,7 +14,7 @@ pub struct MapEditor {
     offset: usize, 
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 enum MapEditorState {
     SelectingItem(usize),
     SelectingWorld(usize),
@@ -44,7 +44,7 @@ impl MapEditor {
     }
 
     pub fn update(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
-        match self.state {
+        match self.state.clone() {
             MapEditorState::SelectingItem(selected_index) => {
                 self.update_item_selection(selected_index, camera_vieport, keyboard)
             },
@@ -80,7 +80,7 @@ impl MapEditor {
         if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
             self.state = MapEditorState::PlacingItem(
                 selected_index, 
-                self.stock[selected_index], 
+                self.stock[selected_index].clone(), 
                 self.initial_selection_frame(camera_vieport)
             ) 
         }
@@ -159,7 +159,7 @@ impl MapEditor {
         } else {
             destination_id
         };
-        let mut teleporter = Species::Teleporter.make_entity();
+        let mut teleporter = make_entity_by_species(SPECIES_TELEPORTER);
         teleporter.destination = actual_destination_id;
         teleporter.frame.x = camera_vieport.x + frame.x;
         teleporter.frame.y = camera_vieport.y + frame.y;
@@ -183,7 +183,7 @@ impl MapEditor {
             return vec![];
         }        
         let updated_frame = self.updated_frame(frame, keyboard);
-        self.state = MapEditorState::PlacingItem(selected_index, item, updated_frame);
+        self.state = MapEditorState::PlacingItem(selected_index, item.clone(), updated_frame);
         vec![]
     }
 
@@ -197,23 +197,24 @@ impl MapEditor {
         let col = (camera_vieport.x + frame.x) as usize;
 
         match item {
-            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
+            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome.clone())],
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => vec![
                     WorldStateUpdate::BiomeTileChange(row, col, Biome::Nothing),
                     WorldStateUpdate::ConstructionTileChange(row, col, Construction::Nothing),
                     WorldStateUpdate::RemoveEntityAtCoordinates(row, col),
                 ],
-                _ => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
+                _ => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction.clone())],
             }
-            Stockable::Building(building_type) => self.place_building(camera_vieport, frame, building_type),
-            Stockable::Npc(npc_type) => self.place_npc(camera_vieport, frame, npc_type),
-            Stockable::HouseholdObject(item) => self.place_convertible(camera_vieport, frame, Species::HouseholdObject(item)),
-            Stockable::PickableObject(item) => self.place_convertible(camera_vieport, frame, Species::PickableObject(item)),
+            Stockable::Entity(species) => match species.entity_type {
+                EntityType::Building => self.place_building(camera_vieport, frame, &species),
+                EntityType::Npc => self.place_convertible(camera_vieport, &frame.offset_y(-1), &species),
+                _ => self.place_convertible(camera_vieport, frame, &species)
+            }
         }
     }
 
-    fn place_convertible(&self, camera_vieport: &Rect, frame: &Rect, species: Species) -> Vec<WorldStateUpdate> {
+    fn place_convertible(&self, camera_vieport: &Rect, frame: &Rect, species: &Species) -> Vec<WorldStateUpdate> {
         let mut entity = species.make_entity();
         entity.frame.x = camera_vieport.x + frame.x;
         entity.frame.y = camera_vieport.y + frame.y;
@@ -221,22 +222,14 @@ impl MapEditor {
         vec![update]
     }
 
-    fn place_building(&self, camera_vieport: &Rect, frame: &Rect, building_type: BuildingType) -> Vec<WorldStateUpdate> {
+    fn place_building(&self, camera_vieport: &Rect, frame: &Rect, species: &Species) -> Vec<WorldStateUpdate> {
         let x = camera_vieport.x + frame.x;
         let y = camera_vieport.y + frame.y;
         
-        new_building(self.current_world_id, x, y, building_type)
+        new_building(self.current_world_id, x, y, species)
             .into_iter()
             .map(WorldStateUpdate::AddEntity)
             .collect()
-    }
-
-    fn place_npc(&self, camera_vieport: &Rect, frame: &Rect, npc_type: NpcType) -> Vec<WorldStateUpdate> {
-        let mut npc = Species::Npc(npc_type).make_entity();
-        npc.frame.x = camera_vieport.x + frame.x;
-        npc.frame.y = camera_vieport.y + frame.y - 1;
-        let update = WorldStateUpdate::AddEntity(npc);
-        vec![update]
     }
 
     fn updated_frame(&self, frame: &Rect, keyboard: &KeyboardEventsProvider) -> Rect {
@@ -260,7 +253,7 @@ impl MapEditor {
 
 impl MapEditor {
     fn all_possible_items() -> Vec<Stockable> {
-        vec![
+        let mut all = vec![
             Stockable::BiomeTile(Biome::Water),
             Stockable::BiomeTile(Biome::Desert),
             Stockable::BiomeTile(Biome::Grass),
@@ -269,28 +262,14 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::Snow),
             Stockable::BiomeTile(Biome::LightWood),
             Stockable::BiomeTile(Biome::DarkWood),
+            Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
-            Stockable::Building(BuildingType::House(0)),
-            Stockable::Building(BuildingType::HouseTwoFloors(0)),
-            Stockable::Building(BuildingType::House(1)),
-            Stockable::Building(BuildingType::HouseTwoFloors(1)),
-            Stockable::Building(BuildingType::House(2)),
-            Stockable::Building(BuildingType::HouseTwoFloors(2)),
-            Stockable::Npc(NpcType::OldMan),
-            Stockable::Npc(NpcType::OldWoman),
-            Stockable::HouseholdObject(HouseholdObject::StairsUp),
-            Stockable::HouseholdObject(HouseholdObject::StairsDown),
-            Stockable::HouseholdObject(HouseholdObject::SeatBrown),
-            Stockable::HouseholdObject(HouseholdObject::SeatGreen),
-            Stockable::HouseholdObject(HouseholdObject::SeatOrange),
-            Stockable::HouseholdObject(HouseholdObject::SeatPink),
-            Stockable::HouseholdObject(HouseholdObject::Table),
-            Stockable::HouseholdObject(HouseholdObject::Bed),
-            Stockable::ConstructionTile(Construction::Nothing),
-            Stockable::PickableObject(PickableObject::Key),
-        ]
+        ];
+        let mut species: Vec<Stockable> = ALL_SPECIES.iter().map(|s| Stockable::Entity(s.clone())).collect();
+        all.append(&mut species);
+        all
     }
 }
 

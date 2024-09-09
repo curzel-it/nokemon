@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
 use std::fs::File;
 use std::io::Read;
-use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH};
+use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES};
 use crate::dialogues::models::EntityDialogues;
 use crate::features::animated_sprite::AnimatedSprite;
 use crate::game_engine::entity::Entity;
@@ -14,11 +14,10 @@ use crate::utils::vector::Vector2d;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Species {
+    pub id: u32,
     pub name: String,
     pub entity_type: EntityType,
-    pub variant: i32,
     pub z_index: i32,
-    pub destination: u32,
     pub base_speed: f32,
     pub is_rigid: bool,
     pub inventory_texture_offset: (i32, i32),
@@ -37,6 +36,18 @@ pub enum EntityType {
     Teleporter,
 }
 
+pub trait SpeciesConvertible {
+    fn get_species_id(&self) -> u32;
+    
+    fn get_species(&self) -> Species {
+        species_by_id(self.get_species_id())
+    }
+
+    fn make_entity(&self) -> Entity {
+        self.get_species().make_entity()
+    }
+}
+
 impl Species {
     pub fn make_entity(&self) -> Entity {
         Entity {
@@ -52,7 +63,7 @@ impl Species {
             dialogues: EntityDialogues::empty(),
             time_immobilized: 0.0,
             name: self.name.localized(),
-            destination: self.destination,
+            destination: 0,
         }
     }
     
@@ -73,12 +84,33 @@ impl Species {
 }
 
 lazy_static! {
-    pub static ref SPECIES_LIST: Vec<Species> = {
+    pub static ref ALL_SPECIES: Vec<Species> = {
         let mut file = File::open(SPECIES_PATH).expect("Could not open species_data.json");
         let mut data = String::new();
         file.read_to_string(&mut data).expect("Could not read species_data.json");
         serde_json::from_str(&data).expect("Error parsing species_data.json")
     };
+}
+
+const SPECIES_NONE: Species = Species {
+    id: 0,
+    name: String::new(),
+    entity_type: EntityType::Npc,
+    z_index: 1000,
+    base_speed: 0.0,
+    is_rigid: false,
+    inventory_texture_offset: (0, 0),
+    sprite_frame: Rect::new(0, 0, 0, 0),
+    sprite_sheet_id: SPRITE_SHEET_BIOME_TILES,
+    sprite_number_of_frames: 1,
+};
+
+pub fn species_by_id(species_id: u32) -> Species {
+    ALL_SPECIES.iter().find(|s| s.id == species_id).cloned().unwrap_or(SPECIES_NONE)
+}
+
+pub fn make_entity_by_species(species_id: u32) -> Entity {
+    species_by_id(species_id).make_entity()
 }
 
 /*
