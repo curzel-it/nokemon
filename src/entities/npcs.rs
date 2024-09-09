@@ -2,8 +2,6 @@ use serde::{Deserialize, Serialize};
 
 use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
 
-use super::{known_species::{SPECIES_NPC_OLD_MAN, SPECIES_NPC_OLD_WOMAN}, species::SpeciesConvertible};
-
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NpcType {
     OldMan,
@@ -11,15 +9,6 @@ pub enum NpcType {
 }
 
 pub type NpcId = u32;
-
-impl SpeciesConvertible for NpcType {
-    fn get_species_id(&self) -> u32 {
-        match self {
-            NpcType::OldMan => SPECIES_NPC_OLD_MAN,
-            NpcType::OldWoman => SPECIES_NPC_OLD_WOMAN
-        }
-    }
-}
 
 impl Entity {
     pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  

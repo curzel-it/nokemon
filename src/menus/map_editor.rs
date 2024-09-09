@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::SPECIES_TELEPORTER, species::{make_entity_by_species, EntityType, Species, SpeciesConvertible, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::SPECIES_TELEPORTER, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -197,14 +197,14 @@ impl MapEditor {
         let col = (camera_vieport.x + frame.x) as usize;
 
         match item {
-            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome.clone())],
+            Stockable::BiomeTile(biome) => vec![WorldStateUpdate::BiomeTileChange(row, col, biome)],
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => vec![
                     WorldStateUpdate::BiomeTileChange(row, col, Biome::Nothing),
                     WorldStateUpdate::ConstructionTileChange(row, col, Construction::Nothing),
                     WorldStateUpdate::RemoveEntityAtCoordinates(row, col),
                 ],
-                _ => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction.clone())],
+                _ => vec![WorldStateUpdate::ConstructionTileChange(row, col, construction)],
             }
             Stockable::Entity(species) => match species.entity_type {
                 EntityType::Building => self.place_building(camera_vieport, frame, &species),

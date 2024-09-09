@@ -1,6 +1,6 @@
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER}, entities::{buildings::BuildingType, household_objects::HouseholdObject, npcs::NpcType, pickable_objects::PickableObject, species::Species}, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::ANIMATIONS_FPS, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug)]
 pub struct AnimatedSprite {
@@ -51,7 +51,7 @@ impl Entity {
 
 impl TimedContentProvider<i32> {
     pub fn frames(x: i32, n: i32, w: i32) -> Self {
-        let frames = (0..n).map(|i| x + i as i32 * w).collect();
+        let frames = (0..n).map(|i| x + i * w).collect();
         Self::new(frames, ANIMATIONS_FPS)
     }
 }

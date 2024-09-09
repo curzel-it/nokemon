@@ -36,18 +36,6 @@ pub enum EntityType {
     Teleporter,
 }
 
-pub trait SpeciesConvertible {
-    fn get_species_id(&self) -> u32;
-    
-    fn get_species(&self) -> Species {
-        species_by_id(self.get_species_id())
-    }
-
-    fn make_entity(&self) -> Entity {
-        self.get_species().make_entity()
-    }
-}
-
 impl Species {
     pub fn make_entity(&self) -> Entity {
         Entity {
@@ -68,7 +56,7 @@ impl Species {
         }
     }
     
-    fn make_sprite(&self, creative_mode: bool) -> AnimatedSprite {
+    fn make_sprite(&self, _: bool) -> AnimatedSprite {
         AnimatedSprite::new(
             self.sprite_sheet_id,
             self.sprite_frame,
