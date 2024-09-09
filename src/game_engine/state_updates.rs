@@ -1,6 +1,6 @@
-use crate::{dialogues::models::Dialogue, entities::npcs::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
-use super::entity::{Entity, EntityProps};
+use super::entity::{Entity, EntityId, EntityProps};
 
 pub enum WorldStateUpdate {
     AddEntity(Entity),
@@ -18,9 +18,10 @@ pub enum EngineStateUpdate {
     SwitchWorld(u32),
     SaveGame,
     Exit,
-    ShowEntityOptions(u32),
+    ShowEntityOptions(EntityId),
     ShowDialogue(NpcId, String, Dialogue), 
-    ShowNpcOptions(NpcId, String, Option<Dialogue>)
+    ShowNpcOptions(NpcId, String, Option<Dialogue>),
+    AddToInventory(SpeciesId),
 }
 
 #[cfg(test)]
@@ -48,6 +49,7 @@ mod tests {
         let hero = make_entity_by_species(SPECIES_HERO);
         world.add_entity(hero);
 
+        world.update(1.0);
         let updates = world.update(60.0);
 
         assert!(!updates.is_empty());

@@ -12,9 +12,11 @@ use crate::utils::ids::get_next_id;
 use crate::utils::rect::Rect;
 use crate::utils::vector::Vector2d;
 
+pub type SpeciesId = u32;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Species {
-    pub id: u32,
+    pub id: SpeciesId,
     pub name: String,
     pub entity_type: EntityType,
     pub z_index: i32,

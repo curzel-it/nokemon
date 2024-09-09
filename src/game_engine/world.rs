@@ -76,8 +76,6 @@ impl World {
         self.direction_based_on_current_keys = keyboard.direction_based_on_current_keys(self.cached_hero_props.direction);
         self.is_any_arrow_key_down = keyboard.is_any_arrow_key_down();
         self.has_confirmation_key_been_pressed = keyboard.has_confirmation_been_pressed;
-        self.visible_entities = self.compute_visible_entities(viewport);
-        self.hitmap = self.compute_hitmap();
 
         let mut state_updates: Vec<WorldStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();
@@ -86,12 +84,13 @@ impl World {
             let mut updates = entities[*index].update(self, time_since_last_update);
             state_updates.append(&mut updates);
         }
-
         self.biome_tiles.update(time_since_last_update);
-        // self.constructions_tiles.update(time_since_last_update);
 
         drop(entities);
-        self.apply_state_updates(state_updates)
+        let updates = self.apply_state_updates(state_updates);
+        self.visible_entities = self.compute_visible_entities(viewport);
+        self.hitmap = self.compute_hitmap();
+        updates
     } 
 
     pub fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) -> Vec<EngineStateUpdate> {

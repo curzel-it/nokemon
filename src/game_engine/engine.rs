@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu, npc_options::NpcOptionsMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
-use super::{keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
+use super::{inventory::add_to_inventory, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
 pub struct GameEngine {
     pub menu: GameMenu,
@@ -208,6 +208,7 @@ impl GameEngine {
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(*id),
+            EngineStateUpdate::AddToInventory(species_id) => add_to_inventory(*species_id),
         }
     }
 

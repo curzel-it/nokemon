@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::SPECIES_TELEPORTER, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -251,6 +251,63 @@ impl MapEditor {
     }
 }
 
+#[derive(Debug, Clone)]
+enum Stockable {
+    BiomeTile(Biome),
+    ConstructionTile(Construction),    
+    Entity(Species),
+}
+
+impl Stockable {
+    fn texture_source_rect(&self) -> Rect {
+        let (y, x) = match self {
+            Stockable::BiomeTile(biome) => match biome {
+                Biome::Nothing => (0, 0),
+                Biome::Water => (0, 1),
+                Biome::Desert => (0, 2),
+                Biome::Grass => (0, 3),
+                Biome::Rock => (0, 4),
+                Biome::Snow => (0, 5),
+                Biome::LightWood => (0, 6),
+                Biome::DarkWood => (0, 7),
+                Biome::DarkRock => (0, 8),
+            },
+            Stockable::ConstructionTile(construction) => match construction {
+                Construction::Nothing => (6, 1),
+                Construction::WoodenFence => (1, 1),
+                Construction::DarkRock => (1, 2),
+                Construction::LightWall => (1, 3),
+            },
+            Stockable::Entity(species) => species.inventory_texture_offset
+        };
+        Rect::new(x, y, 1, 1)
+    }
+}
+
+impl Stockable {
+    fn ui(&self, index: usize, selected_index: usize) -> View {
+        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
+
+        if index == selected_index {
+            zstack!(
+                Spacing::XS, 
+                Color::YELLOW,
+                texture!(
+                    SPRITE_SHEET_INVENTORY, 
+                    self.texture_source_rect(), 
+                    Vector2d::new(selected_size, selected_size)
+                )
+            )
+        } else {
+            texture!(
+                SPRITE_SHEET_INVENTORY, 
+                self.texture_source_rect(), 
+                Vector2d::new(1.5, 1.5)
+            )
+        }
+    }
+}
+
 impl MapEditor {
     fn all_possible_items() -> Vec<Stockable> {
         let mut all = vec![
@@ -267,7 +324,11 @@ impl MapEditor {
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
         ];
-        let mut species: Vec<Stockable> = ALL_SPECIES.iter().map(|s| Stockable::Entity(s.clone())).collect();
+        let mut species: Vec<Stockable> = ALL_SPECIES.iter()
+            .filter(|s| s.id != SPECIES_TELEPORTER)
+            .filter(|s| s.id != SPECIES_HERO)
+            .map(|s| Stockable::Entity(s.clone()))
+            .collect();
         all.append(&mut species);
         all
     }

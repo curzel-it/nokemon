@@ -43,11 +43,11 @@ impl DialogueMenu {
 
     pub fn show(&mut self, npc_id: u32, npc_name: &str, dialogue: &Dialogue) {
         if self.time_since_last_closed >= 0.5 {
-            self.show_now(npc_id, npc_name, dialogue);
+            self.show_now(npc_id, npc_name, dialogue, false);
         }
     }
 
-    fn show_now(&mut self, npc_id: u32, npc_name: &str, dialogue: &Dialogue) {
+    fn show_now(&mut self, npc_id: u32, npc_name: &str, dialogue: &Dialogue, skip_animation: bool) {
         self.npc_id = npc_id;
         self.npc_name = npc_name.to_string();
         self.dialogue = dialogue.clone();       
@@ -62,7 +62,11 @@ impl DialogueMenu {
             .map(|option| DialogueAnswerItem::Value(option.clone()))
             .collect();
 
-        self.menu.show();
+        if skip_animation {
+            self.menu.show_no_animation();
+        } else {
+            self.menu.show();
+        }        
     }
 
     pub fn update(
@@ -105,7 +109,7 @@ impl DialogueMenu {
                 self.dialogue = Dialogue::empty();
                 self.menu.close();
             } else {
-                self.show_now(self.npc_id, &self.npc_name.clone(), &next_dialogue);
+                self.show_now(self.npc_id, &self.npc_name.clone(), &next_dialogue, true);
             }
         }  else {
             self.dialogue = Dialogue::empty();

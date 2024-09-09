@@ -63,6 +63,12 @@ impl<Item: MenuItem> Menu<Item> {
         self.animator.animate(0.0, 1.0, MENU_OPEN_TIME)
     }
 
+    pub fn show_no_animation(&mut self) {
+        self.is_open = true;
+        self.animator.current_value = 1.0;
+        self.animator.is_active = false;
+    }
+
     pub fn is_open(&self) -> bool {
         self.is_open
     }

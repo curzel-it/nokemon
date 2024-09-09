@@ -128,6 +128,7 @@ impl GameMenu {
         if did_select_something {
             match self.menu.selected_item() {
                 GameMenuItem::Inventory => {
+                    self.inventory.setup();
                     self.state = MenuState::Inventory;
                 }
                 GameMenuItem::MapEditor => {

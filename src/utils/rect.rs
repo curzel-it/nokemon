@@ -51,7 +51,11 @@ impl Rect {
         self.offset(0, dy)
     }
 
-    pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {        
+    pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {
+        if self.x == other.x && self.y == other.y {
+            return true
+        }
+
         match direction {
             Direction::Up => self.y == other.y + other.h && self.x >= other.x && self.x < other.x + other.w,
             Direction::Right => self.x == other.x.max(1) - 1 && self.y > other.y && self.y < other.y + other.h,

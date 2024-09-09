@@ -1,9 +1,9 @@
 use raylib::color::Color;
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, stockable::Stockable}, lang::localizable::LocalizableText, text, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{inventory::{get_inventory, INVENTORY}, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, text, texture, ui::components::{scaffold_background_backdrop, GridSpacing, Spacing, TextStyle, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 #[derive(Debug)]
 pub struct Inventory {
-    pub stock: Vec<Stockable>,
+    pub stock: Vec<Species>,
     state: InventoryState,
     columns: usize,
 }
@@ -20,6 +20,10 @@ impl Inventory {
             state: InventoryState::SelectingItem(0),
             columns: 8,
         }
+    }
+
+    pub fn setup(&mut self) {
+        self.stock = get_inventory().iter().map(|species_id| species_by_id(*species_id)).collect()
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
@@ -73,11 +77,35 @@ impl Inventory {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
                 children: self.stock.iter().enumerate().map(|(index, item)| {
-                    item.ui(index, selected_item_index)
+                    self.item_ui(item, index, selected_item_index)
                 }).collect()
             },
         ];
 
         View::VStack { spacing: Spacing::LG, children: ui_elements }
+    }
+
+    fn item_ui(&self, item: &Species, index: usize, selected_index: usize) -> View {
+        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
+        let (y, x) = item.inventory_texture_offset;
+        let texture_source_rect = Rect::new(x, y, 1, 1);
+
+        if index == selected_index {
+            zstack!(
+                Spacing::XS, 
+                Color::YELLOW,
+                texture!(
+                    SPRITE_SHEET_INVENTORY, 
+                    texture_source_rect, 
+                    Vector2d::new(selected_size, selected_size)
+                )
+            )
+        } else {
+            texture!(
+                SPRITE_SHEET_INVENTORY, 
+                texture_source_rect, 
+                Vector2d::new(1.5, 1.5)
+            )
+        }
     }
 }
