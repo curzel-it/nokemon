@@ -35,6 +35,7 @@ pub const HOUSE_INTERIOR_COLUMNS: usize = 10;
 // Paths
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "levels";
+pub const SPECIES_PATH: &str = "levels/species.json";
 pub const DIALOGUES_PATH: &str = "levels/dialogues.json";
 pub const KEY_VALUE_STORAGE_PATH: &str = "levels/save.json";
 pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";

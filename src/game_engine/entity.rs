@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::Species, features::animated_sprite::AnimatedSprite, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{EntityType, Species}, features::animated_sprite::AnimatedSprite, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -42,13 +42,13 @@ pub struct Entity {
 
 impl Entity {
     pub fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {      
-        let updates = match self.species {
-            Species::Hero => self.update_hero(world, time_since_last_update),
-            Species::Npc(_) => self.update_npc(world, time_since_last_update),
-            Species::Building(_) => self.update_generic(world, time_since_last_update),
-            Species::HouseholdObject(_) => self.update_generic(world, time_since_last_update),
-            Species::PickableObject(_) => self.update_pickable_object(world, time_since_last_update),
-            Species::Teleporter => self.update_teleporter(world, time_since_last_update),
+        let updates = match self.species.entity_type {
+            EntityType::Hero => self.update_hero(world, time_since_last_update),
+            EntityType::Npc => self.update_npc(world, time_since_last_update),
+            EntityType::Building => self.update_generic(world, time_since_last_update),
+            EntityType::HouseholdObject => self.update_generic(world, time_since_last_update),
+            EntityType::PickableObject => self.update_pickable_object(world, time_since_last_update),
+            EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
         };
         
         self.sprite.update(time_since_last_update);  
@@ -57,7 +57,7 @@ impl Entity {
     }
 
     pub fn sprite_sheet(&self) -> u32 {
-        self.species.sprite_sheet()
+        self.sprite.sheet_id
     }
 
     pub fn texture_source_rect(&self) -> Rect {
@@ -69,7 +69,7 @@ impl Entity {
     }
 
     pub fn reset_speed(&mut self) {
-        self.current_speed = self.species.base_speed();
+        self.current_speed = self.species.base_speed;
     }    
     
     pub fn center_in(&mut self, value: &Rect) {
