@@ -11,8 +11,9 @@ pub enum NpcType {
 pub type NpcId = u32;
 
 impl Entity {
-    pub fn update_npc(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
+    pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
         self.update_sprite_for_current_direction();
+        self.move_linearly(world, time_since_last_update);
         
         if world.is_hero_around_and_on_collision_with(&self.frame) {
             if world.creative_mode {

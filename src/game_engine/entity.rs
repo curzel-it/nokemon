@@ -51,11 +51,6 @@ impl Entity {
             Species::Teleporter => self.update_teleporter(world, time_since_last_update),
         };
         
-        self.time_immobilized -= time_since_last_update;
-        if self.time_immobilized <= 0.0 {
-            self.move_linearly(world, time_since_last_update)
-        }
-        
         self.sprite.update(time_since_last_update);  
 
         updates

@@ -1,11 +1,16 @@
 use crate::{game_engine::{entity::{Entity, EntityProps}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::rect::Rect};
 
 impl Entity {
-    pub fn update_hero(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {        
+    pub fn update_hero(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         
         self.update_direction_for_current_keys(world.direction_based_on_current_keys);
         self.update_sprite_for_current_direction();
+        
+        self.time_immobilized -= time_since_last_update;
+        if self.time_immobilized <= 0.0 {
+            self.move_linearly(world, time_since_last_update)
+        }
         
         world_updates.push(self.cache_props());
         world_updates.push(self.move_camera_update());
