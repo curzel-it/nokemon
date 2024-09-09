@@ -17,12 +17,9 @@ impl Entity {
             } else {
                 if world.has_confirmation_key_been_pressed {
                     return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::AddToInventory(
-                                self.species_id
-                            )
-                        ),
-                        WorldStateUpdate::RemoveEntity(self.id)
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.species_id)),
+                        WorldStateUpdate::RemoveEntity(self.id),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     ];
                 }
             }             
