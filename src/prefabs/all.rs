@@ -1,4 +1,4 @@
-use crate::game_engine::entity::{BuildingType, Entity};
+use crate::{entities::buildings::BuildingType, game_engine::entity::Entity};
 
 use super::{house_single_floor::new_house_single_floor, house_two_floors::new_house_two_floors};
 

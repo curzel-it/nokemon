@@ -62,7 +62,7 @@ impl World {
 mod tests {
     use super::*;
 
-    use crate::{game_engine::entity::{Species, NpcType}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
+    use crate::{entities::{npcs::NpcType, species::Species}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
     
     #[test]
     fn test_hitmap_with_rigid_entity_excludes_top_row() {

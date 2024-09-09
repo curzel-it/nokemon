@@ -1,4 +1,4 @@
-use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, game_engine::{entity::{BuildingType, Entity, Species, HouseholdObject}, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
+use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{buildings::BuildingType, household_objects::HouseholdObject, species::Species}, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
 pub fn new_house_single_floor(variant: i32, source_world_id: u32, x: i32, y: i32) -> Vec<Entity> {
     let mut building = Species::Building(BuildingType::House(variant)).make_entity();

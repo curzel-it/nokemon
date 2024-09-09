@@ -1,4 +1,4 @@
-use crate::{game_engine::{entity::Species, world::World}, utils::directions::Direction};
+use crate::{entities::species::Species, game_engine::world::World, utils::directions::Direction};
 
 impl World {
     pub fn setup(&mut self, source: &u32, hero_direction: &Direction) {

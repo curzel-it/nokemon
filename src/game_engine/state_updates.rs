@@ -1,6 +1,6 @@
-use crate::{dialogues::models::Dialogue, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::npcs::NpcId, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
-use super::entity::{Entity, EntityProps, NpcId};
+use super::entity::{Entity, EntityProps};
 
 pub enum WorldStateUpdate {
     AddEntity(Entity),
@@ -25,7 +25,7 @@ pub enum EngineStateUpdate {
 
 #[cfg(test)]
 mod tests {
-    use crate::game_engine::{entity::Species, engine::GameEngine};
+    use crate::{entities::species::Species, game_engine::engine::GameEngine};
 
     #[test]
     fn entity_can_relay_world_state_updates() {

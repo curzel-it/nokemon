@@ -1,8 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
-
-use super::entity::{BuildingType, Species, HouseholdObject, NpcType, PickableObject};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{buildings::BuildingType, household_objects::HouseholdObject, npcs::NpcType, pickable_objects::PickableObject, species::Species}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, texture, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum Stockable {
