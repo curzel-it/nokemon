@@ -310,5 +310,98 @@
     ],
     "sheet_id": 1003
   },
-  "entities": []
+  "entities": [
+    {
+      "id": 1725917338,
+      "frame": {
+        "x": 97,
+        "y": 73,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Old Man",
+      "species_id": 1008,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": [
+          {
+            "key": "always",
+            "expected_value": 0,
+            "dialogue": 101
+          }
+        ]
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    },
+    {
+      "id": 1725917339,
+      "frame": {
+        "x": 99,
+        "y": 73,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Old Lady",
+      "species_id": 1009,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 8,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": [
+          {
+            "key": "dialogue.answer.108",
+            "expected_value": 104,
+            "dialogue": 109
+          },
+          {
+            "key": "dialogue.answer.108",
+            "expected_value": 105,
+            "dialogue": 110
+          },
+          {
+            "key": "always",
+            "expected_value": 0,
+            "dialogue": 106
+          }
+        ]
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    }
+  ]
 }
