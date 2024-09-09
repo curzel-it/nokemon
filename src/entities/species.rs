@@ -53,7 +53,8 @@ impl Species {
         Entity {
             id: self.next_entity_id(),
             frame: self.sprite_frame,  
-            species: self.clone(),  
+            species_id: self.id,  
+            entity_type: self.entity_type,
             offset: Vector2d::zero(),
             direction: Direction::Unknown,
             current_speed: 0.0,

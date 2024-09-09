@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{EntityType, Species}, features::animated_sprite::AnimatedSprite, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_TELEPORTER, WORLD_ID_NONE}, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType, Species}, features::animated_sprite::AnimatedSprite, lang::localizable::LocalizableText, utils::{directions::Direction, ids::get_next_id, rect::Rect, vector::Vector2d}};
 
 use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -28,7 +28,8 @@ pub struct Entity {
     pub id: u32,
     pub frame: Rect,  
     pub name: String,  
-    pub species: Species,  
+    pub species_id: u32,  
+    pub entity_type: EntityType,  
     pub offset: Vector2d,
     pub direction: Direction,
     pub current_speed: f32,
@@ -42,7 +43,7 @@ pub struct Entity {
 
 impl Entity {
     pub fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {      
-        let updates = match self.species.entity_type {
+        let updates = match self.entity_type {
             EntityType::Hero => self.update_hero(world, time_since_last_update),
             EntityType::Npc => self.update_npc(world, time_since_last_update),
             EntityType::Building => self.update_generic(world, time_since_last_update),
@@ -68,8 +69,8 @@ impl Entity {
         self.time_immobilized = seconds;
     }
 
-    pub fn reset_speed(&mut self) {
-        self.current_speed = self.species.base_speed;
+    pub fn reset_speed(&mut self) {        
+        self.current_speed = species_by_id(self.species_id).base_speed;
     }    
     
     pub fn center_in(&mut self, value: &Rect) {

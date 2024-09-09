@@ -95,7 +95,7 @@ impl Serialize for World {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {       
         let borrowed_entities = self.entities.borrow();
         let entities: Vec<&Entity> = borrowed_entities.iter()
-            .filter(|e| e.species.id != SPECIES_HERO)
+            .filter(|e| e.species_id != SPECIES_HERO)
             .collect();
 
         let mut state = serializer.serialize_struct("World", 4)?;
