@@ -856,7 +856,7 @@ impl View {
             height += row_size.y;
         }
 
-        height += (rows_count - 1).max(0) as f32 * spacing.between_rows.value(config);
+        height += (rows_count.max(1) - 1) as f32 * spacing.between_rows.value(config);
         Vector2d::new(width, height)
     }
 
