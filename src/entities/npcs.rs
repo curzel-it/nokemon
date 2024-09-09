@@ -1,12 +1,4 @@
-use serde::{Deserialize, Serialize};
-
 use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
-
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
-pub enum NpcType {
-    OldMan,
-    OldWoman,
-}
 
 pub type NpcId = u32;
 
