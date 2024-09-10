@@ -1,7 +1,7 @@
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 
-use super::menu::{Menu, MenuItem, MenuUpdate, OnMenuItemSelection};
+use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Copy, Clone)]
 pub enum EntityOptionMenuItem {
@@ -22,6 +22,8 @@ pub struct EntityOptionsMenu {
     entity_name: String,
     entity_id: u32,
     menu: Menu<EntityOptionMenuItem>,
+    is_renaming: bool,
+    text_input: TextInput,
 }
 
 impl EntityOptionsMenu {
@@ -30,6 +32,8 @@ impl EntityOptionsMenu {
             entity_name: "".to_owned(),
             entity_id: 0,
             menu: Menu::new("entity.menu.title".localized(), vec![]),
+            is_renaming: false,
+            text_input: TextInput::new(),
         }
     }
 
@@ -41,7 +45,8 @@ impl EntityOptionsMenu {
             EntityOptionMenuItem::Rename,
             EntityOptionMenuItem::Remove,
         ];
-        self.menu.show()
+        self.menu.show();
+        self.is_renaming = false;
     }
 
     pub fn is_open(&self) -> bool {
@@ -49,22 +54,59 @@ impl EntityOptionsMenu {
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        if self.is_renaming {
+            self.text_input.update(keyboard);
+
+            if self.text_input.did_confirm() {
+                let new_name = self.text_input.text().to_owned();
+                self.menu.close();
+                self.is_renaming = false;
+                self.text_input.clear();
+
+                return (false, vec![
+                    WorldStateUpdate::RenameEntity(self.entity_id, new_name),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                ]);
+            } else if self.text_input.did_cancel() {
+                self.is_renaming = false;
+                self.text_input.clear();
+            }
+
+            return (self.menu.is_open, vec![]);
+        }
+
         self.menu.update(keyboard, time_since_last_update);
 
         if self.is_open() && self.menu.selection_has_been_confirmed {
             let updates = match self.menu.selected_item() {
                 EntityOptionMenuItem::Remove => {
+                    self.menu.clear_selection();
                     self.menu.close();
                     vec![WorldStateUpdate::RemoveEntity(self.entity_id)]
                 },
-                EntityOptionMenuItem::Rename => vec![],
+                EntityOptionMenuItem::Rename => {
+                    self.menu.clear_selection();
+                    self.ask_for_new_name();
+                    vec![]
+                },
             };
-            return (self.menu.is_open, updates)
+            return (self.menu.is_open, updates);
         }
+
         (self.menu.is_open, vec![])
     }
 
     pub fn ui(&self) -> View {
-        self.menu.ui()
+        if self.is_renaming {
+            self.text_input.ui()
+        } else {
+            self.menu.ui()
+        }
+    }
+
+    fn ask_for_new_name(&mut self) {
+        self.is_renaming = true;
+        self.text_input.clear();
+        self.text_input.title = "entity.menu.rename_title".localized();
     }
 }

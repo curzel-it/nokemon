@@ -15,30 +15,31 @@
 "dialogue.109" = "Thank you for not trolling my husband!"
 "dialogue.110" = "He's crying because you trolled him..."
 
-"entity.menu.title" = "Entity Options";
-"entity.menu.remove" = "Remove";
-"entity.menu.rename" = "Rename";
-"entity.menu.pickup" = "Pick up;
+"entity.menu.title" = "Entity Options"
+"entity.menu.remove" = "Remove"
+"entity.menu.rename" = "Rename"
+"entity.menu.rename_title" = "Enter new name"
+"entity.menu.pickup" = "Pick up"
 
-"game.menu.title" = "Game Menu";
-"game.menu.save" = "Save Game";
-"game.menu.inventory" = "Inventory";
-"game.menu.map_editor" = "Map Editor";
-"game.menu.save_and_exit" = "Save & Exit";
+"game.menu.title" = "Game Menu"
+"game.menu.save" = "Save Game"
+"game.menu.inventory" = "Inventory"
+"game.menu.map_editor" = "Map Editor"
+"game.menu.save_and_exit" = "Save & Exit"
 
-"inventory.title" = "Inventory";
-"inventory.subtitle" = "Stuff in your backpack";
+"inventory.title" = "Inventory"
+"inventory.subtitle" = "Stuff in your backpack"
 
-"map_editor.title" = "Map Editor";
-"map_editor.subtitle" = "Press SPACE to select something";
-"map_editor.placement" = "Press SPACE to place\nPress ESC to go back";
+"map_editor.title" = "Map Editor"
+"map_editor.subtitle" = "Press SPACE to select something"
+"map_editor.placement" = "Press SPACE to place\nPress ESC to go back"
 
-"npc.name.default" = "Some rando";
+"npc.name.default" = "Some rando"
 "npc.name.old_man" = "Old Man"
 "npc.name.old_woman" = "Old Lady"
-"npc.menu.title" = "NPC Options";
-"npc.menu.remove" = "Remove";
-"npc.menu.play_dialog" = "Play dialog";
+"npc.menu.title" = "NPC Options"
+"npc.menu.remove" = "Remove"
+"npc.menu.play_dialog" = "Play dialog"
 
 "objects.name.stairs_up" = "Stairs (Up)"
 "objects.name.stairs_down" = "Stairs (Down)"
@@ -52,6 +53,6 @@
 
 "teleporter.name" = "Teleporter"
 
-"world.names.new_world" = "New World";
-"world.names.demo" = "Demo World";
-"world.names.with_id" = "World";
+"world.names.new_world" = "New World"
+"world.names.demo" = "Demo World"
+"world.names.with_id" = "World"

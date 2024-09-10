@@ -6,6 +6,7 @@ pub enum WorldStateUpdate {
     AddEntity(Entity),
     RemoveEntity(u32),
     RemoveEntityAtCoordinates(usize, usize),
+    RenameEntity(u32, String),
     CacheHeroProps(EntityProps),
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),

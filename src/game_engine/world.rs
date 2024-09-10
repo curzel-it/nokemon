@@ -107,12 +107,20 @@ impl World {
             WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
             WorldStateUpdate::RemoveEntity(id) => self.remove_entity_by_id(id),
             WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => self.remove_entities_by_coords(row, col),
+            WorldStateUpdate::RenameEntity(id, new_name) => self.rename_entity(id, new_name),
             WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
             WorldStateUpdate::EngineUpdate(update) => return Some(update),
         };
         None
+    }
+
+    fn rename_entity(&mut self, id: u32, name: String) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            entity.name = name;
+        }
     }
 
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
