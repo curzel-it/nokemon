@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, text, ui::components::{scaffold_background_backdrop, Spacing, TextStyle, View}, vstack, zstack};
+use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, spacing, text, ui::components::{scaffold_background_backdrop, Spacing, TextStyle, View}, vstack, zstack};
 
 pub struct TextInput {
     pub title: String,
@@ -23,7 +23,7 @@ impl TextInput {
         if let Some(character) = keyboard.currently_pressed_character {
             self.text.push(character);
         }
-        if keyboard.has_confirmation_been_pressed {
+        if keyboard.has_menu_been_pressed {
             self.is_confirmed = true;
         }
         if keyboard.has_backspace_been_pressed {
@@ -60,7 +60,16 @@ impl TextInput {
             vstack!(
                 Spacing::MD,
                 text!(TextStyle::Title, self.title.clone()),
-                text!(TextStyle::Regular, self.text.clone())
+                zstack!(
+                    Spacing::Zero,
+                    Color::BLACK.alpha(0.0),
+                    text!(TextStyle::Regular, self.text.clone()),
+                    vstack!(
+                        Spacing::Zero,
+                        spacing!(Spacing::SM),
+                        text!(TextStyle::Regular, "________________________________________".to_string())
+                    )
+                )
             )
         )
     }

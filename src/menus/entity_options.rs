@@ -58,7 +58,7 @@ impl EntityOptionsMenu {
             self.text_input.update(keyboard);
 
             if self.text_input.did_confirm() {
-                let new_name = self.text_input.text().to_owned();
+                let new_name = self.text_input.text().trim().to_owned();
                 self.menu.close();
                 self.is_renaming = false;
                 self.text_input.clear();
