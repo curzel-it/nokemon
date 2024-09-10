@@ -16,7 +16,7 @@ pub struct KeyboardEventsProvider {
     pub direction_left: HoldableKey,
 
     discard_direction_events_until_next_arrow_key_is_pressed: bool,
-    currently_pressed_character: Option<char>,
+    pub currently_pressed_character: Option<char>,
 }
 
 impl KeyboardEventsProvider {

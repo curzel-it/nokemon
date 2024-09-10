@@ -46,8 +46,7 @@ impl GameMenu {
                 GameMenuItem::Save,
                 GameMenuItem::Inventory,
                 GameMenuItem::Exit,
-            ], 
-            Box::new(GameMenu::on_menu_item_selected)
+            ]
         );
 
         Self {
@@ -56,29 +55,6 @@ impl GameMenu {
             menu,
             inventory: Inventory::new(),
             map_editor: MapEditor::new(),
-        }
-    }
-
-    fn on_menu_item_selected(item: GameMenuItem) -> (bool, Vec<WorldStateUpdate>) {
-        match item {
-            GameMenuItem::Save => {
-                (false, vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)])
-            }
-            GameMenuItem::Inventory => {
-                (true, vec![])
-            }
-            GameMenuItem::MapEditor => {
-                (true, vec![])
-            }
-            GameMenuItem::Exit => {
-                (
-                    false,
-                    vec![
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
-                    ],
-                )
-            }
         }
     }
 
@@ -98,6 +74,11 @@ impl GameMenu {
         keyboard: &KeyboardEventsProvider, 
         time_since_last_update: f32
     ) -> MenuUpdate {
+        if self.is_open() && self.menu.selection_has_been_confirmed {
+            let updates = self.handle_selection();
+            return (self.menu.is_open, updates)
+        }
+
         let updates = match self.state {
             MenuState::Closed => self.update_from_close(keyboard),
             MenuState::Open => self.update_from_open(keyboard, time_since_last_update),
@@ -106,6 +87,39 @@ impl GameMenu {
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
         };
         (self.is_open(), updates)
+    }
+
+    fn handle_selection(&mut self) -> Vec<WorldStateUpdate> {
+        let selected = self.menu.selected_item();
+        self.menu.clear_selection();
+
+        match selected {
+            GameMenuItem::Save => {
+                self.menu.clear_selection();
+                self.menu.close();
+                self.state = MenuState::Closed;
+                vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)]
+            }
+            GameMenuItem::Inventory => {
+                self.inventory.setup();
+                self.state = MenuState::Inventory;
+                vec![]
+            },
+            GameMenuItem::MapEditor => {
+                self.state = MenuState::MapEditor;
+                self.map_editor.current_world_id = self.current_world_id;
+                vec![]
+            },
+            GameMenuItem::Exit => {
+                self.menu.clear_selection();
+                self.menu.close();
+                self.state = MenuState::Closed;
+                vec![
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
+                ]
+            }
+        }
     }
 
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
@@ -119,24 +133,12 @@ impl GameMenu {
 
     fn update_from_open(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         let (is_open, updates) = self.menu.update(keyboard, time_since_last_update);
-        let did_select_something = keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed;
-
+        
         if !is_open {
+            self.menu.clear_selection();
+            self.menu.close();
             self.state = MenuState::Closed;
             return updates
-        }
-        if did_select_something {
-            match self.menu.selected_item() {
-                GameMenuItem::Inventory => {
-                    self.inventory.setup();
-                    self.state = MenuState::Inventory;
-                }
-                GameMenuItem::MapEditor => {
-                    self.state = MenuState::MapEditor;
-                    self.map_editor.current_world_id = self.current_world_id;
-                }
-                _ => {}
-            }
         }
         updates
     }

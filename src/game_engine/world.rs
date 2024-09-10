@@ -77,13 +77,18 @@ impl World {
         self.is_any_arrow_key_down = keyboard.is_any_arrow_key_down();
         self.has_confirmation_key_been_pressed = keyboard.has_confirmation_been_pressed;
 
-        let mut state_updates: Vec<WorldStateUpdate> = vec![];
         let mut entities = self.entities.borrow_mut();
 
-        for (index, _) in &self.visible_entities {
-            let mut updates = entities[*index].update(self, time_since_last_update);
-            state_updates.append(&mut updates);
-        }
+        let state_updates: Vec<WorldStateUpdate> = self.visible_entities.iter()
+            .flat_map(|(index, _)| {
+                if let Some(entity) = entities.get_mut(*index) {
+                    entity.update(self, time_since_last_update)
+                } else {
+                    vec![]
+                }                
+            })
+            .collect();
+
         self.biome_tiles.update(time_since_last_update);
 
         drop(entities);

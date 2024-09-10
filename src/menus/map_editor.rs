@@ -77,7 +77,7 @@ impl MapEditor {
         if keyboard.direction_left.is_pressed && selected_index > 0 {
             self.state = MapEditorState::SelectingItem(selected_index - 1);
         }
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             self.state = MapEditorState::PlacingItem(
                 selected_index, 
                 self.stock[selected_index].clone(), 
@@ -123,7 +123,7 @@ impl MapEditor {
             self.offset = selected_index - MAX_VISIBLE_WORLDS + 1;
         }
     
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             self.state = MapEditorState::PlacingWorld(
                 selected_index,
                 self.worlds[selected_index],
@@ -141,7 +141,7 @@ impl MapEditor {
         camera_vieport: &Rect, 
         keyboard: &KeyboardEventsProvider
     ) -> Vec<WorldStateUpdate> {        
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             return self.place_world(destination_id, frame, camera_vieport);
         }
         if keyboard.has_back_been_pressed {
@@ -175,7 +175,7 @@ impl MapEditor {
         camera_vieport: &Rect, 
         keyboard: &KeyboardEventsProvider
     ) -> Vec<WorldStateUpdate> {        
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             return self.place_item(item, frame, camera_vieport);
         }
         if keyboard.has_back_been_pressed {

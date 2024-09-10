@@ -12,7 +12,6 @@ pub struct Menu<Item: MenuItem> {
     pub selection_has_been_confirmed: bool,
     pub items: Vec<Item>,
     pub animator: Animator,
-    pub on_selection: OnMenuItemSelection<Item>,
     pub uses_backdrop: bool,
     pub visible_item_count: usize,
     pub scroll_offset: usize, 
@@ -26,11 +25,7 @@ pub type MenuUpdate = (bool, Vec<WorldStateUpdate>);
 pub type OnMenuItemSelection<Item> = Box<dyn FnMut(Item) -> (bool, Vec<WorldStateUpdate>)>;
 
 impl<Item: MenuItem> Menu<Item> {
-    pub fn new(
-        title: String, 
-        items: Vec<Item>, 
-        on_selection: OnMenuItemSelection<Item>
-    ) -> Self {
+    pub fn new(title: String, items: Vec<Item>) -> Self {
         Self {
             title,
             text: None,
@@ -39,7 +34,6 @@ impl<Item: MenuItem> Menu<Item> {
             selection_has_been_confirmed: false,
             items,
             animator: Animator::new(),
-            on_selection,
             uses_backdrop: true,
             visible_item_count: 5,
             scroll_offset: 0, 
@@ -51,11 +45,7 @@ impl<Item: MenuItem> Menu<Item> {
     }
 
     pub fn empty_with_title(title: String) -> Self {
-        Self::new(
-            title, 
-            vec![], 
-            Box::new(|_| { (false, vec![]) })
-        )
+        Self::new(title, vec![])
     }
 
     pub fn show(&mut self) {
@@ -121,20 +111,10 @@ impl<Item: MenuItem> Menu<Item> {
             }
         }
     
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
-            return self.handle_selection();
-        }
-    
+        if keyboard.has_confirmation_been_pressed {
+            self.selection_has_been_confirmed = true;
+        }    
         vec![]
-    }
-    
-    
-    fn handle_selection(&mut self) -> Vec<WorldStateUpdate> {
-        self.selection_has_been_confirmed = true;
-        let selected_item = self.items[self.selected_index].clone();
-        let (is_open, updates) = (self.on_selection)(selected_item);
-        self.is_open = is_open;
-        updates
     }
 }
 

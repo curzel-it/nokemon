@@ -17,6 +17,7 @@
 
 "entity.menu.title" = "Entity Options";
 "entity.menu.remove" = "Remove";
+"entity.menu.rename" = "Rename";
 "entity.menu.pickup" = "Pick up;
 
 "game.menu.title" = "Game Menu";

@@ -18,9 +18,8 @@ pub enum EngineStateUpdate {
     SwitchWorld(u32),
     SaveGame,
     Exit,
-    ShowEntityOptions(EntityId),
+    ShowEntityOptions(String, EntityId),
     ShowDialogue(NpcId, String, Dialogue), 
-    ShowNpcOptions(NpcId, String, Option<Dialogue>),
     AddToInventory(SpeciesId),
 }
 

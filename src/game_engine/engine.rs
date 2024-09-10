@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu, npc_options::NpcOptionsMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::add_to_inventory, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
@@ -9,7 +9,6 @@ pub struct GameEngine {
     pub menu: GameMenu,
     pub world: World,
     pub loading_screen: LoadingScreen,
-    pub npc_options_menu: NpcOptionsMenu,
     pub dialogue_menu: DialogueMenu,
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
@@ -26,7 +25,6 @@ impl GameEngine {
             menu: GameMenu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
-            npc_options_menu: NpcOptionsMenu::new(),
             dialogue_menu: DialogueMenu::new(),
             entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
@@ -116,7 +114,7 @@ impl GameEngine {
         }
 
         if !is_game_paused {
-            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open() && !self.npc_options_menu.is_open();
+            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open();
             let keyboard = if self.menu.is_open() || other_menus_are_closed { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
@@ -127,14 +125,6 @@ impl GameEngine {
         if !is_game_paused {
             let keyboard = if self.entity_options_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.entity_options_menu.update(keyboard, time_since_last_update);
-            is_game_paused = is_game_paused || pause;
-            let engine_updates = self.world.apply_state_updates(world_updates);
-            self.apply_state_updates(engine_updates);
-        }
-
-        if !is_game_paused {
-            let keyboard = if self.npc_options_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
-            let (pause, world_updates) = self.npc_options_menu.update(keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
@@ -202,12 +192,11 @@ impl GameEngine {
     fn apply_state_update(&mut self, update: &EngineStateUpdate) {
         match update {
             EngineStateUpdate::ShowDialogue(npc_id, npc_name, dialogue) => self.show_dialogue(npc_id, npc_name, dialogue),
-            EngineStateUpdate::ShowNpcOptions(id, npc_name, dialogue) => self.npc_options_menu.show(*id, npc_name, dialogue),
             EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),            
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
-            EngineStateUpdate::ShowEntityOptions(id) => self.entity_options_menu.show(*id),
+            EngineStateUpdate::ShowEntityOptions(name, id) => self.entity_options_menu.show(name, id),
             EngineStateUpdate::AddToInventory(species_id) => add_to_inventory(*species_id),
         }
     }

@@ -38,16 +38,16 @@ impl Inventory {
         if keyboard.direction_up.is_pressed && selected_index >= self.columns {
             self.state = InventoryState::SelectingItem(selected_index - self.columns);            
         }
-        if keyboard.direction_right.is_pressed && selected_index < self.stock.len() - 1 {
+        if keyboard.direction_right.is_pressed && selected_index < self.stock.len().saturating_sub(1) {
             self.state = InventoryState::SelectingItem(selected_index + 1);
         }
-        if keyboard.direction_down.is_pressed && selected_index < self.stock.len() - self.columns {
+        if keyboard.direction_down.is_pressed && selected_index < self.stock.len().saturating_sub(self.columns) {
             self.state = InventoryState::SelectingItem(selected_index + self.columns);
         } 
         if keyboard.direction_left.is_pressed && selected_index > 0 {
             self.state = InventoryState::SelectingItem(selected_index - 1);
         }
-        if keyboard.has_confirmation_been_pressed || keyboard.has_menu_been_pressed {
+        if keyboard.has_confirmation_been_pressed {
             self.handle_selection(); 
         }
         vec![]

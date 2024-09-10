@@ -3,4 +3,4 @@ pub mod game_menu;
 pub mod inventory;
 pub mod map_editor;
 pub mod menu;
-pub mod npc_options;
+pub mod text_input;

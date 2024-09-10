@@ -11,8 +11,8 @@ impl Entity {
             if world.creative_mode {
                 let vec = vec![
                     WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowNpcOptions(
-                            self.id, self.name.clone(), self.next_dialogue()
+                        EngineStateUpdate::ShowEntityOptions(
+                            self.name.clone(), self.id
                         )
                     )
                 ];

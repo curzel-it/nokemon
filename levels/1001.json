@@ -402,41 +402,6 @@
       },
       "time_immobilized": 0.0,
       "destination": 0
-    },
-    {
-      "id": 1725919052,
-      "frame": {
-        "x": 98,
-        "y": 75,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Key",
-      "species_id": 1018,
-      "entity_type": "PickableObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 0,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 8
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0
     }
   ]
 }
