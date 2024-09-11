@@ -730,6 +730,48 @@
         "w": 1,
         "h": 1
       }
+    },
+    {
+      "id": 1726096760,
+      "frame": {
+        "x": 99,
+        "y": 76,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Boulder",
+      "species_id": 1030,
+      "entity_type": "PushableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 1,
+          "y": 2,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 1,
+        "y": 2,
+        "w": 1,
+        "h": 1
+      }
     }
   ]
 }

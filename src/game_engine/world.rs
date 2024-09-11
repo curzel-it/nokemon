@@ -1,9 +1,9 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::EntityType}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, features::{hitmap::Hitmap, weight_map::WeightMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::{entity::{self, Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -15,6 +15,7 @@ pub struct World {
     pub visible_entities: HashSet<(usize, u32)>,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
+    pub weight_map: WeightMap,
     pub creative_mode: bool,
     pub direction_based_on_current_keys: Direction,
     pub is_any_arrow_key_down: bool,
@@ -33,6 +34,7 @@ impl World {
             visible_entities: hash_set![],
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
+            weight_map: vec![vec![0; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
             direction_based_on_current_keys: Direction::Unknown,
             is_any_arrow_key_down: false,
@@ -97,6 +99,7 @@ impl World {
         let updates = self.apply_state_updates(state_updates);
         self.visible_entities = self.compute_visible_entities(viewport);
         self.hitmap = self.compute_hitmap();
+        self.weight_map = self.compute_weight_map();
         updates
     } 
 

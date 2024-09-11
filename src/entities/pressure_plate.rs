@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key}, world::World};
+use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::set_value_for_key, world::World};
 
 impl Entity {
     pub fn setup_pressure_plate(&mut self) {
@@ -19,13 +19,15 @@ impl Entity {
         }
 
         let hero = world.cached_hero_props.hittable_frame;
-        let is_stepping_on_it = hero.x == self.frame.x && hero.y == self.frame.y;
+        let hero_on_it = hero.x == self.frame.x && hero.y == self.frame.y;
+        let weight_on_it = world.weight_map[self.frame.y as usize][self.frame.x as usize] > 0;
+        let is_pressed = hero_on_it || weight_on_it;
         let is_up = self.is_related_lock_closed();
 
-        if is_up && is_stepping_on_it {
+        if is_up && is_pressed {
             set_value_for_key(self.lock_type.pressure_plate(), 1);
             self.sprite.frame.x = self.original_sprite_frame.x + 1;
-        } else if !is_up && !is_stepping_on_it{
+        } else if !is_up && !is_pressed{
             set_value_for_key(self.lock_type.pressure_plate(), 0);
             self.sprite.frame.x = self.original_sprite_frame.x;
         }
