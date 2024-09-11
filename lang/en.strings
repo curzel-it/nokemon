@@ -20,6 +20,7 @@
 "entity.menu.rename" = "Rename"
 "entity.menu.rename_title" = "Enter new name"
 "entity.menu.pickup" = "Pick up"
+"entity.menu.change_lock" = "Change Lock"
 
 "game.menu.title" = "Game Menu"
 "game.menu.save" = "Save Game"
@@ -29,6 +30,13 @@
 
 "inventory.title" = "Inventory"
 "inventory.subtitle" = "Stuff in your backpack"
+
+"lock.name.none" = "None"
+"lock.name.yellow" = "Yellow"
+"lock.name.red" = "Red"
+"lock.name.blue" = "Blue"
+"lock.name.green" = "Green"
+"lock.name.silver" = "Silver"
 
 "map_editor.title" = "Map Editor"
 "map_editor.subtitle" = "Press SPACE to select something"

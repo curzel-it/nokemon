@@ -350,7 +350,8 @@
         ]
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1725917339,
@@ -401,7 +402,8 @@
         ]
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726043031,
@@ -436,7 +438,8 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726043032,
@@ -471,7 +474,8 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726045806,
@@ -506,7 +510,8 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726045807,
@@ -541,7 +546,8 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726045808,
@@ -576,7 +582,8 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
     },
     {
       "id": 1726045809,
@@ -611,7 +618,80 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 0
+      "destination": 0,
+      "lock_type": "None"
+    },
+    {
+      "id": 1726052730,
+      "frame": {
+        "x": 106,
+        "y": 74,
+        "w": 5,
+        "h": 4
+      },
+      "name": "House",
+      "species_id": 1002,
+      "entity_type": "Building",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1004,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 5,
+          "h": 4
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0,
+      "lock_type": "None"
+    },
+    {
+      "id": 1726052732,
+      "frame": {
+        "x": 109,
+        "y": 77,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1008,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 1726052731,
+      "lock_type": "Yellow"
     }
   ]
 }

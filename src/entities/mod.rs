@@ -1,3 +1,4 @@
+pub mod buildings;
 pub mod hero;
 pub mod known_species;
 pub mod npcs;

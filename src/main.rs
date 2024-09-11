@@ -21,7 +21,7 @@ fn main() {
     let mut creative_mode = false;
 
     let args: Vec<String> = env::args().collect();
-    if args.contains(&"creative".to_owned()) {
+    if true || args.contains(&"creative".to_owned()) {
         creative_mode = true;
     }
 

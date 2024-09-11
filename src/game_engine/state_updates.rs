@@ -1,6 +1,6 @@
 use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::{EntityType, SpeciesId}}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
-use super::entity::{Entity, EntityId, EntityProps};
+use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
 pub enum WorldStateUpdate {
     AddEntity(Entity),
@@ -8,6 +8,7 @@ pub enum WorldStateUpdate {
     RemoveEntityAtCoordinates(usize, usize),
     RenameEntity(u32, String),
     CacheHeroProps(EntityProps),
+    ChangeLock(EntityId, LockType),
     BiomeTileChange(usize, usize, Biome),
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
@@ -23,8 +24,6 @@ pub enum EngineStateUpdate {
     ShowDialogue(NpcId, String, Dialogue), 
     AddToInventory(SpeciesId),
 }
-
-pub type AllowsPickUp = bool;
 
 #[cfg(test)]
 mod tests {

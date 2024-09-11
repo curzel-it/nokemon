@@ -6,6 +6,7 @@ use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES};
 use crate::dialogues::models::EntityDialogues;
 use crate::features::animated_sprite::AnimatedSprite;
 use crate::game_engine::entity::Entity;
+use crate::game_engine::locks::LockType;
 use crate::lang::localizable::LocalizableText;
 use crate::utils::directions::Direction;
 use crate::utils::ids::get_next_id;
@@ -55,6 +56,7 @@ impl Species {
             time_immobilized: 0.0,
             name: self.name.localized(),
             destination: 0,
+            lock_type: LockType::None
         }
     }
     

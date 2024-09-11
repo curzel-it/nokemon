@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 use common_macros::hash_set;
 use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect}};
 
-use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{self, Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -104,14 +104,33 @@ impl World {
 
     fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
         match update {
-            WorldStateUpdate::AddEntity(entity) => { self.add_entity(entity); },
-            WorldStateUpdate::RemoveEntity(id) => self.remove_entity_by_id(id),
-            WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => self.remove_entities_by_coords(row, col),
-            WorldStateUpdate::RenameEntity(id, new_name) => self.rename_entity(id, new_name),
-            WorldStateUpdate::CacheHeroProps(props) => { self.cached_hero_props = props; },
-            WorldStateUpdate::BiomeTileChange(row, col, new_biome) => self.update_biome_tile(row, col, new_biome),
-            WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => self.update_construction_tile(row, col, new_construction),
-            WorldStateUpdate::EngineUpdate(update) => return Some(update),
+            WorldStateUpdate::AddEntity(entity) => { 
+                self.add_entity(entity); 
+            },
+            WorldStateUpdate::RemoveEntity(id) => {
+                self.remove_entity_by_id(id)
+            },
+            WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => {
+                self.remove_entities_by_coords(row, col)
+            },
+            WorldStateUpdate::RenameEntity(id, new_name) => {
+                self.rename_entity(id, new_name)
+            },
+            WorldStateUpdate::CacheHeroProps(props) => { 
+                self.cached_hero_props = props; 
+            },
+            WorldStateUpdate::ChangeLock(entity_id, lock_type) => {
+                self.change_lock(entity_id, lock_type)
+            },
+            WorldStateUpdate::BiomeTileChange(row, col, new_biome) => {
+                self.update_biome_tile(row, col, new_biome)
+            },
+            WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => {
+                self.update_construction_tile(row, col, new_construction)
+            },
+            WorldStateUpdate::EngineUpdate(update) => {
+                return Some(update)
+            },
         };
         None
     }
@@ -120,6 +139,13 @@ impl World {
         let mut entities = self.entities.borrow_mut();
         if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
             entity.name = name;
+        }
+    }
+
+    fn change_lock(&mut self, id: u32, lock_type: LockType) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            entity.lock_type = lock_type;
         }
     }
 

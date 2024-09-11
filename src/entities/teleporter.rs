@@ -1,7 +1,18 @@
 use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
 
 impl Entity {
-    pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {      
+    pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
+        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
+            let vec = vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::ShowEntityOptions(
+                        self.name.clone(), self.id, self.entity_type
+                    )
+                )
+            ];
+            return vec;  
+        } 
+
         if self.should_teleport(world) {
             vec![self.engine_update_push_world()]
         } else {

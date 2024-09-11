@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::animated_sprite::AnimatedSprite, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::{state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
+use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
 #[derive(Debug, Copy, Clone)]
 pub struct EntityProps {
@@ -41,6 +41,9 @@ pub struct Entity {
     pub dialogues: EntityDialogues,
     pub time_immobilized: f32,
     pub destination: u32,
+
+    #[serde(default)]
+    pub lock_type: LockType,
 }
 
 impl Entity {
@@ -48,7 +51,7 @@ impl Entity {
         let updates = match self.entity_type {
             EntityType::Hero => self.update_hero(world, time_since_last_update),
             EntityType::Npc => self.update_npc(world, time_since_last_update),
-            EntityType::Building => self.update_generic(world, time_since_last_update),
+            EntityType::Building => self.update_building(world, time_since_last_update),
             EntityType::HouseholdObject => self.update_generic(world, time_since_last_update),
             EntityType::PickableObject => self.update_pickable_object(world, time_since_last_update),
             EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
