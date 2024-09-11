@@ -17,7 +17,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1009,
-        "sprite_number_of_frames": 4
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
     },
     {
         "id": 1002,
@@ -37,7 +38,8 @@
             "h": 4
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1003,
@@ -57,7 +59,8 @@
             "h": 4
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1004,
@@ -77,7 +80,8 @@
             "h": 4
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1005,
@@ -97,7 +101,8 @@
             "h": 5
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1006,
@@ -117,7 +122,8 @@
             "h": 5
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1007,
@@ -137,7 +143,8 @@
             "h": 5
         },
         "sprite_sheet_id": 1004,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1008,
@@ -157,7 +164,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1009,
-        "sprite_number_of_frames": 4
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
     },
     {
         "id": 1009,
@@ -177,7 +185,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1009,
-        "sprite_number_of_frames": 4
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
     },
     {
         "id": 1010,
@@ -197,7 +206,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1011,
@@ -217,7 +227,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1012,
@@ -237,7 +248,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1013,
@@ -257,7 +269,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1015,
@@ -277,7 +290,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1014,
@@ -297,7 +311,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1016,
@@ -317,7 +332,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1017,
@@ -337,7 +353,8 @@
             "h": 2
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 2000,
@@ -357,7 +374,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 8
+        "sprite_number_of_frames": 8,
+        "lock_type": "Yellow"
     },
     {
         "id": 2001,
@@ -377,7 +395,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 8
+        "sprite_number_of_frames": 8,
+        "lock_type": "Red"
     },
     {
         "id": 2002,
@@ -397,7 +416,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 8
+        "sprite_number_of_frames": 8,
+        "lock_type": "Green"
     },
     {
         "id": 2003,
@@ -417,7 +437,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 8
+        "sprite_number_of_frames": 8,
+        "lock_type": "Blue"
     },
     {
         "id": 2004,
@@ -437,7 +458,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 8
+        "sprite_number_of_frames": 8,
+        "lock_type": "Silver"
     },
     {
         "id": 1019,
@@ -457,7 +479,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1008,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1030,
@@ -477,7 +500,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     },
     {
         "id": 1040,
@@ -497,7 +521,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "Yellow"
     },
     {
         "id": 1041,
@@ -517,7 +542,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "Red"
     },
     {
         "id": 1042,
@@ -537,7 +563,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "Green"
     },
     {
         "id": 1043,
@@ -557,7 +584,8 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "Blue"
     },
     {
         "id": 1044,
@@ -577,6 +605,112 @@
             "h": 1
         },
         "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1
+        "sprite_number_of_frames": 1,
+        "lock_type": "Silver"
+    },
+    {
+        "id": 1050,
+        "name": "objects.name.pressure_plate.yellow",
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            11
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 0,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Yellow"
+    },
+    {
+        "id": 1051,
+        "name": "objects.name.pressure_plate.red",
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            12
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 1,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Red"
+    },
+    {
+        "id": 1052,
+        "name": "objects.name.pressure_plate.green",
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            13
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Green"
+    },
+    {
+        "id": 1053,
+        "name": "objects.name.pressure_plate.blue",
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            14
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Blue"
+    },
+    {
+        "id": 1054,
+        "name": "objects.name.pressure_plate.silver",
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            15
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 4,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Silver"
     }
 ]

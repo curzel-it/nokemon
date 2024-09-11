@@ -133,25 +133,11 @@ impl World {
             WorldStateUpdate::StopHeroMovement => {
                 self.stop_hero_movement()
             },
-            WorldStateUpdate::FlipOnOff(entity_id) => {
-                self.flip_on_off(entity_id)
-            },
             WorldStateUpdate::EngineUpdate(update) => {
                 return Some(update)
             },
         };
         None
-    }
-
-    fn flip_on_off(&mut self, entity_id: u32) {
-        let mut entities = self.entities.borrow_mut();
-        if let Some(entity) = entities.iter_mut().find(|e| e.id == entity_id) {            
-            if matches!(entity.entity_type, EntityType::Gate) {
-                entity.gate_flip_on_off()
-            } else {
-                entity.is_on = !entity.is_on
-            }
-        }
     }
 
     fn stop_hero_movement(&mut self) {

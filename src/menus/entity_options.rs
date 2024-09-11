@@ -7,7 +7,6 @@ pub enum EntityOptionMenuItem {
     Rename,
     PickUp,
     ChangeLock,
-    FlipOnOff,
 }
 
 impl MenuItem for EntityOptionMenuItem {
@@ -17,7 +16,6 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
-            EntityOptionMenuItem::FlipOnOff => "entity.menu.change_on_off".localized(),
         }
     }
 }
@@ -93,7 +91,7 @@ impl EntityOptionsMenu {
         if !self.menu.is_open {
             self.time_since_last_closed += time_since_last_update;
         }
-        
+
         match self.state {
             EntityOptionsMenuState::ChangingName => self.update_from_change_name(keyboard, time_since_last_update),
             EntityOptionsMenuState::ChangingLock => self.update_from_change_lock(keyboard, time_since_last_update),
@@ -178,14 +176,6 @@ impl EntityOptionsMenu {
                     self.ask_for_lock_type();
                     vec![]
                 },
-                EntityOptionMenuItem::FlipOnOff => {
-                    self.menu.clear_selection();
-                    self.menu.close();
-                    vec![
-                        WorldStateUpdate::FlipOnOff(self.entity_id),
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
-                    ]
-                },
             };
             return (self.menu.is_open, updates);
         }
@@ -221,17 +211,17 @@ impl EntityOptionsMenu {
     }
 
     fn available_options_creative(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
-        let default_options = vec![
-            EntityOptionMenuItem::Rename,
-            EntityOptionMenuItem::Remove,
-        ];
-
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
         match entity_type {
             EntityType::Hero => nothing,
-            EntityType::Npc => default_options,
-            EntityType::Building => default_options,
+            EntityType::Npc => vec![
+                EntityOptionMenuItem::Rename,
+                EntityOptionMenuItem::Remove,
+            ],
+            EntityType::Building => vec![
+                EntityOptionMenuItem::Remove,
+            ],
             EntityType::HouseholdObject => vec![
                 EntityOptionMenuItem::PickUp,
                 EntityOptionMenuItem::Rename,
@@ -245,9 +235,13 @@ impl EntityOptionsMenu {
             EntityType::Teleporter => vec![
                 EntityOptionMenuItem::ChangeLock
             ],
-            EntityType::PushableObject => default_options,
+            EntityType::PushableObject => vec![
+                EntityOptionMenuItem::Remove,
+            ],
             EntityType::Gate => vec![
-                EntityOptionMenuItem::FlipOnOff,
+                EntityOptionMenuItem::Remove,
+            ],
+            EntityType::PressurePlate => vec![
                 EntityOptionMenuItem::Remove,
             ],
         }
@@ -268,6 +262,7 @@ impl EntityOptionsMenu {
             EntityType::Teleporter => nothing,
             EntityType::PushableObject => nothing,
             EntityType::Gate => nothing,
+            EntityType::PressurePlate => nothing,
         }
     }
 }

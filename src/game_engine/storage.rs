@@ -49,15 +49,15 @@ lazy_static! {
     };
 }
 
-pub fn get_value_for_key(key: &String) -> Option<u32> {
+pub fn get_value_for_key(key: &str) -> Option<u32> {
     let storage = KEY_VALUE_STORAGE.read().unwrap();
     storage.get(key).cloned()
 }
 
-pub fn set_value_for_key(key: String, value: u32) {
+pub fn set_value_for_key(key: &str, value: u32) {
     {
         let mut storage = KEY_VALUE_STORAGE.write().unwrap();
-        storage.insert(key, value);
+        storage.insert(key.to_owned(), value);
     }
     let storage = KEY_VALUE_STORAGE.read().unwrap().clone();
     let tx = &SAVE_THREAD.0;

@@ -27,6 +27,7 @@ pub struct Species {
     pub sprite_frame: Rect,
     pub sprite_sheet_id: u32,
     pub sprite_number_of_frames: i32,
+    pub lock_type: LockType,
 }
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -39,10 +40,14 @@ pub enum EntityType {
     Teleporter,
     PushableObject,
     Gate,
+    PressurePlate,
 }
 
 impl Species {
     pub fn make_entity(&self) -> Entity {
+        let sprite = self.make_sprite(false);
+        let original_sprite_frame = sprite.frame; 
+        
         Entity {
             id: self.next_entity_id(),
             frame: self.sprite_frame,  
@@ -53,13 +58,13 @@ impl Species {
             current_speed: 0.0,
             is_rigid: self.is_rigid,
             z_index: self.z_index,
-            sprite: self.make_sprite(false),
+            sprite,
             dialogues: EntityDialogues::empty(),
             time_immobilized: 0.0,
             name: self.name.localized(),
             destination: 0,
-            is_on: false,
-            lock_type: LockType::None
+            lock_type: self.lock_type,
+            original_sprite_frame
         }
     }
     
@@ -99,6 +104,7 @@ const SPECIES_NONE: Species = Species {
     sprite_frame: Rect::new(0, 0, 0, 0),
     sprite_sheet_id: SPRITE_SHEET_BIOME_TILES,
     sprite_number_of_frames: 1,
+    lock_type: LockType::None
 };
 
 pub fn species_by_id(species_id: u32) -> Species {

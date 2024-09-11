@@ -101,7 +101,7 @@ impl DialogueMenu {
     }
 
     fn handle_answer(&mut self, stops: bool, answer: u32) {
-        set_value_for_key(StorageKey::dialogue_answer(self.dialogue.id), answer);       
+        set_value_for_key(&StorageKey::dialogue_answer(self.dialogue.id), answer);       
         self.menu.clear_selection();
         
         if let Some(next_dialogue) = dialogue_by_id(answer) {         

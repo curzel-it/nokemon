@@ -7,5 +7,10 @@
   "dialogue.answer.107": 108,
   "dialogue.answer.108": 104,
   "dialogue.answer.109": 109,
-  "dialogue.answer.110": 110
+  "dialogue.answer.110": 110,
+  "pressure_plate.blue": 0,
+  "pressure_plate.green": 0,
+  "pressure_plate.red": 1,
+  "pressure_plate.silver": 0,
+  "pressure_plate.yellow": 0
 }

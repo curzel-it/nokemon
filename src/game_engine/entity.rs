@@ -43,12 +43,8 @@ pub struct Entity {
     pub dialogues: EntityDialogues,
     pub time_immobilized: f32,
     pub destination: u32,
-
-    #[serde(default)]
-    pub is_on: bool,
-
-    #[serde(default)]
     pub lock_type: LockType,
+    pub original_sprite_frame: Rect,
 }
 
 impl Entity {
@@ -62,6 +58,7 @@ impl Entity {
             EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
             EntityType::PushableObject => self.update_pushable(world, time_since_last_update),
             EntityType::Gate => self.update_gate(world, time_since_last_update),
+            EntityType::PressurePlate => self.update_pressure_plate(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
         updates
@@ -77,6 +74,7 @@ impl Entity {
             EntityType::Teleporter => self.setup_generic(),
             EntityType::PushableObject => self.setup_generic(),
             EntityType::Gate => self.setup_gate(),
+            EntityType::PressurePlate => self.setup_pressure_plate(),
         }
     }
 
@@ -109,6 +107,10 @@ impl Entity {
             }
         }
         None
+    }
+
+    pub fn is_related_lock_closed(&self) -> bool {
+        get_value_for_key(self.lock_type.pressure_plate()).unwrap_or(1) == 0
     }
 }
 

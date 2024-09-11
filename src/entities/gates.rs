@@ -1,21 +1,11 @@
-use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
+use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
 impl Entity {
     pub fn setup_gate(&mut self) {
-        if !self.is_on {
+        if self.is_related_lock_closed() {
             self.sprite.frame.x += 1;
         }
-    }
-  
-    pub fn gate_flip_on_off(&mut self) {
-        if self.is_on {
-            self.sprite.frame.x += 1;
-            self.is_on = false;
-        } else {
-            self.sprite.frame.x -= 1;
-            self.is_on = true;
-        }
-    }
+    }  
 
     pub fn update_gate(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
@@ -28,7 +18,13 @@ impl Entity {
             ];   
         }
 
-        self.is_rigid = self.is_on;
+        if self.is_related_lock_closed() {
+            self.is_rigid = true;
+            self.sprite.frame.x = self.original_sprite_frame.x;
+        } else {
+            self.is_rigid = false;
+            self.sprite.frame.x = self.original_sprite_frame.x + 1;
+        }
 
         vec![]
     }
