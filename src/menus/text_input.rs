@@ -28,7 +28,7 @@ impl TextInput {
         let did_not_press_character = keyboard.currently_pressed_character.is_none();
 
         self.time_since_shown += time_since_last_update;
-        self.cursor_visible = (self.time_since_shown * 2.0).floor() as u32 % 2 == 0;
+        self.cursor_visible = (self.time_since_shown * 2.3).floor() as u32 % 2 == 0;
 
         if let Some(character) = keyboard.currently_pressed_character {
             if self.cursor_position <= self.text.len() {
