@@ -21,6 +21,7 @@
 "entity.menu.rename_title" = "Enter new name"
 "entity.menu.pickup" = "Pick up"
 "entity.menu.change_lock" = "Change Lock"
+"entity.menu.change_lock_title" = "Select Key Color"
 
 "game.menu.title" = "Game Menu"
 "game.menu.save" = "Save Game"

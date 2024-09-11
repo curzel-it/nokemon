@@ -23,6 +23,7 @@ pub enum EngineStateUpdate {
     ShowEntityOptions(String, EntityId, EntityType),
     ShowDialogue(NpcId, String, Dialogue), 
     AddToInventory(SpeciesId),
+    Toast(String),
 }
 
 #[cfg(test)]

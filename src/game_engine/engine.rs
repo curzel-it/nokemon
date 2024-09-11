@@ -194,15 +194,26 @@ impl GameEngine {
             EngineStateUpdate::ShowDialogue(npc_id, npc_name, dialogue) => {
                 self.show_dialogue(npc_id, npc_name, dialogue)
             },
-            EngineStateUpdate::CenterCamera(x, y, offset) => self.center_camera_at(*x, *y, offset),
+            EngineStateUpdate::CenterCamera(x, y, offset) => {
+                self.center_camera_at(*x, *y, offset)
+            },
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::ShowEntityOptions(name, id, entity_type) => {
                 self.entity_options_menu.show(name, id, entity_type, self.creative_mode)
             }
-            EngineStateUpdate::AddToInventory(species_id) => add_to_inventory(*species_id),
+            EngineStateUpdate::AddToInventory(species_id) => {
+                add_to_inventory(*species_id)
+            },
+            EngineStateUpdate::Toast(text) => {
+                self.show_toast(text)
+            },
         }
+    }
+
+    fn show_toast(&mut self, text: &str) {
+        println!("Toast message: {}", text);
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, npc_name: &str, dialogue: &Dialogue) {

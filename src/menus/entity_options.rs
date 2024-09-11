@@ -22,14 +22,7 @@ impl MenuItem for EntityOptionMenuItem {
 
 impl MenuItem for LockType {
     fn title(&self) -> String {
-        match self {
-            LockType::None => "lock.name.none".localized(),
-            LockType::Yellow => "lock.name.yellow".localized(),
-            LockType::Red => "lock.name.red".localized(),
-            LockType::Blue => "lock.name.blue".localized(),
-            LockType::Green => "lock.name.green".localized(),
-            LockType::Silver => "lock.name.silver".localized(),
-        }
+        self.localized_name()
     }
 }
 
@@ -87,81 +80,94 @@ impl EntityOptionsMenu {
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         match self.state {
-            EntityOptionsMenuState::ChangingName => {
-                self.text_input.update(keyboard, time_since_last_update);
+            EntityOptionsMenuState::ChangingName => self.update_from_change_name(keyboard, time_since_last_update),
+            EntityOptionsMenuState::ChangingLock => self.update_from_change_lock(keyboard, time_since_last_update),
+            EntityOptionsMenuState::Closed => self.update_from_close(keyboard, time_since_last_update),
+        }
+    }
 
-                if self.text_input.did_confirm() {
-                    let new_name = self.text_input.text().trim().to_owned();
-                    self.menu.close();
-                    self.state = EntityOptionsMenuState::Closed;
-                    self.text_input.clear();
+    fn update_from_change_name(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        self.text_input.update(keyboard, time_since_last_update);
 
-                    return (false, vec![
-                        WorldStateUpdate::RenameEntity(self.entity_id, new_name),
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
-                    ]);
-                } else if self.text_input.did_cancel() {
-                    self.state = EntityOptionsMenuState::Closed;
-                    self.text_input.clear();
-                }
+        if self.text_input.did_confirm() {
+            let new_name = self.text_input.text().trim().to_owned();
+            self.menu.close();
+            self.state = EntityOptionsMenuState::Closed;
+            self.text_input.clear();
 
-                return (self.menu.is_open(), vec![]);
-            }
+            return (false, vec![
+                WorldStateUpdate::RenameEntity(self.entity_id, new_name),
+                WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+            ]);
+        } else if self.text_input.did_cancel() {
+            self.state = EntityOptionsMenuState::Closed;
+            self.text_input.clear();
+        }
 
-            EntityOptionsMenuState::ChangingLock => {
-                self.lock_menu.update(keyboard, time_since_last_update);
+        return (self.menu.is_open(), vec![]);
+    }
 
-                if self.lock_menu.selection_has_been_confirmed {
-                    let selected_lock = self.lock_menu.selected_item();
+    fn update_from_change_lock(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        self.lock_menu.update(keyboard, time_since_last_update);
+
+        if self.lock_menu.selection_has_been_confirmed {
+            let selected_lock = self.lock_menu.selected_item();
+            self.lock_menu.clear_selection();
+            self.lock_menu.close();
+            self.menu.clear_selection();
+            self.menu.close();
+            self.state = EntityOptionsMenuState::Closed;
+
+            return (false, vec![
+                WorldStateUpdate::ChangeLock(self.entity_id, selected_lock),
+                WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+            ]);
+        }
+        if !self.lock_menu.is_open {
+            self.lock_menu.clear_selection();
+            self.lock_menu.close();
+            self.menu.clear_selection();
+            self.menu.close();
+            self.state = EntityOptionsMenuState::Closed;
+        }
+
+        return (self.menu.is_open(), vec![]);
+    }
+
+    fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        self.menu.update(keyboard, time_since_last_update);
+
+        if self.is_open() && self.menu.selection_has_been_confirmed {
+            let updates = match self.menu.selected_item() {
+                EntityOptionMenuItem::Remove => {
                     self.menu.clear_selection();
                     self.menu.close();
-                    self.state = EntityOptionsMenuState::Closed;
-
-                    return (false, vec![
-                        WorldStateUpdate::ChangeLock(self.entity_id, selected_lock),
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
-                    ]);
-                }
-
-                return (self.menu.is_open(), vec![]);
-            }
-
-            EntityOptionsMenuState::Closed => {
-                self.menu.update(keyboard, time_since_last_update);
-
-                if self.is_open() && self.menu.selection_has_been_confirmed {
-                    let updates = match self.menu.selected_item() {
-                        EntityOptionMenuItem::Remove => {
-                            self.menu.clear_selection();
-                            self.menu.close();
-                            vec![WorldStateUpdate::RemoveEntity(self.entity_id)]
-                        },
-                        EntityOptionMenuItem::Rename => {
-                            self.menu.clear_selection();
-                            self.ask_for_new_name();
-                            vec![]
-                        },
-                        EntityOptionMenuItem::PickUp => {
-                            self.menu.clear_selection();
-                            self.menu.close();
-                            vec![
-                                WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.entity_id)),
-                                WorldStateUpdate::RemoveEntity(self.entity_id),
-                                WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
-                            ]
-                        },
-                        EntityOptionMenuItem::ChangeLock => {
-                            self.menu.clear_selection();
-                            self.ask_for_lock_type();
-                            vec![]
-                        },
-                    };
-                    return (self.menu.is_open(), updates);
-                }
-
-                return (self.menu.is_open(), vec![]);
-            }
+                    vec![WorldStateUpdate::RemoveEntity(self.entity_id)]
+                },
+                EntityOptionMenuItem::Rename => {
+                    self.menu.clear_selection();
+                    self.ask_for_new_name();
+                    vec![]
+                },
+                EntityOptionMenuItem::PickUp => {
+                    self.menu.clear_selection();
+                    self.menu.close();
+                    vec![
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.entity_id)),
+                        WorldStateUpdate::RemoveEntity(self.entity_id),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    ]
+                },
+                EntityOptionMenuItem::ChangeLock => {
+                    self.menu.clear_selection();
+                    self.ask_for_lock_type();
+                    vec![]
+                },
+            };
+            return (self.menu.is_open(), updates);
         }
+
+        return (self.menu.is_open(), vec![]);
     }
 
     pub fn ui(&self) -> View {

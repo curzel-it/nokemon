@@ -1,20 +1,27 @@
-use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
+use crate::{game_engine::{entity::Entity, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
 
 impl Entity {
     pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
-        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
-            let vec = vec![
-                WorldStateUpdate::EngineUpdate(
-                    EngineStateUpdate::ShowEntityOptions(
-                        self.name.clone(), self.id, self.entity_type
+        if world.is_hero_around_and_on_collision_with(&self.frame) {
+            if world.creative_mode {
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowEntityOptions(
+                            self.name.clone(), self.id, self.entity_type
+                        )
                     )
-                )
-            ];
-            return vec;  
+                ];
+            } else {
+                // TODO: Check inventory, ask for confirmation or give additional hint about key color
+            }
         } 
 
         if self.should_teleport(world) {
-            vec![self.engine_update_push_world()]
+            if self.lock_type != LockType::None {
+                vec![self.show_locked_message()]
+            } else {
+                vec![self.engine_update_push_world()]
+            }
         } else {
             vec![]
         }        
@@ -41,6 +48,14 @@ impl Entity {
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::SwitchWorld(
                 self.destination
+            )
+        )
+    }
+
+    fn show_locked_message(&self) -> WorldStateUpdate {
+        WorldStateUpdate::EngineUpdate(
+            EngineStateUpdate::Toast(
+                "teleporter.locked".localized().replace("%s", &self.lock_type.localized_name())
             )
         )
     }
