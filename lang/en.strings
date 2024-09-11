@@ -50,6 +50,11 @@
 "objects.name.table" = "Table"
 "objects.name.bed" = "Bed"
 "objects.name.key" = "Key"
+"objects.name.key_yellow" = "Yellow Key"
+"objects.name.key_red" = "Red Key"
+"objects.name.key_green" = "Green Key"
+"objects.name.key_blue" = "Blue Key"
+"objects.name.key_silver" = "Silver Key"
 
 "teleporter.name" = "Teleporter"
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";

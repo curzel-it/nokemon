@@ -340,8 +340,8 @@
         "sprite_number_of_frames": 1
     },
     {
-        "id": 1018,
-        "name": "objects.name.key",
+        "id": 2000,
+        "name": "objects.name.key_yellow",
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
@@ -353,6 +353,86 @@
         "sprite_frame": {
             "x": 0,
             "y": 0,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8
+    },
+    {
+        "id": 2001,
+        "name": "objects.name.key_red",
+        "entity_type": "PickableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            2
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 1,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8
+    },
+    {
+        "id": 2002,
+        "name": "objects.name.key_green",
+        "entity_type": "PickableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            3
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8
+    },
+    {
+        "id": 2003,
+        "name": "objects.name.key_blue",
+        "entity_type": "PickableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            4
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8
+    },
+    {
+        "id": 2004,
+        "name": "objects.name.key_silver",
+        "entity_type": "PickableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            5,
+            5
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 4,
             "w": 1,
             "h": 1
         },

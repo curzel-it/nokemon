@@ -447,7 +447,7 @@
         "h": 1
       },
       "name": "Key",
-      "species_id": 1018,
+      "species_id": 2000,
       "entity_type": "PickableObject",
       "offset": {
         "x": 0.0,
@@ -462,6 +462,146 @@
         "frame": {
           "x": 0,
           "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 8
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    },
+    {
+      "id": 1726045806,
+      "frame": {
+        "x": 100,
+        "y": 77,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Silver Key",
+      "species_id": 2004,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 8
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    },
+    {
+      "id": 1726045807,
+      "frame": {
+        "x": 101,
+        "y": 77,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Red Key",
+      "species_id": 2001,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 8
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    },
+    {
+      "id": 1726045808,
+      "frame": {
+        "x": 102,
+        "y": 77,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Green Key",
+      "species_id": 2002,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 2,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 8
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": 0
+    },
+    {
+      "id": 1726045809,
+      "frame": {
+        "x": 103,
+        "y": 77,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Blue Key",
+      "species_id": 2003,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 3,
           "w": 1,
           "h": 1
         },

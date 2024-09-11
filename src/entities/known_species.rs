@@ -15,5 +15,5 @@ pub const SPECIES_SEAT_PINK: u32 = 1014;
 pub const SPECIES_SEAT_ORANGE: u32 = 1015;
 pub const SPECIES_TABLE: u32 = 1016;
 pub const SPECIES_BED: u32 = 1017;
-pub const SPECIES_KEY: u32 = 1018;
+pub const SPECIES_KEY: u32 = 2000;
 pub const SPECIES_TELEPORTER: u32 = 1019;
