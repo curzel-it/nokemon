@@ -2,7 +2,7 @@ use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
 use crate::ui::components::{empty_view, BordersTextures, TextureInfo};
-use crate::ui::scaffold::{self, scaffold};
+use crate::ui::scaffold::{scaffold};
 use crate::utils::rect::Rect;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 

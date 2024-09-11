@@ -3,7 +3,9 @@ use serde::{Deserialize, Serialize};
 use crate::lang::localizable::LocalizableText;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Default)]
 pub enum LockType {
+    #[default]
     None,
     Yellow,
     Red,
@@ -12,11 +14,6 @@ pub enum LockType {
     Silver
 }
 
-impl Default for LockType {
-    fn default() -> Self {
-        LockType::None
-    }
-}
 
 impl LockType {
     pub fn localized_name(&self) -> String {
