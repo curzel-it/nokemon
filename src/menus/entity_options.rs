@@ -1,5 +1,5 @@
 
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::EntityType, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
@@ -7,6 +7,7 @@ use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 pub enum EntityOptionMenuItem {
     Remove,
     Rename,
+    PickUp,
 }
 
 impl MenuItem for EntityOptionMenuItem {
@@ -14,6 +15,7 @@ impl MenuItem for EntityOptionMenuItem {
         match self {
             EntityOptionMenuItem::Remove => "entity.menu.remove".localized(),
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
+            EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
         }
     }
 }
@@ -37,14 +39,16 @@ impl EntityOptionsMenu {
         }
     }
 
-    pub fn show(&mut self, name: &str, id: &u32) {
+    pub fn show(&mut self, name: &str, id: &u32, entity_type: &EntityType, creative_mode: bool) {
+        self.menu.items = self.available_options(creative_mode, entity_type);
+
+        if self.menu.items.is_empty() {
+            return
+        }
+
         self.entity_name = name.to_owned();
         self.entity_id = *id;
         self.menu.title = name.to_owned();
-        self.menu.items = vec![
-            EntityOptionMenuItem::Rename,
-            EntityOptionMenuItem::Remove,
-        ];
         self.menu.show();
         self.is_renaming = false;
     }
@@ -89,6 +93,15 @@ impl EntityOptionsMenu {
                     self.ask_for_new_name();
                     vec![]
                 },
+                EntityOptionMenuItem::PickUp => {
+                    self.menu.clear_selection();
+                    self.menu.close();
+                    vec![
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.entity_id)),
+                        WorldStateUpdate::RemoveEntity(self.entity_id),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    ]
+                },
             };
             return (self.menu.is_open, updates);
         }
@@ -108,5 +121,55 @@ impl EntityOptionsMenu {
         self.is_renaming = true;
         self.text_input.clear();
         self.text_input.title = "entity.menu.rename_title".localized();
+    }
+}
+
+impl EntityOptionsMenu {
+    fn available_options(&self, creative_mode: bool, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+        if creative_mode {
+            self.available_options_creative(entity_type)
+        } else {
+            self.available_options_regular(entity_type)
+        }
+    }
+
+    fn available_options_creative(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+        let default_options = vec![
+            EntityOptionMenuItem::Rename,
+            EntityOptionMenuItem::Remove,
+        ];
+
+        let default_options_and_pickup = vec![
+            EntityOptionMenuItem::PickUp,
+            EntityOptionMenuItem::Rename,
+            EntityOptionMenuItem::Remove,
+        ];
+
+        let nothing: Vec<EntityOptionMenuItem> = vec![];
+
+        match entity_type {
+            EntityType::Hero => nothing,
+            EntityType::Npc => default_options,
+            EntityType::Building => default_options,
+            EntityType::HouseholdObject => default_options_and_pickup,
+            EntityType::PickableObject => default_options_and_pickup,
+            EntityType::Teleporter => nothing,
+        }
+    }
+
+    fn available_options_regular(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+        let pickup = vec![
+            EntityOptionMenuItem::PickUp,
+        ];
+        let nothing: Vec<EntityOptionMenuItem> = vec![];
+
+        match entity_type {
+            EntityType::Hero => nothing,
+            EntityType::Npc => nothing,
+            EntityType::Building => nothing,
+            EntityType::HouseholdObject => pickup,
+            EntityType::PickableObject => pickup,
+            EntityType::Teleporter => nothing,
+        }
     }
 }

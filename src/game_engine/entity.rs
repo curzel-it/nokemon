@@ -97,7 +97,7 @@ impl Entity {
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::ShowEntityOptions(
-                        self.name.clone(), self.id
+                        self.name.clone(), self.id, self.entity_type
                     )
                 )
             ];   

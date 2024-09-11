@@ -1,4 +1,4 @@
-use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::{EntityType, SpeciesId}}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::entity::{Entity, EntityId, EntityProps};
 
@@ -19,10 +19,12 @@ pub enum EngineStateUpdate {
     SwitchWorld(u32),
     SaveGame,
     Exit,
-    ShowEntityOptions(String, EntityId),
+    ShowEntityOptions(String, EntityId, EntityType),
     ShowDialogue(NpcId, String, Dialogue), 
     AddToInventory(SpeciesId),
 }
+
+pub type AllowsPickUp = bool;
 
 #[cfg(test)]
 mod tests {

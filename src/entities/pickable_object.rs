@@ -5,24 +5,14 @@ impl Entity {
         self.update_sprite_for_current_direction();
         
         if world.is_hero_around_and_on_collision_with(&self.frame) {
-            if world.creative_mode {
-                let vec = vec![
-                    WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowEntityOptions(
-                            self.name.clone(), self.id
-                        )
+            let vec = vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::ShowEntityOptions(
+                        self.name.clone(), self.id, self.entity_type
                     )
-                ];
-                return vec;  
-            } else {
-                if world.has_confirmation_key_been_pressed {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.species_id)),
-                        WorldStateUpdate::RemoveEntity(self.id),
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
-                    ];
-                }
-            }             
+                )
+            ];
+            return vec;  
         }  
         vec![]
     }

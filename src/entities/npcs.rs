@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
+use crate::{entities::species::EntityType, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}};
 
 pub type NpcId = u32;
 
@@ -12,7 +12,7 @@ impl Entity {
                 let vec = vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowEntityOptions(
-                            self.name.clone(), self.id
+                            self.name.clone(), self.id, self.entity_type
                         )
                     )
                 ];
