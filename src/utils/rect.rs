@@ -56,10 +56,12 @@ impl Rect {
             return true
         }
 
+        let is_just_above_other = self.y == other.y || self.y == other.y.saturating_sub(1);
+
         match direction {
             Direction::Up => self.y == other.y + other.h && self.x >= other.x && self.x < other.x + other.w,
-            Direction::Right => self.x == other.x.max(1) - 1 && self.y > other.y && self.y < other.y + other.h,
-            Direction::Down => self.y == other.y && self.x >= other.x && self.x < other.x + other.w,
+            Direction::Right => self.x == other.x.saturating_sub(1) && self.y > other.y && self.y < other.y + other.h,
+            Direction::Down => is_just_above_other && self.x >= other.x && self.x < other.x + other.w,
             Direction::Left => self.x == other.x + other.w && self.y > other.y && self.y < other.y + other.h,
             Direction::Unknown => false,
         }
