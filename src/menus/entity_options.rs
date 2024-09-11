@@ -35,6 +35,7 @@ pub enum EntityOptionsMenuState {
 pub struct EntityOptionsMenu {
     entity_name: String,
     entity_id: u32,
+    species_id: u32,
     menu: Menu<EntityOptionMenuItem>,
     state: EntityOptionsMenuState,
     text_input: TextInput,
@@ -46,6 +47,7 @@ impl EntityOptionsMenu {
         Self {
             entity_name: "".to_owned(),
             entity_id: 0,
+            species_id: 0,
             menu: Menu::new("entity.menu.title".localized(), vec![]),
             state: EntityOptionsMenuState::Closed,
             text_input: TextInput::new(),
@@ -60,16 +62,17 @@ impl EntityOptionsMenu {
         }
     }
 
-    pub fn show(&mut self, name: &str, id: &u32, entity_type: &EntityType, creative_mode: bool) {
+    pub fn show(&mut self, entity_name: &str, entity_id: &u32, species_id: &u32, entity_type: &EntityType, creative_mode: bool) {
         self.menu.items = self.available_options(creative_mode, entity_type);
 
         if self.menu.items.is_empty() {
             return
         }
 
-        self.entity_name = name.to_owned();
-        self.entity_id = *id;
-        self.menu.title = name.to_owned();
+        self.entity_name = entity_name.to_owned();
+        self.entity_id = *entity_id;
+        self.species_id = *species_id;
+        self.menu.title = entity_name.to_owned();
         self.menu.show();
         self.state = EntityOptionsMenuState::Closed;
     }
@@ -153,7 +156,7 @@ impl EntityOptionsMenu {
                     self.menu.clear_selection();
                     self.menu.close();
                     vec![
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.entity_id)),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.species_id)),
                         WorldStateUpdate::RemoveEntity(self.entity_id),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     ]

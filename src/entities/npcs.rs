@@ -12,7 +12,7 @@ impl Entity {
                 let vec = vec![
                     WorldStateUpdate::EngineUpdate(
                         EngineStateUpdate::ShowEntityOptions(
-                            self.name.clone(), self.id, self.entity_type
+                            self.name.clone(), self.id, self.species_id, self.entity_type
                         )
                     )
                 ];

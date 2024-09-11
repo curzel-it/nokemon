@@ -71,7 +71,7 @@
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
 "teleporter.unlock.title" = "Unlock the door?"
-"teleporter.unlock.message" = "It will need to use one %s key."
+"teleporter.unlock.message" = "You will lose one %s key."
 
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
 

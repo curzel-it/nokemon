@@ -214,8 +214,8 @@ impl GameEngine {
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::Exit => self.exit(),
-            EngineStateUpdate::ShowEntityOptions(name, id, entity_type) => {
-                self.entity_options_menu.show(name, id, entity_type, self.creative_mode)
+            EngineStateUpdate::ShowEntityOptions(entity_name, entity_id, species_id, entity_type) => {
+                self.entity_options_menu.show(entity_name, entity_id, species_id, entity_type, self.creative_mode)
             }
             EngineStateUpdate::AddToInventory(species_id) => {
                 add_to_inventory(*species_id)

@@ -55,6 +55,7 @@ impl ConfirmationDialog {
         if self.menu.selection_has_been_confirmed {
             let selection = self.menu.selected_item();
 
+            self.menu.title = "".to_owned();
             self.menu.clear_selection();
             self.menu.close();
 

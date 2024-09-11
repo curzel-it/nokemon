@@ -550,42 +550,6 @@
       "lock_type": "None"
     },
     {
-      "id": 1726045809,
-      "frame": {
-        "x": 103,
-        "y": 77,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Blue Key",
-      "species_id": 2003,
-      "entity_type": "PickableObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 0,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 8
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0,
-      "lock_type": "None"
-    },
-    {
       "id": 1726052730,
       "frame": {
         "x": 106,
@@ -655,7 +619,7 @@
       },
       "time_immobilized": 0.0,
       "destination": 1726052731,
-      "lock_type": "Yellow"
+      "lock_type": "None"
     }
   ]
 }
