@@ -55,7 +55,7 @@ impl EntityOptionsMenu {
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         if self.is_renaming {
-            self.text_input.update(keyboard);
+            self.text_input.update(keyboard, time_since_last_update);
 
             if self.text_input.did_confirm() {
                 let new_name = self.text_input.text().trim().to_owned();

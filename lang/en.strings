@@ -52,6 +52,7 @@
 "objects.name.key" = "Key"
 
 "teleporter.name" = "Teleporter"
+"text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
 
 "world.names.new_world" = "New World"
 "world.names.demo" = "Demo World"
