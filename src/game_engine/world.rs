@@ -1,9 +1,9 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::EntityType}, features::hitmap::Hitmap, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{self, Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -42,9 +42,11 @@ impl World {
 
     pub fn add_entity(&mut self, entity: Entity) -> (usize, u32) {
         let id = entity.id;
-        let mut entities = self.entities.borrow_mut();
+        let mut entities = self.entities.borrow_mut();        
         entities.push(entity);
-        (entities.len() - 1, id)
+        let new_index = entities.len() - 1;
+        entities[new_index].setup();
+        (new_index, id)
     }
 
     fn remove_entity_by_id(&mut self, id: u32) {
@@ -131,11 +133,25 @@ impl World {
             WorldStateUpdate::StopHeroMovement => {
                 self.stop_hero_movement()
             },
+            WorldStateUpdate::FlipOnOff(entity_id) => {
+                self.flip_on_off(entity_id)
+            },
             WorldStateUpdate::EngineUpdate(update) => {
                 return Some(update)
             },
         };
         None
+    }
+
+    fn flip_on_off(&mut self, entity_id: u32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == entity_id) {            
+            if matches!(entity.entity_type, EntityType::Gate) {
+                entity.gate_flip_on_off()
+            } else {
+                entity.is_on = !entity.is_on
+            }
+        }
     }
 
     fn stop_hero_movement(&mut self) {

@@ -45,6 +45,9 @@ pub struct Entity {
     pub destination: u32,
 
     #[serde(default)]
+    pub is_on: bool,
+
+    #[serde(default)]
     pub lock_type: LockType,
 }
 
@@ -58,11 +61,23 @@ impl Entity {
             EntityType::PickableObject => self.update_pickable_object(world, time_since_last_update),
             EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
             EntityType::PushableObject => self.update_pushable(world, time_since_last_update),
-        };
-        
-        self.sprite.update(time_since_last_update);  
-
+            EntityType::Gate => self.update_gate(world, time_since_last_update),
+        };        
+        self.sprite.update(time_since_last_update); 
         updates
+    }
+
+    pub fn setup(&mut self) {      
+        match self.entity_type {
+            EntityType::Hero => self.setup_generic(),
+            EntityType::Npc => self.setup_generic(),
+            EntityType::Building => self.setup_generic(),
+            EntityType::HouseholdObject => self.setup_generic(),
+            EntityType::PickableObject => self.setup_generic(),
+            EntityType::Teleporter => self.setup_generic(),
+            EntityType::PushableObject => self.setup_generic(),
+            EntityType::Gate => self.setup_gate(),
+        }
     }
 
     pub fn sprite_sheet(&self) -> u32 {
@@ -98,6 +113,10 @@ impl Entity {
 }
 
 impl Entity {
+    fn setup_generic(&mut self) {
+        // ...
+    }
+
     fn update_generic(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
             return vec![

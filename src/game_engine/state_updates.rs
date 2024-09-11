@@ -13,6 +13,7 @@ pub enum WorldStateUpdate {
     BiomeTileChange(usize, usize, Biome),
     StopHeroMovement,
     ConstructionTileChange(usize, usize, Construction),
+    FlipOnOff(u32),
     EngineUpdate(EngineStateUpdate),
 }
 

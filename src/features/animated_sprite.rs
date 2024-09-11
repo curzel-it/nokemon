@@ -23,8 +23,10 @@ impl AnimatedSprite {
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
-        self.frames_provider.update(time_since_last_update);
-        self.frame.x = *self.frames_provider.current_frame();
+        if self.number_of_frames > 1 {
+            self.frames_provider.update(time_since_last_update);
+            self.frame.x = *self.frames_provider.current_frame();
+        }
     }
 
     pub fn texture_source_rect(&self) -> Rect {

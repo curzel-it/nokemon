@@ -7,6 +7,7 @@ pub enum EntityOptionMenuItem {
     Rename,
     PickUp,
     ChangeLock,
+    FlipOnOff,
 }
 
 impl MenuItem for EntityOptionMenuItem {
@@ -16,6 +17,7 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
+            EntityOptionMenuItem::FlipOnOff => "entity.menu.change_on_off".localized(),
         }
     }
 }
@@ -36,6 +38,7 @@ pub struct EntityOptionsMenu {
     entity_name: String,
     entity_id: u32,
     species_id: u32,
+    time_since_last_closed: f32,
     menu: Menu<EntityOptionMenuItem>,
     state: EntityOptionsMenuState,
     text_input: TextInput,
@@ -48,6 +51,7 @@ impl EntityOptionsMenu {
             entity_name: "".to_owned(),
             entity_id: 0,
             species_id: 0,
+            time_since_last_closed: 1.0,
             menu: Menu::new("entity.menu.title".localized(), vec![]),
             state: EntityOptionsMenuState::Closed,
             text_input: TextInput::new(),
@@ -63,6 +67,10 @@ impl EntityOptionsMenu {
     }
 
     pub fn show(&mut self, entity_name: &str, entity_id: &u32, species_id: &u32, entity_type: &EntityType, creative_mode: bool) {
+        if self.time_since_last_closed < 0.5 {
+            return;
+        }
+        self.time_since_last_closed = 0.0;
         self.menu.items = self.available_options(creative_mode, entity_type);
 
         if self.menu.items.is_empty() {
@@ -82,6 +90,10 @@ impl EntityOptionsMenu {
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+        if !self.menu.is_open {
+            self.time_since_last_closed += time_since_last_update;
+        }
+        
         match self.state {
             EntityOptionsMenuState::ChangingName => self.update_from_change_name(keyboard, time_since_last_update),
             EntityOptionsMenuState::ChangingLock => self.update_from_change_lock(keyboard, time_since_last_update),
@@ -166,6 +178,14 @@ impl EntityOptionsMenu {
                     self.ask_for_lock_type();
                     vec![]
                 },
+                EntityOptionMenuItem::FlipOnOff => {
+                    self.menu.clear_selection();
+                    self.menu.close();
+                    vec![
+                        WorldStateUpdate::FlipOnOff(self.entity_id),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    ]
+                },
             };
             return (self.menu.is_open, updates);
         }
@@ -206,26 +226,30 @@ impl EntityOptionsMenu {
             EntityOptionMenuItem::Remove,
         ];
 
-        let default_options_and_pickup = vec![
-            EntityOptionMenuItem::PickUp,
-            EntityOptionMenuItem::Rename,
-            EntityOptionMenuItem::Remove,
-        ];
-
-        let change_lock = vec![
-            EntityOptionMenuItem::ChangeLock
-        ];
-
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
         match entity_type {
             EntityType::Hero => nothing,
             EntityType::Npc => default_options,
             EntityType::Building => default_options,
-            EntityType::HouseholdObject => default_options_and_pickup,
-            EntityType::PickableObject => default_options_and_pickup,
-            EntityType::Teleporter => change_lock,
+            EntityType::HouseholdObject => vec![
+                EntityOptionMenuItem::PickUp,
+                EntityOptionMenuItem::Rename,
+                EntityOptionMenuItem::Remove,
+            ],
+            EntityType::PickableObject => vec![
+                EntityOptionMenuItem::PickUp,
+                EntityOptionMenuItem::Rename,
+                EntityOptionMenuItem::Remove,
+            ],
+            EntityType::Teleporter => vec![
+                EntityOptionMenuItem::ChangeLock
+            ],
             EntityType::PushableObject => default_options,
+            EntityType::Gate => vec![
+                EntityOptionMenuItem::FlipOnOff,
+                EntityOptionMenuItem::Remove,
+            ],
         }
     }
 
@@ -243,6 +267,7 @@ impl EntityOptionsMenu {
             EntityType::PickableObject => pickup,
             EntityType::Teleporter => nothing,
             EntityType::PushableObject => nothing,
+            EntityType::Gate => nothing,
         }
     }
 }

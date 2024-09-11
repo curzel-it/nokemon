@@ -38,6 +38,7 @@ pub enum EntityType {
     PickableObject,
     Teleporter,
     PushableObject,
+    Gate,
 }
 
 impl Species {
@@ -57,6 +58,7 @@ impl Species {
             time_immobilized: 0.0,
             name: self.name.localized(),
             destination: 0,
+            is_on: false,
             lock_type: LockType::None
         }
     }

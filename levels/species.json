@@ -478,5 +478,105 @@
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
+    },
+    {
+        "id": 1040,
+        "name": "objects.name.gate.yellow",
+        "entity_type": "Gate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            5,
+            6
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 0,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 1041,
+        "name": "objects.name.gate.red",
+        "entity_type": "Gate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            5,
+            7
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 1,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 1042,
+        "name": "objects.name.gate.green",
+        "entity_type": "Gate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            5,
+            8
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 1043,
+        "name": "objects.name.gate.blue",
+        "entity_type": "Gate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            5,
+            9
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 1044,
+        "name": "objects.name.gate.silver",
+        "entity_type": "Gate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            5,
+            10
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 4,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
     }
 ]
