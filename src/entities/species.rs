@@ -37,6 +37,7 @@ pub enum EntityType {
     HouseholdObject,
     PickableObject,
     Teleporter,
+    PushableObject,
 }
 
 impl Species {

@@ -55,6 +55,7 @@ impl Entity {
             EntityType::HouseholdObject => self.update_generic(world, time_since_last_update),
             EntityType::PickableObject => self.update_pickable_object(world, time_since_last_update),
             EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
+            EntityType::PushableObject => self.update_pushable(world, time_since_last_update),
         };
         
         self.sprite.update(time_since_last_update);  

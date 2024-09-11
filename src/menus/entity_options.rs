@@ -225,6 +225,7 @@ impl EntityOptionsMenu {
             EntityType::HouseholdObject => default_options_and_pickup,
             EntityType::PickableObject => default_options_and_pickup,
             EntityType::Teleporter => change_lock,
+            EntityType::PushableObject => default_options,
         }
     }
 
@@ -241,6 +242,7 @@ impl EntityOptionsMenu {
             EntityType::HouseholdObject => pickup,
             EntityType::PickableObject => pickup,
             EntityType::Teleporter => nothing,
+            EntityType::PushableObject => nothing,
         }
     }
 }

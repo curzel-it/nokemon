@@ -67,6 +67,8 @@
 "objects.name.key_green" = "Green Key"
 "objects.name.key_blue" = "Blue Key"
 "objects.name.key_silver" = "Silver Key"
+"objects.name.teleporter" = "Teleporter"
+"objects.name.boulder" = "Boulder"
 
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
