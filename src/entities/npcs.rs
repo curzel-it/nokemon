@@ -1,4 +1,4 @@
-use crate::{entities::species::EntityType, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}};
+use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
 
 pub type NpcId = u32;
 

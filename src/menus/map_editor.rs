@@ -6,7 +6,7 @@ const MAX_VISIBLE_WORLDS: usize = 4;
 
 #[derive(Debug)]
 pub struct MapEditor {
-    pub stock: Vec<Stockable>,
+    stock: Vec<Stockable>,
     pub worlds: Vec<u32>,
     pub current_world_id: u32,
     state: MapEditorState,
