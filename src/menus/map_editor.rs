@@ -1,17 +1,14 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
-
-const MAX_VISIBLE_WORLDS: usize = 4;
 
 #[derive(Debug)]
 pub struct MapEditor {
     stock: Vec<Stockable>,
-    pub worlds: Vec<u32>,
-    pub current_world_id: u32,
     state: MapEditorState,
+    pub current_world_id: u32,
     columns: usize,
     offset: usize, 
 }
@@ -19,18 +16,15 @@ pub struct MapEditor {
 #[derive(Debug, Clone)]
 enum MapEditorState {
     SelectingItem(usize),
-    SelectingWorld(usize),
     PlacingItem(usize, Stockable, Rect),
-    PlacingWorld(usize, u32, Rect),
 }
 
 impl MapEditor {
     pub fn new() -> Self {
         Self {
             stock: MapEditor::all_possible_items().into_iter().collect(),
-            worlds: list_worlds_with_none(),
-            current_world_id: WORLD_ID_NONE,
             state: MapEditorState::SelectingItem(0),
+            current_world_id: 0,
             columns: 8,
             offset: 0, 
         }
@@ -39,9 +33,7 @@ impl MapEditor {
     pub fn is_placing_item(&self) -> bool {
         match self.state {
             MapEditorState::PlacingItem(_, _, _) => true,
-            MapEditorState::PlacingWorld(_, _, _) => true,
             MapEditorState::SelectingItem(_) => false,
-            MapEditorState::SelectingWorld(_) => false,
         }
     }
 
@@ -50,21 +42,19 @@ impl MapEditor {
             MapEditorState::SelectingItem(selected_index) => {
                 self.update_item_selection(selected_index, camera_vieport, keyboard)
             },
-            MapEditorState::SelectingWorld(selected_index) => {
-                self.update_world_selection(selected_index, camera_vieport, keyboard)
-            },
             MapEditorState::PlacingItem(selected_index, item, frame) => {
                 self.update_item_placement(selected_index, item, &frame, camera_vieport, keyboard)
-            },
-            MapEditorState::PlacingWorld(selected_index, destination_id, frame) => {
-                self.update_world_placement(selected_index, destination_id, &frame, camera_vieport, keyboard)
             },
         }
     }
 
     fn update_item_selection(&mut self, selected_index: usize, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
-        if keyboard.direction_up.is_pressed && selected_index >= self.columns {
-            self.state = MapEditorState::SelectingItem(selected_index - self.columns);            
+        if keyboard.direction_up.is_pressed {
+            if selected_index >= self.columns {
+                self.state = MapEditorState::SelectingItem(selected_index - self.columns);            
+            } else {
+                self.state = MapEditorState::SelectingItem(self.stock.len() - (self.columns + 1 - selected_index));            
+            }
         }
         if keyboard.direction_right.is_pressed && selected_index < self.stock.len() - 1 {
             self.state = MapEditorState::SelectingItem(selected_index + 1);
@@ -73,7 +63,7 @@ impl MapEditor {
             if selected_index < self.stock.len() - self.columns {
                 self.state = MapEditorState::SelectingItem(selected_index + self.columns);
             } else {
-                self.state = MapEditorState::SelectingWorld(0);
+                self.state = MapEditorState::SelectingItem(0);
             }
         } 
         if keyboard.direction_left.is_pressed && selected_index > 0 {
@@ -96,77 +86,6 @@ impl MapEditor {
             1,
             1
         )
-    }
-
-    fn update_world_selection(
-        &mut self,
-        selected_index: usize,
-        camera_vieport: &Rect,
-        keyboard: &KeyboardEventsProvider
-    ) -> Vec<WorldStateUpdate> {
-        let total_worlds = self.worlds.len();
-    
-        if keyboard.direction_up.is_pressed {
-            if selected_index > 0 {
-                self.state = MapEditorState::SelectingWorld(selected_index - 1);
-            } else {
-                self.state = MapEditorState::SelectingItem(self.stock.len() - 1);
-                return vec![]; 
-            }
-        }
-    
-        if keyboard.direction_down.is_pressed && selected_index < total_worlds - 1 {
-            self.state = MapEditorState::SelectingWorld(selected_index + 1);
-        }
-    
-        if selected_index < self.offset {
-            self.offset = selected_index;
-        } else if selected_index >= self.offset + MAX_VISIBLE_WORLDS {
-            self.offset = selected_index - MAX_VISIBLE_WORLDS + 1;
-        }
-    
-        if keyboard.has_confirmation_been_pressed {
-            self.state = MapEditorState::PlacingWorld(
-                selected_index,
-                self.worlds[selected_index],
-                self.initial_selection_frame(camera_vieport)
-            );
-        }    
-        vec![]
-    }    
-
-    fn update_world_placement(
-        &mut self, 
-        selected_index: usize, 
-        destination_id: u32,
-        frame: &Rect, 
-        camera_vieport: &Rect, 
-        keyboard: &KeyboardEventsProvider
-    ) -> Vec<WorldStateUpdate> {        
-        if keyboard.has_confirmation_been_pressed {
-            return self.place_world(destination_id, frame, camera_vieport);
-        }
-        if keyboard.has_back_been_pressed {
-            self.state = MapEditorState::SelectingWorld(selected_index);
-            return vec![];
-        }        
-        let updated_frame = self.updated_frame(frame, keyboard);
-        self.state = MapEditorState::PlacingWorld(selected_index, destination_id, updated_frame);
-        vec![]
-    }
-
-    fn place_world(&self, destination_id: u32, frame: &Rect, camera_vieport: &Rect) -> Vec<WorldStateUpdate> {
-        let actual_destination_id = if destination_id == WORLD_ID_NONE { 
-            get_next_id()
-        } else {
-            destination_id
-        };
-        let mut teleporter = make_entity_by_species(SPECIES_TELEPORTER);
-        teleporter.destination = actual_destination_id;
-        teleporter.frame.x = camera_vieport.x + frame.x;
-        teleporter.frame.y = camera_vieport.y + frame.y;
-        let update = WorldStateUpdate::AddEntity(teleporter);
-        vec![update]
     }
 
     fn update_item_placement(
@@ -343,19 +262,16 @@ impl MapEditor {
             self.background_color(),
             Some(MENU_BORDERS_TEXTURES),
             match self.state {
-                MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
-                MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
+                MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index),
                 MapEditorState::PlacingItem(_, _, frame) => self.placement_ui(camera_offset, &frame),
-                MapEditorState::PlacingWorld(_, _, frame) => self.placement_ui(camera_offset, &frame),
             }
         )
     }
 
     fn background_color(&self) -> Color {
         match self.state {
-            MapEditorState::PlacingItem(_, _, _) => Color::BLACK.alpha(0.3),
-            MapEditorState::PlacingWorld(_, _, _) => Color::BLACK.alpha(0.3),
-            _ => Color::BLACK
+            MapEditorState::PlacingItem(_, _, _) => Color::BLACK.alpha(0.5),
+            MapEditorState::SelectingItem(_) => Color::BLACK
         }
     }
 
@@ -373,21 +289,7 @@ impl MapEditor {
         )
     }
     
-    fn regular_ui(&self, selected_item_index: usize, selected_world_index: usize) -> View {
-        let total_worlds = self.worlds.len();
-
-        let visible_worlds = &self.worlds[self.offset..(self.offset + MAX_VISIBLE_WORLDS).min(total_worlds)];
-
-        let world_views: Vec<View> = visible_worlds.iter().enumerate().map(|(index, &world_id)| {
-            let world_index = self.offset + index; 
-            let name = world_name(&world_id);
-            if world_index == selected_world_index {
-                text!(TextStyle::Selected, format!("> {}", name))
-            } else {
-                text!(TextStyle::Regular, format!("{}", name))
-            }
-        }).collect();
-
+    fn regular_ui(&self, selected_item_index: usize) -> View {
         let mut ui_elements = vec![
             text!(TextStyle::Title, "map_editor.title".localized()),
             text!(TextStyle::Regular, "map_editor.subtitle".localized()),
@@ -402,12 +304,6 @@ impl MapEditor {
 
         if self.offset > 0 {
             ui_elements.push(text!(TextStyle::Regular, "^".to_string()));
-        }
-
-        ui_elements.extend(world_views);
-
-        if self.offset + MAX_VISIBLE_WORLDS < total_worlds {
-            ui_elements.push(text!(TextStyle::Regular, "...".to_string()));
         }
 
         View::VStack { spacing: Spacing::LG, children: ui_elements }

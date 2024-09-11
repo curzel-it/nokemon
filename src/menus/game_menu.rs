@@ -125,7 +125,6 @@ impl GameMenu {
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_menu_been_pressed {
             self.state = MenuState::Open;
-            self.map_editor.worlds = list_worlds_with_none();
             self.menu.show(); 
         }
         vec![]
