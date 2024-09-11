@@ -25,7 +25,7 @@ impl Default for EntityProps {
 
 pub type EntityId = u32;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Entity {
     pub id: EntityId,
     pub frame: Rect,  

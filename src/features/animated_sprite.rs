@@ -2,7 +2,7 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 use crate::{constants::ANIMATIONS_FPS, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct AnimatedSprite {
     pub sheet_id: u32, 
     pub frame: Rect,

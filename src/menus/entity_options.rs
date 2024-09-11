@@ -75,7 +75,7 @@ impl EntityOptionsMenu {
     }
 
     pub fn is_open(&self) -> bool {
-        self.menu.is_open()
+        self.menu.is_open
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
@@ -104,7 +104,7 @@ impl EntityOptionsMenu {
             self.text_input.clear();
         }
 
-        (self.menu.is_open(), vec![])
+        (self.menu.is_open, vec![])
     }
 
     fn update_from_change_lock(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
@@ -131,7 +131,7 @@ impl EntityOptionsMenu {
             self.state = EntityOptionsMenuState::Closed;
         }
 
-        (self.menu.is_open(), vec![])
+        (self.menu.is_open, vec![])
     }
 
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
@@ -164,10 +164,10 @@ impl EntityOptionsMenu {
                     vec![]
                 },
             };
-            return (self.menu.is_open(), updates);
+            return (self.menu.is_open, updates);
         }
 
-        (self.menu.is_open(), vec![])
+        (self.menu.is_open, vec![])
     }
 
     pub fn ui(&self) -> View {

@@ -43,7 +43,6 @@ impl ToastDisplay {
     }
 }
 
-
 const TOAST_BORDERS_TEXTURES: BordersTextures = BordersTextures {
     corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 3, y: 0, w: 1, h: 1 } },
     corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 5, y: 0, w: 1, h: 1 } },

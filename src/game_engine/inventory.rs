@@ -50,6 +50,10 @@ pub fn get_inventory() -> Vec<u32> {
     inventory.clone()
 }
 
+pub fn inventory_contains(item: u32) -> bool {
+    INVENTORY.read().unwrap().contains(&item)
+}
+
 fn load_inventory(file_path: &str) -> Vec<u32> {
     let file = File::open(file_path).expect("Failed to open inventory.json file");
     let reader = BufReader::new(file);

@@ -442,42 +442,6 @@
       "lock_type": "None"
     },
     {
-      "id": 1726043032,
-      "frame": {
-        "x": 99,
-        "y": 77,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Key",
-      "species_id": 2000,
-      "entity_type": "PickableObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 0,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 8
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0,
-      "lock_type": "None"
-    },
-    {
       "id": 1726045806,
       "frame": {
         "x": 100,

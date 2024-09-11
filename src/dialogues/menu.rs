@@ -80,10 +80,10 @@ impl DialogueMenu {
         let animated_text = &self.text[..animated_text_length.min(self.text.len())];
         self.menu.text = Some(animated_text.to_owned());
 
-        if !self.menu.is_open() {
+        if !self.menu.is_open {
             self.time_since_last_closed += time_since_last_update;
         }
-        if self.menu.is_open() {
+        if self.menu.is_open {
             self.menu.update(keyboard, time_since_last_update);
         }
         if self.menu.selection_has_been_confirmed {
@@ -97,7 +97,7 @@ impl DialogueMenu {
             }
         }
 
-        (self.menu.is_open(), vec![])
+        (self.menu.is_open, vec![])
     }
 
     fn handle_answer(&mut self, stops: bool, answer: u32) {
@@ -118,7 +118,7 @@ impl DialogueMenu {
     }
 
     pub fn is_open(&self) -> bool {
-        self.menu.is_open()
+        self.menu.is_open
     }
 
     pub fn ui(&self) -> View {

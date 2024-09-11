@@ -2,7 +2,7 @@ use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
 use crate::ui::components::{empty_view, BordersTextures, TextureInfo};
-use crate::ui::scaffold::{scaffold};
+use crate::ui::scaffold::scaffold;
 use crate::utils::rect::Rect;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
@@ -59,10 +59,6 @@ impl<Item: MenuItem> Menu<Item> {
         self.is_open = true;
         self.animator.current_value = 1.0;
         self.animator.is_active = false;
-    }
-
-    pub fn is_open(&self) -> bool {
-        self.is_open
     }
 
     pub fn close(&mut self) {
@@ -141,6 +137,17 @@ impl<Item: MenuItem> Menu<Item> {
     }
 
     fn menu_ui(&self) -> View {
+        let background_color = Color::BLACK.alpha(self.animator.current_value);
+        
+        scaffold(
+            self.uses_backdrop, 
+            background_color, 
+            Some(MENU_BORDERS_TEXTURES),
+            self.menu_contents()
+        )
+    }
+
+    pub fn menu_contents(&self) -> View {
         let start_index = self.scroll_offset;
         let end_index = (self.scroll_offset + self.visible_item_count).min(self.items.len());
     
@@ -168,30 +175,23 @@ impl<Item: MenuItem> Menu<Item> {
         if self.scroll_offset + self.visible_item_count < self.items.len() {
             children.push(text!(TextStyle::Regular, "...".to_owned()));
         }
-
-        let background_color = Color::BLACK.alpha(self.animator.current_value);
         
-        scaffold(
-            self.uses_backdrop, 
-            background_color, 
-            Some(MENU_BORDERS_TEXTURES),
-            vstack!(
-                Spacing::XL, 
-                if self.title.is_empty() {
-                    empty_view()
-                } else {
-                    text!(TextStyle::Title, self.title.clone())
-                },
-                if let Some(text) = self.text.clone() {
-                    text!(TextStyle::Regular, text)
-                } else {
-                    empty_view()
-                },
-                View::VStack {
-                    spacing: Spacing::LG,
-                    children
-                }
-            )
+        vstack!(
+            Spacing::XL, 
+            if self.title.is_empty() {
+                empty_view()
+            } else {
+                text!(TextStyle::Title, self.title.clone())
+            },
+            if let Some(text) = self.text.clone() {
+                text!(TextStyle::Regular, text)
+            } else {
+                empty_view()
+            },
+            View::VStack {
+                spacing: Spacing::LG,
+                children
+            }
         )
     }
 }

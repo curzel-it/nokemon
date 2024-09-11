@@ -1,6 +1,9 @@
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
 
+"confirmation.confirm" = "Ok"
+"confirmation.cancel" = "Nope"
+
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"
@@ -67,6 +70,8 @@
 
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
+"teleporter.unlock.title" = "Unlock the door?"
+"teleporter.unlock.message" = "It will need to use one %s key."
 
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
 

@@ -2,6 +2,7 @@ use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::{Entit
 
 use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
+#[derive(Debug, Clone)]
 pub enum WorldStateUpdate {
     AddEntity(Entity),
     RemoveEntity(u32),
@@ -23,7 +24,9 @@ pub enum EngineStateUpdate {
     ShowEntityOptions(String, EntityId, EntityType),
     ShowDialogue(NpcId, String, Dialogue), 
     AddToInventory(SpeciesId),
+    RemoveFromInventory(SpeciesId),
     Toast(String),
+    Confirmation(String, String, Vec<WorldStateUpdate>)
 }
 
 #[cfg(test)]

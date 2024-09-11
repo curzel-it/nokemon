@@ -1,4 +1,4 @@
-use crate::{game_engine::{entity::Entity, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
+use crate::{game_engine::{entity::Entity, inventory::inventory_contains, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
 
 impl Entity {
     pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
@@ -11,14 +11,16 @@ impl Entity {
                         )
                     )
                 ];
-            } else {
-                // TODO: Check inventory, ask for confirmation or give additional hint about key color
             }
         } 
 
         if self.should_teleport(world) {
             if self.lock_type != LockType::None {
-                vec![self.show_locked_message()]
+                if inventory_contains(self.lock_type.key()) {
+                    vec![self.show_unlock_confirmation()]
+                } else {
+                    vec![self.show_locked_message()]
+                }                
             } else {
                 vec![self.engine_update_push_world()]
             }
@@ -58,6 +60,22 @@ impl Entity {
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::Toast(
                 "teleporter.locked".localized().replace("%s", &name)
+            )
+        )
+    }
+
+    fn show_unlock_confirmation(&self) -> WorldStateUpdate {
+        let name = self.lock_type.localized_name().to_uppercase();
+        
+        WorldStateUpdate::EngineUpdate(
+            EngineStateUpdate::Confirmation(
+                "teleporter.unlock.title".localized(),
+                "teleporter.unlock.message".localized().replace("%s", &name),
+                vec![
+                    WorldStateUpdate::ChangeLock(self.id, LockType::None),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::RemoveFromInventory(self.lock_type.key()))
+                ]
             )
         )
     }
