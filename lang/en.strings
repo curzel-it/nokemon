@@ -76,7 +76,3 @@
 "teleporter.unlock.message" = "You will lose one %s key."
 
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
-
-"world.names.new_world" = "New World"
-"world.names.demo" = "Demo World"
-"world.names.with_id" = "World"

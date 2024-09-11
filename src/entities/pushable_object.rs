@@ -1,4 +1,4 @@
-use crate::{features::linear_movement::would_collide, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::Direction, vector::Vector2d}};
+use crate::{features::linear_movement::would_collide, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
 
 impl Entity {
     pub fn update_pushable(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
