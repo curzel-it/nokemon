@@ -66,6 +66,8 @@
 "objects.name.key_silver" = "Silver Key"
 
 "teleporter.name" = "Teleporter"
+"teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
+
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
 
 "world.names.new_world" = "New World"

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::add_to_inventory, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::EngineStateUpdate, world::World};
 
@@ -10,6 +10,7 @@ pub struct GameEngine {
     pub world: World,
     pub loading_screen: LoadingScreen,
     pub dialogue_menu: DialogueMenu,
+    pub toast: ToastDisplay,
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
     pub camera_viewport: Rect,
@@ -26,6 +27,7 @@ impl GameEngine {
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
             dialogue_menu: DialogueMenu::new(),
+            toast: ToastDisplay::new(),
             entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
@@ -84,6 +86,7 @@ impl GameEngine {
     } 
 
     fn update(&mut self, time_since_last_update: f32,) {
+        self.toast.update(time_since_last_update);
         self.loading_screen.update(time_since_last_update);
         if self.loading_screen.progress() < 0.4 { 
             return;
@@ -213,7 +216,7 @@ impl GameEngine {
     }
 
     fn show_toast(&mut self, text: &str) {
-        println!("Toast message: {}", text);
+        self.toast.show(text);
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, npc_name: &str, dialogue: &Dialogue) {

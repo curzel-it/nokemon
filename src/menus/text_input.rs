@@ -1,5 +1,7 @@
 use raylib::color::Color;
-use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::components::{scaffold_background_backdrop, Spacing, TextStyle, View}, vstack, zstack};
+use crate::{constants::SPRITE_SHEET_MENU, game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{BordersTextures, Spacing, TextStyle, TextureInfo, View}, scaffold::scaffold}, utils::rect::Rect, vstack, zstack};
+
+use super::menu::MENU_BORDERS_TEXTURES;
 
 pub struct TextInput {
     pub title: String,
@@ -76,14 +78,17 @@ impl TextInput {
         self.cursor_visible = true;
         self.time_since_shown = 0.0;
     }
+}
 
+impl TextInput {
     pub fn ui(&self) -> View {
         let (before_cursor, after_cursor) = self.text.split_at(self.cursor_position);        
         let cursor_indicator = if self.cursor_visible { "|" } else { "" };
-
-        scaffold_background_backdrop(
+        
+        scaffold(
             true, 
             Color::BLACK,
+            Some(MENU_BORDERS_TEXTURES),
             vstack!(
                 Spacing::XL,
                 text!(TextStyle::Title, self.title.clone()),

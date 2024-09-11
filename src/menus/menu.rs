@@ -1,7 +1,9 @@
 use raylib::color::Color;
 
-use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
-use crate::ui::components::{empty_view, scaffold_background_backdrop};
+use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
+use crate::ui::components::{empty_view, BordersTextures, TextureInfo};
+use crate::ui::scaffold::{self, scaffold};
+use crate::utils::rect::Rect;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
@@ -118,6 +120,17 @@ impl<Item: MenuItem> Menu<Item> {
     }
 }
 
+pub const MENU_BORDERS_TEXTURES: BordersTextures = BordersTextures {
+    corner_top_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
+    corner_top_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
+    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
+    corner_bottom_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
+    side_top: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
+    side_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
+    side_bottom: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
+    side_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
+};
+
 impl<Item: MenuItem> Menu<Item> {
     pub fn ui(&self) -> View {
         if self.is_open {
@@ -155,10 +168,13 @@ impl<Item: MenuItem> Menu<Item> {
         if self.scroll_offset + self.visible_item_count < self.items.len() {
             children.push(text!(TextStyle::Regular, "...".to_owned()));
         }
-    
-        scaffold_background_backdrop(
-            self.uses_backdrop,
-            Color::BLACK.alpha(self.animator.current_value),
+
+        let background_color = Color::BLACK.alpha(self.animator.current_value);
+        
+        scaffold(
+            self.uses_backdrop, 
+            background_color, 
+            Some(MENU_BORDERS_TEXTURES),
             vstack!(
                 Spacing::XL, 
                 if self.title.is_empty() {

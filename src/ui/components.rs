@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use raylib::prelude::*;
 
-use crate::{constants::{SPRITE_SHEET_MENU, TILE_SIZE}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::TILE_SIZE, utils::{rect::Rect, vector::Vector2d}};
 
 pub struct RenderingConfig {
     pub font: Font,
@@ -77,7 +77,6 @@ pub struct BordersTextures {
     pub side_right: TextureInfo,
     pub side_bottom: TextureInfo,
     pub side_left: TextureInfo,
-    pub fill: TextureInfo,
 }
 
 #[macro_export]
@@ -185,38 +184,6 @@ pub fn with_fixed_width(width: f32, content: View) -> View {
 
 pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
     View::TexturedBorder { borders, children: vec![content] }
-}
-
-pub fn scaffold_background_backdrop(backdrop: bool, background_color: Color, content: View) -> View {
-    let actual_content = scaffold_background(background_color, content);
-
-    if backdrop {
-        with_backdrop(actual_content)
-    } else {
-        actual_content
-    }    
-}
-
-pub fn scaffold_background(background_color: Color, content: View) -> View {
-    let key = SPRITE_SHEET_MENU;
-
-    padding(
-        Spacing::LG,
-        with_textured_border(
-            BordersTextures {
-                corner_top_left: TextureInfo { key, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
-                corner_top_right: TextureInfo { key, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
-                corner_bottom_right: TextureInfo { key, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
-                corner_bottom_left: TextureInfo { key, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
-                side_top: TextureInfo { key, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
-                side_right: TextureInfo { key, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
-                side_bottom: TextureInfo { key, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
-                side_left: TextureInfo { key, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
-                fill: TextureInfo { key, source_rect: Rect { x: 1, y: 1, w: 1, h: 1 } },
-            }, 
-            zstack!(Spacing::LG, background_color, content)
-        )
-    )
 }
 
 pub fn empty_view() -> View {
@@ -438,7 +405,6 @@ impl View {
             y: (content_size.y / config.rendering_scale) / TILE_SIZE - 1.0, 
         };
 
-        self.render_texture(d, config, &borders.fill.key, &borders.fill.source_rect, position, &content_size);        
         self.render_zstack(d, config, position, children, &Spacing::Zero, Color::RED.alpha(0.0));        
         self.render_texture(d, config, &borders.corner_top_left.key, &borders.corner_top_left.source_rect, &top_left, &size_one);
         self.render_texture(d, config, &borders.corner_top_right.key, &borders.corner_top_right.source_rect, &top_right, &size_one);

@@ -53,9 +53,11 @@ impl Entity {
     }
 
     fn show_locked_message(&self) -> WorldStateUpdate {
+        let name = self.lock_type.localized_name().to_uppercase();
+        
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::Toast(
-                "teleporter.locked".localized().replace("%s", &self.lock_type.localized_name())
+                "teleporter.locked".localized().replace("%s", &name)
             )
         )
     }

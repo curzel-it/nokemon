@@ -1,6 +1,8 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::components::{scaffold_background_backdrop, with_fixed_position, GridSpacing, Spacing, TextStyle, View}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE, WORLD_ID_NONE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{make_entity_by_species, EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{ids::get_next_id, rect::Rect, vector::Vector2d}, vstack, worlds::utils::{list_worlds_with_none, world_name}, zstack};
+
+use super::menu::MENU_BORDERS_TEXTURES;
 
 const MAX_VISIBLE_WORLDS: usize = 4;
 
@@ -336,9 +338,10 @@ impl MapEditor {
 
 impl MapEditor {
     pub fn ui(&self, camera_offset: &Vector2d) -> View {
-        scaffold_background_backdrop(
+        scaffold(
             true, 
             self.background_color(),
+            Some(MENU_BORDERS_TEXTURES),
             match self.state {
                 MapEditorState::SelectingItem(selected_index) => self.regular_ui(selected_index, 999),
                 MapEditorState::SelectingWorld(selected_index) => self.regular_ui(999, selected_index),
