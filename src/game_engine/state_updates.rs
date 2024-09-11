@@ -11,7 +11,7 @@ pub enum WorldStateUpdate {
     CacheHeroProps(EntityProps),
     ChangeLock(EntityId, LockType),
     BiomeTileChange(usize, usize, Biome),
-    StepBackHero,
+    StopHeroMovement,
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
 }

@@ -128,8 +128,8 @@ impl World {
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => {
                 self.update_construction_tile(row, col, new_construction)
             },
-            WorldStateUpdate::StepBackHero => {
-                self.step_back_hero()
+            WorldStateUpdate::StopHeroMovement => {
+                self.stop_hero_movement()
             },
             WorldStateUpdate::EngineUpdate(update) => {
                 return Some(update)
@@ -138,12 +138,9 @@ impl World {
         None
     }
 
-    fn step_back_hero(&mut self) {
+    fn stop_hero_movement(&mut self) {
         let mut entities = self.entities.borrow_mut();
-        if let Some(entity) = entities.iter_mut().find(|e| e.id == HERO_ENTITY_ID) {
-            let (dx, dy) = entity.direction.as_col_row_offset();
-            entity.frame.x -= dx;
-            entity.frame.y -= dy;
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == HERO_ENTITY_ID) {            
             entity.offset = Vector2d::zero();
             entity.current_speed = 0.0;
         }

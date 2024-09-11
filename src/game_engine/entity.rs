@@ -8,6 +8,7 @@ use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate
 pub struct EntityProps {
     pub direction: Direction,
     pub frame: Rect,
+    pub offset: Vector2d,
     pub speed: f32,
     pub hittable_frame: Rect,
 }
@@ -17,6 +18,7 @@ impl Default for EntityProps {
         Self { 
             direction: Default::default(), 
             frame: Rect::square_from_origin(1), 
+            offset: Vector2d::zero(),
             speed: 0.0,
             hittable_frame: Rect::square_from_origin(1) 
         }

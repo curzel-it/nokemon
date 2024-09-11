@@ -27,6 +27,7 @@ impl Entity {
         EntityProps {
             frame: self.frame,
             direction: self.direction,
+            offset: self.offset,
             speed: self.current_speed,
             hittable_frame: Rect {
                 x: self.frame.x,
