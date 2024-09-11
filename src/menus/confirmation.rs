@@ -39,11 +39,11 @@ impl ConfirmationDialog {
         self.menu.is_open
     }
 
-    pub fn show(&mut self, title: &str, text: &str, on_confirm: &Vec<WorldStateUpdate>) {
+    pub fn show(&mut self, title: &str, text: &str, on_confirm: &[WorldStateUpdate]) {
         if self.menu.title == title {
             return 
         }
-        self.on_confirm = on_confirm.clone();
+        self.on_confirm = on_confirm.to_owned();
         self.menu.title = title.to_string();
         self.menu.text = Some(text.to_string());
         self.menu.show();
