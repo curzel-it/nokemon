@@ -84,7 +84,7 @@ impl ConfirmationDialog {
     pub fn ui(&self) -> View {
         if self.menu.is_open {       
             scaffold(
-                false, 
+                true, 
                 Color::BLACK.alpha(self.menu.animator.current_value), 
                 Some(ALERT_BORDERS_TEXTURES),
                 self.menu.menu_contents()

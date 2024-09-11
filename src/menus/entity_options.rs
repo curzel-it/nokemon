@@ -229,7 +229,6 @@ impl EntityOptionsMenu {
             ],
             EntityType::PickableObject => vec![
                 EntityOptionMenuItem::PickUp,
-                EntityOptionMenuItem::Rename,
                 EntityOptionMenuItem::Remove,
             ],
             EntityType::Teleporter => vec![
