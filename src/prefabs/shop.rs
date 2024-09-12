@@ -1,4 +1,4 @@
-use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{known_species::{SPECIES_SEAT_GREEN, SPECIES_TABLE, SPECIES_TELEPORTER}, species::{make_entity_by_species, Species}}, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
+use crate::{constants::{HOUSE_INTERIOR_COLUMNS, HOUSE_INTERIOR_ROWS}, entities::{known_species::{SPECIES_NPC_OLD_MAN, SPECIES_NPC_SHOP_CLERK, SPECIES_SEAT_GREEN, SPECIES_TABLE, SPECIES_TELEPORTER}, species::{make_entity_by_species, species_by_id, Species}}, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::ids::get_next_id};
 
 pub fn new_shop(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<Entity> {
     let mut building = species.make_entity();
@@ -60,6 +60,10 @@ pub fn new_shop(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<
     first_floor.constructions_tiles.update_tile(2, 9, Construction::Library);
     first_floor.constructions_tiles.update_tile(2, 10, Construction::Library);
 
+    let mut clerk = species_by_id(SPECIES_NPC_SHOP_CLERK).make_entity();
+    clerk.frame.x = 6;
+    clerk.frame.y = 1;
+
     let mut table = make_entity_by_species(SPECIES_TABLE);
     table.frame.x = 1;
     table.frame.y = 4;
@@ -87,6 +91,7 @@ pub fn new_shop(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<
     first_floor.add_entity(seat2);
     first_floor.add_entity(seat3);
     first_floor.add_entity(seat4);
+    first_floor.add_entity(clerk);
     first_floor.save();
 
     vec![building, door]   

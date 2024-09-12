@@ -51,6 +51,7 @@
 "npc.name.default" = "Some rando"
 "npc.name.old_man" = "Old Man"
 "npc.name.old_woman" = "Old Lady"
+"npc.name.shop_clerk" = "Shop Guy"
 "npc.menu.title" = "NPC Options"
 "npc.menu.remove" = "Remove"
 "npc.menu.play_dialog" = "Play dialog"

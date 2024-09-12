@@ -189,6 +189,27 @@
         "lock_type": "None"
     },
     {
+        "id": 3008,
+        "name": "npc.name.shop_clerk",
+        "entity_type": "Npc",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            4
+        ],
+        "sprite_frame": {
+            "x": 16,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
         "id": 1010,
         "name": "objects.name.stairs_up",
         "entity_type": "HouseholdObject",
