@@ -51,6 +51,10 @@ impl Rect {
         self.offset(0, dy)
     }
 
+    pub fn is_zero(&self) -> bool {
+        self.x == 0 && self.y == 0 && self.w == 0 && self.h == 0
+    }
+
     pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {
         if self.x == other.x && self.y == other.y {
             return true

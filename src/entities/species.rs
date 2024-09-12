@@ -5,6 +5,7 @@ use std::io::Read;
 use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES};
 use crate::dialogues::models::EntityDialogues;
 use crate::features::animated_sprite::AnimatedSprite;
+use crate::features::patrols::Patrol;
 use crate::game_engine::entity::Entity;
 use crate::game_engine::locks::LockType;
 use crate::lang::localizable::LocalizableText;
@@ -58,6 +59,7 @@ impl Species {
         Entity {
             id: self.next_entity_id(),
             frame: self.sprite_frame,  
+            latest_movement: (0, 0),
             species_id: self.id,  
             entity_type: self.entity_type,
             offset: Vector2d::zero(),
@@ -71,7 +73,8 @@ impl Species {
             name: self.name.localized(),
             destination: 0,
             lock_type: self.lock_type,
-            original_sprite_frame
+            original_sprite_frame,
+            patrol: Patrol::none()
         }
     }
     

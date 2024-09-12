@@ -907,7 +907,7 @@
         "name": "npc.name.slime",
         "entity_type": "Npc",
         "z_index": 150,
-        "base_speed": 3.0,
+        "base_speed": 1.0,
         "is_rigid": true,
         "inventory_texture_offset": [
             2,
