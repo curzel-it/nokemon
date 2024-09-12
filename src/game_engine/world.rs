@@ -187,6 +187,12 @@ impl World {
             .map(|t| t.frame)
     }
 
+    pub fn is_hero_on_slippery_surface(&self) -> bool {
+        let frame = self.cached_hero_props.hittable_frame;
+        let tile = self.biome_tiles.tiles[frame.y as usize][frame.x as usize].tile_type;
+        matches!(tile, Biome::Ice)
+    }
+
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
         let hero = self.cached_hero_props.hittable_frame;
         let hero_direction: Direction = self.cached_hero_props.direction;        

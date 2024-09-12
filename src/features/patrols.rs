@@ -36,16 +36,6 @@ impl Default for Patrol {
     }
 }
 
-impl PatrolMovement {
-    pub fn new(direction: Direction, steps: i32) -> Self {
-        Self {
-            direction,
-            steps,
-            steps_left: steps,
-        }
-    }
-}
-
 impl Entity {
     pub fn handle_patrol(&mut self) {
         let new_steps = self.latest_movement.0.abs() + self.latest_movement.1.abs();
@@ -62,7 +52,7 @@ impl Entity {
             return 
         }
         (self.frame.x, self.frame.y) = self.patrol.initial_position;
-        
+
         for movement in &mut self.patrol.movements {
             movement.steps_left = movement.steps;
         }

@@ -36,7 +36,11 @@ impl AnimatedSprite {
 
 impl Entity {
     pub fn update_sprite_for_current_direction(&mut self) {
-        self.sprite.frame.y = match (self.direction, self.current_speed != 0.0) {
+        self.update_sprite_for_direction_speed(self.direction, self.current_speed)
+    }
+
+    pub fn update_sprite_for_direction_speed(&mut self, direction: Direction, speed: f32) {
+        self.sprite.frame.y = match (direction, speed != 0.0) {
             (Direction::Up, true) => 0,
             (Direction::Up, false) => 2,
             (Direction::Right, true) => 4,
