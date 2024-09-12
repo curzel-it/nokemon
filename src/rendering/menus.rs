@@ -8,7 +8,20 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     render_centered_menu(d, ui_config, &engine.entity_options_menu.ui());
     render_centered_menu(d, ui_config, &engine.dialogue_menu.ui());
     render_centered_menu(d, ui_config, &engine.confirmation_dialog.ui());
-    render_centered_menu(d, ui_config, &engine.toast.ui());
+    render_top_right_menu(d, ui_config, &engine.toast.ui());
+}
+
+fn render_top_right_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {
+    render_from(
+        AnchorPoint::TopRight,
+        view,
+        d, 
+        ui_config, 
+        &Vector2d::new(
+            ui_config.canvas_size.x, 
+            0.0
+        )
+    );
 }
 
 fn render_centered_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {

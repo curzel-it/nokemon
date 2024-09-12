@@ -4,12 +4,6 @@ use crate::constants::KEY_VALUE_STORAGE_PATH;
 
 pub struct StorageKey {}
 
-impl StorageKey {
-    pub fn dialogue_answer(dialogue_id: u32) -> String {
-        format!("dialogue.answer.{}", dialogue_id)
-    }
-}
-
 fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {
     let file = File::open(file_path).expect("Failed to open save.json file");
     let reader = BufReader::new(file);

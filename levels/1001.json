@@ -451,7 +451,7 @@
       },
       "time_immobilized": 0.0,
       "destination": 1726097644,
-      "lock_type": "None",
+      "lock_type": "Yellow",
       "original_sprite_frame": {
         "x": 0,
         "y": 1,

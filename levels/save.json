@@ -8,9 +8,6 @@
   "dialogue.answer.108": 104,
   "dialogue.answer.109": 109,
   "dialogue.answer.110": 110,
-  "pressure_plate.blue": 0,
-  "pressure_plate.green": 0,
-  "pressure_plate.red": 0,
-  "pressure_plate.silver": 0,
-  "pressure_plate.yellow": 0
+  "dialogue.reward.109": 1,
+  "pressure_plate.red": 1
 }

@@ -45,6 +45,12 @@ pub enum EntityType {
 }
 
 impl Species {
+    pub fn localized_name(&self) -> String {
+        self.name.localized()
+    }
+}
+
+impl Species {
     pub fn make_entity(&self) -> Entity {
         let sprite = self.make_sprite(false);
         let original_sprite_frame = sprite.frame; 

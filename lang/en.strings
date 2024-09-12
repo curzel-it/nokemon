@@ -4,6 +4,7 @@
 "confirmation.confirm" = "Ok"
 "confirmation.cancel" = "Nope"
 
+"dialogue.reward_received" = "You received `%s`!";
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"

@@ -1,4 +1,4 @@
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate, storage::{set_value_for_key, StorageKey}}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
+use crate::{dialogues::storage::{has_dialogue_reward_been_collected, set_dialogue_answer, set_dialogue_reward_collected}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{set_value_for_key, StorageKey}}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
 
 use super::{models::Dialogue, repository::dialogue_by_id};
 
@@ -93,16 +93,32 @@ impl DialogueMenu {
             } else {
                 let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
                 let stops = answer_text == 0;
-                self.handle_answer(stops, answer);
+                let updates = self.handle_answer(stops, answer);
+                return (self.menu.is_open, updates)
             }
         }
 
         (self.menu.is_open, vec![])
     }
 
-    fn handle_answer(&mut self, stops: bool, answer: u32) {
-        set_value_for_key(&StorageKey::dialogue_answer(self.dialogue.id), answer);       
+    fn handle_answer(&mut self, stops: bool, answer: u32) -> Vec<WorldStateUpdate> {
+        set_dialogue_answer(self.dialogue.id, answer);       
         self.menu.clear_selection();
+
+        let updates = if let Some(reward) = self.dialogue.reward {
+            if !has_dialogue_reward_been_collected(self.dialogue.id) {
+                set_dialogue_reward_collected(self.dialogue.id);
+                return vec! [
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(self.dialogue.localized_reward_text())),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(reward)),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                ]
+            } else {
+                vec![]
+            }
+        } else {
+            vec![]
+        };
         
         if let Some(next_dialogue) = dialogue_by_id(answer) {         
             if stops {            
@@ -115,6 +131,7 @@ impl DialogueMenu {
             self.dialogue = Dialogue::empty();
             self.menu.close();
         }
+        updates
     }
 
     pub fn is_open(&self) -> bool {
