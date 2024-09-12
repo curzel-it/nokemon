@@ -240,6 +240,9 @@ impl EntityOptionsMenu {
             EntityType::Gate => vec![
                 EntityOptionMenuItem::Remove,
             ],
+            EntityType::InverseGate => vec![
+                EntityOptionMenuItem::Remove,
+            ],
             EntityType::PressurePlate => vec![
                 EntityOptionMenuItem::Remove,
             ],
@@ -261,6 +264,7 @@ impl EntityOptionsMenu {
             EntityType::Teleporter => nothing,
             EntityType::PushableObject => nothing,
             EntityType::Gate => nothing,
+            EntityType::InverseGate => nothing,
             EntityType::PressurePlate => nothing,
         }
     }

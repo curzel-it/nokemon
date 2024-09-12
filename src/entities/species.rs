@@ -40,6 +40,7 @@ pub enum EntityType {
     Teleporter,
     PushableObject,
     Gate,
+    InverseGate,
     PressurePlate,
 }
 

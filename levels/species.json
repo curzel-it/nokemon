@@ -712,5 +712,110 @@
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
         "lock_type": "Silver"
+    },
+    {
+        "id": 1060,
+        "name": "objects.name.inverse_gate.yellow",
+        "entity_type": "InverseGate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            6,
+            6
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 0,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Yellow"
+    },
+    {
+        "id": 1061,
+        "name": "objects.name.inverse_gate.red",
+        "entity_type": "InverseGate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            6,
+            7
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 1,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Red"
+    },
+    {
+        "id": 1062,
+        "name": "objects.name.inverse_gate.green",
+        "entity_type": "InverseGate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            6,
+            8
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Green"
+    },
+    {
+        "id": 1063,
+        "name": "objects.name.inverse_gate.blue",
+        "entity_type": "InverseGate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            6,
+            9
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Blue"
+    },
+    {
+        "id": 1064,
+        "name": "objects.name.inverse_gate.silver",
+        "entity_type": "InverseGate",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            6,
+            10
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 4,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "Silver"
     }
 ]
