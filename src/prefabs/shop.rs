@@ -46,6 +46,20 @@ pub fn new_shop(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<
     first_floor.constructions_tiles.update_tile(3, 8, Construction::Counter);
     first_floor.constructions_tiles.update_tile(2, 8, Construction::Counter);
 
+    first_floor.constructions_tiles.update_tile(1, 1, Construction::Library);
+    first_floor.constructions_tiles.update_tile(1, 2, Construction::Library);
+    first_floor.constructions_tiles.update_tile(1, 3, Construction::Library);
+    first_floor.constructions_tiles.update_tile(1, 4, Construction::Library);    
+    first_floor.constructions_tiles.update_tile(2, 1, Construction::Library);
+    first_floor.constructions_tiles.update_tile(2, 2, Construction::Library);
+    first_floor.constructions_tiles.update_tile(2, 3, Construction::Library);
+    first_floor.constructions_tiles.update_tile(2, 4, Construction::Library);
+
+    first_floor.constructions_tiles.update_tile(1, 9, Construction::Library);
+    first_floor.constructions_tiles.update_tile(1, 10, Construction::Library);
+    first_floor.constructions_tiles.update_tile(2, 9, Construction::Library);
+    first_floor.constructions_tiles.update_tile(2, 10, Construction::Library);
+
     let mut table = make_entity_by_species(SPECIES_TABLE);
     table.frame.x = 1;
     table.frame.y = 4;

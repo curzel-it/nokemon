@@ -11,6 +11,7 @@ pub enum Construction {
     DarkRock,
     LightWall,
     Counter,
+    Library,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -84,6 +85,7 @@ impl Construction {
             Construction::DarkRock => 3,
             Construction::LightWall => 4,
             Construction::Counter => 5,
+            Construction::Library => 6,
         }
     }
 }
@@ -120,6 +122,7 @@ impl Construction {
             '3' => Construction::DarkRock,
             '4' => Construction::LightWall,
             '5' => Construction::Counter,
+            '6' => Construction::Library,
             _ => Construction::Nothing,
         }
     }
@@ -131,6 +134,7 @@ impl Construction {
             Construction::DarkRock => '3',
             Construction::LightWall => '4',
             Construction::Counter => '5',
+            Construction::Library => '6',
         }
     }
 }

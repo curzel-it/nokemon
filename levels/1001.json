@@ -418,136 +418,10 @@
       }
     },
     {
-      "id": 1726096760,
+      "id": 1726144150,
       "frame": {
-        "x": 102,
-        "y": 76,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Boulder",
-      "species_id": 1030,
-      "entity_type": "PushableObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 1,
-          "y": 2,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 1,
-        "y": 2,
-        "w": 1,
-        "h": 1
-      }
-    },
-    {
-      "id": 1726096485,
-      "frame": {
-        "x": 102,
-        "y": 76,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Red Pressure Plate",
-      "species_id": 1051,
-      "entity_type": "PressurePlate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 8,
-          "y": 1,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0,
-      "lock_type": "Red",
-      "original_sprite_frame": {
-        "x": 8,
-        "y": 1,
-        "w": 1,
-        "h": 1
-      }
-    },
-    {
-      "id": 1726097938,
-      "frame": {
-        "x": 102,
-        "y": 74,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Red Gate",
-      "species_id": 1041,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 1,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": 0,
-      "lock_type": "Red",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 1,
-        "w": 1,
-        "h": 1
-      }
-    },
-    {
-      "id": 1726141637,
-      "frame": {
-        "x": 99,
-        "y": 70,
+        "x": 101,
+        "y": 72,
         "w": 5,
         "h": 4
       },
@@ -586,10 +460,10 @@
       }
     },
     {
-      "id": 1726141639,
+      "id": 1726144152,
       "frame": {
-        "x": 102,
-        "y": 73,
+        "x": 104,
+        "y": 75,
         "w": 1,
         "h": 1
       },
@@ -618,7 +492,7 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": 1726141638,
+      "destination": 1726144151,
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
