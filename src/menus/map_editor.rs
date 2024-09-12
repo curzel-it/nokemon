@@ -200,6 +200,7 @@ impl Stockable {
                 Construction::LightWall => (1, 3),
                 Construction::Counter => (1, 4),
                 Construction::Library => (1, 5),
+                Construction::TallGrass => (1, 6),
             },
             Stockable::Entity(species) => species.inventory_texture_offset
         };
