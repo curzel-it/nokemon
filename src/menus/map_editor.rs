@@ -192,6 +192,7 @@ impl Stockable {
                 Biome::LightWood => (0, 6),
                 Biome::DarkWood => (0, 7),
                 Biome::DarkRock => (0, 8),
+                Biome::Ice => (0, 9),
             },
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (6, 1),
@@ -243,6 +244,7 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::Snow),
             Stockable::BiomeTile(Biome::LightWood),
             Stockable::BiomeTile(Biome::DarkWood),
+            Stockable::BiomeTile(Biome::Ice),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::ConstructionTile(Construction::DarkRock),
