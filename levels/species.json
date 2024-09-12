@@ -817,5 +817,68 @@
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
         "lock_type": "Silver"
+    },
+    {
+        "id": 1070,
+        "name": "building.name.shop",
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            7
+        ],
+        "sprite_frame": {
+            "x": 10,
+            "y": 1,
+            "w": 5,
+            "h": 4
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 1071,
+        "name": "building.name.shop",
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            8
+        ],
+        "sprite_frame": {
+            "x": 10,
+            "y": 6,
+            "w": 5,
+            "h": 4
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 1072,
+        "name": "building.name.shop",
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            9
+        ],
+        "sprite_frame": {
+            "x": 10,
+            "y": 11,
+            "w": 5,
+            "h": 4
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     }
 ]

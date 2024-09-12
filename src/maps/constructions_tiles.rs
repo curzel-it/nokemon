@@ -10,6 +10,7 @@ pub enum Construction {
     WoodenFence,
     DarkRock,
     LightWall,
+    Counter,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -82,6 +83,7 @@ impl Construction {
             Construction::WoodenFence => 1,
             Construction::DarkRock => 3,
             Construction::LightWall => 4,
+            Construction::Counter => 5,
         }
     }
 }
@@ -117,6 +119,7 @@ impl Construction {
             '1' => Construction::WoodenFence,
             '3' => Construction::DarkRock,
             '4' => Construction::LightWall,
+            '5' => Construction::Counter,
             _ => Construction::Nothing,
         }
     }
@@ -127,6 +130,7 @@ impl Construction {
             Construction::WoodenFence => '1',
             Construction::DarkRock => '3',
             Construction::LightWall => '4',
+            Construction::Counter => '5',
         }
     }
 }
