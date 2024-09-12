@@ -901,5 +901,26 @@
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1,
         "lock_type": "None"
+    },
+    {
+        "id": 4001,
+        "name": "npc.name.slime",
+        "entity_type": "Npc",
+        "z_index": 150,
+        "base_speed": 3.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            5
+        ],
+        "sprite_frame": {
+            "x": 20,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
     }
 ]

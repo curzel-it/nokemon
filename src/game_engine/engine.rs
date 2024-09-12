@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::loading_screen::LoadingScreen, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
 
@@ -12,6 +12,7 @@ pub struct GameEngine {
     pub confirmation_dialog: ConfirmationDialog,
     pub dialogue_menu: DialogueMenu,
     pub toast: ToastDisplay,
+    pub creep_spawner: CreepSpawner,
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
     pub camera_viewport: Rect,
@@ -30,6 +31,7 @@ impl GameEngine {
             confirmation_dialog: ConfirmationDialog::new(),
             dialogue_menu: DialogueMenu::new(),
             toast: ToastDisplay::new(),
+            creep_spawner: CreepSpawner::new(),
             entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
@@ -87,7 +89,7 @@ impl GameEngine {
         self.update(time_since_last_update);
     } 
 
-    fn update(&mut self, time_since_last_update: f32,) {
+    fn update(&mut self, time_since_last_update: f32,) {        
         self.toast.update(time_since_last_update);
 
         self.loading_screen.update(time_since_last_update);
@@ -106,6 +108,10 @@ impl GameEngine {
 
         let updates = self.world.update_rl(game_update_time, &camera_viewport, world_keyboard);
         self.apply_state_updates(updates);
+
+        let creeps_world_updates = self.creep_spawner.update(&self.world, time_since_last_update);
+        let creeps_engine_updates = self.world.apply_state_updates(creeps_world_updates);
+        self.apply_state_updates(creeps_engine_updates);
     } 
 
     fn update_menus(&mut self, time_since_last_update: f32) -> bool {

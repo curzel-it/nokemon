@@ -41,7 +41,7 @@ pub enum EntityType {
     PushableObject,
     Gate,
     InverseGate,
-    PressurePlate,
+    PressurePlate
 }
 
 impl Species {
