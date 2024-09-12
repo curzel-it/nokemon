@@ -191,7 +191,16 @@ impl World {
         let hero = self.cached_hero_props.hittable_frame;
         let hero_direction: Direction = self.cached_hero_props.direction;        
         if !self.has_confirmation_key_been_pressed { return false }  
-        hero.is_around_and_pointed_at(target, &hero_direction)
+        
+        if hero.is_around_and_pointed_at(target, &hero_direction) {
+            return true 
+        }
+        if self.hitmap[(hero.y as usize).saturating_sub(1)][hero.x as usize] {
+            if hero.x == target.x && hero.y.saturating_sub(3) == target.y && matches!(hero_direction, Direction::Up) {
+                return true
+            }
+        }
+        return false
     }
 
     pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {
