@@ -189,8 +189,13 @@ impl World {
 
     pub fn is_hero_on_slippery_surface(&self) -> bool {
         let frame = self.cached_hero_props.hittable_frame;
-        let tile = self.biome_tiles.tiles[frame.y as usize][frame.x as usize].tile_type;
-        matches!(tile, Biome::Ice)
+        
+        if self.biome_tiles.tiles.len() > frame.y as usize {
+            let tile = self.biome_tiles.tiles[frame.y as usize][frame.x as usize].tile_type;
+            matches!(tile, Biome::Ice)
+        } else {
+            false
+        }
     }
 
     pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
