@@ -1,5 +1,5 @@
 [
-    // Old man
+    // Demo old man
     {
         "id": 101,
         "options": [[1, 107]]
@@ -21,7 +21,7 @@
         "options": [[0, 101]]
     },
     
-    // Old lady
+    // Demo old lady
     {
         "id": 106,
         "options": [[0, 106]]
@@ -34,5 +34,15 @@
         "id": 109,
         "options": [[0, 109]],
         "reward": 2000
+    },
+    
+    // Shop Clerk
+    // {
+    //    "id": 3,
+    //    "options": [[0, 3]]
+    // }
+    {
+        "id": 111,
+        "options": [[0, 111]]
     }
 ]

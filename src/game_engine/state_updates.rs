@@ -24,6 +24,7 @@ pub enum EngineStateUpdate {
     Exit,
     ShowEntityOptions(String, EntityId, SpeciesId, EntityType),
     ShowDialogue(NpcId, String, Dialogue), 
+    ShowShop,
     AddToInventory(SpeciesId),
     RemoveFromInventory(SpeciesId),
     Toast(String),

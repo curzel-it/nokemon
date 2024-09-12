@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{entities::species::{species_by_id, SpeciesId}, lang::localizable::LocalizableText};
+use crate::{entities::species::{species_by_id, SpeciesId}, game_engine::storage::STORAGE_KEY_ALWAYS_1, lang::localizable::LocalizableText};
 
 pub type DialogueId = u32;
 pub type DialogueAnswerId = u32;
@@ -24,6 +24,18 @@ pub struct EntityDialogue {
     pub key: String,
     pub expected_value: u32,
     pub dialogue: DialogueId,
+}
+
+impl EntityDialogues {
+    pub fn single_option(id: DialogueId) -> Self {
+        Self { options: vec![
+            EntityDialogue {
+                key: STORAGE_KEY_ALWAYS_1.to_owned(), 
+                expected_value: 1, 
+                dialogue: id 
+            }
+        ] }
+    }
 }
 
 impl EntityDialogues {

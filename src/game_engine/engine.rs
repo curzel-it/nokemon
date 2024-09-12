@@ -213,6 +213,9 @@ impl GameEngine {
             },
             EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
             EngineStateUpdate::SaveGame => self.save(),
+            EngineStateUpdate::ShowShop => {
+                self.show_shop()
+            },
             EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::ShowEntityOptions(entity_name, entity_id, species_id, entity_type) => {
                 self.entity_options_menu.show(entity_name, entity_id, species_id, entity_type, self.creative_mode)
@@ -235,6 +238,10 @@ impl GameEngine {
     fn ask_for_confirmation(&mut self, title: &str, text: &str, on_confirm: &[WorldStateUpdate]) {
         self.confirmation_dialog.show(title, text, on_confirm)
     }
+
+    fn show_shop(&mut self) {
+        
+    } 
 
     fn show_toast(&mut self, text: &str) {
         self.toast.show(text);

@@ -2,6 +2,8 @@ use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, sync::{mpsc::
 use lazy_static::lazy_static;
 use crate::constants::KEY_VALUE_STORAGE_PATH;
 
+pub const STORAGE_KEY_ALWAYS_1: &str = "always";
+
 pub struct StorageKey {}
 
 fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {
@@ -44,6 +46,9 @@ lazy_static! {
 }
 
 pub fn get_value_for_key(key: &str) -> Option<u32> {
+    if key == STORAGE_KEY_ALWAYS_1 {
+        return Some(1)
+    }
     let storage = KEY_VALUE_STORAGE.read().unwrap();
     storage.get(key).cloned()
 }

@@ -2,6 +2,8 @@ use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, Worl
 
 pub type NpcId = u32;
 
+const NO_DIALOG_SHOW_SHOP_INSTEAD: u32 = 3;
+
 impl Entity {
     pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
         self.update_sprite_for_current_direction();
@@ -18,13 +20,21 @@ impl Entity {
                 ];
                 return vec;  
             } else if let Some(dialogue) = self.next_dialogue() {
-                return vec![
-                    WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowDialogue(
-                            self.id, self.name.clone(), dialogue,
+                if dialogue.id == NO_DIALOG_SHOW_SHOP_INSTEAD {
+                    return vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::ShowShop
                         )
-                    )
-                ];
+                    ];
+                } else {
+                    return vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::ShowDialogue(
+                                self.id, self.name.clone(), dialogue,
+                            )
+                        )
+                    ];
+                }
             }             
         }  
         vec![]
