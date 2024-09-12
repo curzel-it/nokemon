@@ -232,7 +232,7 @@ impl GameEngine {
         }
     }
     
-    fn ask_for_confirmation(&mut self, title: &str, text: &str, on_confirm: &Vec<WorldStateUpdate>) {
+    fn ask_for_confirmation(&mut self, title: &str, text: &str, on_confirm: &[WorldStateUpdate]) {
         self.confirmation_dialog.show(title, text, on_confirm)
     }
 

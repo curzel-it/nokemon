@@ -24,7 +24,6 @@ pub trait MenuItem: Clone {
 }
 
 pub type MenuUpdate = (bool, Vec<WorldStateUpdate>);
-pub type OnMenuItemSelection<Item> = Box<dyn FnMut(Item) -> (bool, Vec<WorldStateUpdate>)>;
 
 impl<Item: MenuItem> Menu<Item> {
     pub fn new(title: String, items: Vec<Item>) -> Self {

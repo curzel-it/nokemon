@@ -35,9 +35,6 @@ impl World {
 
 impl EntityType {
     fn has_weight(&self) -> bool {
-        match self {
-            EntityType::PressurePlate => false,
-            _ => true
-        }
+        !matches!(self, EntityType::PressurePlate)
     }
 }
