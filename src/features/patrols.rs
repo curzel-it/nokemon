@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{game_engine::entity::Entity, utils::directions::Direction};
+use crate::{game_engine::entity::Entity, utils::{directions::Direction, vector::Vector2d}};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Patrol {
@@ -52,6 +52,8 @@ impl Entity {
             return 
         }
         (self.frame.x, self.frame.y) = self.patrol.initial_position;
+        self.offset = Vector2d::zero();
+        self.patrol.current_index = 0;
 
         for movement in &mut self.patrol.movements {
             movement.steps_left = movement.steps;
