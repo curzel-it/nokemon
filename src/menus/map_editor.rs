@@ -253,7 +253,6 @@ impl MapEditor {
             Stockable::ConstructionTile(Construction::Library),
         ];
         let mut species: Vec<Stockable> = ALL_SPECIES.iter()
-            .filter(|s| s.id != SPECIES_TELEPORTER)
             .filter(|s| s.id != SPECIES_HERO)
             .map(|s| Stockable::Entity(s.clone()))
             .collect();

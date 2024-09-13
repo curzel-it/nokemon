@@ -27,7 +27,7 @@ impl World {
         Self {
             id,
             total_elapsed_time: 0.0,
-            bounds: Rect::square_from_origin(100),
+            bounds: Rect::square_from_origin(150),
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(vec![]),
@@ -139,6 +139,15 @@ impl World {
             WorldStateUpdate::EngineUpdate(update) => {
                 return Some(update)
             },
+            WorldStateUpdate::UpdateDestinationWorld(entity_id, world) => {
+                self.change_destination_world(entity_id, world)
+            },
+            WorldStateUpdate::UpdateDestinationX(entity_id, x) => {
+                self.change_destination_x(entity_id, x)
+            },
+            WorldStateUpdate::UpdateDestinationY(entity_id, y) => {
+                self.change_destination_y(entity_id, y)
+            },
         };
         None
     }
@@ -165,6 +174,33 @@ impl World {
         }
     }
 
+    fn change_destination_world(&mut self, id: u32, world: u32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            if let Some(destination) = entity.destination.as_mut() {
+                destination.world = world;
+            }
+        }
+    }
+
+    fn change_destination_x(&mut self, id: u32, x: i32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            if let Some(destination) = entity.destination.as_mut() {
+                destination.x = x;
+            }
+        }
+    }
+
+    fn change_destination_y(&mut self, id: u32, y: i32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            if let Some(destination) = entity.destination.as_mut() {
+                destination.y = y;
+            }
+        }
+    }
+
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
         self.biome_tiles.update_tile(row, col, new_biome)
     }
@@ -179,12 +215,6 @@ impl World {
 
     pub fn visible_construction_tiles(&self, viewport: &Rect) -> Vec<&ConstructionTile> {
         self.constructions_tiles.visible_tiles(viewport)
-    }
-
-    pub fn find_teleporter_for_destination(&self, destination: &u32) -> Option<Rect> {
-        self.entities.borrow().iter()
-            .find(|t| t.species_id == SPECIES_TELEPORTER && t.destination == *destination)
-            .map(|t| t.frame)
     }
 
     pub fn is_hero_on_slippery_surface(&self) -> bool {

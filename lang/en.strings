@@ -28,6 +28,9 @@
 "entity.menu.change_lock" = "Change Lock"
 "entity.menu.change_lock_title" = "Select Key Color"
 "entity.menu.change_on_off" = "Flip On/Off"
+"entity.menu.change_destination_world" = "Change Destination World"
+"entity.menu.change_destination_x" = "Change Destination X"
+"entity.menu.change_destination_y" = "Change Destination Y"
 
 "game.menu.title" = "Game Menu"
 "game.menu.save" = "Save Game"

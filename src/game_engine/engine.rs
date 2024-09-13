@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
 
@@ -63,7 +63,7 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
         
-        self.switch_world(WORLD_ID_DEMO);
+        self.teleport(&Destination::default());
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
@@ -199,9 +199,9 @@ impl GameEngine {
             use EngineStateUpdate::*;
             
             match (a, b) {
-                (SwitchWorld(_), SwitchWorld(_)) => std::cmp::Ordering::Equal,
-                (SwitchWorld(_), _) => std::cmp::Ordering::Greater,
-                (_, SwitchWorld(_)) => std::cmp::Ordering::Less,
+                (Teleport(_), Teleport(_)) => std::cmp::Ordering::Equal,
+                (Teleport(_), _) => std::cmp::Ordering::Greater,
+                (_, Teleport(_)) => std::cmp::Ordering::Less,
                 _ => std::cmp::Ordering::Equal,
             }
         });
@@ -217,7 +217,7 @@ impl GameEngine {
             EngineStateUpdate::CenterCamera(x, y, offset) => {
                 self.center_camera_at(*x, *y, offset)
             },
-            EngineStateUpdate::SwitchWorld(id) => self.switch_world(*id),
+            EngineStateUpdate::Teleport(destination) => self.teleport(destination),
             EngineStateUpdate::SaveGame => self.save(),
             EngineStateUpdate::ShowShop => {
                 self.show_shop()
@@ -269,13 +269,13 @@ impl GameEngine {
         self.world.save();
     }
 
-    fn switch_world(&mut self, id: u32) {
+    fn teleport(&mut self, destination: &Destination) {
         self.loading_screen.animate_world_transition();
         self.world.save();
         
-        let mut new_world = World::load_or_create(id);
+        let mut new_world = World::load_or_create(destination.world);
         new_world.creative_mode = self.creative_mode;
-        new_world.setup(&self.world.id, &self.world.cached_hero_props.direction);
+        new_world.setup(&self.world.cached_hero_props.direction, destination.x, destination.y);
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;
         self.world = new_world;
@@ -314,14 +314,18 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
 
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::{WORLD_ID_DEMO, WORLD_ID_NONE}, game_engine::world::World, utils::directions::Direction};
+    use crate::{constants::{WORLD_ID_DEMO, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::directions::Direction};
 
     use super::GameEngine;
 
     impl GameEngine {
         pub fn start_headless(&mut self) -> World {
             let mut world = World::new(WORLD_ID_DEMO);
-            world.setup(&WORLD_ID_NONE, &Direction::Unknown);
+            world.setup(
+                &Direction::Unknown, 
+                WORLD_SIZE_COLUMNS as i32 / 2, 
+                WORLD_SIZE_ROWS as i32 / 2
+            );
             world
         }
     }

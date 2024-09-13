@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -42,7 +42,7 @@ pub struct Entity {
     pub sprite: AnimatedSprite,
     pub dialogues: EntityDialogues,
     pub time_immobilized: f32,
-    pub destination: u32,
+    pub destination: Option<Destination>,
     pub lock_type: LockType,
     pub original_sprite_frame: Rect,
     

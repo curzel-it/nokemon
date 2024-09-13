@@ -46,8 +46,8 @@ impl Entity {
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {
         WorldStateUpdate::EngineUpdate(
-            EngineStateUpdate::SwitchWorld(
-                self.destination
+            EngineStateUpdate::Teleport(
+                self.destination.clone().unwrap_or_default()
             )
         )
     }

@@ -7,6 +7,9 @@ pub enum EntityOptionMenuItem {
     Rename,
     PickUp,
     ChangeLock,
+    ChangeDestinationWorld,
+    ChangeDestinationX,
+    ChangeDestinationY,
 }
 
 impl MenuItem for EntityOptionMenuItem {
@@ -16,6 +19,9 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
+            EntityOptionMenuItem::ChangeDestinationWorld => "entity.menu.change_destination_world".localized(),
+            EntityOptionMenuItem::ChangeDestinationX => "entity.menu.change_destination_x".localized(),
+            EntityOptionMenuItem::ChangeDestinationY => "entity.menu.change_destination_y".localized(),
         }
     }
 }
@@ -30,6 +36,9 @@ pub enum EntityOptionsMenuState {
     Closed,
     ChangingName,
     ChangingLock,
+    ChangingDestinationWorld,
+    ChangingDestinationX,
+    ChangingDestinationY,
 }
 
 pub struct EntityOptionsMenu {
@@ -93,30 +102,56 @@ impl EntityOptionsMenu {
         }
 
         match self.state {
-            EntityOptionsMenuState::ChangingName => self.update_from_change_name(keyboard, time_since_last_update),
+            EntityOptionsMenuState::ChangingName => {
+                self.update_from_text_input(keyboard, time_since_last_update, vec![
+                        WorldStateUpdate::RenameEntity(self.entity_id, self.current_text()),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                    ]
+                )
+            },
+            EntityOptionsMenuState::ChangingDestinationWorld => {
+                self.update_from_text_input(keyboard, time_since_last_update, vec![
+                        WorldStateUpdate::UpdateDestinationWorld(self.entity_id, self.current_u32()),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                    ]
+                )
+            },
+            EntityOptionsMenuState::ChangingDestinationX => {
+                self.update_from_text_input(keyboard, time_since_last_update, vec![
+                        WorldStateUpdate::UpdateDestinationX(self.entity_id, self.current_i32()),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                    ]
+                )
+            },
+            EntityOptionsMenuState::ChangingDestinationY => {
+                self.update_from_text_input(keyboard, time_since_last_update, vec![
+                        WorldStateUpdate::UpdateDestinationY(self.entity_id, self.current_i32()),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
+                    ]
+                )
+            },
             EntityOptionsMenuState::ChangingLock => self.update_from_change_lock(keyboard, time_since_last_update),
             EntityOptionsMenuState::Closed => self.update_from_close(keyboard, time_since_last_update),
         }
     }
 
-    fn update_from_change_name(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
+    fn update_from_text_input(
+        &mut self, 
+        keyboard: &KeyboardEventsProvider, 
+        time_since_last_update: f32,
+        updates: Vec<WorldStateUpdate>
+    ) -> MenuUpdate {
         self.text_input.update(keyboard, time_since_last_update);
 
         if self.text_input.did_confirm() {
-            let new_name = self.text_input.text().trim().to_owned();
             self.menu.close();
             self.state = EntityOptionsMenuState::Closed;
             self.text_input.clear();
-
-            return (false, vec![
-                WorldStateUpdate::RenameEntity(self.entity_id, new_name),
-                WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
-            ]);
+            return (false, updates);
         } else if self.text_input.did_cancel() {
             self.state = EntityOptionsMenuState::Closed;
             self.text_input.clear();
         }
-
         (self.menu.is_open, vec![])
     }
 
@@ -176,6 +211,21 @@ impl EntityOptionsMenu {
                     self.ask_for_lock_type();
                     vec![]
                 },
+                EntityOptionMenuItem::ChangeDestinationWorld => {
+                    self.menu.clear_selection();
+                    self.ask_for_new_destination_world();
+                    vec![]
+                },
+                EntityOptionMenuItem::ChangeDestinationX => {
+                    self.menu.clear_selection();
+                    self.ask_for_new_destination_x();
+                    vec![]
+                },
+                EntityOptionMenuItem::ChangeDestinationY => {
+                    self.menu.clear_selection();
+                    self.ask_for_new_destination_y();
+                    vec![]
+                },
             };
             return (self.menu.is_open, updates);
         }
@@ -185,6 +235,9 @@ impl EntityOptionsMenu {
 
     pub fn ui(&self) -> View {
         match self.state {
+            EntityOptionsMenuState::ChangingDestinationWorld => self.text_input.ui(),
+            EntityOptionsMenuState::ChangingDestinationX => self.text_input.ui(),
+            EntityOptionsMenuState::ChangingDestinationY => self.text_input.ui(),
             EntityOptionsMenuState::ChangingName => self.text_input.ui(),
             EntityOptionsMenuState::ChangingLock => self.lock_menu.ui(),
             EntityOptionsMenuState::Closed => self.menu.ui(),
@@ -200,6 +253,24 @@ impl EntityOptionsMenu {
         self.state = EntityOptionsMenuState::ChangingName;
         self.text_input.clear();
         self.text_input.title = "entity.menu.rename_title".localized();
+    }
+
+    fn ask_for_new_destination_world(&mut self) {
+        self.state = EntityOptionsMenuState::ChangingDestinationWorld;
+        self.text_input.clear();
+        self.text_input.title = "entity.menu.change_destination_world".localized();
+    }
+
+    fn ask_for_new_destination_x(&mut self) {
+        self.state = EntityOptionsMenuState::ChangingDestinationX;
+        self.text_input.clear();
+        self.text_input.title = "entity.menu.change_destination_x".localized();
+    }
+
+    fn ask_for_new_destination_y(&mut self) {
+        self.state = EntityOptionsMenuState::ChangingDestinationY;
+        self.text_input.clear();
+        self.text_input.title = "entity.menu.change_destination_y".localized();
     }
 
     fn available_options(&self, creative_mode: bool, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
@@ -232,6 +303,9 @@ impl EntityOptionsMenu {
                 EntityOptionMenuItem::Remove,
             ],
             EntityType::Teleporter => vec![
+                EntityOptionMenuItem::ChangeDestinationWorld,
+                EntityOptionMenuItem::ChangeDestinationX,
+                EntityOptionMenuItem::ChangeDestinationY,
                 EntityOptionMenuItem::ChangeLock
             ],
             EntityType::PushableObject => vec![
@@ -267,5 +341,19 @@ impl EntityOptionsMenu {
             EntityType::InverseGate => nothing,
             EntityType::PressurePlate => nothing,
         }
+    }
+}
+
+impl EntityOptionsMenu {
+    fn current_text(&self) -> String {
+        self.text_input.text().trim().to_owned()
+    }
+
+    fn current_i32(&self) -> i32 {
+        self.current_text().parse().unwrap_or_default()
+    }
+
+    fn current_u32(&self) -> u32 {
+        self.current_text().parse().unwrap_or_default()
     }
 }

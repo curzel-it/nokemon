@@ -71,7 +71,7 @@ impl Species {
             dialogues: EntityDialogues::empty(),
             time_immobilized: 0.0,
             name: self.name.localized(),
-            destination: 0,
+            destination: None,
             lock_type: self.lock_type,
             original_sprite_frame,
             patrol: Patrol::none()

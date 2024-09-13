@@ -1,13 +1,16 @@
-use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::{EntityType, SpeciesId}}, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::{EntityType, SpeciesId}}, features::destination::Destination, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
 
 use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
 #[derive(Debug, Clone)]
 pub enum WorldStateUpdate {
     AddEntity(Entity),
-    RemoveEntity(u32),
+    RemoveEntity(EntityId),
     RemoveEntityAtCoordinates(usize, usize),
-    RenameEntity(u32, String),
+    RenameEntity(EntityId, String),
+    UpdateDestinationWorld(EntityId, u32),
+    UpdateDestinationX(EntityId, i32),
+    UpdateDestinationY(EntityId, i32),
     CacheHeroProps(EntityProps),
     ChangeLock(EntityId, LockType),
     BiomeTileChange(usize, usize, Biome),
@@ -19,7 +22,7 @@ pub enum WorldStateUpdate {
 #[derive(Debug, Clone)]
 pub enum EngineStateUpdate {
     CenterCamera(i32, i32, Vector2d),
-    SwitchWorld(u32),
+    Teleport(Destination),
     SaveGame,
     Exit,
     ShowEntityOptions(String, EntityId, SpeciesId, EntityType),
