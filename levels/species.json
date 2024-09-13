@@ -907,7 +907,7 @@
         "name": "npc.name.slime",
         "entity_type": "Npc",
         "z_index": 150,
-        "base_speed": 1.0,
+        "base_speed": 0.5,
         "is_rigid": true,
         "inventory_texture_offset": [
             2,
@@ -921,6 +921,27 @@
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
+        "id": 5001,
+        "name": "objects.name.deep_hole",
+        "entity_type": "Teleporter",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            3,
+            10
+        ],
+        "sprite_frame": {
+            "x": 1,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
         "lock_type": "None"
     }
 ]
