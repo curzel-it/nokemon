@@ -2,7 +2,7 @@ use raylib::prelude::*;
 
 use crate::game_engine::{engine::GameEngine, world::World};
 
-use super::{entities::render_entities, menus::render_menu, tiles::render_tiles, loading_screen::render_loading_screen};
+use super::{combat::render_combat_screen, entities::render_entities, loading_screen::render_loading_screen, menus::render_menu, tiles::render_tiles};
 
 pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();
@@ -15,6 +15,7 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     }
     render_menu(&mut d, engine);
     render_loading_screen(&mut d, &engine.loading_screen);
+    render_combat_screen(&mut d, &engine);
     draw_debug_info(&mut d, fps);
 }
 

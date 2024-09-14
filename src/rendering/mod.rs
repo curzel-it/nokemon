@@ -1,3 +1,4 @@
+pub mod combat;
 pub mod entities;
 pub mod loading_screen;
 pub mod menus;
