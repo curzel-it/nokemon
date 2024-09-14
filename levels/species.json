@@ -383,7 +383,7 @@
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "inventory_texture_offset": [
             5,
             1
@@ -404,7 +404,7 @@
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "inventory_texture_offset": [
             5,
             2
@@ -425,7 +425,7 @@
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "inventory_texture_offset": [
             5,
             3
@@ -446,7 +446,7 @@
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "inventory_texture_offset": [
             5,
             4
@@ -467,7 +467,7 @@
         "entity_type": "PickableObject",
         "z_index": 200,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "inventory_texture_offset": [
             5,
             5
@@ -942,6 +942,111 @@
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 6001,
+        "name": "objects.name.book_red",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            3,
+            11
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 5,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8,
+        "lock_type": "None"
+    },
+    {
+        "id": 6002,
+        "name": "objects.name.book_blue",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            3,
+            12
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 6,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8,
+        "lock_type": "None"
+    },
+    {
+        "id": 6003,
+        "name": "objects.name.book_green",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            3,
+            13
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 7,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8,
+        "lock_type": "None"
+    },
+    {
+        "id": 6004,
+        "name": "objects.name.book_purple",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            3,
+            14
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 8,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8,
+        "lock_type": "None"
+    },
+    {
+        "id": 6005,
+        "name": "objects.name.book_dark",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            3,
+            15
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 9,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 8,
         "lock_type": "None"
     }
 ]
