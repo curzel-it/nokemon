@@ -1,7 +1,7 @@
 use crate::{features::linear_movement::would_collide, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
 
 impl Entity {
-    pub fn update_pushable(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
+    pub fn update_pushable(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
             return vec![
                 WorldStateUpdate::EngineUpdate(
@@ -29,9 +29,9 @@ impl Entity {
                 if would_collide(&self.frame, &hero_direction, &world.hitmap) {
                     return vec![WorldStateUpdate::StopHeroMovement]
                 } else {
-                    let (dx, dy) = hero_direction.as_col_row_offset();
-                    self.frame.x += dx;
-                    self.frame.y += dy;
+                    self.direction = hero_direction;
+                    self.current_speed = 1.2 * world.cached_hero_props.speed;
+                    self.move_linearly(world, time_since_last_update);
                 }
             }
         }
