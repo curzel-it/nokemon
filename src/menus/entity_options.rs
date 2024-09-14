@@ -1,4 +1,4 @@
-use crate::{entities::species::{species_by_id, EntityType, Species, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::{EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Copy, Clone)]
@@ -275,12 +275,10 @@ impl EntityOptionsMenu {
     fn available_options(&self, creative_mode: bool, inventory: bool) -> Vec<EntityOptionMenuItem> {
         if inventory {
             self.available_options_inventory()
+        } else if creative_mode {
+            self.available_options_creative()
         } else {
-            if creative_mode {
-                self.available_options_creative()
-            } else {
-                self.available_options_regular()
-            }
+            self.available_options_regular()
         }
     }
 

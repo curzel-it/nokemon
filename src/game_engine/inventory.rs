@@ -49,7 +49,7 @@ pub fn get_inventory() -> Vec<Entity> {
 }
 
 pub fn inventory_contains_species(species_id: u32) -> bool {
-    INVENTORY.read().unwrap().iter().find(|e| e.species_id == species_id).is_some()
+    INVENTORY.read().unwrap().iter().any(|e| e.species_id == species_id)
 }
 
 fn load_inventory(file_path: &str) -> Vec<Entity> {

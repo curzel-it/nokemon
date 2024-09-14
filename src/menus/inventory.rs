@@ -89,7 +89,7 @@ impl Inventory {
                 columns: self.columns,
                 children: self.stock.iter()
                     .map(|e| e.species_id)
-                    .map(|id| species_by_id(id))
+                    .map(species_by_id)
                     .enumerate()
                     .map(|(index, species)| { self.item_ui(&species, index, selected_item_index) })
                     .collect()
