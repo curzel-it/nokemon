@@ -29,7 +29,7 @@ pub enum EngineStateUpdate {
     ShowInventoryOptions(Box<Entity>),
     ShowDialogue(NpcId, String, Dialogue), 
     ShowShop,
-    AddToInventory(SpeciesId),
+    AddToInventory(Box<Entity>),
     RemoveFromInventory(SpeciesId),
     Toast(String),
     Confirmation(String, String, Vec<WorldStateUpdate>)

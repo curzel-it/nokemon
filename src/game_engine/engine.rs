@@ -241,8 +241,8 @@ impl GameEngine {
             EngineStateUpdate::ShowInventoryOptions(entity) => {
                 self.entity_options_menu.show(entity.clone(), false, true)
             }
-            EngineStateUpdate::AddToInventory(species_id) => {
-                self.add_to_inventory(species_id)
+            EngineStateUpdate::AddToInventory(entity) => {
+                add_to_inventory(*entity.clone())
             },
             EngineStateUpdate::RemoveFromInventory(species_id) => {
                 remove_from_inventory(*species_id)
@@ -254,12 +254,6 @@ impl GameEngine {
                 self.ask_for_confirmation(title, text, on_confirm)
             }
         }
-    }
-
-    fn add_to_inventory(&mut self, species_id: &u32) {
-        let species = species_by_id(*species_id);
-        let entity = species.make_entity();
-        add_to_inventory(entity);
     }
     
     fn ask_for_confirmation(&mut self, title: &str, text: &str, on_confirm: &[WorldStateUpdate]) {

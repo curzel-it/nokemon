@@ -1,14 +1,14 @@
 [
   {
-    "id": 1726347859,
+    "id": 1726349466,
     "frame": {
-      "x": 0,
-      "y": 0,
+      "x": 98,
+      "y": 75,
       "w": 1,
       "h": 1
     },
-    "name": "Yellow Key",
-    "species_id": 2000,
+    "name": "Book",
+    "species_id": 6001,
     "entity_type": "PickableObject",
     "offset": {
       "x": 0.0,
@@ -17,12 +17,12 @@
     "direction": 4,
     "current_speed": 0.0,
     "is_rigid": true,
-    "z_index": 200,
+    "z_index": 50,
     "sprite": {
       "sheet_id": 1012,
       "frame": {
         "x": 0,
-        "y": 0,
+        "y": 5,
         "w": 1,
         "h": 1
       },
@@ -33,10 +33,10 @@
     },
     "time_immobilized": 0.0,
     "destination": null,
-    "lock_type": "Yellow",
+    "lock_type": "None",
     "original_sprite_frame": {
       "x": 0,
-      "y": 0,
+      "y": 5,
       "w": 1,
       "h": 1
     },
@@ -52,6 +52,6 @@
       0,
       0
     ],
-    "contents": null
+    "contents": "book.tutorial.001"
   }
 ]
