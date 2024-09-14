@@ -20,7 +20,7 @@ impl Inventory {
         Self {
             stock: vec![],
             state: InventoryState::SelectingItem(0),
-            columns: 8,
+            columns: 12,
         }
     }
 
