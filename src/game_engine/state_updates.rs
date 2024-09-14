@@ -26,6 +26,7 @@ pub enum EngineStateUpdate {
     SaveGame,
     Exit,
     ShowEntityOptions(String, EntityId, SpeciesId, EntityType),
+    ShowInventoryOptions(SpeciesId),
     ShowDialogue(NpcId, String, Dialogue), 
     ShowShop,
     AddToInventory(SpeciesId),

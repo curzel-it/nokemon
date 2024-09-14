@@ -146,8 +146,7 @@ impl GameMenu {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::Open;
         }
-        self.inventory.update(keyboard);
-        vec![]
+        self.inventory.update(keyboard)
     }
 
     fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {

@@ -369,7 +369,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726097753,
@@ -439,12 +440,13 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726158824,
       "frame": {
-        "x": 93,
+        "x": 88,
         "y": 79,
         "w": 1,
         "h": 2
@@ -453,10 +455,10 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": -2.5393498,
+        "x": 10.826552,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": 2,
       "current_speed": 0.5,
       "is_rigid": true,
       "z_index": 150,
@@ -487,12 +489,12 @@
           87,
           79
         ],
-        "current_index": 1,
+        "current_index": 0,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 5
+            "steps_left": 4
           },
           {
             "direction": 3,
@@ -504,7 +506,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726207469,
@@ -558,7 +561,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726207470,
@@ -612,7 +616,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726257848,
@@ -666,7 +671,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726257847,
@@ -724,7 +730,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726294684,
@@ -778,7 +785,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     },
     {
       "id": 1726294686,
@@ -836,7 +844,8 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null
     }
   ]
 }

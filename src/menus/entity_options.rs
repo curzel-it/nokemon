@@ -1,4 +1,4 @@
-use crate::{entities::species::EntityType, game_engine::{keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::{species_by_id, EntityType}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Copy, Clone)]
@@ -73,12 +73,32 @@ impl EntityOptionsMenu {
         }
     }
 
-    pub fn show(&mut self, entity_name: &str, entity_id: &u32, species_id: &u32, entity_type: &EntityType, creative_mode: bool) {
+    pub fn show_inventory(&mut self, species_id: &u32) {
+        let species = species_by_id(*species_id);
+        self.show(
+            &species.localized_name(),
+            &0, 
+            species_id, 
+            &species.entity_type, 
+            false, 
+            true
+        );
+    }
+
+    pub fn show(
+        &mut self, 
+        entity_name: &str, 
+        entity_id: &u32, 
+        species_id: &u32, 
+        entity_type: &EntityType, 
+        creative_mode: bool,
+        inventory: bool
+    ) {
         if self.time_since_last_closed < 0.5 {
             return;
         }
         self.time_since_last_closed = 0.0;
-        self.menu.items = self.available_options(creative_mode, entity_type);
+        self.menu.items = self.available_options(creative_mode, inventory, entity_type);
 
         if self.menu.items.is_empty() {
             return
@@ -273,11 +293,15 @@ impl EntityOptionsMenu {
         self.text_input.title = "entity.menu.change_destination_y".localized();
     }
 
-    fn available_options(&self, creative_mode: bool, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
-        if creative_mode {
-            self.available_options_creative(entity_type)
+    fn available_options(&self, creative_mode: bool, inventory: bool, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+        if inventory {
+            self.available_options_inventory(entity_type)
         } else {
-            self.available_options_regular(entity_type)
+            if creative_mode {
+                self.available_options_creative(entity_type)
+            } else {
+                self.available_options_regular(entity_type)
+            }
         }
     }
 
@@ -341,6 +365,15 @@ impl EntityOptionsMenu {
             EntityType::InverseGate => nothing,
             EntityType::PressurePlate => nothing,
         }
+    }
+
+    fn available_options_inventory(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+        vec![
+            EntityOptionMenuItem::PickUp,
+            EntityOptionMenuItem::PickUp,
+            EntityOptionMenuItem::PickUp,
+            EntityOptionMenuItem::PickUp,
+        ]
     }
 }
 

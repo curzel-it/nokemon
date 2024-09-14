@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -50,13 +50,21 @@ impl Inventory {
             self.state = InventoryState::SelectingItem(selected_index - 1);
         }
         if keyboard.has_confirmation_been_pressed {
-            self.handle_selection(); 
+            return self.handle_selection(selected_index); 
         }
         vec![]
     }
 
-    fn handle_selection(&mut self) {
-        // ...
+    fn handle_selection(&mut self, selected_index: usize) -> Vec<WorldStateUpdate> {
+        let species_id = self.stock[selected_index].id;
+
+        vec![
+            WorldStateUpdate::EngineUpdate(
+                EngineStateUpdate::ShowInventoryOptions(
+                    species_id
+                )
+            )
+        ]
     }
 }
 

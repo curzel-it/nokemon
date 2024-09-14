@@ -51,6 +51,9 @@ pub struct Entity {
 
     #[serde(default)]
     pub latest_movement: (i32, i32),  
+
+    #[serde(default)]
+    pub contents: Option<String>,  
 }
 
 impl Entity {

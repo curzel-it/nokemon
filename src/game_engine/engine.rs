@@ -134,17 +134,17 @@ impl GameEngine {
         }
 
         if !is_game_paused {
-            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open();
-            let keyboard = if self.menu.is_open() || other_menus_are_closed { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
-            let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
+            let keyboard = if self.entity_options_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let (pause, world_updates) = self.entity_options_menu.update(keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
         }
 
         if !is_game_paused {
-            let keyboard = if self.entity_options_menu.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
-            let (pause, world_updates) = self.entity_options_menu.update(keyboard, time_since_last_update);
+            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open();
+            let keyboard = if self.menu.is_open() || other_menus_are_closed { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
@@ -236,7 +236,10 @@ impl GameEngine {
             },
             EngineStateUpdate::Exit => self.exit(),
             EngineStateUpdate::ShowEntityOptions(entity_name, entity_id, species_id, entity_type) => {
-                self.entity_options_menu.show(entity_name, entity_id, species_id, entity_type, self.creative_mode)
+                self.entity_options_menu.show(entity_name, entity_id, species_id, entity_type, self.creative_mode, false)
+            }
+            EngineStateUpdate::ShowInventoryOptions(species_id) => {
+                self.entity_options_menu.show_inventory(species_id)
             }
             EngineStateUpdate::AddToInventory(species_id) => {
                 add_to_inventory(*species_id)

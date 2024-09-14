@@ -74,7 +74,8 @@ impl Species {
             destination: None,
             lock_type: self.lock_type,
             original_sprite_frame,
-            patrol: Patrol::none()
+            patrol: Patrol::none(),
+            contents: None
         }
     }
     
