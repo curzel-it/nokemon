@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_DEMO, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
-use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
+use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
 pub struct GameEngine {
     pub menu: GameMenu,
@@ -63,7 +63,7 @@ impl GameEngine {
 
         // rl.set_target_fps(FPS);
         
-        self.teleport(&Destination::default());
+        self.teleport_to_previous();
 
         let textures = self.load_textures(&mut rl, &thread);
         self.ui_config = Some(RenderingConfig { 
@@ -151,6 +151,18 @@ impl GameEngine {
         }
         
         is_game_paused
+    }
+
+    fn teleport_to_previous(&mut self) {
+        if let Some(world) = get_value_for_key(&StorageKey::latest_world()) {
+            if let Some(x) = get_value_for_key(&StorageKey::latest_x()) {
+                if let Some(y) = get_value_for_key(&StorageKey::latest_y()) {
+                    self.teleport(&Destination::new(world, x as i32, y as i32));
+                    return;
+                }                
+            }
+        } 
+        self.teleport(&Destination::default());
     }
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
@@ -266,6 +278,9 @@ impl GameEngine {
     }
 
     fn save(&self) {
+        set_value_for_key(&StorageKey::latest_world(), self.world.id);
+        set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
+        set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);
         self.world.save();
     }
 

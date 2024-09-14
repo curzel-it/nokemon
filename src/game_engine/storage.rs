@@ -2,9 +2,26 @@ use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, sync::{mpsc::
 use lazy_static::lazy_static;
 use crate::constants::KEY_VALUE_STORAGE_PATH;
 
-pub const STORAGE_KEY_ALWAYS_1: &str = "always";
 
 pub struct StorageKey {}
+
+impl StorageKey {
+    pub fn always() -> String {
+        "always".to_owned()
+    }
+
+    pub fn latest_world() -> String {
+        "latest_world".to_owned()
+    }
+
+    pub fn latest_x() -> String {
+        "latest_x".to_owned()
+    }
+
+    pub fn latest_y() -> String {
+        "latest_y".to_owned()
+    }
+}
 
 fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {
     let file = File::open(file_path).expect("Failed to open save.json file");
@@ -46,7 +63,7 @@ lazy_static! {
 }
 
 pub fn get_value_for_key(key: &str) -> Option<u32> {
-    if key == STORAGE_KEY_ALWAYS_1 {
+    if key == StorageKey::always() {
         return Some(1)
     }
     let storage = KEY_VALUE_STORAGE.read().unwrap();
