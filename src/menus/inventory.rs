@@ -1,11 +1,11 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{entity::Entity, inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
 #[derive(Debug)]
 pub struct Inventory {
-    pub stock: Vec<Species>,
+    pub stock: Vec<Entity>,
     state: InventoryState,
     columns: usize,
 }
@@ -25,7 +25,7 @@ impl Inventory {
     }
 
     pub fn setup(&mut self) {
-        self.stock = get_inventory().iter().map(|species_id| species_by_id(*species_id)).collect()
+        self.stock = get_inventory()
     }
 
     pub fn update(&mut self, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
@@ -55,13 +55,13 @@ impl Inventory {
         vec![]
     }
 
-    fn handle_selection(&mut self, selected_index: usize) -> Vec<WorldStateUpdate> {
-        let species_id = self.stock[selected_index].id;
+    fn handle_selection(&self, selected_index: usize) -> Vec<WorldStateUpdate> {
+        let item = self.stock[selected_index].clone();
 
         vec![
             WorldStateUpdate::EngineUpdate(
                 EngineStateUpdate::ShowInventoryOptions(
-                    species_id
+                    Box::new(item)
                 )
             )
         ]
@@ -87,9 +87,12 @@ impl Inventory {
             View::VGrid {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
-                children: self.stock.iter().enumerate().map(|(index, item)| {
-                    self.item_ui(item, index, selected_item_index)
-                }).collect()
+                children: self.stock.iter()
+                    .map(|e| e.species_id)
+                    .map(|id| species_by_id(id))
+                    .enumerate()
+                    .map(|(index, species)| { self.item_ui(&species, index, selected_item_index) })
+                    .collect()
             },
         ];
 

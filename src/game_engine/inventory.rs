@@ -1,13 +1,13 @@
 use std::{fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use serde_json;
-use crate::constants::INVENTORY_PATH;
+use crate::{constants::INVENTORY_PATH, game_engine::entity::Entity};
 
 lazy_static! {
-    pub static ref INVENTORY: RwLock<Vec<u32>> = RwLock::new(load_inventory(INVENTORY_PATH));
+    pub static ref INVENTORY: RwLock<Vec<Entity>> = RwLock::new(load_inventory(INVENTORY_PATH));
 
-    static ref SAVE_THREAD: (Sender<Vec<u32>>, thread::JoinHandle<()>) = {
-        let (tx, rx) = mpsc::channel::<Vec<u32>>();
+    static ref SAVE_THREAD: (Sender<Vec<Entity>>, thread::JoinHandle<()>) = {
+        let (tx, rx) = mpsc::channel::<Vec<Entity>>();
         let file_path = INVENTORY_PATH.to_string();
 
         let handle = thread::spawn(move || {
@@ -19,12 +19,10 @@ lazy_static! {
     };
 }
 
-pub fn add_to_inventory(species_id: u32) {
+pub fn add_to_inventory(entity: Entity) {
     {
         let mut inventory = INVENTORY.write().unwrap();
-        if !inventory.contains(&species_id) {
-            inventory.push(species_id);
-        }
+        inventory.push(entity);
     }
 
     let inventory = INVENTORY.read().unwrap().clone();
@@ -35,7 +33,7 @@ pub fn add_to_inventory(species_id: u32) {
 pub fn remove_from_inventory(species_id: u32) {
     {
         let mut inventory = INVENTORY.write().unwrap();
-        if let Some(pos) = inventory.iter().position(|&x| x == species_id) {
+        if let Some(pos) = inventory.iter().position(|x| x.species_id == species_id) {
             inventory.remove(pos);
         }
     }
@@ -45,22 +43,22 @@ pub fn remove_from_inventory(species_id: u32) {
     tx.send(inventory).expect("Failed to send inventory data to save thread");
 }
 
-pub fn get_inventory() -> Vec<u32> {
+pub fn get_inventory() -> Vec<Entity> {
     let inventory = INVENTORY.read().unwrap();
     inventory.clone()
 }
 
-pub fn inventory_contains(item: u32) -> bool {
-    INVENTORY.read().unwrap().contains(&item)
+pub fn inventory_contains_species(species_id: u32) -> bool {
+    INVENTORY.read().unwrap().iter().find(|e| e.species_id == species_id).is_some()
 }
 
-fn load_inventory(file_path: &str) -> Vec<u32> {
+fn load_inventory(file_path: &str) -> Vec<Entity> {
     let file = File::open(file_path).expect("Failed to open inventory.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize inventory file from JSON")
 }
 
-fn save_inventory(path: &str, inventory: &Vec<u32>) {
+fn save_inventory(path: &str, inventory: &Vec<Entity>) {
     if let Ok(serialized_inventory) = serde_json::to_string_pretty(inventory) {
         if let Ok(mut file) = File::create(path) {
             if let Err(e) = file.write_all(serialized_inventory.as_bytes()) {

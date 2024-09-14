@@ -446,7 +446,7 @@
     {
       "id": 1726158824,
       "frame": {
-        "x": 88,
+        "x": 90,
         "y": 79,
         "w": 1,
         "h": 2
@@ -455,7 +455,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 10.826552,
+        "x": 12.02672,
         "y": 0.0
       },
       "direction": 2,
@@ -494,7 +494,7 @@
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 4
+            "steps_left": 2
           },
           {
             "direction": 3,

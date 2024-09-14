@@ -1,4 +1,4 @@
-use crate::{game_engine::{entity::Entity, inventory::inventory_contains, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
+use crate::{game_engine::{entity::Entity, inventory::inventory_contains_species, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
 
 impl Entity {
     pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
@@ -6,7 +6,7 @@ impl Entity {
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::ShowEntityOptions(
-                        self.name.clone(), self.id, self.species_id, self.entity_type
+                        Box::new(self.clone())
                     )
                 )
             ];
@@ -14,7 +14,7 @@ impl Entity {
 
         if self.should_teleport(world) {
             if self.lock_type != LockType::None {
-                if inventory_contains(self.lock_type.key()) {
+                if inventory_contains_species(self.lock_type.key()) {
                     vec![self.show_unlock_confirmation()]
                 } else {
                     vec![self.show_locked_message()]

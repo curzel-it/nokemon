@@ -1,8 +1,57 @@
 [
-  1012,
-  1013,
-  1014,
-  1015,
-  6001,
-  6003
+  {
+    "id": 1726347859,
+    "frame": {
+      "x": 0,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Yellow Key",
+    "species_id": 2000,
+    "entity_type": "PickableObject",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 4,
+    "current_speed": 0.0,
+    "is_rigid": true,
+    "z_index": 200,
+    "sprite": {
+      "sheet_id": 1012,
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 8
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "Yellow",
+    "original_sprite_frame": {
+      "x": 0,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null
+  }
 ]

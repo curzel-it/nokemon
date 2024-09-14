@@ -1,4 +1,4 @@
-use crate::{entities::species::{species_by_id, EntityType}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::{species_by_id, EntityType, Species, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Copy, Clone)]
@@ -42,9 +42,7 @@ pub enum EntityOptionsMenuState {
 }
 
 pub struct EntityOptionsMenu {
-    entity_name: String,
-    entity_id: u32,
-    species_id: u32,
+    entity: Box<Entity>,
     time_since_last_closed: f32,
     menu: Menu<EntityOptionMenuItem>,
     state: EntityOptionsMenuState,
@@ -55,9 +53,7 @@ pub struct EntityOptionsMenu {
 impl EntityOptionsMenu {
     pub fn new() -> Self {
         Self {
-            entity_name: "".to_owned(),
-            entity_id: 0,
-            species_id: 0,
+            entity: Box::new(SPECIES_NONE.make_entity()),
             time_since_last_closed: 1.0,
             menu: Menu::new("entity.menu.title".localized(), vec![]),
             state: EntityOptionsMenuState::Closed,
@@ -73,41 +69,24 @@ impl EntityOptionsMenu {
         }
     }
 
-    pub fn show_inventory(&mut self, species_id: &u32) {
-        let species = species_by_id(*species_id);
-        self.show(
-            &species.localized_name(),
-            &0, 
-            species_id, 
-            &species.entity_type, 
-            false, 
-            true
-        );
-    }
-
     pub fn show(
         &mut self, 
-        entity_name: &str, 
-        entity_id: &u32, 
-        species_id: &u32, 
-        entity_type: &EntityType, 
+        entity: Box<Entity>, 
         creative_mode: bool,
         inventory: bool
     ) {
         if self.time_since_last_closed < 0.5 {
             return;
         }
+        self.entity = entity;
         self.time_since_last_closed = 0.0;
-        self.menu.items = self.available_options(creative_mode, inventory, entity_type);
+        self.menu.items = self.available_options(creative_mode, inventory);
 
         if self.menu.items.is_empty() {
             return
         }
 
-        self.entity_name = entity_name.to_owned();
-        self.entity_id = *entity_id;
-        self.species_id = *species_id;
-        self.menu.title = entity_name.to_owned();
+        self.menu.title = self.entity.name.to_owned();
         self.menu.show();
         self.state = EntityOptionsMenuState::Closed;
     }
@@ -124,28 +103,28 @@ impl EntityOptionsMenu {
         match self.state {
             EntityOptionsMenuState::ChangingName => {
                 self.update_from_text_input(keyboard, time_since_last_update, vec![
-                        WorldStateUpdate::RenameEntity(self.entity_id, self.current_text()),
+                        WorldStateUpdate::RenameEntity(self.entity.id, self.current_text()),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                     ]
                 )
             },
             EntityOptionsMenuState::ChangingDestinationWorld => {
                 self.update_from_text_input(keyboard, time_since_last_update, vec![
-                        WorldStateUpdate::UpdateDestinationWorld(self.entity_id, self.current_u32()),
+                        WorldStateUpdate::UpdateDestinationWorld(self.entity.id, self.current_u32()),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                     ]
                 )
             },
             EntityOptionsMenuState::ChangingDestinationX => {
                 self.update_from_text_input(keyboard, time_since_last_update, vec![
-                        WorldStateUpdate::UpdateDestinationX(self.entity_id, self.current_i32()),
+                        WorldStateUpdate::UpdateDestinationX(self.entity.id, self.current_i32()),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                     ]
                 )
             },
             EntityOptionsMenuState::ChangingDestinationY => {
                 self.update_from_text_input(keyboard, time_since_last_update, vec![
-                        WorldStateUpdate::UpdateDestinationY(self.entity_id, self.current_i32()),
+                        WorldStateUpdate::UpdateDestinationY(self.entity.id, self.current_i32()),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                     ]
                 )
@@ -187,7 +166,7 @@ impl EntityOptionsMenu {
             self.state = EntityOptionsMenuState::Closed;
 
             return (false, vec![
-                WorldStateUpdate::ChangeLock(self.entity_id, selected_lock),
+                WorldStateUpdate::ChangeLock(self.entity.id, selected_lock),
                 WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
             ]);
         }
@@ -210,7 +189,7 @@ impl EntityOptionsMenu {
                 EntityOptionMenuItem::Remove => {
                     self.menu.clear_selection();
                     self.menu.close();
-                    vec![WorldStateUpdate::RemoveEntity(self.entity_id)]
+                    vec![WorldStateUpdate::RemoveEntity(self.entity.id)]
                 },
                 EntityOptionMenuItem::Rename => {
                     self.menu.clear_selection();
@@ -221,8 +200,8 @@ impl EntityOptionsMenu {
                     self.menu.clear_selection();
                     self.menu.close();
                     vec![
-                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.species_id)),
-                        WorldStateUpdate::RemoveEntity(self.entity_id),
+                        WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(self.entity.species_id)),
+                        WorldStateUpdate::RemoveEntity(self.entity.id),
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     ]
                 },
@@ -293,22 +272,22 @@ impl EntityOptionsMenu {
         self.text_input.title = "entity.menu.change_destination_y".localized();
     }
 
-    fn available_options(&self, creative_mode: bool, inventory: bool, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+    fn available_options(&self, creative_mode: bool, inventory: bool) -> Vec<EntityOptionMenuItem> {
         if inventory {
-            self.available_options_inventory(entity_type)
+            self.available_options_inventory()
         } else {
             if creative_mode {
-                self.available_options_creative(entity_type)
+                self.available_options_creative()
             } else {
-                self.available_options_regular(entity_type)
+                self.available_options_regular()
             }
         }
     }
 
-    fn available_options_creative(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+    fn available_options_creative(&self) -> Vec<EntityOptionMenuItem> {
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
-        match entity_type {
+        match self.entity.entity_type {
             EntityType::Hero => nothing,
             EntityType::Npc => vec![
                 EntityOptionMenuItem::Rename,
@@ -347,13 +326,13 @@ impl EntityOptionsMenu {
         }
     }
 
-    fn available_options_regular(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+    fn available_options_regular(&self) -> Vec<EntityOptionMenuItem> {
         let pickup = vec![
             EntityOptionMenuItem::PickUp,
         ];
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
-        match entity_type {
+        match self.entity.entity_type {
             EntityType::Hero => nothing,
             EntityType::Npc => nothing,
             EntityType::Building => nothing,
@@ -367,7 +346,7 @@ impl EntityOptionsMenu {
         }
     }
 
-    fn available_options_inventory(&self, entity_type: &EntityType) -> Vec<EntityOptionMenuItem> {
+    fn available_options_inventory(&self) -> Vec<EntityOptionMenuItem> {
         vec![
             EntityOptionMenuItem::PickUp,
             EntityOptionMenuItem::PickUp,

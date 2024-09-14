@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, entities::species::species_by_id, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -235,14 +235,14 @@ impl GameEngine {
                 self.show_shop()
             },
             EngineStateUpdate::Exit => self.exit(),
-            EngineStateUpdate::ShowEntityOptions(entity_name, entity_id, species_id, entity_type) => {
-                self.entity_options_menu.show(entity_name, entity_id, species_id, entity_type, self.creative_mode, false)
+            EngineStateUpdate::ShowEntityOptions(entity) => {
+                self.entity_options_menu.show(entity.clone(), self.creative_mode, false)
             }
-            EngineStateUpdate::ShowInventoryOptions(species_id) => {
-                self.entity_options_menu.show_inventory(species_id)
+            EngineStateUpdate::ShowInventoryOptions(entity) => {
+                self.entity_options_menu.show(entity.clone(), false, true)
             }
             EngineStateUpdate::AddToInventory(species_id) => {
-                add_to_inventory(*species_id)
+                self.add_to_inventory(species_id)
             },
             EngineStateUpdate::RemoveFromInventory(species_id) => {
                 remove_from_inventory(*species_id)
@@ -254,6 +254,12 @@ impl GameEngine {
                 self.ask_for_confirmation(title, text, on_confirm)
             }
         }
+    }
+
+    fn add_to_inventory(&mut self, species_id: &u32) {
+        let species = species_by_id(*species_id);
+        let entity = species.make_entity();
+        add_to_inventory(entity);
     }
     
     fn ask_for_confirmation(&mut self, title: &str, text: &str, on_confirm: &[WorldStateUpdate]) {
