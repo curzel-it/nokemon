@@ -13,6 +13,7 @@ pub enum Construction {
     Counter,
     Library,
     TallGrass,
+    Forest,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -88,6 +89,7 @@ impl Construction {
             Construction::Counter => 5,
             Construction::Library => 6,
             Construction::TallGrass => 7,
+            Construction::Forest => 8
         }
     }
 }
@@ -126,6 +128,7 @@ impl Construction {
             '5' => Construction::Counter,
             '6' => Construction::Library,
             '7' => Construction::TallGrass,
+            '8' => Construction::Forest,
             _ => Construction::Nothing,
         }
     }
@@ -139,6 +142,7 @@ impl Construction {
             Construction::Counter => '5',
             Construction::Library => '6',
             Construction::TallGrass => '7',
+            Construction::Forest => '8',
         }
     }
 }
