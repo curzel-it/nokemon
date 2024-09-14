@@ -107,7 +107,17 @@ impl World {
         updates.into_iter().filter_map(|u| self.apply_state_update(u)).collect()
     }
 
+    fn log_update(&self, update: &WorldStateUpdate) {
+        match update {
+            WorldStateUpdate::EngineUpdate(_) => {},
+            WorldStateUpdate::CacheHeroProps(_) => {},
+            _ => println!("World update: {:#?}", update)
+        }        
+    }
+
     fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
+        self.log_update(&update);
+
         match update {
             WorldStateUpdate::AddEntity(entity) => { 
                 self.add_entity(*entity); 

@@ -1,5 +1,5 @@
 use crate::{entities::species::{EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
-use super::{long_text_display::LongTextDisplay, menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
+use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Clone)]
 pub enum EntityOptionMenuItem {
@@ -41,7 +41,6 @@ pub enum EntityOptionsMenuState {
     ChangingDestinationWorld,
     ChangingDestinationX,
     ChangingDestinationY,
-    DisplayLongText,
 }
 
 pub struct EntityOptionsMenu {
@@ -50,8 +49,7 @@ pub struct EntityOptionsMenu {
     menu: Menu<EntityOptionMenuItem>,
     state: EntityOptionsMenuState,
     text_input: TextInput,
-    lock_menu: Menu<LockType>,
-    long_text: LongTextDisplay
+    lock_menu: Menu<LockType>
 }
 
 impl EntityOptionsMenu {
@@ -69,8 +67,7 @@ impl EntityOptionsMenu {
                 LockType::Blue,
                 LockType::Green,
                 LockType::Silver,
-            ]),
-            long_text: LongTextDisplay::new(20, 10)
+            ])
         }
     }
 
@@ -136,21 +133,7 @@ impl EntityOptionsMenu {
             },
             EntityOptionsMenuState::ChangingLock => self.update_from_change_lock(keyboard, time_since_last_update),
             EntityOptionsMenuState::Closed => self.update_from_close(keyboard, time_since_last_update),
-            EntityOptionsMenuState::DisplayLongText => self.update_long_text_display(keyboard, time_since_last_update),
         }
-    }
-
-    fn update_long_text_display(
-        &mut self, 
-        keyboard: &KeyboardEventsProvider, 
-        time_since_last_update: f32,
-    ) -> MenuUpdate {
-        let is_done = !self.long_text.update(keyboard, time_since_last_update);
-
-        if is_done {
-            self.menu.close();
-        }
-        (self.menu.is_open, vec![])
     }
 
     fn update_from_text_input(
@@ -250,8 +233,13 @@ impl EntityOptionsMenu {
                 },
                 EntityOptionMenuItem::Read(contents) => {
                     self.menu.clear_selection();
-                    self.show_contents(contents);
-                    vec![]
+                    vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::DisplayLongText(
+                                contents
+                            )
+                        )
+                    ]
                 },
             };
             return (self.menu.is_open, updates);
@@ -268,13 +256,7 @@ impl EntityOptionsMenu {
             EntityOptionsMenuState::ChangingName => self.text_input.ui(),
             EntityOptionsMenuState::ChangingLock => self.lock_menu.ui(),
             EntityOptionsMenuState::Closed => self.menu.ui(),
-            EntityOptionsMenuState::DisplayLongText => self.long_text.ui(),
         }
-    }
-
-    fn show_contents(&mut self, text: String) {
-        self.state = EntityOptionsMenuState::DisplayLongText;
-        self.long_text.show(text);
     }
 
     fn ask_for_lock_type(&mut self) {

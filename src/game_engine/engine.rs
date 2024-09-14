@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, toasts::ToastDisplay}, ui::components::RenderingConfig, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, TextStyle}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -9,6 +9,7 @@ pub struct GameEngine {
     pub menu: GameMenu,
     pub world: World,
     pub loading_screen: LoadingScreen,
+    pub long_text_display: LongTextDisplay,
     pub confirmation_dialog: ConfirmationDialog,
     pub dialogue_menu: DialogueMenu,
     pub toast: ToastDisplay,
@@ -28,6 +29,7 @@ impl GameEngine {
             menu: GameMenu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
             loading_screen: LoadingScreen::new(),
+            long_text_display: LongTextDisplay::new(50, 9),
             confirmation_dialog: ConfirmationDialog::new(),
             dialogue_menu: DialogueMenu::new(),
             toast: ToastDisplay::new(),
@@ -118,6 +120,12 @@ impl GameEngine {
         let mut is_game_paused = false;
 
         if !is_game_paused {
+            let keyboard = if self.long_text_display.is_open { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let is_reading = self.long_text_display.update(keyboard, time_since_last_update);
+            is_game_paused = is_game_paused || is_reading;
+        }
+
+        if !is_game_paused {
             let keyboard = if self.confirmation_dialog.is_open() { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.confirmation_dialog.update(keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
@@ -142,8 +150,8 @@ impl GameEngine {
         }
 
         if !is_game_paused {
-            let other_menus_are_closed = !self.dialogue_menu.is_open() && !self.entity_options_menu.is_open();
-            let keyboard = if self.menu.is_open() || other_menus_are_closed { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let can_handle = self.menu.is_open() || self.keyboard.has_menu_been_pressed;
+            let keyboard = if can_handle { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
             let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
@@ -183,14 +191,22 @@ impl GameEngine {
     pub fn window_size_changed(&mut self, width: i32, height: i32) {
         println!("Window size changed to {}x{}", width, height);
         let (scale, font_scale) = self.rendering_scale_for_screen_width(width);
+        
         println!("Updated rendering scale to {}", scale);
         println!("Updated font scale to {}", scale);
+        
         self.ui_config.as_mut().unwrap().rendering_scale = scale;
         self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
         self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
         self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
+
         self.camera_viewport.w = (width as f32 / (scale * TILE_SIZE)) as i32;
         self.camera_viewport.h = (height as f32 / (scale * TILE_SIZE)) as i32;
+
+        let font_size = self.ui_config.as_ref().unwrap().scaled_font_size(&TextStyle::Regular);
+        let line_spacing = self.ui_config.as_ref().unwrap().font_lines_spacing(&TextStyle::Regular);
+        self.long_text_display.max_line_length = (width as f32 / font_size).floor() as usize;
+        self.long_text_display.visible_line_count = (0.3 * height as f32 / (line_spacing + font_size)).floor() as usize;
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
@@ -221,7 +237,16 @@ impl GameEngine {
         sorted_updates.iter().for_each(|u| self.apply_state_update(u));
     }
 
-    fn apply_state_update(&mut self, update: &EngineStateUpdate) {
+    fn log_update(&self, update: &EngineStateUpdate) {
+        match update {
+            EngineStateUpdate::CenterCamera(_, _, _) => {},
+            _ => println!("Engine update: {:#?}", update)
+        }     
+    }
+
+    fn apply_state_update(&mut self, update: &EngineStateUpdate) {   
+        self.log_update(update);
+
         match update {
             EngineStateUpdate::ShowDialogue(npc_id, npc_name, dialogue) => {
                 self.show_dialogue(npc_id, npc_name, dialogue)
@@ -252,6 +277,9 @@ impl GameEngine {
             },
             EngineStateUpdate::Confirmation(title, text, on_confirm) => {
                 self.ask_for_confirmation(title, text, on_confirm)
+            }
+            EngineStateUpdate::DisplayLongText(contents) => {
+                self.long_text_display.show(contents.clone())
             }
         }
     }

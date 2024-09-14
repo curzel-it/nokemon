@@ -32,7 +32,8 @@ pub enum EngineStateUpdate {
     AddToInventory(Box<Entity>),
     RemoveFromInventory(SpeciesId),
     Toast(String),
-    Confirmation(String, String, Vec<WorldStateUpdate>)
+    Confirmation(String, String, Vec<WorldStateUpdate>),
+    DisplayLongText(String),
 }
 
 #[cfg(test)]

@@ -8,6 +8,7 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     render_centered_menu(d, ui_config, &engine.entity_options_menu.ui());
     render_centered_menu(d, ui_config, &engine.dialogue_menu.ui());
     render_centered_menu(d, ui_config, &engine.confirmation_dialog.ui());
+    render_centered_menu(d, ui_config, &engine.long_text_display.ui());
     render_top_right_menu(d, ui_config, &engine.toast.ui());
 }
 
