@@ -202,7 +202,7 @@ impl Stockable {
                 Construction::LightWall => (1, 3),
                 Construction::Counter => (1, 4),
                 Construction::Library => (1, 5),
-                Construction::TallGrass => (1, 6),
+                Construction::TallGrass => (1, 8),
                 Construction::Forest => (1, 6),
                 Construction::Bamboo => (1, 7),
             },
@@ -254,6 +254,7 @@ impl MapEditor {
             Stockable::ConstructionTile(Construction::LightWall),
             Stockable::ConstructionTile(Construction::Counter),
             Stockable::ConstructionTile(Construction::Library),
+            Stockable::ConstructionTile(Construction::TallGrass),
             Stockable::ConstructionTile(Construction::Forest),
             Stockable::ConstructionTile(Construction::Bamboo),
         ];
