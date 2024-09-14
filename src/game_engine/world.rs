@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::EntityType}, features::{hitmap::Hitmap, weight_map::WeightMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{hitmap::Hitmap, weight_map::WeightMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -110,7 +110,7 @@ impl World {
     fn apply_state_update(&mut self, update: WorldStateUpdate) -> Option<EngineStateUpdate> {
         match update {
             WorldStateUpdate::AddEntity(entity) => { 
-                self.add_entity(entity); 
+                self.add_entity(*entity); 
             },
             WorldStateUpdate::RemoveEntity(id) => {
                 self.remove_entity_by_id(id)
@@ -122,7 +122,7 @@ impl World {
                 self.rename_entity(id, new_name)
             },
             WorldStateUpdate::CacheHeroProps(props) => { 
-                self.cached_hero_props = props; 
+                self.cached_hero_props = *props; 
             },
             WorldStateUpdate::ChangeLock(entity_id, lock_type) => {
                 self.change_lock(entity_id, lock_type)
@@ -251,12 +251,10 @@ impl World {
         if hero.is_around_and_pointed_at(target, &hero_direction) {
             return true 
         }
-        if self.hitmap[(hero.y as usize).saturating_sub(1)][hero.x as usize] {
-            if hero.x == target.x && hero.y.saturating_sub(3) == target.y && matches!(hero_direction, Direction::Up) {
-                return true
-            }
+        if self.hitmap[(hero.y as usize).saturating_sub(1)][hero.x as usize] && hero.x == target.x && hero.y.saturating_sub(3) == target.y && matches!(hero_direction, Direction::Up) {
+            return true
         }
-        return false
+        false
     }
 
     pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {

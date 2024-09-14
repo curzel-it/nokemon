@@ -4,14 +4,14 @@ use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
 #[derive(Debug, Clone)]
 pub enum WorldStateUpdate {
-    AddEntity(Entity),
+    AddEntity(Box<Entity>),
     RemoveEntity(EntityId),
     RemoveEntityAtCoordinates(usize, usize),
     RenameEntity(EntityId, String),
     UpdateDestinationWorld(EntityId, u32),
     UpdateDestinationX(EntityId, i32),
     UpdateDestinationY(EntityId, i32),
-    CacheHeroProps(EntityProps),
+    CacheHeroProps(Box<EntityProps>),
     ChangeLock(EntityId, LockType),
     BiomeTileChange(usize, usize, Biome),
     StopHeroMovement,

@@ -37,11 +37,7 @@ impl SpriteTile for ConstructionTile {
 
 impl ConstructionTile {
     pub fn is_obstacle(&self) -> bool {
-        match self.tile_type {
-            Construction::Nothing => false,
-            Construction::TallGrass => false,
-            _ => true,
-        }
+        !matches!(self.tile_type, Construction::Nothing | Construction::TallGrass)
     }
 
     pub fn setup_neighbors(&mut self, up: Construction, right: Construction, bottom: Construction, left: Construction) {

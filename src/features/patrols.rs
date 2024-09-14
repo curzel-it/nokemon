@@ -78,6 +78,6 @@ impl Patrol {
         } else {
             current.steps_left -= new_steps;
         }
-        return self.movements[self.current_index].direction;
+        self.movements[self.current_index].direction
     }
 }

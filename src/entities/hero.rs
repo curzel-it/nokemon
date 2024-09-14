@@ -23,7 +23,7 @@ impl Entity {
 
     fn cache_props(&self) -> WorldStateUpdate {
         WorldStateUpdate::CacheHeroProps(
-            self.props()           
+            Box::new(self.props())
         )
     }
 

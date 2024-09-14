@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::SPECIES_HERO, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -139,7 +139,7 @@ impl MapEditor {
         let mut entity = species.make_entity();
         entity.frame.x = camera_vieport.x + frame.x;
         entity.frame.y = camera_vieport.y + frame.y;
-        let update = WorldStateUpdate::AddEntity(entity);
+        let update = WorldStateUpdate::AddEntity(Box::new(entity));
         vec![update]
     }
 
@@ -149,6 +149,7 @@ impl MapEditor {
         
         new_building(self.current_world_id, x, y, species)
             .into_iter()
+            .map(Box::new)
             .map(WorldStateUpdate::AddEntity)
             .collect()
     }

@@ -16,7 +16,7 @@ impl Entity {
         if would_collide(&frame, &self.direction, &world.hitmap) {
             return
         }
-        if self.id != HERO_ENTITY_ID && would_collide_with_hero(&frame, &self.direction, &world) {
+        if self.id != HERO_ENTITY_ID && would_collide_with_hero(&frame, &self.direction, world) {
             return
         }
         
