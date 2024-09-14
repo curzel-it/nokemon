@@ -344,7 +344,7 @@
         "options": [
           {
             "key": "always",
-            "expected_value": 0,
+            "expected_value": 1,
             "dialogue": 101
           }
         ]
@@ -444,7 +444,7 @@
     {
       "id": 1726158824,
       "frame": {
-        "x": 88,
+        "x": 89,
         "y": 79,
         "w": 1,
         "h": 2
@@ -453,7 +453,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 10.5071125,
+        "x": 15.721353,
         "y": 0.0
       },
       "direction": 2,
@@ -492,7 +492,7 @@
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 4
+            "steps_left": 3
           },
           {
             "direction": 3,
@@ -500,60 +500,6 @@
             "steps_left": 5
           }
         ]
-      },
-      "latest_movement": [
-        0,
-        0
-      ]
-    },
-    {
-      "id": 1726207492,
-      "frame": {
-        "x": 98,
-        "y": 70,
-        "w": 5,
-        "h": 4
-      },
-      "name": "House",
-      "species_id": 1002,
-      "entity_type": "Building",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": true,
-      "z_index": 0,
-      "sprite": {
-        "sheet_id": 1004,
-        "frame": {
-          "x": 0,
-          "y": 1,
-          "w": 5,
-          "h": 4
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 0,
-        "y": 1,
-        "w": 5,
-        "h": 4
-      },
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
       },
       "latest_movement": [
         0,
@@ -669,16 +615,16 @@
       ]
     },
     {
-      "id": 1726207494,
+      "id": 1726257848,
       "frame": {
-        "x": 101,
-        "y": 73,
+        "x": 97,
+        "y": 82,
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
-      "species_id": 1019,
-      "entity_type": "Teleporter",
+      "name": "Yellow Gate",
+      "species_id": 1040,
+      "entity_type": "Gate",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -688,10 +634,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 1,
+          "x": 6,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -701,15 +647,11 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": {
-        "world": 1726207493,
-        "x": 100,
-        "y": 75
-      },
+      "destination": null,
       "lock_type": "Yellow",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 1,
+        "x": 6,
+        "y": 0,
         "w": 1,
         "h": 1
       },
@@ -785,16 +727,70 @@
       ]
     },
     {
-      "id": 1726257848,
+      "id": 1726294684,
       "frame": {
-        "x": 97,
-        "y": 82,
+        "x": 98,
+        "y": 70,
+        "w": 5,
+        "h": 4
+      },
+      "name": "House",
+      "species_id": 1002,
+      "entity_type": "Building",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1004,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 5,
+          "h": 4
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 1,
+        "w": 5,
+        "h": 4
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 1726294686,
+      "frame": {
+        "x": 101,
+        "y": 73,
         "w": 1,
         "h": 1
       },
-      "name": "Yellow Gate",
-      "species_id": 1040,
-      "entity_type": "Gate",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -804,10 +800,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1008,
         "frame": {
-          "x": 6,
-          "y": 0,
+          "x": 0,
+          "y": 1,
           "w": 1,
           "h": 1
         },
@@ -817,11 +813,15 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Yellow",
+      "destination": {
+        "world": 1003,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
       "original_sprite_frame": {
-        "x": 6,
-        "y": 0,
+        "x": 0,
+        "y": 1,
         "w": 1,
         "h": 1
       },

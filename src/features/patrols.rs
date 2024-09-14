@@ -53,6 +53,7 @@ impl Entity {
         }
         (self.frame.x, self.frame.y) = self.patrol.initial_position;
         self.offset = Vector2d::zero();
+        self.direction = self.patrol.movements[0].direction;
         self.patrol.current_index = 0;
 
         for movement in &mut self.patrol.movements {

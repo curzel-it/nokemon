@@ -10,6 +10,14 @@ pub struct Destination {
 }
 
 impl Destination {
+    pub fn nearest(world: u32) -> Self {
+        Self {
+            world, 
+            x: 0,
+            y: 0
+        }
+    }
+
     pub fn center(world: u32) -> Self {
         Self {
             world, 
@@ -21,6 +29,10 @@ impl Destination {
 
 impl Default for Destination {
     fn default() -> Self {
-        Self::center(WORLD_ID_DEMO)
+        Self {
+            world: WORLD_ID_DEMO, 
+            x: 0, 
+            y: 0
+        }
     }
 }

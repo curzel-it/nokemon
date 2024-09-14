@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, features::{hitmap::Hitmap, weight_map::WeightMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_HERO, SPECIES_TELEPORTER}, species::EntityType}, features::{hitmap::Hitmap, weight_map::WeightMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -215,7 +215,22 @@ impl World {
 
     pub fn visible_construction_tiles(&self, viewport: &Rect) -> Vec<&ConstructionTile> {
         self.constructions_tiles.visible_tiles(viewport)
+    }    
+    
+    pub fn find_teleporter_for_destination(&self, destination_world: u32) -> Option<Rect> {
+        self.entities.borrow().iter()
+            .find(|t| {
+                if !matches!(t.entity_type, EntityType::Teleporter) {
+                    return false
+                } 
+                if let Some(destination) = &t.destination {
+                    return destination.world == destination_world;
+                }
+                false
+            })
+            .map(|t| t.frame)
     }
+
 
     pub fn is_hero_on_slippery_surface(&self) -> bool {
         let frame = self.cached_hero_props.hittable_frame;

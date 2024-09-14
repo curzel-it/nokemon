@@ -7,17 +7,17 @@ pub fn new_house_single_floor(species: &Species, source_world_id: u32, x: i32, y
 
     let first_floor_id = get_next_id();
     let mut door = make_entity_by_species(SPECIES_TELEPORTER);
-    door.destination = Some(Destination::center(first_floor_id));
+    door.destination = Some(Destination::nearest(first_floor_id));
     door.frame.x = x + (building.frame.w as f32 / 2.0).ceil() as i32;
     door.frame.y = y + 3;
 
     let mut door_back1 = make_entity_by_species(SPECIES_TELEPORTER);
-    door_back1.destination = Some(Destination::center(source_world_id));
+    door_back1.destination = Some(Destination::nearest(source_world_id));
     door_back1.frame.x = (HOUSE_INTERIOR_COLUMNS as f32 / 2.0).ceil() as i32;
     door_back1.frame.y = (HOUSE_INTERIOR_ROWS + 2) as i32;
 
     let mut door_back2 = make_entity_by_species(SPECIES_TELEPORTER);
-    door_back2.destination = Some(Destination::center(source_world_id));
+    door_back2.destination = Some(Destination::nearest(source_world_id));
     door_back2.frame.x = door_back1.frame.x + 1;
     door_back2.frame.y = door_back1.frame.y;
 

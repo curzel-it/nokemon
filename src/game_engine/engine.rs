@@ -275,7 +275,12 @@ impl GameEngine {
         
         let mut new_world = World::load_or_create(destination.world);
         new_world.creative_mode = self.creative_mode;
-        new_world.setup(&self.world.cached_hero_props.direction, destination.x, destination.y);
+        new_world.setup(
+            self.world.id, 
+            &self.world.cached_hero_props.direction, 
+            destination.x, 
+            destination.y
+        );
         new_world.update(0.001);
         let hero_frame = new_world.cached_hero_props.frame;
         self.world = new_world;
@@ -314,7 +319,7 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
 
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::{WORLD_ID_DEMO, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::directions::Direction};
+    use crate::{constants::{WORLD_ID_DEMO, WORLD_ID_NONE, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::directions::Direction};
 
     use super::GameEngine;
 
@@ -322,6 +327,7 @@ mod tests {
         pub fn start_headless(&mut self) -> World {
             let mut world = World::new(WORLD_ID_DEMO);
             world.setup(
+                WORLD_ID_NONE,
                 &Direction::Unknown, 
                 WORLD_SIZE_COLUMNS as i32 / 2, 
                 WORLD_SIZE_ROWS as i32 / 2
