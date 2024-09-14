@@ -1,3 +1,4 @@
+mod combat;
 mod constants;
 mod dialogues;
 mod entities;

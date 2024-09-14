@@ -6,11 +6,12 @@ pub enum EntityOptionMenuItem {
     Remove,
     Rename,
     PickUp,
+    Fight,
+    Read(String),
     ChangeLock,
     ChangeDestinationWorld,
     ChangeDestinationX,
     ChangeDestinationY,
-    Read(String),
 }
 
 impl MenuItem for EntityOptionMenuItem {
@@ -19,11 +20,12 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Remove => "entity.menu.remove".localized(),
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
+            EntityOptionMenuItem::Read(_) => "entity.menu.read".localized(),
+            EntityOptionMenuItem::Fight => "entity.menu.fight".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
             EntityOptionMenuItem::ChangeDestinationWorld => "entity.menu.change_destination_world".localized(),
             EntityOptionMenuItem::ChangeDestinationX => "entity.menu.change_destination_x".localized(),
             EntityOptionMenuItem::ChangeDestinationY => "entity.menu.change_destination_y".localized(),
-            EntityOptionMenuItem::Read(_) => "entity.menu.read".localized(),
         }
     }
 }
@@ -211,6 +213,26 @@ impl EntityOptionsMenu {
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     ]
                 },
+                EntityOptionMenuItem::Read(contents) => {
+                    self.menu.clear_selection();
+                    vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::DisplayLongText(
+                                contents
+                            )
+                        )
+                    ]
+                },
+                EntityOptionMenuItem::Fight => {
+                    self.menu.clear_selection();
+                    vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::Fight(
+                                self.entity.clone()
+                            )
+                        )
+                    ]
+                },
                 EntityOptionMenuItem::ChangeLock => {
                     self.menu.clear_selection();
                     self.ask_for_lock_type();
@@ -230,16 +252,6 @@ impl EntityOptionsMenu {
                     self.menu.clear_selection();
                     self.ask_for_new_destination_y();
                     vec![]
-                },
-                EntityOptionMenuItem::Read(contents) => {
-                    self.menu.clear_selection();
-                    vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::DisplayLongText(
-                                contents
-                            )
-                        )
-                    ]
                 },
             };
             return (self.menu.is_open, updates);
@@ -304,6 +316,7 @@ impl EntityOptionsMenu {
         match self.entity.entity_type {
             EntityType::Hero => nothing,
             EntityType::Npc => vec![
+                EntityOptionMenuItem::Fight,
                 EntityOptionMenuItem::Rename,
                 EntityOptionMenuItem::Remove,
             ],
@@ -341,13 +354,12 @@ impl EntityOptionsMenu {
     }
 
     fn available_options_regular(&self) -> Vec<EntityOptionMenuItem> {
-        let pickup = vec![
-            EntityOptionMenuItem::PickUp,
-        ];
+        let pickup = vec![EntityOptionMenuItem::PickUp];
+        let fight = vec![EntityOptionMenuItem::Fight];
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
         match self.entity.entity_type {
-            EntityType::Hero => nothing,
+            EntityType::Hero => fight,
             EntityType::Npc => nothing,
             EntityType::Building => nothing,
             EntityType::HouseholdObject => pickup,

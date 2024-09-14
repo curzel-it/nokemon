@@ -34,6 +34,7 @@ pub enum EngineStateUpdate {
     Toast(String),
     Confirmation(String, String, Vec<WorldStateUpdate>),
     DisplayLongText(String),
+    Fight(Box<Entity>),
 }
 
 #[cfg(test)]
