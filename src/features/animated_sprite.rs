@@ -1,6 +1,6 @@
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{constants::ANIMATIONS_FPS, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{ANIMATIONS_FPS, UNLIMITED_LIFESPAN}, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug, Clone)]
 pub struct AnimatedSprite {
@@ -36,7 +36,9 @@ impl AnimatedSprite {
 
 impl Entity {
     pub fn update_sprite_for_current_direction(&mut self) {
-        self.update_sprite_for_direction_speed(self.direction, self.current_speed)
+        if self.remaining_lifespan == UNLIMITED_LIFESPAN || self.remaining_lifespan > 1.0 {
+            self.update_sprite_for_direction_speed(self.direction, self.current_speed)
+        }
     }
 
     pub fn update_sprite_for_direction_speed(&mut self, direction: Direction, speed: f32) {

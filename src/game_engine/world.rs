@@ -175,7 +175,8 @@ impl World {
         if let Some(target) = entities.iter_mut().find(|e| e.id == target_id) {    
             target.direction = Direction::Unknown;
             target.current_speed = 0.0;
-            target.frame = Rect::new(target.frame.x, target.frame.y + 1, 1, 1);
+            target.frame = Rect::new(target.frame.x, target.frame.y, 1, 1)
+                .offset_y(if target.frame.h > 1 { 1 } else { 0 });
             target.sprite = AnimatedSprite::new(
                 SPRITE_SHEET_ANIMATED_OBJECTS, 
                 Rect::new(0, 10, 1, 1), 
