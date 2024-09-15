@@ -1048,5 +1048,26 @@
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 8,
         "lock_type": "None"
+    },
+    {
+        "id": 7000,
+        "name": "objects.name.kunai",
+        "entity_type": "Bullet",
+        "z_index": 50,
+        "base_speed": 5.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            7,
+            1
+        ],
+        "sprite_frame": {
+            "x": 24,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 5,
+        "lock_type": "None"
     }
 ]

@@ -350,6 +350,9 @@ impl EntityOptionsMenu {
             EntityType::PressurePlate => vec![
                 EntityOptionMenuItem::Remove,
             ],
+            EntityType::Bullet => vec![
+                EntityOptionMenuItem::Remove,
+            ],
         }
     }
 
@@ -369,6 +372,7 @@ impl EntityOptionsMenu {
             EntityType::Gate => nothing,
             EntityType::InverseGate => nothing,
             EntityType::PressurePlate => nothing,
+            EntityType::Bullet => nothing,
         }
     }
 

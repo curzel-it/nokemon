@@ -69,6 +69,7 @@ impl Entity {
             EntityType::Gate => self.update_gate(world, time_since_last_update),
             EntityType::InverseGate => self.update_inverse_gate(world, time_since_last_update),
             EntityType::PressurePlate => self.update_pressure_plate(world, time_since_last_update),
+            EntityType::Bullet => self.update_bullet(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
         updates
@@ -86,6 +87,7 @@ impl Entity {
             EntityType::Gate => self.setup_gate(),
             EntityType::InverseGate => self.setup_inverse_gate(),
             EntityType::PressurePlate => self.setup_pressure_plate(),
+            EntityType::Bullet => self.setup_bullet(),
         }
     }
 
