@@ -1,12 +1,17 @@
-use crate::{constants::HERO_ENTITY_ID, game_engine::world::World};
+use crate::{constants::HERO_ENTITY_ID, entities::species::EntityType, game_engine::{entity::EntityId, world::World}};
 
 pub type Hitmap = Vec<Vec<bool>>;
+pub type EntityIdsMap = Vec<Vec<EntityId>>;
+pub type WeightsMap = Vec<Vec<i32>>;
 
 impl World {
     #[allow(clippy::needless_range_loop)]
-    pub fn compute_hitmap(&self) -> Hitmap {
-        let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
+    pub fn compute_hitmap(&self) -> (Hitmap, EntityIdsMap, WeightsMap) {
         let entities = self.entities.borrow();
+
+        let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
+        let mut idsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
+        let mut weightsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
 
         for (index, id) in &self.visible_entities {
             if *id == HERO_ENTITY_ID {
@@ -14,20 +19,24 @@ impl World {
             }
             let entity = &entities[*index];
 
-            if entity.is_rigid {                
-                let col = entity.frame.x as usize;
-                
-                let (row, height) = if entity.frame.h == 1 { 
-                    (entity.frame.y as usize, 1) 
-                } else { 
-                    (entity.frame.y  as usize + 1, entity.frame.h as usize - 1) 
-                };
+            let col = entity.frame.x as usize;
+            
+            let (row, height) = if entity.frame.h == 1 { 
+                (entity.frame.y as usize, 1) 
+            } else { 
+                (entity.frame.y  as usize + 1, entity.frame.h as usize - 1) 
+            };
 
-                for offset_x in 0..entity.frame.w as usize {
-                    for offset_y in 0..height {
+            for offset_x in 0..entity.frame.w as usize {
+                for offset_y in 0..height {
+                    if entity.is_rigid {                
                         hitmap[row + offset_y][col + offset_x] = true;
-                    }                    
-                }
+                    }
+                    if entity.entity_type.has_weight() {                
+                        weightsmap[row + offset_y][col + offset_x] += 1;
+                    }
+                    idsmap[row + offset_y][col + offset_x] = *id;
+                }                    
             }
         }
 
@@ -54,7 +63,13 @@ impl World {
             }
         }
 
-        hitmap
+        (hitmap, idsmap, weightsmap)
+    }
+}
+
+impl EntityType {
+    fn has_weight(&self) -> bool {
+        !matches!(self, EntityType::PressurePlate)
     }
 }
 
@@ -73,7 +88,7 @@ mod tests {
         world.add_entity(npc);
         world.visible_entities = world.compute_visible_entities(&Rect::square_from_origin(20));
         
-        let hitmap = world.compute_hitmap();
+        let (hitmap, _, _) = world.compute_hitmap();
         println!("{:#?}", world.visible_entities);
         assert!(!hitmap[5][5]);
         assert!(hitmap[6][5]);
@@ -89,7 +104,7 @@ mod tests {
         world.add_entity(npc);
         world.compute_visible_entities(&Rect::square_from_origin(20));
         
-        let hitmap = world.compute_hitmap();
+        let (hitmap, _, _) = world.compute_hitmap();
         assert!(!hitmap[6][5]);
         assert!(!hitmap[6][6]);
         assert!(!hitmap[5][5]);
@@ -105,7 +120,7 @@ mod tests {
         world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data(0, 0, '0'); 10]; 10];
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '0'); 10]; 10];
         
-        let hitmap = world.compute_hitmap();
+        let (hitmap, _, _) = world.compute_hitmap();
 
         assert!(hitmap[4][4]);
         assert!(hitmap[5][5]);
@@ -122,7 +137,7 @@ mod tests {
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '1'); 10]; 10];
         world.biome_tiles.tiles[5][5].tile_type = Biome::Water;
         
-        let hitmap = world.compute_hitmap();
+        let (hitmap, _, _) = world.compute_hitmap();
 
         assert!(!hitmap[4][4]);
         assert!(!hitmap[4][5]);
