@@ -3,6 +3,10 @@
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
 
+"combat.options.attack" = "Attack"
+"combat.options.inventory" = "Inventory"
+"combat.options.run" = "Run"
+
 "confirmation.confirm" = "Ok"
 "confirmation.cancel" = "Nope"
 
@@ -102,5 +106,6 @@
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
 "teleporter.unlock.title" = "Unlock the door?"
 "teleporter.unlock.message" = "You will lose one %s key."
-
 "text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
+
+"you" = "You"

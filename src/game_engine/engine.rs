@@ -95,7 +95,6 @@ impl GameEngine {
 
     fn update(&mut self, time_since_last_update: f32) {        
         self.toast.update(time_since_last_update);
-        self.fight_screen.update(time_since_last_update);
 
         self.loading_screen.update(time_since_last_update);
         if self.loading_screen.progress() < 0.4 { 
@@ -121,6 +120,14 @@ impl GameEngine {
 
     fn update_menus(&mut self, time_since_last_update: f32) -> bool {
         let mut is_game_paused = false;
+
+        if !is_game_paused {
+            let keyboard = if self.fight_screen.is_open { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
+            let (pause, world_updates) = self.fight_screen.update(keyboard, time_since_last_update);
+            is_game_paused = is_game_paused || pause;
+            let engine_updates = self.world.apply_state_updates(world_updates);
+            self.apply_state_updates(engine_updates);
+        }
 
         if !is_game_paused {
             let keyboard = if self.long_text_display.is_open { &self.keyboard } else { &NO_KEYBOARD_EVENTS };

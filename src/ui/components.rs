@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{backtrace, collections::HashMap};
 
 use raylib::prelude::*;
 
@@ -60,7 +60,8 @@ pub enum View {
     FixedPosition { position: Vector2d, children: Vec<View> },
     FixedSize { size: Vector2d, children: Vec<View> },
     FixedWidth { width: f32, children: Vec<View> },
-    TexturedBorder { borders: BordersTextures, children: Vec<View> }
+    TexturedBorder { borders: BordersTextures, children: Vec<View> },
+    ProgressBar { foreground: Color, background: Color, value: f32 }
 }
 
 pub struct TextureInfo {
@@ -349,7 +350,26 @@ impl View {
             View::TexturedBorder { borders, children } => {
                 self.render_textured_borders(d, config, borders, position, children)
             }
+            View::ProgressBar { foreground, background, value } => {
+                self.render_progress_bar(d, config, position, foreground, background, value)
+            }
         }
+    }
+
+    fn render_progress_bar(
+        &self,
+        d: &mut RaylibDrawHandle,
+        config: &RenderingConfig,
+        position: &Vector2d,
+        foreground: &Color,
+        background: &Color,
+        value: &f32,
+    ) {
+        let size = self.calculate_size(config);
+        let fg_size = Vector2d::new(size.x * value, size.y);
+
+        d.draw_rectangle_v(position.as_rv(), size.as_rv(), background);
+        d.draw_rectangle_v(position.as_rv(), fg_size.as_rv(), foreground);
     }
 
     fn render_textured_borders(
@@ -697,7 +717,14 @@ impl View {
             View::TexturedBorder { borders: _, children } => {
                 self.calculate_textured_border_size(config, children)                
             }
+            View::ProgressBar{ foreground: _, background: _, value: _ } => {
+                self.calculate_progress_bar_size(config)                
+            }
         }
+    }
+
+    fn calculate_progress_bar_size(&self, config: &RenderingConfig) -> Vector2d {
+        Vector2d::new(160.0, 10.0).scaled(config.rendering_scale)
     }
 
     fn calculate_textured_border_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
