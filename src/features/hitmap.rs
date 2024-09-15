@@ -4,21 +4,22 @@ pub type Hitmap = Vec<Vec<bool>>;
 pub type EntityIdsMap = Vec<Vec<EntityId>>;
 pub type WeightsMap = Vec<Vec<i32>>;
 
-impl World {
+impl World {    
+    pub fn update_hitmaps(&mut self) {
+        (self.hitmap, self.entities_map, self.weights_map) = self.compute_hitmap();
+    }    
+
     #[allow(clippy::needless_range_loop)]
-    pub fn compute_hitmap(&self) -> (Hitmap, EntityIdsMap, WeightsMap) {
+    fn compute_hitmap(&self) -> (Hitmap, EntityIdsMap, WeightsMap) {
         let entities = self.entities.borrow();
 
         let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
         let mut idsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
         let mut weightsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
 
-        for (index, id) in &self.visible_entities {
-            if *id == HERO_ENTITY_ID {
-                continue;
-            }
-            let entity = &entities[*index];
-
+        for (rindex, rid) in &self.visible_entities {
+            let (index, id) = (*rindex, *rid);
+            let entity = &entities[index];
             let col = entity.frame.x as usize;
             
             let (row, height) = if entity.frame.h == 1 { 
@@ -29,13 +30,13 @@ impl World {
 
             for offset_x in 0..entity.frame.w as usize {
                 for offset_y in 0..height {
-                    if entity.is_rigid {                
+                    if entity.is_rigid && id != HERO_ENTITY_ID {                
                         hitmap[row + offset_y][col + offset_x] = true;
                     }
                     if entity.entity_type.has_weight() {                
                         weightsmap[row + offset_y][col + offset_x] += 1;
                     }
-                    idsmap[row + offset_y][col + offset_x] = *id;
+                    idsmap[row + offset_y][col + offset_x] = id;
                 }                    
             }
         }

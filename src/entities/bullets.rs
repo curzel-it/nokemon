@@ -1,4 +1,4 @@
-use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
+use crate::{constants::HERO_ENTITY_ID, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}};
 
 impl Entity {
     pub fn setup_bullet(&mut self) {
@@ -19,6 +19,19 @@ impl Entity {
                 )
             ];   
         }
-        vec![]
+
+        self.check_hits(world)
+    }
+
+    fn check_hits(&self, world: &World) -> Vec<WorldStateUpdate> {
+        let hit = world.entities_map[self.frame.y as usize][self.frame.x as usize];
+
+        if hit == 0 || hit == self.id { 
+            return vec![] 
+        } else if hit == HERO_ENTITY_ID {
+            vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::DeathScreen)]
+        } else {
+            vec![WorldStateUpdate::HandleHit(self.id, hit)]
+        }
     }
 }

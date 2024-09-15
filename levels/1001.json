@@ -449,16 +449,16 @@
         "x": 89,
         "y": 79,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "name": "Slime",
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 4.238334,
+        "x": -7.775012,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 0.5,
       "is_rigid": true,
       "z_index": 150,
@@ -468,7 +468,7 @@
           "x": 20,
           "y": 0,
           "w": 1,
-          "h": 2
+          "h": 1
         },
         "number_of_frames": 4
       },
@@ -482,24 +482,24 @@
         "x": 20,
         "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "patrol": {
         "initial_position": [
           87,
           79
         ],
-        "current_index": 0,
+        "current_index": 1,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 3
+            "steps_left": 5
           },
           {
             "direction": 3,
             "steps": 5,
-            "steps_left": 5
+            "steps_left": 1
           }
         ]
       },
@@ -850,21 +850,21 @@
     {
       "id": 1726389571,
       "frame": {
-        "x": 99,
+        "x": 105,
         "y": 86,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": -10.488394,
         "y": 0.0
       },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": true,
+      "direction": 3,
+      "current_speed": 5.0,
+      "is_rigid": false,
       "z_index": 50,
       "sprite": {
         "sheet_id": 1009,
@@ -872,7 +872,7 @@
           "x": 24,
           "y": 0,
           "w": 1,
-          "h": 2
+          "h": 1
         },
         "number_of_frames": 5
       },
@@ -886,19 +886,19 @@
         "x": 24,
         "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "patrol": {
         "initial_position": [
-            99,
-            86
+          99,
+          86
         ],
-        "current_index": 0,
+        "current_index": 1,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 3
+            "steps_left": 5
           },
           {
             "direction": 3,
@@ -906,7 +906,62 @@
             "steps_left": 5
           }
         ]
-      },      
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null
+    },
+    {
+      "id": 1726399720,
+      "frame": {
+        "x": 102,
+        "y": 85,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Shop Guy",
+      "species_id": 3008,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 16,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 16,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
       "latest_movement": [
         0,
         0

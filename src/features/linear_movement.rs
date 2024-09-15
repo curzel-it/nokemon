@@ -13,11 +13,13 @@ impl Entity {
         if would_exit_bounds(&frame, &self.direction, &world.bounds) {
             return
         }
-        if would_collide(&frame, &self.direction, &world.hitmap) {
-            return
-        }
-        if self.id != HERO_ENTITY_ID && would_collide_with_hero(&frame, &self.direction, world) {
-            return
+        if self.is_rigid {
+            if would_collide(&frame, &self.direction, &world.hitmap) {
+                return
+            }
+            if self.id != HERO_ENTITY_ID && would_collide_with_hero(&frame, &self.direction, world) {
+                return
+            }
         }
         
         let updated_offset = updated_offset(&self.offset, &self.direction, self.current_speed, time_since_last_update);    

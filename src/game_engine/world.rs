@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{HERO_ENTITY_ID, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::hitmap::{EntityIdsMap, Hitmap, WeightsMap}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, UNLIMITED_LIFESPAN, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -100,7 +100,7 @@ impl World {
         drop(entities);
         let updates = self.apply_state_updates(state_updates);
         self.visible_entities = self.compute_visible_entities(viewport);
-        (self.hitmap, self.entities_map, self.weights_map) = self.compute_hitmap();
+        self.update_hitmaps();
         updates
     } 
 
@@ -122,45 +122,66 @@ impl World {
         match update {
             WorldStateUpdate::AddEntity(entity) => { 
                 self.add_entity(*entity); 
-            },
+            }
             WorldStateUpdate::RemoveEntity(id) => {
                 self.remove_entity_by_id(id)
-            },
+            }
             WorldStateUpdate::RemoveEntityAtCoordinates(row, col) => {
                 self.remove_entities_by_coords(row, col)
-            },
+            }
             WorldStateUpdate::RenameEntity(id, new_name) => {
                 self.rename_entity(id, new_name)
-            },
+            }
             WorldStateUpdate::CacheHeroProps(props) => { 
                 self.cached_hero_props = *props; 
-            },
+            }
             WorldStateUpdate::ChangeLock(entity_id, lock_type) => {
                 self.change_lock(entity_id, lock_type)
-            },
+            }
             WorldStateUpdate::BiomeTileChange(row, col, new_biome) => {
                 self.update_biome_tile(row, col, new_biome)
-            },
+            }
             WorldStateUpdate::ConstructionTileChange(row, col, new_construction) => {
                 self.update_construction_tile(row, col, new_construction)
-            },
+            }
             WorldStateUpdate::StopHeroMovement => {
                 self.stop_hero_movement()
-            },
+            }
             WorldStateUpdate::EngineUpdate(update) => {
                 return Some(update)
-            },
+            }
             WorldStateUpdate::UpdateDestinationWorld(entity_id, world) => {
                 self.change_destination_world(entity_id, world)
-            },
+            }
             WorldStateUpdate::UpdateDestinationX(entity_id, x) => {
                 self.change_destination_x(entity_id, x)
-            },
+            }
             WorldStateUpdate::UpdateDestinationY(entity_id, y) => {
                 self.change_destination_y(entity_id, y)
-            },
+            }
+            WorldStateUpdate::HandleHit(bullet_id, target_id) => {
+                self.handle_hit(bullet_id, target_id)
+            }
         };
         None
+    }
+
+    fn handle_hit(&mut self, bullet_id: u32, target_id: u32) {
+        let mut entities = self.entities.borrow_mut();
+
+        if let Some(target) = entities.iter_mut().find(|e| e.id == target_id) {    
+            target.direction = Direction::Unknown;
+            target.current_speed = 0.0;
+            target.frame = Rect::new(target.frame.x, target.frame.y + 1, 1, 1);
+            target.sprite = AnimatedSprite::new(
+                SPRITE_SHEET_ANIMATED_OBJECTS, 
+                Rect::new(0, 10, 1, 1), 
+                5
+            );
+            target.remaining_lifespan = 5.5 / ANIMATIONS_FPS;
+        }
+        drop(entities);
+        self.remove_entity_by_id(bullet_id)
     }
 
     fn stop_hero_movement(&mut self) {
@@ -268,7 +289,7 @@ impl World {
         false
     }
 
-    pub fn find_non_hero_entity_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {
+    fn find_non_hero_entity_id_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {
         self.entities.borrow().iter()
             .enumerate()
             .find(|(_, entity)| {
@@ -278,7 +299,7 @@ impl World {
     }
 
     fn remove_entities_by_coords(&mut self, row: usize, col: usize) {
-        while let Some((index, _)) = self.find_non_hero_entity_at_coords(row, col) {
+        while let Some((index, _)) = self.find_non_hero_entity_id_at_coords(row, col) {
             self.remove_entity_at_index(index)
         }      
     }

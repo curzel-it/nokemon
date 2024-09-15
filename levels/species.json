@@ -917,7 +917,7 @@
             "x": 20,
             "y": 0,
             "w": 1,
-            "h": 2
+            "h": 1
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
@@ -1055,7 +1055,7 @@
         "entity_type": "Bullet",
         "z_index": 50,
         "base_speed": 5.0,
-        "is_rigid": true,
+        "is_rigid": false,
         "inventory_texture_offset": [
             7,
             1
@@ -1064,7 +1064,7 @@
             "x": 24,
             "y": 0,
             "w": 1,
-            "h": 2
+            "h": 1
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 5,

@@ -17,6 +17,7 @@ pub enum WorldStateUpdate {
     StopHeroMovement,
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
+    HandleHit(EntityId, EntityId)
 }
 
 #[derive(Debug, Clone)]
@@ -35,6 +36,7 @@ pub enum EngineStateUpdate {
     Confirmation(String, String, Vec<WorldStateUpdate>),
     DisplayLongText(String),
     Fight(Box<Entity>),
+    DeathScreen,
 }
 
 #[cfg(test)]

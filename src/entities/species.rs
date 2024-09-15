@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
 use std::fs::File;
 use std::io::Read;
-use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES};
+use crate::constants::{HERO_ENTITY_ID, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
 use crate::dialogues::models::EntityDialogues;
 use crate::features::animated_sprite::AnimatedSprite;
 use crate::features::patrols::Patrol;
@@ -76,7 +76,8 @@ impl Species {
             lock_type: self.lock_type,
             original_sprite_frame,
             patrol: Patrol::none(),
-            contents: None
+            contents: None,
+            remaining_lifespan: UNLIMITED_LIFESPAN
         }
     }
     

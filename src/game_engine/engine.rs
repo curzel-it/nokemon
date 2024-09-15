@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{combat::screen::FightScreen, constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{combat::screen::FightScreen, constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -12,6 +12,7 @@ pub struct GameEngine {
     pub loading_screen: LoadingScreen,
     pub long_text_display: LongTextDisplay,
     pub confirmation_dialog: ConfirmationDialog,
+    pub death_screen: DeathScreen,
     pub dialogue_menu: DialogueMenu,
     pub toast: ToastDisplay,
     pub creep_spawner: CreepSpawner,
@@ -33,6 +34,7 @@ impl GameEngine {
             loading_screen: LoadingScreen::new(),
             long_text_display: LongTextDisplay::new(50, 9),
             confirmation_dialog: ConfirmationDialog::new(),
+            death_screen: DeathScreen::new(),
             dialogue_menu: DialogueMenu::new(),
             toast: ToastDisplay::new(),
             creep_spawner: CreepSpawner::new(),
@@ -260,16 +262,22 @@ impl GameEngine {
         match update {
             EngineStateUpdate::ShowDialogue(npc_id, npc_name, dialogue) => {
                 self.show_dialogue(npc_id, npc_name, dialogue)
-            },
+            }
             EngineStateUpdate::CenterCamera(x, y, offset) => {
                 self.center_camera_at(*x, *y, offset)
-            },
-            EngineStateUpdate::Teleport(destination) => self.teleport(destination),
-            EngineStateUpdate::SaveGame => self.save(),
+            }
+            EngineStateUpdate::Teleport(destination) => {
+                self.teleport(destination)
+            }
+            EngineStateUpdate::SaveGame => {
+                self.save()
+            }
             EngineStateUpdate::ShowShop => {
                 self.show_shop()
-            },
-            EngineStateUpdate::Exit => self.exit(),
+            }
+            EngineStateUpdate::Exit => {
+                self.exit()
+            }
             EngineStateUpdate::ShowEntityOptions(entity) => {
                 self.entity_options_menu.show(entity.clone(), self.creative_mode, false)
             }
@@ -278,21 +286,24 @@ impl GameEngine {
             }
             EngineStateUpdate::AddToInventory(entity) => {
                 add_to_inventory(*entity.clone())
-            },
+            }
             EngineStateUpdate::RemoveFromInventory(species_id) => {
                 remove_from_inventory(*species_id)
-            },
+            }
             EngineStateUpdate::Toast(text) => {
                 self.show_toast(text)
-            },
+            }
             EngineStateUpdate::Confirmation(title, text, on_confirm) => {
                 self.ask_for_confirmation(title, text, on_confirm)
-            },
+            }
             EngineStateUpdate::DisplayLongText(contents) => {
                 self.long_text_display.show(contents.clone())
-            },
+            }
             EngineStateUpdate::Fight(entity) => {
                 self.fight_screen.show(entity)
+            }
+            EngineStateUpdate::DeathScreen => {
+                self.death_screen.show()
             }
         }
     }

@@ -1,5 +1,7 @@
 pub mod animated_sprite;
+pub mod autoremove;
 pub mod creep_spawner;
+pub mod death_screen;
 pub mod destination;
 pub mod hitmap;
 pub mod keyboard_directions;

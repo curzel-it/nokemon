@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -54,11 +54,18 @@ pub struct Entity {
 
     #[serde(default)]
     pub contents: Option<String>,  
+
+    #[serde(default="unlimited_lifespan")]
+    pub remaining_lifespan: f32,  
+}
+
+fn unlimited_lifespan() -> f32 {
+    UNLIMITED_LIFESPAN
 }
 
 impl Entity {
     pub fn update(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {      
-        let updates = match self.entity_type {
+        let mut updates = match self.entity_type {
             EntityType::Hero => self.update_hero(world, time_since_last_update),
             EntityType::Npc => self.update_npc(world, time_since_last_update),
             EntityType::Building => self.update_building(world, time_since_last_update),
@@ -72,6 +79,8 @@ impl Entity {
             EntityType::Bullet => self.update_bullet(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
+        let mut more_updates = self.check_remaining_lifespan(time_since_last_update);
+        updates.append(&mut more_updates);
         updates
     }
 

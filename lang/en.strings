@@ -10,6 +10,8 @@
 "confirmation.confirm" = "Ok"
 "confirmation.cancel" = "Nope"
 
+"death_screen.title" = "You're dead."
+
 "dialogue.reward_received" = "You received `%s`!";
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
