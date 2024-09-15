@@ -7,16 +7,25 @@ pub fn render_combat_screen(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         return
     }
     let ui_config = engine.ui_config.as_ref().unwrap();
-    render_background(d, ui_config, &engine.fight_screen);
-    render_enemy_life(d, ui_config, &engine.fight_screen);
-    render_enemy_avatar(d, ui_config, &engine.fight_screen);
-    render_battle_info(d, ui_config, &engine.fight_screen);
-    render_player_life(d, ui_config, &engine.fight_screen);
-    player_enemy_avatar(d, ui_config, &engine.fight_screen);
-    render_player_options(d, ui_config, &engine.fight_screen);
+    let aspect_ratio = ui_config.canvas_size.x / ui_config.canvas_size.y;
+    let aspect_ratio_3_2: f32 = 3.0 / 2.0;
+
+    let offset = if aspect_ratio > aspect_ratio_3_2 {
+        ((ui_config.canvas_size.x - aspect_ratio_3_2 * ui_config.canvas_size.y) / 2.0, 0.0)
+    } else {
+        (0.0, 0.0)
+    };
+
+    render_background(d, ui_config);
+    render_enemy_life(d, ui_config, offset, &engine.fight_screen);
+    render_enemy_avatar(d, ui_config, offset, &engine.fight_screen);
+    render_battle_info(d, ui_config, offset, &engine.fight_screen);
+    render_player_life(d, ui_config, offset, &engine.fight_screen);
+    player_enemy_avatar(d, ui_config, offset, &engine.fight_screen);
+    render_player_options(d, ui_config, offset, &engine.fight_screen);
 }
 
-fn render_background(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_background(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig) {
     d.draw_rectangle(
         0, 
         0, 
@@ -26,7 +35,7 @@ fn render_background(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, figh
     );
 }
 
-fn render_battle_info(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_battle_info(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::Center,
         &fight_screen.battle_info_ui(),
@@ -39,64 +48,67 @@ fn render_battle_info(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fig
     );
 }
 
-fn render_enemy_life(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_enemy_life(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::TopLeft,
         &fight_screen.enemy_life_ui(),
         d, 
         ui_config, 
-        &Vector2d::zero()
+        &Vector2d::new(
+            offset.0,
+            offset.1
+        )
     );
 }
 
-fn render_enemy_avatar(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_enemy_avatar(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::TopRight,
         &fight_screen.enemy_avatar_ui(),
         d, 
         ui_config, 
         &Vector2d::new(
-            ui_config.canvas_size.x,
-            0.0
+            ui_config.canvas_size.x - offset.0,
+            offset.1
         )
     );
 }
 
-fn player_enemy_avatar(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn player_enemy_avatar(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::BottomLeft,
         &fight_screen.player_avatar_ui(),
         d, 
         ui_config, 
         &Vector2d::new(
-            0.0, 
-            ui_config.canvas_size.y
+            offset.0, 
+            ui_config.canvas_size.y - offset.1
         )
     );
 }
 
-fn render_player_life(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_player_life(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::BottomLeft,
         &fight_screen.player_life_ui(),
         d, 
         ui_config, 
         &Vector2d::new(
-            0.0, 
-            ui_config.canvas_size.y
+            offset.0, 
+            ui_config.canvas_size.y - offset.1
         )
     );
 }
 
-fn render_player_options(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
+fn render_player_options(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::BottomRight,
         &fight_screen.player_options_ui(),
         d, 
         ui_config, 
         &Vector2d::new(
-            ui_config.canvas_size.x,
-            ui_config.canvas_size.y
+            ui_config.canvas_size.x - offset.0,
+            ui_config.canvas_size.y - offset.1
         )
     );
 }
