@@ -178,7 +178,7 @@ impl World {
                 Rect::new(0, 10, 1, 1), 
                 5
             );
-            target.remaining_lifespan = 5.5 / ANIMATIONS_FPS;
+            target.remaining_lifespan = 10.0 / ANIMATIONS_FPS;
         }
         drop(entities);
         self.remove_entity_by_id(bullet_id)
