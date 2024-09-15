@@ -15,7 +15,7 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     }
     render_menu(&mut d, engine);
     render_loading_screen(&mut d, &engine.loading_screen);
-    render_combat_screen(&mut d, &engine);
+    render_combat_screen(&mut d, engine);
     draw_debug_info(&mut d, fps);
 }
 

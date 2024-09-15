@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 
-use crate::{combat::screen::FightScreen, game_engine::engine::GameEngine, ui::components::{render_from, AnchorPoint, RenderingConfig, View}, utils::vector::Vector2d};
+use crate::{combat::screen::FightScreen, game_engine::engine::GameEngine, ui::components::{render_from, AnchorPoint, RenderingConfig}, utils::vector::Vector2d};
 
 pub fn render_combat_screen(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     if !engine.fight_screen.is_open {
