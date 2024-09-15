@@ -1053,7 +1053,7 @@
         "id": 7000,
         "name": "objects.name.kunai",
         "entity_type": "Bullet",
-        "z_index": 50,
+        "z_index": 300,
         "base_speed": 5.0,
         "is_rigid": false,
         "inventory_texture_offset": [

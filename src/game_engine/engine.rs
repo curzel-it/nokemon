@@ -98,6 +98,10 @@ impl GameEngine {
     fn update(&mut self, time_since_last_update: f32) {        
         self.toast.update(time_since_last_update);
 
+        if self.death_screen.is_open {
+            return;
+        }
+
         self.loading_screen.update(time_since_last_update);
         if self.loading_screen.progress() < 0.4 { 
             return;

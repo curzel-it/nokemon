@@ -865,7 +865,7 @@
       "direction": 3,
       "current_speed": 5.0,
       "is_rigid": false,
-      "z_index": 50,
+      "z_index": 300,
       "sprite": {
         "sheet_id": 1009,
         "frame": {
@@ -906,61 +906,6 @@
             "steps_left": 5
           }
         ]
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null
-    },
-    {
-      "id": 1726399720,
-      "frame": {
-        "x": 102,
-        "y": 85,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Shop Guy",
-      "species_id": 3008,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": true,
-      "z_index": 0,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 16,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 16,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
       },
       "latest_movement": [
         0,
