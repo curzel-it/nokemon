@@ -52,6 +52,9 @@
       0,
       0
     ],
-    "contents": "book.tutorial.001"
+    "contents": "book.tutorial.001",
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0
   }
 ]

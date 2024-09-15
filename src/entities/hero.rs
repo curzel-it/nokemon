@@ -18,6 +18,7 @@ impl Entity {
         
         world_updates.push(self.cache_props());
         world_updates.push(self.move_camera_update());
+        world_updates.append(&mut self.shoot_stuff(world, time_since_last_update));
         world_updates
     }
 

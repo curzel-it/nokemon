@@ -370,7 +370,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726097753,
@@ -441,12 +444,15 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726158824,
       "frame": {
-        "x": 89,
+        "x": 88,
         "y": 79,
         "w": 1,
         "h": 1
@@ -455,10 +461,10 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": -7.775012,
+        "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": 2,
       "current_speed": 0.5,
       "is_rigid": true,
       "z_index": 150,
@@ -489,17 +495,17 @@
           87,
           79
         ],
-        "current_index": 1,
+        "current_index": 0,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 5
+            "steps_left": 4
           },
           {
             "direction": 3,
             "steps": 5,
-            "steps_left": 1
+            "steps_left": 5
           }
         ]
       },
@@ -507,7 +513,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726207469,
@@ -562,7 +571,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726207470,
@@ -617,7 +629,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726257848,
@@ -672,7 +687,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726257847,
@@ -731,7 +749,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726294684,
@@ -786,7 +807,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726294686,
@@ -845,7 +869,10 @@
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726389571,
@@ -859,10 +886,10 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -10.488394,
+        "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": 2,
       "current_speed": 5.0,
       "is_rigid": false,
       "z_index": 300,
@@ -893,12 +920,12 @@
           99,
           86
         ],
-        "current_index": 1,
+        "current_index": 0,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 5
+            "steps_left": 0
           },
           {
             "direction": 3,
@@ -908,10 +935,129 @@
         ]
       },
       "latest_movement": [
+        1,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726410825,
+      "frame": {
+        "x": 89,
+        "y": 82,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 24,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 5
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 24,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
         0,
         0
       ],
-      "contents": null
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726410826,
+      "frame": {
+        "x": 90,
+        "y": 82,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 24,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 5
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 24,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     }
   ]
 }

@@ -24,4 +24,5 @@ pub const SPECIES_KEY_RED: u32 = 2001;
 pub const SPECIES_KEY_GREEN: u32 = 2002;
 pub const SPECIES_KEY_BLUE: u32 = 2003;
 pub const SPECIES_KEY_SILVER: u32 = 2004;
+pub const SPECIES_KUNAI: u32 = 7000;
 pub const SPECIES_TELEPORTER: u32 = 1019;

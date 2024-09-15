@@ -1,7 +1,7 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, UNLIMITED_LIFESPAN, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
@@ -20,6 +20,7 @@ pub struct World {
     pub creative_mode: bool,
     pub direction_based_on_current_keys: Direction,
     pub is_any_arrow_key_down: bool,
+    pub has_attack_key_been_pressed: bool,
     pub has_confirmation_key_been_pressed: bool,
 }
 
@@ -40,6 +41,7 @@ impl World {
             creative_mode: false,
             direction_based_on_current_keys: Direction::Unknown,
             is_any_arrow_key_down: false,
+            has_attack_key_been_pressed: false,
             has_confirmation_key_been_pressed: false,
         }
     }
@@ -81,6 +83,7 @@ impl World {
         self.total_elapsed_time += time_since_last_update;
         self.direction_based_on_current_keys = keyboard.direction_based_on_current_keys(self.cached_hero_props.direction);
         self.is_any_arrow_key_down = keyboard.is_any_arrow_key_down();
+        self.has_attack_key_been_pressed = keyboard.has_attack_key_been_pressed;
         self.has_confirmation_key_been_pressed = keyboard.has_confirmation_been_pressed;
 
         let mut entities = self.entities.borrow_mut();

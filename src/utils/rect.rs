@@ -51,6 +51,10 @@ impl Rect {
         self.offset(0, dy)
     }
 
+    pub fn with_h(&self, h: i32) -> Self {
+        Self::new(self.x, self.y, self.w, h)
+    }
+
     pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {
         if self.x == other.x && self.y == other.y {
             return true

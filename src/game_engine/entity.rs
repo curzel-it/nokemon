@@ -57,6 +57,12 @@ pub struct Entity {
 
     #[serde(default="unlimited_lifespan")]
     pub remaining_lifespan: f32,  
+
+    #[serde(default)]
+    pub shooting_cooldown_remaining: f32,  
+
+    #[serde(default)]
+    pub parent_id: u32,  
 }
 
 fn unlimited_lifespan() -> f32 {
