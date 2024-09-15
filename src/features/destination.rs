@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::constants::{WORLD_ID_DEMO, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS};
+use crate::constants::WORLD_ID_DEMO;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Destination {
@@ -16,14 +16,6 @@ impl Destination {
 
     pub fn nearest(world: u32) -> Self {
         Self::new(world, 0, 0)
-    }
-
-    pub fn center(world: u32) -> Self {
-        Self {
-            world, 
-            x: WORLD_SIZE_COLUMNS as i32 / 2, 
-            y: WORLD_SIZE_ROWS as i32 / 2
-        }
     }
 }
 

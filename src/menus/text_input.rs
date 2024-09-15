@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{Spacing, TextStyle, View}, scaffold::scaffold}, vstack, zstack};
+use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{Spacing, Typography, View}, scaffold::scaffold}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -91,23 +91,23 @@ impl TextInput {
             Some(MENU_BORDERS_TEXTURES),
             vstack!(
                 Spacing::XL,
-                text!(TextStyle::Title, self.title.clone()),
+                text!(Typography::Title, self.title.clone()),
                 zstack!(
                     Spacing::Zero,
                     Color::BLACK.alpha(0.0),
                     hstack!(
                         Spacing::Zero,
-                        text!(TextStyle::Regular, before_cursor.to_string()),
-                        text!(TextStyle::Regular, cursor_indicator.to_string()),
-                        text!(TextStyle::Regular, after_cursor.to_string())
+                        text!(Typography::Regular, before_cursor.to_string()),
+                        text!(Typography::Regular, cursor_indicator.to_string()),
+                        text!(Typography::Regular, after_cursor.to_string())
                     ),
                     vstack!(
                         Spacing::Zero,
                         spacing!(Spacing::SM),
-                        text!(TextStyle::Regular, "___________________________________".to_string())
+                        text!(Typography::Regular, "___________________________________".to_string())
                     )
                 ),
-                text!(TextStyle::Regular, "text_input.hint".localized())
+                text!(Typography::Regular, "text_input.hint".localized())
             )
         )
     }

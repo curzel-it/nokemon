@@ -4,7 +4,7 @@ use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
 use crate::ui::components::{empty_view, BordersTextures, TextureInfo};
 use crate::ui::scaffold::scaffold;
 use crate::utils::rect::Rect;
-use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
+use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, Typography, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
     pub title: String,
@@ -156,9 +156,9 @@ impl<Item: MenuItem> Menu<Item> {
             .map(|(i, item)| {
                 let actual_index = start_index + i;
                 if actual_index == self.selected_index {
-                    text!(TextStyle::Selected, format!(" > {}", item.title()))
+                    text!(Typography::Selected, format!(" > {}", item.title()))
                 } else {
-                    text!(TextStyle::Regular, format!(" {}", item.title()))
+                    text!(Typography::Regular, format!(" {}", item.title()))
                 }
             })
             .collect();
@@ -166,13 +166,13 @@ impl<Item: MenuItem> Menu<Item> {
         let mut children: Vec<View> = Vec::new();
     
         if self.scroll_offset > 0 {
-            children.push(text!(TextStyle::Regular, "^".to_owned()));
+            children.push(text!(Typography::Regular, "^".to_owned()));
         }
     
         children.extend(visible_items);
     
         if self.scroll_offset + self.visible_item_count < self.items.len() {
-            children.push(text!(TextStyle::Regular, "...".to_owned()));
+            children.push(text!(Typography::Regular, "...".to_owned()));
         }
         
         vstack!(
@@ -180,10 +180,10 @@ impl<Item: MenuItem> Menu<Item> {
             if self.title.is_empty() {
                 empty_view()
             } else {
-                text!(TextStyle::Title, self.title.clone())
+                text!(Typography::Title, self.title.clone())
             },
             if let Some(text) = self.text.clone() {
-                text!(TextStyle::Regular, text)
+                text!(Typography::Regular, text)
             } else {
                 empty_view()
             },

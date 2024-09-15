@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{entity::Entity, inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{entity::Entity, inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, Typography, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -82,8 +82,8 @@ impl Inventory {
     
     fn regular_ui(&self, selected_item_index: usize) -> View {
         let ui_elements = vec![
-            text!(TextStyle::Title, "inventory.title".localized()),
-            text!(TextStyle::Regular, "inventory.subtitle".localized()),
+            text!(Typography::Title, "inventory.title".localized()),
+            text!(Typography::Regular, "inventory.subtitle".localized()),
             View::VGrid {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,

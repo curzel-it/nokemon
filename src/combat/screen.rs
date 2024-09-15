@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{entities::species::SPECIES_NONE, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, MENU_BORDERS_TEXTURES}, text, texture, ui::components::{padding, with_textured_border, Spacing, TextStyle, View}, utils::vector::Vector2d, vstack, zstack};
+use crate::{entities::species::SPECIES_NONE, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem, MenuUpdate, MENU_BORDERS_TEXTURES}, text, texture, ui::components::{padding, with_textured_border, Spacing, Typography, View}, utils::vector::Vector2d, vstack, zstack};
 
 pub struct FightScreen {
     pub enemy: Entity,
@@ -70,11 +70,11 @@ impl FightScreen {
     }    
 
     pub fn player_avatar_ui(&self) -> View {
-        text!(TextStyle::Regular, "Player Avater".to_owned())
+        text!(Typography::Regular, "Player Avater".to_owned())
     }    
 
     pub fn battle_info_ui(&self) -> View {
-        text!(TextStyle::Regular, "Battle Info".to_owned())
+        text!(Typography::Regular, "Battle Info".to_owned())
     }    
 
     pub fn player_options_ui(&self) -> View {
@@ -102,7 +102,7 @@ impl FightScreen {
                     Color::BLACK,
                     vstack!(
                         Spacing::MD,
-                        text!(TextStyle::Regular, name.localized()),
+                        text!(Typography::Regular, name.localized()),
                         View::ProgressBar { foreground, background: Color::BLACK.alpha(0.0), value }
                     )
                 )

@@ -107,10 +107,6 @@ impl Entity {
         self.current_speed = species_by_id(self.species_id).base_speed;
     }    
     
-    pub fn center_in(&mut self, value: &Rect) {
-        self.frame.center_in(value)
-    }
-
     pub fn next_dialogue(&self) -> Option<Dialogue> {
         for option in &self.dialogues.options {
             if let Some(value) = get_value_for_key(&option.key) {

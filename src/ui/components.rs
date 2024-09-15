@@ -14,10 +14,9 @@ pub struct RenderingConfig {
 }
 
 #[derive(Copy, Clone, Debug)]
-pub enum TextStyle {
+pub enum Typography {
     Title,
     Regular,
-    Bold,
     Selected,
 }
 
@@ -29,7 +28,7 @@ pub enum Spacing {
     LG,
     XL,
     Custom(f32),
-    TextLine(TextStyle),
+    TextLine(Typography),
 }
 
 pub struct GridSpacing {
@@ -39,7 +38,6 @@ pub struct GridSpacing {
 
 pub enum AnchorPoint {
     TopLeft,
-    TopCenter,
     TopRight,
     Center,
     BottomLeft,
@@ -51,15 +49,12 @@ pub enum View {
     ZStack { spacing: Spacing, background_color: Color, children: Vec<View> },
     VStack { spacing: Spacing, children: Vec<View> },
     HStack { spacing: Spacing, children: Vec<View> },
-    Text { style: TextStyle, text: String },
+    Text { style: Typography, text: String },
     Texture { key: u32, source_rect: Rect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
-    HGrid { rows: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
     FixedPosition { position: Vector2d, children: Vec<View> },
-    FixedSize { size: Vector2d, children: Vec<View> },
-    FixedWidth { width: f32, children: Vec<View> },
     TexturedBorder { borders: BordersTextures, children: Vec<View> },
     ProgressBar { foreground: Color, background: Color, value: f32 }
 }
@@ -152,17 +147,6 @@ macro_rules! vgrid {
     };
 }
 
-#[macro_export]
-macro_rules! hgrid {
-    ($rows:expr, $spacing:expr, $( $child:expr ),*) => {
-        $crate::ui::components::View::HGrid {
-            rows: $rows,
-            spacing: $spacing,
-            children: vec![$($child),*],
-        }
-    };
-}
-
 pub fn padding(padding: Spacing, content: View) -> View {
     zstack!(padding, Color::BLACK.alpha(0.0), content)
 }
@@ -173,14 +157,6 @@ pub fn with_backdrop(content: View) -> View {
 
 pub fn with_fixed_position(position: Vector2d, content: View) -> View {
     View::FixedPosition { position, children: vec![content] }
-}
-
-pub fn with_fixed_size(size: Vector2d, content: View) -> View {
-    View::FixedSize { size, children: vec![content] }
-}
-
-pub fn with_fixed_width(width: f32, content: View) -> View {
-    View::FixedWidth { width, children: vec![content] }
 }
 
 pub fn with_textured_border(borders: BordersTextures, content: View) -> View {
@@ -209,20 +185,19 @@ impl GridSpacing {
 }
 
 impl RenderingConfig {
-    pub fn scaled_font_size(&self, style: &TextStyle) -> f32 {
+    pub fn scaled_font_size(&self, style: &Typography) -> f32 {
         self.font_rendering_scale * match style {
-            TextStyle::Title => 12.0,
-            TextStyle::Bold => 8.0,
-            TextStyle::Selected => 8.0,
-            TextStyle::Regular => 8.0,
+            Typography::Title => 12.0,
+            Typography::Selected => 8.0,
+            Typography::Regular => 8.0,
         }
     }
 
-    pub fn scaled_font_spacing(&self, _: &TextStyle) -> f32 {
+    pub fn scaled_font_spacing(&self, _: &Typography) -> f32 {
         0.0 
     }
 
-    pub fn font_lines_spacing(&self, style: &TextStyle) -> f32 {
+    pub fn font_lines_spacing(&self, style: &Typography) -> f32 {
         self.scaled_font_size(style) / 2.0
     }
 }
@@ -252,19 +227,18 @@ impl Spacing {
 }
 
 impl RenderingConfig {
-    fn text_color(&self, style: &TextStyle) -> &Color {
+    fn text_color(&self, style: &Typography) -> &Color {
         match style {
-            TextStyle::Selected => &Color::YELLOW,
+            Typography::Selected => &Color::YELLOW,
             _ => &Color::WHITE
         }
     }
 
-    pub fn font(&self, style: &TextStyle) -> &Font {
+    pub fn font(&self, style: &Typography) -> &Font {
         match style {
-            TextStyle::Title => &self.font_bold,
-            TextStyle::Bold => &self.font_bold,
-            TextStyle::Selected => &self.font_bold,
-            TextStyle::Regular => &self.font,
+            Typography::Title => &self.font_bold,
+            Typography::Selected => &self.font_bold,
+            Typography::Regular => &self.font,
         }
     }
 
@@ -292,7 +266,6 @@ impl View {
 
         let (x, y) = match anchor_point {
             AnchorPoint::TopLeft => (position.x, position.y),
-            AnchorPoint::TopCenter => (position.x - size.x / 2.0, position.y),
             AnchorPoint::TopRight => (position.x - size.x, position.y),
             AnchorPoint::Center => (position.x - size.x / 2.0, position.y - size.y / 2.0),
             AnchorPoint::BottomRight => (position.x - size.x, position.y - size.y),
@@ -332,20 +305,11 @@ impl View {
             View::VGrid { columns, spacing, children } => {
                 self.render_vgrid(d, config, position, columns, spacing, children);
             }
-            View::HGrid { rows, spacing, children } => {
-                self.render_hgrid(d, config, position, rows, spacing, children);
-            }
             View::FullScreenBackdrop { children } => {
                 self.render_fullscreen_backdrop(d, config, position, children)
             }
             View::FixedPosition { position, children } => {
                 self.render_fixed_position(d, config, position, children)
-            }
-            View::FixedSize { size, children } => {
-                self.render_fixed_size(d, config, position, size, children)
-            }
-            View::FixedWidth { width, children } => {
-                self.render_fixed_width(d, config, position, width, children)
             }
             View::TexturedBorder { borders, children } => {
                 self.render_textured_borders(d, config, borders, position, children)
@@ -499,7 +463,7 @@ impl View {
         d: &mut RaylibDrawHandle,
         config: &RenderingConfig,
         position: &Vector2d,
-        style: &TextStyle,
+        style: &Typography,
         text: &str,
     ) { 
         if !text.contains("\n") {
@@ -514,7 +478,7 @@ impl View {
         }
     }
 
-    fn multiline_text_to_vstack(&self, style: &TextStyle, text: &str) -> View {
+    fn multiline_text_to_vstack(&self, style: &Typography, text: &str) -> View {
         let lines = text.split("\n");
         let texts: Vec<View> = lines.map(|line_text|
             View::Text { 
@@ -582,26 +546,6 @@ impl View {
         }
     }
 
-    fn render_hgrid(
-        &self,
-        d: &mut RaylibDrawHandle,
-        config: &RenderingConfig,
-        position: &Vector2d,
-        rows: &usize,
-        spacing: &GridSpacing,
-        children: &[View],
-    ) {
-        let column_space: f32 = spacing.between_columns.value(config);
-        let mut column_position: Vector2d = *position;        
-        let columns = children.chunks(*rows);
-
-        for column in columns {
-            self.render_vstack(d, config, &column_position, column, &spacing.between_rows);
-            let column_size = self.calculate_vstack_size(config, column, &spacing.between_rows);
-            column_position.x += column_size.x + column_space;
-        }
-    }
-
     fn render_fullscreen_backdrop(
         &self,
         d: &mut RaylibDrawHandle,
@@ -640,39 +584,6 @@ impl View {
             Color::BLACK.alpha(0.0)
         );
     }
-
-    fn render_fixed_size(
-        &self,
-        d: &mut RaylibDrawHandle,
-        config: &RenderingConfig,
-        position: &Vector2d,
-        size: &Vector2d,
-        children: &[View],
-    ) {
-        let child_position = Vector2d::new(position.x, position.y);
-        d.draw_rectangle_v(position.as_rv(), size.as_rv(), Color::BLACK.alpha(0.0));
-
-        for child in children {
-            child.render(d, config, &child_position);
-        }
-    }
-
-    fn render_fixed_width(
-        &self,
-        d: &mut RaylibDrawHandle,
-        config: &RenderingConfig,
-        position: &Vector2d,
-        width: &f32,
-        children: &[View],
-    ) {
-        let child_position = Vector2d::new(position.x, position.y);
-        let child_height = self.calculate_zstack_size(config, children, &Spacing::Zero).y;
-        d.draw_rectangle_v(position.as_rv(), Vector2::new(*width, child_height), Color::BLACK.alpha(0.0));
-
-        for child in children {
-            child.render(d, config, &child_position);
-        }
-    }
 }
 
 impl View {
@@ -699,20 +610,11 @@ impl View {
             View::VGrid { columns, spacing, children } => {
                 self.calculate_vgrid_size(config, columns, spacing, children)
             }
-            View::HGrid { rows, spacing, children } => {
-                self.calculate_hgrid_size(config, rows, spacing, children)
-            }
             View::FullScreenBackdrop { children } => {
                 self.calculate_fullscreen_backdrop_size(config, children)                
             }
             View::FixedPosition { position: _, children } => {
                 self.calculate_fixed_position_size(config, children)                
-            }
-            View::FixedSize { size, children: _ } => {
-                *size
-            }
-            View::FixedWidth { width, children} => {
-                self.calculate_fixed_width_size(config, width, children)                
             }
             View::TexturedBorder { borders: _, children } => {
                 self.calculate_textured_border_size(config, children)                
@@ -811,7 +713,7 @@ impl View {
     fn calculate_text_size(
         &self,
         config: &RenderingConfig,
-        style: &TextStyle,
+        style: &Typography,
         text: &str,
     ) -> Vector2d {
         if !text.contains("\n") {
@@ -853,44 +755,11 @@ impl View {
         Vector2d::new(width, height)
     }
 
-    fn calculate_hgrid_size(
-        &self,
-        config: &RenderingConfig,
-        rows: &usize,
-        spacing: &GridSpacing,
-        children: &[View],
-    ) -> Vector2d {
-        let mut width: f32 = 0.0;
-        let mut height: f32 = 0.0;
-
-        let columns = children.chunks(*rows);
-        let columns_count = columns.len();
-
-        for column in columns {
-            let column_size = self.calculate_vstack_size(
-                config,
-                column, 
-                &spacing.between_rows
-            );
-            height = height.max(column_size.y);
-            width += column_size.x;
-        }
-
-        width += (columns_count - 1).max(0) as f32 * spacing.between_columns.value(config);
-
-        Vector2d::new(width, height)
-    }
-
     fn calculate_fullscreen_backdrop_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
         self.calculate_zstack_size(config, children, &Spacing::Zero)
     }
 
     fn calculate_fixed_position_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
         self.calculate_zstack_size(config, children, &Spacing::Zero)
-    }
-
-    fn calculate_fixed_width_size(&self, config: &RenderingConfig, width: &f32, children: &[View]) -> Vector2d {
-        let height = self.calculate_zstack_size(config, children, &Spacing::Zero).y;
-        Vector2d::new(*width, height)
     }
 }

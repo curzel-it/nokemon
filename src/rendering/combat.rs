@@ -16,16 +16,16 @@ pub fn render_combat_screen(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         (0.0, 0.0)
     };
 
-    render_background(d, ui_config);
+    render_background(d);
     render_enemy_life(d, ui_config, offset, &engine.fight_screen);
     render_enemy_avatar(d, ui_config, offset, &engine.fight_screen);
-    render_battle_info(d, ui_config, offset, &engine.fight_screen);
+    render_battle_info(d, ui_config, &engine.fight_screen);
     render_player_life(d, ui_config, offset, &engine.fight_screen);
     player_enemy_avatar(d, ui_config, offset, &engine.fight_screen);
     render_player_options(d, ui_config, offset, &engine.fight_screen);
 }
 
-fn render_background(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig) {
+fn render_background(d: &mut RaylibDrawHandle) {
     d.draw_rectangle(
         0, 
         0, 
@@ -35,7 +35,7 @@ fn render_background(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig) {
     );
 }
 
-fn render_battle_info(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, offset: (f32, f32), fight_screen: &FightScreen) {
+fn render_battle_info(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, fight_screen: &FightScreen) {
     render_from(
         AnchorPoint::Center,
         &fight_screen.battle_info_ui(),

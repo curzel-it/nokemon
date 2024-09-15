@@ -3,7 +3,7 @@ use raylib::color::Color;
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME};
 use crate::ui::components::empty_view;
 use crate::ui::scaffold::scaffold;
-use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, text, ui::components::{Spacing, TextStyle, View}, utils::animator::Animator, vstack};
+use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, text, ui::components::{Spacing, Typography, View}, utils::animator::Animator, vstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -85,24 +85,24 @@ impl LongTextDisplay {
         let visible_lines: Vec<View> = self.lines[start_index..end_index]
             .iter()
             .map(|line| {
-                text!(TextStyle::Regular, line.clone())
+                text!(Typography::Regular, line.clone())
             })
             .collect();
 
         let mut children: Vec<View> = Vec::new();
 
         if self.scroll_offset > 0 {
-            children.push(text!(TextStyle::Regular, "^".to_owned()));
+            children.push(text!(Typography::Regular, "^".to_owned()));
         } else {
-            children.push(text!(TextStyle::Regular, ":".to_owned()));
+            children.push(text!(Typography::Regular, ":".to_owned()));
         }
 
         children.extend(visible_lines);
 
         if self.scroll_offset + self.visible_line_count < self.lines.len() {
-            children.push(text!(TextStyle::Regular, "...".to_owned()));
+            children.push(text!(Typography::Regular, "...".to_owned()));
         } else {
-            children.push(text!(TextStyle::Regular, "---".to_owned()));
+            children.push(text!(Typography::Regular, "---".to_owned()));
         }
 
         vstack!(

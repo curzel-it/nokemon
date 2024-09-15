@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use raylib::color::Color;
 
-use crate::{constants::SPRITE_SHEET_MENU, text, ui::{components::{empty_view, BordersTextures, TextStyle, TextureInfo, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}};
+use crate::{constants::SPRITE_SHEET_MENU, text, ui::{components::{empty_view, BordersTextures, Typography, TextureInfo, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}};
 
 pub struct ToastDisplay {
     animator: Animator,
@@ -61,7 +61,7 @@ impl ToastDisplay {
                 false, 
                 self.background_color(), 
                 Some(TOAST_BORDERS_TEXTURES),
-                text!(TextStyle::Regular, self.text.clone())
+                text!(Typography::Regular, self.text.clone())
             )
         } else {
             empty_view()

@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::SPECIES_HERO, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, TextStyle, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::SPECIES_HERO, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, Typography, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -290,7 +290,7 @@ impl MapEditor {
     fn placement_ui(&self, camera_offset: &Vector2d, frame: &Rect) -> View {
         vstack!(
             Spacing::MD,
-            text!(TextStyle::Regular, "map_editor.placement".localized()),
+            text!(Typography::Regular, "map_editor.placement".localized()),
             with_fixed_position(
                 Vector2d::new(
                     TILE_SIZE * frame.x as f32 - camera_offset.x, 
@@ -303,8 +303,8 @@ impl MapEditor {
     
     fn regular_ui(&self, selected_item_index: usize) -> View {
         let mut ui_elements = vec![
-            text!(TextStyle::Title, "map_editor.title".localized()),
-            text!(TextStyle::Regular, "map_editor.subtitle".localized()),
+            text!(Typography::Title, "map_editor.title".localized()),
+            text!(Typography::Regular, "map_editor.subtitle".localized()),
             View::VGrid {
                 spacing: GridSpacing::sm(),
                 columns: self.columns,
@@ -315,7 +315,7 @@ impl MapEditor {
         ];
 
         if self.offset > 0 {
-            ui_elements.push(text!(TextStyle::Regular, "^".to_string()));
+            ui_elements.push(text!(Typography::Regular, "^".to_string()));
         }
 
         View::VStack { spacing: Spacing::LG, children: ui_elements }
