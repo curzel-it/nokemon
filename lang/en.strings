@@ -67,6 +67,8 @@
 "npc.name.old_woman" = "Old Lady"
 "npc.name.shop_clerk" = "Shop Guy"
 "npc.name.slime" = "Slime"
+"npc.name.zombie" = "Zombie"
+"npc.name.ghost" = "Ghost"
 "npc.menu.title" = "NPC Options"
 "npc.menu.remove" = "Remove"
 "npc.menu.play_dialog" = "Play dialog"

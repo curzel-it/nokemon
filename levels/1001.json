@@ -461,7 +461,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": 10.145433,
         "y": 0.0
       },
       "direction": 2,
@@ -875,10 +875,10 @@
       "parent_id": 0
     },
     {
-      "id": 1726389571,
+      "id": 1726487072,
       "frame": {
-        "x": 105,
-        "y": 86,
+        "x": 91,
+        "y": 67,
         "w": 1,
         "h": 1
       },
@@ -887,9 +887,9 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -7.0031734
       },
-      "direction": 2,
+      "direction": 0,
       "current_speed": 5.0,
       "is_rigid": false,
       "z_index": 300,
@@ -901,76 +901,7 @@
           "w": 1,
           "h": 1
         },
-        "number_of_frames": 5
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 24,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "patrol": {
-        "initial_position": [
-          99,
-          86
-        ],
-        "current_index": 0,
-        "movements": [
-          {
-            "direction": 2,
-            "steps": 5,
-            "steps_left": 0
-          },
-          {
-            "direction": 3,
-            "steps": 5,
-            "steps_left": 5
-          }
-        ]
-      },
-      "latest_movement": [
-        1,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
-    },
-    {
-      "id": 1726410825,
-      "frame": {
-        "x": 89,
-        "y": 82,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Kunai",
-      "species_id": 7000,
-      "entity_type": "Bullet",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 4,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 24,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 5
+        "number_of_frames": 4
       },
       "dialogues": {
         "options": []
@@ -999,13 +930,13 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 420
     },
     {
-      "id": 1726410826,
+      "id": 1726487073,
       "frame": {
-        "x": 90,
-        "y": 82,
+        "x": 91,
+        "y": 68,
         "w": 1,
         "h": 1
       },
@@ -1014,10 +945,10 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -7.0031734
       },
-      "direction": 4,
-      "current_speed": 0.0,
+      "direction": 0,
+      "current_speed": 5.0,
       "is_rigid": false,
       "z_index": 300,
       "sprite": {
@@ -1028,7 +959,7 @@
           "w": 1,
           "h": 1
         },
-        "number_of_frames": 5
+        "number_of_frames": 4
       },
       "dialogues": {
         "options": []
@@ -1041,6 +972,122 @@
         "y": 0,
         "w": 1,
         "h": 1
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 420
+    },
+    {
+      "id": 1726488426,
+      "frame": {
+        "x": 86,
+        "y": 82,
+        "w": 1,
+        "h": 2
+      },
+      "name": "npc.name.zombie",
+      "species_id": 4002,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 32,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 32,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726488427,
+      "frame": {
+        "x": 86,
+        "y": 84,
+        "w": 1,
+        "h": 2
+      },
+      "name": "npc.name.ghost",
+      "species_id": 4003,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
       },
       "patrol": {
         "initial_position": [

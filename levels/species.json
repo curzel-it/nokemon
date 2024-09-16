@@ -924,6 +924,48 @@
         "lock_type": "None"
     },
     {
+        "id": 4002,
+        "name": "npc.name.zombie",
+        "entity_type": "Npc",
+        "z_index": 150,
+        "base_speed": 1.5,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            7
+        ],
+        "sprite_frame": {
+            "x": 32,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
+        "id": 4003,
+        "name": "npc.name.ghost",
+        "entity_type": "Npc",
+        "z_index": 150,
+        "base_speed": 2.5,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            6
+        ],
+        "sprite_frame": {
+            "x": 28,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
         "id": 5001,
         "name": "objects.name.deep_hole",
         "entity_type": "Teleporter",
@@ -1067,7 +1109,7 @@
             "h": 1
         },
         "sprite_sheet_id": 1009,
-        "sprite_number_of_frames": 5,
+        "sprite_number_of_frames": 4,
         "lock_type": "None"
     }
 ]
