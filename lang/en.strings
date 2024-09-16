@@ -106,6 +106,7 @@
 "objects.name.pressure_plate.green" = "Green Pressure Plate"
 "objects.name.pressure_plate.blue" = "Blue Pressure Plate"
 "objects.name.pressure_plate.silver" = "Silver Pressure Plate"
+"objects.name.pill.red" = "Red Pill"
 
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."

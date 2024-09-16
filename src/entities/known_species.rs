@@ -29,3 +29,4 @@ pub const SPECIES_TELEPORTER: u32 = 1019;
 pub const SPECIES_SLIME: u32 = 4001;
 pub const SPECIES_ZOMBIE: u32 = 4002;
 pub const SPECIES_GHOST: u32 = 4003;
+pub const SPECIES_PILL_RED: u32 = 8000;

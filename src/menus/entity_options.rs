@@ -6,7 +6,6 @@ pub enum EntityOptionMenuItem {
     Remove,
     Rename,
     PickUp,
-    Fight,
     Read(String),
     ChangeLock,
     ChangeDestinationWorld,
@@ -21,7 +20,6 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
             EntityOptionMenuItem::Read(_) => "entity.menu.read".localized(),
-            EntityOptionMenuItem::Fight => "entity.menu.fight".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
             EntityOptionMenuItem::ChangeDestinationWorld => "entity.menu.change_destination_world".localized(),
             EntityOptionMenuItem::ChangeDestinationX => "entity.menu.change_destination_x".localized(),
@@ -219,16 +217,6 @@ impl EntityOptionsMenu {
                         WorldStateUpdate::EngineUpdate(
                             EngineStateUpdate::DisplayLongText(
                                 contents
-                            )
-                        )
-                    ]
-                },
-                EntityOptionMenuItem::Fight => {
-                    self.menu.clear_selection();
-                    vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::Fight(
-                                self.entity.clone()
                             )
                         )
                     ]

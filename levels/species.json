@@ -1113,5 +1113,26 @@
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
         "lock_type": "None"
+    },
+    {
+        "id": 8000,
+        "name": "objects.name.pill.red",
+        "entity_type": "PickableObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            7,
+            2
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 11,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 5,
+        "lock_type": "None"
     }
 ]

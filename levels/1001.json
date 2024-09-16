@@ -465,7 +465,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.66841334,
+        "x": 0.759184,
         "y": 0.0
       },
       "direction": 2,
@@ -905,7 +905,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": 7.59184
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -945,10 +945,10 @@
       },
       "latest_movement": [
         0,
-        1
+        0
       ],
       "contents": null,
-      "remaining_lifespan": 3.5729115,
+      "remaining_lifespan": 3.5254624,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420
     },
@@ -1145,7 +1145,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": 7.59184
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1185,10 +1185,10 @@
       },
       "latest_movement": [
         0,
-        1
+        0
       ],
       "contents": null,
-      "remaining_lifespan": 1.9505953,
+      "remaining_lifespan": 1.9031463,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420
     },
@@ -1855,8 +1855,8 @@
     {
       "id": 1726497868,
       "frame": {
-        "x": 99,
-        "y": 90,
+        "x": 108,
+        "y": 83,
         "w": 1,
         "h": 2
       },
@@ -1864,10 +1864,10 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": -6.8312583
+        "x": 13.38768,
+        "y": 0.0
       },
-      "direction": 0,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": true,
       "z_index": 150,
@@ -1894,6 +1894,186 @@
         "h": 2
       },
       "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726499216,
+      "frame": {
+        "x": 109,
+        "y": 76,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Ghost",
+      "species_id": 4003,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.20276299
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": true,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726499219,
+      "frame": {
+        "x": 111,
+        "y": 82,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Red Pill",
+      "species_id": 8000,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 50,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 11,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 5
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 11,
+        "w": 1,
+        "h": 1
+      },
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726499218,
+      "frame": {
+        "x": 110,
+        "y": 83,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Red Pill",
+      "species_id": 8000,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 4,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 50,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 11,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 5
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 11,
+        "w": 1,
+        "h": 1
+      },
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
