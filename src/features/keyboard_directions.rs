@@ -1,10 +1,10 @@
-use crate::{constants::STEP_INPUT_THRESHOLD, game_engine::entity::Entity, utils::directions::Direction};
+use crate::{constants::STEP_COMMITMENT_THRESHOLD, game_engine::entity::Entity, utils::directions::Direction};
 
 impl Entity {
     pub fn update_direction_for_current_keys(&mut self, new_direction: Direction) {
         let current_direction = self.direction;
 
-        if self.offset.x.abs() < STEP_INPUT_THRESHOLD && self.offset.y.abs() < STEP_INPUT_THRESHOLD {
+        if self.offset.x.abs() < STEP_COMMITMENT_THRESHOLD && self.offset.y.abs() < STEP_COMMITMENT_THRESHOLD {
             if new_direction != Direction::Unknown {
                 self.reset_speed();
                 self.direction = new_direction;

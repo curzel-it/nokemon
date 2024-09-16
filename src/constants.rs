@@ -10,6 +10,7 @@ pub const WORLD_SIZE_ROWS: usize = 150;
 pub const WORLD_SIZE_COLUMNS: usize = 200;
 pub const UNLIMITED_LIFESPAN: f32 = -420.0;
 pub const NO_PARENT: u32 = 0;
+pub const CREEP_SPAWN_INTERVAL: f32 = 5.0;
 
 // Input
 pub const KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST: f32 = 0.4;
@@ -50,7 +51,7 @@ pub const TILE_VARIATIONS_FPS: f32 = 1.0;
 pub const TILE_SIZE: f32 = 16.0;
 pub const TILE_VARIATIONS_COUNT: i32 = 4;
 pub const BASE_ENTITY_SPEED: f32 = TILE_SIZE * 2.0;
-pub const STEP_INPUT_THRESHOLD: f32 = TILE_SIZE / 16.0;
+pub const STEP_COMMITMENT_THRESHOLD: f32 = TILE_SIZE / 16.0;
 
 // Sprite Sheets
 pub const SPRITE_SHEET_BLANK: u32 = 1000;

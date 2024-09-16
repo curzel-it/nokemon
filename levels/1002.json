@@ -352,6 +352,8 @@
         "w": 1,
         "h": 2
       },
+      "melee_attacks_hero": false,
+      "is_dying": false,
       "patrol": {
         "initial_position": [
           0,
@@ -363,7 +365,11 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     },
     {
       "id": 1726262463,
@@ -410,6 +416,8 @@
         "w": 1,
         "h": 1
       },
+      "melee_attacks_hero": false,
+      "is_dying": false,
       "patrol": {
         "initial_position": [
           0,
@@ -421,7 +429,71 @@
       "latest_movement": [
         0,
         0
-      ]
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726493895,
+      "frame": {
+        "x": 102,
+        "y": 19,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Ghost",
+      "species_id": 4003,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": -0.068796664
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": true,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
     }
   ]
 }

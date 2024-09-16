@@ -9,6 +9,7 @@ pub struct World {
     pub id: u32,
     pub total_elapsed_time: f32,
     pub bounds: Rect,
+    pub visible_bounds: Rect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<Vec<Entity>>,    
@@ -30,6 +31,7 @@ impl World {
             id,
             total_elapsed_time: 0.0,
             bounds: Rect::square_from_origin(150),
+            visible_bounds: Rect::square_from_origin(150),
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(vec![]),
@@ -183,6 +185,7 @@ impl World {
                 Rect::new(0, 10, 1, 1), 
                 5
             );
+            target.is_dying = true;
             target.remaining_lifespan = 10.0 / ANIMATIONS_FPS;
         }
         drop(entities);

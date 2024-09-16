@@ -29,6 +29,9 @@ pub struct Species {
     pub sprite_sheet_id: u32,
     pub sprite_number_of_frames: i32,
     pub lock_type: LockType,
+
+    #[serde(default)]
+    pub melee_attacks_hero: bool
 }
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -56,6 +59,7 @@ impl Species {
     pub fn make_entity(&self) -> Entity {
         let sprite = self.make_sprite(false);
         let original_sprite_frame = sprite.frame; 
+        let initial_speed = if self.melee_attacks_hero { self.base_speed } else { 0.0 };
         
         Entity {
             id: self.next_entity_id(),
@@ -65,7 +69,7 @@ impl Species {
             entity_type: self.entity_type,
             offset: Vector2d::zero(),
             direction: Direction::Unknown,
-            current_speed: 0.0,
+            current_speed: initial_speed,
             is_rigid: self.is_rigid,
             z_index: self.z_index,
             sprite,
@@ -79,10 +83,26 @@ impl Species {
             contents: None,
             remaining_lifespan: UNLIMITED_LIFESPAN,
             shooting_cooldown_remaining: 0.0,
-            parent_id: NO_PARENT
+            parent_id: NO_PARENT,
+            is_dying: false,
+            melee_attacks_hero: self.melee_attacks_hero
         }
     }
-    
+
+    pub fn reload_props(&self, entity: &mut Entity) {
+        let sprite = self.make_sprite(false);        
+        entity.frame.w = sprite.frame.w;  
+        entity.frame.h = sprite.frame.h;  
+        entity.original_sprite_frame = sprite.frame;
+        entity.entity_type = self.entity_type;
+        entity.is_rigid = self.is_rigid;
+        entity.z_index = self.z_index;
+        entity.sprite = sprite;
+        entity.name = self.name.localized();
+        entity.shooting_cooldown_remaining = 0.0;
+        entity.melee_attacks_hero = self.melee_attacks_hero;
+    }
+
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
         AnimatedSprite::new(
             self.sprite_sheet_id,
@@ -119,7 +139,8 @@ pub const SPECIES_NONE: Species = Species {
     sprite_frame: Rect::new(0, 0, 0, 0),
     sprite_sheet_id: SPRITE_SHEET_BIOME_TILES,
     sprite_number_of_frames: 1,
-    lock_type: LockType::None
+    lock_type: LockType::None,
+    melee_attacks_hero: false,
 };
 
 pub fn species_by_id(species_id: u32) -> Species {

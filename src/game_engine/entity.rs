@@ -47,6 +47,12 @@ pub struct Entity {
     pub original_sprite_frame: Rect,
     
     #[serde(default)]
+    pub melee_attacks_hero: bool,
+    
+    #[serde(default)]
+    pub is_dying: bool,
+
+    #[serde(default)]
     pub patrol: Patrol,
 
     #[serde(default)]
@@ -91,6 +97,8 @@ impl Entity {
     }
 
     pub fn setup(&mut self) {      
+        species_by_id(self.species_id).reload_props(self);
+
         match self.entity_type {
             EntityType::Hero => self.setup_generic(),
             EntityType::Npc => self.setup_generic(),

@@ -40,6 +40,8 @@
       "w": 1,
       "h": 1
     },
+    "melee_attacks_hero": false,
+    "is_dying": false,
     "patrol": {
       "initial_position": [
         0,
