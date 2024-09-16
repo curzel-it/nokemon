@@ -31,7 +31,7 @@ impl Entity {
         let hit = world.entities_map[self.frame.y as usize][self.frame.x as usize];
 
         if hit == 0 || hit == self.id { 
-            return vec![] 
+            vec![] 
         } else if hit == self.parent_id {
             return vec![] 
         } else if hit == HERO_ENTITY_ID {

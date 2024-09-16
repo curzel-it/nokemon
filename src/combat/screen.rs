@@ -50,8 +50,8 @@ impl FightScreen {
         }
     }
 
-    pub fn show(&mut self, enemy: &Box<Entity>) {
-        self.enemy = *enemy.clone();
+    pub fn show(&mut self, enemy: &Entity) {
+        self.enemy = enemy.clone();
         self.is_open = true;
         self.player_options.show();
     }

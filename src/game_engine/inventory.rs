@@ -30,19 +30,6 @@ pub fn add_to_inventory(entity: Entity) {
     tx.send(inventory).expect("Failed to send inventory data to save thread");
 }
 
-pub fn remove_entity_from_inventory(id: u32) {
-    {
-        let mut inventory = INVENTORY.write().unwrap();
-        if let Some(pos) = inventory.iter().position(|x| x.id == id) {
-            inventory.remove(pos);
-        }
-    }
-
-    let inventory = INVENTORY.read().unwrap().clone();
-    let tx = &SAVE_THREAD.0;
-    tx.send(inventory).expect("Failed to send inventory data to save thread");
-}
-
 pub fn remove_one_of_species_from_inventory(id: u32) {
     {
         let mut inventory = INVENTORY.write().unwrap();

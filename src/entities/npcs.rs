@@ -12,7 +12,7 @@ impl Entity {
         
         if self.melee_attacks_hero {
             self.adjust_position_towards_hero(world);
-            self.handle_melee_attack(world, time_since_last_update);
+            self.handle_melee_attack(world);
         }
 
         if world.is_hero_around_and_on_collision_with(&self.frame) {
@@ -52,11 +52,11 @@ impl Entity {
         }        
     }
 
-    fn adjust_position_towards(&mut self, hero: &Rect, obstacles: &Vec<Vec<bool>>) {
-        let x = self.frame.x as i32;
-        let y = self.frame.y as i32 - if self.frame.h > 1 { 1 } else { 0 };
-        let hero_x = hero.x as i32;
-        let hero_y = hero.y as i32;
+    fn adjust_position_towards(&mut self, hero: &Rect, obstacles: &[Vec<bool>]) {
+        let x = self.frame.x;
+        let y = self.frame.y - if self.frame.h > 1 { 1 } else { 0 };
+        let hero_x = hero.x;
+        let hero_y = hero.y;
     
         let dx = hero_x - x;
         let dy = hero_y - y;

@@ -40,10 +40,9 @@ impl CreepSpawner {
     }
 
     fn make_creep(&mut self) -> Entity {
-        let id = vec![SPECIES_ZOMBIE, SPECIES_GHOST]
+        let id = *[SPECIES_ZOMBIE, SPECIES_GHOST]
             .choose(&mut self.rng)
-            .unwrap_or(&SPECIES_ZOMBIE)
-            .clone();
+            .unwrap_or(&SPECIES_ZOMBIE);
         species_by_id(id).make_entity()
     }
 
