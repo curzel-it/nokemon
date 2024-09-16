@@ -465,7 +465,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.594182,
+        "x": 0.66841334,
         "y": 0.0
       },
       "direction": 2,
@@ -896,7 +896,7 @@
       "id": 1726496691,
       "frame": {
         "x": 112,
-        "y": 96,
+        "y": 97,
         "w": 1,
         "h": 1
       },
@@ -905,7 +905,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 5.94182
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -945,10 +945,10 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": 3.656453,
+      "remaining_lifespan": 3.5729115,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420
     },
@@ -1136,7 +1136,7 @@
       "id": 1726492162,
       "frame": {
         "x": 91,
-        "y": 116,
+        "y": 117,
         "w": 1,
         "h": 1
       },
@@ -1145,7 +1145,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 5.9868603
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1185,10 +1185,10 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": 2.0341365,
+      "remaining_lifespan": 1.9505953,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420
     },
@@ -1834,6 +1834,66 @@
         "h": 1
       },
       "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0
+    },
+    {
+      "id": 1726497868,
+      "frame": {
+        "x": 99,
+        "y": 90,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Ghost",
+      "species_id": 4003,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": -6.8312583
+      },
+      "direction": 0,
+      "current_speed": 2.5,
+      "is_rigid": true,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "melee_attacks_hero": true,
       "is_dying": false,
       "patrol": {
         "initial_position": [

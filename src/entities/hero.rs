@@ -1,4 +1,4 @@
-use crate::{entities::{known_species::SPECIES_KUNAI, species::species_by_id}, game_engine::{entity::{Entity, EntityProps}, inventory::{inventory_contains_species, remove_one_of_species_from_inventory}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::rect::Rect};
+use crate::{constants::HERO_KUNAI_COOLDOWN, entities::{known_species::SPECIES_KUNAI, species::species_by_id}, game_engine::{entity::{Entity, EntityProps}, inventory::{inventory_contains_species, remove_one_of_species_from_inventory}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::rect::Rect};
 
 impl Entity {
     pub fn update_hero(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
@@ -67,7 +67,7 @@ impl Entity {
             return vec![]
         }
 
-        self.shooting_cooldown_remaining = 0.1;
+        self.shooting_cooldown_remaining = HERO_KUNAI_COOLDOWN;
         remove_one_of_species_from_inventory(SPECIES_KUNAI);
 
         let mut bullet = species_by_id(SPECIES_KUNAI).make_entity();

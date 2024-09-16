@@ -12,7 +12,11 @@ impl Entity {
         
         if self.melee_attacks_hero {
             self.adjust_position_towards_hero(world);
-            self.handle_melee_attack(world);
+            let updates = self.handle_melee_attack(world);
+            
+            if !updates.is_empty() {
+                return updates
+            }
         }
 
         if world.is_hero_around_and_on_collision_with(&self.frame) {
