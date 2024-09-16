@@ -25,7 +25,7 @@ impl World {
             let (row, height) = if entity.frame.h == 1 { 
                 (entity.frame.y as usize, 1) 
             } else { 
-                (entity.frame.y  as usize + 1, entity.frame.h as usize - 1) 
+                (entity.frame.y  as usize + 1, (entity.frame.h as usize).saturating_sub(1)) 
             };
 
             for offset_x in 0..entity.frame.w as usize {
