@@ -34,6 +34,7 @@
 "entity.menu.rename_title" = "Enter new name"
 "entity.menu.pickup" = "Pick up"
 "entity.menu.read" = "Read"
+"entity.menu.use" = "Use"
 "entity.menu.fight" = "Fight"
 "entity.menu.change_lock" = "Change Lock"
 "entity.menu.change_lock_title" = "Select Key Color"

@@ -914,12 +914,12 @@
             5
         ],
         "sprite_frame": {
-            "x": 20,
+            "x": 0,
             "y": 0,
             "w": 1,
             "h": 1
         },
-        "sprite_sheet_id": 1009,
+        "sprite_sheet_id": 1014,
         "sprite_number_of_frames": 4,
         "lock_type": "None"
     },
@@ -936,7 +936,7 @@
             7
         ],
         "sprite_frame": {
-            "x": 32,
+            "x": 24,
             "y": 0,
             "w": 1,
             "h": 2
@@ -958,7 +958,7 @@
             6
         ],
         "sprite_frame": {
-            "x": 28,
+            "x": 20,
             "y": 0,
             "w": 1,
             "h": 2
@@ -1105,12 +1105,12 @@
             1
         ],
         "sprite_frame": {
-            "x": 24,
+            "x": 4,
             "y": 0,
             "w": 1,
             "h": 1
         },
-        "sprite_sheet_id": 1009,
+        "sprite_sheet_id": 1014,
         "sprite_number_of_frames": 4,
         "lock_type": "None"
     },
@@ -1133,6 +1133,7 @@
         },
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 5,
-        "lock_type": "None"
+        "lock_type": "None",
+        "is_consumable": true
     }
 ]

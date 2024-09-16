@@ -29,7 +29,11 @@ impl World {
             };
 
             for offset_x in 0..entity.frame.w as usize {
+                if col + offset_x >= hitmap[0].len() { continue }
+
                 for offset_y in 0..height {
+                    if row + offset_y >= hitmap.len() { continue }
+
                     if entity.is_rigid && id != HERO_ENTITY_ID {                
                         hitmap[row + offset_y][col + offset_x] = true;
                     }

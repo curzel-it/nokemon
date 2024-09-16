@@ -1,9 +1,9 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}, patrols::Patrol}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::{EntityType, SpeciesId}}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}, patrols::Patrol}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::{entity::{Entity, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{Entity, EntityId, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
 
 pub struct World {
     pub id: u32,
@@ -137,6 +137,9 @@ impl World {
             WorldStateUpdate::RenameEntity(id, new_name) => {
                 self.rename_entity(id, new_name)
             }
+            WorldStateUpdate::UseItem(species_id) => {
+                self.use_item(species_id)
+            }
             WorldStateUpdate::CacheHeroProps(props) => { 
                 self.cached_hero_props = *props; 
             }
@@ -171,7 +174,7 @@ impl World {
         None
     }
 
-    fn handle_hit(&mut self, bullet_id: u32, target_id: u32) {
+    fn handle_hit(&mut self, bullet_id: EntityId, target_id: EntityId) {
         let mut did_hit = false;
         let mut entities = self.entities.borrow_mut();
 

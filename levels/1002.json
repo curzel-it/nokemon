@@ -436,28 +436,28 @@
       "parent_id": 0
     },
     {
-      "id": 1726493895,
+      "id": 1726501640,
       "frame": {
-        "x": 102,
-        "y": 19,
+        "x": 119,
+        "y": 21,
         "w": 1,
         "h": 2
       },
-      "name": "Ghost",
-      "species_id": 4003,
+      "name": "Zombie",
+      "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": -0.068796664
+        "x": -6.801822,
+        "y": 0.0
       },
-      "direction": 1,
-      "current_speed": 2.5,
+      "direction": 3,
+      "current_speed": 1.5,
       "is_rigid": true,
       "z_index": 150,
       "sprite": {
         "sheet_id": 1009,
         "frame": {
-          "x": 28,
+          "x": 32,
           "y": 0,
           "w": 1,
           "h": 2
@@ -471,7 +471,7 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
+        "x": 32,
         "y": 0,
         "w": 1,
         "h": 2

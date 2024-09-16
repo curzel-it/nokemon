@@ -1,4 +1,4 @@
-use crate::{entities::species::{EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::{species_by_id, EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Clone)]
@@ -7,6 +7,7 @@ pub enum EntityOptionMenuItem {
     Rename,
     PickUp,
     Read(String),
+    UseItem,
     ChangeLock,
     ChangeDestinationWorld,
     ChangeDestinationX,
@@ -19,6 +20,7 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::Remove => "entity.menu.remove".localized(),
             EntityOptionMenuItem::Rename => "entity.menu.rename".localized(),
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
+            EntityOptionMenuItem::UseItem => "entity.menu.use".localized(),
             EntityOptionMenuItem::Read(_) => "entity.menu.read".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
             EntityOptionMenuItem::ChangeDestinationWorld => "entity.menu.change_destination_world".localized(),
@@ -211,6 +213,20 @@ impl EntityOptionsMenu {
                         WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     ]
                 },
+                EntityOptionMenuItem::UseItem => {
+                    self.menu.clear_selection();
+                    self.menu.close();
+                    vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::RemoveFromInventory(
+                                self.entity.id
+                            )
+                        ),
+                        WorldStateUpdate::UseItem(
+                            self.entity.species_id
+                        )
+                    ]
+                },
                 EntityOptionMenuItem::Read(contents) => {
                     self.menu.clear_selection();
                     vec![
@@ -345,30 +361,33 @@ impl EntityOptionsMenu {
     }
 
     fn available_options_regular(&self) -> Vec<EntityOptionMenuItem> {
-        let pickup = vec![EntityOptionMenuItem::PickUp];
-        let nothing: Vec<EntityOptionMenuItem> = vec![];
+        let species = species_by_id(self.entity.species_id);
+        let mut options: Vec<EntityOptionMenuItem> = vec![];
+
+        if species.is_consumable {
+            options.push(EntityOptionMenuItem::UseItem)
+        }
 
         match self.entity.entity_type {
-            EntityType::Hero => nothing,
-            EntityType::Npc => nothing,
-            EntityType::Building => nothing,
-            EntityType::HouseholdObject => pickup,
-            EntityType::PickableObject => pickup,
-            EntityType::Teleporter => nothing,
-            EntityType::PushableObject => nothing,
-            EntityType::Gate => nothing,
-            EntityType::InverseGate => nothing,
-            EntityType::PressurePlate => nothing,
-            EntityType::Bullet => pickup,
+            EntityType::HouseholdObject => options.push(EntityOptionMenuItem::PickUp),
+            EntityType::PickableObject => options.push(EntityOptionMenuItem::PickUp),
+            EntityType::Bullet => options.push(EntityOptionMenuItem::PickUp),
+            _ => {}
         }
+        options
     }
 
     fn available_options_inventory(&self) -> Vec<EntityOptionMenuItem> {
+        let species = species_by_id(self.entity.species_id);
+        let mut options: Vec<EntityOptionMenuItem> = vec![];
+
         if let Some(contents) = self.entity.contents.clone() {
-            vec![EntityOptionMenuItem::Read(contents.localized())]
-        } else {
-            vec![]
+            options.push(EntityOptionMenuItem::Read(contents.localized()));
         }
+        if species.is_consumable {
+            options.push(EntityOptionMenuItem::UseItem);
+        }
+        options
     }
 }
 

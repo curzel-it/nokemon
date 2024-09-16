@@ -58,7 +58,7 @@ impl Entity {
 
     fn adjust_position_towards(&mut self, hero: &Rect, obstacles: &[Vec<bool>]) {
         let x = self.frame.x;
-        let y = self.frame.y - if self.frame.h > 1 { 1 } else { 0 };
+        let y = self.frame.y.saturating_sub(if self.frame.h > 1 { 1 } else { 0 });
         let hero_x = hero.x;
         let hero_y = hero.y;
     
@@ -68,6 +68,10 @@ impl Entity {
     
         let mut possible_moves = Vec::new();
     
+        if y >= obstacles.len() as i32 || x >= obstacles[0].len() as i32 {
+            return;
+        }
+
         if y > 0 && !obstacles[(y - 1) as usize][x as usize] {
             let new_distance = (hero_x - x).abs() + (hero_y - (y - 1)).abs();
             possible_moves.push((Direction::Up, new_distance));

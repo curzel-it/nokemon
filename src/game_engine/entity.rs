@@ -46,6 +46,9 @@ pub struct Entity {
     pub lock_type: LockType,
     pub original_sprite_frame: Rect,
     
+    #[serde(default="one")]
+    pub speed_multiplier: f32,
+
     #[serde(default)]
     pub melee_attacks_hero: bool,
     
@@ -73,6 +76,10 @@ pub struct Entity {
 
 fn unlimited_lifespan() -> f32 {
     UNLIMITED_LIFESPAN
+}
+
+fn one() -> f32 {
+    1.0
 }
 
 impl Entity {
@@ -127,7 +134,7 @@ impl Entity {
     }
 
     pub fn reset_speed(&mut self) {        
-        self.current_speed = species_by_id(self.species_id).base_speed;
+        self.current_speed = self.speed_multiplier * species_by_id(self.species_id).base_speed;
     }    
     
     pub fn next_dialogue(&self) -> Option<Dialogue> {

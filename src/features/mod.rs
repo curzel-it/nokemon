@@ -5,6 +5,7 @@ pub mod death_screen;
 pub mod destination;
 pub mod hitmap;
 pub mod keyboard_directions;
+pub mod item_effects;
 pub mod linear_movement;
 pub mod loading_screen;
 pub mod melee;

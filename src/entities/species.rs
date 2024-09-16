@@ -31,6 +31,9 @@ pub struct Species {
     pub lock_type: LockType,
 
     #[serde(default)]
+    pub is_consumable: bool,
+
+    #[serde(default)]
     pub melee_attacks_hero: bool
 }
 
@@ -85,7 +88,8 @@ impl Species {
             shooting_cooldown_remaining: 0.0,
             parent_id: NO_PARENT,
             is_dying: false,
-            melee_attacks_hero: self.melee_attacks_hero
+            melee_attacks_hero: self.melee_attacks_hero,
+            speed_multiplier: 1.0
         }
     }
 
@@ -101,6 +105,7 @@ impl Species {
         entity.name = self.name.localized();
         entity.shooting_cooldown_remaining = 0.0;
         entity.melee_attacks_hero = self.melee_attacks_hero;
+        entity.speed_multiplier = 1.0;
     }
 
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
@@ -141,6 +146,7 @@ pub const SPECIES_NONE: Species = Species {
     sprite_number_of_frames: 1,
     lock_type: LockType::None,
     melee_attacks_hero: false,
+    is_consumable: false
 };
 
 pub fn species_by_id(species_id: u32) -> Species {

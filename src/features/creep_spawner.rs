@@ -1,5 +1,5 @@
 use crate::{
-    constants::CREEP_SPAWN_INTERVAL, entities::{known_species::{SPECIES_GHOST, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, utils::{directions::Direction, rect::Rect}
+    constants::{CREEP_SPAWN_INTERVAL, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, utils::{directions::Direction, rect::Rect}
 };
 use rand::{rngs::ThreadRng, seq::SliceRandom, Rng};
 
@@ -11,7 +11,7 @@ pub struct CreepSpawner {
 impl CreepSpawner {
     pub fn new() -> Self {
         CreepSpawner {
-            time_to_next_spawn: CREEP_SPAWN_INTERVAL,
+            time_to_next_spawn: CREEP_SPAWN_INTERVAL * 2.0,
             rng: rand::thread_rng()
         }
     }
@@ -24,10 +24,14 @@ impl CreepSpawner {
         self.time_to_next_spawn -= time_since_last_update;
 
         if self.time_to_next_spawn <= 0.0 {
-            self.time_to_next_spawn = CREEP_SPAWN_INTERVAL;
-
             let hero_direction = world.cached_hero_props.direction;
             let (x, y) = self.next_creep_position(&hero_direction, world);
+            
+            if x < 0 || y < 0 || x >= WORLD_SIZE_COLUMNS as i32 || y >= WORLD_SIZE_ROWS as i32 {
+                return vec![]
+            }
+
+            self.time_to_next_spawn = CREEP_SPAWN_INTERVAL;
 
             let mut entity = self.make_creep();
             entity.frame.x = x;
