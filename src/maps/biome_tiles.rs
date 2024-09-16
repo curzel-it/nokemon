@@ -16,6 +16,7 @@ pub enum Biome {
     LightWood,
     DarkRock,
     Ice,
+    DarkGrass,
 }
 
 #[derive(Debug, Clone)]
@@ -67,12 +68,18 @@ impl BiomeTile {
             return match (self.tile_type, neighbor) {
                 (Biome::Water, Biome::Desert) => 0,
                 (Biome::Water, Biome::Grass) => 0,
+                (Biome::Water, Biome::DarkGrass) => 0,
                 (Biome::Grass, Biome::Desert) => 0,
                 (Biome::Grass, Biome::Rock) => 0,
-                (Biome::Snow, Biome::Rock) => 0,
                 (Biome::Grass, Biome::DarkRock) => 0,
-                (Biome::Water, Biome::DarkRock) => 0,
                 (Biome::Grass, Biome::Snow) => 0,
+                (Biome::DarkGrass, Biome::Desert) => 0,
+                (Biome::DarkGrass, Biome::Rock) => 0,
+                (Biome::DarkGrass, Biome::DarkRock) => 0,
+                (Biome::DarkGrass, Biome::Snow) => 0,
+                (Biome::Grass, Biome::DarkGrass) => 0,
+                (Biome::Snow, Biome::Rock) => 0,
+                (Biome::Water, Biome::DarkRock) => 0,
                 (Biome::Desert, Biome::Snow) => 0,
                 (Biome::Rock, Biome::Snow) => 0,
                 (Biome::DarkRock, Biome::Snow) => 0,
@@ -163,7 +170,7 @@ impl Biome {
     }
 
     fn number_of_biomes() -> i32 {
-        10
+        11
     }
 
     fn texture_index(&self) -> i32 {
@@ -178,6 +185,7 @@ impl Biome {
             Biome::Nothing => 7,
             Biome::DarkRock => 8,
             Biome::Ice => 9,
+            Biome::DarkGrass => 10,
         }
     }
 }
@@ -219,6 +227,7 @@ impl Biome {
             '7' => Biome::LightWood,
             '8' => Biome::DarkRock,
             '9' => Biome::Ice,
+            'A' => Biome::DarkGrass,
             _ => Biome::Nothing,
         }
     }
@@ -235,6 +244,7 @@ impl Biome {
             Biome::LightWood => '7',
             Biome::DarkRock => '8',
             Biome::Ice => '9',
+            Biome::DarkGrass => 'A',
         }
     }
 }

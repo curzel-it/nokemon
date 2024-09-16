@@ -316,7 +316,6 @@ impl EntityOptionsMenu {
         match self.entity.entity_type {
             EntityType::Hero => nothing,
             EntityType::Npc => vec![
-                EntityOptionMenuItem::Fight,
                 EntityOptionMenuItem::Rename,
                 EntityOptionMenuItem::Remove,
             ],
@@ -359,11 +358,10 @@ impl EntityOptionsMenu {
 
     fn available_options_regular(&self) -> Vec<EntityOptionMenuItem> {
         let pickup = vec![EntityOptionMenuItem::PickUp];
-        let fight = vec![EntityOptionMenuItem::Fight];
         let nothing: Vec<EntityOptionMenuItem> = vec![];
 
         match self.entity.entity_type {
-            EntityType::Hero => fight,
+            EntityType::Hero => nothing,
             EntityType::Npc => nothing,
             EntityType::Building => nothing,
             EntityType::HouseholdObject => pickup,
