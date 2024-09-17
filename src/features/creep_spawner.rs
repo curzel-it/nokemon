@@ -1,9 +1,4 @@
-use crate::{
-    constants::{CREEP_SPAWN_INTERVAL, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{
-        known_species::{SPECIES_GHOST, SPECIES_ZOMBIE},
-        species::species_by_id,
-    }, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}
-};
+use crate::{constants::{CREEP_SPAWN_INTERVAL, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}};
 use rand::{rngs::ThreadRng, seq::SliceRandom};
 
 pub struct CreepSpawner {
@@ -24,6 +19,9 @@ impl CreepSpawner {
         world: &World,
         time_since_last_update: f32,
     ) -> Vec<WorldStateUpdate> {
+        if world.creative_mode { 
+            return vec![] 
+        }
         self.time_to_next_spawn -= time_since_last_update;
 
         if self.time_to_next_spawn <= 0.0 {
@@ -38,7 +36,6 @@ impl CreepSpawner {
 
                 return vec![WorldStateUpdate::AddEntity(Box::new(entity))];
             } else {
-                // No valid position found; do not spawn a creep
                 return vec![];
             }
         }
@@ -60,12 +57,10 @@ impl CreepSpawner {
     ) -> Option<(i32, i32)> {
         let Rect { x, y, w, h } = world.visible_bounds;
 
-        // Initialize a vector to hold possible spawn positions
         let mut possible_positions = Vec::new();
 
         match hero_direction {
             Direction::Up => {
-                // Furthest line in the Up direction is the top edge (lowest y)
                 let spawn_y = y;
                 for spawn_x in x..(x + w) {
                     if self.is_valid_spawn_position(spawn_x, spawn_y, world) {
@@ -74,7 +69,6 @@ impl CreepSpawner {
                 }
             }
             Direction::Down => {
-                // Furthest line in the Down direction is the bottom edge (highest y)
                 let spawn_y = y + h - 1;
                 for spawn_x in x..(x + w) {
                     if self.is_valid_spawn_position(spawn_x, spawn_y, world) {
@@ -83,7 +77,6 @@ impl CreepSpawner {
                 }
             }
             Direction::Left => {
-                // Furthest line in the Left direction is the left edge (lowest x)
                 let spawn_x = x;
                 for spawn_y in y..(y + h) {
                     if self.is_valid_spawn_position(spawn_x, spawn_y, world) {
@@ -92,7 +85,6 @@ impl CreepSpawner {
                 }
             }
             Direction::Right => {
-                // Furthest line in the Right direction is the right edge (highest x)
                 let spawn_x = x + w - 1;
                 for spawn_y in y..(y + h) {
                     if self.is_valid_spawn_position(spawn_x, spawn_y, world) {
@@ -101,7 +93,6 @@ impl CreepSpawner {
                 }
             }
             _ => {
-                // If direction is None or other, search the entire visible area
                 for spawn_x in x..(x + w) {
                     for spawn_y in y..(y + h) {
                         if self.is_valid_spawn_position(spawn_x, spawn_y, world) {
@@ -113,11 +104,9 @@ impl CreepSpawner {
         }
 
         if !possible_positions.is_empty() {
-            // Randomly select a position from the possible positions
             let &(spawn_x, spawn_y) = possible_positions.choose(&mut self.rng).unwrap();
             Some((spawn_x, spawn_y))
         } else {
-            // No valid positions found; return None
             None
         }
     }
