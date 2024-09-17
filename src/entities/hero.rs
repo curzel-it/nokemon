@@ -34,12 +34,13 @@ impl Entity {
             direction: self.direction,
             offset: self.offset,
             speed: self.current_speed,
+            is_invulnerable: self.is_invulnerable,
             hittable_frame: Rect {
-                x: self.frame.x,
-                y: self.frame.y + 1,
-                w: 1,
+                x: self.frame.x + (self.sprite.frame.w - 1) / 2,
+                y: self.frame.y + (self.sprite.frame.h - 1),
+                w: self.sprite.frame.w,
                 h: 1,
-            }
+            },
         }            
     }
 

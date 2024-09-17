@@ -11,6 +11,7 @@ pub struct EntityProps {
     pub offset: Vector2d,
     pub speed: f32,
     pub hittable_frame: Rect,
+    pub is_invulnerable: bool,
 }
 
 impl Default for EntityProps {
@@ -20,7 +21,8 @@ impl Default for EntityProps {
             frame: Rect::square_from_origin(1), 
             offset: Vector2d::zero(),
             speed: 0.0,
-            hittable_frame: Rect::square_from_origin(1) 
+            hittable_frame: Rect::square_from_origin(1),
+            is_invulnerable: false,
         }
     }
 }
@@ -72,6 +74,9 @@ pub struct Entity {
 
     #[serde(default)]
     pub parent_id: u32,  
+
+    #[serde(default)]
+    pub is_invulnerable: bool,
 }
 
 fn unlimited_lifespan() -> f32 {

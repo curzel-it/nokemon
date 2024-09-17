@@ -179,16 +179,15 @@ impl World {
         let mut entities = self.entities.borrow_mut();
 
         if let Some(target) = entities.iter_mut().find(|e| e.id == target_id) {    
-            if target.is_rigid && !target.is_dying {
+            if target.is_rigid && !target.is_dying && !target.is_invulnerable {
                 did_hit = true;
                 target.direction = Direction::Unknown;
                 target.current_speed = 0.0;
                 target.patrol = Patrol::none();
                 target.is_rigid = false;
                 target.is_dying = true;
-                target.remaining_lifespan = 10.0 / ANIMATIONS_FPS;
-                target.frame = Rect::new(target.frame.x, target.frame.y, 1, 1)
-                    .offset_y(if target.frame.h > 1 { 1 } else { 0 });
+                target.remaining_lifespan = 10.0 / ANIMATIONS_FPS;                
+                target.frame = Rect::new(target.frame.x, target.frame.y, 1, 1).offset_y(if target.frame.h > 1 { 1 } else { 0 });
                 target.sprite = AnimatedSprite::new(
                     SPRITE_SHEET_ANIMATED_OBJECTS, 
                     Rect::new(0, 10, 1, 1), 

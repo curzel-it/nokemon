@@ -89,7 +89,8 @@ impl Species {
             parent_id: NO_PARENT,
             is_dying: false,
             melee_attacks_hero: self.melee_attacks_hero,
-            speed_multiplier: 1.0
+            speed_multiplier: 1.0,
+            is_invulnerable: false
         }
     }
 

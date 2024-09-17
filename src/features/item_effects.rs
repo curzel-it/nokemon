@@ -19,7 +19,9 @@ impl World {
                 4
             );
             hero.update_sprite_for_current_direction();
+            hero.is_invulnerable = true;
             hero.speed_multiplier = 2.0;
+            hero.z_index = 1000;
             hero.frame.x -= 1;
             hero.frame.y -= 1;
             hero.frame.w = 3;
