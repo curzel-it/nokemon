@@ -4,7 +4,7 @@ use crate::{
         species::species_by_id,
     }, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}
 };
-use rand::{rngs::ThreadRng, seq::SliceRandom, Rng};
+use rand::{rngs::ThreadRng, seq::SliceRandom};
 
 pub struct CreepSpawner {
     time_to_next_spawn: f32,
@@ -129,9 +129,6 @@ impl CreepSpawner {
         let x_usize = x as usize;
         let y_usize = y as usize;
         let biome_tile = &world.biome_tiles.tiles[y_usize][x_usize];
-        match biome_tile.tile_type {
-            Biome::Nothing | Biome::Water => false,
-            _ => true,
-        }
+        !matches!(biome_tile.tile_type, Biome::Nothing | Biome::Water)
     }
 }

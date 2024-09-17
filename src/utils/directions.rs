@@ -43,5 +43,5 @@ pub fn direction_between_rects(source: &Rect, other: &Rect) -> Direction {
     if source.x < other.x { return Direction::Right }
     if source.y > other.y { return Direction::Up }
     if source.y < other.y { return Direction::Down }
-    return Direction::Unknown
+    Direction::Unknown
 }
