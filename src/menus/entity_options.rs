@@ -188,6 +188,11 @@ impl EntityOptionsMenu {
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         self.menu.update(keyboard, time_since_last_update);
 
+        if self.is_open() && !self.menu.selection_has_been_confirmed && self.menu.items.len() == 1 {
+            self.menu.selected_index = 0;
+            self.menu.selection_has_been_confirmed = true;
+        }
+
         if self.is_open() && self.menu.selection_has_been_confirmed {
             let updates = match self.menu.selected_item() {
                 EntityOptionMenuItem::Remove => {
@@ -217,6 +222,9 @@ impl EntityOptionsMenu {
                     self.menu.clear_selection();
                     self.menu.close();
                     vec![
+                        WorldStateUpdate::EngineUpdate(
+                            EngineStateUpdate::ResumeGame
+                        ),
                         WorldStateUpdate::EngineUpdate(
                             EngineStateUpdate::RemoveFromInventory(
                                 self.entity.id

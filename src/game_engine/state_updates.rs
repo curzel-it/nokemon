@@ -32,11 +32,12 @@ pub enum EngineStateUpdate {
     ShowDialogue(NpcId, String, Dialogue), 
     ShowShop,
     AddToInventory(Box<Entity>),
-    RemoveFromInventory(SpeciesId),
+    RemoveFromInventory(EntityId),
     Toast(String),
     Confirmation(String, String, Vec<WorldStateUpdate>),
     DisplayLongText(String),
     DeathScreen,
+    ResumeGame,
 }
 
 #[cfg(test)]

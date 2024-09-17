@@ -68,6 +68,12 @@ impl GameMenu {
         !matches!(self.state, MenuState::Closed)
     }
 
+    pub fn close(&mut self) {
+        self.menu.clear_selection();
+        self.menu.close();
+        self.state = MenuState::Closed;
+    }
+
     pub fn update(
         &mut self, 
         camera_vieport: &Rect, 

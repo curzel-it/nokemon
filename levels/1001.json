@@ -460,7 +460,7 @@
     {
       "id": 1726158824,
       "frame": {
-        "x": 92,
+        "x": 90,
         "y": 79,
         "w": 1,
         "h": 1
@@ -469,10 +469,10 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 3.3291795,
+        "x": -3.2318761,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 0.5,
       "is_rigid": true,
       "z_index": 150,
@@ -506,17 +506,17 @@
           87,
           79
         ],
-        "current_index": 0,
+        "current_index": 1,
         "movements": [
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 0
+            "steps_left": 5
           },
           {
             "direction": 3,
             "steps": 5,
-            "steps_left": 5
+            "steps_left": 2
           }
         ]
       },
@@ -923,7 +923,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.3415499
+        "y": -9.692717
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -1162,7 +1162,7 @@
       "id": 1726492162,
       "frame": {
         "x": 91,
-        "y": 121,
+        "y": 122,
         "w": 1,
         "h": 1
       },
@@ -1171,7 +1171,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 13.273273
+        "y": 6.4421396
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1215,7 +1215,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.3646579,
+      "remaining_lifespan": 1.2852683,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -1906,7 +1906,7 @@
       "id": 1726604381,
       "frame": {
         "x": 115,
-        "y": 101,
+        "y": 100,
         "w": 1,
         "h": 2
       },
@@ -1915,7 +1915,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -12.807936
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1956,7 +1956,7 @@
       },
       "latest_movement": [
         0,
-        0
+        -1
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -1967,7 +1967,7 @@
     {
       "id": 1726606376,
       "frame": {
-        "x": 68,
+        "x": 67,
         "y": 75,
         "w": 1,
         "h": 1
@@ -1976,7 +1976,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6830997,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2017,11 +2017,11 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.4125025,
+      "remaining_lifespan": 3.333113,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2038,7 +2038,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -6.145642,
+        "x": -9.956342,
         "y": 0.0
       },
       "direction": 3,
@@ -2100,7 +2100,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -3.3415499,
+        "x": -9.692717,
         "y": 0.0
       },
       "direction": 3,
@@ -2154,7 +2154,7 @@
       "id": 1726604384,
       "frame": {
         "x": 111,
-        "y": 106,
+        "y": 105,
         "w": 1,
         "h": 2
       },
@@ -2163,7 +2163,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -14.909609
+        "y": -1.932642
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2216,7 +2216,7 @@
       "id": 1726607014,
       "frame": {
         "x": 88,
-        "y": 95,
+        "y": 96,
         "w": 1,
         "h": 1
       },
@@ -2225,7 +2225,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 13.273273
+        "y": 6.4421396
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2269,7 +2269,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.8101048,
+      "remaining_lifespan": 3.7307153,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2278,7 +2278,7 @@
       "id": 1726604386,
       "frame": {
         "x": 8,
-        "y": 69,
+        "y": 68,
         "w": 1,
         "h": 2
       },
@@ -2287,7 +2287,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -14.909609
+        "y": -1.932642
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2339,7 +2339,7 @@
     {
       "id": 1726606375,
       "frame": {
-        "x": 68,
+        "x": 67,
         "y": 75,
         "w": 1,
         "h": 1
@@ -2348,7 +2348,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6830997,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2389,11 +2389,11 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.3117244,
+      "remaining_lifespan": 3.2323349,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2410,7 +2410,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": 12.702333,
         "y": 0.0
       },
       "direction": 2,
@@ -2451,11 +2451,11 @@
         "movements": []
       },
       "latest_movement": [
-        1,
+        0,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.0828333,
+      "remaining_lifespan": 2.0034437,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2463,7 +2463,7 @@
     {
       "id": 1726609099,
       "frame": {
-        "x": 70,
+        "x": 69,
         "y": 85,
         "w": 1,
         "h": 1
@@ -2472,7 +2472,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6830997,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2513,11 +2513,11 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.0491066,
+      "remaining_lifespan": 2.969717,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
