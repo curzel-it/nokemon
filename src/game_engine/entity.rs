@@ -113,7 +113,7 @@ impl Entity {
 
         match self.entity_type {
             EntityType::Hero => self.setup_generic(),
-            EntityType::Npc => self.setup_generic(),
+            EntityType::Npc => self.setup_npc(),
             EntityType::Building => self.setup_generic(),
             EntityType::HouseholdObject => self.setup_generic(),
             EntityType::PickableObject => self.setup_generic(),

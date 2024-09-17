@@ -377,7 +377,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726097753,
@@ -455,7 +455,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726158824,
@@ -469,7 +469,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 8.103123,
+        "x": 9.135296,
         "y": 0.0
       },
       "direction": 2,
@@ -528,7 +528,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726207469,
@@ -590,7 +590,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726207470,
@@ -652,7 +652,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726257848,
@@ -714,7 +714,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726257847,
@@ -780,7 +780,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726294684,
@@ -842,7 +842,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726294686,
@@ -908,7 +908,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726604382,
@@ -923,7 +923,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -6.8173
+        "y": -11.103823
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -970,7 +970,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493394,
@@ -1032,7 +1032,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493406,
@@ -1094,7 +1094,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493404,
@@ -1156,7 +1156,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726492162,
@@ -1171,7 +1171,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.74942
+        "y": 15.322467
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1215,10 +1215,10 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.5462737,
+      "remaining_lifespan": 1.4926921,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493398,
@@ -1280,7 +1280,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493402,
@@ -1342,7 +1342,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493399,
@@ -1404,7 +1404,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493400,
@@ -1466,7 +1466,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493408,
@@ -1528,7 +1528,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493405,
@@ -1590,7 +1590,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493385,
@@ -1652,7 +1652,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493386,
@@ -1714,7 +1714,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493387,
@@ -1776,7 +1776,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493388,
@@ -1838,7 +1838,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726493391,
@@ -1900,7 +1900,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726604381,
@@ -1915,7 +1915,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -4.0903797
+        "y": -6.662294
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1962,7 +1962,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726501645,
@@ -1976,7 +1976,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 6.74942,
+        "x": 15.322467,
         "y": 0.0
       },
       "direction": 2,
@@ -2021,99 +2021,37 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 0.08040188,
+      "remaining_lifespan": 0.026820336,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
-      "id": 1726511940,
+      "id": 1726606376,
       "frame": {
-        "x": 97,
-        "y": 76,
+        "x": 70,
+        "y": 75,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Ghost",
-      "species_id": 4003,
-      "entity_type": "Npc",
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": true,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 20,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 20,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
-    },
-    {
-      "id": 1726501654,
-      "frame": {
-        "x": 97,
-        "y": 80,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Ghost",
-      "species_id": 4003,
-      "entity_type": "Npc",
-      "offset": {
-        "x": -12.545734,
+        "x": -8.516267,
         "y": 0.0
       },
       "direction": 3,
-      "current_speed": 2.5,
-      "is_rigid": true,
-      "z_index": 150,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1014,
         "frame": {
-          "x": 20,
+          "x": 4,
           "y": 0,
           "w": 1,
-          "h": 2
+          "h": 1
         },
         "number_of_frames": 4
       },
@@ -2124,13 +2062,13 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 20,
+        "x": 4,
         "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -2145,15 +2083,15 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": -420.0,
+      "remaining_lifespan": 3.6409767,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
+      "parent_id": 420,
+      "is_invulnerable": false
     },
     {
       "id": 1726501642,
       "frame": {
-        "x": 120,
+        "x": 119,
         "y": 57,
         "w": 1,
         "h": 2
@@ -2162,7 +2100,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -13.631275,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2203,14 +2141,14 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726604383,
@@ -2224,7 +2162,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -6.8173,
+        "x": -11.103823,
         "y": 0.0
       },
       "direction": 3,
@@ -2272,7 +2210,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
       "id": 1726604384,
@@ -2287,7 +2225,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -6.1920533
+        "y": -8.7639675
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2334,34 +2272,34 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
-      "id": 1726604385,
+      "id": 1726607014,
       "frame": {
-        "x": 97,
-        "y": 80,
+        "x": 88,
+        "y": 93,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Ghost",
-      "species_id": 4003,
-      "entity_type": "Npc",
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
       "offset": {
-        "x": -12.545734,
+        "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
-      "current_speed": 2.5,
-      "is_rigid": true,
-      "z_index": 150,
+      "direction": 1,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1014,
         "frame": {
-          "x": 20,
+          "x": 4,
           "y": 0,
           "w": 1,
-          "h": 2
+          "h": 1
         },
         "number_of_frames": 4
       },
@@ -2372,13 +2310,13 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 20,
+        "x": 4,
         "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -2390,13 +2328,13 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": -420.0,
+      "remaining_lifespan": 4.094436,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
+      "parent_id": 420,
+      "is_invulnerable": false
     },
     {
       "id": 1726604386,
@@ -2411,7 +2349,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -6.1920533
+        "y": -8.7639675
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2458,12 +2396,136 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     },
     {
-      "id": 1726604387,
+      "id": 1726606375,
       "frame": {
-        "x": 95,
+        "x": 70,
+        "y": 75,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": -8.516267,
+        "y": 0.0
+      },
+      "direction": 3,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": 3.5401986,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 420,
+      "is_invulnerable": false
+    },
+    {
+      "id": 1726607013,
+      "frame": {
+        "x": 113,
+        "y": 82,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 2,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        1,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": 2.5878532,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 420,
+      "is_invulnerable": false
+    },
+    {
+      "id": 1726607016,
+      "frame": {
+        "x": 110,
         "y": 84,
         "w": 1,
         "h": 2
@@ -2472,10 +2534,10 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.13351,
+        "x": -1.857015,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 1.5,
       "is_rigid": true,
       "z_index": 150,
@@ -2520,193 +2582,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true
-    },
-    {
-      "id": 1726604851,
-      "frame": {
-        "x": 96,
-        "y": 77,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Ghost",
-      "species_id": 4003,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 4.9990788,
-        "y": 0.0
-      },
-      "direction": 2,
-      "current_speed": 2.5,
-      "is_rigid": true,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 20,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 20,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
-    },
-    {
-      "id": 1726605245,
-      "frame": {
-        "x": 97,
-        "y": 77,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Ghost",
-      "species_id": 4003,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": -10.185763
-      },
-      "direction": 0,
-      "current_speed": 2.5,
-      "is_rigid": true,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 20,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 20,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
-    },
-    {
-      "id": 1726605246,
-      "frame": {
-        "x": 96,
-        "y": 87,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Zombie",
-      "species_id": 4002,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": -2.8533416
-      },
-      "direction": 0,
-      "current_speed": 1.5,
-      "is_rigid": true,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 24,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 24,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true
+      "is_invulnerable": false
     }
   ]
 }

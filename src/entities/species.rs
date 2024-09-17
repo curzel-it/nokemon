@@ -71,7 +71,7 @@ impl Species {
             species_id: self.id,  
             entity_type: self.entity_type,
             offset: Vector2d::zero(),
-            direction: Direction::Unknown,
+            direction: Direction::Down,
             current_speed: initial_speed,
             is_rigid: self.is_rigid,
             z_index: self.z_index,

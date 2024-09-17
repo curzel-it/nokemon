@@ -1,5 +1,5 @@
 use serde_repr::{Serialize_repr, Deserialize_repr};
-use super::vector::Vector2d;
+use super::{rect::Rect, vector::Vector2d};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
@@ -36,4 +36,12 @@ impl Direction {
         if left { return Direction::Left }
         Direction::Unknown
     }
+}
+
+pub fn direction_between_rects(source: &Rect, other: &Rect) -> Direction {
+    if source.x > other.x { return Direction::Left }
+    if source.x < other.x { return Direction::Right }
+    if source.y > other.y { return Direction::Up }
+    if source.y < other.y { return Direction::Down }
+    return Direction::Unknown
 }

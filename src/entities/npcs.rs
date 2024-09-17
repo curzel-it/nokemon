@@ -1,10 +1,15 @@
-use crate::{constants::STEP_COMMITMENT_THRESHOLD, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::STEP_COMMITMENT_THRESHOLD, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::{direction_between_rects, Direction}, rect::Rect}};
 
 pub type NpcId = u32;
 
 const NO_DIALOG_SHOW_SHOP_INSTEAD: u32 = 3;
 
 impl Entity {
+    pub fn setup_npc(&mut self) {
+        self.setup_patrol();
+        self.update_sprite_for_current_direction();
+    }
+
     pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
         self.update_sprite_for_current_direction();
         self.handle_patrol();
@@ -20,6 +25,8 @@ impl Entity {
         }
 
         if world.is_hero_around_and_on_collision_with(&self.frame) {
+            self.direction = direction_between_rects(&self.frame, &world.cached_hero_props.hittable_frame);
+
             if world.creative_mode {
                 let vec = vec![
                     WorldStateUpdate::EngineUpdate(
