@@ -48,10 +48,10 @@ impl KeyboardEventsProvider {
             !rl.is_key_pressed(KeyboardKey::KEY_DOWN) &&
             !rl.is_key_pressed(KeyboardKey::KEY_LEFT);
 
-        self.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE);
+        self.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE) || rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE);
         self.has_menu_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ENTER);
-        self.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_SPACE);   
-        self.has_attack_key_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_F);        
+        self.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_E) || rl.is_key_pressed(KeyboardKey::KEY_ENTER);   
+        self.has_attack_key_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_SPACE);        
         self.has_backspace_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE);
 
         self.direction_up.update(rl, time_since_last_update);
