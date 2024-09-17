@@ -35,7 +35,6 @@
 "entity.menu.pickup" = "Pick up"
 "entity.menu.read" = "Read"
 "entity.menu.use" = "Use"
-"entity.menu.fight" = "Fight"
 "entity.menu.change_lock" = "Change Lock"
 "entity.menu.change_lock_title" = "Select Key Color"
 "entity.menu.change_on_off" = "Flip On/Off"

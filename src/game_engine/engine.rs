@@ -1,14 +1,13 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{combat::screen::FightScreen, constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_LARGE_HUMANOIDS, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_LARGE_HUMANOIDS, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_one_of_species_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
 pub struct GameEngine {
     pub menu: GameMenu,
     pub world: World,
-    pub fight_screen: FightScreen,
     pub loading_screen: LoadingScreen,
     pub long_text_display: LongTextDisplay,
     pub confirmation_dialog: ConfirmationDialog,
@@ -30,7 +29,6 @@ impl GameEngine {
         Self {
             menu: GameMenu::new(),
             world: World::load_or_create(WORLD_ID_NONE),
-            fight_screen: FightScreen::new(),
             loading_screen: LoadingScreen::new(),
             long_text_display: LongTextDisplay::new(50, 9),
             confirmation_dialog: ConfirmationDialog::new(),
@@ -126,14 +124,6 @@ impl GameEngine {
 
     fn update_menus(&mut self, time_since_last_update: f32) -> bool {
         let mut is_game_paused = false;
-
-        if !is_game_paused {
-            let keyboard = if self.fight_screen.is_open { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
-            let (pause, world_updates) = self.fight_screen.update(keyboard, time_since_last_update);
-            is_game_paused = is_game_paused || pause;
-            let engine_updates = self.world.apply_state_updates(world_updates);
-            self.apply_state_updates(engine_updates);
-        }
 
         if !is_game_paused {
             let keyboard = if self.long_text_display.is_open { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
@@ -304,9 +294,6 @@ impl GameEngine {
             }
             EngineStateUpdate::DisplayLongText(contents) => {
                 self.long_text_display.show(contents.clone())
-            }
-            EngineStateUpdate::Fight(entity) => {
-                self.fight_screen.show(entity)
             }
             EngineStateUpdate::DeathScreen => {
                 self.death_screen.show()

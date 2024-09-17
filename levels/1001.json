@@ -460,7 +460,7 @@
     {
       "id": 1726158824,
       "frame": {
-        "x": 92,
+        "x": 91,
         "y": 79,
         "w": 1,
         "h": 1
@@ -469,7 +469,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 9.135296,
+        "x": 11.748602,
         "y": 0.0
       },
       "direction": 2,
@@ -511,7 +511,7 @@
           {
             "direction": 2,
             "steps": 5,
-            "steps_left": 0
+            "steps_left": 1
           },
           {
             "direction": 3,
@@ -923,7 +923,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -11.103823
+        "y": -14.709923
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -1162,7 +1162,7 @@
       "id": 1726492162,
       "frame": {
         "x": 91,
-        "y": 120,
+        "y": 121,
         "w": 1,
         "h": 1
       },
@@ -1171,7 +1171,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 15.322467
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1212,10 +1212,10 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": 1.4926921,
+      "remaining_lifespan": 1.4476159,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -1915,7 +1915,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -6.662294
+        "y": -8.825954
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1965,68 +1965,6 @@
       "is_invulnerable": false
     },
     {
-      "id": 1726501645,
-      "frame": {
-        "x": 148,
-        "y": 85,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Kunai",
-      "species_id": 7000,
-      "entity_type": "Bullet",
-      "offset": {
-        "x": 15.322467,
-        "y": 0.0
-      },
-      "direction": 2,
-      "current_speed": 5.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1014,
-        "frame": {
-          "x": 4,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 4,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": 0.026820336,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 420,
-      "is_invulnerable": false
-    },
-    {
       "id": 1726606376,
       "frame": {
         "x": 70,
@@ -2038,7 +1976,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -8.516267,
+        "x": -15.728467,
         "y": 0.0
       },
       "direction": 3,
@@ -2083,7 +2021,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.6409767,
+      "remaining_lifespan": 3.5959005,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2100,7 +2038,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -2.16366,
         "y": 0.0
       },
       "direction": 3,
@@ -2141,7 +2079,7 @@
         "movements": []
       },
       "latest_movement": [
-        -1,
+        0,
         0
       ],
       "contents": null,
@@ -2162,7 +2100,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -11.103823,
+        "x": -14.709923,
         "y": 0.0
       },
       "direction": 3,
@@ -2225,7 +2163,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -8.7639675
+        "y": -10.927628
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2278,7 +2216,7 @@
       "id": 1726607014,
       "frame": {
         "x": 88,
-        "y": 93,
+        "y": 95,
         "w": 1,
         "h": 1
       },
@@ -2331,7 +2269,7 @@
         1
       ],
       "contents": null,
-      "remaining_lifespan": 4.094436,
+      "remaining_lifespan": 3.8930626,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2349,7 +2287,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -8.7639675
+        "y": -10.927628
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2410,7 +2348,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -8.516267,
+        "x": -15.728467,
         "y": 0.0
       },
       "direction": 3,
@@ -2455,7 +2393,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.5401986,
+      "remaining_lifespan": 3.4951224,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2463,7 +2401,7 @@
     {
       "id": 1726607013,
       "frame": {
-        "x": 113,
+        "x": 117,
         "y": 82,
         "w": 1,
         "h": 1
@@ -2517,7 +2455,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.5878532,
+      "remaining_lifespan": 2.1832647,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2525,8 +2463,8 @@
     {
       "id": 1726607016,
       "frame": {
-        "x": 110,
-        "y": 84,
+        "x": 99,
+        "y": 81,
         "w": 1,
         "h": 2
       },
@@ -2534,10 +2472,10 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -1.857015,
-        "y": 0.0
+        "x": 0.0,
+        "y": -4.887608
       },
-      "direction": 3,
+      "direction": 0,
       "current_speed": 1.5,
       "is_rigid": true,
       "z_index": 150,
