@@ -58,7 +58,7 @@ impl Entity {
 
     fn adjust_position_towards(&mut self, hero: &Rect, obstacles: &[Vec<bool>]) {
         let x = self.frame.x;
-        let y = self.frame.y.saturating_sub(if self.frame.h > 1 { 1 } else { 0 });
+        let y = self.frame.y.max(1) - if self.frame.h > 1 { 1 } else { 0 };
         let hero_x = hero.x;
         let hero_y = hero.y;
     

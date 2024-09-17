@@ -356,6 +356,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -373,7 +374,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294688,
@@ -420,6 +422,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -437,7 +440,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294689,
@@ -480,6 +484,7 @@
         "w": 2,
         "h": 2
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -497,7 +502,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294690,
@@ -540,6 +546,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -557,7 +564,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294691,
@@ -600,6 +608,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -617,7 +626,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294692,
@@ -660,6 +670,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -677,7 +688,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     },
     {
       "id": 1726294693,
@@ -720,6 +732,7 @@
         "w": 1,
         "h": 1
       },
+      "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
@@ -737,7 +750,8 @@
       "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0
+      "parent_id": 0,
+      "is_invulnerable": false
     }
   ]
 }

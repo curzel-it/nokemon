@@ -107,6 +107,7 @@ impl Species {
         entity.shooting_cooldown_remaining = 0.0;
         entity.melee_attacks_hero = self.melee_attacks_hero;
         entity.speed_multiplier = 1.0;
+        entity.is_invulnerable = false;
     }
 
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
