@@ -353,6 +353,7 @@ impl GameEngine {
 
         self.menu.current_world_id = self.world.id;
         self.keyboard.on_world_changed();
+        self.mouse.on_world_changed();
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {

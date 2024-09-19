@@ -2,8 +2,6 @@ use raylib::{ffi::MouseButton, RaylibHandle};
 
 use crate::constants::TILE_SIZE;
 
-pub const NO_MOUSE_EVENTS: MouseEventsProvider = MouseEventsProvider::new();
-
 pub struct MouseEventsProvider {
     pub has_left_been_pressed: bool,
     pub has_right_been_pressed: bool,

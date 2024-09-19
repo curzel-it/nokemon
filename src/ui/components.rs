@@ -37,12 +37,9 @@ pub struct GridSpacing {
 }
 
 pub enum AnchorPoint {
-    TopLeft,
     TopRight,
     Center,
-    BottomLeft,
     BottomCenter,
-    BottomRight,
 }
 
 pub enum View {
@@ -56,7 +53,6 @@ pub enum View {
     FullScreenBackdrop { children: Vec<View> },
     FixedPosition { position: Vector2d, children: Vec<View> },
     TexturedBorder { borders: BordersTextures, children: Vec<View> },
-    ProgressBar { foreground: Color, background: Color, value: f32 }
 }
 
 pub struct TextureInfo {
@@ -259,18 +255,12 @@ impl View {
         position: &Vector2d,
         anchor_point: AnchorPoint
     ) {
-        if let AnchorPoint::TopLeft = anchor_point {
-            return self.render(d, config, position);
-        }
         let size = self.calculate_size(config);
 
         let (x, y) = match anchor_point {
-            AnchorPoint::TopLeft => (position.x, position.y),
             AnchorPoint::TopRight => (position.x - size.x, position.y),
             AnchorPoint::Center => (position.x - size.x / 2.0, position.y - size.y / 2.0),
-            AnchorPoint::BottomRight => (position.x - size.x, position.y - size.y),
             AnchorPoint::BottomCenter => (position.x - size.x / 2.0, position.y - size.y),
-            AnchorPoint::BottomLeft => (position.x, position.y - size.y)
         };
 
         let real_position = Vector2d::new(x, y);
@@ -314,26 +304,7 @@ impl View {
             View::TexturedBorder { borders, children } => {
                 self.render_textured_borders(d, config, borders, position, children)
             }
-            View::ProgressBar { foreground, background, value } => {
-                self.render_progress_bar(d, config, position, foreground, background, value)
-            }
         }
-    }
-
-    fn render_progress_bar(
-        &self,
-        d: &mut RaylibDrawHandle,
-        config: &RenderingConfig,
-        position: &Vector2d,
-        foreground: &Color,
-        background: &Color,
-        value: &f32,
-    ) {
-        let size = self.calculate_size(config);
-        let fg_size = Vector2d::new(size.x * value, size.y);
-
-        d.draw_rectangle_v(position.as_rv(), size.as_rv(), background);
-        d.draw_rectangle_v(position.as_rv(), fg_size.as_rv(), foreground);
     }
 
     fn render_textured_borders(
@@ -619,14 +590,7 @@ impl View {
             View::TexturedBorder { borders: _, children } => {
                 self.calculate_textured_border_size(config, children)                
             }
-            View::ProgressBar{ foreground: _, background: _, value: _ } => {
-                self.calculate_progress_bar_size(config)                
-            }
         }
-    }
-
-    fn calculate_progress_bar_size(&self, config: &RenderingConfig) -> Vector2d {
-        Vector2d::new(160.0, 10.0).scaled(config.rendering_scale)
     }
 
     fn calculate_textured_border_size(&self, config: &RenderingConfig, children: &[View]) -> Vector2d {
