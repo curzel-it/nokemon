@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::Inventory, map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
@@ -78,6 +78,7 @@ impl GameMenu {
         &mut self, 
         camera_vieport: &Rect, 
         keyboard: &KeyboardEventsProvider, 
+        mouse: &MouseEventsProvider,
         time_since_last_update: f32
     ) -> MenuUpdate {
         if self.is_open() && self.menu.selection_has_been_confirmed {
@@ -89,8 +90,8 @@ impl GameMenu {
             MenuState::Closed => self.update_from_close(keyboard),
             MenuState::Open => self.update_from_open(keyboard, time_since_last_update),
             MenuState::Inventory => self.update_from_inventory(keyboard, time_since_last_update),
-            MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard),
-            MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard),
+            MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard, mouse),
+            MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard, mouse),
         };
         (self.is_open(), updates)
     }
@@ -155,11 +156,11 @@ impl GameMenu {
         self.inventory.update(keyboard)
     }
 
-    fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::Open;
         }
-        self.map_editor.update(camera_vieport, keyboard);
+        self.map_editor.update(camera_vieport, keyboard, mouse);
 
         if self.map_editor.is_placing_item() {
             self.state = MenuState::PlaceItem;
@@ -167,19 +168,19 @@ impl GameMenu {
         vec![]
     }
 
-    fn update_from_place_item(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_from_place_item(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::MapEditor;
         }
-        self.map_editor.update(camera_vieport, keyboard)
+        self.map_editor.update(camera_vieport, keyboard, mouse)
     }
 
-    pub fn ui(&self, camera_offset: &Vector2d) -> View {
+    pub fn ui(&self, camera_viewport: &Rect) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::Zero),
             MenuState::Open => self.menu.ui(),
             MenuState::Inventory => self.inventory.ui(),
-            MenuState::MapEditor | MenuState::PlaceItem => self.map_editor.ui(camera_offset),
+            MenuState::MapEditor | MenuState::PlaceItem => self.map_editor.ui(camera_viewport),
         }
     }
 }

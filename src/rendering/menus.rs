@@ -4,7 +4,7 @@ use crate::{game_engine::engine::GameEngine, ui::components::{render_from, Ancho
 
 pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     let ui_config = engine.ui_config.as_ref().unwrap();
-    render_centered_menu(d, ui_config, &engine.menu.ui(&engine.camera_viewport_offset));
+    render_centered_menu(d, ui_config, &engine.menu.ui(&engine.camera_viewport));
     render_centered_menu(d, ui_config, &engine.entity_options_menu.ui());
     render_centered_menu(d, ui_config, &engine.dialogue_menu.ui());
     render_centered_menu(d, ui_config, &engine.confirmation_dialog.ui());

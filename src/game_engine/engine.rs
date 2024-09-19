@@ -3,7 +3,7 @@ use common_macros::hash_map;
 use raylib::prelude::*;
 use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HOUSEHOLD_OBJECTS, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_LARGE_HUMANOIDS, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
 
-use super::{inventory::{add_to_inventory, remove_from_inventory, remove_one_of_species_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
+use super::{inventory::{add_to_inventory, remove_from_inventory, remove_one_of_species_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
 pub struct GameEngine {
     pub menu: GameMenu,
@@ -17,6 +17,7 @@ pub struct GameEngine {
     pub creep_spawner: CreepSpawner,
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
+    pub mouse: MouseEventsProvider,
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
     pub ui_config: Option<RenderingConfig>,
@@ -38,6 +39,7 @@ impl GameEngine {
             creep_spawner: CreepSpawner::new(),
             entity_options_menu: EntityOptionsMenu::new(),
             keyboard: KeyboardEventsProvider::new(),
+            mouse: MouseEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
             ui_config: None,
@@ -84,12 +86,9 @@ impl GameEngine {
         (rl, thread)
     }
 
-    pub fn update_rl(
-        &mut self, 
-        rl: &mut RaylibHandle,
-        time_since_last_update: f32,
-    ) {
+    pub fn update_rl(&mut self, rl: &mut RaylibHandle, time_since_last_update: f32) {
         self.keyboard.update(rl, time_since_last_update);
+        self.mouse.update(rl, self.ui_config.as_ref().unwrap().rendering_scale);
         self.update(time_since_last_update);
     } 
 
@@ -158,7 +157,7 @@ impl GameEngine {
         if !is_game_paused {
             let can_handle = self.menu.is_open() || self.keyboard.has_menu_been_pressed;
             let keyboard = if can_handle { &self.keyboard } else { &NO_KEYBOARD_EVENTS };
-            let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, time_since_last_update);
+            let (pause, world_updates) = self.menu.update(&self.camera_viewport, keyboard, &self.mouse, time_since_last_update);
             is_game_paused = is_game_paused || pause;
             let engine_updates = self.world.apply_state_updates(world_updates);
             self.apply_state_updates(engine_updates);
