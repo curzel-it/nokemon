@@ -76,8 +76,8 @@
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA55555555555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
-      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4444AAAAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
-      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA444444444AAAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4444AAAAAA6AA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA444444444AAAAA6AA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA44444422444AAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA44222222244AAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA44222222244AAAAAAA55999999955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1",
@@ -469,7 +469,7 @@
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
-        "x": 14.5770645,
+        "x": 9.530747,
         "y": 0.0
       },
       "direction": 2,
@@ -923,7 +923,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -12.52565
+        "y": -15.274083
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -1162,7 +1162,7 @@
       "id": 1726492162,
       "frame": {
         "x": 91,
-        "y": 122,
+        "y": 123,
         "w": 1,
         "h": 1
       },
@@ -1171,7 +1171,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 12.1080065
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1212,10 +1212,10 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": 1.2498566,
+      "remaining_lifespan": 1.2155012,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -1915,7 +1915,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -1.69976
+        "y": -3.34882
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1976,7 +1976,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -5.665867,
+        "x": -11.162733,
         "y": 0.0
       },
       "direction": 3,
@@ -2021,7 +2021,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.2977014,
+      "remaining_lifespan": 3.263346,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2038,7 +2038,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -11.656101,
+        "x": -13.305161,
         "y": 0.0
       },
       "direction": 3,
@@ -2100,7 +2100,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -12.52565,
+        "x": -15.274083,
         "y": 0.0
       },
       "direction": 3,
@@ -2163,7 +2163,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.632402
+        "y": -5.2814617
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2216,7 +2216,7 @@
       "id": 1726607014,
       "frame": {
         "x": 88,
-        "y": 96,
+        "y": 97,
         "w": 1,
         "h": 1
       },
@@ -2225,7 +2225,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 12.1080065
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2266,10 +2266,10 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
-      "remaining_lifespan": 3.6953037,
+      "remaining_lifespan": 3.6609483,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2287,7 +2287,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.632402
+        "y": -5.2814617
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2348,7 +2348,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -5.665867,
+        "x": -11.162733,
         "y": 0.0
       },
       "direction": 3,
@@ -2393,7 +2393,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.1969233,
+      "remaining_lifespan": 3.1625679,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2410,7 +2410,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": 5.4968667,
         "y": 0.0
       },
       "direction": 2,
@@ -2451,11 +2451,11 @@
         "movements": []
       },
       "latest_movement": [
-        1,
+        0,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.968032,
+      "remaining_lifespan": 1.9336766,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2472,7 +2472,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -5.665867,
+        "x": -11.162733,
         "y": 0.0
       },
       "direction": 3,
@@ -2517,7 +2517,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.9343054,
+      "remaining_lifespan": 2.89995,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
