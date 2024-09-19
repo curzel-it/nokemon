@@ -42,7 +42,7 @@ impl MapEditor {
         keyboard: &KeyboardEventsProvider,
         mouse: &MouseEventsProvider,
     ) -> Vec<WorldStateUpdate> {
-        self.camera_viewport = camera_viewport.clone();
+        self.camera_viewport = *camera_viewport;
 
         match self.state.clone() {
             MapEditorState::SelectingItem(selected_index) => {
@@ -241,7 +241,7 @@ impl Stockable {
 
 impl Stockable {
     fn ui(&self, index: usize, selected_index: usize) -> View {
-        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE as f32;
+        let selected_size = 1.5 - 2.0 * Spacing::XS.unscaled_value() / TILE_SIZE;
 
         if index == selected_index {
             zstack!(
@@ -324,13 +324,13 @@ impl MapEditor {
             text!(Typography::Regular, "map_editor.placement".localized()),
             with_fixed_position(
                 Vector2d::new(
-                    TILE_SIZE as f32 * (frame.x - camera_viewport.x) as f32,
-                    TILE_SIZE as f32 * (frame.y - camera_viewport.y) as f32,
+                    TILE_SIZE * (frame.x - camera_viewport.x) as f32,
+                    TILE_SIZE * (frame.y - camera_viewport.y) as f32,
                 ),
                 zstack!(
                     Spacing::Zero,
                     Color::RED,
-                    spacing!(Spacing::Custom(TILE_SIZE as f32 * frame.w as f32))
+                    spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32))
                 )
             )
         )
