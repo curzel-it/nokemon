@@ -9,7 +9,7 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     let h = d.get_screen_height();
 
     Layout::new(w, h, hash_map! {
-        AnchorPoint::Center => vec![
+        AnchorPoint::BottomCenter => vec![
             engine.menu.ui(&engine.camera_viewport),
             engine.entity_options_menu.ui(),
             engine.dialogue_menu.ui(),
