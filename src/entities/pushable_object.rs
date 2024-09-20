@@ -1,4 +1,4 @@
-use crate::{features::linear_movement::would_collide, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
+use crate::{features::linear_movement::{would_collide, would_over_weight}, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::Direction};
 
 impl Entity {
     pub fn update_pushable(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
@@ -26,7 +26,10 @@ impl Entity {
                 Direction::Unknown => false,
             };
             if is_around {
-                if would_collide(&self.frame, &hero_direction, &world.hitmap) {
+                let hits = would_collide(&self.frame, &hero_direction, &world.hitmap);
+                let weights = would_over_weight(&self.frame, &hero_direction, &world.weights_map);
+                
+                if hits || weights {
                     return vec![WorldStateUpdate::StopHeroMovement]
                 } else {
                     self.direction = hero_direction;

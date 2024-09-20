@@ -525,6 +525,27 @@
         "lock_type": "None"
     },
     {
+        "id": 1031,
+        "name": "objects.name.boulder",
+        "entity_type": "PushableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            3
+        ],
+        "sprite_frame": {
+            "x": 2,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
         "id": 1040,
         "name": "objects.name.gate.yellow",
         "entity_type": "Gate",

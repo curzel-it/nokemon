@@ -1,6 +1,6 @@
 use crate::{constants::{BASE_ENTITY_SPEED, HERO_ENTITY_ID, TILE_SIZE}, game_engine::{entity::Entity, world::World}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::hitmap::Hitmap;
+use super::hitmap::{Hitmap, WeightsMap};
 
 impl Entity {
     pub fn move_linearly(&mut self, world: &World, time_since_last_update: f32) { 
@@ -70,6 +70,13 @@ pub fn would_collide(frame: &Rect, direction: &Direction, hitmap: &Hitmap) -> bo
     let base_y = frame.y + frame.h - 1;
     let base_x = frame.x;
     hitmap[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize]
+}
+
+pub fn would_over_weight(frame: &Rect, direction: &Direction, weights_map: &WeightsMap) -> bool {
+    let (col_offset, row_offset) = direction.as_col_row_offset();
+    let base_y = frame.y + frame.h - 1;
+    let base_x = frame.x;
+    weights_map[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize] > 0
 }
 
 pub fn would_collide_with_hero(frame: &Rect, direction: &Direction, world: &World) -> bool {

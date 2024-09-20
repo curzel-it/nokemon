@@ -15,6 +15,7 @@ pub enum Construction {
     TallGrass,
     Forest,
     Bamboo,
+    Box,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -39,7 +40,12 @@ impl SpriteTile for ConstructionTile {
 
 impl ConstructionTile {
     pub fn is_obstacle(&self) -> bool {
-        !matches!(self.tile_type, Construction::Nothing | Construction::TallGrass)
+        match self.tile_type {
+            Construction::Nothing => false,
+            Construction::TallGrass => false,
+            Construction::Box => false,
+            _ => true
+        }
     }
 
     pub fn setup_neighbors(&mut self, up: Construction, right: Construction, bottom: Construction, left: Construction) {
@@ -92,6 +98,7 @@ impl Construction {
             Construction::TallGrass => 7,
             Construction::Forest => 8,
             Construction::Bamboo => 9,
+            Construction::Box => 10,
         }
     }
 }
@@ -132,6 +139,7 @@ impl Construction {
             '7' => Construction::TallGrass,
             '8' => Construction::Forest,
             '9' => Construction::Bamboo,
+            'A' => Construction::Box,
             _ => Construction::Nothing,
         }
     }
@@ -147,6 +155,7 @@ impl Construction {
             Construction::TallGrass => '7',
             Construction::Forest => '8',
             Construction::Bamboo => '9',
+            Construction::Box => 'A',
         }
     }
 }
