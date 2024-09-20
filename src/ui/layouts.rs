@@ -9,7 +9,7 @@ use super::components::{RenderingConfig, View};
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub enum AnchorPoint {
     Center,
-    TopLeft,
+    // TopLeft,
     TopRight,
     BottomCenter,
 }
@@ -44,10 +44,7 @@ impl Layout {
                 (self.frame.x as f32 + self.frame.w as f32 - size.x) / 2.0, 
                 (self.frame.y as f32 + self.frame.w as f32 - size.y) / 2.0
             ), 
-            AnchorPoint::TopLeft => (
-                0.0, 
-                0.0
-            ), 
+            // AnchorPoint::TopLeft => (0.0, 0.0), 
             AnchorPoint::TopRight => (
                 self.frame.x as f32 + self.frame.w as f32 - size.x, 
                 0.0
