@@ -1,39 +1,23 @@
+use common_macros::hash_map;
 use raylib::prelude::*;
 
-use crate::{game_engine::engine::GameEngine, ui::components::{render_from, AnchorPoint, RenderingConfig, View}, utils::vector::Vector2d};
+use crate::{game_engine::engine::GameEngine, ui::layouts::{AnchorPoint, Layout}};
 
 pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     let ui_config = engine.ui_config.as_ref().unwrap();
-    render_centered_menu(d, ui_config, &engine.menu.ui(&engine.camera_viewport));
-    render_centered_menu(d, ui_config, &engine.entity_options_menu.ui());
-    render_centered_menu(d, ui_config, &engine.dialogue_menu.ui());
-    render_centered_menu(d, ui_config, &engine.confirmation_dialog.ui());
-    render_centered_menu(d, ui_config, &engine.long_text_display.ui());
-    render_top_right_menu(d, ui_config, &engine.toast.ui());
-}
+    let w = d.get_screen_width();
+    let h = d.get_screen_height();
 
-fn render_top_right_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {
-    render_from(
-        AnchorPoint::TopRight,
-        view,
-        d, 
-        ui_config, 
-        &Vector2d::new(
-            ui_config.canvas_size.x, 
-            0.0
-        )
-    );
-}
-
-fn render_centered_menu(d: &mut RaylibDrawHandle, ui_config: &RenderingConfig, view: &View) {
-    render_from(
-        AnchorPoint::BottomCenter,
-        view,
-        d, 
-        ui_config, 
-        &Vector2d::new(
-            ui_config.canvas_size.x / 2.0, 
-            ui_config.canvas_size.y
-        )
-    );
+    Layout::new(w, h, hash_map! {
+        AnchorPoint::Center => vec![
+            engine.menu.ui(&engine.camera_viewport),
+            engine.entity_options_menu.ui(),
+            engine.dialogue_menu.ui(),
+            engine.confirmation_dialog.ui(),
+            engine.long_text_display.ui(),
+        ],
+        AnchorPoint::TopRight => vec![
+            engine.toast.ui()
+        ]
+    }).render(d, ui_config);
 }

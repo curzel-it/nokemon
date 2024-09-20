@@ -36,12 +36,6 @@ pub struct GridSpacing {
     between_rows: Spacing,
 }
 
-pub enum AnchorPoint {
-    TopRight,
-    Center,
-    BottomCenter,
-}
-
 pub enum View {
     ZStack { spacing: Spacing, background_color: Color, children: Vec<View> },
     VStack { spacing: Spacing, children: Vec<View> },
@@ -163,10 +157,6 @@ pub fn empty_view() -> View {
     with_fixed_position(Vector2d::zero(), spacing!(Spacing::Zero))
 }
 
-pub fn render_from(anchor_point: AnchorPoint, view: &View, d: &mut RaylibDrawHandle, config: &RenderingConfig, position: &Vector2d) {
-    view.render_from(d, config, position, anchor_point);
-}
-
 impl GridSpacing {
     pub fn new(between_rows: Spacing, between_columns: Spacing) -> Self {
         Self {
@@ -248,26 +238,7 @@ impl View {
         !matches!(self, View::FixedPosition { position: _, children: _})
     }
 
-    fn render_from(
-        &self, 
-        d: &mut RaylibDrawHandle, 
-        config: &RenderingConfig, 
-        position: &Vector2d,
-        anchor_point: AnchorPoint
-    ) {
-        let size = self.calculate_size(config);
-
-        let (x, y) = match anchor_point {
-            AnchorPoint::TopRight => (position.x - size.x, position.y),
-            AnchorPoint::Center => (position.x - size.x / 2.0, position.y - size.y / 2.0),
-            AnchorPoint::BottomCenter => (position.x - size.x / 2.0, position.y - size.y),
-        };
-
-        let real_position = Vector2d::new(x, y);
-        self.render(d, config, &real_position)
-    }
-
-    fn render(
+    pub fn render(
         &self, 
         d: &mut RaylibDrawHandle, 
         config: &RenderingConfig, 
@@ -558,7 +529,7 @@ impl View {
 }
 
 impl View {
-    fn calculate_size(&self, config: &RenderingConfig) -> Vector2d {
+    pub fn calculate_size(&self, config: &RenderingConfig) -> Vector2d {
         match self {
             View::ZStack { spacing, background_color: _, children } => {
                 self.calculate_zstack_size(config, children, spacing)
