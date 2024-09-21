@@ -102,6 +102,7 @@ impl Entity {
             EntityType::PressurePlate => self.update_pressure_plate(world, time_since_last_update),
             EntityType::Bullet => self.update_bullet(world, time_since_last_update),
             EntityType::Bundle => self.update_generic(world, time_since_last_update),
+            EntityType::RailObject => self.update_rail(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
         let mut more_updates = self.check_remaining_lifespan(time_since_last_update);
@@ -125,6 +126,7 @@ impl Entity {
             EntityType::PressurePlate => self.setup_pressure_plate(),
             EntityType::Bullet => self.setup_bullet(),
             EntityType::Bundle => self.setup_generic(),
+            EntityType::RailObject => self.setup_rail(),
         }
     }
 

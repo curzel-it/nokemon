@@ -352,6 +352,9 @@ impl EntityOptionsMenu {
             EntityType::PushableObject => vec![
                 EntityOptionMenuItem::Remove,
             ],
+            EntityType::RailObject => vec![
+                EntityOptionMenuItem::Remove,
+            ],
             EntityType::Gate => vec![
                 EntityOptionMenuItem::Remove,
             ],

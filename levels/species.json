@@ -1178,5 +1178,27 @@
         "sprite_number_of_frames": 5,
         "lock_type": "None",
         "is_consumable": true
+    },
+    {
+        "id": 9000,
+        "name": "objects.name.rail.cart",
+        "entity_type": "RailObject",
+        "z_index": 50,
+        "base_speed": 1.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            6,
+            3
+        ],
+        "sprite_frame": {
+            "x": 2,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None",
+        "is_consumable": true
     }
 ]

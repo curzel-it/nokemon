@@ -54,6 +54,7 @@ pub enum EntityType {
     PressurePlate,
     Bullet,
     Bundle,
+    RailObject,
 }
 
 impl Species {
@@ -102,6 +103,7 @@ impl Species {
         let sprite = self.make_sprite(false);        
         entity.frame.w = sprite.frame.w;  
         entity.frame.h = sprite.frame.h;  
+        entity.offset = Vector2d::zero();
         entity.original_sprite_frame = sprite.frame;
         entity.entity_type = self.entity_type;
         entity.is_rigid = self.is_rigid;

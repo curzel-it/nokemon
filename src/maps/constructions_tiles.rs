@@ -16,6 +16,7 @@ pub enum Construction {
     Forest,
     Bamboo,
     Box,
+    Rail,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -44,6 +45,7 @@ impl ConstructionTile {
             Construction::Nothing => false,
             Construction::TallGrass => false,
             Construction::Box => false,
+            Construction::Rail => false,
             _ => true
         }
     }
@@ -99,6 +101,7 @@ impl Construction {
             Construction::Forest => 8,
             Construction::Bamboo => 9,
             Construction::Box => 10,
+            Construction::Rail => 11,
         }
     }
 }
@@ -140,6 +143,7 @@ impl Construction {
             '8' => Construction::Forest,
             '9' => Construction::Bamboo,
             'A' => Construction::Box,
+            'B' => Construction::Rail,
             _ => Construction::Nothing,
         }
     }
@@ -156,6 +160,7 @@ impl Construction {
             Construction::Forest => '8',
             Construction::Bamboo => '9',
             Construction::Box => 'A',
+            Construction::Rail => 'B',
         }
     }
 }
