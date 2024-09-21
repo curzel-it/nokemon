@@ -7,6 +7,7 @@ pub enum EntityOptionMenuItem {
     Rename,
     PickUp,
     Read(String),
+    ToggleDemandAttention,
     UseItem,
     ChangeLock,
     ChangeDestinationWorld,
@@ -22,6 +23,7 @@ impl MenuItem for EntityOptionMenuItem {
             EntityOptionMenuItem::PickUp => "entity.menu.pickup".localized(),
             EntityOptionMenuItem::UseItem => "entity.menu.use".localized(),
             EntityOptionMenuItem::Read(_) => "entity.menu.read".localized(),
+            EntityOptionMenuItem::ToggleDemandAttention => "entity.menu.toggle_demand_attention".localized(),
             EntityOptionMenuItem::ChangeLock => "entity.menu.change_lock".localized(),
             EntityOptionMenuItem::ChangeDestinationWorld => "entity.menu.change_destination_world".localized(),
             EntityOptionMenuItem::ChangeDestinationX => "entity.menu.change_destination_x".localized(),
@@ -205,6 +207,13 @@ impl EntityOptionsMenu {
                     self.ask_for_new_name();
                     vec![]
                 },
+                EntityOptionMenuItem::ToggleDemandAttention => {
+                    self.menu.clear_selection();
+                    self.menu.close();
+                    vec![
+                        WorldStateUpdate::ToggleDemandAttention(self.entity.id),
+                    ]
+                },
                 EntityOptionMenuItem::PickUp => {
                     self.menu.clear_selection();
                     self.menu.close();
@@ -329,6 +338,7 @@ impl EntityOptionsMenu {
             EntityType::Hero => nothing,
             EntityType::Npc => vec![
                 EntityOptionMenuItem::Rename,
+                EntityOptionMenuItem::ToggleDemandAttention,
                 EntityOptionMenuItem::Remove,
             ],
             EntityType::Building => vec![

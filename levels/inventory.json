@@ -59,131 +59,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
-  },
-  {
-    "id": 1726605298,
-    "frame": {
-      "x": 101,
-      "y": 27,
-      "w": 1,
-      "h": 1
-    },
-    "name": "Kunai",
-    "species_id": 7000,
-    "entity_type": "Bullet",
-    "offset": {
-      "x": 0.0,
-      "y": 0.0
-    },
-    "direction": 4,
-    "current_speed": 0.0,
-    "is_rigid": false,
-    "z_index": 300,
-    "sprite": {
-      "sheet_id": 1014,
-      "frame": {
-        "x": 4,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "number_of_frames": 4
-    },
-    "dialogues": {
-      "options": []
-    },
-    "time_immobilized": 0.0,
-    "destination": null,
-    "lock_type": "None",
-    "original_sprite_frame": {
-      "x": 4,
-      "y": 0,
-      "w": 1,
-      "h": 1
-    },
-    "speed_multiplier": 1.0,
-    "melee_attacks_hero": false,
-    "is_dying": false,
-    "patrol": {
-      "initial_position": [
-        0,
-        0
-      ],
-      "current_index": 0,
-      "movements": []
-    },
-    "latest_movement": [
-      0,
-      0
-    ],
-    "contents": null,
-    "remaining_lifespan": -420.0,
-    "shooting_cooldown_remaining": 0.0,
-    "parent_id": 0,
-    "is_invulnerable": true
-  },
-  {
-    "id": 1726899862,
-    "frame": {
-      "x": 4,
-      "y": 0,
-      "w": 1,
-      "h": 1
-    },
-    "name": "Kunai",
-    "species_id": 7000,
-    "entity_type": "Bullet",
-    "offset": {
-      "x": 0.0,
-      "y": 0.0
-    },
-    "direction": 1,
-    "current_speed": 0.0,
-    "is_rigid": false,
-    "z_index": 300,
-    "sprite": {
-      "sheet_id": 1014,
-      "frame": {
-        "x": 4,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "number_of_frames": 4
-    },
-    "dialogues": {
-      "options": []
-    },
-    "time_immobilized": 0.0,
-    "destination": null,
-    "lock_type": "None",
-    "original_sprite_frame": {
-      "x": 4,
-      "y": 0,
-      "w": 1,
-      "h": 1
-    },
-    "speed_multiplier": 1.0,
-    "melee_attacks_hero": false,
-    "is_dying": false,
-    "patrol": {
-      "initial_position": [
-        0,
-        0
-      ],
-      "current_index": 0,
-      "movements": []
-    },
-    "latest_movement": [
-      0,
-      0
-    ],
-    "contents": null,
-    "remaining_lifespan": -420.0,
-    "shooting_cooldown_remaining": 0.0,
-    "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899863,
@@ -245,7 +122,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899864,
@@ -307,7 +185,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899865,
@@ -369,7 +248,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899866,
@@ -431,7 +311,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899867,
@@ -493,7 +374,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899868,
@@ -555,7 +437,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899869,
@@ -617,7 +500,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899870,
@@ -679,7 +563,8 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
   },
   {
     "id": 1726899871,
@@ -741,6 +626,1267 @@
     "remaining_lifespan": -420.0,
     "shooting_cooldown_remaining": 0.0,
     "parent_id": 0,
-    "is_invulnerable": false
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951268,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951269,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951270,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951271,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951272,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951273,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951274,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951275,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951276,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951277,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951392,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951393,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951394,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951395,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951396,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951397,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951398,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951399,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951400,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 1726951401,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Kunai",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": {
+      "options": []
+    },
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
   }
 ]

@@ -7,11 +7,11 @@ const NO_DIALOG_SHOW_SHOP_INSTEAD: u32 = 3;
 impl Entity {
     pub fn setup_npc(&mut self) {
         self.setup_patrol();
-        self.update_sprite_for_current_direction();
+        self.update_sprite_for_current_state();
     }
 
     pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
-        self.update_sprite_for_current_direction();
+        self.update_sprite_for_current_state();
         self.handle_patrol();
         self.move_linearly(world, time_since_last_update);
         
@@ -37,6 +37,8 @@ impl Entity {
                 ];
                 return vec;  
             } else if let Some(dialogue) = self.next_dialogue() {
+                self.demands_attention = false;
+
                 if dialogue.id == NO_DIALOG_SHOW_SHOP_INSTEAD {
                     return vec![
                         WorldStateUpdate::EngineUpdate(

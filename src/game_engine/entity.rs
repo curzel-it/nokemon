@@ -77,6 +77,9 @@ pub struct Entity {
 
     #[serde(default)]
     pub is_invulnerable: bool,
+
+    #[serde(default)]
+    pub demands_attention: bool,
 }
 
 fn unlimited_lifespan() -> f32 {

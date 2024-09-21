@@ -95,7 +95,8 @@ impl Species {
             is_dying: false,
             melee_attacks_hero: self.melee_attacks_hero,
             speed_multiplier: 1.0,
-            is_invulnerable: false
+            is_invulnerable: false,
+            demands_attention: false
         }
     }
 

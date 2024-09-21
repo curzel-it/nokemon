@@ -141,6 +141,9 @@ impl World {
             WorldStateUpdate::RenameEntity(id, new_name) => {
                 self.rename_entity(id, new_name)
             }
+            WorldStateUpdate::ToggleDemandAttention(id) => {
+                self.toggle_demand_attention(id)
+            }
             WorldStateUpdate::UseItem(species_id) => {
                 self.use_item(species_id)
             }
@@ -211,6 +214,13 @@ impl World {
         if let Some(entity) = entities.iter_mut().find(|e| e.id == HERO_ENTITY_ID) {            
             entity.offset = Vector2d::zero();
             entity.current_speed = 0.0;
+        }
+    }
+
+    fn toggle_demand_attention(&mut self, id: u32) {
+        let mut entities = self.entities.borrow_mut();
+        if let Some(entity) = entities.iter_mut().find(|e| e.id == id) {
+            entity.demands_attention = !entity.demands_attention
         }
     }
 

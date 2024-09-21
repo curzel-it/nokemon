@@ -377,7 +377,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726097753,
@@ -455,12 +456,13 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726899860,
       "frame": {
-        "x": 111,
+        "x": 117,
         "y": 75,
         "w": 1,
         "h": 1
@@ -469,7 +471,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 6.8870068,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -510,14 +512,15 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        1,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.2481308,
+      "remaining_lifespan": 2.4805605,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726207469,
@@ -579,7 +582,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726207470,
@@ -641,7 +645,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726257848,
@@ -703,7 +708,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726257847,
@@ -769,7 +775,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294684,
@@ -831,7 +838,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294686,
@@ -897,7 +905,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726604382,
@@ -912,7 +921,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.4435034
+        "y": -3.3306167
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -959,7 +968,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493394,
@@ -1021,7 +1031,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493406,
@@ -1083,7 +1094,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493404,
@@ -1145,7 +1157,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726492162,
@@ -1160,7 +1173,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.8870068
+        "y": 6.6612334
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1204,10 +1217,11 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.0075531,
+      "remaining_lifespan": 0.80167997,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493398,
@@ -1269,7 +1283,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493402,
@@ -1331,7 +1346,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493399,
@@ -1393,7 +1409,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493400,
@@ -1455,7 +1472,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493408,
@@ -1517,7 +1535,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493405,
@@ -1579,7 +1598,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493385,
@@ -1641,7 +1661,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493386,
@@ -1703,7 +1724,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493387,
@@ -1765,7 +1787,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493388,
@@ -1827,7 +1850,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726493391,
@@ -1889,7 +1913,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726604381,
@@ -1904,7 +1929,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -2.066102
+        "y": -1.9983699
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1951,7 +1976,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726606376,
@@ -1965,7 +1991,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.8870068,
+        "x": -6.6612334,
         "y": 0.0
       },
       "direction": 3,
@@ -2010,10 +2036,11 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.0553977,
+      "remaining_lifespan": 2.8495247,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726501642,
@@ -2027,7 +2054,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -2.066102,
+        "x": -1.9983699,
         "y": 0.0
       },
       "direction": 3,
@@ -2075,7 +2102,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726604383,
@@ -2089,7 +2117,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -3.4435034,
+        "x": -3.3306167,
         "y": 0.0
       },
       "direction": 3,
@@ -2137,7 +2165,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726604384,
@@ -2152,7 +2181,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -2.066102
+        "y": -1.9983699
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2199,7 +2228,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726607014,
@@ -2214,7 +2244,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.8870068
+        "y": 6.6612334
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2258,10 +2288,11 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.453,
+      "remaining_lifespan": 3.247127,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726604386,
@@ -2276,7 +2307,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -2.066102
+        "y": -1.9983699
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2323,7 +2354,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726606375,
@@ -2337,7 +2369,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.8870068,
+        "x": -6.6612334,
         "y": 0.0
       },
       "direction": 3,
@@ -2382,10 +2414,11 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.9546196,
+      "remaining_lifespan": 2.7487466,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726607013,
@@ -2399,7 +2432,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 6.8870068,
+        "x": 6.6612334,
         "y": 0.0
       },
       "direction": 2,
@@ -2444,10 +2477,11 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.7257285,
+      "remaining_lifespan": 1.5198554,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726609099,
@@ -2461,7 +2495,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.8870068,
+        "x": -6.6612334,
         "y": 0.0
       },
       "direction": 3,
@@ -2506,15 +2540,16 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.6920018,
+      "remaining_lifespan": 2.4861288,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726942949,
       "frame": {
-        "x": 91,
+        "x": 93,
         "y": 67,
         "w": 1,
         "h": 1
@@ -2523,7 +2558,70 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -2.0740366,
+        "x": 8.521656,
+        "y": 0.0
+      },
+      "direction": 2,
+      "current_speed": 3.6000001,
+      "is_rigid": true,
+      "z_index": 50,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 2,
+          "y": 3,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 2,
+        "y": 3,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1726946638,
+      "frame": {
+        "x": 89,
+        "y": 61,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Rail Cart",
+      "species_id": 9000,
+      "entity_type": "RailObject",
+      "offset": {
+        "x": -4.796088,
         "y": 0.0
       },
       "direction": 3,
@@ -2571,13 +2669,14 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
-      "id": 1726946638,
+      "id": 1726946639,
       "frame": {
-        "x": 87,
-        "y": 62,
+        "x": 92,
+        "y": 54,
         "w": 1,
         "h": 1
       },
@@ -2586,9 +2685,9 @@
       "entity_type": "RailObject",
       "offset": {
         "x": 0.0,
-        "y": 6.6226926
+        "y": -4.796088
       },
-      "direction": 1,
+      "direction": 0,
       "current_speed": 3.6000001,
       "is_rigid": true,
       "z_index": 50,
@@ -2633,75 +2732,14 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
-    },
-    {
-      "id": 1726946639,
-      "frame": {
-        "x": 90,
-        "y": 58,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Rail Cart",
-      "species_id": 9000,
-      "entity_type": "RailObject",
-      "offset": {
-        "x": 6.6226926,
-        "y": 0.0
-      },
-      "direction": 2,
-      "current_speed": 3.6000001,
-      "is_rigid": true,
-      "z_index": 50,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 2,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 2,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726946640,
       "frame": {
-        "x": 98,
-        "y": 62,
+        "x": 99,
+        "y": 60,
         "w": 1,
         "h": 1
       },
@@ -2709,10 +2747,10 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": 6.6226926,
-        "y": 0.0
+        "x": 0.0,
+        "y": -4.796088
       },
-      "direction": 2,
+      "direction": 0,
       "current_speed": 3.6000001,
       "is_rigid": true,
       "z_index": 50,
@@ -2757,7 +2795,71 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1726951267,
+      "frame": {
+        "x": 85,
+        "y": 86,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": 0.0,
+        "y": 6.6612334
+      },
+      "direction": 1,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": 2.809351,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 420,
+      "is_invulnerable": false,
+      "demands_attention": false
     }
   ]
 }

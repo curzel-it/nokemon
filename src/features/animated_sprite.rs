@@ -35,9 +35,13 @@ impl AnimatedSprite {
 }
 
 impl Entity {
-    pub fn update_sprite_for_current_direction(&mut self) {
+    pub fn update_sprite_for_current_state(&mut self) {
         if self.remaining_lifespan == UNLIMITED_LIFESPAN || self.remaining_lifespan > 1.0 {
-            self.update_sprite_for_direction_speed(self.direction, self.current_speed)
+            if self.demands_attention {
+                self.sprite.frame.y = self.sprite.frame.h * 8
+            } else {
+                self.update_sprite_for_direction_speed(self.direction, self.current_speed)
+            }
         }
     }
 
@@ -51,8 +55,8 @@ impl Entity {
             (Direction::Down, false) => 5,
             (Direction::Left, true) => 6,
             (Direction::Left, false) => 7,
-            (Direction::Unknown, true) => 8,
-            (Direction::Unknown, false) => 9
+            (Direction::Unknown, true) => 4,
+            (Direction::Unknown, false) => 5
         };
         self.sprite.frame.y = self.sprite.frame.h * row;
     }

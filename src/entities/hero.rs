@@ -6,7 +6,7 @@ impl Entity {
         
         if !world.is_hero_on_slippery_surface() {
             self.update_direction_for_current_keys(world.direction_based_on_current_keys);
-            self.update_sprite_for_current_direction();
+            self.update_sprite_for_current_state();
         } else {
             self.update_sprite_for_direction_speed(self.direction, 0.0);
         }

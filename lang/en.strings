@@ -41,6 +41,7 @@
 "entity.menu.change_destination_world" = "Change Destination World"
 "entity.menu.change_destination_x" = "Change Destination X"
 "entity.menu.change_destination_y" = "Change Destination Y"
+"entity.menu.toggle_demand_attention" = "Toggle Demand Attention"
 
 "game.menu.title" = "Game Menu"
 "game.menu.save" = "Save Game"

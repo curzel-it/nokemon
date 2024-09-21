@@ -375,7 +375,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294688,
@@ -441,7 +442,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294689,
@@ -503,7 +505,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294690,
@@ -565,7 +568,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294691,
@@ -627,7 +631,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294692,
@@ -689,7 +694,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     },
     {
       "id": 1726294693,
@@ -751,7 +757,8 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false
+      "is_invulnerable": false,
+      "demands_attention": false
     }
   ]
 }

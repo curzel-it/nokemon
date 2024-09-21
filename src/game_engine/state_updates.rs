@@ -9,6 +9,7 @@ pub enum WorldStateUpdate {
     RemoveEntityAtCoordinates(usize, usize),
     RenameEntity(EntityId, String),
     UseItem(SpeciesId),
+    ToggleDemandAttention(EntityId),
     UpdateDestinationWorld(EntityId, u32),
     UpdateDestinationX(EntityId, i32),
     UpdateDestinationY(EntityId, i32),
