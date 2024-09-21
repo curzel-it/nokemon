@@ -73,6 +73,7 @@
 "npc.name.shop_clerk" = "Shop Guy"
 "npc.name.slime" = "Slime"
 "npc.name.zombie" = "Zombie"
+"npc.name.homunculus" = "Homunculus"
 "npc.name.ghost" = "Ghost"
 "npc.menu.title" = "NPC Options"
 "npc.menu.remove" = "Remove"

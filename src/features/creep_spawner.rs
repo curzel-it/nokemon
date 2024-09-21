@@ -1,4 +1,4 @@
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_HOMUNCULUS, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}};
 use rand::{rngs::ThreadRng, seq::SliceRandom};
 
 pub struct CreepSpawner {
@@ -39,12 +39,11 @@ impl CreepSpawner {
                 return vec![];
             }
         }
-
         vec![]
     }
 
     fn make_creep(&mut self) -> Entity {
-        let id = *[SPECIES_ZOMBIE, SPECIES_GHOST]
+        let id = *[SPECIES_ZOMBIE, SPECIES_HOMUNCULUS, SPECIES_GHOST]
             .choose(&mut self.rng)
             .unwrap_or(&SPECIES_ZOMBIE);
         species_by_id(id).make_entity()
