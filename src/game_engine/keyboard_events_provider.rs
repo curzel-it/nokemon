@@ -18,6 +18,7 @@ pub struct KeyboardEventsProvider {
 
     discard_direction_events_until_next_arrow_key_is_pressed: bool,
     pub currently_pressed_character: Option<char>,
+    pub currently_pressed_key: Option<KeyboardKey>,
 }
 
 impl KeyboardEventsProvider {
@@ -33,7 +34,8 @@ impl KeyboardEventsProvider {
             direction_down: HoldableKey::new(KeyboardKey::KEY_S, KeyboardKey::KEY_DOWN),
             direction_left: HoldableKey::new(KeyboardKey::KEY_A, KeyboardKey::KEY_LEFT),
             discard_direction_events_until_next_arrow_key_is_pressed: false,
-            currently_pressed_character: None
+            currently_pressed_character: None,
+            currently_pressed_key: None
         }
     }
 
@@ -60,6 +62,7 @@ impl KeyboardEventsProvider {
         self.direction_left.update(rl, time_since_last_update);
 
         self.currently_pressed_character = rl.get_char_pressed();
+        self.currently_pressed_key = rl.get_key_pressed();
     }
 
     pub fn on_world_changed(&mut self) {
