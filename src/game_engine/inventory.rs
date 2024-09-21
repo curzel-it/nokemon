@@ -1,7 +1,7 @@
 use std::{fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use serde_json;
-use crate::{constants::INVENTORY_PATH, game_engine::entity::Entity};
+use crate::{constants::INVENTORY_PATH, entities::species::{species_by_id, EntityType}, game_engine::entity::Entity};
 
 lazy_static! {
     pub static ref INVENTORY: RwLock<Vec<Entity>> = RwLock::new(load_inventory(INVENTORY_PATH));
@@ -20,14 +20,22 @@ lazy_static! {
 }
 
 pub fn add_to_inventory(entity: Entity) {
-    {
-        let mut inventory = INVENTORY.write().unwrap();
-        inventory.push(entity);
-    }
+    if matches!(entity.entity_type, EntityType::Bundle) {
+        let bundle_species = species_by_id(entity.species_id);
 
-    let inventory = INVENTORY.read().unwrap().clone();
-    let tx = &SAVE_THREAD.0;
-    tx.send(inventory).expect("Failed to send inventory data to save thread");
+        for species_id in bundle_species.bundle_contents {
+            let item = species_by_id(species_id).make_entity();
+            add_to_inventory(item);
+        }
+    } else {
+        {
+            let mut inventory = INVENTORY.write().unwrap();
+            inventory.push(entity);
+        }
+        let inventory = INVENTORY.read().unwrap().clone();
+        let tx = &SAVE_THREAD.0;
+        tx.send(inventory).expect("Failed to send inventory data to save thread");
+    }
 }
 
 pub fn remove_from_inventory(id: u32) {

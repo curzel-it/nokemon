@@ -458,28 +458,28 @@
       "is_invulnerable": false
     },
     {
-      "id": 1726158824,
+      "id": 1726899860,
       "frame": {
-        "x": 87,
-        "y": 79,
+        "x": 109,
+        "y": 75,
         "w": 1,
         "h": 1
       },
-      "name": "Slime",
-      "species_id": 4001,
-      "entity_type": "Npc",
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
       "offset": {
-        "x": 7.451096,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
-      "current_speed": 0.5,
-      "is_rigid": true,
-      "z_index": 150,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
       "sprite": {
         "sheet_id": 1014,
         "frame": {
-          "x": 0,
+          "x": 4,
           "y": 0,
           "w": 1,
           "h": 1
@@ -493,7 +493,7 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
+        "x": 4,
         "y": 0,
         "w": 1,
         "h": 1
@@ -503,31 +503,20 @@
       "is_dying": false,
       "patrol": {
         "initial_position": [
-          87,
-          79
+          0,
+          0
         ],
         "current_index": 0,
-        "movements": [
-          {
-            "direction": 2,
-            "steps": 5,
-            "steps_left": 5
-          },
-          {
-            "direction": 3,
-            "steps": 5,
-            "steps_left": 5
-          }
-        ]
+        "movements": []
       },
       "latest_movement": [
-        0,
+        1,
         0
       ],
       "contents": null,
-      "remaining_lifespan": -420.0,
+      "remaining_lifespan": 3.4920566,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
+      "parent_id": 420,
       "is_invulnerable": false
     },
     {
@@ -923,7 +912,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -3.4175766
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -964,7 +953,7 @@
       },
       "latest_movement": [
         0,
-        -1
+        0
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -1171,7 +1160,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.3129597
+        "y": 13.148113
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1215,7 +1204,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.1760452,
+      "remaining_lifespan": 1.1333255,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -1915,7 +1904,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -5.242708
+        "y": -7.293254
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1976,7 +1965,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": -6.835153,
         "y": 0.0
       },
       "direction": 3,
@@ -2017,11 +2006,11 @@
         "movements": []
       },
       "latest_movement": [
-        -1,
+        0,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.22389,
+      "remaining_lifespan": 3.1811705,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2029,7 +2018,7 @@
     {
       "id": 1726501642,
       "frame": {
-        "x": 119,
+        "x": 118,
         "y": 57,
         "w": 1,
         "h": 2
@@ -2038,7 +2027,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -15.199049,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2079,7 +2068,7 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
@@ -2100,7 +2089,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -3.4175766,
         "y": 0.0
       },
       "direction": 3,
@@ -2141,7 +2130,7 @@
         "movements": []
       },
       "latest_movement": [
-        -1,
+        0,
         0
       ],
       "contents": null,
@@ -2163,7 +2152,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -7.1753497
+        "y": -9.225896
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2225,7 +2214,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.3129597
+        "y": 13.148113
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2269,7 +2258,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.6214924,
+      "remaining_lifespan": 3.5787728,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2287,7 +2276,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -7.1753497
+        "y": -9.225896
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2348,72 +2337,10 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": -6.835153,
         "y": 0.0
       },
       "direction": 3,
-      "current_speed": 5.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1014,
-        "frame": {
-          "x": 4,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 4,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        -1,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": 3.123112,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 420,
-      "is_invulnerable": false
-    },
-    {
-      "id": 1726607013,
-      "frame": {
-        "x": 119,
-        "y": 82,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Kunai",
-      "species_id": 7000,
-      "entity_type": "Bullet",
-      "offset": {
-        "x": 11.809826,
-        "y": 0.0
-      },
-      "direction": 2,
       "current_speed": 5.0,
       "is_rigid": false,
       "z_index": 300,
@@ -2455,7 +2382,69 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.8942206,
+      "remaining_lifespan": 3.0803924,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 420,
+      "is_invulnerable": false
+    },
+    {
+      "id": 1726607013,
+      "frame": {
+        "x": 120,
+        "y": 82,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Kunai",
+      "species_id": 7000,
+      "entity_type": "Bullet",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 2,
+      "current_speed": 5.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        1,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": 1.8515009,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false
@@ -2472,7 +2461,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": -6.835153,
         "y": 0.0
       },
       "direction": 3,
@@ -2513,11 +2502,11 @@
         "movements": []
       },
       "latest_movement": [
-        -1,
+        0,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.8604941,
+      "remaining_lifespan": 2.8177745,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false

@@ -1136,6 +1136,28 @@
         "lock_type": "None"
     },
     {
+        "id": 7001,
+        "name": "objects.name.kunai.x10",
+        "entity_type": "Bundle",
+        "z_index": 300,
+        "base_speed": 5.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            4
+        ],
+        "sprite_frame": {
+            "x": 4,
+            "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None",
+        "bundle_contents": [7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000]
+    },
+    {
         "id": 8000,
         "name": "objects.name.pill.red",
         "entity_type": "PickableObject",

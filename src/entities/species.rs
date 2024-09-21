@@ -34,7 +34,10 @@ pub struct Species {
     pub is_consumable: bool,
 
     #[serde(default)]
-    pub melee_attacks_hero: bool
+    pub melee_attacks_hero: bool,
+
+    #[serde(default)]
+    pub bundle_contents: Vec<u32>,
 }
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -49,7 +52,8 @@ pub enum EntityType {
     Gate,
     InverseGate,
     PressurePlate,
-    Bullet
+    Bullet,
+    Bundle,
 }
 
 impl Species {
@@ -148,7 +152,8 @@ pub const SPECIES_NONE: Species = Species {
     sprite_number_of_frames: 1,
     lock_type: LockType::None,
     melee_attacks_hero: false,
-    is_consumable: false
+    is_consumable: false,
+    bundle_contents: vec![]
 };
 
 pub fn species_by_id(species_id: u32) -> Species {

@@ -365,6 +365,10 @@ impl EntityOptionsMenu {
                 EntityOptionMenuItem::PickUp,
                 EntityOptionMenuItem::Remove,
             ],
+            EntityType::Bundle => vec![
+                EntityOptionMenuItem::PickUp,
+                EntityOptionMenuItem::Remove,
+            ],
         }
     }
 
