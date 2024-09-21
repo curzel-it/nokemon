@@ -88,7 +88,13 @@ struct WorldData {
     id: u32,
     biome_tiles: TileSet<BiomeTile>,
     constructions_tiles: TileSet<ConstructionTile>,
-    entities: Vec<Entity>
+    entities: Vec<Entity>,
+
+    #[serde(default)]
+    creep_spawn_enabled: bool,
+
+    #[serde(default)]
+    creep_spawn_interval: f32,
 }
 
 impl Serialize for World {
@@ -109,17 +115,14 @@ impl Serialize for World {
 
 impl<'de> Deserialize<'de> for World {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
-        let WorldData {
-            id,
-            biome_tiles,
-            constructions_tiles,
-            entities,
-        } = WorldData::deserialize(deserializer)?;
+        let data = WorldData::deserialize(deserializer)?;
 
-        let mut world = World::new(id);                
-        entities.into_iter().for_each(|e| _ = world.add_entity(e));        
-        world.load_biome_tiles(biome_tiles);
-        world.load_construction_tiles(constructions_tiles);
+        let mut world = World::new(data.id);        
+        world.creep_spawn_enabled = data.creep_spawn_enabled;
+        world.creep_spawn_interval = data.creep_spawn_interval;
+        data.entities.into_iter().for_each(|e| _ = world.add_entity(e));        
+        world.load_biome_tiles(data.biome_tiles);
+        world.load_construction_tiles(data.constructions_tiles);
         Ok(world)
     }
 }

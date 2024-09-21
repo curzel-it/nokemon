@@ -10,7 +10,6 @@ pub const WORLD_SIZE_ROWS: usize = 150;
 pub const WORLD_SIZE_COLUMNS: usize = 200;
 pub const UNLIMITED_LIFESPAN: f32 = -420.0;
 pub const NO_PARENT: u32 = 0;
-pub const CREEP_SPAWN_INTERVAL: f32 = 5.0;
 pub const HERO_KUNAI_COOLDOWN: f32 = 0.1;
 
 // Input

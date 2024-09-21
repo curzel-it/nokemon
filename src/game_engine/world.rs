@@ -23,6 +23,8 @@ pub struct World {
     pub is_any_arrow_key_down: bool,
     pub has_attack_key_been_pressed: bool,
     pub has_confirmation_key_been_pressed: bool,
+    pub creep_spawn_enabled: bool,
+    pub creep_spawn_interval: f32,
 }
 
 impl World {
@@ -45,6 +47,8 @@ impl World {
             is_any_arrow_key_down: false,
             has_attack_key_been_pressed: false,
             has_confirmation_key_been_pressed: false,
+            creep_spawn_enabled: false,
+            creep_spawn_interval: 5.0,
         }
     }
 
