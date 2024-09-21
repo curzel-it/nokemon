@@ -17,7 +17,7 @@ lazy_static! {
 
 fn load_key_bindings() -> Mutex<KeyBindings> {
     let mut bindings = KeyBindings::default();
-    bindings.load();
+    bindings.try_load();
     Mutex::new(bindings)
 }
 
@@ -112,10 +112,14 @@ impl KeyBindings {
         file.write_all(serialized.as_bytes()).unwrap();
     }
 
-    fn load(&mut self) {
+    fn try_load(&mut self) {
         let mut file = File::open(KEY_BINDINGS_PATH).unwrap();
         let mut serialized = String::new();
-        file.read_to_string(&mut serialized).unwrap();
+        let read_result = file.read_to_string(&mut serialized);
+        if read_result.is_err() { 
+            println!("Failed to read keybindings settings file");
+            return 
+        }
 
         let serializable_bindings: HashMap<u32, Vec<i32>> = serde_json::from_str(&serialized).unwrap();
 
@@ -128,6 +132,8 @@ impl KeyBindings {
                     .filter_map(|k| keyboard_key_from_i32(k))
                     .collect();
                 bindings.insert(action, keys);
+            } else {
+                println!("Failed to decode key for {} -> {:#?}", action_value, keys_values);
             }
         }
 
