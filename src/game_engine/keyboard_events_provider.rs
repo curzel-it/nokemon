@@ -1,27 +1,55 @@
 use raylib::{ffi::KeyboardKey, RaylibHandle};
-use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+use std::{collections::HashMap, io::Read};
+use std::fs::File;
+use std::io::Write;
 use std::sync::Mutex;
 use lazy_static::lazy_static;
 
+use crate::constants::KEY_BINDINGS_PATH;
 use crate::{constants::{KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS, KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST}, utils::directions::Direction};
 
 pub const NO_KEYBOARD_EVENTS: KeyboardEventsProvider = KeyboardEventsProvider::new();
 
 lazy_static! {
-    pub static ref KEY_BINDINGS: Mutex<KeyBindings> = Mutex::new(KeyBindings::default());
+    pub static ref KEY_BINDINGS: Mutex<KeyBindings> = load_key_bindings();
 }
 
-#[derive(Eq, PartialEq, Hash, Clone, Copy, Debug)]
+fn load_key_bindings() -> Mutex<KeyBindings> {
+    let mut bindings = KeyBindings::default();
+    bindings.load();
+    Mutex::new(bindings)
+}
+
+#[derive(Eq, PartialEq, Hash, Clone, Copy, Debug, Serialize, Deserialize)]
+#[repr(u32)]
 pub enum GameAction {
-    MoveUp,
-    MoveDown,
-    MoveLeft,
-    MoveRight,
-    Confirm,
-    Cancel,
-    Attack,
-    Menu,
-    Backspace,
+    MoveUp = 0,
+    MoveDown = 1,
+    MoveLeft = 2,
+    MoveRight = 3,
+    Confirm = 4,
+    Cancel = 5,
+    Attack = 6,
+    Menu = 7,
+    Backspace = 8,
+}
+
+impl GameAction {
+    fn from_u32(value: u32) -> Option<GameAction> {
+        match value {
+            0 => Some(GameAction::MoveUp),
+            1 => Some(GameAction::MoveDown),
+            2 => Some(GameAction::MoveLeft),
+            3 => Some(GameAction::MoveRight),
+            4 => Some(GameAction::Confirm),
+            5 => Some(GameAction::Cancel),
+            6 => Some(GameAction::Attack),
+            7 => Some(GameAction::Menu),
+            8 => Some(GameAction::Backspace),
+            _ => None,
+        }
+    }
 }
 
 pub struct KeyBindings {
@@ -50,6 +78,7 @@ impl KeyBindings {
 
     pub fn set_keys(&mut self, action: GameAction, keys: Vec<KeyboardKey>) {
         self.bindings.insert(action, keys);
+        self.save();
     }
 
     pub fn is_action_pressed(&self, rl: &RaylibHandle, action: GameAction) -> bool {
@@ -68,12 +97,49 @@ impl KeyBindings {
         }
     }
 
-    pub fn save_to_file(&self, path: &str) {
-        
+    fn save(&self) {
+        let mut serializable_bindings = HashMap::new();
+
+        for (action, keys) in &self.bindings {
+            let action_value = *action as u32;
+            let keys_values: Vec<i32> = keys.iter().map(|&key| key as i32).collect();
+            serializable_bindings.insert(action_value, keys_values);
+        }
+
+        let serialized = serde_json::to_string(&serializable_bindings).unwrap();
+
+        let mut file = File::create(KEY_BINDINGS_PATH).unwrap();
+        file.write_all(serialized.as_bytes()).unwrap();
     }
 
-    pub fn load_from_file(&mut self, path: &str) {
-        
+    fn load(&mut self) {
+        let mut file = File::open(KEY_BINDINGS_PATH).unwrap();
+        let mut serialized = String::new();
+        file.read_to_string(&mut serialized).unwrap();
+
+        let serializable_bindings: HashMap<u32, Vec<i32>> = serde_json::from_str(&serialized).unwrap();
+
+        let mut bindings = HashMap::new();
+
+        for (action_value, keys_values) in serializable_bindings {
+            if let Some(action) = GameAction::from_u32(action_value) {
+                let keys: Vec<KeyboardKey> = keys_values
+                    .into_iter()
+                    .filter_map(|k| keyboard_key_from_i32(k))
+                    .collect();
+                bindings.insert(action, keys);
+            }
+        }
+
+        self.bindings = bindings;
+    }
+}
+
+fn keyboard_key_from_i32(value: i32) -> Option<KeyboardKey> {
+    if (KeyboardKey::KEY_NULL as i32) <= value && value <= (KeyboardKey::KEY_KP_EQUAL as i32) {
+        Some(unsafe { std::mem::transmute(value) })
+    } else {
+        None
     }
 }
 
