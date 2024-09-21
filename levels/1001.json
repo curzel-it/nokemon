@@ -471,7 +471,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 0.0,
+        "x": 6.8138266,
         "y": 0.0
       },
       "direction": 2,
@@ -512,11 +512,11 @@
         "movements": []
       },
       "latest_movement": [
-        1,
+        0,
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.4805605,
+      "remaining_lifespan": 2.4379742,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -921,7 +921,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.3306167
+        "y": -3.4069133
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -1173,7 +1173,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.6612334
+        "y": 6.8138266
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -1217,7 +1217,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 0.80167997,
+      "remaining_lifespan": 0.7590935,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -1929,7 +1929,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -1.9983699
+        "y": -2.044148
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1991,7 +1991,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6612334,
+        "x": -6.8138266,
         "y": 0.0
       },
       "direction": 3,
@@ -2036,7 +2036,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.8495247,
+      "remaining_lifespan": 2.8069384,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -2054,7 +2054,7 @@
       "species_id": 4002,
       "entity_type": "Npc",
       "offset": {
-        "x": -1.9983699,
+        "x": -2.044148,
         "y": 0.0
       },
       "direction": 3,
@@ -2117,7 +2117,7 @@
       "species_id": 4003,
       "entity_type": "Npc",
       "offset": {
-        "x": -3.3306167,
+        "x": -3.4069133,
         "y": 0.0
       },
       "direction": 3,
@@ -2181,7 +2181,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -1.9983699
+        "y": -2.044148
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2244,7 +2244,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.6612334
+        "y": 6.8138266
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2288,7 +2288,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.247127,
+      "remaining_lifespan": 3.2045407,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -2307,7 +2307,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -1.9983699
+        "y": -2.044148
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -2369,7 +2369,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6612334,
+        "x": -6.8138266,
         "y": 0.0
       },
       "direction": 3,
@@ -2414,7 +2414,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.7487466,
+      "remaining_lifespan": 2.7061603,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -2432,7 +2432,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": 6.6612334,
+        "x": 6.8138266,
         "y": 0.0
       },
       "direction": 2,
@@ -2477,7 +2477,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 1.5198554,
+      "remaining_lifespan": 1.4772689,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -2495,7 +2495,7 @@
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
-        "x": -6.6612334,
+        "x": -6.8138266,
         "y": 0.0
       },
       "direction": 3,
@@ -2540,7 +2540,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.4861288,
+      "remaining_lifespan": 2.4435425,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -2558,10 +2558,10 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": 8.521656,
+        "x": -11.097831,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 3.6000001,
       "is_rigid": true,
       "z_index": 50,
@@ -2621,7 +2621,7 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -4.796088,
+        "x": -4.9059553,
         "y": 0.0
       },
       "direction": 3,
@@ -2685,7 +2685,7 @@
       "entity_type": "RailObject",
       "offset": {
         "x": 0.0,
-        "y": -4.796088
+        "y": -4.9059553
       },
       "direction": 0,
       "current_speed": 3.6000001,
@@ -2748,7 +2748,7 @@
       "entity_type": "RailObject",
       "offset": {
         "x": 0.0,
-        "y": -4.796088
+        "y": -4.9059553
       },
       "direction": 0,
       "current_speed": 3.6000001,
@@ -2811,7 +2811,7 @@
       "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 6.6612334
+        "y": 6.8138266
       },
       "direction": 1,
       "current_speed": 5.0,
@@ -2855,7 +2855,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 2.809351,
+      "remaining_lifespan": 2.7667646,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
