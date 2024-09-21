@@ -59,7 +59,6 @@ impl Entity {
         for movement in &mut self.patrol.movements {
             movement.steps_left = movement.steps;
         }
-
     }
 }
 

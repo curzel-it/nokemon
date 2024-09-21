@@ -17,6 +17,7 @@ impl Entity {
                 self.direction = self.select_next_rail(world);
             }
             if !matches!(self.direction, Direction::Unknown) {
+                self.reset_speed();
                 self.move_linearly(world, time_since_last_update);
             }
         } else {
