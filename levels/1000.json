@@ -310,5 +310,7 @@
     ],
     "sheet_id": 1003
   },
-  "entities": []
+  "entities": [],
+  "creep_spawn_enabled": false,
+  "creep_spawn_interval": 0.0
 }

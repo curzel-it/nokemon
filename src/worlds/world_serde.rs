@@ -109,6 +109,8 @@ impl Serialize for World {
         state.serialize_field("biome_tiles", &self.biome_tiles)?;
         state.serialize_field("constructions_tiles", &self.constructions_tiles)?;
         state.serialize_field("entities", &entities)?;
+        state.serialize_field("creep_spawn_enabled", &self.creep_spawn_enabled)?;
+        state.serialize_field("creep_spawn_interval", &self.creep_spawn_interval)?;
         state.end()
     }
 }

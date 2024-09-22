@@ -19,7 +19,7 @@ impl CreepSpawner {
         world: &World,
         time_since_last_update: f32,
     ) -> Vec<WorldStateUpdate> {
-        if !world.creep_spawn_enabled { 
+        if !world.creep_spawn_enabled || world.creative_mode { 
             return vec![] 
         }
         self.time_to_next_spawn -= time_since_last_update;

@@ -38,6 +38,9 @@ pub struct Species {
 
     #[serde(default)]
     pub bundle_contents: Vec<u32>,
+
+    #[serde(default)]
+    pub is_invulnerable: bool,
 }
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -114,7 +117,7 @@ impl Species {
         entity.shooting_cooldown_remaining = 0.0;
         entity.melee_attacks_hero = self.melee_attacks_hero;
         entity.speed_multiplier = 1.0;
-        entity.is_invulnerable = false;
+        entity.is_invulnerable = self.is_invulnerable;
     }
 
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
@@ -156,7 +159,8 @@ pub const SPECIES_NONE: Species = Species {
     lock_type: LockType::None,
     melee_attacks_hero: false,
     is_consumable: false,
-    bundle_contents: vec![]
+    bundle_contents: vec![],
+    is_invulnerable: false
 };
 
 pub fn species_by_id(species_id: u32) -> Species {
