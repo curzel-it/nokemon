@@ -48,7 +48,7 @@ pub enum EntityType {
     Hero,
     Building,   
     Npc, 
-    HouseholdObject,
+    StaticObject,
     PickableObject,
     Teleporter,
     PushableObject,
@@ -57,7 +57,7 @@ pub enum EntityType {
     PressurePlate,
     Bullet,
     Bundle,
-    RailObject,
+    RailObject
 }
 
 impl Species {

@@ -344,8 +344,7 @@ impl EntityOptionsMenu {
             EntityType::Building => vec![
                 EntityOptionMenuItem::Remove,
             ],
-            EntityType::HouseholdObject => vec![
-                EntityOptionMenuItem::PickUp,
+            EntityType::StaticObject => vec![
                 EntityOptionMenuItem::Rename,
                 EntityOptionMenuItem::Remove,
             ],
@@ -394,10 +393,12 @@ impl EntityOptionsMenu {
         }
 
         match self.entity.entity_type {
-            EntityType::HouseholdObject => options.push(EntityOptionMenuItem::PickUp),
             EntityType::PickableObject => options.push(EntityOptionMenuItem::PickUp),
             EntityType::Bullet => options.push(EntityOptionMenuItem::PickUp),
             _ => {}
+        }
+        if let Some(contents) = self.entity.contents.clone() {
+            options.push(EntityOptionMenuItem::Read(contents.localized()));
         }
         options
     }

@@ -321,7 +321,7 @@
       },
       "name": "Stairs (Up)",
       "species_id": 1010,
-      "entity_type": "HouseholdObject",
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0

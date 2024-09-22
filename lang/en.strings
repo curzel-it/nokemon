@@ -115,6 +115,13 @@
 "objects.name.pressure_plate.silver" = "Silver Pressure Plate"
 "objects.name.pill.red" = "Red Pill"
 "objects.name.rail.cart" = "Rail Cart"
+"objects.name.poster.brown" = "Poster"
+"objects.name.poster.red" = "Poster"
+"objects.name.poster.blue" = "Poster"
+"objects.name.poster.yellow" = "Poster"
+"objects.name.poster.green" = "Poster"
+"objects.name.sign" = "Sign"
+"objects.name.large_sign" = "Large Sign"
 
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."

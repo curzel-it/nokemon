@@ -222,7 +222,7 @@
         "id": 1010,
         "name": "objects.name.stairs_up",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 1000,
         "base_speed": 0.0,
         "is_rigid": true,
@@ -244,7 +244,7 @@
         "id": 1011,
         "name": "objects.name.stairs_down",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 1000,
         "base_speed": 0.0,
         "is_rigid": true,
@@ -266,7 +266,7 @@
         "id": 1012,
         "name": "objects.name.seat_brown",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 100,
         "base_speed": 0.0,
         "is_rigid": false,
@@ -288,7 +288,7 @@
         "id": 1013,
         "name": "objects.name.seat_green",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 100,
         "base_speed": 0.0,
         "is_rigid": false,
@@ -310,7 +310,7 @@
         "id": 1015,
         "name": "objects.name.seat_orange",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 100,
         "base_speed": 0.0,
         "is_rigid": false,
@@ -332,7 +332,7 @@
         "id": 1014,
         "name": "objects.name.seat_pink",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 100,
         "base_speed": 0.0,
         "is_rigid": false,
@@ -354,7 +354,7 @@
         "id": 1016,
         "name": "objects.name.table",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 200,
         "base_speed": 0.0,
         "is_rigid": true,
@@ -376,7 +376,7 @@
         "id": 1017,
         "name": "objects.name.bed",
         "is_invulnerable": true,
-        "entity_type": "HouseholdObject",
+        "entity_type": "StaticObject",
         "z_index": 200,
         "base_speed": 0.0,
         "is_rigid": true,
@@ -1272,5 +1272,152 @@
         "sprite_number_of_frames": 1,
         "lock_type": "None",
         "is_consumable": true
+    },
+    {
+        "id": 10000,
+        "name": "objects.name.sign",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            1
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 4,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10001,
+        "name": "objects.name.large_sign",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            2
+        ],
+        "sprite_frame": {
+            "x": 3,
+            "y": 4,
+            "w": 2,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10002,
+        "name": "objects.name.poster.brown",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            3
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 5,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10003,
+        "name": "objects.name.poster.red",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            4
+        ],
+        "sprite_frame": {
+            "x": 1,
+            "y": 5,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10004,
+        "name": "objects.name.poster.blue",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            5
+        ],
+        "sprite_frame": {
+            "x": 2,
+            "y": 5,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10005,
+        "name": "objects.name.poster.yellow",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            6
+        ],
+        "sprite_frame": {
+            "x": 3,
+            "y": 5,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 10006,
+        "name": "objects.name.poster.green",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            7
+        ],
+        "sprite_frame": {
+            "x": 4,
+            "y": 5,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     }
 ]
