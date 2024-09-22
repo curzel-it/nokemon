@@ -1317,7 +1317,7 @@
     },
     {
         "id": 10002,
-        "name": "objects.name.poster.brown",
+        "name": "objects.name.scroll.brown",
         "entity_type": "StaticObject",
         "z_index": 300,
         "base_speed": 0.0,
@@ -1338,7 +1338,7 @@
     },
     {
         "id": 10003,
-        "name": "objects.name.poster.red",
+        "name": "objects.name.scroll.red",
         "entity_type": "StaticObject",
         "z_index": 300,
         "base_speed": 0.0,
@@ -1359,7 +1359,7 @@
     },
     {
         "id": 10004,
-        "name": "objects.name.poster.blue",
+        "name": "objects.name.scroll.blue",
         "entity_type": "StaticObject",
         "z_index": 300,
         "base_speed": 0.0,
@@ -1380,7 +1380,7 @@
     },
     {
         "id": 10005,
-        "name": "objects.name.poster.yellow",
+        "name": "objects.name.scroll.yellow",
         "entity_type": "StaticObject",
         "z_index": 300,
         "base_speed": 0.0,
@@ -1401,7 +1401,7 @@
     },
     {
         "id": 10006,
-        "name": "objects.name.poster.green",
+        "name": "objects.name.scroll.green",
         "entity_type": "StaticObject",
         "z_index": 300,
         "base_speed": 0.0,
@@ -1418,6 +1418,27 @@
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 11000,
+        "name": "objects.name.magic_circle.invocation",
+        "entity_type": "StaticObject",
+        "z_index": 0,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            5
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 0,
+            "w": 4,
+            "h": 4
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 5,
         "lock_type": "None"
     }
 ]
