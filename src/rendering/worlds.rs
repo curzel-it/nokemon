@@ -21,5 +21,4 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
 
 fn draw_debug_info(d: &mut RaylibDrawHandle, fps: u32) {
     d.draw_text(&format!("FPS: {}", fps), 10, 10, 20, Color::RED);
-    // d.draw_text(format!("Entities: {:#?}", world).as_str(), 10, 50, 20, Color::RED);
 }

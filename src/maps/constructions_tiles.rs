@@ -17,9 +17,17 @@ pub enum Construction {
     Bamboo,
     Box,
     Rail,
+    StoneWall,
+    IndicatorArrow,
 }
 
-#[derive(Debug, Clone, Copy)]
+impl Default for Construction {
+    fn default() -> Self {
+        Construction::Nothing
+    }
+}
+
+#[derive(Debug, Default, Clone, Copy)]
 pub struct ConstructionTile {
     pub tile_type: Construction,
     pub column: u32,
@@ -102,6 +110,8 @@ impl Construction {
             Construction::Bamboo => 9,
             Construction::Box => 10,
             Construction::Rail => 11,
+            Construction::StoneWall => 12,
+            Construction::IndicatorArrow => 13,
         }
     }
 }
@@ -144,6 +154,8 @@ impl Construction {
             '9' => Construction::Bamboo,
             'A' => Construction::Box,
             'B' => Construction::Rail,
+            'C' => Construction::StoneWall,
+            'D' => Construction::IndicatorArrow,
             _ => Construction::Nothing,
         }
     }
@@ -161,6 +173,8 @@ impl Construction {
             Construction::Bamboo => '9',
             Construction::Box => 'A',
             Construction::Rail => 'B',
+            Construction::StoneWall => 'C',
+            Construction::IndicatorArrow => 'D',
         }
     }
 }

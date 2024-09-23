@@ -17,9 +17,16 @@ pub enum Biome {
     DarkRock,
     Ice,
     DarkGrass,
+    RockPlates,
 }
 
-#[derive(Debug, Clone)]
+impl Default for Biome {
+    fn default() -> Self {
+        Biome::Grass
+    }
+}
+
+#[derive(Default, Debug, Clone)]
 pub struct BiomeTile {
     pub tile_type: Biome,
     pub column: u32, 
@@ -170,7 +177,7 @@ impl Biome {
     }
 
     fn number_of_biomes() -> i32 {
-        11
+        12
     }
 
     fn texture_index(&self) -> i32 {
@@ -186,6 +193,7 @@ impl Biome {
             Biome::DarkRock => 8,
             Biome::Ice => 9,
             Biome::DarkGrass => 10,
+            Biome::RockPlates => 11
         }
     }
 }
@@ -215,7 +223,7 @@ impl TileSet<BiomeTile> {
 }
 
 impl Biome {
-    fn from_char(c: char) -> Self {
+    pub const fn from_char(c: char) -> Self {
         match c {
             '0' => Biome::Nothing,
             '1' => Biome::Grass,
@@ -228,6 +236,7 @@ impl Biome {
             '8' => Biome::DarkRock,
             '9' => Biome::Ice,
             'A' => Biome::DarkGrass,
+            'B' => Biome::RockPlates,
             _ => Biome::Nothing,
         }
     }
@@ -245,6 +254,7 @@ impl Biome {
             Biome::DarkRock => '8',
             Biome::Ice => '9',
             Biome::DarkGrass => 'A',
+            Biome::RockPlates => 'B',
         }
     }
 }

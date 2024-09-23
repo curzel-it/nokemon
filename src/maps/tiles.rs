@@ -10,6 +10,7 @@ pub trait SpriteTile: Tile {
     fn texture_source_rect(&self, variant: i32) -> Rect;
 }
 
+#[derive(Default)]
 pub struct TileSet<T: Tile> {
     pub tiles: Vec<Vec<T>>,
     pub sheet_id: u32,
@@ -37,7 +38,7 @@ impl<T: Tile> TileSet<T> {
         self.sprite_counter.update(time_since_last_update);
     }
 
-    pub fn current_variant(&self, row: u32, col: u32) -> i32 {
+    pub fn current_variant(&self, row: usize, col: usize) -> i32 {
         (*self.sprite_counter.current_frame() + row as i32 + col as i32) % TILE_VARIATIONS_COUNT
     }
 

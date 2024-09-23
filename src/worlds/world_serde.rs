@@ -86,8 +86,14 @@ impl World {
 #[derive(Serialize, Deserialize)]
 struct WorldData {
     id: u32,
+
+    #[serde(default)]
     biome_tiles: TileSet<BiomeTile>,
+
+    #[serde(default)]
     constructions_tiles: TileSet<ConstructionTile>,
+
+    #[serde(default)]
     entities: Vec<Entity>,
 
     #[serde(default)]

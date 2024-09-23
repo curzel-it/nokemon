@@ -151,10 +151,9 @@ impl Entity {
     
     pub fn next_dialogue(&self) -> Option<Dialogue> {
         for option in &self.dialogues.options {
-            if let Some(value) = get_value_for_key(&option.key) {
-                if value == option.expected_value {
-                    return dialogue_by_id(option.dialogue)
-                }
+            let value = get_value_for_key(&option.key);
+            if value == Some(option.expected_value) || (option.expected_value == 0 && value.is_none()) {
+                return dialogue_by_id(option.dialogue)
             }
         }
         None
@@ -171,7 +170,7 @@ impl Entity {
     }
 
     fn update_generic(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
-        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
+        if world.is_hero_around_and_on_collision_with(&self.frame) {
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::ShowEntityOptions(

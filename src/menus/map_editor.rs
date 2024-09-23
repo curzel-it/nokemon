@@ -115,6 +115,11 @@ impl MapEditor {
         if mouse.has_right_been_pressed {
             return self.clear_tile(frame);
         }
+        if self.has_selected_tile() && mouse.is_left_down {
+            let updated_frame = self.updated_frame(&frame, mouse, keyboard);
+            self.state = MapEditorState::PlacingItem(selected_index, item.clone(), updated_frame);
+            return self.place_item(item, frame);
+        }
         if mouse.has_left_been_pressed || keyboard.has_confirmation_been_pressed {
             return self.place_item(item, frame);
         }
@@ -125,7 +130,6 @@ impl MapEditor {
         
         let updated_frame = self.updated_frame(&frame, mouse, keyboard);
         self.state = MapEditorState::PlacingItem(selected_index, item.clone(), updated_frame);
-
         vec![]
     }
 
@@ -197,6 +201,18 @@ impl MapEditor {
             .map(WorldStateUpdate::AddEntity)
             .collect()
     }
+
+    fn has_selected_tile(&self) -> bool {
+        if let MapEditorState::PlacingItem(_, item, _) = self.state.clone() {
+            if matches!(item, Stockable::BiomeTile(_) | Stockable::ConstructionTile(_)) {
+                true
+            } else {
+                false
+            }
+        } else {
+            false
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -221,6 +237,7 @@ impl Stockable {
                 Biome::DarkRock => (0, 8),
                 Biome::Ice => (0, 9),
                 Biome::DarkGrass => (0, 10),
+                Biome::RockPlates => (0, 11),
             },
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (6, 1),
@@ -234,6 +251,8 @@ impl Stockable {
                 Construction::Bamboo => (1, 7),
                 Construction::Box => (1, 9),
                 Construction::Rail => (1, 10),
+                Construction::StoneWall => (1, 11),
+                Construction::IndicatorArrow => (1, 12),
             },
             Stockable::Entity(species) => species.inventory_texture_offset,
         };
@@ -277,6 +296,7 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::Snow),
             Stockable::BiomeTile(Biome::LightWood),
             Stockable::BiomeTile(Biome::DarkWood),
+            Stockable::BiomeTile(Biome::RockPlates),
             Stockable::BiomeTile(Biome::Ice),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
@@ -289,6 +309,8 @@ impl MapEditor {
             Stockable::ConstructionTile(Construction::Bamboo),
             Stockable::ConstructionTile(Construction::Box),
             Stockable::ConstructionTile(Construction::Rail),
+            Stockable::ConstructionTile(Construction::StoneWall),
+            Stockable::ConstructionTile(Construction::IndicatorArrow),
         ];
         let mut species: Vec<Stockable> = ALL_SPECIES
             .iter()

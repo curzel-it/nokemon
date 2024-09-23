@@ -54,7 +54,20 @@ def export_biome_tiles(aseprite_assets, destination_folder):
             fix_rgba_image(f"temp/{file}")    
 
     number_of_frames = 4
-    biomes = ["water", "desert", "grass", "rock", "snow", "lightwood", "darkwood", "nothing", "darkrock", "ice", "darkgrass"]
+    biomes = [
+        "water", 
+        "desert", 
+        "grass", 
+        "rock", 
+        "snow", 
+        "lightwood", 
+        "darkwood", 
+        "nothing", 
+        "darkrock", 
+        "ice", 
+        "darkgrass", 
+        "rockpavement"
+    ]
 
     # 1060 tiles
     # 1060 = number_of_frames x 212

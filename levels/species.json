@@ -197,6 +197,28 @@
         "lock_type": "None"
     },
     {
+        "id": 1020,
+        "name": "npc.name.wizard",
+        "is_invulnerable": true,
+        "entity_type": "Npc",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            9
+        ],
+        "sprite_frame": {
+            "x": 32,
+            "y": 0,
+            "w": 1,
+            "h": 2
+        },
+        "sprite_sheet_id": 1009,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
         "id": 3008,
         "name": "npc.name.shop_clerk",
         "is_invulnerable": true,
@@ -1041,7 +1063,7 @@
         "melee_attacks_hero": true,
         "inventory_texture_offset": [
             2,
-            7
+            8
         ],
         "sprite_frame": {
             "x": 28,

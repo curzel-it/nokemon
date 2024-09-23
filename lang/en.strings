@@ -1,4 +1,5 @@
 "book.tutorial.001" = "Yo!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!"
+"scroll.tutorial.001" = "No human or hero can survive a close combat with a deamon.\nIf they touch you, you're toast."
 
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
@@ -16,17 +17,13 @@
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"
-"dialogue.101" = "Hello world! This is a dialog demo. Does it fit?";
-"dialogue.107" = "What about `This is a long line just to see what happens`...?"
-"dialogue.108" = "Were you able to read it all?";
-"dialogue.102" = "Yes, I can see it"
-"dialogue.103" = "Nope, does not work"
-"dialogue.104" = "Hell yeah!"
-"dialogue.105" = "Damn it!"
-"dialogue.106" = "I'm busy now, talk to my husband."
-"dialogue.109" = "Thank you for not trolling my husband!"
-"dialogue.110" = "He's crying because you trolled him..."
-"dialogue.111" = "I'm sorry, the shop is closed for now."
+"dialogue.2" = "Why do you talk so much?"
+"dialogue.3" = "Dude! WTF!?"
+"dialogue.1001" = "I can't believe it worked!\n\n(The guy seems weirdly excited)";
+"dialogue.1002" = "Every 100 years a hero from another world is summoned\nto be the champion of humanity...\nThat's why you are here.";
+"dialogue.1003" = "Unfortunately, the Dark Lord invasion has already begun\nand I will not have time to train you...\nYou must leave immediately!\nI will stay and hold them as long as possible!";
+"dialogue.1004" = "Head North and meet with the High Priestess...\nJust remember: Don't let them touch you!";
+"dialogue.1005" = "There's no time to explain further, just hurry up!";
 
 "entity.menu.title" = "Entity Options"
 "entity.menu.remove" = "Remove"
@@ -68,6 +65,7 @@
 "map_editor.placement" = "Press SPACE to place\nPress ESC to go back"
 
 "npc.name.default" = "Some rando"
+"npc.name.wizard" = "Wizard"
 "npc.name.old_man" = "Old Man"
 "npc.name.old_woman" = "Old Lady"
 "npc.name.shop_clerk" = "Shop Guy"

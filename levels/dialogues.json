@@ -1,46 +1,27 @@
 [
-    // Demo old man
+    // Intro Wizard
     {
-        "id": 101,
-        "options": [[1, 107]]
+        "id": 1001,
+        "options": [[1, 1002]]
     },
     {
-        "id": 107,
-        "options": [[1, 108]]
+        "id": 1002,
+        "options": [[1, 1003]]
     },
     {
-        "id": 108,
-        "options": [[102, 104], [103, 105]]
+        "id": 1003,
+        "options": [[1, 1004]]
     },
     {
-        "id": 104,
-        "options": [[0, 101]]
+        "id": 1004,
+        "options": [[0, 1005], [2, 1005]]
     },
     {
-        "id": 105,
-        "options": [[0, 101]]
-    },
-    
-    // Demo old lady
-    {
-        "id": 106,
-        "options": [[0, 106]]
-    },
-    {
-        "id": 110,
-        "options": [[0, 110]]
-    },
-    {
-        "id": 109,
-        "options": [[0, 109]],
-        "reward": 2000
+        "id": 1005,
+        "options": [[0, 1005]]
     },
     
     // Shop Clerk
-    // {
-    //    "id": 3,
-    //    "options": [[0, 3]]
-    // }
     {
         "id": 111,
         "options": [[0, 111]]

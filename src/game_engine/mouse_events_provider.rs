@@ -3,6 +3,7 @@ use raylib::{ffi::MouseButton, RaylibHandle};
 use crate::constants::TILE_SIZE;
 
 pub struct MouseEventsProvider {
+    pub is_left_down: bool,
     pub has_left_been_pressed: bool,
     pub has_right_been_pressed: bool,
     pub x: i32,
@@ -13,6 +14,7 @@ pub struct MouseEventsProvider {
 impl MouseEventsProvider {
     pub const fn new() -> Self {
         Self {            
+            is_left_down: false,
             has_left_been_pressed: false,
             has_right_been_pressed: false,
             x: 0, 
@@ -22,6 +24,7 @@ impl MouseEventsProvider {
     }
 
     pub fn update(&mut self, rl: &mut RaylibHandle, rendering_scale: f32) {
+        self.is_left_down = rl.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT);
         self.has_left_been_pressed = rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT);
         self.has_right_been_pressed = rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT);
 

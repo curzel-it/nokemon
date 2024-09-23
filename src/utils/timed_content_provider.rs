@@ -1,5 +1,5 @@
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub struct TimedContentProvider<T> {
     frames: Vec<T>,
     frame_duration: f32,
