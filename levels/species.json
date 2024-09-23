@@ -1462,5 +1462,26 @@
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 5,
         "lock_type": "None"
+    },
+    {
+        "id": 11001,
+        "name": "objects.name.well",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            8,
+            8
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 7,
+            "w": 2,
+            "h": 2
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     }
 ]

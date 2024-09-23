@@ -200,6 +200,9 @@ impl Biome {
 
 impl TileSet<BiomeTile> {
     pub fn update_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
+        if row >= self.tiles.len() || col >= self.tiles[0].len() {
+            return
+        }
         self.tiles[row][col].tile_type = new_biome;
         self.tiles[row][col].setup_textures();
 

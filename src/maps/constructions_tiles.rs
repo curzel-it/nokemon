@@ -19,6 +19,8 @@ pub enum Construction {
     Rail,
     StoneWall,
     IndicatorArrow,
+    Bridge,
+    Broadleaf,
 }
 
 impl Default for Construction {
@@ -54,6 +56,7 @@ impl ConstructionTile {
             Construction::TallGrass => false,
             Construction::Box => false,
             Construction::Rail => false,
+            Construction::Bridge => false,
             _ => true
         }
     }
@@ -112,6 +115,8 @@ impl Construction {
             Construction::Rail => 11,
             Construction::StoneWall => 12,
             Construction::IndicatorArrow => 13,
+            Construction::Bridge => 14,
+            Construction::Broadleaf => 15,
         }
     }
 }
@@ -156,6 +161,8 @@ impl Construction {
             'B' => Construction::Rail,
             'C' => Construction::StoneWall,
             'D' => Construction::IndicatorArrow,
+            'E' => Construction::Bridge,
+            'F' => Construction::Broadleaf,
             _ => Construction::Nothing,
         }
     }
@@ -175,6 +182,8 @@ impl Construction {
             Construction::Rail => 'B',
             Construction::StoneWall => 'C',
             Construction::IndicatorArrow => 'D',
+            Construction::Bridge => 'E',
+            Construction::Broadleaf => 'F'
         }
     }
 }

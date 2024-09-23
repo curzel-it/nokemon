@@ -101,6 +101,9 @@ struct WorldData {
 
     #[serde(default)]
     creep_spawn_interval: f32,
+
+    #[serde(default)]
+    is_interior: bool,
 }
 
 impl Serialize for World {
@@ -117,6 +120,7 @@ impl Serialize for World {
         state.serialize_field("entities", &entities)?;
         state.serialize_field("creep_spawn_enabled", &self.creep_spawn_enabled)?;
         state.serialize_field("creep_spawn_interval", &self.creep_spawn_interval)?;
+        state.serialize_field("is_interior", &self.is_interior)?;
         state.end()
     }
 }
@@ -126,6 +130,7 @@ impl<'de> Deserialize<'de> for World {
         let data = WorldData::deserialize(deserializer)?;
 
         let mut world = World::new(data.id);        
+        world.is_interior = data.is_interior;
         world.creep_spawn_enabled = data.creep_spawn_enabled;
         world.creep_spawn_interval = data.creep_spawn_interval;
         data.entities.into_iter().for_each(|e| _ = world.add_entity(e));        

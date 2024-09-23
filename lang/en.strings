@@ -121,6 +121,7 @@
 "objects.name.sign" = "Sign"
 "objects.name.large_sign" = "Large Sign"
 "objects.name.magic_circle.invocation" = "Invocation Circle"
+"objects.name.well" = "Well"
 
 "teleporter.name" = "Teleporter"
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."

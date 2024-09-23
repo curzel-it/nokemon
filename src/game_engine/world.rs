@@ -26,6 +26,7 @@ pub struct World {
     pub creep_spawn_enabled: bool,
     pub creep_spawn_interval: f32,
     pub is_in_cutscene: bool,
+    pub is_interior: bool,
 }
 
 impl World {
@@ -50,7 +51,8 @@ impl World {
             has_confirmation_key_been_pressed: false,
             creep_spawn_enabled: false,
             creep_spawn_interval: 5.0,
-            is_in_cutscene: false
+            is_in_cutscene: false,
+            is_interior: false
         }
     }
 
