@@ -1,4 +1,4 @@
-use crate::{constants::HERO_ENTITY_ID, entities::species::EntityType, game_engine::{entity::EntityId, world::World}};
+use crate::{constants::HERO_ENTITY_ID, entities::species::EntityType, game_engine::{entity::EntityId, world::World}, maps::constructions_tiles::Construction};
 
 pub type Hitmap = Vec<Vec<bool>>;
 pub type EntityIdsMap = Vec<Vec<EntityId>>;
@@ -63,7 +63,8 @@ impl World {
                 for col in min_col..max_col {
                     let is_biome_obstacle = self.biome_tiles.tiles[row][col].is_obstacle();
                     let is_construction_obstacle = self.constructions_tiles.tiles[row][col].is_obstacle();
-                    hitmap[row][col] = hitmap[row][col] || is_biome_obstacle || is_construction_obstacle;
+                    let is_bridge = matches!(self.constructions_tiles.tiles[row][col].tile_type, Construction::Bridge);
+                    hitmap[row][col] = hitmap[row][col] || !is_bridge && (is_biome_obstacle || is_construction_obstacle);
                 }
             }
         }
