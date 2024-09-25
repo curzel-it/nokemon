@@ -92,7 +92,7 @@ impl EntityOptionsMenu {
             return
         }
 
-        self.menu.title = self.entity.name.to_owned();
+        self.menu.title = format!("{} #{}", self.entity.name, self.entity.id);
         self.menu.show();
         self.state = EntityOptionsMenuState::Closed;
     }

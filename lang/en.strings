@@ -1,5 +1,5 @@
-"book.tutorial.001" = "Yo!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!\nThis is supposed to be a book with tutorial info, too bad I didn't even start writing it yet!\n\nBye!"
-"scroll.tutorial.001" = "No human or hero can survive a close combat with a deamon.\nIf they touch you, you're toast."
+"1002.sign.welcome_to_village" = "Welcome to Saltspire Port"
+"1002.book.underground_hint" = "Old Saltspire Legends:\n\nWhen the last ship has sailed from Saltspire Port,\nthose who seek passage must look beneath.\nA forgotten tunnel, hidden in the village,\nleads to the next island...\nIf one dares to enter the depths."
 
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
@@ -17,12 +17,11 @@
 "dialogue.select_option" = "Select an option:";
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"
-"dialogue.2" = "Why do you talk so much?"
-"dialogue.3" = "Dude! WTF!?"
+"dialogue.2" = "Touch me?"
 "dialogue.1001" = "I can't believe it worked!\n\n(The guy seems weirdly excited)";
 "dialogue.1002" = "Every 100 years a hero from another world is summoned\nto be the champion of humanity...\nThat's why you are here.";
-"dialogue.1003" = "Unfortunately, the Dark Lord invasion has already begun\nand I will not have time to train you...\nYou must leave immediately!\nI will stay and hold them as long as possible!";
-"dialogue.1004" = "Head North and meet with the High Priestess...\nJust remember: Don't let them touch you!";
+"dialogue.1003" = "Unfortunately, the Dark Lord invasion has already begun...\nIt's essential that I start building defenses on the continent,\nbut this means I don't have time to train you properly...";
+"dialogue.1004" = "Go north, a boat is leaving soon for Stormlace City!\nThe High Priestess will be waiting for you there...\nAvoid any deamons you find and remember:\nDon't let them touch you!";
 "dialogue.1005" = "There's no time to explain further, just hurry up!";
 
 "entity.menu.title" = "Entity Options"
@@ -61,8 +60,8 @@
 "lock.name.silver" = "Silver"
 
 "map_editor.title" = "Map Editor"
-"map_editor.subtitle" = "Press SPACE to select something"
-"map_editor.placement" = "Press SPACE to place\nPress ESC to go back"
+"map_editor.subtitle" = "Press CONFIRM to select something"
+"map_editor.placement" = "Press CONFIRM to place\nPress ESC to go back"
 
 "npc.name.default" = "Some rando"
 "npc.name.wizard" = "Wizard"

@@ -10,8 +10,7 @@ impl World {
     }    
 
     fn compute_hitmap(&self) -> (Hitmap, EntityIdsMap, WeightsMap) {
-        let entities = self.entities.borrow();
-    
+        let entities = self.entities.borrow();    
         let height = self.bounds.h as usize;
         let width = self.bounds.w as usize;
     

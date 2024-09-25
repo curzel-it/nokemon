@@ -325,7 +325,7 @@ impl MapEditor {
 impl MapEditor {
     pub fn ui(&self, camera_viewport: &Rect) -> View {
         scaffold(
-            true,
+            self.uses_backdrop(),
             self.background_color(),
             Some(MENU_BORDERS_TEXTURES),
             match self.state {
@@ -335,6 +335,10 @@ impl MapEditor {
                 }
             },
         )
+    }
+
+    fn uses_backdrop(&self) -> bool {
+        !matches!(self.state, MapEditorState::PlacingItem(_, _, _))
     }
 
     fn background_color(&self) -> Color {

@@ -6,8 +6,8 @@ pub const ANIMATIONS_FPS: f32 = 10.0;
 
 // Default Props
 pub const INITIAL_CAMERA_VIEWPORT: Rect = Rect::new(0, 0, 60, 40);
-pub const WORLD_SIZE_ROWS: usize = 150;
-pub const WORLD_SIZE_COLUMNS: usize = 200;
+pub const WORLD_SIZE_ROWS: usize = 80;
+pub const WORLD_SIZE_COLUMNS: usize = 120;
 pub const UNLIMITED_LIFESPAN: f32 = -420.0;
 pub const NO_PARENT: u32 = 0;
 pub const HERO_KUNAI_COOLDOWN: f32 = 0.1;

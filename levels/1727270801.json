@@ -1,9 +1,15 @@
 {
-  "id": 1001,
+  "id": 1727270801,
   "biome_tiles": {
     "tiles": [
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -40,13 +46,7 @@
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -87,6 +87,15 @@
   },
   "constructions_tiles": {
     "tiles": [
+      "444444446660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "444444446660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "444440044440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -123,16 +132,7 @@
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000CCCCCCCCCCCCCC00000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C666666666666600000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C666666666666600000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "0000000000000000000000000000000000000000000000000000000000000000000DD000000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -172,15 +172,212 @@
   },
   "entities": [
     {
-      "id": 1727269335,
+      "id": 1727270803,
       "frame": {
-        "x": 58,
-        "y": 41,
-        "w": 4,
-        "h": 4
+        "x": 5,
+        "y": 8,
+        "w": 1,
+        "h": 1
       },
-      "name": "Invocation Circle",
-      "species_id": 11000,
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1008,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1002,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270804,
+      "frame": {
+        "x": 6,
+        "y": 8,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1008,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1002,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270805,
+      "frame": {
+        "x": 1,
+        "y": 4,
+        "w": 2,
+        "h": 2
+      },
+      "name": "Table",
+      "species_id": 1016,
+      "entity_type": "StaticObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 4,
+          "y": 0,
+          "w": 2,
+          "h": 2
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 4,
+        "y": 0,
+        "w": 2,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270806,
+      "frame": {
+        "x": 1,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Green Seat",
+      "species_id": 1013,
       "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
@@ -189,16 +386,268 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 0,
+      "z_index": 100,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 3,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270807,
+      "frame": {
+        "x": 2,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Green Seat",
+      "species_id": 1013,
+      "entity_type": "StaticObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 100,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 3,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270808,
+      "frame": {
+        "x": 1,
+        "y": 6,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Green Seat",
+      "species_id": 1013,
+      "entity_type": "StaticObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 100,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 3,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727270809,
+      "frame": {
+        "x": 2,
+        "y": 6,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Green Seat",
+      "species_id": 1013,
+      "entity_type": "StaticObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 100,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 3,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 3,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727288897,
+      "frame": {
+        "x": 2,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Book",
+      "species_id": 6001,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 8,
-          "y": 0,
-          "w": 4,
-          "h": 4
+          "x": 0,
+          "y": 5,
+          "w": 1,
+          "h": 1
         },
-        "number_of_frames": 5
+        "number_of_frames": 8
       },
       "dialogues": {
         "options": []
@@ -207,10 +656,10 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 8,
-        "y": 0,
-        "w": 4,
-        "h": 4
+        "x": 0,
+        "y": 5,
+        "w": 1,
+        "h": 1
       },
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -227,24 +676,24 @@
         0,
         0
       ],
-      "contents": null,
+      "contents": "1002.book.underground_hint",
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
-      "id": 1727269336,
+      "id": 1727288898,
       "frame": {
-        "x": 63,
-        "y": 42,
+        "x": 10,
+        "y": 4,
         "w": 1,
         "h": 2
       },
-      "name": "Wizard",
-      "species_id": 1020,
-      "entity_type": "Npc",
+      "name": "Bed",
+      "species_id": 1017,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -252,37 +701,26 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": true,
-      "z_index": 0,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1010,
         "frame": {
-          "x": 32,
-          "y": 0,
+          "x": 0,
+          "y": 2,
           "w": 1,
           "h": 2
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": {
-        "options": [
-          {
-            "key": "dialogue.answer.1001",
-            "expected_value": 0,
-            "dialogue": 1001
-          },
-          {
-            "key": "always",
-            "expected_value": 1,
-            "dialogue": 1005
-          }
-        ]
+        "options": []
       },
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 32,
-        "y": 0,
+        "x": 0,
+        "y": 2,
         "w": 1,
         "h": 2
       },
@@ -309,16 +747,16 @@
       "demands_attention": false
     },
     {
-      "id": 1727269337,
+      "id": 1727288899,
       "frame": {
-        "x": 62,
-        "y": 39,
+        "x": 9,
+        "y": 4,
         "w": 1,
-        "h": 1
+        "h": 2
       },
-      "name": "Slime",
-      "species_id": 4001,
-      "entity_type": "Npc",
+      "name": "Bed",
+      "species_id": 1017,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -326,16 +764,16 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": true,
-      "z_index": 150,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1014,
+        "sheet_id": 1010,
         "frame": {
           "x": 0,
-          "y": 0,
+          "y": 2,
           "w": 1,
-          "h": 1
+          "h": 2
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": {
         "options": []
@@ -345,9 +783,9 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 0,
+        "y": 2,
         "w": 1,
-        "h": 1
+        "h": 2
       },
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -368,20 +806,20 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
-      "id": 1727269338,
+      "id": 1727288900,
       "frame": {
-        "x": 68,
-        "y": 45,
+        "x": 10,
+        "y": 6,
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
-      "species_id": 1019,
-      "entity_type": "Teleporter",
+      "name": "Orange Seat",
+      "species_id": 1015,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -389,12 +827,12 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 200,
+      "z_index": 100,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 1,
+          "x": 3,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -404,15 +842,11 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": {
-        "world": 1002,
-        "x": 0,
-        "y": 0
-      },
+      "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 1,
+        "x": 3,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -439,16 +873,16 @@
       "demands_attention": false
     },
     {
-      "id": 1727269339,
+      "id": 1727288901,
       "frame": {
-        "x": 67,
-        "y": 45,
+        "x": 9,
+        "y": 6,
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
-      "species_id": 1019,
-      "entity_type": "Teleporter",
+      "name": "Orange Seat",
+      "species_id": 1015,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -456,12 +890,12 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 200,
+      "z_index": 100,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 1,
+          "x": 3,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -471,15 +905,11 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": {
-        "world": 1002,
-        "x": 0,
-        "y": 0
-      },
+      "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 1,
+        "x": 3,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -508,5 +938,5 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": false
+  "is_interior": true
 }
