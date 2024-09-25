@@ -41,32 +41,6 @@ impl<T: Tile> TileSet<T> {
     pub fn current_variant(&self, row: usize, col: usize) -> i32 {
         (*self.sprite_counter.current_frame() + row as i32 + col as i32) % TILE_VARIATIONS_COUNT
     }
-
-    pub fn visible_tiles(&self, viewport: &Rect) -> Vec<&T> {
-        let rows_count = self.tiles.len() as i32;
-        let columns_count = self.tiles[0].len() as i32;
-
-        let min_y = viewport.y - 2;
-        let max_y = (viewport.y + viewport.h) + 4;
-        let min_x = viewport.x - 2;
-        let max_x = (viewport.x + viewport.w) + 4;
-
-        let min_row = min_y.max(0).min(rows_count) as usize;
-        let max_row = max_y.max(0).min(rows_count) as usize;
-        let min_col = min_x.max(0).min(columns_count) as usize;
-        let max_col = max_x.max(0).min(columns_count) as usize;
-
-        let mut visible_tiles = Vec::new();
-
-        for row in min_row..max_row {
-            for col in min_col..max_col {
-                let tile = &self.tiles[row][col];
-                visible_tiles.push(tile);
-            }
-        }
-
-        visible_tiles
-    }
 }
 
 #[macro_export]

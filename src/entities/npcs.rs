@@ -65,8 +65,6 @@ impl Entity {
         if self.offset.x != 0.0 || self.offset.y != 0.0 {
             return
         }
-        let current_direction = self.direction;
-
         if self.is_hero_in_line_of_sight(world) {
             self.change_direction_towards_hero(world);
         } else if self.is_obstacle_in_direction(&world.hitmap, self.direction) {
