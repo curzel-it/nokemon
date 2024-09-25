@@ -345,10 +345,9 @@ impl EntityOptionsMenu {
                 EntityOptionMenuItem::Remove,
             ],
             EntityType::StaticObject => vec![
-                EntityOptionMenuItem::Rename,
                 EntityOptionMenuItem::Remove,
             ],
-            EntityType::PickableObject => vec![
+            EntityType::PickableObject | EntityType::Bundle => vec![
                 EntityOptionMenuItem::PickUp,
                 EntityOptionMenuItem::Remove,
             ],
@@ -377,10 +376,6 @@ impl EntityOptionsMenu {
                 EntityOptionMenuItem::PickUp,
                 EntityOptionMenuItem::Remove,
             ],
-            EntityType::Bundle => vec![
-                EntityOptionMenuItem::PickUp,
-                EntityOptionMenuItem::Remove,
-            ],
         }
     }
 
@@ -393,7 +388,7 @@ impl EntityOptionsMenu {
         }
 
         match self.entity.entity_type {
-            EntityType::PickableObject => options.push(EntityOptionMenuItem::PickUp),
+            EntityType::PickableObject | EntityType::Bundle => options.push(EntityOptionMenuItem::PickUp),
             EntityType::Bullet => options.push(EntityOptionMenuItem::PickUp),
             _ => {}
         }

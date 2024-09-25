@@ -249,7 +249,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 0,
@@ -306,7 +306,7 @@
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
       "is_invulnerable": true,
-      "demands_attention": false
+      "demands_attention": true
     },
     {
       "id": 1727269337,
@@ -508,5 +508,5 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": false
+  "is_interior": true
 }

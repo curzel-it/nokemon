@@ -1,5 +1,19 @@
 "1002.sign.welcome_to_village" = "Welcome to Saltspire Port"
-"1002.book.underground_hint" = "Old Saltspire Legends:\n\nWhen the last ship has sailed from Saltspire Port,\nthose who seek passage must look beneath.\nA forgotten tunnel, hidden in the village,\nleads to the next island...\nIf one dares to enter the depths."
+"1002.scroll.hidden_monsters_hint" = "Mind the gap"
+
+"1002.sign.sorry_no_boat" = """
+Ahoy there! 
+Had to weigh anchor 'n set sail - those cursed demons be too close fer me liking. 
+Find old Captain Briggs in the village; he'll lend ye a hand!
+"""
+
+"1002.book.underground_hint" = """
+Captain Briggs Journal:
+I know a captain is supposed to sink with his ship, but the people here need me.
+Womand and children have left with the last boat.
+I hope we can soon leave too using the underground tunnel hidden in the village.
+If it didn't collapse, it should bring all the way to the next island.
+"""
 
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
@@ -13,16 +27,33 @@
 
 "death_screen.title" = "You're dead."
 
-"dialogue.reward_received" = "You received `%s`!";
-"dialogue.select_option" = "Select an option:";
+"dialogue.reward_received" = "You received `%s`!"
+"dialogue.select_option" = "Select an option:"
 "dialogue.0" = "Ok"
 "dialogue.1" = "Continue >>"
 "dialogue.2" = "Touch me?"
-"dialogue.1001" = "I can't believe it worked!\n\n(The guy seems weirdly excited)";
-"dialogue.1002" = "Every 100 years a hero from another world is summoned\nto be the champion of humanity...\nThat's why you are here.";
-"dialogue.1003" = "Unfortunately, the Dark Lord invasion has already begun...\nIt's essential that I start building defenses on the continent,\nbut this means I don't have time to train you properly...";
-"dialogue.1004" = "Go north, a boat is leaving soon for Stormlace City!\nThe High Priestess will be waiting for you there...\nAvoid any deamons you find and remember:\nDon't let them touch you!";
-"dialogue.1005" = "There's no time to explain further, just hurry up!";
+"dialogue.1001" = """
+I can't believe it worked!
+
+(The guy seems weirdly excited)
+"""
+"dialogue.1002" = """
+Every 100 years a hero from another world is summoned
+to be the champion of humanity...
+That's why you are here.
+"""
+"dialogue.1003" = """
+Unfortunately, the Dark Lord invasion has already begun...
+It's essential that I start building defenses on the continent,
+but this means I don't have time to train you properly...
+"""
+"dialogue.1004" = """
+Go north, a boat is leaving soon for Stormlace City!
+The High Priestess will be waiting for you there...
+Avoid any deamons you find and remember:
+Don't let them touch you!
+"""
+"dialogue.1005" = "There's no time to explain further, just hurry up!"
 
 "entity.menu.title" = "Entity Options"
 "entity.menu.remove" = "Remove"
@@ -46,7 +77,14 @@
 "game.menu.save_and_exit" = "Save & Exit"
 "game.menu.key_bindings" = "Key Bindings"
 "keys.menu.title" = "Key Bindings"
-"keys.menu.message" = "Movement: WASD or ARROWS\nBack/Cancel: ESC\nMenu: ENTER\n\nYou can change the following:"
+
+"keys.menu.message" = """
+Movement: WASD or ARROWS
+Back/Cancel: ESC
+Menu: ENTER
+
+You can change the following:
+"""
 "keys.menu.press_to_change" = "Press new key for"
 
 "inventory.title" = "Inventory"
@@ -61,7 +99,10 @@
 
 "map_editor.title" = "Map Editor"
 "map_editor.subtitle" = "Press CONFIRM to select something"
-"map_editor.placement" = "Press CONFIRM to place\nPress ESC to go back"
+"map_editor.placement" = """
+Press CONFIRM to place
+Press ESC to go back
+"""
 
 "npc.name.default" = "Some rando"
 "npc.name.wizard" = "Wizard"
@@ -123,9 +164,17 @@
 "objects.name.well" = "Well"
 
 "teleporter.name" = "Teleporter"
-"teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
+
+"teleporter.locked" = """
+This door is locked.
+You need a %s key to unlock it.
+"""
+
 "teleporter.unlock.title" = "Unlock the door?"
 "teleporter.unlock.message" = "You will lose one %s key."
-"text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel";
+"text_input.hint" = """
+Press ENTER to confirm
+Press ESC to cancel
+"""
 
 "you" = "You"

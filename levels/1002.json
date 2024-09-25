@@ -532,7 +532,7 @@
         "x": 0,
         "y": 0
       },
-      "lock_type": "None",
+      "lock_type": "Yellow",
       "original_sprite_frame": {
         "x": 0,
         "y": 1,
@@ -662,7 +662,7 @@
         "x": 0,
         "y": 0
       },
-      "lock_type": "None",
+      "lock_type": "Red",
       "original_sprite_frame": {
         "x": 0,
         "y": 1,
@@ -1007,195 +1007,6 @@
       "demands_attention": false
     },
     {
-      "id": 1727287389,
-      "frame": {
-        "x": 74,
-        "y": 58,
-        "w": 1,
-        "h": 1
-      },
-      "name": "x10 Kunai",
-      "species_id": 7001,
-      "entity_type": "Bundle",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 1,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 1,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727289062,
-      "frame": {
-        "x": 13,
-        "y": 42,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Red Pressure Plate",
-      "species_id": 1051,
-      "entity_type": "PressurePlate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 8,
-          "y": 1,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Red",
-      "original_sprite_frame": {
-        "x": 8,
-        "y": 1,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727289063,
-      "frame": {
-        "x": 9,
-        "y": 42,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Boulder",
-      "species_id": 1030,
-      "entity_type": "PushableObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 3,
-      "current_speed": 10.8,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 1,
-          "y": 2,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 1,
-        "y": 2,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        -1,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
       "id": 1727289807,
       "frame": {
         "x": 44,
@@ -1322,7 +1133,7 @@
       "demands_attention": false
     },
     {
-      "id": 1727289999,
+      "id": 1727293129,
       "frame": {
         "x": 42,
         "y": 10,
@@ -1358,6 +1169,132 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1002.sign.sorry_no_boat",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727296199,
+      "frame": {
+        "x": 43,
+        "y": 10,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Red Key",
+      "species_id": 2001,
+      "entity_type": "PickableObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 0,
+          "y": 1,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 8
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Red",
+      "original_sprite_frame": {
+        "x": 0,
+        "y": 1,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727296257,
+      "frame": {
+        "x": 74,
+        "y": 58,
+        "w": 1,
+        "h": 1
+      },
+      "name": "x10 Kunai",
+      "species_id": 7001,
+      "entity_type": "Bundle",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 1,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 1,
         "y": 4,
         "w": 1,
         "h": 1

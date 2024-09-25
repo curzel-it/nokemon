@@ -115,24 +115,64 @@ impl LongTextDisplay {
     }
 
     fn wrap_text(text: &str, max_line_length: usize) -> Vec<String> {
-        let mut lines: Vec<String> = Vec::new();
+        let mut lines = Vec::new();
         let mut current_line = String::new();
+    
+        let mut tokens = Vec::new();
+        let mut word = String::new();
 
-        for word in text.split_whitespace() {
-            if current_line.len() + word.len() + 1 > max_line_length {
-                lines.push(current_line.clone());
-                current_line.clear();
+        for c in text.chars() {
+            if c == '\n' {
+                if !word.is_empty() {
+                    tokens.push(word.clone());
+                    word.clear();
+                }
+                tokens.push("\n".to_string());
+            } else if c == ' ' {
+                if !word.is_empty() {
+                    tokens.push(word.clone());
+                    word.clear();
+                }
+                // We can ignore multiple spaces; they don't affect line breaks
+            } else {
+                word.push(c);
             }
-            if !current_line.is_empty() {
-                current_line.push(' ');
-            }
-            current_line.push_str(word);
         }
-
+        if !word.is_empty() {
+            tokens.push(word);
+        }
+    
+        for token in tokens {
+            if token == "\n" {
+                if !current_line.is_empty() {
+                    lines.push(current_line.clone());
+                    current_line.clear();
+                }
+                // Insert an empty string to represent the newline
+                lines.push(String::new());
+            } else {
+                // token is a word
+                let space = if current_line.is_empty() { 0 } else { 1 };
+                if current_line.len() + space + token.len() > max_line_length {
+                    if !current_line.is_empty() {
+                        lines.push(current_line.clone());
+                        current_line.clear();
+                    }
+                }
+                if !current_line.is_empty() {
+                    current_line.push(' ');
+                }
+                current_line.push_str(&token);
+            }
+        }
+    
         if !current_line.is_empty() {
             lines.push(current_line);
         }
-
-        lines
-    }
+    
+        lines.iter_mut()
+            .map(|l| l.trim().to_owned())
+            .filter(|l| !l.is_empty())
+            .collect()
+    }    
 }

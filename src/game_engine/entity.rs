@@ -96,15 +96,14 @@ impl Entity {
             EntityType::Hero => self.update_hero(world, time_since_last_update),
             EntityType::Npc => self.update_npc(world, time_since_last_update),
             EntityType::Building => self.update_building(world, time_since_last_update),
-            EntityType::StaticObject => self.update_generic(world, time_since_last_update),
-            EntityType::PickableObject => self.update_pickable_object(world, time_since_last_update),
+            EntityType::StaticObject => self.update_static(world, time_since_last_update),
+            EntityType::PickableObject | EntityType::Bundle => self.update_pickable_object(world, time_since_last_update),
             EntityType::Teleporter => self.update_teleporter(world, time_since_last_update),
             EntityType::PushableObject => self.update_pushable(world, time_since_last_update),
             EntityType::Gate => self.update_gate(world, time_since_last_update),
             EntityType::InverseGate => self.update_inverse_gate(world, time_since_last_update),
             EntityType::PressurePlate => self.update_pressure_plate(world, time_since_last_update),
             EntityType::Bullet => self.update_bullet(world, time_since_last_update),
-            EntityType::Bundle => self.update_generic(world, time_since_last_update),
             EntityType::RailObject => self.update_rail(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
@@ -121,14 +120,13 @@ impl Entity {
             EntityType::Npc => self.setup_npc(),
             EntityType::Building => self.setup_generic(),
             EntityType::StaticObject => self.setup_generic(),
-            EntityType::PickableObject => self.setup_generic(),
+            EntityType::PickableObject | EntityType::Bundle => self.setup_generic(),
             EntityType::Teleporter => self.setup_generic(),
             EntityType::PushableObject => self.setup_generic(),
             EntityType::Gate => self.setup_gate(),
             EntityType::InverseGate => self.setup_inverse_gate(),
             EntityType::PressurePlate => self.setup_pressure_plate(),
             EntityType::Bullet => self.setup_bullet(),
-            EntityType::Bundle => self.setup_generic(),
             EntityType::RailObject => self.setup_rail(),
         }
     }
@@ -178,6 +176,21 @@ impl Entity {
                     )
                 )
             ];   
+        }
+        vec![]
+    }
+
+    fn update_static(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
+        if world.creative_mode || self.contents.is_some() {
+            if world.is_hero_around_and_on_collision_with(&self.frame) {
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowEntityOptions(
+                            Box::new(self.clone())
+                        )
+                    )
+                ];   
+            }
         }
         vec![]
     }

@@ -1,13 +1,5 @@
 {
   "always": 1,
-  "dialogue.answer.1001": 1002,
-  "dialogue.answer.1002": 1003,
-  "dialogue.answer.1003": 1004,
-  "dialogue.answer.1004": 1005,
-  "dialogue.answer.1005": 1005,
-  "latest_world": 1002,
-  "latest_x": 31,
-  "latest_y": 53,
-  "pressure_plate.red": 0,
+  "latest_world": 1001,
   "pressure_plate.yellow": 0
 }

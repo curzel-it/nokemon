@@ -806,7 +806,7 @@
         0,
         0
       ],
-      "contents": null,
+      "contents": "1002.scroll.hidden_monsters_hint",
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
@@ -816,5 +816,5 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": false
+  "is_interior": true
 }
