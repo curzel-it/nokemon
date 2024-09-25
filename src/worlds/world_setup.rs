@@ -2,6 +2,7 @@ use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_s
 
 impl World {
     pub fn setup(&mut self, source: u32, hero_direction: &Direction, original_x: i32, original_y: i32) {
+        self.update_tiles_hitmap();
         self.update_hitmaps();
 
         let (destination_x, destination_y) = self.destination_x_y(source, original_x, original_y);        

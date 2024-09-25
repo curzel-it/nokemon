@@ -15,7 +15,7 @@ impl World {
         let height = self.bounds.h as usize;
         let width = self.bounds.w as usize;
     
-        let mut hitmap = vec![vec![false; width]; height];
+        let mut hitmap = self.tiles_hitmap.clone();
         let mut idsmap = vec![vec![0; width]; height];
         let mut weightsmap = vec![vec![0; width]; height];
     
@@ -48,6 +48,12 @@ impl World {
             }
         }
     
+        (hitmap, idsmap, weightsmap)
+    }
+
+    pub fn update_tiles_hitmap(&mut self) {    
+        let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
+
         if !self.biome_tiles.tiles.is_empty() {
             let min_row = self.bounds.y as usize;
             let max_row = ((self.bounds.y + self.bounds.h) as usize).min(self.biome_tiles.tiles.len());
@@ -70,8 +76,7 @@ impl World {
                 }
             }
         }
-    
-        (hitmap, idsmap, weightsmap)
+        self.tiles_hitmap = hitmap;
     }
 }
 

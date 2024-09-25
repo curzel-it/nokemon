@@ -16,6 +16,7 @@ pub struct World {
     pub visible_entities: HashSet<(usize, u32)>,
     pub cached_hero_props: EntityProps,
     pub hitmap: Hitmap,
+    pub tiles_hitmap: Hitmap,
     pub weights_map: WeightsMap,
     pub entities_map: EntityIdsMap,
     pub creative_mode: bool,
@@ -42,6 +43,7 @@ impl World {
             visible_entities: hash_set![],
             cached_hero_props: EntityProps::default(),
             hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
+            tiles_hitmap: vec![vec![false; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             weights_map: vec![vec![0; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             entities_map: vec![vec![0; WORLD_SIZE_COLUMNS]; WORLD_SIZE_ROWS],
             creative_mode: false,
@@ -270,11 +272,13 @@ impl World {
     }
 
     fn update_biome_tile(&mut self, row: usize, col: usize, new_biome: Biome) {
-        self.biome_tiles.update_tile(row, col, new_biome)
+        self.biome_tiles.update_tile(row, col, new_biome);
+        self.update_tiles_hitmap();
     }
 
     fn update_construction_tile(&mut self, row: usize, col: usize, new_construction: Construction) {
-        self.constructions_tiles.update_tile(row, col, new_construction)
+        self.constructions_tiles.update_tile(row, col, new_construction);
+        self.update_tiles_hitmap();
     }  
     
     pub fn find_teleporter_for_destination(&self, destination_world: u32) -> Option<Rect> {
