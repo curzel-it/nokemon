@@ -36,6 +36,36 @@ impl Direction {
         if left { return Direction::Left }
         Direction::Unknown
     }
+
+    pub fn opposite(&self) -> Direction {
+        match self {
+            Direction::Up => Direction::Down,
+            Direction::Right => Direction::Left,
+            Direction::Down => Direction::Up,
+            Direction::Left => Direction::Right,
+            Direction::Unknown => Direction::Unknown,
+        }
+    }
+
+    pub fn turn_right(&self) -> Direction {
+        match self {
+            Direction::Up => Direction::Right,
+            Direction::Right => Direction::Down,
+            Direction::Down => Direction::Left,
+            Direction::Left => Direction::Up,
+            Direction::Unknown => Direction::Unknown,
+        }
+    }
+
+    pub fn turn_left(&self) -> Direction {
+        match self {
+            Direction::Up => Direction::Left,
+            Direction::Right => Direction::Up,
+            Direction::Down => Direction::Left,
+            Direction::Left => Direction::Down,
+            Direction::Unknown => Direction::Unknown,
+        }
+    }
 }
 
 pub fn direction_between_rects(source: &Rect, other: &Rect) -> Direction {

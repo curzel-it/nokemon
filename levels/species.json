@@ -1015,7 +1015,7 @@
         "entity_type": "Npc",
         "z_index": 150,
         "base_speed": 1.5,
-        "is_rigid": true,
+        "is_rigid": false,
         "melee_attacks_hero": true,
         "inventory_texture_offset": [
             2,
@@ -1038,7 +1038,7 @@
         "z_index": 150,
         "base_speed": 2.5,
         "melee_attacks_hero": true,
-        "is_rigid": true,
+        "is_rigid": false,
         "inventory_texture_offset": [
             2,
             6
@@ -1059,7 +1059,7 @@
         "entity_type": "Npc",
         "z_index": 150,
         "base_speed": 1.5,
-        "is_rigid": true,
+        "is_rigid": false,
         "melee_attacks_hero": true,
         "inventory_texture_offset": [
             2,

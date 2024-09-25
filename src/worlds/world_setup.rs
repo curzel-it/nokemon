@@ -28,7 +28,9 @@ impl World {
         }
         
         entity.immobilize_for_seconds(0.2);        
-        self.add_entity(entity);
+        let (index, _) = self.add_entity(entity);
+
+        self.entities.borrow_mut()[index].speed_multiplier = if self.creative_mode { 3.0 } else { 1.0 };
     }    
 
     fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (i32, i32) {

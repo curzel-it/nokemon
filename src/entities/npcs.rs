@@ -1,4 +1,4 @@
-use crate::{constants::STEP_COMMITMENT_THRESHOLD, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::{direction_between_rects, Direction}, rect::Rect}};
+use crate::{constants::{NPC_STEP_COMMITMENT_THRESHOLD, STEP_COMMITMENT_THRESHOLD}, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::{direction_between_rects, Direction}, rect::Rect}};
 
 pub type NpcId = u32;
 
@@ -16,7 +16,7 @@ impl Entity {
         self.move_linearly(world, time_since_last_update);
         
         if self.melee_attacks_hero {
-            self.adjust_position_towards_hero(world);
+            self.move_npc(world);
             let updates = self.handle_melee_attack(world);
             
             if !updates.is_empty() {
@@ -59,62 +59,96 @@ impl Entity {
         vec![]
     }
 
-    fn adjust_position_towards_hero(&mut self, world: &World) {
-        if self.offset.x < STEP_COMMITMENT_THRESHOLD && self.offset.y < STEP_COMMITMENT_THRESHOLD {
-            self.adjust_position_towards(&world.cached_hero_props.hittable_frame, &world.hitmap)
-        }        
-    }
-
-    fn adjust_position_towards(&mut self, hero: &Rect, obstacles: &[Vec<bool>]) {
-        let x = self.frame.x;
-        let y = self.frame.y.max(1) - if self.frame.h > 1 { 1 } else { 0 };
-        let hero_x = hero.x;
-        let hero_y = hero.y;
-    
-        let dx = hero_x - x;
-        let dy = hero_y - y;
-        let current_distance = dx.abs() + dy.abs();
-    
-        let mut possible_moves = Vec::new();
-    
-        if y >= obstacles.len() as i32 || x >= obstacles[0].len() as i32 {
-            return;
-        }
-
-        if y > 0 && !obstacles[(y - 1) as usize][x as usize] {
-            let new_distance = (hero_x - x).abs() + (hero_y - (y - 1)).abs();
-            possible_moves.push((Direction::Up, new_distance));
-        }
-    
-        if y + 1 < obstacles.len() as i32 && !obstacles[(y + 1) as usize][x as usize] {
-            let new_distance = (hero_x - x).abs() + (hero_y - (y + 1)).abs();
-            possible_moves.push((Direction::Down, new_distance));
-        }
-    
-        if x > 0 && !obstacles[y as usize][(x - 1) as usize] {
-            let new_distance = (hero_x - (x - 1)).abs() + (hero_y - y).abs();
-            possible_moves.push((Direction::Left, new_distance));
-        }
-    
-        if x + 1 < obstacles[0].len() as i32 && !obstacles[y as usize][(x + 1) as usize] {
-            let new_distance = (hero_x - (x + 1)).abs() + (hero_y - y).abs();
-            possible_moves.push((Direction::Right, new_distance));
-        }
-    
-        let (current_dx, current_dy) = self.direction.as_col_row_offset();
-        let (new_x, new_y) = (x + current_dx, y + current_dy);
-    
-        if new_x >= 0 && new_y >= 0 && new_y < obstacles.len() as i32 && new_x < obstacles[0].len() as i32 && !obstacles[new_y as usize][new_x as usize] {
-            let new_distance = (hero_x - new_x).abs() + (hero_y - new_y).abs();
-            if new_distance < current_distance {
-                return;
+    fn move_npc(&mut self, world: &World) {
+        if self.is_hero_in_line_of_sight(world) {
+            // Change direction towards the hero
+            self.change_direction_towards_hero(world);
+        } else {
+            // Check for obstacle in the current direction
+            if self.is_obstacle_in_direction(&world.hitmap, self.direction) {
+                // Obstacle found, pick next direction
+                self.pick_next_direction(&world.hitmap);
             }
         }
-    
-        possible_moves.sort_by_key(|&(_, dist)| dist);
-    
-        if let Some(&(best_direction, _)) = possible_moves.first() {
-            self.direction = best_direction;
+    }
+
+    fn is_hero_in_line_of_sight(&self, world: &World) -> bool {
+        let hero = &world.cached_hero_props.hittable_frame;
+        let npc = &self.frame;
+
+        if npc.x == hero.x {
+            // Same x coordinate, check vertically
+            let min_y = npc.y.min(hero.y);
+            let max_y = npc.y.max(hero.y);
+            for y in (min_y + 1)..max_y {
+                if world.hitmap[y as usize][npc.x as usize] {
+                    return false;
+                }
+            }
+            true
+        } else if npc.y == hero.y {
+            // Same y coordinate, check horizontally
+            let min_x = npc.x.min(hero.x);
+            let max_x = npc.x.max(hero.x);
+            for x in (min_x + 1)..max_x {
+                if world.hitmap[npc.y as usize][x as usize] {
+                    return false;
+                }
+            }
+            true
+        } else {
+            false
         }
+    }
+
+    fn change_direction_towards_hero(&mut self, world: &World) {
+        let hero = &world.cached_hero_props.hittable_frame;
+        let npc = &self.frame;
+
+        if npc.x == hero.x {
+            if npc.y < hero.y {
+                self.direction = Direction::Down;
+            } else if npc.y > hero.y {
+                self.direction = Direction::Up;
+            }
+        } else if npc.y == hero.y {
+            if npc.x < hero.x {
+                self.direction = Direction::Right;
+            } else if npc.x > hero.x {
+                self.direction = Direction::Left;
+            }
+        }
+        // If both x and y differ, do nothing
+    }
+
+    fn is_obstacle_in_direction(&self, hitmap: &[Vec<bool>], direction: Direction) -> bool {
+        let (next_dx, next_dy) = direction.as_col_row_offset();
+        let next_x = self.frame.x + next_dx;
+        let next_y = self.frame.y + next_dy;
+
+        if next_x < 0
+            || next_x >= hitmap[0].len() as i32
+            || next_y < 0
+            || next_y >= hitmap.len() as i32 {
+            return true; 
+        }
+
+        hitmap[next_y as usize][next_x as usize]
+    }
+
+    fn pick_next_direction(&mut self, hitmap: &[Vec<bool>]) {
+        let directions = [
+            self.direction.turn_right(),
+            self.direction.turn_left(),
+            self.direction.opposite(),
+        ];
+
+        for &dir in &directions {
+            if !self.is_obstacle_in_direction(hitmap, dir) {
+                self.direction = dir;
+                break;
+            }
+        }
+        // If all directions are blocked, keep current direction
     }
 }

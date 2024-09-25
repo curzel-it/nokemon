@@ -46,18 +46,10 @@ impl World {
         }
 
         if !self.biome_tiles.tiles.is_empty() {
-            let rows_count = self.bounds.h;
-            let columns_count = self.bounds.w;
-
-            let min_y = self.cached_hero_props.frame.y - 2;
-            let max_y = (self.cached_hero_props.frame.y + self.cached_hero_props.frame.h) + 4;
-            let min_x = self.cached_hero_props.frame.x - 2;
-            let max_x = (self.cached_hero_props.frame.x + self.cached_hero_props.frame.w) + 4;
-
-            let min_row = min_y.max(0).min(rows_count) as usize;
-            let max_row = max_y.max(0).min(rows_count) as usize;
-            let min_col = min_x.max(0).min(columns_count) as usize;
-            let max_col = max_x.max(0).min(columns_count) as usize;
+            let min_row = self.bounds.y as usize;
+            let max_row = (self.bounds.y + self.bounds.h) as usize;
+            let min_col = self.bounds.x as usize;
+            let max_col = (self.bounds.x + self.bounds.w) as usize;
 
             for row in min_row..max_row {
                 for col in min_col..max_col {
