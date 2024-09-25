@@ -44,7 +44,7 @@ impl KeyBindingMenu {
                 key_bindings.set_keys(action, vec![key]);
                 self.waiting_for_key_input = None;
             }
-            return (true, vec![]);
+            (true, vec![])
         } else {
             let (is_active, updates) = self.menu.update(keyboard, time_since_last_update);
 

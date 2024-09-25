@@ -204,11 +204,7 @@ impl MapEditor {
 
     fn has_selected_tile(&self) -> bool {
         if let MapEditorState::PlacingItem(_, item, _) = self.state.clone() {
-            if matches!(item, Stockable::BiomeTile(_) | Stockable::ConstructionTile(_)) {
-                true
-            } else {
-                false
-            }
+            matches!(item, Stockable::BiomeTile(_) | Stockable::ConstructionTile(_))
         } else {
             false
         }

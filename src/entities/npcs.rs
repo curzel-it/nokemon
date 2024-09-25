@@ -1,4 +1,6 @@
-use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::{directions::{direction_between_rects, Direction}, rect::Rect, vector::Vector2d}};
+use std::cmp::Ordering;
+
+use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
 
 pub type NpcId = u32;
 
@@ -67,16 +69,8 @@ impl Entity {
 
         if self.is_hero_in_line_of_sight(world) {
             self.change_direction_towards_hero(world);
-        } else {
-            if self.is_obstacle_in_direction(&world.hitmap, self.direction) {
-                self.pick_next_direction(&world.hitmap);
-            }
-        }
-        if current_direction != self.direction {
-            println!("Offset: {:#?}", self.offset);
-            println!("Position: x {}, y {}", self.frame.x, self.frame.y + 2);
-            println!("Hit: {}", world.hitmap[(self.frame.y + 1) as usize][self.frame.x as usize]);
-            println!("Direction changed from {:#?} to {:#?}", current_direction, self.direction);
+        } else if self.is_obstacle_in_direction(&world.hitmap, self.direction) {
+            self.pick_next_direction(&world.hitmap);
         }
     }
 
@@ -114,16 +108,16 @@ impl Entity {
         let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
 
         if npc.x == hero.x {
-            if npc_y < hero.y {
-                self.direction = Direction::Down;
-            } else if npc_y > hero.y {
-                self.direction = Direction::Up;
+            match npc_y.cmp(&hero.y) {
+                Ordering::Less => self.direction = Direction::Down,
+                Ordering::Greater => self.direction = Direction::Up,
+                _ => {}
             }
         } else if npc_y == hero.y {
-            if npc.x < hero.x {
-                self.direction = Direction::Right;
-            } else if npc.x > hero.x {
-                self.direction = Direction::Left;
+            match npc.x.cmp(&hero.x) {
+                Ordering::Less => self.direction = Direction::Right,
+                Ordering::Greater => self.direction = Direction::Left,
+                _ => {}
             }
         }
     }

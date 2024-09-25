@@ -5,7 +5,9 @@ use crate::{impl_tile, utils::rect::Rect};
 use super::tiles::{SpriteTile, TileSet};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Default)]
 pub enum Construction {
+    #[default]
     Nothing,
     WoodenFence,
     DarkRock,
@@ -23,11 +25,6 @@ pub enum Construction {
     Broadleaf,
 }
 
-impl Default for Construction {
-    fn default() -> Self {
-        Construction::Nothing
-    }
-}
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct ConstructionTile {

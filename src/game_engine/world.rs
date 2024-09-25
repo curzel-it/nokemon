@@ -275,15 +275,7 @@ impl World {
 
     fn update_construction_tile(&mut self, row: usize, col: usize, new_construction: Construction) {
         self.constructions_tiles.update_tile(row, col, new_construction)
-    }
-
-    pub fn visible_biome_tiles(&self, viewport: &Rect) -> Vec<&BiomeTile> {
-        self.biome_tiles.visible_tiles(viewport)
-    }
-
-    pub fn visible_construction_tiles(&self, viewport: &Rect) -> Vec<&ConstructionTile> {
-        self.constructions_tiles.visible_tiles(viewport)
-    }    
+    }  
     
     pub fn find_teleporter_for_destination(&self, destination_world: u32) -> Option<Rect> {
         self.entities.borrow().iter()

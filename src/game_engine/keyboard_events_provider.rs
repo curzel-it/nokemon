@@ -129,7 +129,7 @@ impl KeyBindings {
             if let Some(action) = GameAction::from_u32(action_value) {
                 let keys: Vec<KeyboardKey> = keys_values
                     .into_iter()
-                    .filter_map(|k| keyboard_key_from_i32(k))
+                    .filter_map(keyboard_key_from_i32)
                     .collect();
                 bindings.insert(action, keys);
             } else {
@@ -143,7 +143,9 @@ impl KeyBindings {
 
 fn keyboard_key_from_i32(value: i32) -> Option<KeyboardKey> {
     if (KeyboardKey::KEY_NULL as i32) <= value && value <= (KeyboardKey::KEY_KP_EQUAL as i32) {
-        Some(unsafe { std::mem::transmute(value) })
+        Some(unsafe { 
+            std::mem::transmute::<i32, raylib::consts::KeyboardKey>(value) 
+        })
     } else {
         None
     }

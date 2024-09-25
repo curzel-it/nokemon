@@ -5,8 +5,10 @@ use crate::{impl_tile, utils::{directions::Direction, rect::Rect}};
 use super::tiles::{SpriteTile, TileSet};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Default)]
 pub enum Biome {
     Nothing,
+    #[default]
     Grass,
     Water,
     Rock,
@@ -20,11 +22,6 @@ pub enum Biome {
     RockPlates,
 }
 
-impl Default for Biome {
-    fn default() -> Self {
-        Biome::Grass
-    }
-}
 
 #[derive(Default, Debug, Clone)]
 pub struct BiomeTile {
