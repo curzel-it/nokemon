@@ -9,58 +9,68 @@ impl World {
         (self.hitmap, self.entities_map, self.weights_map) = self.compute_hitmap();
     }    
 
-    #[allow(clippy::needless_range_loop)]
     fn compute_hitmap(&self) -> (Hitmap, EntityIdsMap, WeightsMap) {
         let entities = self.entities.borrow();
-
-        let mut hitmap = vec![vec![false; self.bounds.w as usize]; self.bounds.h as usize];
-        let mut idsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
-        let mut weightsmap = vec![vec![0; self.bounds.w as usize]; self.bounds.h as usize];
-
-        for (rindex, rid) in &self.visible_entities {
-            let (index, id) = (*rindex, *rid);
+    
+        let height = self.bounds.h as usize;
+        let width = self.bounds.w as usize;
+    
+        let mut hitmap = vec![vec![false; width]; height];
+        let mut idsmap = vec![vec![0; width]; height];
+        let mut weightsmap = vec![vec![0; width]; height];
+    
+        for &(index, id) in &self.visible_entities {
             let entity = &entities[index];
-            let col = entity.frame.x as usize;
-            
-            let (row, height) = if entity.frame.h == 1 { 
-                (entity.frame.y as usize, 1) 
-            } else { 
-                (entity.frame.y  as usize + 1, (entity.frame.h as usize).saturating_sub(1)) 
+            let col_start = entity.frame.x as usize;
+            let col_end = (col_start + entity.frame.w as usize).min(width);
+    
+            let (row_start, row_end) = if entity.frame.h == 1 {
+                (entity.frame.y as usize, (entity.frame.y + 1) as usize)
+            } else {
+                let start = (entity.frame.y + 1) as usize;
+                let end = (entity.frame.y + entity.frame.h) as usize;
+                (start, end.min(height))
             };
-
-            for offset_x in 0..entity.frame.w as usize {
-                if col + offset_x >= hitmap[0].len() { continue }
-
-                for offset_y in 0..height {
-                    if row + offset_y >= hitmap.len() { continue }
-
-                    if entity.is_rigid && id != HERO_ENTITY_ID {                
-                        hitmap[row + offset_y][col + offset_x] = true;
+    
+            let is_rigid = entity.is_rigid && id != HERO_ENTITY_ID;
+            let has_weight = entity.entity_type.has_weight();
+    
+            for x in col_start..col_end {
+                for y in row_start..row_end {
+                    if is_rigid {
+                        hitmap[y][x] = true;
                     }
-                    if entity.entity_type.has_weight() {                
-                        weightsmap[row + offset_y][col + offset_x] += 1;
+                    if has_weight {
+                        weightsmap[y][x] += 1;
                     }
-                    idsmap[row + offset_y][col + offset_x] = id;
-                }                    
-            }
-        }
-
-        if !self.biome_tiles.tiles.is_empty() {
-            let min_row = self.bounds.y as usize;
-            let max_row = (self.bounds.y + self.bounds.h) as usize;
-            let min_col = self.bounds.x as usize;
-            let max_col = (self.bounds.x + self.bounds.w) as usize;
-
-            for row in min_row..max_row {
-                for col in min_col..max_col {
-                    let is_biome_obstacle = self.biome_tiles.tiles[row][col].is_obstacle();
-                    let is_construction_obstacle = self.constructions_tiles.tiles[row][col].is_obstacle();
-                    let is_bridge = matches!(self.constructions_tiles.tiles[row][col].tile_type, Construction::Bridge);
-                    hitmap[row][col] = hitmap[row][col] || !is_bridge && (is_biome_obstacle || is_construction_obstacle);
+                    idsmap[y][x] = id;
                 }
             }
         }
-
+    
+        if !self.biome_tiles.tiles.is_empty() {
+            let min_row = self.bounds.y as usize;
+            let max_row = ((self.bounds.y + self.bounds.h) as usize).min(self.biome_tiles.tiles.len());
+            let min_col = self.bounds.x as usize;
+            let max_col = ((self.bounds.x + self.bounds.w) as usize).min(self.biome_tiles.tiles[0].len());
+    
+            for row in min_row..max_row {
+                for col in min_col..max_col {
+                    if !hitmap[row][col] {
+                        let biome_tile = &self.biome_tiles.tiles[row][col];
+                        let construction_tile = &self.constructions_tiles.tiles[row][col];
+    
+                        let is_obstacle = (!matches!(construction_tile.tile_type, Construction::Bridge))
+                            && (biome_tile.is_obstacle() || construction_tile.is_obstacle());
+    
+                        if is_obstacle {
+                            hitmap[row][col] = true;
+                        }
+                    }
+                }
+            }
+        }
+    
         (hitmap, idsmap, weightsmap)
     }
 }
