@@ -628,7 +628,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Book",
+      "name": "1002.book.underground_hint.title",
       "species_id": 6001,
       "entity_type": "PickableObject",
       "offset": {
@@ -676,7 +676,7 @@
         0,
         0
       ],
-      "contents": "1002.book.underground_hint",
+      "contents": "1002.book.underground_hint.message",
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,

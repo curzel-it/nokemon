@@ -92,7 +92,11 @@ impl EntityOptionsMenu {
             return
         }
 
-        self.menu.title = format!("{} #{}", self.entity.name, self.entity.id);
+        if creative_mode {
+            self.menu.title = format!("{} #{}", self.entity.name, self.entity.id);
+        } else {
+            self.menu.title = self.entity.name.clone();
+        }
         self.menu.show();
         self.state = EntityOptionsMenuState::Closed;
     }
