@@ -1,4 +1,4 @@
-use crate::{constants::HERO_ENTITY_ID, entities::species::EntityType, game_engine::{entity::EntityId, world::World}, maps::constructions_tiles::Construction};
+use crate::{constants::HERO_ENTITY_ID, entities::{known_species::SPECIES_DEEP_HOLE, species::EntityType}, game_engine::{entity::{Entity, EntityId}, world::World}, maps::constructions_tiles::Construction};
 
 pub type Hitmap = Vec<Vec<bool>>;
 pub type EntityIdsMap = Vec<Vec<EntityId>>;
@@ -32,7 +32,7 @@ impl World {
             };
     
             let is_rigid = entity.is_rigid && id != HERO_ENTITY_ID;
-            let has_weight = entity.entity_type.has_weight();
+            let has_weight = entity.has_weight();
     
             for x in col_start..col_end {
                 for y in row_start..row_end {
@@ -79,9 +79,9 @@ impl World {
     }
 }
 
-impl EntityType {
+impl Entity {
     fn has_weight(&self) -> bool {
-        !matches!(self, EntityType::PressurePlate)
+        self.species_id != SPECIES_DEEP_HOLE && !matches!(self.entity_type, EntityType::PressurePlate)
     }
 }
 

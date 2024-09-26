@@ -1080,7 +1080,7 @@
         "name": "objects.name.deep_hole",
         "is_invulnerable": true,
         "entity_type": "Teleporter",
-        "z_index": 50,
+        "z_index": 0,
         "base_speed": 1.0,
         "is_rigid": false,
         "inventory_texture_offset": [

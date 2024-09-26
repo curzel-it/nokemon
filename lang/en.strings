@@ -7,7 +7,8 @@ Had to weigh anchor 'n set sail - those cursed demons be too close fer me liking
 Find old Captain Briggs in the village; he'll lend ye a hand!
 """
 
-"1002.book.underground_hint" = """
+"1002.book.underground_hint.title" = "Captain Briggs Journal"
+"1002.book.underground_hint.message" = """
 Captain Briggs Journal:
 I know a captain is supposed to sink with his ship, but the people here need me.
 Womand and children have left with the last boat.
