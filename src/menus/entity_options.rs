@@ -53,7 +53,8 @@ pub struct EntityOptionsMenu {
     menu: Menu<EntityOptionMenuItem>,
     state: EntityOptionsMenuState,
     text_input: TextInput,
-    lock_menu: Menu<LockType>
+    lock_menu: Menu<LockType>,
+    creative_mode: bool
 }
 
 impl EntityOptionsMenu {
@@ -64,6 +65,7 @@ impl EntityOptionsMenu {
             menu: Menu::new("entity.menu.title".localized(), vec![]),
             state: EntityOptionsMenuState::Closed,
             text_input: TextInput::new(),
+            creative_mode: false,
             lock_menu: Menu::new("entity.menu.change_lock_title".localized(), vec![
                 LockType::None,
                 LockType::Yellow,
@@ -98,6 +100,7 @@ impl EntityOptionsMenu {
             self.menu.title = self.entity.name.clone();
         }
         self.menu.show();
+        self.creative_mode = creative_mode;
         self.state = EntityOptionsMenuState::Closed;
     }
 
@@ -194,7 +197,7 @@ impl EntityOptionsMenu {
     fn update_from_close(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         self.menu.update(keyboard, time_since_last_update);
 
-        if self.is_open() && !self.menu.selection_has_been_confirmed && self.menu.items.len() == 1 {
+        if !self.creative_mode && self.is_open() && !self.menu.selection_has_been_confirmed && self.menu.items.len() == 1 {
             self.menu.selected_index = 0;
             self.menu.selection_has_been_confirmed = true;
         }
