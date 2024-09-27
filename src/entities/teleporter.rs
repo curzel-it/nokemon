@@ -1,6 +1,12 @@
 use crate::{game_engine::{entity::Entity, inventory::inventory_contains_species, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
 
 impl Entity {
+    pub fn setup_teleporter(&mut self, creative_mode: bool) {
+        if self.sprite.sheet_id == 1008 {
+            self.sprite.frame.y = if creative_mode { 0 } else { 1 };
+        }        
+    }
+
     pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
         if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
             return vec![

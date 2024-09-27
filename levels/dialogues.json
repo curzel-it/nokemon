@@ -21,9 +21,9 @@
         "options": [[0, 1005]]
     },
     
-    // Shop Clerk
+    // Npcs
     {
-        "id": 111,
-        "options": [[0, 111]]
+        "id": 1010,
+        "options": [[0, 1010]]
     }
 ]

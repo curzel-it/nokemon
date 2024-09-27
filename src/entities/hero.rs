@@ -1,6 +1,10 @@
 use crate::{constants::HERO_KUNAI_COOLDOWN, entities::{known_species::SPECIES_KUNAI, species::species_by_id}, game_engine::{entity::{Entity, EntityProps}, inventory::{inventory_contains_species, remove_one_of_species_from_inventory}, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::rect::Rect};
 
 impl Entity {
+    pub fn setup_hero(&mut self, creative_mode: bool) {
+        self.speed_multiplier = if creative_mode { 2.0 } else { 1.0 };
+    }
+
     pub fn update_hero(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
         

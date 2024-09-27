@@ -1,5 +1,8 @@
 {
   "always": 1,
-  "latest_world": 1001,
+  "dialogue.answer.1010": 1010,
+  "latest_world": 1002,
+  "latest_x": 37,
+  "latest_y": 47,
   "pressure_plate.yellow": 0
 }

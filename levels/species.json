@@ -4,7 +4,7 @@
         "name": "Hero",
         "entity_type": "Hero",
         "z_index": 150,
-        "base_speed": 3.0,
+        "base_speed": 4.0,
         "is_rigid": true,
         "inventory_texture_offset": [
             0,
@@ -154,6 +154,50 @@
     },
     {
         "id": 1008,
+        "name": "building.name.broken_house",
+        "is_invulnerable": true,
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            10
+        ],
+        "sprite_frame": {
+            "x": 15,
+            "y": 5,
+            "w": 5,
+            "h": 4
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 1009,
+        "name": "building.name.broken_house",
+        "is_invulnerable": true,
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            11
+        ],
+        "sprite_frame": {
+            "x": 20,
+            "y": 5,
+            "w": 5,
+            "h": 4
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 3005,
         "name": "npc.name.old_man",
         "is_invulnerable": true,
         "entity_type": "Npc",
@@ -175,7 +219,7 @@
         "lock_type": "None"
     },
     {
-        "id": 1009,
+        "id": 3006,
         "name": "npc.name.old_woman",
         "is_invulnerable": true,
         "entity_type": "Npc",
@@ -197,7 +241,7 @@
         "lock_type": "None"
     },
     {
-        "id": 1020,
+        "id": 3007,
         "name": "npc.name.wizard",
         "is_invulnerable": true,
         "entity_type": "Npc",
@@ -540,7 +584,7 @@
         ],
         "sprite_frame": {
             "x": 0,
-            "y": 1,
+            "y": 0,
             "w": 1,
             "h": 1
         },
@@ -1058,7 +1102,7 @@
         "name": "npc.name.homunculus",
         "entity_type": "Npc",
         "z_index": 150,
-        "base_speed": 1.5,
+        "base_speed": 2.5,
         "is_rigid": false,
         "melee_attacks_hero": true,
         "inventory_texture_offset": [
@@ -1482,6 +1526,27 @@
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 11002,
+        "name": "objects.name.fountain",
+        "entity_type": "StaticObject",
+        "z_index": 300,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            7,
+            6
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 15,
+            "w": 2,
+            "h": 2
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 4,
         "lock_type": "None"
     }
 ]

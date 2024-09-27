@@ -112,16 +112,16 @@ impl Entity {
         updates
     }
 
-    pub fn setup(&mut self) {      
+    pub fn setup(&mut self, creative_mode: bool) {      
         species_by_id(self.species_id).reload_props(self);
-
+        
         match self.entity_type {
-            EntityType::Hero => self.setup_generic(),
+            EntityType::Hero => self.setup_hero(creative_mode),
             EntityType::Npc => self.setup_npc(),
             EntityType::Building => self.setup_generic(),
             EntityType::StaticObject => self.setup_generic(),
             EntityType::PickableObject | EntityType::Bundle => self.setup_generic(),
-            EntityType::Teleporter => self.setup_generic(),
+            EntityType::Teleporter => self.setup_teleporter(creative_mode),
             EntityType::PushableObject => self.setup_generic(),
             EntityType::Gate => self.setup_gate(),
             EntityType::InverseGate => self.setup_inverse_gate(),

@@ -29,10 +29,13 @@ impl World {
         }
         
         entity.immobilize_for_seconds(0.2);        
-        let (index, _) = self.add_entity(entity);
-
-        self.entities.borrow_mut()[index].speed_multiplier = if self.creative_mode { 3.0 } else { 1.0 };
+        self.add_entity(entity);
     }    
+
+    pub fn set_creative_mode(&mut self, enabled: bool) {
+        self.creative_mode = enabled;
+        self.entities.borrow_mut().iter_mut().for_each(|e| e.setup(enabled));
+    }
 
     fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (i32, i32) {
         if original_x == 0 && original_y == 0 {            

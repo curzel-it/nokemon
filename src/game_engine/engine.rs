@@ -50,7 +50,7 @@ impl GameEngine {
 
     pub fn set_creative_mode(&mut self, enabled: bool) {
         self.menu.set_creative_mode(enabled);
-        self.world.creative_mode = enabled;
+        self.world.set_creative_mode(enabled);
         self.creative_mode = enabled;
     }
 
@@ -108,7 +108,7 @@ impl GameEngine {
         let is_game_paused = self.update_menus(time_since_last_update);
 
         let (world_keyboard, game_update_time) = if is_game_paused {
-            (&NO_KEYBOARD_EVENTS, time_since_last_update/10.0)
+            (&NO_KEYBOARD_EVENTS, time_since_last_update/20.0)
         } else {
             (&self.keyboard, time_since_last_update)
         };
@@ -338,7 +338,7 @@ impl GameEngine {
         self.world.save();
         
         let mut new_world = World::load_or_create(destination.world);
-        new_world.creative_mode = self.creative_mode;
+        new_world.set_creative_mode(self.creative_mode);
         new_world.setup(
             self.world.id, 
             &self.world.cached_hero_props.direction, 

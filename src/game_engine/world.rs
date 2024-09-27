@@ -63,7 +63,7 @@ impl World {
         let mut entities = self.entities.borrow_mut();        
         entities.push(entity);
         let new_index = entities.len() - 1;
-        entities[new_index].setup();
+        entities[new_index].setup(self.creative_mode);
         (new_index, id)
     }
 

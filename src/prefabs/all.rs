@@ -13,6 +13,11 @@ pub fn new_building(source_world_id: u32, x: i32, y: i32, species: &Species) -> 
         SPECIES_HOUSE_SHOP_1 => new_shop(species, source_world_id, x, y),
         SPECIES_HOUSE_SHOP_2 => new_shop(species, source_world_id, x, y),
         SPECIES_HOUSE_SHOP_3 => new_shop(species, source_world_id, x, y),
-        _ => new_house_single_floor(species, source_world_id, x, y)
+        _ => {
+            let mut building = species.make_entity();
+            building.frame.x = x;
+            building.frame.y = y;
+            vec![building]
+        }
     }
 }

@@ -1,12 +1,11 @@
 "1002.sign.welcome_to_village" = "Welcome to Saltspire Port"
 "1002.scroll.hidden_monsters_hint" = "Mind the gap"
-
+"1002.sign.forest_maze" = "Private property"
 "1002.sign.sorry_no_boat" = """
 Ahoy there! 
 Had to weigh anchor 'n set sail - those cursed demons be too close fer me liking. 
 Find old Captain Briggs in the village; he'll lend ye a hand!
 """
-
 "1002.book.underground_hint.title" = "Captain Briggs Journal"
 "1002.book.underground_hint.message" = """
 Captain Briggs Journal:
@@ -55,6 +54,7 @@ Avoid any deamons you find and remember:
 Don't let them touch you!
 """
 "dialogue.1005" = "There's no time to explain further, just hurry up!"
+"dialogue.1010" = "These monsters... It's all gone..."
 
 "entity.menu.title" = "Entity Options"
 "entity.menu.remove" = "Remove"
@@ -142,6 +142,7 @@ Press ESC to go back
 "objects.name.teleporter" = "Teleporter"
 "objects.name.deep_hole" = "Deep Hole"
 "objects.name.boulder" = "Boulder"
+"objects.name.fountain" = "Fountain"
 "objects.name.gate.yellow" = "Yellow Gate"
 "objects.name.gate.red" = "Red Gate"
 "objects.name.gate.green" = "Green Gate"
