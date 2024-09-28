@@ -1586,7 +1586,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 2.3205938
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1649,7 +1649,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -2.3205938
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1712,7 +1712,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 2.3205938
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1775,7 +1775,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -10.207692
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1838,7 +1838,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 2.3205938
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1901,7 +1901,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 2.3205938
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1964,7 +1964,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 2.3205938
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,

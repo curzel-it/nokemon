@@ -763,7 +763,7 @@
       "entity_type": "PushableObject",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -0.75059205
       },
       "direction": 0,
       "current_speed": 9.6,

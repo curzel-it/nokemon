@@ -239,10 +239,10 @@
       "frame": {
         "x": 63,
         "y": 42,
-        "w": 1,
-        "h": 2
+        "w": 0,
+        "h": 0
       },
-      "name": "Wizard",
+      "name": "",
       "species_id": 1020,
       "entity_type": "Npc",
       "offset": {
@@ -251,17 +251,17 @@
       },
       "direction": 3,
       "current_speed": 0.0,
-      "is_rigid": true,
-      "z_index": 0,
+      "is_rigid": false,
+      "z_index": 1000,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1002,
         "frame": {
-          "x": 32,
+          "x": 0,
           "y": 0,
-          "w": 1,
-          "h": 2
+          "w": 0,
+          "h": 0
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": {
         "options": [
@@ -281,10 +281,10 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 32,
+        "x": 0,
         "y": 0,
-        "w": 1,
-        "h": 2
+        "w": 0,
+        "h": 0
       },
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -305,7 +305,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true,
+      "is_invulnerable": false,
       "demands_attention": true
     },
     {
@@ -394,7 +394,7 @@
         "sheet_id": 1008,
         "frame": {
           "x": 0,
-          "y": 1,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -412,7 +412,7 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 1,
         "h": 1
       },
@@ -461,7 +461,7 @@
         "sheet_id": 1008,
         "frame": {
           "x": 0,
-          "y": 1,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -479,7 +479,7 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 1,
         "h": 1
       },
