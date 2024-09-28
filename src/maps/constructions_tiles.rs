@@ -10,6 +10,7 @@ pub enum Construction {
     #[default]
     Nothing,
     WoodenFence,
+    MetalFence,
     DarkRock,
     LightWall,
     Counter,
@@ -114,6 +115,7 @@ impl Construction {
             Construction::IndicatorArrow => 13,
             Construction::Bridge => 14,
             Construction::Broadleaf => 15,
+            Construction::MetalFence => 16
         }
     }
 }
@@ -160,6 +162,7 @@ impl Construction {
             'D' => Construction::IndicatorArrow,
             'E' => Construction::Bridge,
             'F' => Construction::Broadleaf,
+            'G' => Construction::MetalFence,
             _ => Construction::Nothing,
         }
     }
@@ -180,7 +183,8 @@ impl Construction {
             Construction::StoneWall => 'C',
             Construction::IndicatorArrow => 'D',
             Construction::Bridge => 'E',
-            Construction::Broadleaf => 'F'
+            Construction::Broadleaf => 'F',
+            Construction::MetalFence => 'G'
         }
     }
 }

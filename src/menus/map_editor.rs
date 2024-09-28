@@ -238,6 +238,7 @@ impl Stockable {
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (6, 1),
                 Construction::WoodenFence => (1, 1),
+                Construction::MetalFence => (1, 15),
                 Construction::DarkRock => (1, 2),
                 Construction::LightWall => (1, 3),
                 Construction::Counter => (1, 4),
@@ -298,6 +299,7 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::Ice),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
+            Stockable::ConstructionTile(Construction::MetalFence),
             Stockable::ConstructionTile(Construction::DarkRock),
             Stockable::ConstructionTile(Construction::LightWall),
             Stockable::ConstructionTile(Construction::Counter),

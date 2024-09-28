@@ -197,6 +197,28 @@
         "lock_type": "None"
     },
     {
+        "id": 1010,
+        "name": "building.name.villa",
+        "is_invulnerable": true,
+        "entity_type": "Building",
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            12
+        ],
+        "sprite_frame": {
+            "x": 25,
+            "y": 5,
+            "w": 5,
+            "h": 5
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
         "id": 3005,
         "name": "npc.name.old_man",
         "is_invulnerable": true,
@@ -1490,7 +1512,7 @@
         "id": 11000,
         "name": "objects.name.magic_circle.invocation",
         "entity_type": "StaticObject",
-        "z_index": 0,
+        "z_index": -1,
         "base_speed": 0.0,
         "is_rigid": false,
         "inventory_texture_offset": [
@@ -1569,6 +1591,27 @@
         },
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 5,
+        "lock_type": "None"
+    },
+    {
+        "id": 11004,
+        "name": "objects.name.magic_circle.blue",
+        "entity_type": "StaticObject",
+        "z_index": -1,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            8
+        ],
+        "sprite_frame": {
+            "x": 9,
+            "y": 4,
+            "w": 2,
+            "h": 2
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 4,
         "lock_type": "None"
     }
 ]

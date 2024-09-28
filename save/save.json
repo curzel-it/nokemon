@@ -1,8 +1,16 @@
 {
   "always": 1,
   "dialogue.answer.1010": 1010,
-  "latest_world": 1003,
-  "latest_x": 60,
-  "latest_y": 37,
+  "dialogue.answer.1012": 1013,
+  "dialogue.answer.1013": 1014,
+  "dialogue.answer.1014": 1014,
+  "dialogue.answer.1015": 1015,
+  "dialogue.answer.1016": 1016,
+  "latest_world": 1004,
+  "latest_x": 71,
+  "latest_y": 57,
+  "pressure_plate.blue": 0,
+  "pressure_plate.red": 0,
+  "pressure_plate.silver": 1,
   "pressure_plate.yellow": 0
 }

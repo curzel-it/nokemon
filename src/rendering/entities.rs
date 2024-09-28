@@ -19,6 +19,8 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
         let ay = a.frame.y + if a.frame.h > 1 { 1 } else { 0 };
         let by = b.frame.y + if b.frame.h > 1 { 1 } else { 0 };
 
+        if a.z_index < b.z_index && a.z_index < 0 { return Ordering::Less; }
+        if a.z_index > b.z_index && b.z_index < 0 { return Ordering::Greater; }
         if ay < by { return Ordering::Less; }
         if ay > by { return Ordering::Greater; }
         if a.z_index < b.z_index { return Ordering::Less; }

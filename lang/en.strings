@@ -15,6 +15,8 @@ I hope we can soon leave too using the underground tunnel hidden in the village.
 If it didn't collapse, it should bring all the way to the next island.
 """
 
+"1004.sign.cave_back" = "DANGER\nContaminated area\nStay away"
+
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
 
@@ -55,6 +57,31 @@ Don't let them touch you!
 """
 "dialogue.1005" = "There's no time to explain further, just hurry up!"
 "dialogue.1010" = "These monsters... It's all gone..."
+"dialogue.1011" = """
+My husband managed to cast a magic barrier just in time to save our house.
+Can you check on him?
+"""
+"dialogue.1012" = """
+Did my wife send you?
+I'm fine, most of the deamons are trapped now...
+"""
+"dialogue.1013" = """
+Unfortunately, there are no survivors other than the major...
+That son of a bitch has shut himself up with all our supplies. 
+I need you to help me teach him a lesson.
+"""
+"dialogue.1014" = """
+It's pretty simple... 
+These gates are connected to a pressure plate.
+Find it and make sure it stays down.
+Don't worry, me and my wife have a magical barrier.
+"""
+"dialogue.1015" = "Have you find the pressure plate?"
+"dialogue.1016" = """
+Haha! (Evil laugh)
+We got him!
+Let's raid the town hall
+"""
 
 "entity.menu.title" = "Entity Options"
 "entity.menu.remove" = "Remove"
@@ -163,6 +190,7 @@ Press ESC to go back
 "objects.name.sign" = "Sign"
 "objects.name.large_sign" = "Large Sign"
 "objects.name.magic_circle.invocation" = "Invocation Circle"
+"objects.name.magic_circle.blue" = "Blue Magic Circle"
 "objects.name.well" = "Well"
 
 "teleporter.name" = "Teleporter"

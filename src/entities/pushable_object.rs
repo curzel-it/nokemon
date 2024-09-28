@@ -20,7 +20,7 @@ impl Entity {
         if non_zero_offset {
             let is_around = match hero_direction {
                 Direction::Up => hero.y == self.frame.y + self.frame.h && hero.x >= self.frame.x && hero.x < self.frame.x + self.frame.w,
-                Direction::Right => hero.x == self.frame.x.saturating_sub(1) && hero.y >= self.frame.y && hero.y < self.frame.y + self.frame.h,
+                Direction::Right => hero.x == self.frame.x - 1 && hero.y >= self.frame.y && hero.y < self.frame.y + self.frame.h,
                 Direction::Down => hero.y == self.frame.y && hero.x >= self.frame.x && hero.x < self.frame.x + self.frame.w,
                 Direction::Left => hero.x == self.frame.x + self.frame.w && hero.y >= self.frame.y && hero.y < self.frame.y + self.frame.h,
                 Direction::Unknown => false,
@@ -29,7 +29,9 @@ impl Entity {
                 let hits = would_collide(&self.frame, &hero_direction, &world.hitmap);
                 let weights = would_over_weight(&self.frame, &hero_direction, &world.weights_map);
                 
-                if hits || weights {
+                if hits {
+                    return vec![]
+                } else if weights {
                     return vec![WorldStateUpdate::StopHeroMovement]
                 } else {
                     self.direction = hero_direction;
