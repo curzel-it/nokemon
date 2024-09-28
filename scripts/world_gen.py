@@ -1,5 +1,6 @@
 import json
 import random
+import argparse
 from noise import pnoise2
 
 WIDTH = 120
@@ -157,14 +158,21 @@ tiles = add_grass(tiles)
 # Convert each row to a string
 tile_strings = [''.join(row) for row in tiles]
 
+# Set up command-line argument parsing
+parser = argparse.ArgumentParser(description='Generate a biome map with a specific world ID.')
+parser.add_argument('world_id', type=int, help='The ID of the world to be generated.')
+
+# Parse the arguments
+args = parser.parse_args()
+
 # Construct the JSON object
 world_data = {
-    "id": 1004,
+    "id": args.world_id,
     "biome_tiles": {
         "tiles": tile_strings,
         "sheet_id": 1002
     },
-    "construction_tiles": {
+    "constructions_tiles": {
         "tiles": ["0" * WIDTH] * HEIGHT,
         "sheet_id": 1003
     },
@@ -174,6 +182,9 @@ world_data = {
     "is_interior": False
 }
 
-# Output the JSON
-with open("/Users/curzel/dev/nokemon/levels/1004.json", "w") as f:
+# Output the JSON to the file with the world ID in the name
+output_filename = f"/Users/curzel/dev/nokemon/levels/{args.world_id}.json"
+with open(output_filename, "w") as f:
     f.write(json.dumps(world_data, indent=2))
+
+print(f"World {args.world_id} has been generated and saved to {output_filename}")
