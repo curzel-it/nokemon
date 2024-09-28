@@ -656,7 +656,7 @@
       "destination": {
         "world": 1003,
         "x": 60,
-        "y": 38
+        "y": 37
       },
       "lock_type": "None",
       "original_sprite_frame": {
@@ -763,9 +763,9 @@
       "entity_type": "PushableObject",
       "offset": {
         "x": 0.0,
-        "y": -0.75059205
+        "y": 0.0
       },
-      "direction": 0,
+      "direction": 2,
       "current_speed": 9.6,
       "is_rigid": false,
       "z_index": 200,

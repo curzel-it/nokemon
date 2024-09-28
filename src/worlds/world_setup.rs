@@ -5,15 +5,19 @@ impl World {
         self.update_tiles_hitmap();
         self.update_hitmaps();
 
-        let (destination_x, destination_y) = self.destination_x_y(source, original_x, original_y);        
+        let (requires_offset, destination_x, destination_y) = self.destination_x_y(source, original_x, original_y);        
         let mut entity = make_entity_by_species(SPECIES_HERO);
 
-        let (offset_x, offset_y): (i32, i32) = match hero_direction {
-            Direction::Up => (0, -2),
-            Direction::Right => (1, -1),
-            Direction::Down => (0, 0),
-            Direction::Left => (-1, -1),
-            Direction::Unknown => (0, 0),
+        let (offset_x, offset_y): (i32, i32) = if !requires_offset {
+            (0, 0)
+        } else {
+            match hero_direction {
+                Direction::Up => (0, -2),
+                Direction::Right => (1, -1),
+                Direction::Down => (0, 0),
+                Direction::Left => (-1, -1),
+                Direction::Unknown => (0, 0),
+            }
         };
         let x = destination_x + offset_x;
         let y = destination_y + offset_y;
@@ -37,15 +41,15 @@ impl World {
         self.entities.borrow_mut().iter_mut().for_each(|e| e.setup(enabled));
     }
 
-    fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (i32, i32) {
+    fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (bool, i32, i32) {
         if original_x == 0 && original_y == 0 {            
             if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
-                (teleporter_position.x, teleporter_position.y)
+                (true, teleporter_position.x, teleporter_position.y)
             } else {
-                (WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
+                (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
             }
         } else {
-            (original_x, original_y)
+            (false, original_x, original_y)
         }
     }
 }

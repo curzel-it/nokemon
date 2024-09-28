@@ -1548,5 +1548,27 @@
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 4,
         "lock_type": "None"
+    },
+    {
+        "id": 11003,
+        "name": "objects.name.torch",
+        "is_invulnerable": true,
+        "entity_type": "StaticObject",
+        "z_index": 350,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            7,
+            7
+        ],
+        "sprite_frame": {
+            "x": 5,
+            "y": 10,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 5,
+        "lock_type": "None"
     }
 ]
