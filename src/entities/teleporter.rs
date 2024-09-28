@@ -19,7 +19,7 @@ impl Entity {
         } 
 
         if self.should_teleport(world) {
-            if self.lock_type != LockType::None {
+            if !world.creative_mode && self.lock_type != LockType::None {
                 if inventory_contains_species(self.lock_type.key()) {
                     vec![self.show_unlock_confirmation()]
                 } else {

@@ -344,11 +344,7 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": {
-        "world": 1004,
-        "x": 0,
-        "y": 0
-      },
+      "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 1,
@@ -401,7 +397,7 @@
         "sheet_id": 1008,
         "frame": {
           "x": 0,
-          "y": 1,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -411,11 +407,15 @@
         "options": []
       },
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1004,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 1,
         "h": 1
       },
