@@ -72,7 +72,20 @@ impl BiomeTile {
     }
 
     fn texture_index_for_neighbors(&self) -> i32 {
-        if let Some((neighbor, directions)) = self.best_neighbor() {            
+        if let Some((neighbor, directions)) = self.best_neighbor() {
+            let default_index = neighbor.texture_index() * Biome::number_of_combinations() + self.texture_index_for_directions(&directions) + 1;
+
+
+            if self.tile_type.is_grass() {
+                return match neighbor {
+                    Biome::Desert => 0,
+                    Biome::Rock => 0,
+                    Biome::DarkRock => 0,
+                    Biome::Snow => 0,
+                    _ => default_index
+                }
+            }
+
             return match (self.tile_type, neighbor) {
                 (Biome::Water, Biome::Desert) => 0,
                 (Biome::Water, Biome::Grass) => 0,
@@ -92,7 +105,7 @@ impl BiomeTile {
                 (Biome::Rock, Biome::Snow) => 0,
                 (Biome::DarkRock, Biome::Snow) => 0,
                 (_, Biome::Nothing) => 0,
-                _ => neighbor.texture_index() * Biome::number_of_combinations() + self.texture_index_for_directions(&directions) + 1
+                _ => default_index
             }
         }        
         0 

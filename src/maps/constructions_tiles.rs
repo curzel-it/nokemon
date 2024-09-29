@@ -24,6 +24,10 @@ pub enum Construction {
     IndicatorArrow,
     Bridge,
     Broadleaf,
+    SlopeGrass,
+    SlopeRocks,
+    SlopeGrassDown,
+    SlopeRocksDown,
 }
 
 
@@ -115,7 +119,11 @@ impl Construction {
             Construction::IndicatorArrow => 13,
             Construction::Bridge => 14,
             Construction::Broadleaf => 15,
-            Construction::MetalFence => 16
+            Construction::MetalFence => 16,
+            Construction::SlopeGrass => 17,
+            Construction::SlopeRocks => 18,
+            Construction::SlopeGrassDown => 19,
+            Construction::SlopeRocksDown => 20
         }
     }
 }
@@ -163,6 +171,10 @@ impl Construction {
             'E' => Construction::Bridge,
             'F' => Construction::Broadleaf,
             'G' => Construction::MetalFence,
+            'H' => Construction::SlopeGrass,
+            'I' => Construction::SlopeRocks,
+            'J' => Construction::SlopeGrassDown,
+            'K' => Construction::SlopeRocksDown,
             _ => Construction::Nothing,
         }
     }
@@ -184,7 +196,11 @@ impl Construction {
             Construction::IndicatorArrow => 'D',
             Construction::Bridge => 'E',
             Construction::Broadleaf => 'F',
-            Construction::MetalFence => 'G'
+            Construction::MetalFence => 'G',
+            Construction::SlopeGrass => 'H',
+            Construction::SlopeRocks => 'I',
+            Construction::SlopeGrassDown => 'J',
+            Construction::SlopeRocksDown => 'K'
         }
     }
 }
