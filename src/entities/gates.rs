@@ -1,9 +1,12 @@
 use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World};
 
 impl Entity {
-    pub fn setup_gate(&mut self) {
+    pub fn setup_gate(&mut self, creative_mode: bool) {
         if self.is_related_lock_closed() {
             self.sprite.frame.x += 1;
+        }
+        if creative_mode {
+            self.is_rigid = false;
         }
     }  
 
@@ -19,7 +22,7 @@ impl Entity {
         }
 
         if self.is_related_lock_closed() {
-            self.is_rigid = true;
+            self.is_rigid = !world.creative_mode;
             self.sprite.frame.x = self.original_sprite_frame.x;
         } else {
             self.is_rigid = false;

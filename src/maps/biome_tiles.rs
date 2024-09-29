@@ -10,6 +10,10 @@ pub enum Biome {
     Nothing,
     #[default]
     Grass,
+    GrassFlowersRed,
+    GrassFlowersYellow,
+    GrassFlowersBlue,
+    GrassFlowersPurple,
     Water,
     Rock,
     Desert, 
@@ -142,16 +146,16 @@ impl BiomeTile {
         let leftc = left.len();
 
         for i in 1..=3 {
-            if self.tile_up_type != self.tile_type && upc >= 3-i {
+            if !self.tile_up_type.is_same(self.tile_type) && upc >= 3-i {
                 return Some((self.tile_up_type, up));
             }
-            if self.tile_right_type != self.tile_type && rightc >= 3-i {
+            if !self.tile_right_type.is_same(self.tile_type) && rightc >= 3-i {
                 return Some((self.tile_right_type, right));
             }
-            if self.tile_down_type != self.tile_type && downc >= 3-i {
+            if !self.tile_down_type.is_same(self.tile_type) && downc >= 3-i {
                 return Some((self.tile_down_type, down));
             }
-            if self.tile_left_type != self.tile_type && leftc >= 3-i {
+            if !self.tile_left_type.is_same(self.tile_type) && leftc >= 3-i {
                 return Some((self.tile_left_type, left));
             }
         }
@@ -174,7 +178,7 @@ impl Biome {
     }
 
     fn number_of_biomes() -> i32 {
-        12
+        16
     }
 
     fn texture_index(&self) -> i32 {
@@ -182,6 +186,10 @@ impl Biome {
             Biome::Water => 0,
             Biome::Desert => 1,
             Biome::Grass => 2,
+            Biome::GrassFlowersRed => 12,
+            Biome::GrassFlowersYellow => 13,
+            Biome::GrassFlowersBlue => 14,
+            Biome::GrassFlowersPurple => 15,
             Biome::Rock => 3,
             Biome::Snow => 4,
             Biome::LightWood => 5,
@@ -191,6 +199,21 @@ impl Biome {
             Biome::Ice => 9,
             Biome::DarkGrass => 10,
             Biome::RockPlates => 11
+        }
+    }
+
+    fn is_same(&self, other: Biome) -> bool {
+        self == &other || (self.is_grass() && other.is_grass())
+    }
+
+    fn is_grass(&self) -> bool {
+        match self {
+            Biome::Grass => true,
+            Biome::GrassFlowersRed => true,
+            Biome::GrassFlowersBlue => true,
+            Biome::GrassFlowersYellow => true,
+            Biome::GrassFlowersPurple => true,
+            _ => false
         }
     }
 }
@@ -227,6 +250,10 @@ impl Biome {
         match c {
             '0' => Biome::Nothing,
             '1' => Biome::Grass,
+            'C' => Biome::GrassFlowersRed,
+            'D' => Biome::GrassFlowersYellow,
+            'E' => Biome::GrassFlowersBlue,
+            'F' => Biome::GrassFlowersPurple,
             '2' => Biome::Water,
             '3' => Biome::Rock,
             '4' => Biome::Desert,
@@ -255,6 +282,10 @@ impl Biome {
             Biome::Ice => '9',
             Biome::DarkGrass => 'A',
             Biome::RockPlates => 'B',
+            Biome::GrassFlowersRed => 'C',
+            Biome::GrassFlowersYellow => 'D',
+            Biome::GrassFlowersBlue => 'E',
+            Biome::GrassFlowersPurple => 'F',
         }
     }
 }

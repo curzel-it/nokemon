@@ -118,12 +118,12 @@ impl Entity {
         match self.entity_type {
             EntityType::Hero => self.setup_hero(creative_mode),
             EntityType::Npc => self.setup_npc(),
-            EntityType::Building => self.setup_generic(),
-            EntityType::StaticObject => self.setup_generic(),
-            EntityType::PickableObject | EntityType::Bundle => self.setup_generic(),
+            EntityType::Building => self.setup_generic(creative_mode),
+            EntityType::StaticObject => self.setup_generic(creative_mode),
+            EntityType::PickableObject | EntityType::Bundle => self.setup_generic(creative_mode),
             EntityType::Teleporter => self.setup_teleporter(creative_mode),
-            EntityType::PushableObject => self.setup_generic(),
-            EntityType::Gate => self.setup_gate(),
+            EntityType::PushableObject => self.setup_generic(creative_mode),
+            EntityType::Gate => self.setup_gate(creative_mode),
             EntityType::InverseGate => self.setup_inverse_gate(),
             EntityType::PressurePlate => self.setup_pressure_plate(),
             EntityType::Bullet => self.setup_bullet(),
@@ -163,7 +163,10 @@ impl Entity {
 }
 
 impl Entity {
-    fn setup_generic(&mut self) {
+    fn setup_generic(&mut self, creative_mode: bool) {
+        if creative_mode {
+            self.is_rigid = false
+        }
         self.setup_patrol();
     }
 

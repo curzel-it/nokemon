@@ -197,7 +197,7 @@
         "lock_type": "None"
     },
     {
-        "id": 1010,
+        "id": 50010,
         "name": "building.name.villa",
         "is_invulnerable": true,
         "entity_type": "Building",

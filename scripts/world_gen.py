@@ -15,7 +15,7 @@ lacunarity = 2.0
 # Tile representation
 WATER = '2'
 SAND = '4'
-GRASS = '1'
+GRASSES = '1 C D E F'.split(' ')
 
 # Initialize the map with water
 tiles = [[WATER for _ in range(WIDTH)] for _ in range(HEIGHT)]
@@ -62,12 +62,13 @@ def smooth_map(tiles):
     new_tiles = [row[:] for row in tiles]
     for y in range(1, HEIGHT - 1):
         for x in range(1, WIDTH - 1):
-            counts = {WATER: 0, SAND: 0, GRASS: 0}
+            counts = {WATER: 0, SAND: 0, 'grass': 0}
             for dy in [-1, 0, 1]:
                 for dx in [-1, 0, 1]:
                     if dy == 0 and dx == 0:
                         continue
                     neighbor = tiles[y + dy][x + dx]
+                    if neighbor in GRASSES: neighbor = 'grass'
                     counts[neighbor] += 1
             max_tile = max(counts, key=counts.get)
             new_tiles[y][x] = max_tile
@@ -149,7 +150,7 @@ def add_grass(tiles):
                 get_tile(tiles, y+2, x-1) != WATER and \
                 get_tile(tiles, y-1, x-2) != WATER and \
                 get_tile(tiles, y-1, x+2) != WATER:
-                    new_tiles[y][x] = GRASS
+                    new_tiles[y][x] = random.choice(GRASSES)
     return new_tiles
 
 # Apply the grass function after the rest of the map is generated

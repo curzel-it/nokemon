@@ -50,15 +50,15 @@
       "222441111111111111111111111111111111111111111111111111111111111111111111111111111112211111111111111111111111111111114422",
       "222441111111111111111111111111111111111111111111111111111111111111111111111111111111211111111111111111111111111111144222",
       "222441111111111111111111111111111111111111111111111111111111111111111111111111111111221111111111111111111111111111144422",
-      "222441111111111111111111111111111111111111111111111111111111111111111111111111111111121111111111111111111111111111144222",
-      "222441111111111111111111111111111111111111111111111111111111111111111111111111111111121111111111111111111111111111144422",
-      "224441111111111111111111111111111111111111111111111111111111111111111111111111111111122111111111111111111111111111144222",
-      "222444411111111111111111111111111111111111111111111111111111111111111111111111111111112211111111111111111111111111144222",
+      "22244111111111111111111111111111111111111111111111111111CCC1111111111111111111111111121111111111111111111111111111144222",
+      "2224411111111111111111111111111111111111111111111111111CCCC1111111111111111111111111121111111111111111111111111111144422",
+      "224441111111111111111111111111111111111111111111111111111C11111111111111111111111111122111111111111111111111111111144222",
+      "222444411111111111111111111111111111111111111111111111111CC1111111111111111111111111112211111111111111111111111111144222",
       "22224441111111111B111111111111111111111111111111111111111111111111111111111111111111111211111111111111111111111441144222",
       "22222244111111111B111111111111111111111111111111111111111111111111111111111111111111111211111111111111111111114444444222",
       "22222444111111111B11111B111111111B11111111111111111111111111111111111111111111111111111222111111111111111111444244442222",
       "22222441111111111BBBBBBB11BB11111B11111111111111111111111111111111111111111111111111111111111111111111111114442222422222",
-      "22224441111111111111111B1BBBB1111B11111111111111BB11BBBB1111111111111111111111111111111111111111111111111144222222422222",
+      "22224441111111111111111B1BBBB1111B11111111111111111111111111111111111111111111111111111111111111111111111144222222422222",
       "22244411111111111111111BBBBBBBBBBBBBBBBBBBBBBBB111BBBBBB1B111BBBBBBB1111111111111111111111111111111111111442222222222222",
       "222444111111111111B1111B111B111111111111111111111BBBB1111111111111111111111111111111111111111111111111114422222222222222",
       "222244441111111111BBBBBBA1ABA11111111111111111111BBBB1111111111111111111111111111111111111111111111111114442222222222222",
@@ -66,14 +66,14 @@
       "2222222441111111111A111A1AAAAAA11111111111111111BBBBBBBBBBBB1BB111111111111111111111111111111111444444111442222222222222",
       "222222244111111111111AA1AA888AA1A1111111111111111BBBB1BBB111111111111111111111111111111111111114424244441442222222222222",
       "222222224411111111111A11AA8888AAA111111111111111111111111111111111111111111111111111111111111114422224444422222222222222",
-      "22222222441111111111AA1AA888888AAA11111111111111111111111111111111111111111111111111111111111114422222244222222222222222",
-      "2222222224411111111AA1AA88888888A111111111111111111111111111111111111111111111111111111111111114444222222222222222222222",
-      "2222222244411111111111AAAA888888A111111111111111111111111111111111111111111111111111111111111111144422222222222222222222",
-      "22222222244111111111A11AAA888888A1A1111111111111111111111111111111111111111111111111111111111111114422222222222222222222",
-      "2222222244444111111111A11AAAA88AA111111111111111111111111111111111111111111111111111111111111111114422222222222222222222",
-      "22222222224444411111111A11AAAAAA1AA1111111111111111111111111111111111111111111111111111111111111444442222222222222222222",
-      "22222222222244411111111AA111AA111A11111111111111111111111111111111111111111111111111111111111114444422222222222222222222",
-      "222222222222224441111111111A11111111111111111111111111111111111111111111111111111111111111111444222222222222222222222222",
+      "22222222441111111111AA1AA888888AAA111111111111111111111111111111111111111EE111111111111111111114422222244222222222222222",
+      "2222222224411111111AA1AA88888888A11111111111111111111111111111EEEEEEEE111EEE11111111FFFF11111114444222222222222222222222",
+      "2222222244411111111111AAAA888888A111111111111111111111111111EEEEEEEEEEEEEE1EE1111FFFFF1111111111144422222222222222222222",
+      "22222222244111111111A11AAA888888A1A1111111DDDDDDDD1111111111E1EEEEEEEEEEEEEEE11FFFFF111111111111114422222222222222222222",
+      "2222222244444111111111A11AAAA88AA11111111111DDDDDDDDD1111111111111E11EEEEEEEEFFFF111111111111111114422222222222222222222",
+      "22222222224444411111111A11AAAAAA1AA11111111111DDD1DD11111111111111111111E11EFFFF1111111111111111444442222222222222222222",
+      "22222222222244411111111AA111AA111A111111111111111DDD1111111111111111111111FF11111111111111111114444422222222222222222222",
+      "222222222222224441111111111A11111111111111111111111DD1111111111111111111111111111111111111111444222222222222222222222222",
       "222222222222224444411111111AA1A11A11111111111111111111111111111111111111111111111111111111144442222222222222222222222222",
       "222222222222222244441111111111111111111111111111111111111111111111111111111111111114441111444222222222222222222222222222",
       "222222222222222222444111111111144111111111111111111111111111111111111111111111111444444444422222222222222222222222222222",
@@ -132,16 +132,16 @@
       "00000F0FFFFFFFFFF0FFF0F8F0000000000000G0000000000000G00000000FF000008000000000000000000000000000000000000000000000000000",
       "000000FF0FFFFFFFFFFFF80F00088800000000G0000000000000G000000000FF00008880000000088800000000000000000000000000000000000000",
       "0000FF00FFFFFFFFFFFF00FF00000000000000G0000000000000G0000000000FFFFFFFFFFF0000088800000000000000000000000000000000000000",
-      "0000F00FFFFFFFFFFFF0FF0000000000000000G0000000000000G00000000000FF00000000FFF0008880000000000000000000000000000000000000",
-      "000000FFFFFFFFFFFF00000000000000000000G0080000000080G000000000000000000000000FF00080000000000000000000000000000000000000",
-      "00000FFFFFFFFFFFF0FF0F0000000000000000G0000000000880G0000000000000000000000000000000000000000000000000000000000000000000",
-      "00000FFFFFFFFFFF0FF00F0F00000000000000G0080000000000G0000000000000000000000000000000000000000000000000000000000000000000",
-      "0000000FFFFFFFF0000F000000000000000000G0880000000000G0000000000000000000000000000000000000000000000000000000000000000000",
-      "000000F00FF0F0000000000F0000F0FFFF0000G0000000000000G0000000000000000000000000000000000000000000000000000000000000000000",
-      "0099990F00FF0000000FF0000FFFFFFFFFFF00GGGGGG00GGGGGGG0000000000000000000000000000000000000000000000000000000000000000000",
-      "0000099990000000000F00000FFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "0000000900000000000F00000F0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "0000099000000000000F00000F0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "0000F00FFFFFFFFFFFF0FF0000000000000000G0000000000000G00000000000GGGGGGGGGGGGGGG08880000000000000000000000000000000000000",
+      "000000FFFFFFFFFFFF00000000000000000000G0080000000080G00000000000G0000000000000G00080000000000000000000000000000000000000",
+      "00000FFFFFFFFFFFF0FF0F0000000000000000G0000000000880G00000000000G0000000000000G00000000000000000000000000000000000000000",
+      "00000FFFFFFFFFFF0FF00F0F00000000000000G0080000000000G00000000000G0000000000000G00000000000000000000000000000000000000000",
+      "0000000FFFFFFFF0000F000000000000000000G0880000000000G00000000000G0000000000000G00000000000000000000000000000000000000000",
+      "000000F00FF0F0000000000F0000F0FFFF0000G0000000000000G00000000000G0000000000000G00000000000000000000000000000000000000000",
+      "0099990F00FF0000000FF0000FFFFFFFFFFF00GGGGGG00GGGGGGG00000000000G0000000000000G00000000000000000000000000000000000000000",
+      "0000099990000000000F00000FFFFF0000000000000000000000000000000000G0000000000000G00000000000000000000000000000000000000000",
+      "0000000900000000000F00000F00000000000000000000000000000000000000G0000000000000G00000000000000000000000000000000000000000",
+      "0000099000000000000F00000F00000000000000000000000000000000000000GGGGG00000GGGGG00000000000000000000000000000000000000000",
       "000090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "0009900000000F0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -255,7 +255,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -318,7 +318,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -381,7 +381,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -444,7 +444,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -507,7 +507,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -633,7 +633,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -696,7 +696,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -759,7 +759,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -822,7 +822,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -952,7 +952,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1012,
@@ -1202,7 +1202,7 @@
         "h": 5
       },
       "name": "building.name.villa",
-      "species_id": 1010,
+      "species_id": 50010,
       "entity_type": "Building",
       "offset": {
         "x": 0.0,
@@ -1210,7 +1210,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1340,7 +1340,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1529,7 +1529,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -1592,7 +1592,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -1655,7 +1655,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1704,7 +1704,7 @@
     {
       "id": 1727533496,
       "frame": {
-        "x": 57,
+        "x": 72,
         "y": 61,
         "w": 1,
         "h": 1
@@ -1713,7 +1713,7 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": 15.231514,
+        "x": 10.969546,
         "y": 0.0
       },
       "direction": 2,
@@ -1893,7 +1893,7 @@
     {
       "id": 1727533500,
       "frame": {
-        "x": 37,
+        "x": 38,
         "y": 11,
         "w": 1,
         "h": 1
@@ -1905,8 +1905,8 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 0,
-      "current_speed": 4.8,
+      "direction": 2,
+      "current_speed": 9.6,
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
@@ -1943,8 +1943,8 @@
         "movements": []
       },
       "latest_movement": [
-        0,
-        -1
+        1,
+        0
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -1970,7 +1970,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2033,7 +2033,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2080,1605 +2080,30 @@
       "demands_attention": false
     },
     {
-      "id": 1727534021,
+      "id": 1727544032,
       "frame": {
-        "x": 73,
-        "y": 48,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534022,
-      "frame": {
-        "x": 74,
-        "y": 48,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534062,
-      "frame": {
-        "x": 72,
-        "y": 48,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534063,
-      "frame": {
-        "x": 75,
-        "y": 48,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534036,
-      "frame": {
-        "x": 71,
-        "y": 49,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534037,
-      "frame": {
-        "x": 76,
-        "y": 49,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534038,
-      "frame": {
-        "x": 70,
-        "y": 50,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534061,
-      "frame": {
-        "x": 69,
-        "y": 51,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534040,
-      "frame": {
-        "x": 69,
-        "y": 52,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534041,
-      "frame": {
-        "x": 69,
-        "y": 53,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534060,
-      "frame": {
-        "x": 69,
+        "x": 31,
         "y": 54,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534043,
-      "frame": {
-        "x": 70,
-        "y": 55,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534044,
-      "frame": {
-        "x": 71,
-        "y": 56,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534057,
-      "frame": {
-        "x": 72,
-        "y": 57,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534046,
-      "frame": {
-        "x": 73,
-        "y": 57,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534047,
-      "frame": {
-        "x": 74,
-        "y": 57,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534058,
-      "frame": {
-        "x": 75,
-        "y": 57,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534050,
-      "frame": {
-        "x": 76,
-        "y": 56,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534051,
-      "frame": {
-        "x": 77,
-        "y": 55,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534059,
-      "frame": {
-        "x": 69,
-        "y": 53,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534053,
-      "frame": {
-        "x": 78,
-        "y": 53,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534054,
-      "frame": {
-        "x": 78,
-        "y": 52,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534064,
-      "frame": {
-        "x": 78,
-        "y": 51,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534056,
-      "frame": {
-        "x": 77,
-        "y": 50,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534065,
-      "frame": {
-        "x": 78,
-        "y": 54,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Silver Gate",
-      "species_id": 1044,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Silver",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541175,
-      "frame": {
-        "x": 29,
-        "y": 55,
-        "w": 1,
+        "w": 2,
         "h": 2
       },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
+      "name": "Blue Magic Circle",
+      "species_id": 11004,
+      "entity_type": "StaticObject",
       "offset": {
-        "x": -0.60953003,
+        "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
-      "current_speed": 2.5,
+      "direction": 1,
+      "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 150,
+      "z_index": -1,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1012,
         "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
+          "x": 9,
+          "y": 4,
+          "w": 2,
           "h": 2
         },
         "number_of_frames": 4
@@ -3690,13 +2115,13 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
+        "x": 9,
+        "y": 4,
+        "w": 2,
         "h": 2
       },
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -3718,10 +2143,10 @@
       "demands_attention": false
     },
     {
-      "id": 1727535502,
+      "id": 1727544033,
       "frame": {
-        "x": 67,
-        "y": 57,
+        "x": 32,
+        "y": 54,
         "w": 2,
         "h": 2
       },
@@ -3785,6 +2210,69 @@
       "frame": {
         "x": 68,
         "y": 56,
+        "w": 2,
+        "h": 2
+      },
+      "name": "Blue Magic Circle",
+      "species_id": 11004,
+      "entity_type": "StaticObject",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": -1,
+      "sprite": {
+        "sheet_id": 1012,
+        "frame": {
+          "x": 9,
+          "y": 4,
+          "w": 2,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 9,
+        "y": 4,
+        "w": 2,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727535502,
+      "frame": {
+        "x": 67,
+        "y": 57,
         "w": 2,
         "h": 2
       },
@@ -3923,16 +2411,16 @@
       "demands_attention": false
     },
     {
-      "id": 1727535500,
+      "id": 1727544018,
       "frame": {
-        "x": 67,
-        "y": 56,
-        "w": 2,
-        "h": 2
+        "x": 69,
+        "y": 54,
+        "w": 1,
+        "h": 1
       },
-      "name": "Blue Magic Circle",
-      "species_id": 11004,
-      "entity_type": "StaticObject",
+      "name": "Silver Gate",
+      "species_id": 1044,
+      "entity_type": "Gate",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -3940,13 +2428,328 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": -1,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1012,
+        "sheet_id": 1010,
         "frame": {
-          "x": 9,
+          "x": 6,
           "y": 4,
-          "w": 2,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Silver",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544019,
+      "frame": {
+        "x": 71,
+        "y": 54,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Silver Gate",
+      "species_id": 1044,
+      "entity_type": "Gate",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 6,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Silver",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544020,
+      "frame": {
+        "x": 70,
+        "y": 54,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Silver Gate",
+      "species_id": 1044,
+      "entity_type": "Gate",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 6,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Silver",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544021,
+      "frame": {
+        "x": 72,
+        "y": 54,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Silver Gate",
+      "species_id": 1044,
+      "entity_type": "Gate",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 6,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Silver",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544022,
+      "frame": {
+        "x": 73,
+        "y": 54,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Silver Gate",
+      "species_id": 1044,
+      "entity_type": "Gate",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 6,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "Silver",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544023,
+      "frame": {
+        "x": 65,
+        "y": 45,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
           "h": 2
         },
         "number_of_frames": 4
@@ -3958,13 +2761,13 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 9,
-        "y": 4,
-        "w": 2,
+        "x": 28,
+        "y": 0,
+        "w": 1,
         "h": 2
       },
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
+      "melee_attacks_hero": true,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -3986,324 +2789,9 @@
       "demands_attention": false
     },
     {
-      "id": 1727535501,
+      "id": 1727544024,
       "frame": {
-        "x": 68,
-        "y": 57,
-        "w": 2,
-        "h": 2
-      },
-      "name": "Blue Magic Circle",
-      "species_id": 11004,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": -1,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 9,
-          "y": 4,
-          "w": 2,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 9,
-        "y": 4,
-        "w": 2,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541170,
-      "frame": {
-        "x": 45,
-        "y": 62,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        1
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541172,
-      "frame": {
-        "x": 45,
-        "y": 62,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        1
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541173,
-      "frame": {
-        "x": 45,
-        "y": 62,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        1
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541203,
-      "frame": {
-        "x": 45,
-        "y": 62,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        1
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727541204,
-      "frame": {
-        "x": 39,
+        "x": 65,
         "y": 52,
         "w": 1,
         "h": 2
@@ -4312,10 +2800,451 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 10.290424,
+        "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544025,
+      "frame": {
+        "x": 77,
+        "y": 52,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544026,
+      "frame": {
+        "x": 77,
+        "y": 45,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544027,
+      "frame": {
+        "x": 68,
+        "y": 47,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544028,
+      "frame": {
+        "x": 74,
+        "y": 46,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544029,
+      "frame": {
+        "x": 73,
+        "y": 49,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544030,
+      "frame": {
+        "x": 70,
+        "y": 51,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 1727544031,
+      "frame": {
+        "x": 67,
+        "y": 49,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,

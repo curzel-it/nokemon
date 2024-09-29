@@ -66,7 +66,11 @@ def export_biome_tiles(aseprite_assets, destination_folder):
         "darkrock", 
         "ice", 
         "darkgrass", 
-        "rockpavement"
+        "rockpavement",
+        "grass_red_flowers",
+        "grass_yellow_flowers",
+        "grass_blue_flowers",
+        "grass_purple_flowers",
     ]
 
     # 1060 tiles
