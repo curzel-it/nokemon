@@ -86,7 +86,8 @@ impl GameEngine {
         (rl, thread)
     }
 
-    pub fn update_rl(&mut self, rl: &mut RaylibHandle, time_since_last_update: f32) {
+    pub fn update_rl(&mut self, rl: &mut RaylibHandle, real_time_since_last_update: f32) {
+        let time_since_last_update = real_time_since_last_update.min(0.1);
         self.keyboard.update(rl, time_since_last_update);
         self.mouse.update(rl, self.ui_config.as_ref().unwrap().rendering_scale);
         self.update(time_since_last_update);

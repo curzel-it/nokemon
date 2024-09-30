@@ -75,13 +75,13 @@ impl BiomeTile {
         if let Some((neighbor, directions)) = self.best_neighbor() {
             let default_index = neighbor.texture_index() * Biome::number_of_combinations() + self.texture_index_for_directions(&directions) + 1;
 
-
             if self.tile_type.is_grass() {
                 return match neighbor {
                     Biome::Desert => 0,
                     Biome::Rock => 0,
                     Biome::DarkRock => 0,
                     Biome::Snow => 0,
+                    Biome::DarkGrass => 0,
                     _ => default_index
                 }
             }

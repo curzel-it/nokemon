@@ -322,7 +322,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -704,7 +704,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -763,7 +763,7 @@
       "entity_type": "PushableObject",
       "offset": {
         "x": 0.0,
-        "y": -0.2664704
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 9.6,
