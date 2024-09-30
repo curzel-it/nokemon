@@ -28,6 +28,8 @@ pub struct Species {
     pub sprite_frame: Rect,
     pub sprite_sheet_id: u32,
     pub sprite_number_of_frames: i32,
+    
+    #[serde(default)]
     pub lock_type: LockType,
 
     #[serde(default)]
