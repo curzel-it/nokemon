@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 use common_macros::hash_set;
 use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}, patrols::Patrol}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
-use super::{entity::{Entity, EntityId, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}};
+use super::{entity::{Entity, EntityId, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::save_pressure_plate_states};
 
 pub struct World {
     pub id: u32,
@@ -28,6 +28,11 @@ pub struct World {
     pub creep_spawn_interval: f32,
     pub is_in_cutscene: bool,
     pub is_interior: bool,
+    pub pressure_plate_down_red: bool,
+    pub pressure_plate_down_green: bool,
+    pub pressure_plate_down_blue: bool,
+    pub pressure_plate_down_silver: bool,
+    pub pressure_plate_down_yellow: bool,
 }
 
 impl World {
@@ -54,7 +59,12 @@ impl World {
             creep_spawn_enabled: false,
             creep_spawn_interval: 5.0,
             is_in_cutscene: false,
-            is_interior: false
+            is_interior: false,
+            pressure_plate_down_red: false,
+            pressure_plate_down_green: false,
+            pressure_plate_down_blue: false,
+            pressure_plate_down_silver: false,
+            pressure_plate_down_yellow: false,
         }
     }
 
@@ -182,6 +192,17 @@ impl World {
             }
             WorldStateUpdate::HandleHit(bullet_id, target_id) => {
                 self.handle_hit(bullet_id, target_id)
+            }
+            WorldStateUpdate::SetPressurePlateState(lock_type, is_down) => {
+                match lock_type {
+                    LockType::Yellow => self.pressure_plate_down_yellow = is_down,
+                    LockType::Blue => self.pressure_plate_down_blue = is_down,
+                    LockType::Green => self.pressure_plate_down_green = is_down,
+                    LockType::Red => self.pressure_plate_down_red = is_down,
+                    LockType::Silver => self.pressure_plate_down_silver = is_down,
+                    LockType::None => {}
+                }                
+                save_pressure_plate_states(self)
             }
         };
         None

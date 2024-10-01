@@ -19,7 +19,8 @@ pub enum WorldStateUpdate {
     StopHeroMovement,
     ConstructionTileChange(usize, usize, Construction),
     EngineUpdate(EngineStateUpdate),
-    HandleHit(EntityId, EntityId)
+    HandleHit(EntityId, EntityId),
+    SetPressurePlateState(LockType, bool)
 }
 
 #[derive(Debug, Clone)]

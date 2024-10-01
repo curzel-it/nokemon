@@ -2,11 +2,11 @@ use serde::{Deserialize, Serialize};
 
 use crate::{entities::{known_species::{SPECIES_KEY_BLUE, SPECIES_KEY_GREEN, SPECIES_KEY_RED, SPECIES_KEY_SILVER, SPECIES_KEY_YELLOW}, species::SpeciesId}, lang::localizable::LocalizableText};
 
-const PRESSURE_PLATE_YELLOW: &str = "pressure_plate.yellow";
-const PRESSURE_PLATE_RED: &str = "pressure_plate.red";
-const PRESSURE_PLATE_BLUE: &str = "pressure_plate.blue";
-const PRESSURE_PLATE_GREEN: &str = "pressure_plate.green";
-const PRESSURE_PLATE_SILVER: &str = "pressure_plate.silver";
+pub const PRESSURE_PLATE_YELLOW: &str = "pressure_plate_down_yellow";
+pub const PRESSURE_PLATE_RED: &str = "pressure_plate_down_red";
+pub const PRESSURE_PLATE_BLUE: &str = "pressure_plate_down_blue";
+pub const PRESSURE_PLATE_GREEN: &str = "pressure_plate_down_green";
+pub const PRESSURE_PLATE_SILVER: &str = "pressure_plate_down_silver";
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[derive(Default)]

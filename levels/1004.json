@@ -1713,7 +1713,7 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -1.4760413,
+        "x": -1.438592,
         "y": 0.0
       },
       "direction": 3,
@@ -2300,7 +2300,7 @@
       "dialogues": {
         "options": [
           {
-            "key": "pressure_plate.silver",
+            "key": "pressure_plate_down_silver",
             "expected_value": 1,
             "dialogue": 1016
           },
@@ -8587,5 +8587,10 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 0.0,
-  "is_interior": false
+  "is_interior": false,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }

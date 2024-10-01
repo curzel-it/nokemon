@@ -157,7 +157,7 @@ impl Entity {
         None
     }
 
-    pub fn is_related_lock_closed(&self) -> bool {
+    pub fn is_related_pressure_plate_down(&self) -> bool {
         get_value_for_key(self.lock_type.pressure_plate()).unwrap_or(1) == 0
     }
 }

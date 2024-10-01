@@ -8,10 +8,11 @@
   "dialogue.answer.1015": 1015,
   "dialogue.answer.1016": 1016,
   "latest_world": 1005,
-  "latest_x": 67,
-  "latest_y": 33,
-  "pressure_plate.blue": 0,
-  "pressure_plate.red": 0,
-  "pressure_plate.silver": 0,
-  "pressure_plate.yellow": 0
+  "latest_x": 55,
+  "latest_y": 39,
+  "pressure_plate_down_blue": 0,
+  "pressure_plate_down_green": 0,
+  "pressure_plate_down_red": 0,
+  "pressure_plate_down_silver": 0,
+  "pressure_plate_down_yellow": 0
 }

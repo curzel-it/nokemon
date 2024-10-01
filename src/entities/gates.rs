@@ -2,7 +2,7 @@ use crate::game_engine::{entity::Entity, state_updates::{EngineStateUpdate, Worl
 
 impl Entity {
     pub fn setup_gate(&mut self, creative_mode: bool) {
-        if self.is_related_lock_closed() {
+        if self.is_related_pressure_plate_down() {
             self.sprite.frame.x += 1;
         }
         if creative_mode {
@@ -21,7 +21,7 @@ impl Entity {
             ];   
         }
 
-        if self.is_related_lock_closed() {
+        if self.is_related_pressure_plate_down() {
             self.is_rigid = !world.creative_mode;
             self.sprite.frame.x = self.original_sprite_frame.x;
         } else {
@@ -35,7 +35,7 @@ impl Entity {
 
 impl Entity {
     pub fn setup_inverse_gate(&mut self) {
-        if !self.is_related_lock_closed() {
+        if !self.is_related_pressure_plate_down() {
             self.sprite.frame.x += 1;
         }
     }  
@@ -51,7 +51,7 @@ impl Entity {
             ];   
         }
 
-        if !self.is_related_lock_closed() {
+        if !self.is_related_pressure_plate_down() {
             self.is_rigid = true;
             self.sprite.frame.x = self.original_sprite_frame.x;
         } else {
