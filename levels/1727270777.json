@@ -619,7 +619,7 @@
     {
       "id": 1727289073,
       "frame": {
-        "x": 3,
+        "x": 5,
         "y": 4,
         "w": 1,
         "h": 2
@@ -628,7 +628,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 9.258317,
+        "x": 4.386602,
         "y": 0.0
       },
       "direction": 2,
@@ -745,5 +745,10 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": true
+  "is_interior": true,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }

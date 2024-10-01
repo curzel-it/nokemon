@@ -906,7 +906,7 @@
         "x": 0,
         "y": 0
       },
-      "lock_type": "Blue",
+      "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
         "y": 0,
@@ -1457,7 +1457,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Kunai",
+      "name": "x10 Holy Knife",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -1704,7 +1704,7 @@
     {
       "id": 1727533496,
       "frame": {
-        "x": 77,
+        "x": 51,
         "y": 61,
         "w": 1,
         "h": 1
@@ -1713,10 +1713,10 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -1.438592,
+        "x": 1.408856,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": 2,
       "current_speed": 1.0,
       "is_rigid": true,
       "z_index": 50,
@@ -1891,16 +1891,16 @@
       "demands_attention": false
     },
     {
-      "id": 1727534016,
+      "id": 7819121,
       "frame": {
-        "x": 12,
+        "x": 36,
         "y": 15,
-        "w": 1,
+        "w": 2,
         "h": 1
       },
-      "name": "Blue Gate",
-      "species_id": 1043,
-      "entity_type": "Gate",
+      "name": "Large Sign",
+      "species_id": 10001,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -1908,13 +1908,13 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 200,
+      "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 6,
-          "y": 3,
-          "w": 1,
+          "x": 3,
+          "y": 4,
+          "w": 2,
           "h": 1
         },
         "number_of_frames": 1
@@ -1924,11 +1924,11 @@
       },
       "time_immobilized": 0.0,
       "destination": null,
-      "lock_type": "Blue",
+      "lock_type": "None",
       "original_sprite_frame": {
-        "x": 6,
-        "y": 3,
-        "w": 1,
+        "x": 3,
+        "y": 4,
+        "w": 2,
         "h": 1
       },
       "speed_multiplier": 1.0,
@@ -1950,70 +1950,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727534017,
-      "frame": {
-        "x": 13,
-        "y": 15,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Blue Gate",
-      "species_id": 1043,
-      "entity_type": "Gate",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 6,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "Blue",
-      "original_sprite_frame": {
-        "x": 6,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
+      "is_invulnerable": false,
       "demands_attention": false
     },
     {
@@ -7017,7 +6954,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Kunai",
+      "name": "Holy Knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -7080,7 +7017,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Kunai",
+      "name": "Holy Knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -7143,7 +7080,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Kunai",
+      "name": "Holy Knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8340,7 +8277,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Kunai",
+      "name": "Holy Knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8403,7 +8340,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Kunai",
+      "name": "Holy Knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {

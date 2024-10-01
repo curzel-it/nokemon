@@ -10,7 +10,7 @@ pub const WORLD_SIZE_ROWS: usize = 80;
 pub const WORLD_SIZE_COLUMNS: usize = 120;
 pub const UNLIMITED_LIFESPAN: f32 = -420.0;
 pub const NO_PARENT: u32 = 0;
-pub const HERO_KUNAI_COOLDOWN: f32 = 0.1;
+pub const HERO_HOLY_KNIFE_COOLDOWN: f32 = 0.1;
 
 // Input
 pub const KEYBOARD_KEY_HOLD_TIME_TO_NEXT_PRESS_FIRST: f32 = 0.4;

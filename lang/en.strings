@@ -1,5 +1,8 @@
 "1002.sign.welcome_to_village" = "Welcome to Saltspire Port"
-"1002.scroll.hidden_monsters_hint" = "Mind the gap"
+"1002.scroll.hidden_monsters_hint" = """
+If you're reading this, we never got to the tunnel.
+Mind the gap.
+"""
 "1002.sign.forest_maze" = "Private property"
 "1002.sign.sorry_no_boat" = """
 Ahoy there! 
@@ -15,7 +18,15 @@ I hope we can soon leave too using the underground tunnel hidden in the village.
 If it didn't collapse, it should bring all the way to the next island.
 """
 
-"1004.sign.cave_back" = "DANGER\nContaminated area\nStay away"
+"1004.sign.cave_back" = """
+Welcome to the glorious mining town of Rusty Gulch
+Home of questionable treasures and guaranteed lung problems!
+Warning: The area is highly contaminated. 
+Enter at your own risk, or at least with a really good mask. 
+Seriously, stay away. We’re not kidding... 
+...Unless you're into glowing rocks and mystery diseases,
+then by all means, go ahead!
+"""
 
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
@@ -55,10 +66,13 @@ The High Priestess will be waiting for you there...
 Avoid any deamons you find and remember:
 Don't let them touch you!
 """
-"dialogue.1005" = "There's no time to explain further, just hurry up!"
+"dialogue.1005" = """
+There's no time to explain further.
+Just pick up those knifes over there and hurry up!
+"""
 "dialogue.1010" = "These monsters... It's all gone..."
 "dialogue.1011" = """
-My husband managed to cast a magic barrier just in time to save our house.
+My husband cast a magic barrier just in time to save our house.
 Can you check on him?
 """
 "dialogue.1012" = """
@@ -164,8 +178,8 @@ Press ESC to go back
 "objects.name.key_green" = "Green Key"
 "objects.name.key_blue" = "Blue Key"
 "objects.name.key_silver" = "Silver Key"
-"objects.name.kunai" = "Kunai"
-"objects.name.kunai.x10" = "x10 Kunai"
+"objects.name.holy_knife" = "Holy Knife"
+"objects.name.holy_knife.x10" = "x10 Holy Knife"
 "objects.name.teleporter" = "Teleporter"
 "objects.name.deep_hole" = "Deep Hole"
 "objects.name.boulder" = "Boulder"

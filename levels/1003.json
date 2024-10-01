@@ -328,7 +328,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 1000,
       "sprite": {
         "sheet_id": 1010,
@@ -525,7 +525,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 1000,
       "sprite": {
         "sheet_id": 1010,
@@ -574,5 +574,10 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 0.0,
-  "is_interior": true
+  "is_interior": true,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }

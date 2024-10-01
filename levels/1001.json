@@ -235,80 +235,6 @@
       "demands_attention": false
     },
     {
-      "id": 1727269336,
-      "frame": {
-        "x": 63,
-        "y": 42,
-        "w": 0,
-        "h": 0
-      },
-      "name": "",
-      "species_id": 1020,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 3,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 1000,
-      "sprite": {
-        "sheet_id": 1002,
-        "frame": {
-          "x": 0,
-          "y": 0,
-          "w": 0,
-          "h": 0
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": [
-          {
-            "key": "dialogue.answer.1001",
-            "expected_value": 0,
-            "dialogue": 1001
-          },
-          {
-            "key": "always",
-            "expected_value": 1,
-            "dialogue": 1005
-          }
-        ]
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
-        "w": 0,
-        "h": 0
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": true
-    },
-    {
       "id": 1727269337,
       "frame": {
         "x": 62,
@@ -819,9 +745,146 @@
       "parent_id": 0,
       "is_invulnerable": true,
       "demands_attention": false
+    },
+    {
+      "id": 1727817072,
+      "frame": {
+        "x": 63,
+        "y": 40,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Wizard",
+      "species_id": 3007,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 3,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 32,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": [
+          {
+            "key": "always",
+            "expected_value": 1,
+            "dialogue": 1001
+          }
+        ]
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 32,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": true
+    },
+    {
+      "id": 7817759,
+      "frame": {
+        "x": 63,
+        "y": 43,
+        "w": 1,
+        "h": 1
+      },
+      "name": "x10 Holy Knife",
+      "species_id": 7001,
+      "entity_type": "Bundle",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 300,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 1,
+          "y": 4,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 1,
+        "y": 4,
+        "w": 1,
+        "h": 1
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
     }
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": true
+  "is_interior": true,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }

@@ -816,5 +816,10 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": true
+  "is_interior": true,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }

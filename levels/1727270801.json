@@ -194,7 +194,7 @@
         "sheet_id": 1008,
         "frame": {
           "x": 0,
-          "y": 1,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -212,7 +212,7 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 1,
         "h": 1
       },
@@ -261,7 +261,7 @@
         "sheet_id": 1008,
         "frame": {
           "x": 0,
-          "y": 1,
+          "y": 0,
           "w": 1,
           "h": 1
         },
@@ -279,7 +279,7 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 1,
         "h": 1
       },
@@ -628,7 +628,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "1002.book.underground_hint.title",
+      "name": "Book",
       "species_id": 6001,
       "entity_type": "PickableObject",
       "offset": {
@@ -938,5 +938,10 @@
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": true
+  "is_interior": true,
+  "pressure_plate_down_red": false,
+  "pressure_plate_down_green": false,
+  "pressure_plate_down_blue": false,
+  "pressure_plate_down_silver": false,
+  "pressure_plate_down_yellow": false
 }
