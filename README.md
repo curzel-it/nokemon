@@ -1,8 +1,12 @@
 # Nokemon
 
-python3 prompter.py nokemon/src --blacklist ui/ components rendering tiles biome construction mod prefab sprite loading_screen hitmap serde timed_content animator localizable map_editor DS_Store gitignore| pbcopy
+So, I got bored, wanted to speriment a bit with Rust, and love GameBoy games, here's the result!
 
-1. need to fix hitmap performance
+I really enjoyed the process, but have no idea what the final result should be, for now at least.
 
-To thing about
-1. Outside of creative mode, save should not change how the world is made up, except for completed puzzle
+Open to contributions and ideas!
+
+![Game intro](docs/1.png)
+![First level](docs/2.png)
+![Dialogues](docs/4.png)
+![Map Editor](docs/6.png)

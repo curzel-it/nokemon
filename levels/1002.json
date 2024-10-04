@@ -188,7 +188,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -318,7 +318,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -448,7 +448,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -578,7 +578,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -771,7 +771,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -1023,7 +1023,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1086,7 +1086,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1149,7 +1149,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1196,69 +1196,6 @@
       "demands_attention": false
     },
     {
-      "id": 1727296257,
-      "frame": {
-        "x": 74,
-        "y": 58,
-        "w": 1,
-        "h": 1
-      },
-      "name": "x10 Holy Knife",
-      "species_id": 7001,
-      "entity_type": "Bundle",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 1,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 1,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
       "id": 1727471590,
       "frame": {
         "x": 39,
@@ -1275,7 +1212,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1338,7 +1275,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1401,7 +1338,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1464,7 +1401,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1513,8 +1450,8 @@
     {
       "id": 1727471594,
       "frame": {
-        "x": 72,
-        "y": 64,
+        "x": 63,
+        "y": 66,
         "w": 1,
         "h": 2
       },
@@ -1523,70 +1460,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 1.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727471595,
-      "frame": {
-        "x": 86,
-        "y": 59,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
+        "y": -0.82362604
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1637,10 +1511,73 @@
       "demands_attention": false
     },
     {
+      "id": 1727471595,
+      "frame": {
+        "x": 82,
+        "y": 56,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": -4.8979115,
+        "y": 0.0
+      },
+      "direction": 3,
+      "current_speed": 1.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": {
+        "options": []
+      },
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
       "id": 1727471596,
       "frame": {
-        "x": 72,
-        "y": 62,
+        "x": 70,
+        "y": 59,
         "w": 1,
         "h": 2
       },
@@ -1649,9 +1586,9 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -4.8979115
       },
-      "direction": 1,
+      "direction": 0,
       "current_speed": 1.5,
       "is_rigid": false,
       "z_index": 150,
@@ -1702,8 +1639,8 @@
     {
       "id": 1727472012,
       "frame": {
-        "x": 42,
-        "y": 38,
+        "x": 33,
+        "y": 37,
         "w": 1,
         "h": 2
       },
@@ -1712,9 +1649,9 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -3.2642698
       },
-      "direction": 1,
+      "direction": 0,
       "current_speed": 1.5,
       "is_rigid": false,
       "z_index": 150,
@@ -1775,7 +1712,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": 0.809664
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1838,7 +1775,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": 1.3494401
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -1901,7 +1838,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": 0.809664
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -2037,7 +1974,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -2100,7 +2037,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -2163,7 +2100,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -2226,7 +2163,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -2275,8 +2212,8 @@
     {
       "id": 1727716085,
       "frame": {
-        "x": 37,
-        "y": 27,
+        "x": 58,
+        "y": 44,
         "w": 1,
         "h": 2
       },
@@ -2284,10 +2221,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -1.3629466,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2339,7 +2276,7 @@
       "id": 1727716086,
       "frame": {
         "x": 41,
-        "y": 24,
+        "y": 23,
         "w": 1,
         "h": 2
       },
@@ -2389,7 +2326,7 @@
       },
       "latest_movement": [
         0,
-        0
+        -1
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -2401,7 +2338,7 @@
     {
       "id": 1727716087,
       "frame": {
-        "x": 38,
+        "x": 59,
         "y": 30,
         "w": 1,
         "h": 2
@@ -2451,7 +2388,7 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        1,
         0
       ],
       "contents": null,
@@ -2537,7 +2474,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.0
+        "y": -1.3494401
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -2599,7 +2536,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -1.3494401,
         "y": 0.0
       },
       "direction": 3,
@@ -2662,7 +2599,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -1.3494401,
         "y": 0.0
       },
       "direction": 3,
