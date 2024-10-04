@@ -184,16 +184,14 @@ impl Entity {
     }
 
     fn update_static(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  
-        if world.creative_mode || self.contents.is_some() {
-            if world.is_hero_around_and_on_collision_with(&self.frame) {
-                return vec![
-                    WorldStateUpdate::EngineUpdate(
-                        EngineStateUpdate::ShowEntityOptions(
-                            Box::new(self.clone())
-                        )
+        if (world.creative_mode || self.contents.is_some()) && world.is_hero_around_and_on_collision_with(&self.frame) {
+            return vec![
+                WorldStateUpdate::EngineUpdate(
+                    EngineStateUpdate::ShowEntityOptions(
+                        Box::new(self.clone())
                     )
-                ];   
-            }
+                )
+            ];   
         }
         vec![]
     }

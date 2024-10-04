@@ -153,11 +153,9 @@ impl LongTextDisplay {
             } else {
                 // token is a word
                 let space = if current_line.is_empty() { 0 } else { 1 };
-                if current_line.len() + space + token.len() > max_line_length {
-                    if !current_line.is_empty() {
-                        lines.push(current_line.clone());
-                        current_line.clear();
-                    }
+                if current_line.len() + space + token.len() > max_line_length && !current_line.is_empty() {
+                    lines.push(current_line.clone());
+                    current_line.clear();
                 }
                 if !current_line.is_empty() {
                     current_line.push(' ');
