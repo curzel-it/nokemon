@@ -6,6 +6,16 @@ I really enjoyed the process, but have no idea what the final result should be, 
 
 Open to contributions and ideas!
 
+## Run / Build
+```bash
+# Run the game
+cargo run
+
+# Run the game in creative mode to build levels
+cargo run creative
+```
+
+## Screenshots
 ![Game intro](docs/1.png)
 ![First level](docs/2.png)
 ![Dialogues](docs/4.png)
