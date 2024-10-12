@@ -100,7 +100,7 @@ impl DialogueMenu {
     }
 
     fn handle_answer(&mut self) -> Vec<WorldStateUpdate> {
-        let dialogue_id = self.dialogue.dialogue.as_str();
+        let dialogue_id = self.dialogue.text.as_str();
         set_dialogue_read(dialogue_id);       
         self.menu.clear_selection();
 

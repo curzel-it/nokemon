@@ -1867,7 +1867,7 @@
           {
             "key": "always",
             "expected_value": 1,
-            "dialogue": "1001_damn_monsters"
+            "text": "1002_damn_monsters"
           }
         ],
       "time_immobilized": 0.0,

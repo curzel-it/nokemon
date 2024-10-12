@@ -61,31 +61,21 @@ There's no time to explain further.
 Just pick up those knifes over there and hurry up!
 """
 "1002_damn_monsters" = "These monsters... It's all gone..."
-"dialogue.1011" = """
+"1004_talk_to_my_husband" = """
 My husband cast a magic barrier just in time to save our house.
 Can you check on him?
 """
 
-"dialogue.1012" = """
+"1004_please_open_gate" = """
 Did my wife send you?
 I'm fine, most of the deamons are trapped now...
-"""
-
-"dialogue.1013" = """
-Unfortunately, there are no survivors other than the major...
-That son of a bitch has shut himself up with all our supplies. 
+But the major has shut himself up with all our supplies. 
 I need you to help me teach him a lesson.
+
+Can you open the gate of the town hall?
 """
 
-"dialogue.1014" = """
-It's pretty simple... 
-These gates are connected to a pressure plate.
-Find it and make sure it stays down.
-Don't worry, me and my wife have a magical barrier.
-"""
-
-"dialogue.1015" = "Have you find the pressure plate?"
-"dialogue.1016" = """
+"1004_gate_now_open" = """
 Haha! (Evil laugh)
 We got him!
 Let's raid the town hall

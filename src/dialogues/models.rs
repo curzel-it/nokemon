@@ -10,7 +10,7 @@ pub type DialogueAnswerId = u32;
 pub struct Dialogue {
     pub key: String,
     pub expected_value: u32,
-    pub dialogue: String,
+    pub text: String,
     
     #[serde(default)]
     pub reward: Option<SpeciesId>
@@ -18,7 +18,7 @@ pub struct Dialogue {
 
 impl Dialogue {
     pub fn localized_text(&self) -> String {
-        self.key.localized()
+        self.text.localized()
     }
 
     pub fn localized_reward_text(&self) -> String {
@@ -37,7 +37,7 @@ impl Dialogue {
         Dialogue {
             key: "always".to_owned(),
             expected_value: 0,
-            dialogue: "empty_dialogue".localized(),
+            text: "empty_dialogue".localized(),
             reward: None
         }
     }

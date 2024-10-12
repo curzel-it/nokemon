@@ -757,15 +757,18 @@
         },
         "number_of_frames": 4
       },
-      "dialogues": {
-        "options": [
-          {
-            "key": "always",
-            "expected_value": 1,
-            "dialogue": 1001
-          }
-        ]
-      },
+      "dialogues": [
+        {
+          "key": "always",
+          "expected_value": 1,
+          "text": "1001_wizard_intro"
+        },
+        {
+          "key": "dialogue.read.1001_wizard_intro",
+          "expected_value": 1,
+          "text": "1001_wizard_no_time"
+        }
+    ],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
