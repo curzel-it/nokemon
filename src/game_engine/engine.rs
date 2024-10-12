@@ -169,14 +169,12 @@ impl GameEngine {
 
     fn teleport_to_previous(&mut self) {
         if let Some(world) = get_value_for_key(&StorageKey::latest_world()) {
-            if let Some(x) = get_value_for_key(&StorageKey::latest_x()) {
-                if let Some(y) = get_value_for_key(&StorageKey::latest_y()) {
-                    self.teleport(&Destination::new(world, x as i32, y as i32));
-                    return;
-                }                
-            }
-        } 
-        self.teleport(&Destination::default());
+            let x = get_value_for_key(&StorageKey::latest_x()).unwrap_or(0);
+            let y = get_value_for_key(&StorageKey::latest_y()).unwrap_or(0);
+            self.teleport(&Destination::new(world, x as i32, y as i32));
+        } else {
+            self.teleport(&Destination::default());
+        }
     }
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
@@ -328,10 +326,12 @@ impl GameEngine {
     }
 
     fn save(&self) {
-        set_value_for_key(&StorageKey::latest_world(), self.world.id);
-        set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
-        set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);
-        self.world.save();
+        if self.creative_mode {
+            set_value_for_key(&StorageKey::latest_world(), self.world.id);
+            set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
+            set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);        
+            self.world.save();
+        }
     }
 
     fn teleport(&mut self, destination: &Destination) {
@@ -354,6 +354,8 @@ impl GameEngine {
         self.menu.current_world_id = self.world.id;
         self.keyboard.on_world_changed();
         self.mouse.on_world_changed();
+
+        set_value_for_key(&StorageKey::latest_world(), self.world.id);
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {

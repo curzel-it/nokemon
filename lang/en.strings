@@ -116,6 +116,7 @@ Let's raid the town hall
 "game.menu.save" = "Save Game"
 "game.menu.inventory" = "Inventory"
 "game.menu.map_editor" = "Map Editor"
+"game.menu.exit" = "Exit"
 "game.menu.save_and_exit" = "Save & Exit"
 "game.menu.key_bindings" = "Key Bindings"
 "keys.menu.title" = "Key Bindings"
