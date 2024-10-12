@@ -27,6 +27,7 @@ enum GameMenuItem {
     Inventory,
     MapEditor,
     Exit,
+    SaveAndExit,
     EditKeyBindings,
 }
 
@@ -36,7 +37,8 @@ impl MenuItem for GameMenuItem {
             GameMenuItem::Save => "game.menu.save".localized(),
             GameMenuItem::Inventory => "game.menu.inventory".localized(),
             GameMenuItem::MapEditor => "game.menu.map_editor".localized(),
-            GameMenuItem::Exit => "game.menu.save_and_exit".localized(),
+            GameMenuItem::Exit => "game.menu.exit".localized(),
+            GameMenuItem::SaveAndExit => "game.menu.save_and_exit".localized(),
             GameMenuItem::EditKeyBindings => "game.menu.key_bindings".localized(),
         }
     }
@@ -47,7 +49,6 @@ impl GameMenu {
         let menu = Menu::new(
             "game.menu.title".localized(), 
             vec![
-                GameMenuItem::Save,
                 GameMenuItem::Inventory,
                 GameMenuItem::EditKeyBindings,
                 GameMenuItem::Exit,
@@ -65,8 +66,20 @@ impl GameMenu {
     }
 
     pub fn set_creative_mode(&mut self, creative_mode: bool) {
-        if creative_mode {
-            self.menu.items.insert(1, GameMenuItem::MapEditor);
+        self.menu.items = if creative_mode {
+            vec![
+                GameMenuItem::Save,
+                GameMenuItem::MapEditor,
+                GameMenuItem::Inventory,
+                GameMenuItem::EditKeyBindings,
+                GameMenuItem::SaveAndExit,
+            ]
+        } else {
+            vec![
+                GameMenuItem::Inventory,
+                GameMenuItem::EditKeyBindings,
+                GameMenuItem::Exit,
+            ]
         }
     }
 
@@ -118,23 +131,31 @@ impl GameMenu {
                 self.inventory.setup();
                 self.state = MenuState::Inventory;
                 vec![]
-            },
+            }
             GameMenuItem::MapEditor => {
                 self.state = MenuState::MapEditor;
                 self.map_editor.current_world_id = self.current_world_id;
                 vec![]
-            },
+            }
             GameMenuItem::EditKeyBindings => {
                 self.state = MenuState::EditKeyBindings;
                 self.map_editor.current_world_id = self.current_world_id;
                 vec![]
-            },
-            GameMenuItem::Exit => {
+            }
+            GameMenuItem::SaveAndExit => {
                 self.menu.clear_selection();
                 self.menu.close();
                 self.state = MenuState::Closed;
                 vec![
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
+                ]
+            }
+            GameMenuItem::Exit => {
+                self.menu.clear_selection();
+                self.menu.close();
+                self.state = MenuState::Closed;
+                vec![
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
                 ]
             }

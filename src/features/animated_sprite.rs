@@ -56,7 +56,9 @@ impl Entity {
             (Direction::Left, true) => 6,
             (Direction::Left, false) => 7,
             (Direction::Unknown, true) => 4,
-            (Direction::Unknown, false) => 5
+            (Direction::Unknown, false) => 5,
+            (Direction::Still, true) => 4,
+            (Direction::Still, false) => 5,
         };
         self.sprite.frame.y = self.sprite.frame.h * row;
     }

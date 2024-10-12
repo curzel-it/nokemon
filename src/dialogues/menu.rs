@@ -1,6 +1,6 @@
-use crate::{dialogues::storage::{has_dialogue_reward_been_collected, set_dialogue_answer, set_dialogue_reward_collected}, entities::species::species_by_id, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
+use crate::{dialogues::storage::{has_dialogue_reward_been_collected, set_dialogue_reward_collected}, entities::species::species_by_id, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::{menu::{Menu, MenuItem}, toasts::ToastMode}, ui::components::View, utils::animator::Animator};
 
-use super::{models::Dialogue, repository::dialogue_by_id};
+use super::{models::Dialogue, storage::set_dialogue_read};
 
 pub struct DialogueMenu {
     pub npc_id: u32,
@@ -58,9 +58,7 @@ impl DialogueMenu {
         self.text_animator.animate(0.0, 1.0, self.text.len() as f32 / 80.0);
         self.time_since_last_closed = 0.0;
         
-        self.menu.items = self.dialogue.localized_options().iter()
-            .map(|option| DialogueAnswerItem::Value(option.clone()))
-            .collect();
+        self.menu.items = vec![DialogueAnswerItem::Value("ok".localized())];
 
         if skip_animation {
             self.menu.show_no_animation();
@@ -91,9 +89,9 @@ impl DialogueMenu {
                 self.menu.is_open = true;
                 self.menu.selection_has_been_confirmed = false;
             } else {
-                let (answer_text, answer) = self.dialogue.options[self.menu.selected_index];
-                let stops = answer_text == 0;
-                let updates = self.handle_answer(stops, answer);
+                let updates = self.handle_answer();
+                self.dialogue = Dialogue::empty();
+                self.menu.close();
                 return (self.menu.is_open, updates)
             }
         }
@@ -101,17 +99,18 @@ impl DialogueMenu {
         (self.menu.is_open, vec![])
     }
 
-    fn handle_answer(&mut self, stops: bool, answer: u32) -> Vec<WorldStateUpdate> {
-        set_dialogue_answer(self.dialogue.id, answer);       
+    fn handle_answer(&mut self) -> Vec<WorldStateUpdate> {
+        let dialogue_id = self.dialogue.text.as_str();
+        set_dialogue_read(dialogue_id);       
         self.menu.clear_selection();
 
-        let updates = if let Some(reward) = self.dialogue.reward {
-            if !has_dialogue_reward_been_collected(self.dialogue.id) {
-                set_dialogue_reward_collected(self.dialogue.id);
+        if let Some(reward) = self.dialogue.reward {
+            if !has_dialogue_reward_been_collected(dialogue_id) {
+                set_dialogue_reward_collected(dialogue_id);
                 let reward_entity = Box::new(species_by_id(reward).make_entity());
                 
-                return vec! [
-                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(self.dialogue.localized_reward_text())),
+                vec! [
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(self.dialogue.localized_reward_text(), ToastMode::Regular)),
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(reward_entity)),
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                 ]
@@ -120,20 +119,7 @@ impl DialogueMenu {
             }
         } else {
             vec![]
-        };
-        
-        if let Some(next_dialogue) = dialogue_by_id(answer) {         
-            if stops {            
-                self.dialogue = Dialogue::empty();
-                self.menu.close();
-            } else {
-                self.show_now(self.npc_id, &self.npc_name.clone(), &next_dialogue, true);
-            }
-        }  else {
-            self.dialogue = Dialogue::empty();
-            self.menu.close();
         }
-        updates
     }
 
     pub fn is_open(&self) -> bool {

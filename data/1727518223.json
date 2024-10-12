@@ -1,9 +1,15 @@
 {
-  "id": 1001,
+  "id": 1727518223,
   "biome_tiles": {
     "tiles": [
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "066666666660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -40,13 +46,7 @@
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
-      "000000000000000000000000000000000000000000000000000000000BBBBBBBBBBBBB00000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -87,6 +87,15 @@
   },
   "constructions_tiles": {
     "tiles": [
+      "444444444440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "444444444440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "444444444440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -123,16 +132,7 @@
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000CCCCCCCCCCCCCC00000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C666666666666600000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C666666666666600000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "00000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000",
-      "0000000000000000000000000000000000000000000000000000000000000000000DD000000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -172,79 +172,16 @@
   },
   "entities": [
     {
-      "id": 1727269335,
+      "id": 1727518234,
       "frame": {
-        "x": 58,
-        "y": 41,
-        "w": 4,
-        "h": 4
-      },
-      "name": "Invocation Circle",
-      "species_id": 11000,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": -1,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 8,
-          "y": 0,
-          "w": 4,
-          "h": 4
-        },
-        "number_of_frames": 5
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
         "x": 8,
-        "y": 0,
-        "w": 4,
-        "h": 4
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727269337,
-      "frame": {
-        "x": 62,
-        "y": 39,
+        "y": 1,
         "w": 1,
-        "h": 1
+        "h": 2
       },
-      "name": "Slime",
-      "species_id": 4001,
-      "entity_type": "Npc",
+      "name": "Stairs (Down)",
+      "species_id": 1011,
+      "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -252,28 +189,26 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": true,
-      "z_index": 150,
+      "z_index": 1000,
       "sprite": {
-        "sheet_id": 1014,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
+          "x": 2,
           "y": 0,
           "w": 1,
-          "h": 1
+          "h": 2
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
-      "dialogues": {
-        "options": []
-      },
+      "dialogues": [],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
+        "x": 2,
         "y": 0,
         "w": 1,
-        "h": 1
+        "h": 2
       },
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -294,14 +229,14 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
-      "id": 1727269338,
+      "id": 1727518235,
       "frame": {
-        "x": 68,
-        "y": 45,
+        "x": 8,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -326,12 +261,10 @@
         },
         "number_of_frames": 1
       },
-      "dialogues": {
-        "options": []
-      },
+      "dialogues": [],
       "time_immobilized": 0.0,
       "destination": {
-        "world": 1002,
+        "world": 1727518222,
         "x": 0,
         "y": 0
       },
@@ -362,529 +295,10 @@
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
       "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727269339,
-      "frame": {
-        "x": 67,
-        "y": 45,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Teleporter",
-      "species_id": 1019,
-      "entity_type": "Teleporter",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1008,
-        "frame": {
-          "x": 0,
-          "y": 0,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": {
-        "world": 1002,
-        "x": 0,
-        "y": 0
-      },
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727383811,
-      "frame": {
-        "x": 67,
-        "y": 40,
-        "w": 2,
-        "h": 2
-      },
-      "name": "Table",
-      "species_id": 1016,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 200,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 4,
-          "y": 0,
-          "w": 2,
-          "h": 2
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 4,
-        "y": 0,
-        "w": 2,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727383812,
-      "frame": {
-        "x": 68,
-        "y": 42,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Pink Seat",
-      "species_id": 1014,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 3,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 3,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727383813,
-      "frame": {
-        "x": 67,
-        "y": 42,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Pink Seat",
-      "species_id": 1014,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 3,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 3,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727383816,
-      "frame": {
-        "x": 67,
-        "y": 40,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Pink Seat",
-      "species_id": 1014,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 3,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 3,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727383815,
-      "frame": {
-        "x": 68,
-        "y": 40,
-        "w": 1,
-        "h": 1
-      },
-      "name": "Pink Seat",
-      "species_id": 1014,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 100,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 3,
-          "y": 3,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 3,
-        "y": 3,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": false
-    },
-    {
-      "id": 1727817072,
-      "frame": {
-        "x": 63,
-        "y": 40,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Wizard",
-      "species_id": 3007,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 3,
-      "current_speed": 0.0,
-      "is_rigid": true,
-      "z_index": 0,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 32,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": {
-        "options": [
-          {
-            "key": "always",
-            "expected_value": 1,
-            "dialogue": 1001
-          }
-        ]
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 32,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": true,
-      "demands_attention": true
-    },
-    {
-      "id": 7817759,
-      "frame": {
-        "x": 63,
-        "y": 43,
-        "w": 1,
-        "h": 1
-      },
-      "name": "x10 Holy Knife",
-      "species_id": 7001,
-      "entity_type": "Bundle",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": 300,
-      "sprite": {
-        "sheet_id": 1010,
-        "frame": {
-          "x": 1,
-          "y": 4,
-          "w": 1,
-          "h": 1
-        },
-        "number_of_frames": 1
-      },
-      "dialogues": {
-        "options": []
-      },
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 1,
-        "y": 4,
-        "w": 1,
-        "h": 1
-      },
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
       "demands_attention": false
     }
   ],
   "creep_spawn_enabled": false,
   "creep_spawn_interval": 5.0,
-  "is_interior": true,
-  "pressure_plate_down_red": false,
-  "pressure_plate_down_green": false,
-  "pressure_plate_down_blue": false,
-  "pressure_plate_down_silver": false,
-  "pressure_plate_down_yellow": false
+  "is_interior": false
 }

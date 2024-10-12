@@ -24,6 +24,7 @@ impl Entity {
                 Direction::Down => hero.y == self.frame.y && hero.x >= self.frame.x && hero.x < self.frame.x + self.frame.w,
                 Direction::Left => hero.x == self.frame.x + self.frame.w && hero.y >= self.frame.y && hero.y < self.frame.y + self.frame.h,
                 Direction::Unknown => false,
+                Direction::Still => false,
             };
             if is_around {
                 let hits = would_collide(&self.frame, &hero_direction, &world.hitmap);

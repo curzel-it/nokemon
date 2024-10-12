@@ -1,10 +1,6 @@
-use std::cmp::Ordering;
-
 use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
 
 pub type NpcId = u32;
-
-const NO_DIALOG_SHOW_SHOP_INSTEAD: u32 = 3;
 
 impl Entity {
     pub fn setup_npc(&mut self) {
@@ -20,7 +16,7 @@ impl Entity {
             self.move_linearly(world, time_since_last_update);
             
             if self.melee_attacks_hero {
-                self.move_npc(world);
+                self.search_for_hero(world);
                 let updates = self.handle_melee_attack(world);
                 
                 if !updates.is_empty() {
@@ -44,27 +40,19 @@ impl Entity {
             } else if let Some(dialogue) = self.next_dialogue() {
                 self.demands_attention = false;
 
-                if dialogue.id == NO_DIALOG_SHOW_SHOP_INSTEAD {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::ShowShop
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowDialogue(
+                            self.id, self.name.clone(), dialogue,
                         )
-                    ];
-                } else {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::ShowDialogue(
-                                self.id, self.name.clone(), dialogue,
-                            )
-                        )
-                    ];
-                }
+                    )
+                ];
             }             
         }  
         vec![]
     }
 
-    fn move_npc(&mut self, world: &World) {
+    fn search_for_hero(&mut self, world: &World) {
         if self.offset.x != 0.0 || self.offset.y != 0.0 {
             return
         }
@@ -76,7 +64,7 @@ impl Entity {
     }
 
     fn is_hero_in_line_of_sight(&self, world: &World) -> bool {
-        let hero = &world.cached_hero_props.hittable_frame;
+        let hero = &world.cached_hero_props.hittable_frame;        
         let npc = &self.frame;
         let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
 
@@ -89,7 +77,7 @@ impl Entity {
                 }
             }
             true
-        } else if npc_y == hero.y {
+        } else if npc_y == hero.y || self.frame.y == hero.y {
             let min_x = npc.x.min(hero.x);
             let max_x = npc.x.max(hero.x);
             for x in (min_x + 1)..max_x {
@@ -101,24 +89,24 @@ impl Entity {
         } else {
             false
         }
+
     }
 
     fn change_direction_towards_hero(&mut self, world: &World) {
         let hero = &world.cached_hero_props.hittable_frame;
         let npc = &self.frame;
-        let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
 
-        if npc.x == hero.x {
-            match npc_y.cmp(&hero.y) {
-                Ordering::Less => self.direction = Direction::Down,
-                Ordering::Greater => self.direction = Direction::Up,
-                _ => {}
+        if hero.x == npc.x {
+            if hero.y < npc.y {
+                self.direction = Direction::Up;
+            } else {
+                self.direction = Direction::Down
             }
-        } else if npc_y == hero.y {
-            match npc.x.cmp(&hero.x) {
-                Ordering::Less => self.direction = Direction::Right,
-                Ordering::Greater => self.direction = Direction::Left,
-                _ => {}
+        } else if hero.y == npc.y || hero.y == npc.y + 1 {
+            if hero.x > npc.x {
+                self.direction = Direction::Right;
+            } else {
+                self.direction = Direction::Left
             }
         }
     }

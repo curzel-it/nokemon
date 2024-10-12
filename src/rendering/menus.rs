@@ -17,7 +17,10 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
             engine.long_text_display.ui(),
         ],
         AnchorPoint::TopRight => vec![
-            engine.toast.ui()
+            engine.toast.regular_toast_ui()
+        ],
+        AnchorPoint::TopLeft => vec![
+            engine.toast.important_toast_ui()
         ]
     }).render(d, ui_config);
 }

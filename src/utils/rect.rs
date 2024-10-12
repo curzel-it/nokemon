@@ -68,6 +68,7 @@ impl Rect {
             Direction::Down => is_just_above_other && self.x >= other.x && self.x < other.x + other.w,
             Direction::Left => self.x == other.x + other.w && self.y > other.y && self.y < other.y + other.h,
             Direction::Unknown => false,
+            Direction::Still => false,
         }
     }
     

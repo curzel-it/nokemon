@@ -1,4 +1,4 @@
-use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, features::destination::Destination, maps::{biome_tiles::Biome, constructions_tiles::Construction}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, features::destination::Destination, maps::{biome_tiles::Biome, constructions_tiles::Construction}, menus::toasts::ToastMode, utils::vector::Vector2d};
 
 use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
@@ -32,10 +32,9 @@ pub enum EngineStateUpdate {
     ShowEntityOptions(Box<Entity>),
     ShowInventoryOptions(Box<Entity>),
     ShowDialogue(NpcId, String, Dialogue), 
-    ShowShop,
     AddToInventory(Box<Entity>),
     RemoveFromInventory(EntityId),
-    Toast(String),
+    Toast(String, ToastMode),
     Confirmation(String, String, Vec<WorldStateUpdate>),
     DisplayLongText(String),
     DeathScreen,

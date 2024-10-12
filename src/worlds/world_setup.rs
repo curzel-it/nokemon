@@ -18,6 +18,7 @@ impl World {
                 Direction::Down => (0, 0),
                 Direction::Left => (-1, -1),
                 Direction::Unknown => (0, 0),
+                Direction::Still => (0, 0),
             }
         };
         let x = destination_x + offset_x;

@@ -3,7 +3,6 @@ use lazy_static::lazy_static;
 use std::fs::File;
 use std::io::Read;
 use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
-use crate::dialogues::models::EntityDialogues;
 use crate::features::animated_sprite::AnimatedSprite;
 use crate::features::patrols::Patrol;
 use crate::game_engine::entity::Entity;
@@ -86,7 +85,7 @@ impl Species {
             is_rigid: self.is_rigid,
             z_index: self.z_index,
             sprite,
-            dialogues: EntityDialogues::empty(),
+            dialogues: vec![],
             time_immobilized: 0.0,
             name: self.name.localized(),
             destination: None,

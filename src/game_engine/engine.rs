@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, FPS, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_STATIC_OBJECTS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::ToastDisplay}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_STATIC_OBJECTS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{ToastDisplay, ToastMode}}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -61,13 +61,13 @@ impl GameEngine {
         let (mut rl, thread) = raylib::init()
             .size(width, height)
             .resizable()
-            .title("Totally not Pokemon")
+            .title("Nokemon")
             .build();        
     
         let font = rl.load_font(&thread, FONT).unwrap();
         let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
-        rl.set_target_fps(FPS);
+        // rl.set_target_fps(FPS);
         
         self.teleport_to_previous();
 
@@ -169,14 +169,12 @@ impl GameEngine {
 
     fn teleport_to_previous(&mut self) {
         if let Some(world) = get_value_for_key(&StorageKey::latest_world()) {
-            if let Some(x) = get_value_for_key(&StorageKey::latest_x()) {
-                if let Some(y) = get_value_for_key(&StorageKey::latest_y()) {
-                    self.teleport(&Destination::new(world, x as i32, y as i32));
-                    return;
-                }                
-            }
-        } 
-        self.teleport(&Destination::default());
+            let x = get_value_for_key(&StorageKey::latest_x()).unwrap_or(0);
+            let y = get_value_for_key(&StorageKey::latest_y()).unwrap_or(0);
+            self.teleport(&Destination::new(world, x as i32, y as i32));
+        } else {
+            self.teleport(&Destination::default());
+        }
     }
 
     fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
@@ -267,9 +265,6 @@ impl GameEngine {
             EngineStateUpdate::SaveGame => {
                 self.save()
             }
-            EngineStateUpdate::ShowShop => {
-                self.show_shop()
-            }
             EngineStateUpdate::Exit => {
                 self.exit()
             }
@@ -288,8 +283,8 @@ impl GameEngine {
             EngineStateUpdate::ResumeGame => {
                 self.menu.close()
             }
-            EngineStateUpdate::Toast(text) => {
-                self.show_toast(text)
+            EngineStateUpdate::Toast(text, mode) => {
+                self.show_toast(text, mode)
             }
             EngineStateUpdate::Confirmation(title, text, on_confirm) => {
                 self.ask_for_confirmation(title, text, on_confirm)
@@ -307,12 +302,8 @@ impl GameEngine {
         self.confirmation_dialog.show(title, text, on_confirm)
     }
 
-    fn show_shop(&mut self) {
-        
-    } 
-
-    fn show_toast(&mut self, text: &str) {
-        self.toast.show(text);
+    fn show_toast(&mut self, text: &str, mode: &ToastMode) {
+        self.toast.show(text, mode);
     }
 
     fn show_dialogue(&mut self, npc_id: &u32, npc_name: &str, dialogue: &Dialogue) {
@@ -328,20 +319,26 @@ impl GameEngine {
     }
 
     fn save(&self) {
-        set_value_for_key(&StorageKey::latest_world(), self.world.id);
-        set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
-        set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);
-        self.world.save();
+        if self.creative_mode {
+            set_value_for_key(&StorageKey::latest_world(), self.world.id);
+            set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
+            set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);        
+            self.world.save();
+        }
     }
 
     fn teleport(&mut self, destination: &Destination) {
         self.loading_screen.animate_world_transition();
         self.world.save();
+            
+        if self.world.id != WORLD_ID_NONE {
+            set_value_for_key(&StorageKey::previous_world(), self.world.id);
+        }
         
         let mut new_world = World::load_or_create(destination.world);
         new_world.set_creative_mode(self.creative_mode);
         new_world.setup(
-            self.world.id, 
+            self.previous_world(), 
             &self.world.cached_hero_props.direction, 
             destination.x, 
             destination.y
@@ -354,6 +351,16 @@ impl GameEngine {
         self.menu.current_world_id = self.world.id;
         self.keyboard.on_world_changed();
         self.mouse.on_world_changed();
+
+        set_value_for_key(&StorageKey::latest_world(), self.world.id);
+    }
+
+    fn previous_world(&self) -> u32 {
+        if self.world.id == WORLD_ID_NONE { 
+            get_value_for_key(&StorageKey::previous_world()).unwrap_or(WORLD_ID_NONE)
+        } else {
+            self.world.id
+        }
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {
