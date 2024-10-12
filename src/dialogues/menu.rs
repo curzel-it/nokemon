@@ -1,4 +1,4 @@
-use crate::{dialogues::storage::{has_dialogue_reward_been_collected, set_dialogue_reward_collected}, entities::species::species_by_id, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::menu::{Menu, MenuItem}, ui::components::View, utils::animator::Animator};
+use crate::{dialogues::storage::{has_dialogue_reward_been_collected, set_dialogue_reward_collected}, entities::species::species_by_id, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, menus::{menu::{Menu, MenuItem}, toasts::ToastMode}, ui::components::View, utils::animator::Animator};
 
 use super::{models::Dialogue, storage::set_dialogue_read};
 
@@ -110,7 +110,7 @@ impl DialogueMenu {
                 let reward_entity = Box::new(species_by_id(reward).make_entity());
                 
                 vec! [
-                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(self.dialogue.localized_reward_text())),
+                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(self.dialogue.localized_reward_text(), ToastMode::Regular)),
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::AddToInventory(reward_entity)),
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)
                 ]

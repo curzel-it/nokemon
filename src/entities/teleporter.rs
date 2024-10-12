@@ -1,4 +1,4 @@
-use crate::{game_engine::{entity::Entity, inventory::inventory_contains_species, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, utils::directions::Direction};
+use crate::{game_engine::{entity::Entity, inventory::inventory_contains_species, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, menus::toasts::ToastMode, utils::directions::Direction};
 
 impl Entity {
     pub fn setup_teleporter(&mut self, creative_mode: bool) {
@@ -64,7 +64,8 @@ impl Entity {
         
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::Toast(
-                "teleporter.locked".localized().replace("%s", &name)
+                "teleporter.locked".localized().replace("%s", &name),
+                ToastMode::Regular
             )
         )
     }
