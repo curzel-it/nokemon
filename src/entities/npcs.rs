@@ -20,7 +20,7 @@ impl Entity {
             self.move_linearly(world, time_since_last_update);
             
             if self.melee_attacks_hero {
-                self.move_npc(world);
+                self.search_for_hero(world);
                 let updates = self.handle_melee_attack(world);
                 
                 if !updates.is_empty() {
@@ -64,7 +64,7 @@ impl Entity {
         vec![]
     }
 
-    fn move_npc(&mut self, world: &World) {
+    fn search_for_hero(&mut self, world: &World) {
         if self.offset.x != 0.0 || self.offset.y != 0.0 {
             return
         }
@@ -77,48 +77,25 @@ impl Entity {
 
     fn is_hero_in_line_of_sight(&self, world: &World) -> bool {
         let hero = &world.cached_hero_props.hittable_frame;
-        let npc = &self.frame;
-        let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
-
-        if npc.x == hero.x {
-            let min_y = npc_y.min(hero.y);
-            let max_y = npc_y.max(hero.y);
-            for y in (min_y + 1)..max_y {
-                if world.hitmap[y as usize][npc.x as usize] {
-                    return false;
-                }
-            }
-            true
-        } else if npc_y == hero.y {
-            let min_x = npc.x.min(hero.x);
-            let max_x = npc.x.max(hero.x);
-            for x in (min_x + 1)..max_x {
-                if world.hitmap[npc_y as usize][x as usize] {
-                    return false;
-                }
-            }
-            true
-        } else {
-            false
-        }
+        let npc = self.frame;
+        hero.x == npc.x || hero.y == npc.y || hero.y == npc.y + 1
     }
 
     fn change_direction_towards_hero(&mut self, world: &World) {
         let hero = &world.cached_hero_props.hittable_frame;
         let npc = &self.frame;
-        let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
 
-        if npc.x == hero.x {
-            match npc_y.cmp(&hero.y) {
-                Ordering::Less => self.direction = Direction::Down,
-                Ordering::Greater => self.direction = Direction::Up,
-                _ => {}
+        if hero.x == npc.x {
+            if hero.y < npc.y {
+                self.direction = Direction::Up;
+            } else {
+                self.direction = Direction::Down
             }
-        } else if npc_y == hero.y {
-            match npc.x.cmp(&hero.x) {
-                Ordering::Less => self.direction = Direction::Right,
-                Ordering::Greater => self.direction = Direction::Left,
-                _ => {}
+        } else if hero.y == npc.y || hero.y == npc.y + 1 {
+            if hero.x > npc.x {
+                self.direction = Direction::Right;
+            } else {
+                self.direction = Direction::Left
             }
         }
     }
