@@ -1,66 +1,24 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{entities::species::{species_by_id, SpeciesId}, game_engine::storage::StorageKey, lang::localizable::LocalizableText};
+use crate::{entities::species::{species_by_id, SpeciesId}, lang::localizable::LocalizableText};
 
+pub type EntityDialogues = Vec<Dialogue>;
 pub type DialogueId = u32;
 pub type DialogueAnswerId = u32;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dialogue {
-    pub id: DialogueId,
-    pub options: Vec<(DialogueAnswerId, DialogueId)>,
-
-    #[serde(default)]
-    pub reward: Option<SpeciesId>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct EntityDialogues {
-    pub options: Vec<EntityDialogue>
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct EntityDialogue {
     pub key: String,
     pub expected_value: u32,
-    pub dialogue: DialogueId,
-}
-
-impl EntityDialogues {
-    pub fn single_option(id: DialogueId) -> Self {
-        Self { options: vec![
-            EntityDialogue {
-                key: StorageKey::always(), 
-                expected_value: 1, 
-                dialogue: id 
-            }
-        ] }
-    }
-}
-
-impl EntityDialogues {
-    pub fn empty() -> Self {
-        Self { options: vec![] }
-    }
-}
-
-impl Default for EntityDialogues {
-    fn default() -> Self {
-        Self::empty()
-    }
+    pub dialogue: String,
+    
+    #[serde(default)]
+    pub reward: Option<SpeciesId>
 }
 
 impl Dialogue {
-    pub const fn empty() -> Self {
-        Self { id: 0, options: vec![], reward: None }
-    }
-
     pub fn localized_text(&self) -> String {
-        format!("dialogue.{}", self.id).localized()
-    }
-
-    pub fn localized_options(&self) -> Vec<String> {
-        self.options.iter().map(|o| format!("dialogue.{}", o.0).localized()).collect()        
+        self.key.localized()
     }
 
     pub fn localized_reward_text(&self) -> String {
@@ -70,6 +28,17 @@ impl Dialogue {
             text.replace("%s", &species_name)
         } else {
             "".to_owned()
+        }
+    }
+}
+
+impl Dialogue {
+    pub fn empty() -> Dialogue {
+        Dialogue {
+            key: "always".to_owned(),
+            expected_value: 0,
+            dialogue: "empty_dialogue".localized(),
+            reward: None
         }
     }
 }

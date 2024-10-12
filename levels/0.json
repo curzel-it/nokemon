@@ -340,9 +340,7 @@
         },
         "number_of_frames": 1
       },
-      "dialogues": {
-        "options": []
-      },
+      "dialogues": [],
       "time_immobilized": 0.0,
       "lock_type": "None",
       "original_sprite_frame": {
@@ -393,9 +391,7 @@
         },
         "number_of_frames": 1
       },
-      "dialogues": {
-        "options": []
-      },
+      "dialogues": [],
       "time_immobilized": 0.0,
       "lock_type": "None",
       "original_sprite_frame": {

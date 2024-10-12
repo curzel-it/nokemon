@@ -67,7 +67,7 @@ impl GameEngine {
         let font = rl.load_font(&thread, FONT).unwrap();
         let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
-        rl.set_target_fps(FPS);
+        // rl.set_target_fps(FPS);
         
         self.teleport_to_previous();
 

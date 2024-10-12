@@ -1,10 +1,6 @@
-use std::cmp::Ordering;
-
 use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
 
 pub type NpcId = u32;
-
-const NO_DIALOG_SHOW_SHOP_INSTEAD: u32 = 3;
 
 impl Entity {
     pub fn setup_npc(&mut self) {
@@ -44,21 +40,13 @@ impl Entity {
             } else if let Some(dialogue) = self.next_dialogue() {
                 self.demands_attention = false;
 
-                if dialogue.id == NO_DIALOG_SHOW_SHOP_INSTEAD {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::ShowShop
+                return vec![
+                    WorldStateUpdate::EngineUpdate(
+                        EngineStateUpdate::ShowDialogue(
+                            self.id, self.name.clone(), dialogue,
                         )
-                    ];
-                } else {
-                    return vec![
-                        WorldStateUpdate::EngineUpdate(
-                            EngineStateUpdate::ShowDialogue(
-                                self.id, self.name.clone(), dialogue,
-                            )
-                        )
-                    ];
-                }
+                    )
+                ];
             }             
         }  
         vec![]

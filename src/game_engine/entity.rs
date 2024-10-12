@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::UNLIMITED_LIFESPAN, dialogues::{models::{Dialogue, EntityDialogues}, repository::dialogue_by_id}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::{models::{Dialogue, EntityDialogues}}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -148,10 +148,10 @@ impl Entity {
     }    
     
     pub fn next_dialogue(&self) -> Option<Dialogue> {
-        for option in &self.dialogues.options {
+        for option in &self.dialogues {
             let value = get_value_for_key(&option.key);
             if value == Some(option.expected_value) || (option.expected_value == 0 && value.is_none()) {
-                return dialogue_by_id(option.dialogue)
+                return Some(option.clone())
             }
         }
         None

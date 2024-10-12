@@ -63,7 +63,7 @@ pub fn new_shop(species: &Species, source_world_id: u32, x: i32, y: i32) -> Vec<
     let mut clerk = species_by_id(SPECIES_NPC_SHOP_CLERK).make_entity();
     clerk.frame.x = 6;
     clerk.frame.y = 1;
-    clerk.dialogues = EntityDialogues::single_option(111);
+    clerk.dialogues = vec![];
 
     let mut table = make_entity_by_species(SPECIES_TABLE);
     table.frame.x = 1;

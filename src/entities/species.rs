@@ -86,7 +86,7 @@ impl Species {
             is_rigid: self.is_rigid,
             z_index: self.z_index,
             sprite,
-            dialogues: EntityDialogues::empty(),
+            dialogues: vec![],
             time_immobilized: 0.0,
             name: self.name.localized(),
             destination: None,
