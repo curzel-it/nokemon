@@ -32,6 +32,9 @@ impl ToastDisplay {
             if self.text == text {
                 return;
             }
+            if self.queue.iter().any(|(queued_text, _)| queued_text == text) {
+                return;
+            }
             self.queue.push_back((text.to_string(), *mode));
         } else {
             self.animator.animate(0.0, 1.0, 2.5);
