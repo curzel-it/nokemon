@@ -65,8 +65,9 @@ impl World {
                         let biome_tile = &self.biome_tiles.tiles[row][col];
                         let construction_tile = &self.constructions_tiles.tiles[row][col];
     
-                        let is_obstacle = (!matches!(construction_tile.tile_type, Construction::Bridge))
-                            && (biome_tile.is_obstacle() || construction_tile.is_obstacle());
+                        let is_obstacle = !matches!(construction_tile.tile_type, Construction::Bridge) && (
+                            biome_tile.is_obstacle() || construction_tile.is_obstacle()
+                        );
     
                         if is_obstacle {
                             hitmap[row][col] = true;
@@ -134,6 +135,7 @@ mod tests {
         world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data(0, 0, '0'); 10]; 10];
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '0'); 10]; 10];
         
+        world.update_tiles_hitmap();
         let (hitmap, _, _) = world.compute_hitmap();
 
         assert!(hitmap[4][4]);
@@ -151,6 +153,7 @@ mod tests {
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '1'); 10]; 10];
         world.biome_tiles.tiles[5][5].tile_type = Biome::Water;
         
+        world.update_tiles_hitmap();
         let (hitmap, _, _) = world.compute_hitmap();
 
         assert!(!hitmap[4][4]);
