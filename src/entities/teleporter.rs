@@ -46,7 +46,8 @@ impl Entity {
             Direction::Right => hero.y == self.frame.y && hero.x == self.frame.x - 1,
             Direction::Down => hero.x == self.frame.x && hero.y == self.frame.y - 1,
             Direction::Left => hero.y == self.frame.y && hero.x == self.frame.x + 1,
-            Direction::Unknown => false
+            Direction::Unknown => false,
+            Direction::Still => false,
         }
     }
 

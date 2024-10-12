@@ -61,7 +61,8 @@ fn would_exit_bounds(frame: &Rect, direction: &Direction, bounds: &Rect) -> bool
         Direction::Right => (frame.x + frame.w) >= (bounds.x + bounds.w),
         Direction::Down => (frame.y + frame.h) >= (bounds.y + bounds.h),
         Direction::Left => frame.x <= bounds.x,
-        Direction::Unknown => false
+        Direction::Unknown => false,
+        Direction::Still => false,
     }
 }
 

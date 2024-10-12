@@ -61,7 +61,7 @@ impl GameEngine {
         let (mut rl, thread) = raylib::init()
             .size(width, height)
             .resizable()
-            .title("Totally not Pokemon")
+            .title("Nokemon")
             .build();        
     
         let font = rl.load_font(&thread, FONT).unwrap();

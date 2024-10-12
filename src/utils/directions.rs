@@ -11,6 +11,7 @@ pub enum Direction {
     Left = 3,
     #[default]
     Unknown = 4,
+    Still = 5,
 }
 
 impl Direction {
@@ -21,6 +22,7 @@ impl Direction {
 
     pub fn as_col_row_offset(&self) -> (i32, i32) {
         match self {
+            Direction::Still => (0, 0),
             Direction::Up => (0, -1),
             Direction::Right => (1, 0),
             Direction::Down => (0, 1),
@@ -30,15 +32,19 @@ impl Direction {
     }
 
     pub fn from_data(up: bool, right: bool, down: bool, left: bool) -> Self {
-        if up { return Direction::Up }
-        if right { return Direction::Right }
-        if down { return Direction::Down }
-        if left { return Direction::Left }
-        Direction::Unknown
+        match (up, right, down, left) {
+            (false, false , false, false) => Direction::Still,
+            (false, false , false, true) => Direction::Left,
+            (false, false , true, false) => Direction::Down,
+            (false, true , false, false) => Direction::Right,
+            (true, false , false, false) => Direction::Up,
+            _ => Direction::Unknown,
+        }
     }
 
     pub fn opposite(&self) -> Direction {
         match self {
+            Direction::Still => Direction::Still,
             Direction::Up => Direction::Down,
             Direction::Right => Direction::Left,
             Direction::Down => Direction::Up,
@@ -49,6 +55,7 @@ impl Direction {
 
     pub fn turn_right(&self) -> Direction {
         match self {
+            Direction::Still => Direction::Still,
             Direction::Up => Direction::Right,
             Direction::Right => Direction::Down,
             Direction::Down => Direction::Left,
@@ -59,6 +66,7 @@ impl Direction {
 
     pub fn turn_left(&self) -> Direction {
         match self {
+            Direction::Still => Direction::Still,
             Direction::Up => Direction::Left,
             Direction::Right => Direction::Up,
             Direction::Down => Direction::Left,
