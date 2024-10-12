@@ -33,11 +33,7 @@ impl KeyBindingMenu {
         }
     }
 
-    pub fn update(
-        &mut self,
-        keyboard: &KeyboardEventsProvider,
-        time_since_last_update: f32,
-    ) -> MenuUpdate {
+    pub fn update(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> MenuUpdate {
         if let Some(action) = self.waiting_for_key_input {
             if let Some(key) = keyboard.currently_pressed_key {
                 let mut key_bindings = KEY_BINDINGS.lock().unwrap();

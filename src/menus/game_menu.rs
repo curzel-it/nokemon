@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_ID_NONE, dialogues::keybindings::KeyBindingMenu, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
+use crate::{constants::WORLD_ID_NONE, dialogues::keybindings::KeyBindingMenu, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
 
 use super::{inventory::Inventory, map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
@@ -26,6 +26,7 @@ enum GameMenuItem {
     Save,
     Inventory,
     MapEditor,
+    Status,
     Exit,
     SaveAndExit,
     EditKeyBindings,
@@ -37,6 +38,7 @@ impl MenuItem for GameMenuItem {
             GameMenuItem::Save => "game.menu.save".localized(),
             GameMenuItem::Inventory => "game.menu.inventory".localized(),
             GameMenuItem::MapEditor => "game.menu.map_editor".localized(),
+            GameMenuItem::Status => "game.menu.status".localized(),
             GameMenuItem::Exit => "game.menu.exit".localized(),
             GameMenuItem::SaveAndExit => "game.menu.save_and_exit".localized(),
             GameMenuItem::EditKeyBindings => "game.menu.key_bindings".localized(),
@@ -49,6 +51,7 @@ impl GameMenu {
         let menu = Menu::new(
             "game.menu.title".localized(), 
             vec![
+                GameMenuItem::Status,
                 GameMenuItem::Inventory,
                 GameMenuItem::EditKeyBindings,
                 GameMenuItem::Exit,
@@ -70,12 +73,14 @@ impl GameMenu {
             vec![
                 GameMenuItem::Save,
                 GameMenuItem::MapEditor,
+                GameMenuItem::Status,
                 GameMenuItem::Inventory,
                 GameMenuItem::EditKeyBindings,
                 GameMenuItem::SaveAndExit,
             ]
         } else {
             vec![
+                GameMenuItem::Status,
                 GameMenuItem::Inventory,
                 GameMenuItem::EditKeyBindings,
                 GameMenuItem::Exit,
@@ -122,9 +127,7 @@ impl GameMenu {
 
         match selected {
             GameMenuItem::Save => {
-                self.menu.clear_selection();
-                self.menu.close();
-                self.state = MenuState::Closed;
+                self.close();
                 vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame)]
             }
             GameMenuItem::Inventory => {
@@ -137,27 +140,24 @@ impl GameMenu {
                 self.map_editor.current_world_id = self.current_world_id;
                 vec![]
             }
+            GameMenuItem::Status => {
+                self.close();
+                vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::DisplayLongText("status.fake".localized()))]
+            }
             GameMenuItem::EditKeyBindings => {
                 self.state = MenuState::EditKeyBindings;
-                self.map_editor.current_world_id = self.current_world_id;
                 vec![]
             }
             GameMenuItem::SaveAndExit => {
-                self.menu.clear_selection();
-                self.menu.close();
-                self.state = MenuState::Closed;
+                self.close();
                 vec![
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::SaveGame),
                     WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
                 ]
             }
             GameMenuItem::Exit => {
-                self.menu.clear_selection();
-                self.menu.close();
-                self.state = MenuState::Closed;
-                vec![
-                    WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit),
-                ]
+                self.close();
+                vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::Exit)]
             }
         }
     }

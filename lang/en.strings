@@ -18,6 +18,8 @@ I hope we can soon leave too using the underground tunnel hidden in the village.
 If it didn't collapse, it should bring all the way to the next island.
 """
 
+"1003.hint.comunication_issues" = "Goddess:\nOh my... Maybe he can't read!?"
+
 "1004.sign.cave_back" = """
 Welcome to the glorious mining town of Rusty Gulch
 Home of questionable treasures and guaranteed lung problems!
@@ -108,6 +110,7 @@ Let's raid the town hall
 "entity.menu.toggle_demand_attention" = "Toggle Demand Attention"
 
 "game.menu.title" = "Game Menu"
+"game.menu.status" = "Status"
 "game.menu.save" = "Save Game"
 "game.menu.inventory" = "Inventory"
 "game.menu.map_editor" = "Map Editor"
@@ -220,3 +223,28 @@ Press ESC to cancel
 """
 
 "you" = "You"
+
+"status.fake" = """
+Status Window:
+
+Name: Xx@##XxX xX@##Xx
+Class: Ninja
+
+Skills:
+- @#$%^&*  Lv: !!?
+- ###@@@   Lv: **@
+- @##Xx    Lv: $##
+- &&&%%%   Lv: $$@
+- ***###   Lv: ?!?
+
+Stats:
+- Strength: @@@@###$$$
+- Agility:  ###$$$%%%
+- Intelligence: &&&$$###
+- Luck: *****@@@@@###$$$
+- $$$###: ####!!!###$$$
+- $$!!###: ####!!!##!!#$$
+- $$&&#: ####!!!###$$$
+
+The f*** is this? I don't speak Isekai!
+"""
