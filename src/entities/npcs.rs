@@ -64,9 +64,32 @@ impl Entity {
     }
 
     fn is_hero_in_line_of_sight(&self, world: &World) -> bool {
-        let hero = &world.cached_hero_props.hittable_frame;
-        let npc = self.frame;
-        hero.x == npc.x || hero.y == npc.y || hero.y == npc.y + 1
+        let hero = &world.cached_hero_props.hittable_frame;        
+        let npc = &self.frame;
+        let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
+
+        if npc.x == hero.x {
+            let min_y = npc_y.min(hero.y);
+            let max_y = npc_y.max(hero.y);
+            for y in (min_y + 1)..max_y {
+                if world.hitmap[y as usize][npc.x as usize] {
+                    return false;
+                }
+            }
+            true
+        } else if npc_y == hero.y || self.frame.y == hero.y {
+            let min_x = npc.x.min(hero.x);
+            let max_x = npc.x.max(hero.x);
+            for x in (min_x + 1)..max_x {
+                if world.hitmap[npc_y as usize][x as usize] {
+                    return false;
+                }
+            }
+            true
+        } else {
+            false
+        }
+
     }
 
     fn change_direction_towards_hero(&mut self, world: &World) {
