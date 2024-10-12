@@ -1,4 +1,4 @@
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::make_entity_by_species}, game_engine::{storage::save_pressure_plate_states, world::World}, utils::directions::Direction};
+use crate::{constants::{WORLD_ID_DEMO, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::make_entity_by_species}, game_engine::{storage::save_pressure_plate_states, world::World}, utils::directions::Direction};
 
 impl World {
     pub fn setup(&mut self, source: u32, hero_direction: &Direction, original_x: i32, original_y: i32) {
@@ -28,10 +28,14 @@ impl World {
             entity.frame.x = x;
             entity.frame.y = y;
             entity.direction = *hero_direction;
-        } else {
+        } else if y > 0 && !self.hitmap[(y + 2) as usize][x.max(0) as usize] {
             entity.frame.x = x;
             entity.frame.y = y + 2;
             entity.direction = Direction::Down;
+        } else {
+            entity.frame.x = x;
+            entity.frame.y = y - 2;
+            entity.direction = Direction::Up;
         }
         
         entity.immobilize_for_seconds(0.2);        
@@ -48,7 +52,11 @@ impl World {
             if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
                 (true, teleporter_position.x, teleporter_position.y)
             } else {
-                (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
+                if self.id == WORLD_ID_DEMO {
+                    (false, 59, 41)
+                } else {
+                    (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
+                }
             }
         } else {
             (false, original_x, original_y)

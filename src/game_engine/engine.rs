@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_STATIC_OBJECTS, SPRITE_SHEET_TELEPORTER, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{ToastDisplay, ToastMode}}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_HUMANOIDS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_SMALL_HUMANOIDS, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{ToastDisplay, ToastMode}}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -67,7 +67,7 @@ impl GameEngine {
         let font = rl.load_font(&thread, FONT).unwrap();
         let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
-        // rl.set_target_fps(FPS);
+        // rl.set_target_fps(60.0);
         
         self.teleport_to_previous();
 
@@ -169,9 +169,7 @@ impl GameEngine {
 
     fn teleport_to_previous(&mut self) {
         if let Some(world) = get_value_for_key(&StorageKey::latest_world()) {
-            let x = get_value_for_key(&StorageKey::latest_x()).unwrap_or(0);
-            let y = get_value_for_key(&StorageKey::latest_y()).unwrap_or(0);
-            self.teleport(&Destination::new(world, x as i32, y as i32));
+            self.teleport(&Destination::new(world, 0, 0));
         } else {
             self.teleport(&Destination::default());
         }
@@ -184,7 +182,6 @@ impl GameEngine {
         textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions").unwrap());
         textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings").unwrap());
         textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack").unwrap());
-        textures.insert(SPRITE_SHEET_TELEPORTER, texture(rl, thread, "teleporter").unwrap());
         textures.insert(SPRITE_SHEET_HUMANOIDS, texture(rl, thread, "humanoids").unwrap());
         textures.insert(SPRITE_SHEET_STATIC_OBJECTS, texture(rl, thread, "static_objects").unwrap());
         textures.insert(SPRITE_SHEET_MENU, texture(rl, thread, "menu").unwrap());        
@@ -320,9 +317,7 @@ impl GameEngine {
 
     fn save(&self) {
         if self.creative_mode {
-            set_value_for_key(&StorageKey::latest_world(), self.world.id);
-            set_value_for_key(&StorageKey::latest_x(), self.world.cached_hero_props.frame.x as u32);
-            set_value_for_key(&StorageKey::latest_y(), self.world.cached_hero_props.frame.y as u32);        
+            set_value_for_key(&StorageKey::latest_world(), self.world.id);     
             self.world.save();
         }
     }

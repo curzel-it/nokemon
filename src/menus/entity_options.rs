@@ -1,4 +1,4 @@
-use crate::{entities::species::{species_by_id, EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
+use crate::{entities::species::{EntityType, SPECIES_NONE}, game_engine::{entity::Entity, keyboard_events_provider::KeyboardEventsProvider, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, ui::components::View};
 use super::{menu::{Menu, MenuItem, MenuUpdate}, text_input::TextInput};
 
 #[derive(Debug, Clone)]
@@ -379,6 +379,9 @@ impl EntityOptionsMenu {
             EntityType::PressurePlate => vec![
                 EntityOptionMenuItem::Remove,
             ],
+            EntityType::Hint => vec![
+                EntityOptionMenuItem::Remove,
+            ],
             EntityType::Bullet => vec![
                 EntityOptionMenuItem::PickUp,
                 EntityOptionMenuItem::Remove,
@@ -387,10 +390,9 @@ impl EntityOptionsMenu {
     }
 
     fn available_options_regular(&self) -> Vec<EntityOptionMenuItem> {
-        let species = species_by_id(self.entity.species_id);
         let mut options: Vec<EntityOptionMenuItem> = vec![];
 
-        if species.is_consumable {
+        if self.entity.is_consumable {
             options.push(EntityOptionMenuItem::UseItem)
         }
 
@@ -406,13 +408,12 @@ impl EntityOptionsMenu {
     }
 
     fn available_options_inventory(&self) -> Vec<EntityOptionMenuItem> {
-        let species = species_by_id(self.entity.species_id);
         let mut options: Vec<EntityOptionMenuItem> = vec![];
 
         if let Some(contents) = self.entity.contents.clone() {
             options.push(EntityOptionMenuItem::Read(contents.localized()));
         }
-        if species.is_consumable {
+        if self.entity.is_consumable {
             options.push(EntityOptionMenuItem::UseItem);
         }
         options

@@ -1,11 +1,9 @@
 {
   "": 0,
   "always": 1,
-  "latest_world": 1002,
   "pressure_plate_down_blue": 0,
   "pressure_plate_down_green": 0,
   "pressure_plate_down_red": 0,
   "pressure_plate_down_silver": 0,
-  "pressure_plate_down_yellow": 0,
-  "previous_world": 1001
+  "pressure_plate_down_yellow": 0
 }

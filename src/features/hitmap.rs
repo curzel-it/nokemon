@@ -90,7 +90,7 @@ impl Entity {
 mod tests {
     use super::*;
 
-    use crate::{entities::{species::make_entity_by_species}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
+    use crate::{entities::species::make_entity_by_species, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
     
     const SPECIES_NPC_OLD_MAN: u32 = 3005;
     

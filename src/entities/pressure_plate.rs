@@ -18,8 +18,7 @@ impl Entity {
             ];   
         }
 
-        let hero = world.cached_hero_props.hittable_frame;
-        let hero_on_it = hero.x == self.frame.x && hero.y == self.frame.y;
+        let hero_on_it = world.is_hero_at(self.frame.x, self.frame.y);
         let weight_on_it = world.weights_map[self.frame.y as usize][self.frame.x as usize] > 0;
         let is_pressed = hero_on_it || weight_on_it;
         let is_up = self.is_related_pressure_plate_down();

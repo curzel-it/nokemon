@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::UNLIMITED_LIFESPAN, dialogues::{models::{Dialogue, EntityDialogues}}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -47,6 +47,9 @@ pub struct Entity {
     pub destination: Option<Destination>,
     pub lock_type: LockType,
     pub original_sprite_frame: Rect,
+
+    #[serde(default)]
+    pub is_consumable: bool,
     
     #[serde(default="one")]
     pub speed_multiplier: f32,
@@ -105,6 +108,7 @@ impl Entity {
             EntityType::PressurePlate => self.update_pressure_plate(world, time_since_last_update),
             EntityType::Bullet => self.update_bullet(world, time_since_last_update),
             EntityType::RailObject => self.update_rail(world, time_since_last_update),
+            EntityType::Hint => self.update_hint(world, time_since_last_update),
         };        
         self.sprite.update(time_since_last_update); 
         let mut more_updates = self.check_remaining_lifespan(time_since_last_update);
@@ -128,6 +132,7 @@ impl Entity {
             EntityType::PressurePlate => self.setup_pressure_plate(),
             EntityType::Bullet => self.setup_bullet(),
             EntityType::RailObject => self.setup_rail(),
+            EntityType::Hint => self.setup_hint(creative_mode),
         }
     }
 

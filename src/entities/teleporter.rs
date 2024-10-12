@@ -2,9 +2,7 @@ use crate::{game_engine::{entity::Entity, inventory::inventory_contains_species,
 
 impl Entity {
     pub fn setup_teleporter(&mut self, creative_mode: bool) {
-        if self.sprite.sheet_id == 1008 {
-            self.sprite.frame.y = if creative_mode { 0 } else { 1 };
-        }        
+        self.sprite.frame.y = if creative_mode { 5 } else { 6 };
     }
 
     pub fn update_teleporter(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   

@@ -188,7 +188,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -210,6 +210,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -252,10 +253,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -270,11 +271,12 @@
       },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -314,7 +316,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -336,6 +338,7 @@
         "w": 5,
         "h": 5
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -378,10 +381,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -396,11 +399,12 @@
       },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -440,7 +444,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -462,6 +466,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -504,10 +509,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -522,11 +527,12 @@
       },
       "lock_type": "Yellow",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -566,7 +572,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -588,6 +594,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -630,10 +637,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -648,11 +655,12 @@
       },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -714,6 +722,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -753,7 +762,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -775,6 +784,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -836,6 +846,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -897,6 +908,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -958,6 +970,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -997,7 +1010,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1019,6 +1032,7 @@
         "w": 2,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1058,7 +1072,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1080,6 +1094,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1119,7 +1134,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1141,6 +1156,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1180,7 +1196,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1202,6 +1218,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1241,7 +1258,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1263,6 +1280,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1302,7 +1320,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1324,6 +1342,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1363,7 +1382,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1385,6 +1404,7 @@
         "w": 5,
         "h": 4
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1420,7 +1440,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -0.82362604
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1446,6 +1466,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1480,7 +1501,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -4.8979115,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -1507,6 +1528,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1542,7 +1564,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -4.8979115
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1568,6 +1590,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1603,7 +1626,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -3.2642698
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 1.5,
@@ -1629,6 +1652,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1664,7 +1688,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.809664
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1690,6 +1714,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1725,7 +1750,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 1.3494401
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -1751,6 +1776,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1786,7 +1812,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.809664
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 1.5,
@@ -1812,6 +1838,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -1864,12 +1891,13 @@
         "number_of_frames": 4
       },
       "dialogues": [
-          {
-            "key": "always",
-            "expected_value": 1,
-            "text": "1002_damn_monsters"
-          }
-        ],
+        {
+          "key": "always",
+          "expected_value": 1,
+          "text": "1002_damn_monsters",
+          "reward": null
+        }
+      ],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
@@ -1879,6 +1907,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1918,13 +1947,13 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 5,
-          "y": 10,
+          "x": 0,
+          "y": 17,
           "w": 1,
           "h": 1
         },
@@ -1935,11 +1964,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 10,
+        "x": 0,
+        "y": 17,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -1979,13 +2009,13 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 5,
-          "y": 10,
+          "x": 0,
+          "y": 17,
           "w": 1,
           "h": 1
         },
@@ -1996,11 +2026,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 10,
+        "x": 0,
+        "y": 17,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -2040,13 +2071,13 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 5,
-          "y": 10,
+          "x": 0,
+          "y": 17,
           "w": 1,
           "h": 1
         },
@@ -2057,11 +2088,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 10,
+        "x": 0,
+        "y": 17,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -2101,13 +2133,13 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 5,
-          "y": 10,
+          "x": 0,
+          "y": 17,
           "w": 1,
           "h": 1
         },
@@ -2118,11 +2150,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 10,
+        "x": 0,
+        "y": 17,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -2157,7 +2190,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -1.3629466,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2184,6 +2217,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2245,6 +2279,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2258,7 +2293,7 @@
       },
       "latest_movement": [
         0,
-        -1
+        0
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -2306,6 +2341,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2318,7 +2354,7 @@
         "movements": []
       },
       "latest_movement": [
-        1,
+        0,
         0
       ],
       "contents": null,
@@ -2367,6 +2403,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2402,7 +2439,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -1.3494401
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -2428,6 +2465,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2462,7 +2500,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -1.3494401,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2489,6 +2527,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2523,7 +2562,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -1.3494401,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2550,6 +2589,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
@@ -2570,6 +2610,130 @@
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
       "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8772967,
+      "frame": {
+        "x": 31,
+        "y": 52,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1002.hint.why_no_status_window",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8773058,
+      "frame": {
+        "x": 31,
+        "y": 48,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (Permanent)",
+      "species_id": 50001,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 6,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 6,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1002.hint.cant_you_hear_me",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
       "demands_attention": false
     }
   ],

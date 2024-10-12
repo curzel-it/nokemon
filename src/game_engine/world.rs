@@ -342,6 +342,11 @@ impl World {
         false
     }
 
+    pub fn is_hero_at(&self, x: i32, y: i32) -> bool {
+        let hero = self.cached_hero_props.hittable_frame;
+        hero.x == x && hero.y == y
+    }
+
     fn find_non_hero_entity_id_at_coords(&self, row: usize, col: usize) -> Option<(usize, u32)> {
         self.entities.borrow().iter()
             .enumerate()

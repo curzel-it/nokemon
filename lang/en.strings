@@ -44,11 +44,18 @@ then by all means, go ahead!
 "dialogue.select_option" = "Select an option:"
 "ok" = "Ok"
 
-"1001_wizard_intro" = """
+"1001.hint.blessing_received" = """
+Goddess:
+You now have my blessing and my skills.
+Please check the status window.
+Your new abilities will be essential for victory...
+"""
+
+"1001.wizard_intro" = """
 I can't believe it worked!
 
-You've been sommoned here to be the champion of humanity
-and defeat the Dark Lord.
+With the help of the Goddess, I've sommoned you here to 
+be the champion of humanity and defeat the Dark Lord.
 
 Unfortunately, the invasion has already begun...
 
@@ -56,15 +63,18 @@ Go north, a boat is leaving soon for Stormlace City!
 The High Priestess will be waiting for you there...
 """
 
-"1001_wizard_no_time" = """
+"1001.wizard_no_time" = """
 There's no time to explain further.
-Just pick up those knifes over there and hurry up!
+The ship is sailing, hurry up!
 """
 "1002_damn_monsters" = "These monsters... It's all gone..."
 "1004_talk_to_my_husband" = """
 My husband cast a magic barrier just in time to save our house.
 Can you check on him?
 """
+
+"1002.hint.why_no_status_window" = "Goddess:\nWhy didn't you check the status window yet!?"
+"1002.hint.cant_you_hear_me" = "Goddess:\nHellooo!?"
 
 "1004_please_open_gate" = """
 Did my wife send you?
@@ -145,6 +155,8 @@ Press ESC to go back
 "npc.menu.remove" = "Remove"
 "npc.menu.play_dialog" = "Play dialog"
 
+"objects.name.hint_consumable" = "Hint (One time)"
+"objects.name.hint_permanent" = "Hint (Permanent)"
 "objects.name.stairs_up" = "Stairs (Up)"
 "objects.name.stairs_down" = "Stairs (Down)"
 "objects.name.seat_brown" = "Brown Seat"

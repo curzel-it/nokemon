@@ -602,15 +602,15 @@
         "is_rigid": false,
         "inventory_texture_offset": [
             6,
-            2
+            5
         ],
         "sprite_frame": {
-            "x": 0,
-            "y": 0,
+            "x": 7,
+            "y": 5,
             "w": 1,
             "h": 1
         },
-        "sprite_sheet_id": 1008,
+        "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
         "lock_type": "None"
     },
@@ -1531,13 +1531,13 @@
             5
         ],
         "sprite_frame": {
-            "x": 8,
+            "x": 9,
             "y": 0,
-            "w": 4,
-            "h": 4
+            "w": 3,
+            "h": 3
         },
         "sprite_sheet_id": 1012,
-        "sprite_number_of_frames": 5,
+        "sprite_number_of_frames": 6,
         "lock_type": "None"
     },
     {
@@ -1595,8 +1595,8 @@
             7
         ],
         "sprite_frame": {
-            "x": 5,
-            "y": 10,
+            "x": 0,
+            "y": 17,
             "w": 1,
             "h": 1
         },
@@ -2123,6 +2123,50 @@
         "sprite_frame": {
             "x": 18,
             "y": 2,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 50000,
+        "name": "objects.name.hint_consumable",
+        "is_invulnerable": true,
+        "is_consumable": true,
+        "entity_type": "Hint",
+        "z_index": 0,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            9
+        ],
+        "sprite_frame": {
+            "x": 5,
+            "y": 5,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 50001,
+        "name": "objects.name.hint_permanent",
+        "is_invulnerable": true,
+        "is_consumable": false,
+        "entity_type": "Hint",
+        "z_index": 0,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            10
+        ],
+        "sprite_frame": {
+            "x": 6,
+            "y": 5,
             "w": 1,
             "h": 1
         },

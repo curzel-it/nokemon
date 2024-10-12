@@ -18,14 +18,6 @@ impl StorageKey {
     pub fn latest_world() -> String {
         "latest_world".to_owned()
     }
-
-    pub fn latest_x() -> String {
-        "latest_x".to_owned()
-    }
-
-    pub fn latest_y() -> String {
-        "latest_y".to_owned()
-    }
 }
 
 fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {

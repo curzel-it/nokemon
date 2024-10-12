@@ -176,8 +176,8 @@
       "frame": {
         "x": 58,
         "y": 41,
-        "w": 4,
-        "h": 4
+        "w": 3,
+        "h": 3
       },
       "name": "Invocation Circle",
       "species_id": 11000,
@@ -193,23 +193,24 @@
       "sprite": {
         "sheet_id": 1012,
         "frame": {
-          "x": 8,
+          "x": 9,
           "y": 0,
-          "w": 4,
-          "h": 4
+          "w": 3,
+          "h": 3
         },
-        "number_of_frames": 5
+        "number_of_frames": 6
       },
       "dialogues": [],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 8,
+        "x": 9,
         "y": 0,
-        "w": 4,
-        "h": 4
+        "w": 3,
+        "h": 3
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -271,6 +272,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -313,10 +315,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -331,11 +333,12 @@
       },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -378,10 +381,10 @@
       "is_rigid": false,
       "z_index": 200,
       "sprite": {
-        "sheet_id": 1008,
+        "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -396,11 +399,12 @@
       },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -440,7 +444,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -462,6 +466,7 @@
         "w": 2,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -523,6 +528,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -584,6 +590,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -645,6 +652,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -706,6 +714,7 @@
         "w": 1,
         "h": 1
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -743,7 +752,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": 1,
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 0,
@@ -759,16 +768,18 @@
       },
       "dialogues": [
         {
-          "key": "always",
+          "key": "dialogue.answer.1001.wizard_intro",
           "expected_value": 1,
-          "text": "1001_wizard_intro"
+          "text": "1001.wizard_no_time",
+          "reward": null
         },
         {
-          "key": "dialogue.read.1001_wizard_intro",
+          "key": "always",
           "expected_value": 1,
-          "text": "1001_wizard_no_time"
+          "text": "1001.wizard_intro",
+          "reward": null
         }
-    ],
+      ],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
@@ -778,6 +789,7 @@
         "w": 1,
         "h": 2
       },
+      "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -801,16 +813,16 @@
       "demands_attention": true
     },
     {
-      "id": 7817759,
+      "id": 8770975,
       "frame": {
-        "x": 63,
-        "y": 43,
+        "x": 58,
+        "y": 41,
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
-      "species_id": 7001,
-      "entity_type": "Bundle",
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -818,12 +830,12 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 300,
+      "z_index": 0,
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 1,
-          "y": 4,
+          "x": 5,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -834,11 +846,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 1,
-        "y": 4,
+        "x": 5,
+        "y": 5,
         "w": 1,
         "h": 1
       },
+      "is_consumable": true,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
@@ -854,11 +867,445 @@
         0,
         0
       ],
-      "contents": null,
+      "contents": "1001.hint.blessing_received",
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770976,
+      "frame": {
+        "x": 59,
+        "y": 41,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770977,
+      "frame": {
+        "x": 60,
+        "y": 41,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770979,
+      "frame": {
+        "x": 60,
+        "y": 43,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770980,
+      "frame": {
+        "x": 59,
+        "y": 43,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770981,
+      "frame": {
+        "x": 58,
+        "y": 43,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8770982,
+      "frame": {
+        "x": 58,
+        "y": 42,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8772499,
+      "frame": {
+        "x": 60,
+        "y": 42,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1001.hint.blessing_received",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
       "demands_attention": false
     }
   ],

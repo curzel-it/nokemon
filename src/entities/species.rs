@@ -58,7 +58,8 @@ pub enum EntityType {
     PressurePlate,
     Bullet,
     Bundle,
-    RailObject
+    RailObject,
+    Hint
 }
 
 impl Species {
@@ -100,7 +101,8 @@ impl Species {
             melee_attacks_hero: self.melee_attacks_hero,
             speed_multiplier: 1.0,
             is_invulnerable: false,
-            demands_attention: false
+            demands_attention: false,
+            is_consumable: self.is_consumable
         }
     }
 
@@ -118,6 +120,7 @@ impl Species {
         entity.shooting_cooldown_remaining = 0.0;
         entity.melee_attacks_hero = self.melee_attacks_hero;
         entity.speed_multiplier = 1.0;
+        entity.is_consumable = self.is_consumable;
         entity.is_invulnerable = self.is_invulnerable;
     }
 

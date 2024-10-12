@@ -2,6 +2,7 @@ pub mod buildings;
 pub mod bullets;
 pub mod gates;
 pub mod hero;
+pub mod hint;
 pub mod known_species;
 pub mod npcs;
 pub mod pickable_object;

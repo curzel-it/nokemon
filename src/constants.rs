@@ -1,7 +1,6 @@
 use crate::utils::rect::Rect;
 
 // Fps
-pub const FPS: u32 = 60;
 pub const ANIMATIONS_FPS: f32 = 10.0;
 
 // Default Props
@@ -60,7 +59,6 @@ pub const SPRITE_SHEET_BIOME_TILES: u32 = 1002;
 pub const SPRITE_SHEET_CONSTRUCTION_TILES: u32 = 1003;
 pub const SPRITE_SHEET_BUILDINGS: u32 = 1004;
 pub const SPRITE_SHEET_BASE_ATTACK: u32 = 1005;
-pub const SPRITE_SHEET_TELEPORTER: u32 = 1008;
 pub const SPRITE_SHEET_HUMANOIDS: u32 = 1009;
 pub const SPRITE_SHEET_STATIC_OBJECTS: u32 = 1010;
 pub const SPRITE_SHEET_MENU: u32 = 1011;
