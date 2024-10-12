@@ -37,12 +37,11 @@ pub const HOUSE_INTERIOR_COLUMNS: usize = 10;
 
 // Paths
 pub const ASSETS_PATH: &str = "assets";
-pub const LEVELS_PATH: &str = "levels";
-pub const SPECIES_PATH: &str = "levels/species.json";
-pub const KEY_BINDINGS_PATH: &str = "save/keybindings.json";
-pub const INVENTORY_PATH: &str = "save/inventory.json";
-pub const DIALOGUES_PATH: &str = "levels/dialogues.json";
-pub const KEY_VALUE_STORAGE_PATH: &str = "save/save.json";
+pub const LEVELS_PATH: &str = "data";
+pub const SPECIES_PATH: &str = "data/species.json";
+pub const KEY_BINDINGS_PATH: &str = "data/keybindings.json";
+pub const INVENTORY_PATH: &str = "data/inventory.json";
+pub const KEY_VALUE_STORAGE_PATH: &str = "data/save.json";
 pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";
 pub const FONT_BOLD: &str = "fonts/PixelOperator/PixelOperator8-Bold.ttf";
 pub const LOCALIZED_STRINGS_PATH: &str = "lang";
@@ -53,7 +52,6 @@ pub const TILE_SIZE: f32 = 16.0;
 pub const TILE_VARIATIONS_COUNT: i32 = 4;
 pub const BASE_ENTITY_SPEED: f32 = TILE_SIZE * 2.0;
 pub const STEP_COMMITMENT_THRESHOLD: f32 = TILE_SIZE / 16.0;
-pub const NPC_STEP_COMMITMENT_THRESHOLD: f32 = STEP_COMMITMENT_THRESHOLD;
 
 // Sprite Sheets
 pub const SPRITE_SHEET_BLANK: u32 = 1000;

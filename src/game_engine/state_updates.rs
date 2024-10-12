@@ -32,7 +32,6 @@ pub enum EngineStateUpdate {
     ShowEntityOptions(Box<Entity>),
     ShowInventoryOptions(Box<Entity>),
     ShowDialogue(NpcId, String, Dialogue), 
-    ShowShop,
     AddToInventory(Box<Entity>),
     RemoveFromInventory(EntityId),
     Toast(String),

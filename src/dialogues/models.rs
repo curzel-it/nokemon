@@ -3,8 +3,6 @@ use serde::{Deserialize, Serialize};
 use crate::{entities::species::{species_by_id, SpeciesId}, lang::localizable::LocalizableText};
 
 pub type EntityDialogues = Vec<Dialogue>;
-pub type DialogueId = u32;
-pub type DialogueAnswerId = u32;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dialogue {
