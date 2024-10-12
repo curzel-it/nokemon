@@ -11,6 +11,10 @@ impl StorageKey {
         "always".to_owned()
     }
 
+    pub fn previous_world() -> String {
+        "previous_world".to_owned()
+    }
+
     pub fn latest_world() -> String {
         "latest_world".to_owned()
     }

@@ -330,11 +330,15 @@ impl GameEngine {
     fn teleport(&mut self, destination: &Destination) {
         self.loading_screen.animate_world_transition();
         self.world.save();
+            
+        if self.world.id != WORLD_ID_NONE {
+            set_value_for_key(&StorageKey::previous_world(), self.world.id);
+        }
         
         let mut new_world = World::load_or_create(destination.world);
         new_world.set_creative_mode(self.creative_mode);
         new_world.setup(
-            self.world.id, 
+            self.previous_world(), 
             &self.world.cached_hero_props.direction, 
             destination.x, 
             destination.y
@@ -349,6 +353,14 @@ impl GameEngine {
         self.mouse.on_world_changed();
 
         set_value_for_key(&StorageKey::latest_world(), self.world.id);
+    }
+
+    fn previous_world(&self) -> u32 {
+        if self.world.id == WORLD_ID_NONE { 
+            get_value_for_key(&StorageKey::previous_world()).unwrap_or(WORLD_ID_NONE)
+        } else {
+            self.world.id
+        }
     }
 
     fn center_camera_in(&mut self, frame: &Rect) {
