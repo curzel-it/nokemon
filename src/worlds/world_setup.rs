@@ -51,12 +51,10 @@ impl World {
         if original_x == 0 && original_y == 0 {            
             if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
                 (true, teleporter_position.x, teleporter_position.y)
+            } else if self.id == WORLD_ID_DEMO {
+                (false, 59, 41)
             } else {
-                if self.id == WORLD_ID_DEMO {
-                    (false, 59, 41)
-                } else {
-                    (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
-                }
+                (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
             }
         } else {
             (false, original_x, original_y)

@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use raylib::color::Color;
 
-use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, padding, BordersTextures, Spacing, TextureInfo, Typography, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect, vector::Vector2d}, vstack};
+use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, Spacing, TextureInfo, Typography, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}, vstack};
 
 #[derive(Debug, Clone, Copy)]
 pub enum ToastMode {
@@ -59,7 +59,7 @@ impl ToastDisplay {
 
     pub fn update(&mut self, time_since_last_update: f32) {
         self.animator.update(time_since_last_update);
-        self.sprite.as_mut().map(|sprite| sprite.update(time_since_last_update));
+        if let Some(sprite) = self.sprite.as_mut() { sprite.update(time_since_last_update) }
 
         if !self.animator.is_active && !self.queue.is_empty() {
             if let Some(toast) = self.queue.pop_front() {

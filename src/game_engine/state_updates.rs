@@ -1,4 +1,4 @@
-use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, features::destination::Destination, maps::{biome_tiles::Biome, constructions_tiles::Construction}, menus::toasts::{Toast, ToastMode}, utils::vector::Vector2d};
+use crate::{dialogues::models::Dialogue, entities::{npcs::NpcId, species::SpeciesId}, features::destination::Destination, maps::{biome_tiles::Biome, constructions_tiles::Construction}, menus::toasts::Toast, utils::vector::Vector2d};
 
 use super::{entity::{Entity, EntityId, EntityProps}, locks::LockType};
 
