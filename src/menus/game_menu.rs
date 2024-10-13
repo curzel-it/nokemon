@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_ID_NONE, dialogues::keybindings::KeyBindingMenu, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
+use crate::{constants::WORLD_ID_NONE, dialogues::keybindings::KeyBindingMenu, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
 
 use super::{inventory::Inventory, map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 

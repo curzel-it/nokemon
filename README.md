@@ -29,3 +29,6 @@ Personally (but I have no idea what I'm doing and haven't used a windows machine
 ![First level](docs/2.png)
 ![Dialogues](docs/4.png)
 ![Map Editor](docs/6.png)
+
+## TODO:
+- lots 

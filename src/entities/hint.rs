@@ -1,4 +1,4 @@
-use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::ToastMode};
+use crate::{constants::SPRITE_SHEET_AVATARS, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::{Toast, ToastImage, ToastMode}, utils::rect::Rect};
 
 impl Entity {
     pub fn setup_hint(&mut self, creative_mode: bool) {
@@ -24,7 +24,9 @@ impl Entity {
 
     fn toast(&self) -> WorldStateUpdate {
         let hint = self.key().localized();
-        WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(hint, ToastMode::Important))
+        WorldStateUpdate::EngineUpdate(EngineStateUpdate::Toast(            
+            Toast::goddess_message(hint)
+        ))
     }
 
     fn key(&self) -> String {
@@ -55,5 +57,18 @@ fn has_hint_been_read(hint: &str) -> bool {
         read == 1
     } else {
         false
+    }
+}
+
+impl Toast {
+    fn goddess_message(text: String) -> Self {
+        Toast::important_with_image(
+            text, 
+            ToastImage::new(
+                Rect::new(0, 0, 2, 2), 
+                SPRITE_SHEET_AVATARS, 
+                3
+            )
+        )
     }
 }
