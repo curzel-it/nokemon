@@ -239,7 +239,7 @@ Seriously, stay away. We’re not kidding...
 then by all means, go ahead!
 """
 
-"1004_please_open_gate" = """
+"1004.old_man.please_open_gate" = """
 Did my wife send you?
 I'm fine, most of the deamons are trapped now...
 But the major has shut himself up with all our supplies. 
@@ -248,8 +248,13 @@ I need you to help me teach him a lesson.
 Can you open the gate of the town hall?
 """
 
-"1004_gate_now_open" = """
+"1004.old_man.gate_now_open" = """
 Haha! (Evil laugh)
 We got him!
 Let's raid the town hall
+"""
+
+"1004.sign.last_ship_sailed" = """
+The last ship has already sailed.
+Also, no more ships are coming.
 """
