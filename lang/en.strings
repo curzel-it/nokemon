@@ -1,101 +1,14 @@
-"1002.sign.welcome_to_village" = "Welcome to Saltspire Port"
-"1002.scroll.hidden_monsters_hint" = """
-If you're reading this, we never got to the tunnel.
-Mind the gap.
-"""
-"1002.sign.forest_maze" = "Private property"
-"1002.sign.sorry_no_boat" = """
-Ahoy there! 
-Had to weigh anchor 'n set sail - those cursed demons be too close fer me liking. 
-Find old Captain Briggs in the village; he'll lend ye a hand!
-"""
-"1002.book.underground_hint.title" = "Captain Briggs Journal"
-"1002.book.underground_hint.message" = """
-Captain Briggs Journal:
-I know a captain is supposed to sink with his ship, but the people here need me.
-Womand and children have left with the last boat.
-I hope we can soon leave too using the underground tunnel hidden in the village.
-If it didn't collapse, it should bring all the way to the next island.
-"""
-
-"1003.hint.comunication_issues" = "Goddess:\nOh my... Can he not hear me!?"
-
-"1004.sign.cave_back" = """
-Welcome to the glorious mining town of Rusty Gulch
-Home of questionable treasures and guaranteed lung problems!
-Warning: The area is highly contaminated. 
-Enter at your own risk, or at least with a really good mask. 
-Seriously, stay away. We’re not kidding... 
-...Unless you're into glowing rocks and mystery diseases,
-then by all means, go ahead!
-"""
-
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
-
 "combat.options.attack" = "Attack"
 "combat.options.inventory" = "Inventory"
 "combat.options.run" = "Run"
-
 "confirmation.confirm" = "Ok"
 "confirmation.cancel" = "Nope"
-
 "death_screen.title" = "You're dead."
-
 "dialogue.reward_received" = "You received `%s`!"
 "dialogue.select_option" = "Select an option:"
 "ok" = "Ok"
-
-"1001.hint.blessing_received" = """
-Goddess:
-You now have my blessing and my skills.
-Please check the status window.
-Your new abilities will be essential for victory...
-"""
-
-"1001.wizard_intro" = """
-I can't believe it worked!
-
-With the help of the Goddess, I've sommoned you here to 
-be the champion of humanity and defeat the Dark Lord.
-
-Unfortunately, the invasion has already begun...
-
-Go north, a boat is leaving soon for Stormlace City!
-The High Priestess will be waiting for you there...
-"""
-
-"1001.wizard_no_time" = """
-There's no time to explain further.
-The ship is sailing, hurry up!
-"""
-"1002.old_man.damn_monsters" = """
-These monsters... It's all gone...
-Hold on to my knife for me kid.
-"""
-
-"1004_talk_to_my_husband" = """
-My husband cast a magic barrier just in time to save our house.
-Can you check on him?
-"""
-
-"1002.hint.why_no_status_window" = "Goddess:\nWhy didn't you check the status window yet!?"
-"1002.hint.cant_you_hear_me" = "Goddess:\nHellooo!?"
-
-"1004_please_open_gate" = """
-Did my wife send you?
-I'm fine, most of the deamons are trapped now...
-But the major has shut himself up with all our supplies. 
-I need you to help me teach him a lesson.
-
-Can you open the gate of the town hall?
-"""
-
-"1004_gate_now_open" = """
-Haha! (Evil laugh)
-We got him!
-Let's raid the town hall
-"""
 
 "empty_dialogue" = "What do you want?"
 "entity.menu.title" = "Entity Options"
@@ -130,11 +43,10 @@ Menu: ENTER
 
 You can change the following:
 """
-"keys.menu.press_to_change" = "Press new key for"
 
+"keys.menu.press_to_change" = "Press new key for"
 "inventory.title" = "Inventory"
 "inventory.subtitle" = "Stuff in your backpack"
-
 "lock.name.none" = "None"
 "lock.name.yellow" = "Yellow"
 "lock.name.red" = "Red"
@@ -142,14 +54,9 @@ You can change the following:
 "lock.name.green" = "Green"
 "lock.name.silver" = "Silver"
 "lock.name.permanent" = "Permanent"
-
 "map_editor.title" = "Map Editor"
 "map_editor.subtitle" = "Press CONFIRM to select something"
-"map_editor.placement" = """
-Press CONFIRM to place
-Press ESC to go back
-"""
-
+"map_editor.placement" = "Press CONFIRM to place\nPress ESC to cancel"
 "npc.name.default" = "Some rando"
 "npc.name.wizard" = "Wizard"
 "npc.name.old_man" = "Old Man"
@@ -162,7 +69,6 @@ Press ESC to go back
 "npc.menu.title" = "NPC Options"
 "npc.menu.remove" = "Remove"
 "npc.menu.play_dialog" = "Play dialog"
-
 "objects.name.hint_consumable" = "Hint (One time)"
 "objects.name.hint_permanent" = "Hint (Permanent)"
 "objects.name.stairs_up" = "Stairs (Up)"
@@ -214,16 +120,11 @@ Press ESC to go back
 "objects.name.well" = "Well"
 
 "teleporter.name" = "Teleporter"
-
 "teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
 "telepoter.locked.permanent" = "This door is locked."
-
 "teleporter.unlock.title" = "Unlock the door?"
 "teleporter.unlock.message" = "You will lose one %s key."
-"text_input.hint" = """
-Press ENTER to confirm
-Press ESC to cancel
-"""
+"text_input.hint" = "Press ENTER to confirm\nPress ESC to cancel"
 
 "you" = "You"
 
@@ -250,4 +151,109 @@ Stats:
 - $$&&#: ####!!!###$$$
 
 The f*** is this? I don't speak Isekai!
+"""
+
+"1001.hint.blessing_received" = """
+Goddess:
+I gave you my blessing traveler.
+Please check the status window,
+your new abilities will be esse ntial for victory...
+"""
+
+"1001.wizard_intro" = """
+I can't believe it worked!
+
+With the help of the Goddess, I've sommoned you here to 
+be the champion of humanity and defeat the Dark Lord.
+
+Unfortunately, the invasion has already begun...
+
+Go north, a boat is leaving soon for Stormlace City!
+The High Priestess will be waiting for you there...
+"""
+
+"1002.sign.welcome_to_village" = """
+Welcome to Saltspire Port
+"""
+
+"1002.scroll.hidden_monsters_hint" = """
+If you're reading this, we never got to the tunnel.
+Mind the gap.
+"""
+
+"1002.sign.forest_maze" = """
+Private property
+"""
+
+"1002.sign.sorry_no_boat" = """
+Ahoy there! 
+Had to weigh anchor 'n set sail - those cursed demons be too close fer me liking. 
+Find old Captain Briggs in the village; he'll lend ye a hand!
+"""
+
+"1002.book.underground_hint.title" = """
+Captain Briggs Journal
+"""
+
+"1002.book.underground_hint.message" = """
+Captain Briggs Journal:
+I know a captain is supposed to sink with his ship, but the people here need me.
+Womand and children have left with the last boat.
+I hope we can soon leave too using the underground tunnel hidden in the village.
+If it didn't collapse, it should bring all the way to the next island.
+"""
+
+"1001.wizard_no_time" = """
+There's no time to explain further.
+The ship is sailing, hurry up!
+"""
+
+"1002.old_man.damn_monsters" = """
+These monsters... It's all gone...
+Hold on to my knife for me kid.
+"""
+
+"1002.hint.why_no_status_window" = """
+Goddess:
+Why didn't you check the status window yet!?
+"""
+
+"1002.hint.cant_you_hear_me" = """
+Goddess:
+Hellooo!?
+"""
+
+"1003.hint.comunication_issues" = """
+Goddess:
+Oh my... Can he not hear me!?
+"""
+
+"1004_talk_to_my_husband" = """
+My husband cast a magic barrier just in time to save our house.
+Can you check on him?
+"""
+
+"1004.sign.cave_back" = """
+Welcome to the glorious mining town of Rusty Gulch
+Home of questionable treasures and guaranteed lung problems!
+Warning: The area is highly contaminated. 
+Enter at your own risk, or at least with a really good mask. 
+Seriously, stay away. We’re not kidding... 
+...Unless you're into glowing rocks and mystery diseases,
+then by all means, go ahead!
+"""
+
+"1004_please_open_gate" = """
+Did my wife send you?
+I'm fine, most of the deamons are trapped now...
+But the major has shut himself up with all our supplies. 
+I need you to help me teach him a lesson.
+
+Can you open the gate of the town hall?
+"""
+
+"1004_gate_now_open" = """
+Haha! (Evil laugh)
+We got him!
+Let's raid the town hall
 """

@@ -55,6 +55,10 @@ impl Rect {
         Self::new(self.x, self.y, self.w, h)
     }
 
+    pub fn size(&self) -> Vector2d {
+        Vector2d::new(self.w as f32, self.h as f32)
+    }
+
     pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {
         if self.x == other.x && self.y == other.y {
             return true

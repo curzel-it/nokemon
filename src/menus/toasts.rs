@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use raylib::color::Color;
 
-use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, text, texture, ui::{components::{empty_view, BordersTextures, Spacing, TextureInfo, Typography, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect, vector::Vector2d}};
+use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, padding, BordersTextures, Spacing, TextureInfo, Typography, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect, vector::Vector2d}, vstack};
 
 #[derive(Debug, Clone, Copy)]
 pub enum ToastMode {
@@ -144,7 +144,13 @@ impl ToastDisplay {
         let text = text!(Typography::Regular, self.text.clone());
 
         if let Some(sprite) = &self.sprite {
-            let image = texture!(sprite.sheet_id, sprite.frame, Vector2d::new(2.0, 2.0));
+            let image = texture!(sprite.sheet_id, sprite.frame, sprite.frame.size());
+            
+            let text = if sprite.frame.h > 1 && self.text.contains("\n") {
+                vstack!(Spacing::Zero, spacing!(Spacing::LG), text)
+            } else {
+                vstack!(Spacing::Zero, spacing!(Spacing::SM), text)
+            };
 
             if matches!(self.mode, ToastMode::Important) {
                 hstack!(Spacing::MD, image, text)
