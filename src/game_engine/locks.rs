@@ -17,7 +17,8 @@ pub enum LockType {
     Red,
     Blue,
     Green,
-    Silver
+    Silver,
+    Permanent
 }
 
 impl LockType {
@@ -29,6 +30,7 @@ impl LockType {
             LockType::Blue => "lock.name.blue".localized(),
             LockType::Green => "lock.name.green".localized(),
             LockType::Silver => "lock.name.silver".localized(),
+            LockType::Permanent => "lock.name.permanent".localized(),
         }
     }
 
@@ -40,6 +42,7 @@ impl LockType {
             LockType::Blue => SPECIES_KEY_BLUE,
             LockType::Green => SPECIES_KEY_GREEN,
             LockType::Silver => SPECIES_KEY_SILVER,
+            LockType::Permanent => 0
         }
     }
 
@@ -51,6 +54,7 @@ impl LockType {
             LockType::Blue => PRESSURE_PLATE_BLUE,
             LockType::Green => PRESSURE_PLATE_GREEN,
             LockType::Silver => PRESSURE_PLATE_SILVER,
+            LockType::Permanent => ""
         }
     }
 }

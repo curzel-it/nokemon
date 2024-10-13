@@ -137,6 +137,7 @@ You can change the following:
 "lock.name.blue" = "Blue"
 "lock.name.green" = "Green"
 "lock.name.silver" = "Silver"
+"lock.name.permanent" = "Permanent"
 
 "map_editor.title" = "Map Editor"
 "map_editor.subtitle" = "Press CONFIRM to select something"
@@ -210,10 +211,8 @@ Press ESC to go back
 
 "teleporter.name" = "Teleporter"
 
-"teleporter.locked" = """
-This door is locked.
-You need a %s key to unlock it.
-"""
+"teleporter.locked" = "This door is locked.\nYou need a %s key to unlock it."
+"telepoter.locked.permanent" = "This door is locked."
 
 "teleporter.unlock.title" = "Unlock the door?"
 "teleporter.unlock.message" = "You will lose one %s key."

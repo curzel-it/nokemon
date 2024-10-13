@@ -269,7 +269,7 @@
         "x": 0,
         "y": 0
       },
-      "lock_type": "None",
+      "lock_type": "Permanent",
       "original_sprite_frame": {
         "x": 7,
         "y": 5,

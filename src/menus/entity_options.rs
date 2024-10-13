@@ -73,6 +73,7 @@ impl EntityOptionsMenu {
                 LockType::Blue,
                 LockType::Green,
                 LockType::Silver,
+                LockType::Permanent,
             ])
         }
     }

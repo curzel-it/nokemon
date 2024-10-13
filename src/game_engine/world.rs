@@ -201,6 +201,7 @@ impl World {
                     LockType::Red => self.pressure_plate_down_red = is_down,
                     LockType::Silver => self.pressure_plate_down_silver = is_down,
                     LockType::None => {}
+                    LockType::Permanent => {}
                 }                
                 save_pressure_plate_states(self)
             }

@@ -57,16 +57,23 @@ impl Entity {
         )
     }
 
-    fn show_locked_message(&self) -> WorldStateUpdate {
-        let name = self.lock_type.localized_name().to_uppercase();
-        
+    fn show_locked_message(&self) -> WorldStateUpdate {        
         WorldStateUpdate::EngineUpdate(
             EngineStateUpdate::Toast(
-                "teleporter.locked".localized().replace("%s", &name),
+                self.locked_message(),
                 ToastMode::Regular
             )
         )
     }
+
+    fn locked_message(&self) -> String {
+        if matches!(self.lock_type, LockType::Permanent) {
+            "telepoter.locked.permanent".localized()
+        } else {
+            let name = self.lock_type.localized_name().to_uppercase();
+            "teleporter.locked".localized().replace("%s", &name)
+        }
+    } 
 
     fn show_unlock_confirmation(&self) -> WorldStateUpdate {
         let name = self.lock_type.localized_name().to_uppercase();
