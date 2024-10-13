@@ -69,7 +69,11 @@ The High Priestess will be waiting for you there...
 There's no time to explain further.
 The ship is sailing, hurry up!
 """
-"1002_damn_monsters" = "These monsters... It's all gone..."
+"1002.old_man.damn_monsters" = """
+These monsters... It's all gone...
+Hold on to my knife for me kid.
+"""
+
 "1004_talk_to_my_husband" = """
 My husband cast a magic barrier just in time to save our house.
 Can you check on him?

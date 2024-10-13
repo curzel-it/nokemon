@@ -101,6 +101,10 @@ impl Toast {
         Toast { text, mode: ToastMode::Regular, image: None }
     }
     
+    pub fn regular_with_image(text: String, image: ToastImage) -> Self {
+        Toast { text, mode: ToastMode::Regular, image: Some(image) }
+    }
+    
     pub fn important_with_image(text: String, image: ToastImage) -> Self {
         Toast { text, mode: ToastMode::Important, image: Some(image) }
     }
@@ -141,7 +145,12 @@ impl ToastDisplay {
 
         if let Some(sprite) = &self.sprite {
             let image = texture!(sprite.sheet_id, sprite.frame, Vector2d::new(2.0, 2.0));
-            hstack!(Spacing::MD, image, text)
+
+            if matches!(self.mode, ToastMode::Important) {
+                hstack!(Spacing::MD, image, text)
+            } else {
+                hstack!(Spacing::MD, text, image)
+            }
         } else {
             text
         }

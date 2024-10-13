@@ -124,6 +124,10 @@ impl Species {
         entity.is_invulnerable = self.is_invulnerable;
     }
 
+    pub fn inventory_sprite_frame(&self) -> Rect {
+        Rect::new(self.inventory_texture_offset.1, self.inventory_texture_offset.0, 1, 1)
+    }
+
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
         AnimatedSprite::new(
             self.sprite_sheet_id,

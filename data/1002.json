@@ -1894,8 +1894,8 @@
         {
           "key": "always",
           "expected_value": 1,
-          "text": "1002_damn_monsters",
-          "reward": null
+          "text": "1002.old_man.damn_monsters",
+          "reward": 7000
         }
       ],
       "time_immobilized": 0.0,
