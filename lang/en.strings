@@ -129,28 +129,24 @@ You can change the following:
 "you" = "You"
 
 "status.fake" = """
-Status Window:
-
-Name: Xx@##XxX xX@##Xx
-Class: Ninja
-
-Skills:
-- @#$%^&*  Lv: !!?
-- ###@@@   Lv: **@
-- @##Xx    Lv: $##
-- &&&%%%   Lv: $$@
-- ***###   Lv: ?!?
-
+-------------------------
+Drunvel Sareth:       42
+-------------------------
 Stats:
-- Strength: @@@@###$$$
-- Agility:  ###$$$%%%
-- Intelligence: &&&$$###
-- Luck: *****@@@@@###$$$
-- $$$###: ####!!!###$$$
-- $$!!###: ####!!!##!!#$$
-- $$&&#: ####!!!###$$$
+- Valkrem:           1/1
+- Selyrun:            89
+- Ithurea:            13
+- Ulzorith:          101
+- Felnar:             67
+- Xolyeth:            33
+-------------------------
+Skills:
+- Meliktra Nux:        1
+- ...
+-------------------------
 
-The f*** is this? I don't speak Isekai!
+This list goes on and on! 
+I can't read Isekai!!
 """
 
 "1001.hint.blessing_received" = """

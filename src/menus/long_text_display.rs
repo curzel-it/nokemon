@@ -133,7 +133,6 @@ impl LongTextDisplay {
                     tokens.push(word.clone());
                     word.clear();
                 }
-                // We can ignore multiple spaces; they don't affect line breaks
             } else {
                 word.push(c);
             }
@@ -148,10 +147,8 @@ impl LongTextDisplay {
                     lines.push(current_line.clone());
                     current_line.clear();
                 }
-                // Insert an empty string to represent the newline
                 lines.push(String::new());
             } else {
-                // token is a word
                 let space = if current_line.is_empty() { 0 } else { 1 };
                 if current_line.len() + space + token.len() > max_line_length && !current_line.is_empty() {
                     lines.push(current_line.clone());
