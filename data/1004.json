@@ -102,13 +102,13 @@
       "000000000000000990999990000000000000000000000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0FFFFFFF088888888000000000000000000000",
       "000000000000000999909900000000000000000000000F00000F0000F000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF88888888880000000000000000000",
       "000000000000009990000000000000000000000000000F0800FFF00F00F0F0FFFFFFFFFFFFFFFFFFFFFFFFF0FFFFFF88888888000000000000000000",
-      "000000000000009990000000000000000000000000000F0800FF000F0000000F00FFF0FFFFFFFFFF0FFFFFFF80FFFF88888888800000000000000000",
-      "000000000000000000000000000000000000000000000F080FF0080F00000F0FF0F0F0FFFFFFFFFFFFFF00FFF000FFF8888888800000000000000000",
-      "000000000000000000000000000000000000000000000F0800F0080F0000000F000FF000FFFFFFFFFF0FFFFFFF0000F0088888880000000000000000",
-      "000000000000000000000000000000000000000000000F0800F0080F00800FFF0000F00F00FFFFFFFFFF0F0F00000800888888880000000000000000",
-      "000000000000000000000000000000000000000000000F0800F0080F008F000F0080F0000F00FFFFF000F00000000008088888800999000000000000",
-      "00000000F000000000000000000000000000000000000F0800FF080F00800F0F0080F000000F0FF00000000F00000000080808808099900000000000",
-      "00000000FFF0000000000000000000000000000000000F080FF0080F0080F00F0080F000000000000000000000000000000080000990000000000000",
+      "000000000000009990000033333300000000000000000F0800FF000F0000000F00FFF0FFFFFFFFFF0FFFFFFF80FFFF88888888800000000000000000",
+      "000000000000000000000333333300000000000000000F080FF0080F00000F0FF0F0F0FFFFFFFFFFFFFF00FFF000FFF8888888800000000000000000",
+      "000000000000000000000330000000000000000000000F0800F0080F0000000F000FF000FFFFFFFFFF0FFFFFFF0000F0088888880000000000000000",
+      "000000000000000000000330000000000000000000000F0800F0080F00800FFF0000F00F00FFFFFFFFFF0F0F00000800888888880000000000000000",
+      "000000000000000000000330000000000000000000000F0800F0080F008F000F0080F0000F00FFFFF000F00000000008088888800999000000000000",
+      "00000000F000000000000333333300000000000000000F0800FF080F00800F0F0080F000000F0FF00000000F00000000080808808099900000000000",
+      "00000000FFF0000000000033333300000000000000000F080FF0080F0080F00F0080F000000000000000000000000000000080000990000000000000",
       "0000000FFF00000000000000000000000000000000000F0800F0080F0080000F0080F000000000000000000000000000000000000000000008800000",
       "0000000FFFF0000000000F0000F000000000000000000008000008000080000F0080F000000000000000000000000000000000000000000000800000",
       "0000000FFFFFF0000F00FFFFFF0F00000000000000000008000008000080000F00800000000000000000000000000000000000000000088888800000",
@@ -122,9 +122,9 @@
       "000000FFFFFF000000000000000000000000000000000008000080008888888888000000000000000000000008888888888888888888880000000000",
       "0000900900FFF0F0000F0000000000000000008000800008880080008888888888000000000000000000000008888888888888888888800000000000",
       "0000999900000F00000F0000000000000FF0088888888880008088888888888888000080000000000000000008880888888888088888000000000000",
-      "0000000990000009990F000F00FFF0F0F000080008080008888888888888888888000888000000000000000000888888888888880800000000000000",
-      "000000009999999999000FF0000F0009999F000000000000000000000088888888008808000000000000000000808888888888800000000000000000",
-      "000000999990000009999909999999900000000000000000000000000000088888888888000000000000000008888088888888000000000000000000",
+      "0000000990000009990F000F00FFF0F0F000080008080008888888888888888888000088000000000000000000888888888888880800000000000000",
+      "000000009999999999000FF0000F0009999F000000000000000000000088888888008008000000000000000000808888888888800000000000000000",
+      "000000999990000009999909999999900000000000000000000000000000088888888088000000000000000008888088888888000000000000000000",
       "00000000990000000000099900000000000000000FFFFFFFFFFF00000000000888888080000000000000000088888888888800000000000000000000",
       "000000099F0FFFFF0000000000FFFFFFFFF000FFFF000FFFFFFF0FFFFF00000000000000000000000000000808888808888800000000000000000000",
       "00000009F0F0FFFFFFF00FFFFFFFFFF088FFFFFFFF0FFF00000FF8FFFFFFF00000000000000000000000000088888888888800000000000000000000",
@@ -254,7 +254,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -316,7 +316,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -378,7 +378,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -440,7 +440,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -502,7 +502,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -626,7 +626,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -688,7 +688,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -750,7 +750,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -812,7 +812,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -940,7 +940,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1012,
@@ -1018,7 +1018,7 @@
         {
           "key": "always",
           "expected_value": 1,
-          "text": "1004_talk_to_my_husband",
+          "text": "1004.old_lady.talk_to_my_husband",
           "reward": null
         }
       ],
@@ -1071,7 +1071,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -1133,7 +1133,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -1195,7 +1195,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -1323,7 +1323,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1509,7 +1509,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -1571,7 +1571,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -1633,7 +1633,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -1690,7 +1690,7 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -7.347131,
+        "x": -1.3848614,
         "y": 0.0
       },
       "direction": 3,
@@ -1881,7 +1881,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 300,
       "sprite": {
         "sheet_id": 1010,
@@ -2204,7 +2204,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2266,7 +2266,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2328,7 +2328,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2390,7 +2390,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2452,7 +2452,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -2510,7 +2510,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 12.887077
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -2572,7 +2572,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -2.8545632
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -2633,7 +2633,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -3.0116134,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2757,7 +2757,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -11.146234,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -2819,7 +2819,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 14.856153,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -2882,7 +2882,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -9.042247
+        "y": 0.0
       },
       "direction": 0,
       "current_speed": 2.5,
@@ -2943,7 +2943,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -13.029644,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -3005,7 +3005,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -5.0448303,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -3072,7 +3072,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3134,7 +3134,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3196,7 +3196,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3258,7 +3258,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3320,7 +3320,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3382,7 +3382,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3444,7 +3444,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -3506,7 +3506,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
@@ -6234,7 +6234,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 0,
       "sprite": {
         "sheet_id": 1004,
@@ -6358,7 +6358,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.053523332
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6420,7 +6420,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.053523332
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6481,7 +6481,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -8.78543,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -6606,7 +6606,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.053523332
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6667,7 +6667,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -0.053523332,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -6920,7 +6920,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -6982,7 +6982,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -7044,7 +7044,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -7106,7 +7106,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
+      "is_rigid": false,
       "z_index": 350,
       "sprite": {
         "sheet_id": 1012,
@@ -7164,7 +7164,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 4.2348266
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7415,7 +7415,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -2.2481232,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -7478,7 +7478,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 10.286769
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7540,7 +7540,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 0.053523332
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7602,7 +7602,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 8.144907
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7663,7 +7663,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 2.6473835,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -7725,7 +7725,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 6.4983335,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -7787,7 +7787,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -11.478507,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -7849,7 +7849,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 2.6473835,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -7955,7 +7955,7 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": 3.2569308,
+      "remaining_lifespan": 3.2136538,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 420,
       "is_invulnerable": false,
@@ -7973,7 +7973,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 6.663433,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 2,
@@ -8225,7 +8225,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -11.656187,
+        "x": 0.0,
         "y": 0.0
       },
       "direction": 3,
@@ -8533,6 +8533,688 @@
         0
       ],
       "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933300,
+      "frame": {
+        "x": 61,
+        "y": 13,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8933301,
+      "frame": {
+        "x": 56,
+        "y": 13,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8933302,
+      "frame": {
+        "x": 53,
+        "y": 31,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8933303,
+      "frame": {
+        "x": 50,
+        "y": 27,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8933304,
+      "frame": {
+        "x": 26,
+        "y": 17,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_you_dare",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933305,
+      "frame": {
+        "x": 26,
+        "y": 18,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_you_dare",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933306,
+      "frame": {
+        "x": 26,
+        "y": 19,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_you_dare",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933307,
+      "frame": {
+        "x": 28,
+        "y": 17,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_enter_portal",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933308,
+      "frame": {
+        "x": 29,
+        "y": 18,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_enter_portal",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933309,
+      "frame": {
+        "x": 28,
+        "y": 19,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.dont_enter_portal",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8933310,
+      "frame": {
+        "x": 46,
+        "y": 22,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Hint (One time)",
+      "species_id": 50000,
+      "entity_type": "Hint",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 0,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 5,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 5,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": true,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": "1004.hint.what_is_that",
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,

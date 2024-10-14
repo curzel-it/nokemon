@@ -225,7 +225,7 @@ Goddess:
 Oh my... Can he not hear me!?
 """
 
-"1004_talk_to_my_husband" = """
+"1004.old_lady.talk_to_my_husband" = """
 My husband cast a magic barrier just in time to save our house.
 Can you check on him?
 """
@@ -258,4 +258,19 @@ Let's raid the town hall
 "1004.sign.last_ship_sailed" = """
 The last ship has already sailed.
 Also, no more ships are coming.
+"""
+
+"1004.hint.what_is_that" = """
+Goddess:
+Is that a portal...?
+"""
+
+"1004.hint.dont_enter_portal" = """
+Goddess:
+It's clearly deamonic magic, stay away!
+"""
+
+"1004.hint.dont_you_dare" = """
+Goddess:
+Don't you dare...!
 """
