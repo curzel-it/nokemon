@@ -1521,7 +1521,7 @@
     },
     {
         "id": 11000,
-        "name": "objects.name.magic_circle.invocation",
+        "name": "objects.name.magic_circle.summoning",
         "entity_type": "StaticObject",
         "z_index": -1,
         "base_speed": 0.0,
@@ -1533,6 +1533,27 @@
         "sprite_frame": {
             "x": 9,
             "y": 0,
+            "w": 3,
+            "h": 3
+        },
+        "sprite_sheet_id": 1012,
+        "sprite_number_of_frames": 6,
+        "lock_type": "None"
+    },
+    {
+        "id": 11005,
+        "name": "objects.name.magic_circle.summoning.evil",
+        "entity_type": "StaticObject",
+        "z_index": -1,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            7,
+            11
+        ],
+        "sprite_frame": {
+            "x": 9,
+            "y": 3,
             "w": 3,
             "h": 3
         },
@@ -1617,9 +1638,9 @@
         ],
         "sprite_frame": {
             "x": 9,
-            "y": 4,
-            "w": 2,
-            "h": 2
+            "y": 13,
+            "w": 3,
+            "h": 3
         },
         "sprite_sheet_id": 1012,
         "sprite_number_of_frames": 4,

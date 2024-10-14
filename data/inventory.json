@@ -1,1 +1,4342 @@
-[]
+[
+  {
+    "id": 8932457,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932458,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932459,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932460,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932461,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932462,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932463,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932464,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932465,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932466,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932467,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932468,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932469,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932470,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932471,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932472,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932473,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932474,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932475,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932476,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932479,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932480,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932481,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932482,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932483,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932484,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932485,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932486,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932487,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932488,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932489,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932490,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932491,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932492,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932493,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932494,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932495,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932496,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932497,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932498,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932509,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932510,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932511,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932512,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932513,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932514,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932515,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932516,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932517,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932518,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932519,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932520,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932521,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932522,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932523,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932524,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932525,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932526,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932527,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932528,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932529,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932530,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932531,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932532,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932533,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932534,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932535,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932536,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932537,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  },
+  {
+    "id": 8932538,
+    "frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "name": "Holy Knife",
+    "species_id": 7000,
+    "entity_type": "Bullet",
+    "offset": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "direction": 1,
+    "current_speed": 0.0,
+    "is_rigid": false,
+    "z_index": 300,
+    "sprite": {
+      "sheet_id": 1014,
+      "frame": {
+        "x": 4,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "number_of_frames": 4
+    },
+    "dialogues": [],
+    "time_immobilized": 0.0,
+    "destination": null,
+    "lock_type": "None",
+    "original_sprite_frame": {
+      "x": 4,
+      "y": 0,
+      "w": 1,
+      "h": 1
+    },
+    "is_consumable": false,
+    "speed_multiplier": 1.0,
+    "melee_attacks_hero": false,
+    "is_dying": false,
+    "patrol": {
+      "initial_position": [
+        0,
+        0
+      ],
+      "current_index": 0,
+      "movements": []
+    },
+    "latest_movement": [
+      0,
+      0
+    ],
+    "contents": null,
+    "remaining_lifespan": -420.0,
+    "shooting_cooldown_remaining": 0.0,
+    "parent_id": 0,
+    "is_invulnerable": false,
+    "demands_attention": false
+  }
+]

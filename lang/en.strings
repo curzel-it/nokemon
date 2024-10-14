@@ -115,7 +115,8 @@ You can change the following:
 "objects.name.scroll.green" = "Green Scroll"
 "objects.name.sign" = "Sign"
 "objects.name.large_sign" = "Large Sign"
-"objects.name.magic_circle.invocation" = "Invocation Circle"
+"objects.name.magic_circle.summoning" = "Summoning Circle"
+"objects.name.magic_circle.summoning.evil" = "Evil Summoning Circle"
 "objects.name.magic_circle.blue" = "Blue Magic Circle"
 "objects.name.well" = "Well"
 

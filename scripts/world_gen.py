@@ -184,7 +184,7 @@ world_data = {
 }
 
 # Output the JSON to the file with the world ID in the name
-output_filename = f"/Users/curzel/dev/nokemon/levels/{args.world_id}.json"
+output_filename = f"/Users/curzel/dev/nokemon/data/{args.world_id}.json"
 with open(output_filename, "w") as f:
     f.write(json.dumps(world_data, indent=2))
 

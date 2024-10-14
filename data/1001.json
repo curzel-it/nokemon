@@ -179,7 +179,7 @@
         "w": 3,
         "h": 3
       },
-      "name": "Invocation Circle",
+      "name": "Summoning Circle",
       "species_id": 11000,
       "entity_type": "StaticObject",
       "offset": {
@@ -444,7 +444,7 @@
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": false,
+      "is_rigid": true,
       "z_index": 200,
       "sprite": {
         "sheet_id": 1010,

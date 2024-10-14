@@ -1681,7 +1681,7 @@
     {
       "id": 1727533496,
       "frame": {
-        "x": 57,
+        "x": 83,
         "y": 61,
         "w": 1,
         "h": 1
@@ -1690,10 +1690,10 @@
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": 1.4286573,
+        "x": -7.347131,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": 3,
       "current_speed": 1.0,
       "is_rigid": true,
       "z_index": 50,
@@ -1931,8 +1931,8 @@
       "frame": {
         "x": 31,
         "y": 54,
-        "w": 2,
-        "h": 2
+        "w": 3,
+        "h": 3
       },
       "name": "Blue Magic Circle",
       "species_id": 11004,
@@ -1949,9 +1949,9 @@
         "sheet_id": 1012,
         "frame": {
           "x": 9,
-          "y": 4,
-          "w": 2,
-          "h": 2
+          "y": 13,
+          "w": 3,
+          "h": 3
         },
         "number_of_frames": 4
       },
@@ -1961,9 +1961,9 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 9,
-        "y": 4,
-        "w": 2,
-        "h": 2
+        "y": 13,
+        "w": 3,
+        "h": 3
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
@@ -1989,15 +1989,15 @@
       "demands_attention": false
     },
     {
-      "id": 1727544033,
+      "id": 8931628,
       "frame": {
-        "x": 32,
-        "y": 54,
-        "w": 2,
-        "h": 2
+        "x": 23,
+        "y": 17,
+        "w": 3,
+        "h": 3
       },
-      "name": "Blue Magic Circle",
-      "species_id": 11004,
+      "name": "Evil Summoning Circle",
+      "species_id": 11005,
       "entity_type": "StaticObject",
       "offset": {
         "x": 0.0,
@@ -2011,11 +2011,11 @@
         "sheet_id": 1012,
         "frame": {
           "x": 9,
-          "y": 4,
-          "w": 2,
-          "h": 2
+          "y": 3,
+          "w": 3,
+          "h": 3
         },
-        "number_of_frames": 4
+        "number_of_frames": 6
       },
       "dialogues": [],
       "time_immobilized": 0.0,
@@ -2023,9 +2023,9 @@
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 9,
-        "y": 4,
-        "w": 2,
-        "h": 2
+        "y": 3,
+        "w": 3,
+        "h": 3
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
@@ -2051,16 +2051,16 @@
       "demands_attention": false
     },
     {
-      "id": 1727535503,
+      "id": 8932328,
       "frame": {
-        "x": 68,
-        "y": 56,
-        "w": 2,
-        "h": 2
+        "x": 24,
+        "y": 19,
+        "w": 1,
+        "h": 1
       },
-      "name": "Blue Magic Circle",
-      "species_id": 11004,
-      "entity_type": "StaticObject",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
         "y": 0.0
@@ -2068,26 +2068,26 @@
       "direction": 1,
       "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": -1,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1012,
+        "sheet_id": 1010,
         "frame": {
-          "x": 9,
-          "y": 4,
-          "w": 2,
-          "h": 2
+          "x": 7,
+          "y": 5,
+          "w": 1,
+          "h": 1
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": [],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 9,
-        "y": 4,
-        "w": 2,
-        "h": 2
+        "x": 7,
+        "y": 5,
+        "w": 1,
+        "h": 1
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
@@ -2109,69 +2109,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727535502,
-      "frame": {
-        "x": 67,
-        "y": 57,
-        "w": 2,
-        "h": 2
-      },
-      "name": "Blue Magic Circle",
-      "species_id": 11004,
-      "entity_type": "StaticObject",
-      "offset": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "direction": 1,
-      "current_speed": 0.0,
-      "is_rigid": false,
-      "z_index": -1,
-      "sprite": {
-        "sheet_id": 1012,
-        "frame": {
-          "x": 9,
-          "y": 4,
-          "w": 2,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": [],
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 9,
-        "y": 4,
-        "w": 2,
-        "h": 2
-      },
-      "is_consumable": false,
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": false,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
@@ -2562,8 +2500,8 @@
     {
       "id": 1727714094,
       "frame": {
-        "x": 65,
-        "y": 45,
+        "x": 77,
+        "y": 51,
         "w": 1,
         "h": 2
       },
@@ -2572,7 +2510,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 12.887077
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -2624,8 +2562,8 @@
     {
       "id": 1727714095,
       "frame": {
-        "x": 68,
-        "y": 45,
+        "x": 65,
+        "y": 50,
         "w": 1,
         "h": 2
       },
@@ -2634,9 +2572,9 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": -2.8545632
       },
-      "direction": 1,
+      "direction": 0,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2686,8 +2624,8 @@
     {
       "id": 1727714096,
       "frame": {
-        "x": 71,
-        "y": 45,
+        "x": 66,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -2695,10 +2633,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -3.0116134,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2748,8 +2686,8 @@
     {
       "id": 1727714097,
       "frame": {
-        "x": 74,
-        "y": 45,
+        "x": 68,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -2758,9 +2696,9 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2797,7 +2735,7 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        -1,
         0
       ],
       "contents": null,
@@ -2810,8 +2748,8 @@
     {
       "id": 1727714098,
       "frame": {
-        "x": 77,
-        "y": 45,
+        "x": 72,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -2819,10 +2757,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -11.146234,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2873,7 +2811,7 @@
       "id": 1727714104,
       "frame": {
         "x": 67,
-        "y": 48,
+        "y": 45,
         "w": 1,
         "h": 2
       },
@@ -2881,10 +2819,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": 14.856153,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2934,8 +2872,8 @@
     {
       "id": 1727714105,
       "frame": {
-        "x": 70,
-        "y": 48,
+        "x": 65,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -2944,9 +2882,9 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": -9.042247
       },
-      "direction": 1,
+      "direction": 0,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2996,8 +2934,8 @@
     {
       "id": 1727714106,
       "frame": {
-        "x": 73,
-        "y": 48,
+        "x": 67,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -3005,10 +2943,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -13.029644,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -3058,8 +2996,8 @@
     {
       "id": 1727714107,
       "frame": {
-        "x": 76,
-        "y": 48,
+        "x": 70,
+        "y": 52,
         "w": 1,
         "h": 2
       },
@@ -3067,10 +3005,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -5.0448303,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6342,47 +6280,51 @@
       "demands_attention": false
     },
     {
-      "id": 1727716052,
+      "id": 8932327,
       "frame": {
-        "x": 22,
-        "y": 45,
+        "x": 23,
+        "y": 19,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
       "direction": 1,
-      "current_speed": 2.5,
+      "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 150,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1010,
         "frame": {
-          "x": 28,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
-          "h": 2
+          "h": 1
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": [],
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -6400,7 +6342,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
@@ -6416,7 +6358,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.053523332
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6478,7 +6420,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.053523332
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6539,7 +6481,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": -8.465936,
+        "x": -8.78543,
         "y": 0.0
       },
       "direction": 3,
@@ -6592,8 +6534,8 @@
     {
       "id": 1727716056,
       "frame": {
-        "x": 14,
-        "y": 62,
+        "x": 94,
+        "y": 67,
         "w": 1,
         "h": 2
       },
@@ -6602,69 +6544,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": -8.465936
-      },
-      "direction": 0,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": [],
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "is_consumable": false,
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727716057,
-      "frame": {
-        "x": 10,
-        "y": 56,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6704,7 +6584,7 @@
       },
       "latest_movement": [
         0,
-        0
+        1
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -6714,10 +6594,10 @@
       "demands_attention": false
     },
     {
-      "id": 1727716058,
+      "id": 1727716057,
       "frame": {
-        "x": 63,
-        "y": 45,
+        "x": 10,
+        "y": 56,
         "w": 1,
         "h": 2
       },
@@ -6726,7 +6606,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.053523332
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -6787,7 +6667,7 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
+        "x": -0.053523332,
         "y": 0.0
       },
       "direction": 3,
@@ -6828,7 +6708,7 @@
       },
       "latest_movement": [
         0,
-        1
+        0
       ],
       "contents": null,
       "remaining_lifespan": -420.0,
@@ -7275,7 +7155,7 @@
       "id": 1727716067,
       "frame": {
         "x": 12,
-        "y": 23,
+        "y": 25,
         "w": 1,
         "h": 2
       },
@@ -7284,7 +7164,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 4.2348266
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7336,8 +7216,8 @@
     {
       "id": 1727716068,
       "frame": {
-        "x": 70,
-        "y": 20,
+        "x": 66,
+        "y": 16,
         "w": 1,
         "h": 2
       },
@@ -7346,7 +7226,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7385,7 +7265,7 @@
         "movements": []
       },
       "latest_movement": [
-        0,
+        1,
         0
       ],
       "contents": null,
@@ -7396,47 +7276,51 @@
       "demands_attention": false
     },
     {
-      "id": 1727716069,
+      "id": 8932331,
       "frame": {
-        "x": 59,
-        "y": 15,
+        "x": 25,
+        "y": 17,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
       "direction": 1,
-      "current_speed": 2.5,
+      "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 150,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1010,
         "frame": {
-          "x": 28,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
-          "h": 2
+          "h": 1
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": [],
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -7454,51 +7338,51 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
-      "id": 1727716070,
+      "id": 8932329,
       "frame": {
-        "x": 49,
-        "y": 12,
+        "x": 25,
+        "y": 19,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
       "direction": 1,
-      "current_speed": 2.5,
+      "current_speed": 0.0,
       "is_rigid": false,
-      "z_index": 150,
+      "z_index": 200,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1010,
         "frame": {
-          "x": 28,
-          "y": 0,
+          "x": 7,
+          "y": 5,
           "w": 1,
-          "h": 2
+          "h": 1
         },
-        "number_of_frames": 4
+        "number_of_frames": 1
       },
       "dialogues": [],
       "time_immobilized": 0.0,
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
+        "x": 7,
+        "y": 5,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -7516,14 +7400,14 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
       "id": 1727716071,
       "frame": {
-        "x": 42,
-        "y": 11,
+        "x": 17,
+        "y": 31,
         "w": 1,
         "h": 2
       },
@@ -7531,10 +7415,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -2.2481232,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7584,8 +7468,8 @@
     {
       "id": 1727716072,
       "frame": {
-        "x": 27,
-        "y": 7,
+        "x": 28,
+        "y": 8,
         "w": 1,
         "h": 2
       },
@@ -7594,7 +7478,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 10.286769
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7647,7 +7531,7 @@
       "id": 1727716073,
       "frame": {
         "x": 21,
-        "y": 31,
+        "y": 33,
         "w": 1,
         "h": 2
       },
@@ -7656,7 +7540,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.053523332
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7709,7 +7593,7 @@
       "id": 1727716074,
       "frame": {
         "x": 17,
-        "y": 27,
+        "y": 32,
         "w": 1,
         "h": 2
       },
@@ -7718,7 +7602,7 @@
       "entity_type": "Npc",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 8.144907
       },
       "direction": 1,
       "current_speed": 2.5,
@@ -7770,8 +7654,8 @@
     {
       "id": 1727716075,
       "frame": {
-        "x": 18,
-        "y": 14,
+        "x": 19,
+        "y": 16,
         "w": 1,
         "h": 2
       },
@@ -7779,10 +7663,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": 2.6473835,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7832,8 +7716,8 @@
     {
       "id": 1727716076,
       "frame": {
-        "x": 26,
-        "y": 10,
+        "x": 35,
+        "y": 2,
         "w": 1,
         "h": 2
       },
@@ -7841,10 +7725,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": 6.4983335,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7894,8 +7778,8 @@
     {
       "id": 1727716077,
       "frame": {
-        "x": 32,
-        "y": 21,
+        "x": 26,
+        "y": 33,
         "w": 1,
         "h": 2
       },
@@ -7903,10 +7787,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": -11.478507,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 3,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7956,8 +7840,8 @@
     {
       "id": 1727716078,
       "frame": {
-        "x": 40,
-        "y": 21,
+        "x": 20,
+        "y": 19,
         "w": 1,
         "h": 2
       },
@@ -7965,10 +7849,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": 2.6473835,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -8016,31 +7900,31 @@
       "demands_attention": false
     },
     {
-      "id": 1727716079,
+      "id": 8932545,
       "frame": {
-        "x": 59,
-        "y": 23,
+        "x": 32,
+        "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
+      "name": "Holy Knife",
+      "species_id": 7000,
+      "entity_type": "Bullet",
       "offset": {
         "x": 0.0,
-        "y": 3.5716434
+        "y": 0.0
       },
-      "direction": 1,
-      "current_speed": 2.5,
+      "direction": 0,
+      "current_speed": 5.0,
       "is_rigid": false,
-      "z_index": 150,
+      "z_index": 300,
       "sprite": {
-        "sheet_id": 1009,
+        "sheet_id": 1014,
         "frame": {
-          "x": 28,
+          "x": 4,
           "y": 0,
           "w": 1,
-          "h": 2
+          "h": 1
         },
         "number_of_frames": 4
       },
@@ -8049,14 +7933,14 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 28,
+        "x": 4,
         "y": 0,
         "w": 1,
-        "h": 2
+        "h": 1
       },
       "is_consumable": false,
       "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
+      "melee_attacks_hero": false,
       "is_dying": false,
       "patrol": {
         "initial_position": [
@@ -8071,17 +7955,17 @@
         0
       ],
       "contents": null,
-      "remaining_lifespan": -420.0,
+      "remaining_lifespan": 3.2569308,
       "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
+      "parent_id": 420,
       "is_invulnerable": false,
       "demands_attention": false
     },
     {
       "id": 1727716080,
       "frame": {
-        "x": 66,
-        "y": 34,
+        "x": 70,
+        "y": 30,
         "w": 1,
         "h": 2
       },
@@ -8089,10 +7973,10 @@
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
-        "x": 0.0,
-        "y": 3.5716434
+        "x": 6.663433,
+        "y": 0.0
       },
-      "direction": 1,
+      "direction": 2,
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -8264,153 +8148,29 @@
       "demands_attention": false
     },
     {
-      "id": 1727717760,
+      "id": 8932330,
       "frame": {
-        "x": 54,
-        "y": 32,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 3.5716434
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": [],
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "is_consumable": false,
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 1727717761,
-      "frame": {
-        "x": 50,
-        "y": 32,
-        "w": 1,
-        "h": 2
-      },
-      "name": "Homunculus",
-      "species_id": 4004,
-      "entity_type": "Npc",
-      "offset": {
-        "x": 0.0,
-        "y": 3.5716434
-      },
-      "direction": 1,
-      "current_speed": 2.5,
-      "is_rigid": false,
-      "z_index": 150,
-      "sprite": {
-        "sheet_id": 1009,
-        "frame": {
-          "x": 28,
-          "y": 0,
-          "w": 1,
-          "h": 2
-        },
-        "number_of_frames": 4
-      },
-      "dialogues": [],
-      "time_immobilized": 0.0,
-      "destination": null,
-      "lock_type": "None",
-      "original_sprite_frame": {
-        "x": 28,
-        "y": 0,
-        "w": 1,
-        "h": 2
-      },
-      "is_consumable": false,
-      "speed_multiplier": 1.0,
-      "melee_attacks_hero": true,
-      "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
-      "latest_movement": [
-        0,
-        0
-      ],
-      "contents": null,
-      "remaining_lifespan": -420.0,
-      "shooting_cooldown_remaining": 0.0,
-      "parent_id": 0,
-      "is_invulnerable": false,
-      "demands_attention": false
-    },
-    {
-      "id": 8830376,
-      "frame": {
-        "x": 14,
-        "y": 17,
+        "x": 25,
+        "y": 18,
         "w": 1,
         "h": 1
       },
-      "name": "Sign",
-      "species_id": 10000,
-      "entity_type": "StaticObject",
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
       "offset": {
         "x": 0.0,
         "y": 0.0
       },
       "direction": 1,
       "current_speed": 0.0,
-      "is_rigid": true,
-      "z_index": 300,
+      "is_rigid": false,
+      "z_index": 200,
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 0,
-          "y": 4,
+          "x": 7,
+          "y": 5,
           "w": 1,
           "h": 1
         },
@@ -8418,11 +8178,15 @@
       },
       "dialogues": [],
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 0,
-        "y": 4,
+        "x": 7,
+        "y": 5,
         "w": 1,
         "h": 1
       },
@@ -8442,11 +8206,337 @@
         0,
         0
       ],
-      "contents": "1004.sign.last_ship_sailed",
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 1727717761,
+      "frame": {
+        "x": 48,
+        "y": 33,
+        "w": 1,
+        "h": 2
+      },
+      "name": "Homunculus",
+      "species_id": 4004,
+      "entity_type": "Npc",
+      "offset": {
+        "x": -11.656187,
+        "y": 0.0
+      },
+      "direction": 3,
+      "current_speed": 2.5,
+      "is_rigid": false,
+      "z_index": 150,
+      "sprite": {
+        "sheet_id": 1009,
+        "frame": {
+          "x": 28,
+          "y": 0,
+          "w": 1,
+          "h": 2
+        },
+        "number_of_frames": 4
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 28,
+        "y": 0,
+        "w": 1,
+        "h": 2
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": true,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
       "is_invulnerable": false,
+      "demands_attention": false
+    },
+    {
+      "id": 8932323,
+      "frame": {
+        "x": 24,
+        "y": 18,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 7,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 7,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8932324,
+      "frame": {
+        "x": 24,
+        "y": 17,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 7,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 7,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8932325,
+      "frame": {
+        "x": 23,
+        "y": 17,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 7,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 7,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 8932326,
+      "frame": {
+        "x": 23,
+        "y": 18,
+        "w": 1,
+        "h": 1
+      },
+      "name": "Teleporter",
+      "species_id": 1019,
+      "entity_type": "Teleporter",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": false,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1010,
+        "frame": {
+          "x": 7,
+          "y": 5,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": {
+        "world": 1005,
+        "x": 0,
+        "y": 0
+      },
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 7,
+        "y": 5,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "patrol": {
+        "initial_position": [
+          0,
+          0
+        ],
+        "current_index": 0,
+        "movements": []
+      },
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
       "demands_attention": false
     }
   ],
