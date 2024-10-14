@@ -33,6 +33,7 @@ pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine
 fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let sprite_key_biome = world.biome_tiles.sheet_id;
     let sprite_key_constructions = world.constructions_tiles.sheet_id;
+    let default_tile = world.default_tile();
 
     let x_start = engine.camera_viewport.x - 1;
     let y_start = engine.camera_viewport.y - 1;
@@ -42,7 +43,13 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
     for col in x_start..x_end {
         for row in y_start..y_end {
             if col < 0 || row < 0 || col >= world.bounds.w || row >= world.bounds.h {
-                draw_default_biome(d, world.is_interior, row, col, engine);
+                draw_tile(
+                    d, 
+                    sprite_key_biome, 
+                    &default_tile, 
+                    0, 
+                    engine
+                );
             } else {
                 let row = row as usize;
                 let col = col as usize;
@@ -68,18 +75,6 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
             }
         }
     }
-}
-
-fn draw_default_biome(d: &mut RaylibDrawHandle, interior: bool, row: i32, col: i32, engine: &GameEngine) { 
-    draw_tile_row_col(
-        d, 
-        SPRITE_SHEET_BIOME_TILES, 
-        if interior { &NOTHING } else { &WATER },
-        row as f32, 
-        col as f32,
-        0, 
-        engine
-    );
 }
 
 fn draw_tile<T: SpriteTile>(

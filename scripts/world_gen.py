@@ -15,7 +15,7 @@ lacunarity = 2.0
 # Tile representation
 WATER = '2'
 SAND = '4'
-GRASSES = '1 C D E F'.split(' ')
+GRASSES = '8 8 8 8 8'.split(' ')
 
 # Initialize the map with water
 tiles = [[WATER for _ in range(WIDTH)] for _ in range(HEIGHT)]
@@ -180,7 +180,7 @@ world_data = {
     "entities": [],
     "creep_spawn_enabled": False,
     "creep_spawn_interval": 0.0,
-    "is_interior": False
+    "default_biome": "Water"
 }
 
 # Output the JSON to the file with the world ID in the name

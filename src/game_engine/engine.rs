@@ -325,7 +325,10 @@ impl GameEngine {
 
     fn teleport(&mut self, destination: &Destination) {
         self.loading_screen.animate_world_transition();
-        self.world.save();
+        
+        if self.creative_mode {
+            self.world.save();
+        }
             
         if self.world.id != WORLD_ID_NONE {
             set_value_for_key(&StorageKey::previous_world(), self.world.id);

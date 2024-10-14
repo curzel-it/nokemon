@@ -27,7 +27,7 @@ pub struct World {
     pub creep_spawn_enabled: bool,
     pub creep_spawn_interval: f32,
     pub is_in_cutscene: bool,
-    pub is_interior: bool,
+    pub default_biome: Biome,
     pub pressure_plate_down_red: bool,
     pub pressure_plate_down_green: bool,
     pub pressure_plate_down_blue: bool,
@@ -59,7 +59,7 @@ impl World {
             creep_spawn_enabled: false,
             creep_spawn_interval: 5.0,
             is_in_cutscene: false,
-            is_interior: false,
+            default_biome: Biome::Nothing,
             pressure_plate_down_red: false,
             pressure_plate_down_green: false,
             pressure_plate_down_blue: false,
@@ -131,6 +131,22 @@ impl World {
 
     pub fn apply_state_updates(&mut self, updates: Vec<WorldStateUpdate>) -> Vec<EngineStateUpdate> {
         updates.into_iter().filter_map(|u| self.apply_state_update(u)).collect()
+    }
+
+    pub fn default_tile(&self) -> BiomeTile {
+        let mut tile = BiomeTile {
+            tile_type: self.default_biome,
+            column: 0,
+            row: 0,
+            tile_up_type: self.default_biome,
+            tile_right_type: self.default_biome,
+            tile_down_type: self.default_biome,
+            tile_left_type: self.default_biome,
+            texture_offset_x: 0,
+            texture_offset_y: 0
+        };
+        tile.setup_textures();
+        tile
     }
 
     fn log_update(&self, update: &WorldStateUpdate) {

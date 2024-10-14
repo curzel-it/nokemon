@@ -238,6 +238,7 @@ impl Stockable {
                 Biome::GrassFlowersYellow => (0, 13),
                 Biome::GrassFlowersBlue => (0, 14),
                 Biome::GrassFlowersPurple => (0, 15),
+                Biome::Lava => (0, 24),
             },
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (6, 1),
@@ -306,6 +307,7 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::DarkWood),
             Stockable::BiomeTile(Biome::RockPlates),
             Stockable::BiomeTile(Biome::Ice),
+            Stockable::BiomeTile(Biome::Lava),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::ConstructionTile(Construction::MetalFence),

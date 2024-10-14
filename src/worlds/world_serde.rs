@@ -2,7 +2,7 @@ use std::{fs::File, io::{BufReader, Write}};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 use super::utils::world_path;
 
@@ -28,7 +28,7 @@ impl World {
 
     pub fn load_or_create(id: u32) -> Self {
         Self::load(id).unwrap_or_else(|| {
-            let new = Self::new_with_default_tiles(id);
+            let new = Self::new_with_default_biomes(id);
             new.save();
             new
         })
@@ -52,7 +52,7 @@ impl World {
         }
     }
 
-    fn new_with_default_tiles(id: u32) -> Self {
+    fn new_with_default_biomes(id: u32) -> Self {
         let mut world = World::new(id);
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
@@ -103,7 +103,7 @@ struct WorldData {
     creep_spawn_interval: f32,
 
     #[serde(default)]
-    is_interior: bool,
+    default_biome: Biome,
 
     #[serde(default)]
     pressure_plate_down_red: bool,
@@ -135,7 +135,7 @@ impl Serialize for World {
         state.serialize_field("entities", &entities)?;
         state.serialize_field("creep_spawn_enabled", &self.creep_spawn_enabled)?;
         state.serialize_field("creep_spawn_interval", &self.creep_spawn_interval)?;
-        state.serialize_field("is_interior", &self.is_interior)?;
+        state.serialize_field("default_biome", &self.default_biome)?;
         state.serialize_field("pressure_plate_down_red", &self.pressure_plate_down_red)?;
         state.serialize_field("pressure_plate_down_green", &self.pressure_plate_down_green)?;
         state.serialize_field("pressure_plate_down_blue", &self.pressure_plate_down_blue)?;
@@ -150,7 +150,7 @@ impl<'de> Deserialize<'de> for World {
         let data = WorldData::deserialize(deserializer)?;
 
         let mut world = World::new(data.id);        
-        world.is_interior = data.is_interior;
+        world.default_biome = data.default_biome;
         world.creep_spawn_enabled = data.creep_spawn_enabled;
         world.creep_spawn_interval = data.creep_spawn_interval;
         world.pressure_plate_down_red = data.pressure_plate_down_red;

@@ -4,7 +4,7 @@ use crate::{impl_tile, utils::{directions::Direction, rect::Rect}};
 
 use super::tiles::{SpriteTile, TileSet};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[derive(Default)]
 pub enum Biome {
     Nothing,
@@ -24,6 +24,7 @@ pub enum Biome {
     Ice,
     DarkGrass,
     RockPlates,
+    Lava,
 }
 
 
@@ -66,7 +67,7 @@ impl BiomeTile {
         self.setup_textures();    
     }
 
-    fn setup_textures(&mut self) {
+    pub fn setup_textures(&mut self) {
         self.texture_offset_x = self.texture_index_for_neighbors();
         self.texture_offset_y = self.tile_type.texture_index(); 
     }
@@ -90,6 +91,9 @@ impl BiomeTile {
                 (Biome::Water, Biome::Desert) => 0,
                 (Biome::Water, Biome::Grass) => 0,
                 (Biome::Water, Biome::DarkGrass) => 0,
+                (Biome::Lava, Biome::Desert) => 0,
+                (Biome::Lava, Biome::Grass) => 0,
+                (Biome::Lava, Biome::DarkGrass) => 0,
                 (Biome::Grass, Biome::Desert) => 0,
                 (Biome::Grass, Biome::Rock) => 0,
                 (Biome::Grass, Biome::DarkRock) => 0,
@@ -101,9 +105,11 @@ impl BiomeTile {
                 (Biome::Grass, Biome::DarkGrass) => 0,
                 (Biome::Snow, Biome::Rock) => 0,
                 (Biome::Water, Biome::DarkRock) => 0,
+                (Biome::Lava, Biome::DarkRock) => 0,
                 (Biome::Desert, Biome::Snow) => 0,
                 (Biome::Rock, Biome::Snow) => 0,
                 (Biome::DarkRock, Biome::Snow) => 0,
+                (Biome::DarkRock, Biome::Desert) => 0,
                 (_, Biome::Nothing) => 0,
                 _ => default_index
             }
@@ -191,7 +197,7 @@ impl Biome {
     }
 
     fn number_of_biomes() -> i32 {
-        16
+        17
     }
 
     fn texture_index(&self) -> i32 {
@@ -211,7 +217,8 @@ impl Biome {
             Biome::DarkRock => 8,
             Biome::Ice => 9,
             Biome::DarkGrass => 10,
-            Biome::RockPlates => 11
+            Biome::RockPlates => 11,
+            Biome::Lava => 16
         }
     }
 
@@ -277,6 +284,7 @@ impl Biome {
             '9' => Biome::Ice,
             'A' => Biome::DarkGrass,
             'B' => Biome::RockPlates,
+            'G' => Biome::Lava,
             _ => Biome::Nothing,
         }
     }
@@ -299,6 +307,7 @@ impl Biome {
             Biome::GrassFlowersYellow => 'D',
             Biome::GrassFlowersBlue => 'E',
             Biome::GrassFlowersPurple => 'F',
+            Biome::Lava => 'G',
         }
     }
 }
