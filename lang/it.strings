@@ -132,24 +132,23 @@ Puoi cambiare quanto segue:
 "you" = "Tu"
 
 "status.fake" = """
--------------------------
+--------------------------
 Drunvel Sareth:       42
--------------------------
-Statistiche:
-- Valkrem:           1/1
+--------------------------
+Stats:
+- Valkrem:             1
 - Selyrun:            89
 - Ithurea:            13
 - Ulzorith:          101
 - Felnar:             67
 - Xolyeth:            33
--------------------------
+--------------------------
 Abilità:
 - Meliktra Nux:        1
 - ...
--------------------------
 
-Questa lista continua all'infinito! 
-Non riesco a leggere Isekai!!
+Sta lista è sterminata, ma 
+non so leggere l'isekai!!
 """
 
 "1001.hint.blessing_received" = """
@@ -250,7 +249,8 @@ Sto bene, la maggior parte dei demoni è intrappolata adesso...
 Ma il sindaco si è chiuso dentro con tutte le nostre provviste. 
 Ho bisogno che tu mi aiuti a dargli una lezione.
 
-Puoi aprire il cancello del municipio?
+Puoi andare a Nord e aprire il cancello del municipio?
+Tutti i mostri sembrano arrivare da li, io non ce la faccio...
 """
 
 "1004.old_man.gate_now_open" = """
@@ -266,7 +266,8 @@ Inoltre, non arriveranno altre navi.
 
 "1004.hint.what_is_that" = """
 Dea:
-E' un portale quello...?
+Un portale..!
+I demoni arrivano sicuramente da li.
 """
 
 "1004.hint.dont_enter_portal" = """

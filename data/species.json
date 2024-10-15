@@ -2383,5 +2383,27 @@
         "sprite_sheet_id": 1004,
         "sprite_number_of_frames": 1,
         "lock_type": "None"
+    },
+    {
+        "id": 60002,
+        "name": "objects.name.deamon_lord",
+        "entity_type": "StaticObject",
+        "z_index": -1,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "is_invulnerable": false,
+        "inventory_texture_offset": [
+            4,
+            14
+        ],
+        "sprite_frame": {
+            "x": 5,
+            "y": 6,
+            "w": 2,
+            "h": 3
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     }
 ]

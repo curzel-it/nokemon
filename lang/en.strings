@@ -135,7 +135,7 @@ You can change the following:
 Drunvel Sareth:       42
 -------------------------
 Stats:
-- Valkrem:           1/1
+- Valkrem:             1
 - Selyrun:            89
 - Ithurea:            13
 - Ulzorith:          101
@@ -145,7 +145,6 @@ Stats:
 Skills:
 - Meliktra Nux:        1
 - ...
--------------------------
 
 This list goes on and on! 
 I can't read Isekai!!
@@ -155,7 +154,7 @@ I can't read Isekai!!
 Goddess:
 I gave you my blessing traveler.
 Please check the status window,
-your new abilities will be esse ntial for victory...
+your new abilities will be essential for victory...
 """
 
 "1001.wizard_intro" = """
@@ -247,7 +246,8 @@ I'm fine, most of the deamons are trapped now...
 But the major has shut himself up with all our supplies. 
 I need you to help me teach him a lesson.
 
-Can you open the gate of the town hall?
+Can you go North and open the gate of the town hall?
+All monsters seem to be coming from there, I can't get close...
 """
 
 "1004.old_man.gate_now_open" = """
@@ -263,7 +263,8 @@ Also, no more ships are coming.
 
 "1004.hint.what_is_that" = """
 Goddess:
-Is that a portal...?
+A portal..!
+That's where the deamons must be coming from.
 """
 
 "1004.hint.dont_enter_portal" = """

@@ -7,8 +7,8 @@ impl Entity {
 
     pub fn update_hero(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {        
         let mut world_updates: Vec<WorldStateUpdate> = vec![];
-        
-        if !world.is_hero_on_slippery_surface() && !world.is_in_cutscene {
+
+        if !(world.is_hero_on_slippery_surface() && self.current_speed > 0.0) {
             self.update_direction_for_current_keys(world.direction_based_on_current_keys);
             self.update_sprite_for_current_state();
         } else {

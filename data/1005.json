@@ -179,7 +179,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Suggerimento (Uso singolo)",
+      "name": "Hint (One time)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -241,7 +241,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Suggerimento (Uso singolo)",
+      "name": "Hint (One time)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -303,7 +303,7 @@
         "w": 8,
         "h": 8
       },
-      "name": "Castello del Signore dei Demoni",
+      "name": "Deamon Lord Castle",
       "species_id": 60001,
       "entity_type": "Building",
       "offset": {
@@ -365,7 +365,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teletrasportatore",
+      "name": "Teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -390,8 +390,8 @@
       "time_immobilized": 0.0,
       "destination": {
         "world": 1006,
-        "x": 0,
-        "y": 0
+        "x": 8,
+        "y": 27
       },
       "lock_type": "None",
       "original_sprite_frame": {

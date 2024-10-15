@@ -15,6 +15,7 @@ impl Entity {
         }
         if self.is_rigid {
             if would_collide(&frame, &self.direction, &world.hitmap) {
+                self.current_speed = 0.0;
                 return
             }
             if !can_step_over_hero(self) && would_collide_with_hero(&frame, &self.direction, world) {

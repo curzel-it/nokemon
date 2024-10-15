@@ -261,7 +261,6 @@ impl GameEngine {
                 self.teleport(destination)
             }
             EngineStateUpdate::SaveGame => {
-                self.world.default_biome = Biome::Lava;
                 self.save()
             }
             EngineStateUpdate::Exit => {
