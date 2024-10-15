@@ -216,7 +216,7 @@ Tieni il mio coltello per me ragazzo.
 
 "1002.hint.why_no_status_window" = """
 Dea:
-Perché non hai ancora controllato la finestra di stato!?
+Mmmh... Non hai ancora controllato la finestra di stato!?
 """
 
 "1002.hint.cant_you_hear_me" = """
@@ -266,7 +266,7 @@ Inoltre, non arriveranno altre navi.
 
 "1004.hint.what_is_that" = """
 Dea:
-È un portale...?
+E' un portale quello...?
 """
 
 "1004.hint.dont_enter_portal" = """
@@ -280,5 +280,5 @@ Non osare...!
 """
 
 "1005.hint.deamon_kingdom_intro" = """
-Perché sei nel regno dei demoni!?
+Il regno dei demoni!?
 """

@@ -179,7 +179,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Deep Hole",
+      "name": "objects.name.deep_hole",
       "species_id": 5001,
       "entity_type": "Teleporter",
       "offset": {
@@ -493,7 +493,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Sign",
+      "name": "objects.name.sign",
       "species_id": 10000,
       "entity_type": "StaticObject",
       "offset": {
@@ -555,7 +555,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Rail Cart",
+      "name": "objects.name.rail.cart",
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
@@ -803,7 +803,7 @@
         "w": 5,
         "h": 4
       },
-      "name": "House",
+      "name": "building.name.house",
       "species_id": 1003,
       "entity_type": "Building",
       "offset": {
@@ -865,7 +865,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -931,7 +931,7 @@
         "w": 2,
         "h": 2
       },
-      "name": "Fountain",
+      "name": "objects.name.fountain",
       "species_id": 11002,
       "entity_type": "StaticObject",
       "offset": {
@@ -993,7 +993,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Old Lady",
+      "name": "npc.name.old_woman",
       "species_id": 3006,
       "entity_type": "Npc",
       "offset": {
@@ -1062,7 +1062,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -1124,7 +1124,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -1248,7 +1248,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -1314,7 +1314,7 @@
         "w": 2,
         "h": 1
       },
-      "name": "Large Sign",
+      "name": "objects.name.large_sign",
       "species_id": 10001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1376,7 +1376,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Slime",
+      "name": "npc.name.slime",
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
@@ -1438,7 +1438,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "objects.name.holy_knife.x10",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -1624,7 +1624,7 @@
         "w": 2,
         "h": 2
       },
-      "name": "Well",
+      "name": "objects.name.well",
       "species_id": 11001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1681,16 +1681,16 @@
     {
       "id": 1727533496,
       "frame": {
-        "x": 81,
+        "x": 75,
         "y": 61,
         "w": 1,
         "h": 1
       },
-      "name": "Rail Cart",
+      "name": "objects.name.rail.cart",
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -1.4497054,
+        "x": -2.0165854,
         "y": 0.0
       },
       "direction": 3,
@@ -1748,7 +1748,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Pressure Plate",
+      "name": "objects.name.pressure_plate.silver",
       "species_id": 1054,
       "entity_type": "PressurePlate",
       "offset": {
@@ -1810,7 +1810,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Boulder",
+      "name": "objects.name.boulder",
       "species_id": 1030,
       "entity_type": "PushableObject",
       "offset": {
@@ -1872,7 +1872,7 @@
         "w": 2,
         "h": 1
       },
-      "name": "Large Sign",
+      "name": "objects.name.large_sign",
       "species_id": 10001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1934,7 +1934,7 @@
         "w": 3,
         "h": 3
       },
-      "name": "Blue Magic Circle",
+      "name": "objects.name.magic_circle.blue",
       "species_id": 11004,
       "entity_type": "StaticObject",
       "offset": {
@@ -1996,7 +1996,7 @@
         "w": 3,
         "h": 3
       },
-      "name": "Evil Summoning Circle",
+      "name": "objects.name.magic_circle.summoning.evil",
       "species_id": 11005,
       "entity_type": "StaticObject",
       "offset": {
@@ -2058,7 +2058,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -2120,7 +2120,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Old Man",
+      "name": "npc.name.old_man",
       "species_id": 3005,
       "entity_type": "Npc",
       "offset": {
@@ -2195,7 +2195,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2257,7 +2257,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2319,7 +2319,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2381,7 +2381,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2443,7 +2443,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2505,7 +2505,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2567,7 +2567,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2629,7 +2629,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2691,7 +2691,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2753,7 +2753,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2815,7 +2815,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2877,7 +2877,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2939,7 +2939,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -3001,7 +3001,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -3063,7 +3063,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3125,7 +3125,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3187,7 +3187,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3249,7 +3249,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3311,7 +3311,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3373,7 +3373,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3435,7 +3435,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3497,7 +3497,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Silver Gate",
+      "name": "objects.name.gate.silver",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -6287,7 +6287,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -6353,7 +6353,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6415,7 +6415,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6477,7 +6477,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6539,7 +6539,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6601,7 +6601,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6663,7 +6663,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6725,7 +6725,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "objects.name.holy_knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6787,7 +6787,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "objects.name.holy_knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6849,7 +6849,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "objects.name.holy_knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -7159,7 +7159,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7221,7 +7221,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7283,7 +7283,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -7349,7 +7349,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -7415,7 +7415,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7477,7 +7477,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7539,7 +7539,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7601,7 +7601,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7663,7 +7663,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7725,7 +7725,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7787,7 +7787,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7849,7 +7849,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7911,7 +7911,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7973,7 +7973,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "objects.name.holy_knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8035,7 +8035,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "objects.name.holy_knife",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8097,7 +8097,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8163,7 +8163,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8225,7 +8225,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8291,7 +8291,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8357,7 +8357,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8423,7 +8423,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8489,7 +8489,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8551,7 +8551,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8613,7 +8613,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8675,7 +8675,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Homunculus",
+      "name": "npc.name.homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8737,7 +8737,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8799,7 +8799,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8861,7 +8861,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8923,7 +8923,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8985,7 +8985,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -9047,7 +9047,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -9109,7 +9109,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {

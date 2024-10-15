@@ -319,7 +319,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Stairs (Up)",
+      "name": "objects.name.stairs_up",
       "species_id": 1010,
       "entity_type": "StaticObject",
       "offset": {
@@ -381,7 +381,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -447,7 +447,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Teleporter",
+      "name": "objects.name.teleporter",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -513,7 +513,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "Stairs (Up)",
+      "name": "objects.name.stairs_up",
       "species_id": 1010,
       "entity_type": "StaticObject",
       "offset": {
@@ -575,7 +575,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Hint (One time)",
+      "name": "objects.name.hint_consumable",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {

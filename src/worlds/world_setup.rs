@@ -24,11 +24,11 @@ impl World {
         let x = destination_x + offset_x;
         let y = destination_y + offset_y;
 
-        if y > 0 && !self.hitmap[y.max(0) as usize][x.max(0) as usize] {
+        if y > 0 && !self.hitmap[(y + 1) as usize][x as usize] {
             entity.frame.x = x;
             entity.frame.y = y;
             entity.direction = *hero_direction;
-        } else if y > 0 && !self.hitmap[(y + 2) as usize][x.max(0) as usize] {
+        } else if y > 0 && !self.hitmap[(y + 2) as usize][x as usize] {
             entity.frame.x = x;
             entity.frame.y = y + 2;
             entity.direction = Direction::Down;
@@ -50,7 +50,7 @@ impl World {
     fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (bool, i32, i32) {
         if original_x == 0 && original_y == 0 {            
             if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
-                (true, teleporter_position.x, teleporter_position.y)
+                (source != WORLD_ID_DEMO, teleporter_position.x, teleporter_position.y)
             } else if self.id == WORLD_ID_DEMO {
                 (false, 59, 41)
             } else {
