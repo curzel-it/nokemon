@@ -145,7 +145,7 @@ impl World {
             texture_offset_x: 0,
             texture_offset_y: 0
         };
-        tile.setup_textures();
+        tile.setup_neighbors(self.default_biome, self.default_biome, self.default_biome, self.default_biome);
         tile
     }
 

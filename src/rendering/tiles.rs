@@ -1,30 +1,7 @@
 use raylib::prelude::*;
 
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, TILE_SIZE}, game_engine::{engine::GameEngine, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::Construction, tiles::SpriteTile}};
+use crate::{constants::TILE_SIZE, game_engine::{engine::GameEngine, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction, tiles::SpriteTile}};
 
-const WATER: BiomeTile = BiomeTile { 
-    tile_type: Biome::Water, 
-    column: 0, 
-    row: 0, 
-    tile_up_type: Biome::Water,
-    tile_right_type: Biome::Water,
-    tile_down_type: Biome::Water,
-    tile_left_type: Biome::Water,
-    texture_offset_x: 0, 
-    texture_offset_y: 0
-};
-
-const NOTHING: BiomeTile = BiomeTile { 
-    tile_type: Biome::Nothing, 
-    column: 0, 
-    row: 0, 
-    tile_up_type: Biome::Nothing,
-    tile_right_type: Biome::Nothing,
-    tile_down_type: Biome::Nothing,
-    tile_left_type: Biome::Nothing,
-    texture_offset_x: 0, 
-    texture_offset_y: 7
-};
 
 pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     draw_tiles_in_viewport(d, world, engine);
@@ -43,11 +20,13 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
     for col in x_start..x_end {
         for row in y_start..y_end {
             if col < 0 || row < 0 || col >= world.bounds.w || row >= world.bounds.h {
-                draw_tile(
+                draw_tile_row_col(
                     d, 
                     sprite_key_biome, 
                     &default_tile, 
-                    0, 
+                    row as f32, 
+                    col as f32, 
+                    world.biome_tiles.current_variant(0, 0), 
                     engine
                 );
             } else {

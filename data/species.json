@@ -2193,5 +2193,27 @@
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1
+    },
+    {
+        "id": 60001,
+        "name": "building.name.deamon_lord_castle",
+        "entity_type": "Building",
+        "is_invulnerable": true,
+        "z_index": 0,
+        "base_speed": 2.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            13
+        ],
+        "sprite_frame": {
+            "x": 0,
+            "y": 21,
+            "w": 10,
+            "h": 8
+        },
+        "sprite_sheet_id": 1004,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
     }
 ]

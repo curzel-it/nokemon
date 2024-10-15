@@ -1,5 +1,6 @@
 "building.name.house" = "House"
 "building.name.house_two_floors" = "House (two stories)"
+"building.name.deamon_lord_castle" = "Deamon Lord Castle"
 "combat.options.attack" = "Attack"
 "combat.options.inventory" = "Inventory"
 "combat.options.run" = "Run"
@@ -273,4 +274,8 @@ It's clearly deamonic magic, stay away!
 "1004.hint.dont_you_dare" = """
 Goddess:
 Don't you dare...!
+"""
+
+"1005.hint.deamon_kingdom_intro" = """
+Why are in the deamon kingdom!?
 """
