@@ -6,37 +6,33 @@ from noise import pnoise2
 WIDTH = 120
 HEIGHT = 80
 
-# Parameters for the noise function
-freq = 0.8  # Lower frequency for larger features
-octaves = 3  # Reduced octaves for smoother noise
+freq = 0.8
+octaves = 3
 persistence = 0.5
 lacunarity = 2.0
 
-# Tile representation
 WATER = '2'
 SAND = '4'
-GRASSES = '8 8 8 8 8'.split(' ')
+GRASSES = '1 C D E F'.split(' ')
+DOUNGEON_PAVEMENT = 'B'
+DOUNGEON_WALL = 'H'
 
-# Initialize the map with water
 tiles = [[WATER for _ in range(WIDTH)] for _ in range(HEIGHT)]
 
-# Adjusted falloff function for smoother edges
 def falloff(x, y):
     nx = x / WIDTH * 2 - 1
     ny = y / HEIGHT * 2 - 1
-    distance = ((nx**2 + ny**2) ** 0.5) / (2 ** 0.5)  # Normalize distance
-    return distance ** 2  # Less severe falloff
+    distance = ((nx**2 + ny**2) ** 0.5) / (2 ** 0.5)
+    return distance ** 2
 
 for y in range(HEIGHT):
     for x in range(WIDTH):
-        # Borders remain water
         if x == 0 or y == 0 or x == WIDTH - 1 or y == HEIGHT - 1:
             continue
 
         nx = x / WIDTH - 0.5
         ny = y / HEIGHT - 0.5
 
-        # Generate noise value
         e = pnoise2(
             nx * freq,
             ny * freq,
@@ -45,19 +41,16 @@ for y in range(HEIGHT):
             lacunarity=lacunarity,
             repeatx=WIDTH,
             repeaty=HEIGHT,
-            base=random.randint(0, 1000)  # Fixed base for consistency
+            base=random.randint(0, 1000)
         )
 
-        # Apply the falloff function and adjust to increase landmass
-        e = e - falloff(x, y) + 0.6  # Adjust constant for island size
+        e = e - falloff(x, y) + 0.6
 
-        # Assign biome based on elevation value
-        if e > 0.05:  # Sand zone
+        if e > 0.05:
             tiles[y][x] = SAND
         else:
             tiles[y][x] = WATER
 
-# Function to smooth the map edges
 def smooth_map(tiles):
     new_tiles = [row[:] for row in tiles]
     for y in range(1, HEIGHT - 1):
@@ -74,16 +67,13 @@ def smooth_map(tiles):
             new_tiles[y][x] = max_tile
     return new_tiles
 
-# Apply smoothing to reduce jagged edges
 for _ in range(3):
     tiles = smooth_map(tiles)
 
-# Function to remove small inland water bodies (puddles)
 def remove_inland_water(tiles):
     visited = [[False for _ in range(WIDTH)] for _ in range(HEIGHT)]
     queue = []
 
-    # Enqueue all water tiles on the borders
     for x in range(WIDTH):
         if tiles[0][x] == WATER:
             queue.append((0, x))
@@ -100,7 +90,6 @@ def remove_inland_water(tiles):
             queue.append((y, WIDTH - 1))
             visited[y][WIDTH - 1] = True
 
-    # Perform BFS to mark all water tiles connected to the borders
     while queue:
         y, x = queue.pop(0)
         for dy, dx in [(-1,0),(1,0),(0,-1),(0,1)]:
@@ -110,7 +99,6 @@ def remove_inland_water(tiles):
                     visited[ny][nx] = True
                     queue.append((ny, nx))
 
-    # Any water tile not visited is inland water; convert to SAND
     for y in range(HEIGHT):
         for x in range(WIDTH):
             if tiles[y][x] == WATER and not visited[y][x]:
@@ -118,17 +106,14 @@ def remove_inland_water(tiles):
 
     return tiles
 
-# Remove inland water bodies
 tiles = remove_inland_water(tiles)
 
-# Helper function to safely get tile value, assuming out-of-bounds tiles are WATER
 def get_tile(tiles, y, x):
     if 0 <= y < HEIGHT and 0 <= x < WIDTH:
         return tiles[y][x]
     else:
         return WATER
 
-# Now, add grass to the interior of the island, including edges
 def add_grass(tiles):
     new_tiles = [row[:] for row in tiles]
     for y in range(HEIGHT):
@@ -153,20 +138,15 @@ def add_grass(tiles):
                     new_tiles[y][x] = random.choice(GRASSES)
     return new_tiles
 
-# Apply the grass function after the rest of the map is generated
 tiles = add_grass(tiles)
 
-# Convert each row to a string
 tile_strings = [''.join(row) for row in tiles]
 
-# Set up command-line argument parsing
 parser = argparse.ArgumentParser(description='Generate a biome map with a specific world ID.')
 parser.add_argument('world_id', type=int, help='The ID of the world to be generated.')
 
-# Parse the arguments
 args = parser.parse_args()
 
-# Construct the JSON object
 world_data = {
     "id": args.world_id,
     "biome_tiles": {
@@ -183,7 +163,6 @@ world_data = {
     "default_biome": "Water"
 }
 
-# Output the JSON to the file with the world ID in the name
 output_filename = f"/Users/curzel/dev/nokemon/data/{args.world_id}.json"
 with open(output_filename, "w") as f:
     f.write(json.dumps(world_data, indent=2))

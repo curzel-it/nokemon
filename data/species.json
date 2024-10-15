@@ -2151,6 +2151,174 @@
         "sprite_number_of_frames": 1
     },
     {
+        "id": 44431,
+        "name": "objects.name.slope.top_left.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            16
+        ],
+        "sprite_frame": {
+            "x": 11,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44432,
+        "name": "objects.name.slope.top_right.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            17
+        ],
+        "sprite_frame": {
+            "x": 12,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44433,
+        "name": "objects.name.slope.bottom_right.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            18
+        ],
+        "sprite_frame": {
+            "x": 13,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44434,
+        "name": "objects.name.slope.bottom_left.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            19
+        ],
+        "sprite_frame": {
+            "x": 14,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44435,
+        "name": "objects.name.slope.side_bottom.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            20
+        ],
+        "sprite_frame": {
+            "x": 15,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44436,
+        "name": "objects.name.slope.side_top.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            21
+        ],
+        "sprite_frame": {
+            "x": 16,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44437,
+        "name": "objects.name.slope.side_left.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            22
+        ],
+        "sprite_frame": {
+            "x": 17,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
+        "id": 44438,
+        "name": "objects.name.slope.side_right.dark_rock",
+        "is_invulnerable": true,
+        "entity_type": "PressurePlate",
+        "z_index": 100,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            4,
+            23
+        ],
+        "sprite_frame": {
+            "x": 18,
+            "y": 3,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1
+    },
+    {
         "id": 50000,
         "name": "objects.name.hint_consumable",
         "is_invulnerable": true,
@@ -2209,7 +2377,7 @@
         "sprite_frame": {
             "x": 0,
             "y": 21,
-            "w": 10,
+            "w": 8,
             "h": 8
         },
         "sprite_sheet_id": 1004,
