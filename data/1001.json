@@ -832,7 +832,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -894,7 +894,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -956,7 +956,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -1018,7 +1018,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -1080,7 +1080,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -1142,7 +1142,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -1204,7 +1204,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -1266,7 +1266,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
