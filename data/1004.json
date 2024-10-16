@@ -1438,7 +1438,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife.x10",
+      "name": "objects.name.kunai.x10",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -6725,7 +6725,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife",
+      "name": "objects.name.kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6787,7 +6787,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife",
+      "name": "objects.name.kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6849,7 +6849,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife",
+      "name": "objects.name.kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -7973,7 +7973,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife",
+      "name": "objects.name.kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8035,7 +8035,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.holy_knife",
+      "name": "objects.name.kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8751,8 +8751,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -8763,8 +8763,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -8813,8 +8813,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -8825,8 +8825,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -8875,8 +8875,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -8887,8 +8887,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -8937,8 +8937,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -8949,8 +8949,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -8999,8 +8999,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -9011,8 +9011,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -9061,8 +9061,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -9073,8 +9073,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -9123,8 +9123,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -9135,8 +9135,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },

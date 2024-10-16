@@ -832,10 +832,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -846,8 +846,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -894,10 +894,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -908,8 +908,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -956,10 +956,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -970,8 +970,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -1018,10 +1018,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -1032,8 +1032,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -1080,10 +1080,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -1094,8 +1094,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -1142,10 +1142,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -1156,8 +1156,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -1204,10 +1204,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -1218,8 +1218,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },
@@ -1266,10 +1266,10 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -1280,8 +1280,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },

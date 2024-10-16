@@ -877,7 +877,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -939,7 +939,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -2634,8 +2634,8 @@
       "sprite": {
         "sheet_id": 1010,
         "frame": {
-          "x": 5,
-          "y": 5,
+          "x": 4,
+          "y": 2,
           "w": 1,
           "h": 1
         },
@@ -2646,8 +2646,8 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 5,
+        "x": 4,
+        "y": 2,
         "w": 1,
         "h": 1
       },

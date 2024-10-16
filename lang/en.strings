@@ -58,7 +58,8 @@ You can change the following:
 "map_editor.title" = "Map Editor"
 "map_editor.subtitle" = "Press CONFIRM to select something"
 "map_editor.placement" = "Press CONFIRM to place\nPress ESC to cancel"
-"npc.name.default" = "Some rando"
+"npc.name.default" = "Some Npc"
+"npc.name.deamon_lord" = "Demon Lord"
 "npc.name.wizard" = "Wizard"
 "npc.name.old_man" = "Old Man"
 "npc.name.old_woman" = "Old Lady"
@@ -91,8 +92,8 @@ You can change the following:
 "objects.name.key_green" = "Green Key"
 "objects.name.key_blue" = "Blue Key"
 "objects.name.key_silver" = "Silver Key"
-"objects.name.holy_knife" = "Holy Knife"
-"objects.name.holy_knife.x10" = "x10 Holy Knife"
+"objects.name.kunai" = "Kunai"
+"objects.name.kunai.x10" = "x10 Kunai"
 "objects.name.teleporter" = "Teleporter"
 "objects.name.deep_hole" = "Deep Hole"
 "objects.name.boulder" = "Boulder"
@@ -131,23 +132,19 @@ You can change the following:
 "you" = "You"
 
 "status.fake" = """
--------------------------
-Drunvel Sareth:       42
--------------------------
-Stats:
-- Valkrem:             1
-- Selyrun:            89
-- Ithurea:            13
-- Ulzorith:          101
-- Felnar:             67
-- Xolyeth:            33
--------------------------
-Skills:
-- Meliktra Nux:        1
-- ...
-
-This list goes on and on! 
-I can't read Isekai!!
+-----------------------------
+Available Points:          0
+-----------------------------
+Stats (max lv 100):
+- Hp:                      1
+- Dp:                      1
+- Strenght:                5
+- Speed:                   4
+-----------------------------
+Skills (max lv 100):
+- Knife Throwing:          1
+- Vectorized Casting:      1
+-----------------------------
 """
 
 "1001.hint.blessing_received" = """
@@ -212,7 +209,7 @@ Hold on to my knife for me kid.
 
 "1002.hint.why_no_status_window" = """
 Goddess:
-Why didn't you check the status window yet!?
+Mmmh... Something seems wrong about your status window...
 """
 
 "1002.hint.cant_you_hear_me" = """
@@ -279,4 +276,14 @@ Don't you dare...!
 
 "1005.hint.deamon_kingdom_intro" = """
 Why are in the deamon kingdom!?
+"""
+
+"1008.dialogue.demon_lord.intro" = """
+I've been waiting for you... "Hero".
+You stand no chance as you are.
+Kneel and I might give you a quick death.
+"""
+
+"1008.dialogue.demon_lord.try_me" = """
+You dare overstep your mortal authority!?
 """

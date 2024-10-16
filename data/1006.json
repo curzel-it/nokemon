@@ -675,7 +675,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2039,7 +2039,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2101,7 +2101,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2163,7 +2163,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2225,7 +2225,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2287,7 +2287,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2349,7 +2349,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -2411,7 +2411,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -4023,7 +4023,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "Holy Knife",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -4085,7 +4085,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -5449,7 +5449,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "x10 Holy Knife",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {

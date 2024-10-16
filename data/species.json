@@ -1275,7 +1275,7 @@
     },
     {
         "id": 7000,
-        "name": "objects.name.holy_knife",
+        "name": "objects.name.kunai",
         "entity_type": "Bullet",
         "z_index": 300,
         "base_speed": 5.0,
@@ -1296,7 +1296,7 @@
     },
     {
         "id": 7001,
-        "name": "objects.name.holy_knife.x10",
+        "name": "objects.name.kunai.x10",
         "entity_type": "Bundle",
         "z_index": 300,
         "base_speed": 5.0,
@@ -2332,8 +2332,8 @@
             9
         ],
         "sprite_frame": {
-            "x": 5,
-            "y": 5,
+            "x": 4,
+            "y": 2,
             "w": 1,
             "h": 1
         },
@@ -2354,8 +2354,8 @@
             10
         ],
         "sprite_frame": {
-            "x": 6,
-            "y": 5,
+            "x": 4,
+            "y": 2,
             "w": 1,
             "h": 1
         },
@@ -2386,11 +2386,11 @@
     },
     {
         "id": 60002,
-        "name": "objects.name.deamon_lord",
-        "entity_type": "StaticObject",
+        "name": "npc.name.deamon_lord",
+        "entity_type": "Npc",
         "z_index": -1,
         "base_speed": 0.0,
-        "is_rigid": false,
+        "is_rigid": true,
         "is_invulnerable": false,
         "inventory_texture_offset": [
             4,
@@ -2401,6 +2401,28 @@
             "y": 6,
             "w": 2,
             "h": 3
+        },
+        "sprite_sheet_id": 1010,
+        "sprite_number_of_frames": 1,
+        "lock_type": "None"
+    },
+    {
+        "id": 1032,
+        "name": "objects.name.skull",
+        "is_invulnerable": true,
+        "entity_type": "PushableObject",
+        "z_index": 200,
+        "base_speed": 0.0,
+        "is_rigid": false,
+        "inventory_texture_offset": [
+            4,
+            15
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 7,
+            "w": 1,
+            "h": 1
         },
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,

@@ -6,23 +6,8 @@ impl World {
         self.update_hitmaps();
         save_pressure_plate_states(self);
 
-        let (requires_offset, destination_x, destination_y) = self.destination_x_y(source, original_x, original_y);        
+        let (x, y) = self.destination_x_y(source, original_x, original_y);        
         let mut entity = make_entity_by_species(SPECIES_HERO);
-
-        let (offset_x, offset_y): (i32, i32) = if !requires_offset {
-            (0, 0)
-        } else {
-            match hero_direction {
-                Direction::Up => (0, -2),
-                Direction::Right => (1, -1),
-                Direction::Down => (0, 0),
-                Direction::Left => (-1, -1),
-                Direction::Unknown => (0, 0),
-                Direction::Still => (0, 0),
-            }
-        };
-        let x = destination_x + offset_x;
-        let y = destination_y + offset_y;
 
         if y > 0 && !self.hitmap[(y + 1) as usize][x as usize] {
             entity.frame.x = x;
@@ -32,10 +17,14 @@ impl World {
             entity.frame.x = x;
             entity.frame.y = y + 2;
             entity.direction = Direction::Down;
-        } else {
+        } else if y >= 2 && !self.hitmap[(y - 2) as usize][x as usize] {
             entity.frame.x = x;
             entity.frame.y = y - 2;
             entity.direction = Direction::Up;
+        } else {
+            entity.frame.x = x;
+            entity.frame.y = y;
+            entity.direction = Direction::Down;
         }
         
         entity.immobilize_for_seconds(0.2);        
@@ -47,17 +36,17 @@ impl World {
         self.entities.borrow_mut().iter_mut().for_each(|e| e.setup(enabled));
     }
 
-    fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (bool, i32, i32) {
+    fn destination_x_y(&self, source: u32, original_x: i32, original_y: i32) -> (i32, i32) {
         if original_x == 0 && original_y == 0 {            
             if let Some(teleporter_position) = self.find_teleporter_for_destination(source) {
-                (source != WORLD_ID_DEMO, teleporter_position.x, teleporter_position.y)
+                (teleporter_position.x, teleporter_position.y)
             } else if self.id == WORLD_ID_DEMO {
-                (false, 59, 41)
+                (59, 41)
             } else {
-                (true, WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
+                (WORLD_SIZE_COLUMNS as i32 / 2, WORLD_SIZE_ROWS as i32 / 2)
             }
         } else {
-            (false, original_x, original_y)
+            (original_x, original_y)
         }
     }
 }

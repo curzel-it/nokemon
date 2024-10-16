@@ -1,15 +1,19 @@
-use crate::{game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
+use crate::{constants::SPRITE_SHEET_HUMANOIDS, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
 
 pub type NpcId = u32;
 
 impl Entity {
     pub fn setup_npc(&mut self) {
         self.setup_patrol();
-        self.update_sprite_for_current_state();
+        if self.sprite.sheet_id == SPRITE_SHEET_HUMANOIDS {
+            self.update_sprite_for_current_state();
+        }
     }
 
     pub fn update_npc(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {  
-        self.update_sprite_for_current_state();
+        if self.sprite.sheet_id == SPRITE_SHEET_HUMANOIDS {
+            self.update_sprite_for_current_state();
+        }
         self.handle_patrol();
         
         if !world.creative_mode {
