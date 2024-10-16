@@ -60,14 +60,13 @@ impl Entity {
     
     fn shoot_kunai(&mut self, world: &World, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
         self.shooting_cooldown_remaining -= time_since_last_update;
+        
         if self.shooting_cooldown_remaining > 0.0 {
             return vec![]
         }
-
         if !world.has_attack_key_been_pressed {
             return vec![]
         }
-
         if !inventory_contains_species(SPECIES_KUNAI) {
             return vec![]
         }
@@ -79,6 +78,7 @@ impl Entity {
         bullet.direction = world.cached_hero_props.direction;
         let (dx, dy) = bullet.direction.as_col_row_offset();
         bullet.frame = world.cached_hero_props.frame.offset(dx, dy).offset_y(1).with_h(1);
+        bullet.offset = self.offset;
         bullet.parent_id = self.id;
         bullet.remaining_lifespan = 5.0;
         bullet.reset_speed();

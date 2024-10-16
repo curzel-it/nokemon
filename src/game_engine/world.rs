@@ -348,6 +348,9 @@ impl World {
         let hero_direction: Direction = self.cached_hero_props.direction;        
         if !self.has_confirmation_key_been_pressed { return false }  
         
+        if self.is_hero_at(target.x, target.y) {
+            return true
+        }
         if hero.is_around_and_pointed_at(target, &hero_direction) {
             return true 
         }
