@@ -59,7 +59,8 @@ Puoi cambiare quanto segue:
 "map_editor.title" = "Editor Mappa"
 "map_editor.subtitle" = "Premi CONFERMA per selezionare qualcosa"
 "map_editor.placement" = "Premi CONFERMA per posizionare\nPremi ESC per annullare"
-"npc.name.default" = "Qualcuno"
+"npc.name.default" = "Some Npc"
+"npc.name.deamon_lord" = "Signore Oscuro"
 "npc.name.wizard" = "Mago"
 "npc.name.old_man" = "Vecchio"
 "npc.name.old_woman" = "Vecchia"
@@ -132,23 +133,19 @@ Puoi cambiare quanto segue:
 "you" = "Tu"
 
 "status.fake" = """
---------------------------
-Drunvel Sareth:       42
---------------------------
-Stats:
-- Valkrem:             1
-- Selyrun:            89
-- Ithurea:            13
-- Ulzorith:          101
-- Felnar:             67
-- Xolyeth:            33
---------------------------
-Abilità:
-- Meliktra Nux:        1
-- ...
-
-Sta lista è sterminata, ma 
-non so leggere l'isekai!!
+-----------------------------
+Punti disponibili:         0
+-----------------------------
+Stats (max lv 100):
+- Hp:                      1
+- Dp:                      1
+- Forza:                   5
+- Velocità:                4
+-----------------------------
+Skills (max lv 100):
+- Lancio pugnali:          1
+- Vectorized Casting:      1
+-----------------------------
 """
 
 "1001.hint.blessing_received" = """
@@ -215,17 +212,17 @@ Tieni il mio coltello per me ragazzo.
 
 "1002.hint.why_no_status_window" = """
 Dea:
-Mmmh... Non hai ancora controllato la finestra di stato!?
+Mmmh... Qualcosa non va nella finestra di stato...
 """
 
 "1002.hint.cant_you_hear_me" = """
 Dea:
-Ciao!? Riesci a sentirmi!?
+Ciao!?
 """
 
 "1003.hint.comunication_issues" = """
 Dea:
-Oh mio Dio... Non riesce a sentirmi!?
+... Non riesce a sentirmi...
 """
 
 "1004.old_lady.talk_to_my_husband" = """
@@ -282,4 +279,14 @@ Non osare...!
 
 "1005.hint.deamon_kingdom_intro" = """
 Il regno dei demoni!?
+"""
+
+"1008.dialogue.demon_lord.intro" = """
+Ti stavo aspettando... "Eroe".
+Qualcuno del tuo livello non ha nessuna chance.
+Inginocchiati e avrai una morte veloce e indolore.
+"""
+
+"1008.dialogue.demon_lord.try_me" = """
+Mortale, la mia pazienza ha un limite.
 """

@@ -1,8 +1,19 @@
-use crate::{constants::SPRITE_SHEET_AVATARS, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::{Toast, ToastImage}, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_AVATARS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_STATIC_OBJECTS}, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::{Toast, ToastImage}, utils::rect::Rect};
+
+use super::species::species_by_id;
 
 impl Entity {
     pub fn setup_hint(&mut self, creative_mode: bool) {
-        self.sprite.frame.y = if creative_mode { 5 } else { 6 };
+        if creative_mode { 
+            let species = species_by_id(self.species_id);
+            self.sprite.sheet_id = SPRITE_SHEET_INVENTORY;
+            self.sprite.frame.x = species.inventory_texture_offset.1;
+            self.sprite.frame.y = species.inventory_texture_offset.0;
+        } else {
+            self.sprite.sheet_id = SPRITE_SHEET_STATIC_OBJECTS;
+            self.sprite.frame.x = 4;
+            self.sprite.frame.y = 2;
+        }
     }
 
     pub fn update_hint(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {   
@@ -14,7 +25,7 @@ impl Entity {
     }
 
     fn hint_updates(&self) -> Vec<WorldStateUpdate> {
-        if self.is_consumable && self.has_been_read() {
+        if self.is_consumable && self.has_been_read() || self.contents.is_none() {
             vec![]
         } else {
             self.set_read();

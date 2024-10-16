@@ -114,7 +114,6 @@ impl Species {
         entity.original_sprite_frame = sprite.frame;
         entity.entity_type = self.entity_type;
         entity.is_rigid = self.is_rigid;
-        entity.z_index = self.z_index;
         entity.sprite = sprite;
         entity.name = self.name.localized();
         entity.shooting_cooldown_remaining = 0.0;
