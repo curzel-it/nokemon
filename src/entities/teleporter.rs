@@ -32,21 +32,30 @@ impl Entity {
     }
 
     fn should_teleport(&self, world: &World) -> bool {
+        if !world.is_any_arrow_key_down { return false }
+        if world.cached_hero_props.speed <= 0.0 { return false }
+
         let hero = world.cached_hero_props.hittable_frame;
         let hero_direction = world.cached_hero_props.direction;
-        let hero_speed = world.cached_hero_props.speed;
 
-        if !world.is_any_arrow_key_down { return false }
-        if hero_speed <= 0.0 { return false }
 
-        match hero_direction {
-            Direction::Up => hero.x == self.frame.x && hero.y == self.frame.y + 1,
-            Direction::Right => hero.y == self.frame.y && hero.x == self.frame.x - 1,
-            Direction::Down => hero.x == self.frame.x && hero.y == self.frame.y - 1,
-            Direction::Left => hero.y == self.frame.y && hero.x == self.frame.x + 1,
-            Direction::Unknown => false,
-            Direction::Still => false,
+        if matches!(hero_direction, Direction::Up) && hero.x == self.frame.x && hero.y == self.frame.y + 1 {
+            println!("Hero x {} y {} d {:#?} selfx {} selfy {}", hero.x, hero.y, hero_direction, self.frame.x, self.frame.y);
+            return true
         }
+        if matches!(hero_direction, Direction::Down) && hero.x == self.frame.x && hero.y == self.frame.y - 1 {
+            println!("Hero x {} y {} d {:#?} selfx {} selfy {}", hero.x, hero.y, hero_direction, self.frame.x, self.frame.y);
+            return true
+        }
+        if matches!(hero_direction, Direction::Right) && hero.x == self.frame.x - 1 && hero.y == self.frame.y {
+            println!("Hero x {} y {} d {:#?} selfx {} selfy {}", hero.x, hero.y, hero_direction, self.frame.x, self.frame.y);
+            return true
+        }
+        if matches!(hero_direction, Direction::Left) && hero.x == self.frame.x + 1 && hero.y == self.frame.y {
+            println!("Hero x {} y {} d {:#?} selfx {} selfy {}", hero.x, hero.y, hero_direction, self.frame.x, self.frame.y);
+            return true
+        }
+        false
     }
 
     fn engine_update_push_world(&self) -> WorldStateUpdate {

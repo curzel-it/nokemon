@@ -10,7 +10,7 @@ impl Entity {
         self.handle_patrol();
         self.move_linearly(world, time_since_last_update);
 
-        if world.creative_mode && world.is_hero_around_and_on_collision_with(&self.frame) {
+        if world.is_hero_around_and_on_collision_with(&self.frame) || world.is_hero_at(self.frame.x, self.frame.y) {            
             return vec![
                 WorldStateUpdate::EngineUpdate(
                     EngineStateUpdate::ShowEntityOptions(
