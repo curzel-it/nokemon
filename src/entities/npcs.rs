@@ -93,7 +93,6 @@ impl Entity {
         } else {
             false
         }
-
     }
 
     fn change_direction_towards_hero(&mut self, world: &World) {

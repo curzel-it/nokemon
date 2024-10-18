@@ -24,7 +24,8 @@ pub enum Construction {
     IndicatorArrow,
     Bridge,
     Broadleaf,
-    StoneBox
+    StoneBox,
+    SpoiledTree
 }
 
 
@@ -117,7 +118,8 @@ impl Construction {
             Construction::Bridge => 14,
             Construction::Broadleaf => 15,
             Construction::MetalFence => 16,
-            Construction::StoneBox => 17
+            Construction::StoneBox => 17,
+            Construction::SpoiledTree => 18
         }
     }
 }
@@ -166,6 +168,7 @@ impl Construction {
             'F' => Construction::Broadleaf,
             'G' => Construction::MetalFence,
             'H' => Construction::StoneBox,
+            'J' => Construction::SpoiledTree,
             _ => Construction::Nothing,
         }
     }
@@ -188,7 +191,8 @@ impl Construction {
             Construction::Bridge => 'E',
             Construction::Broadleaf => 'F',
             Construction::MetalFence => 'G',
-            Construction::StoneBox => 'H'
+            Construction::StoneBox => 'H',
+            Construction::SpoiledTree => 'J'
         }
     }
 }
