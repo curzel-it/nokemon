@@ -3,6 +3,7 @@ pub mod autoremove;
 pub mod creep_spawner;
 pub mod death_screen;
 pub mod destination;
+pub mod directions;
 pub mod hitmap;
 pub mod keyboard_directions;
 pub mod item_effects;

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, directions::MovementDirections}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -47,6 +47,9 @@ pub struct Entity {
     pub destination: Option<Destination>,
     pub lock_type: LockType,
     pub original_sprite_frame: Rect,
+
+    #[serde(default)]
+    pub movement_directions: MovementDirections,
 
     #[serde(default)]
     pub is_consumable: bool,
