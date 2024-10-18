@@ -218,14 +218,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -284,14 +276,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -346,14 +330,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -408,14 +384,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -470,14 +438,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -532,14 +492,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -594,14 +546,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -660,14 +604,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -722,14 +658,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0

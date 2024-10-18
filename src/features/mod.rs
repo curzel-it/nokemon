@@ -9,4 +9,3 @@ pub mod item_effects;
 pub mod linear_movement;
 pub mod loading_screen;
 pub mod melee;
-pub mod patrols;

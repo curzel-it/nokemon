@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, patrols::Patrol}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
@@ -59,9 +59,6 @@ pub struct Entity {
     
     #[serde(default)]
     pub is_dying: bool,
-
-    #[serde(default)]
-    pub patrol: Patrol,
 
     #[serde(default)]
     pub latest_movement: (i32, i32),  
@@ -172,7 +169,6 @@ impl Entity {
         if creative_mode {
             self.is_rigid = false
         }
-        self.setup_patrol();
     }
 
     fn update_static(&mut self, world: &World, _: f32) -> Vec<WorldStateUpdate> {  

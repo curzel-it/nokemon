@@ -4,7 +4,6 @@ use std::fs::File;
 use std::io::Read;
 use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
 use crate::features::animated_sprite::AnimatedSprite;
-use crate::features::patrols::Patrol;
 use crate::game_engine::entity::Entity;
 use crate::game_engine::locks::LockType;
 use crate::lang::localizable::LocalizableText;
@@ -92,7 +91,6 @@ impl Species {
             destination: None,
             lock_type: self.lock_type,
             original_sprite_frame,
-            patrol: Patrol::none(),
             contents: None,
             remaining_lifespan: UNLIMITED_LIFESPAN,
             shooting_cooldown_remaining: 0.0,

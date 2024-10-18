@@ -4,7 +4,6 @@ pub type NpcId = u32;
 
 impl Entity {
     pub fn setup_npc(&mut self) {
-        self.setup_patrol();
         if self.sprite.sheet_id == SPRITE_SHEET_HUMANOIDS_1X2 {
             self.update_sprite_for_current_state();
         }
@@ -14,7 +13,6 @@ impl Entity {
         if self.sprite.sheet_id == SPRITE_SHEET_HUMANOIDS_1X2 {
             self.update_sprite_for_current_state();
         }
-        self.handle_patrol();
         
         if !world.creative_mode {
             self.move_linearly(world, time_since_last_update);

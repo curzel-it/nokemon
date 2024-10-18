@@ -179,7 +179,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.deep_hole",
+      "name": "Buco Profondo",
       "species_id": 5001,
       "entity_type": "Teleporter",
       "offset": {
@@ -218,14 +218,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -280,14 +272,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -342,14 +326,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -404,14 +380,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -466,14 +434,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -493,7 +453,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.sign",
+      "name": "Cartello",
       "species_id": 10000,
       "entity_type": "StaticObject",
       "offset": {
@@ -528,14 +488,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -555,7 +507,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.rail.cart",
+      "name": "Carrello da Miniera",
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
@@ -590,14 +542,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         1,
         0
@@ -652,14 +596,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -714,14 +650,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -776,14 +704,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -803,7 +723,7 @@
         "w": 5,
         "h": 4
       },
-      "name": "building.name.house",
+      "name": "Casa",
       "species_id": 1003,
       "entity_type": "Building",
       "offset": {
@@ -838,14 +758,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -865,7 +777,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -904,14 +816,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -931,7 +835,7 @@
         "w": 2,
         "h": 2
       },
-      "name": "objects.name.fountain",
+      "name": "Fontana",
       "species_id": 11002,
       "entity_type": "StaticObject",
       "offset": {
@@ -966,14 +870,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -993,7 +889,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.old_woman",
+      "name": "Vecchia",
       "species_id": 3006,
       "entity_type": "Npc",
       "offset": {
@@ -1035,14 +931,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1062,7 +950,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -1097,14 +985,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1124,7 +1004,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -1159,14 +1039,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1221,14 +1093,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1248,7 +1112,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -1287,14 +1151,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1314,7 +1170,7 @@
         "w": 2,
         "h": 1
       },
-      "name": "objects.name.large_sign",
+      "name": "Grande Cartello",
       "species_id": 10001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1349,14 +1205,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1376,7 +1224,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "npc.name.slime",
+      "name": "Melma",
       "species_id": 4001,
       "entity_type": "Npc",
       "offset": {
@@ -1411,14 +1259,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1438,7 +1278,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai.x10",
+      "name": "x10 Kunai",
       "species_id": 7001,
       "entity_type": "Bundle",
       "offset": {
@@ -1473,14 +1313,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1489,7 +1321,7 @@
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
-      "is_invulnerable": false,
+      "is_invulnerable": true,
       "demands_attention": false
     },
     {
@@ -1535,14 +1367,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1597,14 +1421,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1624,7 +1440,7 @@
         "w": 2,
         "h": 2
       },
-      "name": "objects.name.well",
+      "name": "Pozzo",
       "species_id": 11001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1659,14 +1475,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1686,11 +1494,11 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.rail.cart",
+      "name": "Carrello da Miniera",
       "species_id": 9000,
       "entity_type": "RailObject",
       "offset": {
-        "x": -2.0165854,
+        "x": -1.6065032,
         "y": 0.0
       },
       "direction": 3,
@@ -1721,14 +1529,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1748,7 +1548,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.pressure_plate.silver",
+      "name": "Piastra di Pressione d'Argento",
       "species_id": 1054,
       "entity_type": "PressurePlate",
       "offset": {
@@ -1783,14 +1583,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1810,7 +1602,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.boulder",
+      "name": "Masso",
       "species_id": 1030,
       "entity_type": "PushableObject",
       "offset": {
@@ -1845,14 +1637,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         -1,
         0
@@ -1872,7 +1656,7 @@
         "w": 2,
         "h": 1
       },
-      "name": "objects.name.large_sign",
+      "name": "Grande Cartello",
       "species_id": 10001,
       "entity_type": "StaticObject",
       "offset": {
@@ -1907,14 +1691,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1934,7 +1710,7 @@
         "w": 3,
         "h": 3
       },
-      "name": "objects.name.magic_circle.blue",
+      "name": "Cerchio Magico Blu",
       "species_id": 11004,
       "entity_type": "StaticObject",
       "offset": {
@@ -1969,14 +1745,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -1996,7 +1764,7 @@
         "w": 3,
         "h": 3
       },
-      "name": "objects.name.magic_circle.summoning.evil",
+      "name": "Cerchio di Evocazione Malefica",
       "species_id": 11005,
       "entity_type": "StaticObject",
       "offset": {
@@ -2031,14 +1799,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2058,7 +1818,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -2093,14 +1853,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2120,7 +1872,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.old_man",
+      "name": "Vecchio",
       "species_id": 3005,
       "entity_type": "Npc",
       "offset": {
@@ -2168,14 +1920,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2195,7 +1939,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2230,14 +1974,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2257,7 +1993,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2292,14 +2028,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2319,7 +2047,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2354,14 +2082,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2381,7 +2101,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2416,14 +2136,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2443,7 +2155,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -2478,14 +2190,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2505,7 +2209,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2540,14 +2244,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2567,7 +2263,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2602,14 +2298,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2629,7 +2317,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2664,14 +2352,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2691,7 +2371,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2726,14 +2406,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         -1,
         0
@@ -2753,7 +2425,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2788,14 +2460,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2815,7 +2479,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2850,14 +2514,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2877,7 +2533,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2912,14 +2568,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -2939,7 +2587,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -2974,14 +2622,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3001,7 +2641,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -3036,14 +2676,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3063,7 +2695,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3098,14 +2730,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3125,7 +2749,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3160,14 +2784,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3187,7 +2803,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3222,14 +2838,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3249,7 +2857,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3284,14 +2892,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3311,7 +2911,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3346,14 +2946,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3373,7 +2965,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3408,14 +3000,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3435,7 +3019,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3470,14 +3054,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3497,7 +3073,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.gate.silver",
+      "name": "Cancello d'Argento",
       "species_id": 1044,
       "entity_type": "Gate",
       "offset": {
@@ -3532,14 +3108,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3594,14 +3162,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3656,14 +3216,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3718,14 +3270,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3780,14 +3324,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3842,14 +3378,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3904,14 +3432,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -3966,14 +3486,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4028,14 +3540,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4090,14 +3594,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4152,14 +3648,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4214,14 +3702,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4276,14 +3756,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4338,14 +3810,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4400,14 +3864,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4462,14 +3918,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4524,14 +3972,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4586,14 +4026,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4648,14 +4080,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4710,14 +4134,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4772,14 +4188,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4834,14 +4242,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4896,14 +4296,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -4958,14 +4350,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5020,14 +4404,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5082,14 +4458,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5144,14 +4512,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5206,14 +4566,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5268,14 +4620,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5330,14 +4674,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5392,14 +4728,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5454,14 +4782,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5516,14 +4836,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5578,14 +4890,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5640,14 +4944,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5702,14 +4998,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5764,14 +5052,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5826,14 +5106,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5888,14 +5160,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -5950,14 +5214,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6012,14 +5268,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6074,14 +5322,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6136,14 +5376,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6198,14 +5430,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6260,14 +5484,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6287,7 +5503,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -6326,14 +5542,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6353,7 +5561,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6388,14 +5596,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6415,7 +5615,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6450,14 +5650,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6477,7 +5669,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6512,14 +5704,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6539,7 +5723,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6574,14 +5758,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         1
@@ -6601,7 +5777,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6636,14 +5812,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6663,7 +5831,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -6698,14 +5866,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6725,7 +5885,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6760,14 +5920,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6787,7 +5939,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6822,14 +5974,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6849,7 +5993,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -6884,14 +6028,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -6946,14 +6082,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7008,14 +6136,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7070,14 +6190,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7132,14 +6244,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7159,7 +6263,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7194,14 +6298,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7221,7 +6317,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7256,14 +6352,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         1,
         0
@@ -7283,7 +6371,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -7322,14 +6410,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7349,7 +6429,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -7388,14 +6468,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7415,7 +6487,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7450,14 +6522,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7477,7 +6541,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7512,14 +6576,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7539,7 +6595,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7574,14 +6630,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7601,7 +6649,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7636,14 +6684,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7663,7 +6703,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7698,14 +6738,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7725,7 +6757,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7760,14 +6792,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7787,7 +6811,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7822,14 +6846,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7849,7 +6865,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7884,14 +6900,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7911,7 +6919,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -7946,14 +6954,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -7973,7 +6973,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8008,14 +7008,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8035,7 +7027,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.kunai",
+      "name": "Kunai",
       "species_id": 7000,
       "entity_type": "Bullet",
       "offset": {
@@ -8070,14 +7062,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8097,7 +7081,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8136,14 +7120,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8163,7 +7139,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8198,14 +7174,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8225,7 +7193,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8264,14 +7232,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8291,7 +7251,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8330,14 +7290,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8357,7 +7309,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8396,14 +7348,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8423,7 +7367,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.teleporter",
+      "name": "Teletrasportatore",
       "species_id": 1019,
       "entity_type": "Teleporter",
       "offset": {
@@ -8462,14 +7406,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8489,7 +7425,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8524,14 +7460,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8551,7 +7479,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8586,14 +7514,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8613,7 +7533,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8648,14 +7568,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8675,7 +7587,7 @@
         "w": 1,
         "h": 2
       },
-      "name": "npc.name.homunculus",
+      "name": "Homunculus",
       "species_id": 4004,
       "entity_type": "Npc",
       "offset": {
@@ -8710,14 +7622,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": true,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8737,7 +7641,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8749,7 +7653,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -8772,14 +7676,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8799,7 +7695,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8811,7 +7707,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -8834,14 +7730,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8861,7 +7749,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8873,7 +7761,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -8896,14 +7784,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8923,7 +7803,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8935,7 +7815,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -8958,14 +7838,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -8985,7 +7857,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -8997,7 +7869,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -9020,14 +7892,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -9047,7 +7911,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -9059,7 +7923,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -9082,14 +7946,6 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -9109,7 +7965,7 @@
         "w": 1,
         "h": 1
       },
-      "name": "objects.name.hint_consumable",
+      "name": "Suggerimento (Uso singolo)",
       "species_id": 50000,
       "entity_type": "Hint",
       "offset": {
@@ -9121,7 +7977,7 @@
       "is_rigid": false,
       "z_index": 0,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1001,
         "frame": {
           "x": 4,
           "y": 2,
@@ -9144,19 +8000,173 @@
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
       "is_dying": false,
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
       ],
       "contents": "1004.hint.what_is_that",
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 9273605,
+      "frame": {
+        "x": 31,
+        "y": 58,
+        "w": 1,
+        "h": 1
+      },
+      "name": "npc.name.cat",
+      "species_id": 90100,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 8,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 8,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 9273606,
+      "frame": {
+        "x": 33,
+        "y": 58,
+        "w": 1,
+        "h": 1
+      },
+      "name": "npc.name.cat",
+      "species_id": 90100,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 8,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 8,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
+      "remaining_lifespan": -420.0,
+      "shooting_cooldown_remaining": 0.0,
+      "parent_id": 0,
+      "is_invulnerable": true,
+      "demands_attention": false
+    },
+    {
+      "id": 9273607,
+      "frame": {
+        "x": 35,
+        "y": 58,
+        "w": 1,
+        "h": 1
+      },
+      "name": "npc.name.cat",
+      "species_id": 90100,
+      "entity_type": "Npc",
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "direction": 1,
+      "current_speed": 0.0,
+      "is_rigid": true,
+      "z_index": 200,
+      "sprite": {
+        "sheet_id": 1014,
+        "frame": {
+          "x": 8,
+          "y": 0,
+          "w": 1,
+          "h": 1
+        },
+        "number_of_frames": 1
+      },
+      "dialogues": [],
+      "time_immobilized": 0.0,
+      "destination": null,
+      "lock_type": "None",
+      "original_sprite_frame": {
+        "x": 8,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "is_consumable": false,
+      "speed_multiplier": 1.0,
+      "melee_attacks_hero": false,
+      "is_dying": false,
+      "latest_movement": [
+        0,
+        0
+      ],
+      "contents": null,
       "remaining_lifespan": -420.0,
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
