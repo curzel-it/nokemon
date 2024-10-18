@@ -25,6 +25,7 @@ pub enum Biome {
     DarkGrass,
     RockPlates,
     Lava,
+    Farmland,
 }
 
 
@@ -197,7 +198,7 @@ impl Biome {
     }
 
     fn number_of_biomes() -> i32 {
-        17
+        18
     }
 
     fn texture_index(&self) -> i32 {
@@ -218,7 +219,8 @@ impl Biome {
             Biome::Ice => 9,
             Biome::DarkGrass => 10,
             Biome::RockPlates => 11,
-            Biome::Lava => 16
+            Biome::Lava => 16,
+            Biome::Farmland => 17
         }
     }
 
@@ -285,6 +287,7 @@ impl Biome {
             'A' => Biome::DarkGrass,
             'B' => Biome::RockPlates,
             'G' => Biome::Lava,
+            'H' => Biome::Farmland,
             _ => Biome::Nothing,
         }
     }
@@ -308,6 +311,7 @@ impl Biome {
             Biome::GrassFlowersBlue => 'E',
             Biome::GrassFlowersPurple => 'F',
             Biome::Lava => 'G',
+            Biome::Farmland => 'H'
         }
     }
 }

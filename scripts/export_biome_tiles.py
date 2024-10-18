@@ -71,7 +71,8 @@ def export_biome_tiles(aseprite_assets, destination_folder):
         "grass_yellow_flowers",
         "grass_blue_flowers",
         "grass_purple_flowers",
-        "lava"
+        "lava",
+        "farmland"
     ]
 
     # 1060 tiles

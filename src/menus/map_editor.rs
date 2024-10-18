@@ -86,21 +86,25 @@ impl MapEditor {
             self.state = MapEditorState::SelectingItem(selected_index - 1);
         }
         if keyboard.has_confirmation_been_pressed {
+            let selection = self.stock[selected_index].clone();
+            let indicator_frame = self.initial_selection_frame(&selection);
+
             self.state = MapEditorState::PlacingItem(
                 selected_index,
-                self.stock[selected_index].clone(),
-                self.initial_selection_frame(),
+                selection,
+                indicator_frame,
             )
         }
         vec![]
     }
 
-    fn initial_selection_frame(&self) -> Rect {
+    fn initial_selection_frame(&self, item: &Stockable) -> Rect {
+        let size = item.size();
         Rect::new(
             self.camera_viewport.x + self.camera_viewport.w / 2,
             self.camera_viewport.y + self.camera_viewport.h / 2,
-            1,
-            1,
+            size.0, 
+            size.1
         )
     }
 
@@ -139,7 +143,7 @@ impl MapEditor {
         if mouse.has_moved {
             let x = mouse.x + self.camera_viewport.x;
             let y = mouse.y  + self.camera_viewport.y;
-            updated_frame = Rect::new(x, y, 1, 1);
+            updated_frame = Rect::new(x, y, updated_frame.w, updated_frame.h);
         } else {
             if keyboard.direction_up.is_pressed {
                 updated_frame = updated_frame.offset_y(-1);
@@ -219,6 +223,14 @@ enum Stockable {
 }
 
 impl Stockable {
+    pub fn size(&self) -> (i32, i32) {
+        match self {
+            Stockable::BiomeTile(_) => (1, 1),
+            Stockable::ConstructionTile(_) => (1, 1),
+            Stockable::Entity(species) => (species.sprite_frame.w, species.sprite_frame.h)
+        }
+    }
+
     fn texture_source_rect(&self) -> Rect {
         let (y, x) = match self {
             Stockable::BiomeTile(biome) => match biome {
@@ -239,6 +251,7 @@ impl Stockable {
                 Biome::GrassFlowersBlue => (0, 14),
                 Biome::GrassFlowersPurple => (0, 15),
                 Biome::Lava => (0, 24),
+                Biome::Farmland => (0, 25),
             },
             Stockable::ConstructionTile(construction) => match construction {
                 Construction::Nothing => (6, 1),
@@ -309,6 +322,7 @@ impl MapEditor {
             Stockable::BiomeTile(Biome::RockPlates),
             Stockable::BiomeTile(Biome::Ice),
             Stockable::BiomeTile(Biome::Lava),
+            Stockable::BiomeTile(Biome::Farmland),
             Stockable::ConstructionTile(Construction::Nothing),
             Stockable::ConstructionTile(Construction::WoodenFence),
             Stockable::ConstructionTile(Construction::MetalFence),
@@ -375,7 +389,7 @@ impl MapEditor {
                 ),
                 zstack!(
                     Spacing::Zero,
-                    Color::RED,
+                    Color::RED.alpha(0.6),
                     spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32))
                 )
             )
