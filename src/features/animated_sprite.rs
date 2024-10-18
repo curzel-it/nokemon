@@ -1,11 +1,12 @@
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{constants::{ANIMATIONS_FPS, UNLIMITED_LIFESPAN}, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, UNLIMITED_LIFESPAN}, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug, Clone)]
 pub struct AnimatedSprite {
     pub sheet_id: u32, 
     pub frame: Rect,
+    pub supports_directions: bool,
     original_frame: Rect,
     number_of_frames: i32,
     frames_provider: TimedContentProvider<i32>,
@@ -16,6 +17,7 @@ impl AnimatedSprite {
         Self {
             sheet_id, 
             frame,
+            supports_directions: supports_directions(sheet_id),
             original_frame: frame,
             number_of_frames,
             frames_provider: TimedContentProvider::frames(frame.x, number_of_frames, frame.w),
@@ -68,6 +70,15 @@ impl TimedContentProvider<i32> {
     pub fn frames(x: i32, n: i32, w: i32) -> Self {
         let frames = (0..n).map(|i| x + i * w).collect();
         Self::new(frames, ANIMATIONS_FPS)
+    }
+}
+
+fn supports_directions(sheet_id: u32) -> bool {
+    match sheet_id {
+        SPRITE_SHEET_HUMANOIDS_1X1 => true,
+        SPRITE_SHEET_HUMANOIDS_1X2 => true,
+        SPRITE_SHEET_HUMANOIDS_2X2 => true,
+        _ => false
     }
 }
 

@@ -18,7 +18,8 @@
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
-        "lock_type": "None"
+        "lock_type": "None",
+        "movement_directions": "Keyboard"
     },
     {
         "id": 1002,
@@ -1073,7 +1074,8 @@
         },
         "sprite_sheet_id": 1014,
         "sprite_number_of_frames": 4,
-        "lock_type": "None"
+        "lock_type": "None",
+        "movement_directions": "Free"
     },
     {
         "id": 4002,
@@ -1095,7 +1097,8 @@
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
-        "lock_type": "None"
+        "lock_type": "None",
+        "movement_directions": "FindHero"
     },
     {
         "id": 4003,
@@ -1117,7 +1120,8 @@
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
-        "lock_type": "None"
+        "lock_type": "None",
+        "movement_directions": "FindHero"
     },
     {
         "id": 4004,
@@ -1139,7 +1143,8 @@
         },
         "sprite_sheet_id": 1009,
         "sprite_number_of_frames": 4,
-        "lock_type": "None"
+        "lock_type": "None",
+        "movement_directions": "FindHero"
     },
     {
         "id": 5001,
@@ -2428,5 +2433,28 @@
         "sprite_sheet_id": 1010,
         "sprite_number_of_frames": 1,
         "lock_type": "None"
+    },
+    {
+        "id": 4005,
+        "name": "npc.name.cat",
+        "is_invulnerable": true,
+        "entity_type": "Npc",
+        "z_index": 150,
+        "base_speed": 1.0,
+        "is_rigid": true,
+        "inventory_texture_offset": [
+            2,
+            10
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 0,
+            "w": 1,
+            "h": 1
+        },
+        "sprite_sheet_id": 1014,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None",
+        "movement_directions": "Free"
     }
 ]

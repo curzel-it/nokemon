@@ -1,5 +1,5 @@
 
-use crate::{constants::{SPRITE_SHEET_BLANK, TILE_VARIATIONS_COUNT, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{SPRITE_SHEET_BLANK, BIOME_NUMBER_OF_FRAMES, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
 pub trait Tile: Clone {
     fn row(&self) -> u32;
@@ -31,7 +31,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn content_provider() -> TimedContentProvider<i32> {
-        TimedContentProvider::new(Vec::from_iter(0..TILE_VARIATIONS_COUNT), TILE_VARIATIONS_FPS)
+        TimedContentProvider::new(Vec::from_iter(0..BIOME_NUMBER_OF_FRAMES), TILE_VARIATIONS_FPS)
     }
 
     pub fn update(&mut self, time_since_last_update: f32) {
@@ -39,7 +39,7 @@ impl<T: Tile> TileSet<T> {
     }
 
     pub fn current_variant(&self, row: usize, col: usize) -> i32 {
-        (*self.sprite_counter.current_frame() + row as i32 + col as i32) % TILE_VARIATIONS_COUNT
+        (*self.sprite_counter.current_frame() + row as i32 + col as i32) % BIOME_NUMBER_OF_FRAMES
     }
 }
 

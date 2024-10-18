@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::Read;
 use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
 use crate::features::animated_sprite::AnimatedSprite;
-use crate::features::patrols::Patrol;
+use crate::features::directions::MovementDirections;
 use crate::game_engine::entity::Entity;
 use crate::game_engine::locks::LockType;
 use crate::lang::localizable::LocalizableText;
@@ -27,6 +27,9 @@ pub struct Species {
     pub sprite_frame: Rect,
     pub sprite_sheet_id: u32,
     pub sprite_number_of_frames: i32,
+    
+    #[serde(default)]
+    pub movement_directions: MovementDirections,
     
     #[serde(default)]
     pub lock_type: LockType,
@@ -72,7 +75,7 @@ impl Species {
     pub fn make_entity(&self) -> Entity {
         let sprite = self.make_sprite(false);
         let original_sprite_frame = sprite.frame; 
-        let initial_speed = if self.melee_attacks_hero { self.base_speed } else { 0.0 };
+        let initial_speed = if self.movement_directions.moves_by_default() { self.base_speed } else { 0.0 };
         
         Entity {
             id: self.next_entity_id(),
@@ -92,7 +95,6 @@ impl Species {
             destination: None,
             lock_type: self.lock_type,
             original_sprite_frame,
-            patrol: Patrol::none(),
             contents: None,
             remaining_lifespan: UNLIMITED_LIFESPAN,
             shooting_cooldown_remaining: 0.0,
@@ -102,7 +104,8 @@ impl Species {
             speed_multiplier: 1.0,
             is_invulnerable: false,
             demands_attention: false,
-            is_consumable: self.is_consumable
+            is_consumable: self.is_consumable,
+            movement_directions: self.movement_directions
         }
     }
 
@@ -121,6 +124,7 @@ impl Species {
         entity.speed_multiplier = 1.0;
         entity.is_consumable = self.is_consumable;
         entity.is_invulnerable = self.is_invulnerable;
+        entity.movement_directions = self.movement_directions;
     }
 
     pub fn inventory_sprite_frame(&self) -> Rect {
@@ -167,7 +171,8 @@ pub const SPECIES_NONE: Species = Species {
     melee_attacks_hero: false,
     is_consumable: false,
     bundle_contents: vec![],
-    is_invulnerable: false
+    is_invulnerable: false,
+    movement_directions: MovementDirections::None
 };
 
 pub fn species_by_id(species_id: u32) -> Species {

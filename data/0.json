@@ -349,14 +349,6 @@
         "w": 1,
         "h": 2
       },
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
-      },
       "latest_movement": [
         0,
         0
@@ -399,14 +391,6 @@
         "y": 1,
         "w": 1,
         "h": 1
-      },
-      "patrol": {
-        "initial_position": [
-          0,
-          0
-        ],
-        "current_index": 0,
-        "movements": []
       },
       "latest_movement": [
         0,
