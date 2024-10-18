@@ -2403,13 +2403,35 @@
             14
         ],
         "sprite_frame": {
-            "x": 5,
-            "y": 6,
+            "x": 0,
+            "y": 0,
             "w": 2,
             "h": 3
         },
-        "sprite_sheet_id": 1010,
-        "sprite_number_of_frames": 1,
+        "sprite_sheet_id": 1018,
+        "sprite_number_of_frames": 4,
+        "lock_type": "None"
+    },
+    {
+        "id": 60003,
+        "name": "npc.name.goddess",
+        "entity_type": "Npc",
+        "z_index": -1,
+        "base_speed": 0.0,
+        "is_rigid": true,
+        "is_invulnerable": false,
+        "inventory_texture_offset": [
+            2,
+            11
+        ],
+        "sprite_frame": {
+            "x": 8,
+            "y": 0,
+            "w": 2,
+            "h": 3
+        },
+        "sprite_sheet_id": 1018,
+        "sprite_number_of_frames": 4,
         "lock_type": "None"
     },
     {

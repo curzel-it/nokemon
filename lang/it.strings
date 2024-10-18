@@ -61,6 +61,7 @@ Puoi cambiare quanto segue:
 "map_editor.placement" = "Premi CONFERMA per posizionare\nPremi ESC per annullare"
 "npc.name.default" = "Some Npc"
 "npc.name.deamon_lord" = "Signore Oscuro"
+"npc.name.goddess" = "Dea"
 "npc.name.wizard" = "Mago"
 "npc.name.old_man" = "Vecchio"
 "npc.name.old_woman" = "Vecchia"
@@ -289,4 +290,16 @@ Inginocchiati e avrai una morte veloce e indolore.
 
 "1008.dialogue.demon_lord.try_me" = """
 Mortale, la mia pazienza ha un limite.
+"""
+
+"1009.dialogue.goddess.end_game" = """
+Grazie per aver salvato il mondo
+Bla bla bla
+(Lo sviluppatore non aveva sbatta di scrivere un dialogo come si deve, lol)
+"""
+
+"1009.dialogue.goddess.end_game_again" = """
+Grazie ancora.
+Ora puoi andare...
+(Lo sviluppatore non aveva sbatta di scrivere un dialogo come si deve, lol)
 """

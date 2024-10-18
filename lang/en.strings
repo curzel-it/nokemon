@@ -60,6 +60,7 @@ You can change the following:
 "map_editor.placement" = "Press CONFIRM to place\nPress ESC to cancel"
 "npc.name.default" = "Some Npc"
 "npc.name.deamon_lord" = "Demon Lord"
+"npc.name.goddess" = "Goddess"
 "npc.name.wizard" = "Wizard"
 "npc.name.old_man" = "Old Man"
 "npc.name.old_woman" = "Old Lady"
@@ -286,4 +287,16 @@ Kneel and I might give you a quick death.
 
 "1008.dialogue.demon_lord.try_me" = """
 You dare overstep your mortal authority!?
+"""
+
+"1009.dialogue.goddess.end_game" = """
+Thank you for saving our world!
+Bla bla bla
+(The developer didn't bother adding further dialogue, lol)
+"""
+
+"1009.dialogue.goddess.end_game_again" = """
+Once again, thank you.
+You might go now.
+(The developer didn't bother adding further dialogue, lol)
 """

@@ -78,6 +78,7 @@ fn supports_directions(sheet_id: u32) -> bool {
         SPRITE_SHEET_HUMANOIDS_1X1 => true,
         SPRITE_SHEET_HUMANOIDS_1X2 => true,
         SPRITE_SHEET_HUMANOIDS_2X2 => true,
+        SPRITE_SHEET_HUMANOIDS_2X3 => true,
         _ => false
     }
 }

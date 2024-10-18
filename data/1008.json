@@ -210,6 +210,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -264,6 +265,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -318,6 +320,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -372,6 +375,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -426,6 +430,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -480,6 +485,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -534,6 +540,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -588,6 +595,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -642,6 +650,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -696,6 +705,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -750,6 +760,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -804,6 +815,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -858,6 +870,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -912,6 +925,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -966,6 +980,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1020,6 +1035,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1074,6 +1090,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1128,6 +1145,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1182,6 +1200,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1236,6 +1255,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1271,14 +1291,14 @@
       "is_rigid": true,
       "z_index": 150,
       "sprite": {
-        "sheet_id": 1010,
+        "sheet_id": 1018,
         "frame": {
-          "x": 5,
-          "y": 6,
+          "x": 0,
+          "y": 0,
           "w": 2,
           "h": 3
         },
-        "number_of_frames": 1
+        "number_of_frames": 4
       },
       "dialogues": [
         {
@@ -1298,11 +1318,12 @@
       "destination": null,
       "lock_type": "None",
       "original_sprite_frame": {
-        "x": 5,
-        "y": 6,
+        "x": 0,
+        "y": 0,
         "w": 2,
         "h": 3
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1316,7 +1337,7 @@
       "shooting_cooldown_remaining": 0.0,
       "parent_id": 0,
       "is_invulnerable": false,
-      "demands_attention": false
+      "demands_attention": true
     },
     {
       "id": 9029695,
@@ -1349,7 +1370,11 @@
       },
       "dialogues": [],
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1009,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 7,
@@ -1357,6 +1382,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1403,7 +1429,11 @@
       },
       "dialogues": [],
       "time_immobilized": 0.0,
-      "destination": null,
+      "destination": {
+        "world": 1009,
+        "x": 0,
+        "y": 0
+      },
       "lock_type": "None",
       "original_sprite_frame": {
         "x": 7,
@@ -1411,6 +1441,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1465,6 +1496,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1519,6 +1551,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1573,6 +1606,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1627,6 +1661,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
@@ -1681,6 +1716,7 @@
         "w": 1,
         "h": 1
       },
+      "movement_directions": "None",
       "is_consumable": false,
       "speed_multiplier": 1.0,
       "melee_attacks_hero": false,
