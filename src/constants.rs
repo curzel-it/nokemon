@@ -28,7 +28,7 @@ pub const MENU_CLOSE_TIME: f32 = 0.2;
 pub const MENU_OPEN_TIME: f32 = 0.1;
 
 // Localization
-pub const DEFAULT_LANG: &str = "en";
+pub const DEFAULT_LANG: &str = "it";
 
 // Prefabs
 pub const HOUSE_INTERIOR_ROWS: usize = 6;

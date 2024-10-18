@@ -213,6 +213,9 @@ impl GameEngine {
     }
 
     fn rendering_scale_for_screen_width(&self, width: i32) -> (f32, f32) {
+        if self.creative_mode {
+            return (1.0, 2.0)
+        }
         if width < 500 {
             (1.0, 1.0)
         } else if width < 1400 || self.creative_mode {

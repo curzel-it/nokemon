@@ -81,7 +81,7 @@ impl Entity {
                 }
             }
             true
-        } else if npc_y == hero.y || self.frame.y == hero.y {
+        } else if npc_y == hero.y {
             let min_x = npc.x.min(hero.x);
             let max_x = npc.x.max(hero.x);
             for x in (min_x + 1)..max_x {
@@ -93,20 +93,20 @@ impl Entity {
         } else {
             false
         }
-
     }
 
     fn change_direction_towards_hero(&mut self, world: &World) {
         let hero = &world.cached_hero_props.hittable_frame;
         let npc = &self.frame;
+        let npc_y = self.frame.y + if self.frame.h > 1 { 1 } else { 0 };
 
         if hero.x == npc.x {
-            if hero.y < npc.y {
+            if hero.y < npc_y {
                 self.direction = Direction::Up;
             } else {
                 self.direction = Direction::Down
             }
-        } else if hero.y == npc.y || hero.y == npc.y + 1 {
+        } else if hero.y == npc_y {
             if hero.x > npc.x {
                 self.direction = Direction::Right;
             } else {
