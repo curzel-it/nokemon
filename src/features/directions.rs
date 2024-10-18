@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::SPRITE_SHEET_HUMANOIDS_1X2, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, world::World}, utils::directions::{direction_between_rects, Direction}};
+use crate::{game_engine::{entity::Entity, world::World}, utils::directions::Direction};
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub enum MovementDirections {

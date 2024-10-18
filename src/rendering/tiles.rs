@@ -35,8 +35,8 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
     let x_end = x_start + engine.camera_viewport.w + 3;
     let y_end = y_start + engine.camera_viewport.h + 3;
 
-    let world_width = world.bounds.w as i32;
-    let world_height = world.bounds.h as i32;
+    let world_width = world.bounds.w;
+    let world_height = world.bounds.h;
 
     for col in x_start..x_end {
         for row in y_start..y_end {
