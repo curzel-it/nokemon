@@ -126,32 +126,21 @@ fn update_mouse(rl: &mut RaylibHandle, mouse: &mut MouseEventsProvider, renderin
 }
 
 fn update_keyboard(rl: &mut RaylibHandle, keyboard: &mut KeyboardEventsProvider, time_since_last_update: f32) {
-    let is_up_pressed = rl.is_key_pressed(KeyboardKey::KEY_W) || rl.is_key_pressed(KeyboardKey::KEY_UP);
-    let is_up_down = rl.is_key_down(KeyboardKey::KEY_W) || rl.is_key_down(KeyboardKey::KEY_UP);
-    let is_right_pressed = rl.is_key_pressed(KeyboardKey::KEY_D) || rl.is_key_pressed(KeyboardKey::KEY_RIGHT);
-    let is_right_down = rl.is_key_down(KeyboardKey::KEY_D) || rl.is_key_down(KeyboardKey::KEY_RIGHT);
-    let is_down_pressed = rl.is_key_pressed(KeyboardKey::KEY_S) || rl.is_key_pressed(KeyboardKey::KEY_DOWN);
-    let is_down_down = rl.is_key_down(KeyboardKey::KEY_S) || rl.is_key_down(KeyboardKey::KEY_DOWN);
-    let is_left_pressed = rl.is_key_pressed(KeyboardKey::KEY_A) || rl.is_key_pressed(KeyboardKey::KEY_LEFT);
-    let is_left_down = rl.is_key_down(KeyboardKey::KEY_A) || rl.is_key_down(KeyboardKey::KEY_LEFT);
-
-    keyboard.discard_direction_events_until_next_arrow_key_is_pressed = 
-    keyboard.discard_direction_events_until_next_arrow_key_is_pressed &&
-        !is_up_pressed &&
-        !is_right_pressed &&
-        !is_down_pressed &&
-        !is_left_pressed;
-
-    keyboard.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE);
-    keyboard.has_menu_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ENTER);
-    keyboard.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_E);
-    keyboard.has_attack_key_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_F);
-    keyboard.has_backspace_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE);
-
-    keyboard.direction_up.update(is_up_pressed, is_up_down, time_since_last_update);
-    keyboard.direction_right.update(is_right_pressed, is_right_down, time_since_last_update);
-    keyboard.direction_down.update(is_down_pressed, is_down_down, time_since_last_update);
-    keyboard.direction_left.update(is_left_pressed, is_left_down, time_since_last_update);
-
-    keyboard.currently_pressed_character = rl.get_char_pressed();
+    keyboard.update(
+        rl.is_key_pressed(KeyboardKey::KEY_W) || rl.is_key_pressed(KeyboardKey::KEY_UP), 
+        rl.is_key_pressed(KeyboardKey::KEY_D) || rl.is_key_pressed(KeyboardKey::KEY_RIGHT), 
+        rl.is_key_pressed(KeyboardKey::KEY_S) || rl.is_key_pressed(KeyboardKey::KEY_DOWN), 
+        rl.is_key_pressed(KeyboardKey::KEY_A) || rl.is_key_pressed(KeyboardKey::KEY_LEFT), 
+        rl.is_key_down(KeyboardKey::KEY_W) || rl.is_key_down(KeyboardKey::KEY_UP), 
+        rl.is_key_down(KeyboardKey::KEY_D) || rl.is_key_down(KeyboardKey::KEY_RIGHT), 
+        rl.is_key_down(KeyboardKey::KEY_S) || rl.is_key_down(KeyboardKey::KEY_DOWN), 
+        rl.is_key_down(KeyboardKey::KEY_A) || rl.is_key_down(KeyboardKey::KEY_LEFT), 
+        rl.is_key_pressed(KeyboardKey::KEY_ESCAPE), 
+        rl.is_key_pressed(KeyboardKey::KEY_ENTER), 
+        rl.is_key_pressed(KeyboardKey::KEY_E), 
+        rl.is_key_pressed(KeyboardKey::KEY_F), 
+        rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE), 
+        rl.get_char_pressed(), 
+        time_since_last_update
+    );
 }

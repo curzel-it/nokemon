@@ -96,3 +96,45 @@ impl HoldableKey {
         }
     }
 }
+
+impl KeyboardEventsProvider {
+    pub fn update(
+        &mut self,
+        up_pressed: bool,
+        right_pressed: bool,
+        down_pressed: bool,
+        left_pressed: bool,
+        up_down: bool,
+        right_down: bool,
+        down_down: bool,
+        left_down: bool,
+        escape_pressed: bool,
+        menu_pressed: bool,
+        confirm_pressed: bool,
+        attack_pressed: bool,
+        backspace_pressed: bool,
+        current_char: Option<char>,
+        time_since_last_update: f32
+    ) {
+
+        self.discard_direction_events_until_next_arrow_key_is_pressed = 
+        self.discard_direction_events_until_next_arrow_key_is_pressed &&
+            !up_pressed &&
+            !right_pressed &&
+            !down_pressed &&
+            !left_pressed;
+    
+        self.has_back_been_pressed = escape_pressed;
+        self.has_menu_been_pressed = menu_pressed;
+        self.has_confirmation_been_pressed = confirm_pressed;
+        self.has_attack_key_been_pressed = attack_pressed;
+        self.has_backspace_been_pressed = backspace_pressed;
+    
+        self.direction_up.update(up_pressed, up_down, time_since_last_update);
+        self.direction_right.update(right_pressed, right_down, time_since_last_update);
+        self.direction_down.update(down_pressed, down_down, time_since_last_update);
+        self.direction_left.update(left_pressed, left_down, time_since_last_update);
+    
+        self.currently_pressed_character = current_char;
+    }
+}
