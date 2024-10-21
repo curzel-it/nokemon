@@ -48,13 +48,13 @@ mod tests {
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
-        let mut world = engine.start_headless();
+        engine.start(800, 600);
         let hero = make_entity_by_species(SPECIES_HERO);
-        let (hero_index, _) = world.add_entity(hero);
+        let (hero_index, _) = engine.world.add_entity(hero);
 
-        let mut entities = world.entities.borrow_mut();
+        let mut entities = engine.world.entities.borrow_mut();
         let actual_tower = &mut entities[hero_index];
-        let updates = actual_tower.update(&world, 60.0);
+        let updates = actual_tower.update(&engine.world, 60.0);
         
         assert!(!updates.is_empty());
     }
@@ -62,12 +62,12 @@ mod tests {
     #[test]
     fn entity_can_relay_engine_state_updates() {
         let mut engine = GameEngine::new();
-        let mut world = engine.start_headless();
+        engine.start(800, 600);
         let hero = make_entity_by_species(SPECIES_HERO);
-        world.add_entity(hero);
+        engine.world.add_entity(hero);
 
-        world.update(1.0);
-        let updates = world.update(60.0);
+        engine.world.update(1.0);
+        let updates = engine.world.update(60.0);
 
         assert!(!updates.is_empty());
     }

@@ -37,6 +37,12 @@ pub fn init_rendering_config(config: RenderingConfig) {
     }
 }    
 
+pub fn is_rendering_config_initialized() -> bool {
+    unsafe {
+        !RENDERING_CONFIG.is_null()
+    }
+}
+
 impl View {
     fn accounts_for_stack_size(&self) -> bool {
         !matches!(self, View::FixedPosition { position: _, children: _})
