@@ -16,9 +16,9 @@ use std::{collections::HashMap, env};
 
 use common_macros::hash_map;
 use constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE};
-use game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider};
-use raylib::{ffi::KeyboardKey, texture::Texture2D, RaylibHandle, RaylibThread};
-use rendering::{ui::{init_rendering_config, RenderingConfig}, worlds::render};
+use game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
+use raylib::{ffi::{KeyboardKey, MouseButton}, texture::Texture2D, RaylibHandle, RaylibThread};
+use rendering::{ui::{get_rendering_config, init_rendering_config, RenderingConfig}, worlds::render};
 use utils::vector::Vector2d;
 
 fn main() {
@@ -37,7 +37,7 @@ fn main() {
     engine.start(rl.get_screen_width(), rl.get_screen_height());
     
     while engine.is_running {
-        let time_since_last_update = rl.get_frame_time();
+        let time_since_last_update = rl.get_frame_time().min(0.1);
 
         if rl.is_window_resized() {
             println!("Window resized to {}x{}", rl.get_screen_width(), rl.get_screen_height());
@@ -48,7 +48,8 @@ fn main() {
         }
 
         update_keyboard(&mut rl, &mut engine.keyboard, time_since_last_update);
-        engine.update_rl(&mut rl, time_since_last_update);
+        update_mouse(&mut rl, &mut engine.mouse, get_rendering_config().rendering_scale);
+        engine.update(time_since_last_update);
         render(&mut rl, &thread, &engine.world, &engine);  
     }
 }
@@ -111,6 +112,17 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
             None
         }
     }
+}
+
+fn update_mouse(rl: &mut RaylibHandle, mouse: &mut MouseEventsProvider, rendering_scale: f32) {
+    mouse.update(
+        rl.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT), 
+        rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT), 
+        rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT), 
+        rl.get_mouse_position().x,
+        rl.get_mouse_position().y, 
+        rendering_scale
+    );
 }
 
 fn update_keyboard(rl: &mut RaylibHandle, keyboard: &mut KeyboardEventsProvider, time_since_last_update: f32) {

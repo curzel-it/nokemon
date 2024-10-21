@@ -55,13 +55,7 @@ impl GameEngine {
         self.creative_mode = enabled;
     }
 
-    pub fn update_rl(&mut self, rl: &mut RaylibHandle, real_time_since_last_update: f32) {
-        let time_since_last_update = real_time_since_last_update.min(0.1);
-        self.mouse.update(rl, get_rendering_config().rendering_scale);
-        self.update(time_since_last_update);
-    } 
-
-    fn update(&mut self, time_since_last_update: f32) {        
+    pub fn update(&mut self, time_since_last_update: f32) {        
         self.toast.update(time_since_last_update);
 
         if self.death_screen.is_open {

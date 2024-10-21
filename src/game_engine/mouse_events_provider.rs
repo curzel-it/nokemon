@@ -1,5 +1,3 @@
-use raylib::{ffi::MouseButton, RaylibHandle};
-
 use crate::constants::TILE_SIZE;
 
 pub struct MouseEventsProvider {
@@ -23,14 +21,21 @@ impl MouseEventsProvider {
         }
     }
 
-    pub fn update(&mut self, rl: &mut RaylibHandle, rendering_scale: f32) {
-        self.is_left_down = rl.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT);
-        self.has_left_been_pressed = rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT);
-        self.has_right_been_pressed = rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT);
+    pub fn update(
+        &mut self, 
+        mouse_left_down: bool, 
+        mouse_left_pressed: bool, 
+        mouse_right_pressed: bool, 
+        mouse_x: f32,
+        mouse_y: f32,
+        rendering_scale: f32
+    ) {
+        self.is_left_down = mouse_left_down;
+        self.has_left_been_pressed = mouse_left_pressed;
+        self.has_right_been_pressed = mouse_right_pressed;
 
-        let position = rl.get_mouse_position();
-        let new_x = (position.x / (rendering_scale * TILE_SIZE)) as i32;
-        let new_y = (position.y / (rendering_scale * TILE_SIZE)) as i32;
+        let new_x = (mouse_x / (rendering_scale * TILE_SIZE)) as i32;
+        let new_y = (mouse_y / (rendering_scale * TILE_SIZE)) as i32;
         
         self.has_moved = new_x != self.x || new_y != self.y;
         self.x = new_x;
