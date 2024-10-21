@@ -586,3 +586,9 @@ impl RenderingConfig {
         self.scaled_font_size(style) / 2.0
     }
 }
+
+impl Vector2d {
+    fn as_rv(&self) -> raylib::math::Vector2 {
+        raylib::math::Vector2::new(self.x, self.y)
+    }
+}

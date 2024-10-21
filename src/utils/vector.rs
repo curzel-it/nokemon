@@ -13,10 +13,6 @@ impl Vector2d {
         Self { x, y }
     }
 
-    pub fn as_rv(&self) -> raylib::math::Vector2 {
-        raylib::math::Vector2::new(self.x, self.y)
-    }
-
     pub const fn zero() -> Self {
         Self::new(0.0, 0.0)
     }

@@ -1,7 +1,5 @@
-use std::collections::HashMap;
-use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, rendering::ui::{get_rendering_config, get_rendering_config_mut, init_rendering_config, RenderingConfig}, ui::components::Typography, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INITIAL_CAMERA_VIEWPORT, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, rendering::ui::{get_rendering_config, get_rendering_config_mut}, ui::components::Typography, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -46,42 +44,15 @@ impl GameEngine {
         }
     }
 
+    pub fn start(&mut self, screen_width: i32, screen_height: i32) {
+        self.teleport_to_previous();
+        self.window_size_changed(screen_width, screen_height);
+    }
+
     pub fn set_creative_mode(&mut self, enabled: bool) {
         self.menu.set_creative_mode(enabled);
         self.world.set_creative_mode(enabled);
         self.creative_mode = enabled;
-    }
-
-    pub fn start_rl(&mut self) -> (RaylibHandle, RaylibThread) {
-        let width = (TILE_SIZE * self.camera_viewport.w as f32) as i32;
-        let height = (TILE_SIZE * self.camera_viewport.h as f32) as i32;
-
-        let (mut rl, thread) = raylib::init()
-            .size(width, height)
-            .resizable()
-            .title("Nokemon")
-            .build();        
-    
-        let font = rl.load_font(&thread, FONT).unwrap();
-        let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
-
-        // rl.set_target_fps(60.0);
-        
-        self.teleport_to_previous();
-
-        let textures: HashMap<u32, Texture2D> = self.load_textures(&mut rl, &thread);
-        init_rendering_config(RenderingConfig {
-            font,
-            font_bold,
-            textures,
-            rendering_scale: 2.0,
-            font_rendering_scale: 2.0,
-            canvas_size: Vector2d::new(1.0, 1.0)
-        });
-
-        self.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
-
-        (rl, thread)
     }
 
     pub fn update_rl(&mut self, rl: &mut RaylibHandle, real_time_since_last_update: f32) {
@@ -171,25 +142,6 @@ impl GameEngine {
         } else {
             self.teleport(&Destination::default());
         }
-    }
-
-    fn load_textures(&self, rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
-        let mut textures: HashMap<u32, Texture2D> = hash_map!();
-        textures.insert(SPRITE_SHEET_INVENTORY, texture(rl, thread, "inventory").unwrap());
-        textures.insert(SPRITE_SHEET_BIOME_TILES, texture(rl, thread, "tiles_biome").unwrap());
-        textures.insert(SPRITE_SHEET_CONSTRUCTION_TILES, texture(rl, thread, "tiles_constructions").unwrap());
-        textures.insert(SPRITE_SHEET_BUILDINGS, texture(rl, thread, "buildings").unwrap());
-        textures.insert(SPRITE_SHEET_BASE_ATTACK, texture(rl, thread, "baseattack").unwrap());
-        textures.insert(SPRITE_SHEET_STATIC_OBJECTS, texture(rl, thread, "static_objects").unwrap());
-        textures.insert(SPRITE_SHEET_MENU, texture(rl, thread, "menu").unwrap());        
-        textures.insert(SPRITE_SHEET_ANIMATED_OBJECTS, texture(rl, thread, "animated_objects").unwrap());     
-        textures.insert(SPRITE_SHEET_HUMANOIDS_1X1, texture(rl, thread, "humanoids_1x1").unwrap());      
-        textures.insert(SPRITE_SHEET_HUMANOIDS_1X2, texture(rl, thread, "humanoids_1x2").unwrap());
-        textures.insert(SPRITE_SHEET_HUMANOIDS_2X2, texture(rl, thread, "humanoids_2x2").unwrap());
-        textures.insert(SPRITE_SHEET_HUMANOIDS_2X3, texture(rl, thread, "humanoids_2x3").unwrap());
-        textures.insert(SPRITE_SHEET_AVATARS, texture(rl, thread, "avatars").unwrap());     
-        textures.insert(SPRITE_SHEET_FARM_PLANTS, texture(rl, thread, "farm_plants").unwrap());             
-        textures
     }
 
     pub fn window_size_changed(&mut self, width: i32, height: i32) {
@@ -378,43 +330,15 @@ impl GameEngine {
     }
 }
 
-fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<Texture2D> {
-    let path = format!("{}/{}.png", ASSETS_PATH, name);
-    let result = rl.load_texture(thread, &path);
-    
-    match result {
-        Ok(texture) => Some(texture),
-        Err(err) => {
-            eprintln!("Failed to load texture at {}: {:#?}", path, err);
-            None
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {    
-    use crate::{constants::{WORLD_ID_DEMO, WORLD_ID_NONE, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::directions::Direction};
-
     use super::GameEngine;
-
-    impl GameEngine {
-        pub fn start_headless(&mut self) -> World {
-            let mut world = World::new(WORLD_ID_DEMO);
-            world.setup(
-                WORLD_ID_NONE,
-                &Direction::Unknown, 
-                WORLD_SIZE_COLUMNS as i32 / 2, 
-                WORLD_SIZE_ROWS as i32 / 2
-            );
-            world
-        }
-    }
 
     #[test]
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
-        let world = engine.start_headless();
-        assert_ne!(world.bounds.w, 10);
-        assert_ne!(world.bounds.h, 10);
+        engine.start(1920, 1080);
+        assert_ne!(engine.world.bounds.w, 10);
+        assert_ne!(engine.world.bounds.h, 10);
     }
 }
