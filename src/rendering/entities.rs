@@ -4,7 +4,7 @@ use raylib::prelude::*;
 
 use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, engine::GameEngine, world::World}};
 
-use super::ui::{get_rendering_config, RENDERING_CONFIG};
+use super::ui::get_rendering_config;
 
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;

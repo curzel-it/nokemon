@@ -1,6 +1,5 @@
 use std::collections::VecDeque;
 
-use raylib::color::Color;
 
 use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, NonColor, Spacing, TextureInfo, Typography, View, COLOR_BLACK}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}, vstack};
 

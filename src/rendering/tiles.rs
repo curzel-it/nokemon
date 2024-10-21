@@ -2,7 +2,7 @@ use raylib::prelude::*;
 
 use crate::{constants::TILE_SIZE, game_engine::{engine::GameEngine, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction, tiles::SpriteTile}};
 
-use super::ui::{get_rendering_config, RENDERING_CONFIG};
+use super::ui::get_rendering_config;
 
 pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     draw_tiles_in_viewport(d, world, engine);

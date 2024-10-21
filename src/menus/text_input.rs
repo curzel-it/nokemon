@@ -1,4 +1,3 @@
-use raylib::color::Color;
 use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{Spacing, Typography, View, COLOR_BLACK, COLOR_TRANSPARENT}, scaffold::scaffold}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;

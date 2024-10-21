@@ -1,4 +1,3 @@
-use raylib::color::Color;
 
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
 use crate::ui::components::{empty_view, BordersTextures, TextureInfo};

@@ -1,4 +1,3 @@
-use raylib::color::Color;
 
 use crate::{constants::SPRITE_SHEET_MENU, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::{components::{empty_view, BordersTextures, TextureInfo, View}, scaffold::scaffold}, utils::rect::Rect};
 
