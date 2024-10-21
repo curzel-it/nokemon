@@ -4,7 +4,6 @@ use raylib::prelude::*;
 use crate::{game_engine::engine::GameEngine, ui::layouts::{AnchorPoint, Layout}};
 
 pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
-    let ui_config = engine.ui_config.as_ref().unwrap();
     let w = d.get_screen_width();
     let h = d.get_screen_height();
 
@@ -22,5 +21,5 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         AnchorPoint::TopLeft => vec![
             engine.toast.important_toast_ui()
         ]
-    }).render(d, ui_config);
+    }).render(d);
 }

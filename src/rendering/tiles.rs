@@ -2,6 +2,8 @@ use raylib::prelude::*;
 
 use crate::{constants::TILE_SIZE, game_engine::{engine::GameEngine, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction, tiles::SpriteTile}};
 
+use super::ui::{get_rendering_config, RENDERING_CONFIG};
+
 pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     draw_tiles_in_viewport(d, world, engine);
 }
@@ -11,21 +13,11 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
     let sprite_key_constructions = world.constructions_tiles.sheet_id;
     let default_tile = world.default_tile();
 
-    let texture_biome = engine
-        .ui_config
-        .as_ref()
-        .unwrap()
-        .get_texture(sprite_key_biome)
-        .unwrap();
+    let config = get_rendering_config();
+    let texture_biome = config.get_texture(sprite_key_biome).unwrap();
+    let texture_constructions = config.get_texture(sprite_key_constructions).unwrap();
+    let scale = config.rendering_scale;
 
-    let texture_constructions = engine
-        .ui_config
-        .as_ref()
-        .unwrap()
-        .get_texture(sprite_key_constructions)
-        .unwrap();
-
-    let scale = engine.rendering_scale();
     let tile_scale = scale * TILE_SIZE;
     let camera_offset_x = engine.camera_viewport_offset.x * scale;
     let camera_offset_y = engine.camera_viewport_offset.y * scale;

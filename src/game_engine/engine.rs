@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use common_macros::hash_map;
 use raylib::prelude::*;
-use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, ui::components::{RenderingConfig, Typography}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, rendering::ui::{get_rendering_config, get_rendering_config_mut, init_rendering_config, RenderingConfig, INIT_RENDERING_CONFIG, RENDERING_CONFIG}, ui::components::Typography, utils::{rect::Rect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -20,7 +20,6 @@ pub struct GameEngine {
     pub mouse: MouseEventsProvider,
     pub camera_viewport: Rect,
     pub camera_viewport_offset: Vector2d,
-    pub ui_config: Option<RenderingConfig>,
     pub is_running: bool,
     pub creative_mode: bool,
 }
@@ -42,7 +41,6 @@ impl GameEngine {
             mouse: MouseEventsProvider::new(),
             camera_viewport: INITIAL_CAMERA_VIEWPORT,
             camera_viewport_offset: Vector2d::zero(),
-            ui_config: None,
             is_running: true,
             creative_mode: false
         }
@@ -71,10 +69,10 @@ impl GameEngine {
         
         self.teleport_to_previous();
 
-        let textures = self.load_textures(&mut rl, &thread);
-        self.ui_config = Some(RenderingConfig { 
-            font, 
-            font_bold, 
+        let textures: HashMap<u32, Texture2D> = self.load_textures(&mut rl, &thread);
+        init_rendering_config(RenderingConfig {
+            font,
+            font_bold,
             textures,
             rendering_scale: 2.0,
             font_rendering_scale: 2.0,
@@ -89,7 +87,7 @@ impl GameEngine {
     pub fn update_rl(&mut self, rl: &mut RaylibHandle, real_time_since_last_update: f32) {
         let time_since_last_update = real_time_since_last_update.min(0.1);
         self.keyboard.update(rl, time_since_last_update);
-        self.mouse.update(rl, self.ui_config.as_ref().unwrap().rendering_scale);
+        self.mouse.update(rl, get_rendering_config().rendering_scale);
         self.update(time_since_last_update);
     } 
 
@@ -201,16 +199,17 @@ impl GameEngine {
         println!("Updated rendering scale to {}", scale);
         println!("Updated font scale to {}", scale);
         
-        self.ui_config.as_mut().unwrap().rendering_scale = scale;
-        self.ui_config.as_mut().unwrap().font_rendering_scale = font_scale;
-        self.ui_config.as_mut().unwrap().canvas_size.x = width as f32;
-        self.ui_config.as_mut().unwrap().canvas_size.y = height as f32;
+        let config = get_rendering_config_mut();
+        config.rendering_scale = scale;
+        config.font_rendering_scale = font_scale;
+        config.canvas_size.x = width as f32;
+        config.canvas_size.y = height as f32;
 
         self.camera_viewport.w = (width as f32 / (scale * TILE_SIZE)) as i32;
         self.camera_viewport.h = (height as f32 / (scale * TILE_SIZE)) as i32;
 
-        let font_size = self.ui_config.as_ref().unwrap().scaled_font_size(&Typography::Regular);
-        let line_spacing = self.ui_config.as_ref().unwrap().font_lines_spacing(&Typography::Regular);
+        let font_size = config.scaled_font_size(&Typography::Regular);
+        let line_spacing = config.font_lines_spacing(&Typography::Regular);
         self.long_text_display.max_line_length = (width as f32 / font_size).floor() as usize;
         self.long_text_display.visible_line_count = (0.3 * height as f32 / (line_spacing + font_size)).floor() as usize;
     }
@@ -376,10 +375,6 @@ impl GameEngine {
         self.camera_viewport.center_at(&Vector2d::new(x as f32, y as f32));
         self.camera_viewport_offset = *offset;
         self.world.visible_bounds = self.camera_viewport;
-    }
-
-    pub fn rendering_scale(&self) -> f32 {
-        self.ui_config.as_ref().unwrap().rendering_scale
     }
 }
 

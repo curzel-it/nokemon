@@ -4,6 +4,8 @@ use raylib::prelude::*;
 
 use crate::{constants::TILE_SIZE, game_engine::{entity::Entity, engine::GameEngine, world::World}};
 
+use super::ui::{get_rendering_config, RENDERING_CONFIG};
+
 pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
     let visible_entities = &world.visible_entities;
     let entities_map = world.entities.borrow();    
@@ -37,10 +39,10 @@ pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEng
 
 fn draw_item(d: &mut RaylibDrawHandle, item: &Entity, engine: &GameEngine) {
     let sprite_key = item.sprite_sheet();
-    let scale = engine.rendering_scale();
+    let scale = get_rendering_config().rendering_scale;
     let tile_scale = TILE_SIZE * scale;
     
-    if let Some(texture) = engine.ui_config.as_ref().unwrap().get_texture(sprite_key) {
+    if let Some(texture) = get_rendering_config().get_texture(sprite_key) {
         let source = item.texture_source_rect();
         let offset = item.offset;
         let frame = item.frame;

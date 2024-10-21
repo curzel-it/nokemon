@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{entity::Entity, inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, Typography, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::species::{species_by_id, Species}, game_engine::{entity::Entity, inventory::get_inventory, keyboard_events_provider::KeyboardEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, text, texture, ui::{components::{GridSpacing, Spacing, Typography, View, COLOR_BLACK, COLOR_YELLOW}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -72,7 +72,7 @@ impl Inventory {
     pub fn ui(&self) -> View {
         scaffold(
             true,
-            Color::BLACK,
+            COLOR_BLACK,
             Some(MENU_BORDERS_TEXTURES),
             match self.state {
                 InventoryState::SelectingItem(selected_index) => self.regular_ui(selected_index),                
@@ -107,7 +107,7 @@ impl Inventory {
         if index == selected_index {
             zstack!(
                 Spacing::XS, 
-                Color::YELLOW,
+                COLOR_YELLOW,
                 texture!(
                     SPRITE_SHEET_INVENTORY, 
                     texture_source_rect, 

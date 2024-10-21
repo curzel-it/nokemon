@@ -85,7 +85,7 @@ impl ConfirmationDialog {
         if self.menu.is_open {       
             scaffold(
                 true, 
-                Color::BLACK.alpha(self.menu.animator.current_value), 
+                (0, 0, 0, (255.0 * self.menu.animator.current_value) as u8), 
                 Some(ALERT_BORDERS_TEXTURES),
                 self.menu.menu_contents()
             )

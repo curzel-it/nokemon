@@ -1,5 +1,5 @@
 use raylib::color::Color;
-use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{Spacing, Typography, View}, scaffold::scaffold}, vstack, zstack};
+use crate::{game_engine::keyboard_events_provider::KeyboardEventsProvider, hstack, lang::localizable::LocalizableText, spacing, text, ui::{components::{Spacing, Typography, View, COLOR_BLACK, COLOR_TRANSPARENT}, scaffold::scaffold}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -87,14 +87,14 @@ impl TextInput {
         
         scaffold(
             true, 
-            Color::BLACK,
+            COLOR_BLACK,
             Some(MENU_BORDERS_TEXTURES),
             vstack!(
                 Spacing::XL,
                 text!(Typography::Title, self.title.clone()),
                 zstack!(
                     Spacing::Zero,
-                    Color::BLACK.alpha(0.0),
+                    COLOR_TRANSPARENT,
                     hstack!(
                         Spacing::Zero,
                         text!(Typography::Regular, before_cursor.to_string()),

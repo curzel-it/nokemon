@@ -1,6 +1,6 @@
 use raylib::color::Color;
 
-use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::SPECIES_HERO, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, Spacing, Typography, View}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
+use crate::{constants::{SPRITE_SHEET_INVENTORY, TILE_SIZE}, entities::{known_species::SPECIES_HERO, species::{EntityType, Species, ALL_SPECIES}}, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, maps::{biome_tiles::Biome, constructions_tiles::Construction}, prefabs::all::new_building, spacing, text, texture, ui::{components::{with_fixed_position, GridSpacing, NonColor, Spacing, Typography, View, COLOR_BLACK, COLOR_BLACK_50, COLOR_RED_60, COLOR_YELLOW}, scaffold::scaffold}, utils::{rect::Rect, vector::Vector2d}, vstack, zstack};
 
 use super::menu::MENU_BORDERS_TEXTURES;
 
@@ -286,7 +286,7 @@ impl Stockable {
         if index == selected_index {
             zstack!(
                 Spacing::XS,
-                Color::YELLOW,
+                COLOR_YELLOW,
                 texture!(
                     SPRITE_SHEET_INVENTORY,
                     self.texture_source_rect(),
@@ -371,10 +371,10 @@ impl MapEditor {
         !matches!(self.state, MapEditorState::PlacingItem(_, _, _))
     }
 
-    fn background_color(&self) -> Color {
+    fn background_color(&self) -> NonColor {
         match self.state {
-            MapEditorState::PlacingItem(_, _, _) => Color::BLACK.alpha(0.5),
-            MapEditorState::SelectingItem(_) => Color::BLACK,
+            MapEditorState::PlacingItem(_, _, _) => COLOR_BLACK_50,
+            MapEditorState::SelectingItem(_) => COLOR_BLACK,
         }
     }
 
@@ -389,7 +389,7 @@ impl MapEditor {
                 ),
                 zstack!(
                     Spacing::Zero,
-                    Color::RED.alpha(0.6),
+                    COLOR_RED_60,
                     spacing!(Spacing::Custom(TILE_SIZE * frame.w as f32))
                 )
             )

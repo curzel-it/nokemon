@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use raylib::color::Color;
 
-use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, Spacing, TextureInfo, Typography, View}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}, vstack};
+use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, NonColor, Spacing, TextureInfo, Typography, View, COLOR_BLACK}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}, vstack};
 
 #[derive(Debug, Clone, Copy)]
 pub enum ToastMode {
@@ -170,15 +170,15 @@ impl ToastDisplay {
         }
     }
 
-    fn background_color(&self) -> Color {
+    fn background_color(&self) -> NonColor {
         if self.animator.current_value < 0.05 {
-            let alpha = 1.0 - (0.05 - self.animator.current_value) * 20.0;
-            Color::BLACK.alpha(alpha)
+            let alpha = 1.0 - (0.05 - self.animator.current_value) * 20.0;            
+            (0, 0, 0, (255.0 * alpha) as u8)
         } else if self.animator.current_value < 0.95 {
-            Color::BLACK
+            COLOR_BLACK
         } else {
             let alpha = (1.0 - self.animator.current_value) * 20.0;
-            Color::BLACK.alpha(alpha)
+            (0, 0, 0, (255.0 * alpha) as u8)
         }        
     }
 }

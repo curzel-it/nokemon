@@ -8,8 +8,6 @@ pub fn render_death_screen(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         return
     }
 
-    let ui_config = engine.ui_config.as_ref().unwrap();
-
     d.draw_rectangle(
         0, 
         0, 
@@ -24,5 +22,5 @@ pub fn render_death_screen(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         hash_map! {
             AnchorPoint::Center => vec![engine.death_screen.ui()]
         }
-    ).render(d, ui_config)
+    ).render(d)
 }

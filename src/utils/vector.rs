@@ -17,7 +17,7 @@ impl Vector2d {
         raylib::math::Vector2::new(self.x, self.y)
     }
 
-    pub fn zero() -> Self {
+    pub const fn zero() -> Self {
         Self::new(0.0, 0.0)
     }
 

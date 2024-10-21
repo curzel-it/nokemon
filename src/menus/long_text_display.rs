@@ -65,11 +65,9 @@ impl LongTextDisplay {
 
     pub fn ui(&self) -> View {
         if self.is_open {
-            let background_color = Color::BLACK.alpha(self.animator.current_value);
-
             scaffold(
                 self.uses_backdrop,
-                background_color,
+                (0, 0, 0, (255.0 * self.animator.current_value) as u8), 
                 Some(MENU_BORDERS_TEXTURES),
                 self.text_ui()
             )

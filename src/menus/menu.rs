@@ -136,11 +136,9 @@ impl<Item: MenuItem> Menu<Item> {
     }
 
     fn menu_ui(&self) -> View {
-        let background_color = Color::BLACK.alpha(self.animator.current_value);
-        
         scaffold(
             self.uses_backdrop, 
-            background_color, 
+            (0, 0, 0, (255.0 * self.animator.current_value) as u8), 
             Some(MENU_BORDERS_TEXTURES),
             self.menu_contents()
         )
