@@ -16,8 +16,8 @@ use std::{collections::HashMap, env};
 
 use common_macros::hash_map;
 use constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE};
-use game_engine::engine::GameEngine;
-use raylib::{texture::Texture2D, RaylibHandle, RaylibThread};
+use game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider};
+use raylib::{ffi::KeyboardKey, texture::Texture2D, RaylibHandle, RaylibThread};
 use rendering::{ui::{init_rendering_config, RenderingConfig}, worlds::render};
 use utils::vector::Vector2d;
 
@@ -47,6 +47,7 @@ fn main() {
             engine.is_running = false;
         }
 
+        update_keyboard(&mut rl, &mut engine.keyboard, time_since_last_update);
         engine.update_rl(&mut rl, time_since_last_update);
         render(&mut rl, &thread, &engine.world, &engine);  
     }
@@ -65,8 +66,7 @@ fn start_rl() -> (RaylibHandle, RaylibThread) {
     let font = rl.load_font(&thread, FONT).unwrap();
     let font_bold = rl.load_font(&thread, FONT_BOLD).unwrap();            
 
-    // rl.set_target_fps(60.0);
-    
+    // rl.set_target_fps(60.0);    
 
     let textures: HashMap<u32, Texture2D> = load_textures(&mut rl, &thread);
     init_rendering_config(RenderingConfig {
@@ -111,4 +111,35 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
             None
         }
     }
+}
+
+fn update_keyboard(rl: &mut RaylibHandle, keyboard: &mut KeyboardEventsProvider, time_since_last_update: f32) {
+    let is_up_pressed = rl.is_key_pressed(KeyboardKey::KEY_W) || rl.is_key_pressed(KeyboardKey::KEY_UP);
+    let is_up_down = rl.is_key_down(KeyboardKey::KEY_W) || rl.is_key_down(KeyboardKey::KEY_UP);
+    let is_right_pressed = rl.is_key_pressed(KeyboardKey::KEY_D) || rl.is_key_pressed(KeyboardKey::KEY_RIGHT);
+    let is_right_down = rl.is_key_down(KeyboardKey::KEY_D) || rl.is_key_down(KeyboardKey::KEY_RIGHT);
+    let is_down_pressed = rl.is_key_pressed(KeyboardKey::KEY_S) || rl.is_key_pressed(KeyboardKey::KEY_DOWN);
+    let is_down_down = rl.is_key_down(KeyboardKey::KEY_S) || rl.is_key_down(KeyboardKey::KEY_DOWN);
+    let is_left_pressed = rl.is_key_pressed(KeyboardKey::KEY_A) || rl.is_key_pressed(KeyboardKey::KEY_LEFT);
+    let is_left_down = rl.is_key_down(KeyboardKey::KEY_A) || rl.is_key_down(KeyboardKey::KEY_LEFT);
+
+    keyboard.discard_direction_events_until_next_arrow_key_is_pressed = 
+    keyboard.discard_direction_events_until_next_arrow_key_is_pressed &&
+        !is_up_pressed &&
+        !is_right_pressed &&
+        !is_down_pressed &&
+        !is_left_pressed;
+
+    keyboard.has_back_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ESCAPE);
+    keyboard.has_menu_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_ENTER);
+    keyboard.has_confirmation_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_E);
+    keyboard.has_attack_key_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_F);
+    keyboard.has_backspace_been_pressed = rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE);
+
+    keyboard.direction_up.update(is_up_pressed, is_up_down, time_since_last_update);
+    keyboard.direction_right.update(is_right_pressed, is_right_down, time_since_last_update);
+    keyboard.direction_down.update(is_down_pressed, is_down_down, time_since_last_update);
+    keyboard.direction_left.update(is_left_pressed, is_left_down, time_since_last_update);
+
+    keyboard.currently_pressed_character = rl.get_char_pressed();
 }

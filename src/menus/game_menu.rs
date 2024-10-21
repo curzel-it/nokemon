@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_ID_NONE, dialogues::keybindings::KeyBindingMenu, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
+use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
 
 use super::{inventory::Inventory, map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
@@ -8,7 +8,6 @@ pub struct GameMenu {
     menu: Menu<GameMenuItem>,
     inventory: Inventory,
     map_editor: MapEditor,
-    key_bindings: KeyBindingMenu,
 }
 
 #[derive(Debug)]
@@ -18,7 +17,6 @@ enum MenuState {
     Inventory,
     MapEditor,
     PlaceItem,
-    EditKeyBindings,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -29,7 +27,6 @@ enum GameMenuItem {
     Status,
     Exit,
     SaveAndExit,
-    EditKeyBindings,
 }
 
 impl MenuItem for GameMenuItem {
@@ -41,7 +38,6 @@ impl MenuItem for GameMenuItem {
             GameMenuItem::Status => "game.menu.status".localized(),
             GameMenuItem::Exit => "game.menu.exit".localized(),
             GameMenuItem::SaveAndExit => "game.menu.save_and_exit".localized(),
-            GameMenuItem::EditKeyBindings => "game.menu.key_bindings".localized(),
         }
     }
 }
@@ -53,7 +49,6 @@ impl GameMenu {
             vec![
                 GameMenuItem::Status,
                 GameMenuItem::Inventory,
-                GameMenuItem::EditKeyBindings,
                 GameMenuItem::Exit,
             ]
         );
@@ -64,7 +59,6 @@ impl GameMenu {
             menu,
             inventory: Inventory::new(),
             map_editor: MapEditor::new(),
-            key_bindings: KeyBindingMenu::new()
         }
     }
 
@@ -75,14 +69,12 @@ impl GameMenu {
                 GameMenuItem::MapEditor,
                 GameMenuItem::Status,
                 GameMenuItem::Inventory,
-                GameMenuItem::EditKeyBindings,
                 GameMenuItem::SaveAndExit,
             ]
         } else {
             vec![
                 GameMenuItem::Status,
                 GameMenuItem::Inventory,
-                GameMenuItem::EditKeyBindings,
                 GameMenuItem::Exit,
             ]
         }
@@ -116,7 +108,6 @@ impl GameMenu {
             MenuState::Inventory => self.update_from_inventory(keyboard, time_since_last_update),
             MenuState::MapEditor => self.update_from_map_editor(camera_vieport, keyboard, mouse),
             MenuState::PlaceItem => self.update_from_place_item(camera_vieport, keyboard, mouse),
-            MenuState::EditKeyBindings => self.update_from_key_bindings(keyboard, time_since_last_update),
         };
         (self.is_open(), updates)
     }
@@ -143,10 +134,6 @@ impl GameMenu {
             GameMenuItem::Status => {
                 self.close();
                 vec![WorldStateUpdate::EngineUpdate(EngineStateUpdate::DisplayLongText("status.fake".localized()))]
-            }
-            GameMenuItem::EditKeyBindings => {
-                self.state = MenuState::EditKeyBindings;
-                vec![]
             }
             GameMenuItem::SaveAndExit => {
                 self.close();
@@ -208,20 +195,11 @@ impl GameMenu {
         self.map_editor.update(camera_vieport, keyboard, mouse)
     }
 
-    fn update_from_key_bindings(&mut self, keyboard: &KeyboardEventsProvider, time_since_last_update: f32) -> Vec<WorldStateUpdate> {
-        if keyboard.has_back_been_pressed {
-            self.state = MenuState::Open;
-        }
-        self.key_bindings.update(keyboard, time_since_last_update);
-        vec![]
-    }
-
     pub fn ui(&self, camera_viewport: &Rect) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::Zero),
             MenuState::Open => self.menu.ui(),
             MenuState::Inventory => self.inventory.ui(),
-            MenuState::EditKeyBindings => self.key_bindings.ui(),
             MenuState::MapEditor | MenuState::PlaceItem => self.map_editor.ui(camera_viewport),
         }
     }

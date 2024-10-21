@@ -38,7 +38,6 @@ pub const HOUSE_INTERIOR_COLUMNS: usize = 10;
 pub const ASSETS_PATH: &str = "assets";
 pub const LEVELS_PATH: &str = "data";
 pub const SPECIES_PATH: &str = "data/species.json";
-pub const KEY_BINDINGS_PATH: &str = "data/keybindings.json";
 pub const INVENTORY_PATH: &str = "data/inventory.json";
 pub const KEY_VALUE_STORAGE_PATH: &str = "data/save.json";
 pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";
