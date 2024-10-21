@@ -4,7 +4,7 @@ use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet};
 
 impl World {    
     pub fn load_biome_tiles(&mut self, tiles: TileSet<BiomeTile>) {
-        let mut grass = BiomeTile::from_data(1, 1, '1');
+        let mut grass = BiomeTile::from_data('1');
         grass.setup_neighbors(Biome::Grass, Biome::Grass, Biome::Grass, Biome::Grass);
 
         let tiles = if tiles.tiles.is_empty() {

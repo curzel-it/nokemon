@@ -134,8 +134,6 @@ impl World {
     pub fn default_tile(&self) -> BiomeTile {
         let mut tile = BiomeTile {
             tile_type: self.default_biome,
-            column: 0,
-            row: 0,
             tile_up_type: self.default_biome,
             tile_right_type: self.default_biome,
             tile_down_type: self.default_biome,

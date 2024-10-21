@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{impl_tile, utils::{directions::Direction, rect::Rect}};
+use crate::utils::{directions::Direction, rect::Rect};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -32,8 +32,6 @@ pub enum Biome {
 #[derive(Default, Debug, Clone)]
 pub struct BiomeTile {
     pub tile_type: Biome,
-    pub column: u32, 
-    pub row: u32,
     pub tile_up_type: Biome,
     pub tile_right_type: Biome,
     pub tile_down_type: Biome,
@@ -41,8 +39,6 @@ pub struct BiomeTile {
     pub texture_offset_x: i32,
     pub texture_offset_y: i32,
 }
-
-impl_tile!(BiomeTile);
 
 impl SpriteTile for BiomeTile {
     fn texture_source_rect(&self, variant: i32) -> Rect {
@@ -317,11 +313,9 @@ impl Biome {
 }
 
 impl BiomeTile {
-    pub fn from_data(row: usize, column: usize, data: char) -> Self {
+    pub fn from_data(data: char) -> Self {
         let mut tile = Self { 
             tile_type: Biome::from_char(data), 
-            column: column as u32, 
-            row: row as u32, 
             tile_up_type: Biome::Nothing,
             tile_right_type: Biome::Nothing,
             tile_down_type: Biome::Nothing,
@@ -359,9 +353,9 @@ impl<'de> Deserialize<'de> for TileSet<BiomeTile> {
 
         let data = TileSetData::deserialize(deserializer)?;
 
-        let mut tiles: Vec<Vec<BiomeTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
-            tile_row.chars().enumerate().map(|(column, tile_char)| {
-                BiomeTile::from_data(row, column, tile_char)
+        let mut tiles: Vec<Vec<BiomeTile>> = data.tiles.into_iter().map(|tile_row| {
+            tile_row.chars().map(|tile_char| {
+                BiomeTile::from_data(tile_char)
             }).collect()
         }).collect();
 

@@ -1,23 +1,18 @@
 
 use crate::{constants::{SPRITE_SHEET_BLANK, BIOME_NUMBER_OF_FRAMES, TILE_VARIATIONS_FPS}, utils::{rect::Rect, timed_content_provider::TimedContentProvider}};
 
-pub trait Tile: Clone {
-    fn row(&self) -> u32;
-    fn column(&self) -> u32;
-}
-
-pub trait SpriteTile: Tile {
+pub trait SpriteTile {
     fn texture_source_rect(&self, variant: i32) -> Rect;
 }
 
 #[derive(Default)]
-pub struct TileSet<T: Tile> {
+pub struct TileSet<T> {
     pub tiles: Vec<Vec<T>>,
     pub sheet_id: u32,
     sprite_counter: TimedContentProvider<i32>,
 }
 
-impl<T: Tile> TileSet<T> {
+impl<T> TileSet<T> {
     pub fn empty() -> Self {
         Self::with_tiles(SPRITE_SHEET_BLANK, vec![])
     }
@@ -42,7 +37,7 @@ impl<T: Tile> TileSet<T> {
         (*self.sprite_counter.current_frame() + row as i32 + col as i32) % BIOME_NUMBER_OF_FRAMES
     }
 }
-
+/*
 #[macro_export]
 macro_rules! impl_tile {
     ($struct_name:ident) => {
@@ -55,5 +50,5 @@ macro_rules! impl_tile {
                 self.column
             }
         }
-    }
-}
+    } 
+}*/

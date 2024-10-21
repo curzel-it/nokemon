@@ -132,8 +132,8 @@ mod tests {
         world.bounds = Rect::new(0, 0, 10, 10);
         world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
         
-        world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data(0, 0, '0'); 10]; 10];
-        world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '0'); 10]; 10];
+        world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data('0'); 10]; 10];
+        world.biome_tiles.tiles = vec![vec![BiomeTile::from_data('0'); 10]; 10];
         
         world.update_tiles_hitmap();
         let (hitmap, _, _) = world.compute_hitmap();
@@ -149,8 +149,8 @@ mod tests {
         world.bounds = Rect::new(0, 0, 10, 10);
         world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
         
-        world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data(0, 0, '0'); 10]; 10];
-        world.biome_tiles.tiles = vec![vec![BiomeTile::from_data(0, 0, '1'); 10]; 10];
+        world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data('0'); 10]; 10];
+        world.biome_tiles.tiles = vec![vec![BiomeTile::from_data('1'); 10]; 10];
         world.biome_tiles.tiles[5][5].tile_type = Biome::Water;
         
         world.update_tiles_hitmap();

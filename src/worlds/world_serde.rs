@@ -57,9 +57,9 @@ impl World {
 
         let biome_tile_set = TileSet::<BiomeTile>::with_tiles(
             SPRITE_SHEET_BIOME_TILES, 
-            (0..WORLD_SIZE_ROWS).map(|row| {
-                (0..WORLD_SIZE_COLUMNS).map(|column| {
-                    let mut tile = BiomeTile::from_data(row, column, '0');
+            (0..WORLD_SIZE_ROWS).map(|_| {
+                (0..WORLD_SIZE_COLUMNS).map(|_| {
+                    let mut tile = BiomeTile::from_data('0');
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
                 }).collect()
@@ -69,9 +69,9 @@ impl World {
 
         let construction_tile_set = TileSet::<ConstructionTile>::with_tiles(
             SPRITE_SHEET_CONSTRUCTION_TILES, 
-            (0..WORLD_SIZE_ROWS).map(|row| {
-                (0..WORLD_SIZE_COLUMNS).map(|column| {
-                    let mut tile = ConstructionTile::from_data(row, column, '0');
+            (0..WORLD_SIZE_ROWS).map(|_| {
+                (0..WORLD_SIZE_COLUMNS).map(|_| {
+                    let mut tile = ConstructionTile::from_data('0');
                     tile.setup_neighbors(tile.tile_type, tile.tile_type, tile.tile_type, tile.tile_type);
                     tile
                 }).collect()

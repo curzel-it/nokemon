@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::{impl_tile, utils::rect::Rect};
+use crate::utils::rect::Rect;
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -32,16 +32,12 @@ pub enum Construction {
 #[derive(Debug, Default, Clone, Copy)]
 pub struct ConstructionTile {
     pub tile_type: Construction,
-    pub column: u32,
-    pub row: u32,
     pub tile_up_type: Construction,
     pub tile_right_type: Construction,
     pub tile_down_type: Construction,
     pub tile_left_type: Construction,
     pub texture_source_rect: Rect,
 }
-
-impl_tile!(ConstructionTile);
 
 impl SpriteTile for ConstructionTile {
     fn texture_source_rect(&self, _: i32) -> Rect {
@@ -198,11 +194,9 @@ impl Construction {
 }
 
 impl ConstructionTile {
-    pub fn from_data(row: usize, column: usize, data: char) -> Self {
+    pub fn from_data(data: char) -> Self {
         let mut tile = Self { 
             tile_type: Construction::from_char(data), 
-            column: column as u32, 
-            row: row as u32, 
             tile_up_type: Construction::Nothing,
             tile_right_type: Construction::Nothing, 
             tile_down_type: Construction::Nothing, 
@@ -239,9 +233,9 @@ impl<'de> Deserialize<'de> for TileSet<ConstructionTile> {
 
         let data = TileSetData::deserialize(deserializer)?;
 
-        let mut tiles: Vec<Vec<ConstructionTile>> = data.tiles.into_iter().enumerate().map(|(row, tile_row)| {
-            tile_row.chars().enumerate().map(|(column, tile_char)| {
-                ConstructionTile::from_data(row, column, tile_char)
+        let mut tiles: Vec<Vec<ConstructionTile>> = data.tiles.into_iter().map(|tile_row| {
+            tile_row.chars().map(|tile_char| {
+                ConstructionTile::from_data(tile_char)
             }).collect()
         }).collect();
 
