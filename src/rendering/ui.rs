@@ -506,15 +506,13 @@ impl View {
 
 impl Layout {
     pub fn render(&self, d: &mut RaylibDrawHandle) {
-        /* 
-        if let Some(config) = &RENDERING_CONFIG {
-            for (anchor, views) in &self.children {
-                for view in views {
-                    let position = self.calculate_position(anchor, view, config);
-                    view.render(d, config, &position);
-                }
+        let config = get_rendering_config();
+        for (anchor, views) in &self.children {
+            for view in views {
+                let position = self.calculate_position(anchor, view, config);
+                view.render(d, config, &position);
             }
-        }*/
+        }
     }
 
     fn calculate_position(&self, anchor: &AnchorPoint, view: &View, config: &RenderingConfig) -> Vector2d {
@@ -523,7 +521,7 @@ impl Layout {
         let (x, y) = match anchor {
             AnchorPoint::Center => (
                 (self.frame.x as f32 + self.frame.w as f32 - size.x) / 2.0, 
-                (self.frame.y as f32 + self.frame.w as f32 - size.y) / 2.0
+                (self.frame.y as f32 + self.frame.h as f32 - size.y) / 2.0
             ), 
             AnchorPoint::TopLeft => (0.0, 0.0), 
             AnchorPoint::TopRight => (
