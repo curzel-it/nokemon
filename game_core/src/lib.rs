@@ -15,7 +15,7 @@ use game_engine::engine::GameEngine;
 use std::cell::RefCell;
 
 thread_local! {
-    static ENGINE: RefCell<Option<GameEngine>> = RefCell::new(None);
+    static ENGINE: RefCell<Option<GameEngine>> = const { RefCell::new(None) };
 }
 
 #[no_mangle]
