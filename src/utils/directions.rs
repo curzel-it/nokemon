@@ -1,17 +1,16 @@
-use serde_repr::{Serialize_repr, Deserialize_repr};
+use serde::{Deserialize, Serialize};
+
 use super::{rect::Rect, vector::Vector2d};
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
-#[repr(u8)]
-#[derive(Default)]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Direction {
     Up = 0,
-    Down = 1,
-    Right = 2,
-    Left = 3,
+    Down,
+    Right,
+    Left,
     #[default]
-    Unknown = 4,
-    Still = 5,
+    Unknown,
+    Still,
 }
 
 impl Direction {

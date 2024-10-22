@@ -186,7 +186,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -244,7 +244,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -298,7 +298,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -352,7 +352,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -406,7 +406,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -460,7 +460,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -514,7 +514,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 4,
+      "direction": "Unknown",
       "current_speed": 9.6,
       "is_rigid": true,
       "z_index": 50,
@@ -568,7 +568,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -622,7 +622,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -676,7 +676,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -730,7 +730,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -784,7 +784,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -842,7 +842,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -896,7 +896,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 0,
@@ -957,7 +957,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -1011,7 +1011,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -1065,7 +1065,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -1119,7 +1119,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -1177,7 +1177,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -1231,7 +1231,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 150,
@@ -1285,7 +1285,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -1339,7 +1339,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -1393,7 +1393,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -1447,7 +1447,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -1501,7 +1501,7 @@
         "x": -1.6065032,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 1.0,
       "is_rigid": true,
       "z_index": 50,
@@ -1555,7 +1555,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 100,
@@ -1609,7 +1609,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 9.6,
       "is_rigid": false,
       "z_index": 200,
@@ -1663,7 +1663,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -1717,7 +1717,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": -1,
@@ -1771,7 +1771,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": -1,
@@ -1825,7 +1825,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -1879,7 +1879,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 0,
@@ -1946,7 +1946,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2000,7 +2000,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2054,7 +2054,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2108,7 +2108,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2162,7 +2162,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2216,7 +2216,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2270,7 +2270,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 0,
+      "direction": "Up",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2324,7 +2324,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2378,7 +2378,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2432,7 +2432,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2486,7 +2486,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2540,7 +2540,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 0,
+      "direction": "Up",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2594,7 +2594,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2648,7 +2648,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -2702,7 +2702,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2756,7 +2756,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2810,7 +2810,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2864,7 +2864,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2918,7 +2918,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -2972,7 +2972,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -3026,7 +3026,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -3080,7 +3080,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -3134,7 +3134,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3188,7 +3188,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3242,7 +3242,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3296,7 +3296,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3350,7 +3350,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3404,7 +3404,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3458,7 +3458,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3512,7 +3512,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3566,7 +3566,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3620,7 +3620,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3674,7 +3674,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3728,7 +3728,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3782,7 +3782,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3836,7 +3836,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3890,7 +3890,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3944,7 +3944,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -3998,7 +3998,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4052,7 +4052,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4106,7 +4106,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4160,7 +4160,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4214,7 +4214,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4268,7 +4268,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4322,7 +4322,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4376,7 +4376,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4430,7 +4430,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4484,7 +4484,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4538,7 +4538,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4592,7 +4592,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4646,7 +4646,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4700,7 +4700,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4754,7 +4754,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4808,7 +4808,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4862,7 +4862,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4916,7 +4916,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -4970,7 +4970,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5024,7 +5024,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5078,7 +5078,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5132,7 +5132,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5186,7 +5186,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5240,7 +5240,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5294,7 +5294,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5348,7 +5348,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5402,7 +5402,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 100,
@@ -5456,7 +5456,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -5510,7 +5510,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -5568,7 +5568,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5622,7 +5622,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5676,7 +5676,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5730,7 +5730,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5784,7 +5784,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5838,7 +5838,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -5892,7 +5892,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -5946,7 +5946,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -6000,7 +6000,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -6054,7 +6054,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -6108,7 +6108,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -6162,7 +6162,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -6216,7 +6216,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 350,
@@ -6270,7 +6270,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6324,7 +6324,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6378,7 +6378,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -6436,7 +6436,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -6494,7 +6494,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6548,7 +6548,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6602,7 +6602,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6656,7 +6656,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6710,7 +6710,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6764,7 +6764,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6818,7 +6818,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6872,7 +6872,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6926,7 +6926,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -6980,7 +6980,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -7034,7 +7034,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 300,
@@ -7088,7 +7088,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -7146,7 +7146,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 3,
+      "direction": "Left",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7200,7 +7200,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -7258,7 +7258,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -7316,7 +7316,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -7374,7 +7374,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -7432,7 +7432,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7486,7 +7486,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7540,7 +7540,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7594,7 +7594,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 2.5,
       "is_rigid": false,
       "z_index": 150,
@@ -7648,7 +7648,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7702,7 +7702,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7756,7 +7756,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7810,7 +7810,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7864,7 +7864,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7918,7 +7918,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -7972,7 +7972,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 0,
@@ -8026,7 +8026,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 1.0,
       "is_rigid": true,
       "z_index": 200,

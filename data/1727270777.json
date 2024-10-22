@@ -186,7 +186,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 1000,
@@ -239,7 +239,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 200,
@@ -296,7 +296,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 200,
@@ -349,7 +349,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 200,
@@ -402,7 +402,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 100,
@@ -455,7 +455,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 100,
@@ -508,7 +508,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": false,
       "z_index": 100,
@@ -561,7 +561,7 @@
         "x": 4.386602,
         "y": 0.0
       },
-      "direction": 2,
+      "direction": "Right",
       "current_speed": 1.5,
       "is_rigid": false,
       "z_index": 150,
@@ -614,7 +614,7 @@
         "x": 0.0,
         "y": 0.0
       },
-      "direction": 1,
+      "direction": "Down",
       "current_speed": 0.0,
       "is_rigid": true,
       "z_index": 200,
