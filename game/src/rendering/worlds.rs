@@ -1,6 +1,5 @@
+use game_core::game_engine::{engine::GameEngine, world::World};
 use raylib::prelude::*;
-
-use crate::game_engine::{engine::GameEngine, world::World};
 
 use super::{death_screen::render_death_screen, entities::render_entities, loading_screen::render_loading_screen, menus::render_menu, tiles::render_tiles};
 

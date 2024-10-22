@@ -1,16 +1,17 @@
-use std::{fs::File, io::{BufReader, Write}};
+use std::{fs::File, io::{BufReader, Write}, path::PathBuf};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
-
-use super::utils::world_path;
+use crate::{constants::{LEVELS_PATH, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 impl World {
     pub fn load(id: u32) -> Option<Self> {
-        let path = world_path(id);
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("..");
+        path.push(LEVELS_PATH);
+        path.push(format!("{}.json", id));
 
-        if let Ok(file) = File::open(path.clone()) {
+        if let Ok(file) = File::open(path) {
             let reader = BufReader::new(file);        
             let result: Result<Self, Error> = serde_json::from_reader(reader);
 
@@ -18,10 +19,10 @@ impl World {
                 println!("Game saved successfully!");
                 return Some(world)
             } else {
-                println!("Failed to parse game {}: {:#?}", path, result.err());
+                println!("Failed to parse game {}.json: {:#?}", id, result.err());
             } 
         } else {
-            println!("Failed to load game file at {}", path);
+            println!("Failed to load game file at {}.json", id);
         }
         None
     }
@@ -35,14 +36,17 @@ impl World {
     }
 
     pub fn save(&self) {
-        let path = world_path(self.id);
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("..");
+        path.push(LEVELS_PATH);
+        path.push(format!("{}.json", self.id));
 
         if let Ok(serialized_world) = serde_json::to_string_pretty(self) {
             if let Ok(mut file) = File::create(path.clone()) {
                 if let Err(e) = file.write_all(serialized_world.as_bytes()) {
                     eprintln!("Failed to write save file: {}", e);
                 } else {
-                    println!("Game saved successfully to {}", path);
+                    println!("Game saved successfully to {}.json", self.id);
                 }
             } else {
                 eprintln!("Failed to create save file");

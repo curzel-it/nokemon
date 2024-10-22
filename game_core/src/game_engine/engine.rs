@@ -43,7 +43,7 @@ impl GameEngine {
         }
     }
 
-    pub fn start(&mut self, screen_width: i32, screen_height: i32) {
+    pub fn start(&mut self) {
         self.teleport_to_previous();
     }
 
@@ -320,7 +320,7 @@ mod tests {
     #[test]
     fn can_launch_game_headless() {
         let mut engine = GameEngine::new();
-        engine.start(1920, 1080);
+        engine.start();
         assert_ne!(engine.world.bounds.w, 10);
         assert_ne!(engine.world.bounds.h, 10);
     }

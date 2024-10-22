@@ -2,7 +2,7 @@ use crate::constants::DEFAULT_LANG;
 
 use std::collections::HashMap;
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use lazy_static::lazy_static;
 use crate::constants::LOCALIZED_STRINGS_PATH;
 
@@ -32,8 +32,12 @@ lazy_static! {
 }
 
 fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("..");
+    path.push(LOCALIZED_STRINGS_PATH);
+
     let mut localized_strings = HashMap::new();    
-    let paths = fs::read_dir(LOCALIZED_STRINGS_PATH)
+    let paths = fs::read_dir(path)
         .expect("Failed to read localized strings directory")
         .flatten()
         .map(|p| p.path());

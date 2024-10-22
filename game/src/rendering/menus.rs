@@ -1,13 +1,14 @@
 use common_macros::hash_map;
+use game_core::{game_engine::engine::GameEngine, ui::layouts::{AnchorPoint, Layout}};
 use raylib::prelude::*;
 
-use crate::{game_engine::engine::GameEngine, ui::layouts::{AnchorPoint, Layout}};
+use super::ui::render_layout;
 
 pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
     let w = d.get_screen_width();
     let h = d.get_screen_height();
 
-    Layout::new(w, h, hash_map! {
+    let layout = Layout::new(w, h, hash_map! {
         AnchorPoint::BottomCenter => vec![
             engine.menu.ui(&engine.camera_viewport),
             engine.entity_options_menu.ui(),
@@ -21,5 +22,6 @@ pub fn render_menu(d: &mut RaylibDrawHandle, engine: &GameEngine) {
         AnchorPoint::TopLeft => vec![
             engine.toast.important_toast_ui()
         ]
-    }).render(d);
+    });
+    render_layout(&layout, d);
 }

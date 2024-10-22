@@ -1,6 +1,5 @@
+use game_core::features::loading_screen::LoadingScreen;
 use raylib::prelude::*;
-
-use crate::features::loading_screen::LoadingScreen;
 
 pub fn render_loading_screen(d: &mut RaylibDrawHandle, loading_screen: &LoadingScreen) {
     let progress = loading_screen.progress();

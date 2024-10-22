@@ -24,7 +24,7 @@ pub extern "C" fn initialize_game(width: i32, height: i32, creative_mode: bool) 
         *engine.borrow_mut() = Some(GameEngine::new());
         if let Some(ref mut eng) = *engine.borrow_mut() {
             eng.set_creative_mode(creative_mode);
-            eng.start(width, height);
+            eng.start();
         }
     });
 }

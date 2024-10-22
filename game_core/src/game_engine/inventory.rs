@@ -1,10 +1,10 @@
-use std::{fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
+use std::{fs::File, io::{BufReader, Write}, path::PathBuf, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use serde_json;
 use crate::{constants::INVENTORY_PATH, entities::species::{species_by_id, EntityType}, game_engine::entity::Entity};
 
 lazy_static! {
-    pub static ref INVENTORY: RwLock<Vec<Entity>> = RwLock::new(load_inventory(INVENTORY_PATH));
+    pub static ref INVENTORY: RwLock<Vec<Entity>> = RwLock::new(load_inventory());
 
     static ref SAVE_THREAD: (Sender<Vec<Entity>>, thread::JoinHandle<()>) = {
         let (tx, rx) = mpsc::channel::<Vec<Entity>>();
@@ -73,8 +73,12 @@ pub fn inventory_contains_species(species_id: u32) -> bool {
     INVENTORY.read().unwrap().iter().any(|e| e.species_id == species_id)
 }
 
-fn load_inventory(file_path: &str) -> Vec<Entity> {
-    let file = File::open(file_path).expect("Failed to open inventory.json file");
+fn load_inventory() -> Vec<Entity> {
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("..");
+    path.push(INVENTORY_PATH);
+
+    let file = File::open(path).expect("Failed to open inventory.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize inventory file from JSON")
 }

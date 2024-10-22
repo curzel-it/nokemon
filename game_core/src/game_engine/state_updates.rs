@@ -48,7 +48,7 @@ mod tests {
     #[test]
     fn entity_can_relay_world_state_updates() {
         let mut engine = GameEngine::new();
-        engine.start(800, 600);
+        engine.start();
         let hero = make_entity_by_species(SPECIES_HERO);
         let (hero_index, _) = engine.world.add_entity(hero);
 
@@ -62,7 +62,7 @@ mod tests {
     #[test]
     fn entity_can_relay_engine_state_updates() {
         let mut engine = GameEngine::new();
-        engine.start(800, 600);
+        engine.start();
         let hero = make_entity_by_species(SPECIES_HERO);
         engine.world.add_entity(hero);
 

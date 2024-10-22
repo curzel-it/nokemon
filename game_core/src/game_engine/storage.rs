@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
+use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, path::PathBuf, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use crate::constants::KEY_VALUE_STORAGE_PATH;
 
@@ -20,8 +20,12 @@ impl StorageKey {
     }
 }
 
-fn load_stored_values(file_path: &str) -> BTreeMap<String, u32> {
-    let file = File::open(file_path).expect("Failed to open save.json file");
+fn load_stored_values() -> BTreeMap<String, u32> {
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("..");
+    path.push(KEY_VALUE_STORAGE_PATH);
+
+    let file = File::open(path).expect("Failed to open save.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize save file from JSON")
 }
@@ -43,7 +47,7 @@ fn save_stored_values(path: &str, data: &BTreeMap<String, u32>) {
 }
 
 lazy_static! {
-    static ref KEY_VALUE_STORAGE: RwLock<BTreeMap<String, u32>> = RwLock::new(load_stored_values(KEY_VALUE_STORAGE_PATH));
+    static ref KEY_VALUE_STORAGE: RwLock<BTreeMap<String, u32>> = RwLock::new(load_stored_values());
     
     static ref SAVE_THREAD: (Sender<BTreeMap<String, u32>>, thread::JoinHandle<()>) = {
         let (tx, rx) = mpsc::channel::<BTreeMap<String, u32>>();

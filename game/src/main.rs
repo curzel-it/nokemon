@@ -1,26 +1,11 @@
-mod constants;
-mod dialogues;
-mod entities;
-mod features;
-mod game_engine;
-mod lang;
-mod maps;
-mod menus;
-mod prefabs;
 mod rendering;
-mod ui;
-mod utils;
-mod worlds;
 
 use std::{collections::HashMap, env};
 
 use common_macros::hash_map;
-use constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE};
-use game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
+use game_core::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE}, game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider}, ui::components::Typography, utils::vector::Vector2d};
 use raylib::{ffi::{KeyboardKey, MouseButton}, texture::Texture2D, RaylibHandle, RaylibThread};
 use rendering::{ui::{get_rendering_config, get_rendering_config_mut, init_rendering_config, is_rendering_config_initialized, RenderingConfig}, worlds::render};
-use ui::components::Typography;
-use utils::vector::Vector2d;
 
 fn main() {
     let mut creative_mode = false;
@@ -35,8 +20,13 @@ fn main() {
     
     let (mut rl, thread) = start_rl();
     rl.set_window_min_size(360, 240);
-    engine.start(rl.get_screen_width(), rl.get_screen_height());
-    window_size_changed(&mut engine, rl.get_screen_width() as f32, rl.get_screen_height() as f32);
+    engine.start();
+    
+    window_size_changed(
+        &mut engine, 
+        rl.get_screen_width() as f32, 
+        rl.get_screen_height() as f32
+    );
     
     while engine.is_running {
         let time_since_last_update = rl.get_frame_time().min(0.1);
