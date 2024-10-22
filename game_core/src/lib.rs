@@ -19,6 +19,11 @@ thread_local! {
 }
 
 #[no_mangle]
+pub extern "C" fn test_integration() {
+    println!("Helloooo");
+}
+
+#[no_mangle]
 pub extern "C" fn initialize_game(width: i32, height: i32, creative_mode: bool) {
     ENGINE.with(|engine| {
         *engine.borrow_mut() = Some(GameEngine::new());
