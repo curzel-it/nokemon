@@ -1,0 +1,13 @@
+[package]
+name = "game"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+game_core = { path = "../game_core" }
+raylib = "5.0.1"
+common_macros = "0.1.1"
+
+[[bin]]
+name = "game"
+path = "src/main.rs"
