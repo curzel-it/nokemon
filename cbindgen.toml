@@ -1,0 +1,11 @@
+# cbindgen.toml
+language = "C"
+
+[parse]
+parse_deps = false
+
+[output]
+header = """
+// Header file for game_core
+"""
+

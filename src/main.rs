@@ -18,7 +18,8 @@ use common_macros::hash_map;
 use constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE};
 use game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider};
 use raylib::{ffi::{KeyboardKey, MouseButton}, texture::Texture2D, RaylibHandle, RaylibThread};
-use rendering::{ui::{get_rendering_config, init_rendering_config, RenderingConfig}, worlds::render};
+use rendering::{ui::{get_rendering_config, get_rendering_config_mut, init_rendering_config, is_rendering_config_initialized, RenderingConfig}, worlds::render};
+use ui::components::Typography;
 use utils::vector::Vector2d;
 
 fn main() {
@@ -35,13 +36,14 @@ fn main() {
     let (mut rl, thread) = start_rl();
     rl.set_window_min_size(360, 240);
     engine.start(rl.get_screen_width(), rl.get_screen_height());
+    window_size_changed(&mut engine, rl.get_screen_width() as f32, rl.get_screen_height() as f32);
     
     while engine.is_running {
         let time_since_last_update = rl.get_frame_time().min(0.1);
 
         if rl.is_window_resized() {
             println!("Window resized to {}x{}", rl.get_screen_width(), rl.get_screen_height());
-            engine.window_size_changed(rl.get_screen_width(), rl.get_screen_height());
+            window_size_changed(&mut engine, rl.get_screen_width() as f32, rl.get_screen_height() as f32);
         }
         if rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE) {
             engine.is_running = false;
@@ -80,6 +82,28 @@ fn start_rl() -> (RaylibHandle, RaylibThread) {
     });
 
     (rl, thread)
+}
+
+fn window_size_changed(engine: &mut GameEngine, width: f32, height: f32) {
+    if !is_rendering_config_initialized() {
+        return
+    }
+    println!("Window size changed to {}x{}", width, height);
+    let (scale, font_scale) = engine.rendering_scale_for_screen_width(width);
+    
+    println!("Updated rendering scale to {}", scale);
+    println!("Updated font scale to {}", scale);
+    
+    let config = get_rendering_config_mut();
+    config.rendering_scale = scale;
+    config.font_rendering_scale = font_scale;
+    config.canvas_size.x = width;
+    config.canvas_size.y = height;
+
+    let font_size = config.scaled_font_size(&Typography::Regular);
+    let line_spacing = config.font_lines_spacing(&Typography::Regular);
+
+    engine.window_size_changed(width, height, scale, font_size, line_spacing);
 }
 
 fn load_textures(rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    

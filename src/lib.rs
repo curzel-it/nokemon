@@ -7,7 +7,6 @@ pub mod lang;
 pub mod maps;
 pub mod menus;
 pub mod prefabs;
-pub mod rendering;
 pub mod ui;
 pub mod utils;
 pub mod worlds;

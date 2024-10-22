@@ -18,3 +18,5 @@ crate-type = ["staticlib", "cdylib"]
 [[bin]]
 name = "game"
 path = "src/main.rs"
+
+[package.metadata.cargo-lipo]
