@@ -138,10 +138,4 @@ typedef struct BordersTextures BordersTextures;
 
 void test_integration(void);
 
-void initialize_game(int32_t width, int32_t height, bool creative_mode);
-
-void update_game(float time_since_last_update);
-
-bool is_game_running(void);
-
 #endif  /* GAME_CORE_H */
