@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::Rect};
+use crate::{constants::WORLD_ID_NONE, game_engine::{keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}}, lang::localizable::LocalizableText, spacing, ui::components::{Spacing, View}, utils::rect::IntRect};
 
 use super::{inventory::Inventory, map_editor::MapEditor, menu::{Menu, MenuItem, MenuUpdate}};
 
@@ -92,7 +92,7 @@ impl GameMenu {
 
     pub fn update(
         &mut self, 
-        camera_vieport: &Rect, 
+        camera_vieport: &IntRect, 
         keyboard: &KeyboardEventsProvider, 
         mouse: &MouseEventsProvider,
         time_since_last_update: f32
@@ -176,7 +176,7 @@ impl GameMenu {
         self.inventory.update(keyboard)
     }
 
-    fn update_from_map_editor(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_from_map_editor(&mut self, camera_vieport: &IntRect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::Open;
         }
@@ -188,14 +188,14 @@ impl GameMenu {
         vec![]
     }
 
-    fn update_from_place_item(&mut self, camera_vieport: &Rect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
+    fn update_from_place_item(&mut self, camera_vieport: &IntRect, keyboard: &KeyboardEventsProvider, mouse: &MouseEventsProvider) -> Vec<WorldStateUpdate> {
         if keyboard.has_back_been_pressed {
             self.state = MenuState::MapEditor;
         }
         self.map_editor.update(camera_vieport, keyboard, mouse)
     }
 
-    pub fn ui(&self, camera_viewport: &Rect) -> View {
+    pub fn ui(&self, camera_viewport: &IntRect) -> View {
         match self.state {
             MenuState::Closed => spacing!(Spacing::Zero),
             MenuState::Open => self.menu.ui(),

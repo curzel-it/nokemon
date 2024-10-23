@@ -1,4 +1,4 @@
-use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_HOMUNCULUS, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::Rect}};
+use crate::{constants::{WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::{SPECIES_GHOST, SPECIES_HOMUNCULUS, SPECIES_ZOMBIE}, species::species_by_id}, game_engine::{entity::Entity, state_updates::WorldStateUpdate, world::World}, maps::biome_tiles::Biome, utils::{directions::Direction, rect::IntRect}};
 use rand::{rngs::ThreadRng, seq::SliceRandom};
 
 pub struct CreepSpawner {
@@ -54,7 +54,7 @@ impl CreepSpawner {
         hero_direction: &Direction,
         world: &World,
     ) -> Option<(i32, i32)> {
-        let Rect { x, y, w, h } = world.visible_bounds;
+        let IntRect { x, y, w, h } = world.visible_bounds;
 
         let mut possible_positions = Vec::new();
 

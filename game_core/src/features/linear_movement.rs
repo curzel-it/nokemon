@@ -1,4 +1,4 @@
-use crate::{constants::{BASE_ENTITY_SPEED, HERO_ENTITY_ID, TILE_SIZE}, game_engine::{entity::Entity, world::World}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{BASE_ENTITY_SPEED, HERO_ENTITY_ID, TILE_SIZE}, game_engine::{entity::Entity, world::World}, utils::{directions::Direction, rect::IntRect, vector::Vector2d}};
 
 use super::hitmap::{Hitmap, WeightsMap};
 
@@ -58,7 +58,7 @@ fn updated_offset(offset: &Vector2d, direction: &Direction, speed: f32, time_sin
         .scaled(BASE_ENTITY_SPEED) + *offset
 }
 
-fn would_exit_bounds(frame: &Rect, direction: &Direction, bounds: &Rect) -> bool {
+fn would_exit_bounds(frame: &IntRect, direction: &Direction, bounds: &IntRect) -> bool {
     match direction {
         Direction::Up => frame.y <= bounds.y,
         Direction::Right => (frame.x + frame.w) >= (bounds.x + bounds.w),
@@ -69,21 +69,21 @@ fn would_exit_bounds(frame: &Rect, direction: &Direction, bounds: &Rect) -> bool
     }
 }
 
-pub fn would_collide(frame: &Rect, direction: &Direction, hitmap: &Hitmap) -> bool {
+pub fn would_collide(frame: &IntRect, direction: &Direction, hitmap: &Hitmap) -> bool {
     let (col_offset, row_offset) = direction.as_col_row_offset();
     let base_y = frame.y + frame.h - 1;
     let base_x = frame.x;
     hitmap[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize]
 }
 
-pub fn would_over_weight(frame: &Rect, direction: &Direction, weights_map: &WeightsMap) -> bool {
+pub fn would_over_weight(frame: &IntRect, direction: &Direction, weights_map: &WeightsMap) -> bool {
     let (col_offset, row_offset) = direction.as_col_row_offset();
     let base_y = frame.y + frame.h - 1;
     let base_x = frame.x;
     weights_map[(base_y + row_offset).max(0) as usize][(base_x + col_offset).max(0) as usize] > 0
 }
 
-pub fn would_collide_with_hero(frame: &Rect, direction: &Direction, world: &World) -> bool {
+pub fn would_collide_with_hero(frame: &IntRect, direction: &Direction, world: &World) -> bool {
     let (col_offset, row_offset) = direction.as_col_row_offset();
     let y = frame.y + frame.h - 1 + row_offset;
     let x = frame.x + col_offset;

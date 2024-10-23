@@ -6,7 +6,7 @@ I really enjoyed the process, but have no idea what the final result should be, 
 
 Open to contributions and ideas!
 
-## Run / Build
+## Run
 ```bash
 # Run the game
 cargo run
@@ -24,6 +24,14 @@ Personally (but I have no idea what I'm doing and haven't used a windows machine
 3. Installed LLVM via `winget install LLVM.LLVM`
 4. `cargo run` 
 
+## Why lib + bind?
+I'm trying to have the engine by completely independent from rendering, which is going to be useful for porting the project to iOS.
+
+```bash
+cargo lipo --package game_core --release
+cbindgen --config game_core/cbindgen.toml --crate game_core --output game_core.h
+```
+
 ## Screenshots
 ![Game intro](docs/1.png)
 ![First level](docs/2.png)
@@ -31,4 +39,6 @@ Personally (but I have no idea what I'm doing and haven't used a windows machine
 ![Map Editor](docs/6.png)
 
 ## TODO:
-- lots 
+- Add tests to make sure kunai can be used to lower pressure plates
+- Add indicator for overlapping enemies (beta testers liked the bug)
+- On windows, some users report crashes when certain dialogues start

@@ -1,10 +1,11 @@
-use crate::utils::{rect::Rect, vector::Vector2d};
+use crate::utils::{rect::IntRect, vector::Vector2d};
 
 pub type NonColor = (u8, u8, u8, u8);
 
 pub const COLOR_TRANSPARENT: NonColor = (0, 0, 0, 0);
 pub const COLOR_BLACK: NonColor = (0, 0, 0, 255);
 pub const COLOR_BLACK_50: NonColor = (0, 0, 0, 128);
+pub const COLOR_BLACK_70: NonColor = (0, 0, 0, 178);
 pub const COLOR_YELLOW: NonColor = (255, 255, 0, 255);
 pub const COLOR_RED_60: NonColor = (255, 0, 0, 153);
 
@@ -36,7 +37,7 @@ pub enum View {
     VStack { spacing: Spacing, children: Vec<View> },
     HStack { spacing: Spacing, children: Vec<View> },
     Text { style: Typography, text: String },
-    Texture { key: u32, source_rect: Rect, size: Vector2d },
+    Texture { key: u32, source_rect: IntRect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
@@ -46,7 +47,7 @@ pub enum View {
 
 pub struct TextureInfo {
     pub key: u32,
-    pub source_rect: Rect
+    pub source_rect: IntRect
 }
 
 pub struct BordersTextures {

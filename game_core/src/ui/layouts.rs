@@ -1,8 +1,6 @@
-use std::collections::HashMap;
+use crate::utils::rect::IntRect;
 
-use crate::utils::rect::Rect;
-
-use super::components::View;
+use super::components::{NonColor, View};
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub enum AnchorPoint {
@@ -13,14 +11,21 @@ pub enum AnchorPoint {
 }
 
 pub struct Layout {
-    pub frame: Rect,
-    pub children: HashMap<AnchorPoint, Vec<View>>,
+    pub frame: IntRect,
+    pub background_color: NonColor,
+    pub children: Vec<(AnchorPoint, View)>,
 }
 
 impl Layout {
-    pub fn new(w: i32, h: i32, children: HashMap<AnchorPoint, Vec<View>>) -> Self {
+    pub fn new(
+        w: i32, 
+        h: i32, 
+        background_color: NonColor, 
+        children: Vec<(AnchorPoint, View)>
+    ) -> Self {
         Self { 
-            frame: Rect::new(0, 0, w, h), 
+            background_color,
+            frame: IntRect::new(0, 0, w, h), 
             children 
         }
     }

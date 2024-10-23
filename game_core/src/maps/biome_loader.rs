@@ -1,4 +1,4 @@
-use crate::{constants::{SPRITE_SHEET_BIOME_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_BIOME_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, game_engine::world::World, utils::rect::IntRect};
 
 use super::{biome_tiles::{Biome, BiomeTile}, tiles::TileSet};
 
@@ -15,7 +15,7 @@ impl World {
         } else {
             tiles
         };
-        self.bounds = Rect::new(0, 0, tiles.tiles[0].len() as i32, tiles.tiles.len() as i32);
+        self.bounds = IntRect::new(0, 0, tiles.tiles[0].len() as i32, tiles.tiles.len() as i32);
         self.biome_tiles = tiles;            
     }
 }

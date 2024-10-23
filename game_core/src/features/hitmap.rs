@@ -90,7 +90,7 @@ impl Entity {
 mod tests {
     use super::*;
 
-    use crate::{entities::species::make_entity_by_species, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::Rect}};
+    use crate::{entities::species::make_entity_by_species, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile}, utils::{ids::get_next_id, rect::IntRect}};
     
     const SPECIES_NPC_OLD_MAN: u32 = 3005;
     
@@ -101,7 +101,7 @@ mod tests {
         npc.frame.x = 5;
         npc.frame.y = 5;
         world.add_entity(npc);
-        world.visible_entities = world.compute_visible_entities(&Rect::square_from_origin(20));
+        world.visible_entities = world.compute_visible_entities(&IntRect::square_from_origin(20));
         
         let (hitmap, _, _) = world.compute_hitmap();
         println!("{:#?}", world.visible_entities);
@@ -113,11 +113,11 @@ mod tests {
     fn test_hitmap_ignores_non_rigid_entity() {
         let mut world = World::new(get_next_id());
         let mut npc = make_entity_by_species(SPECIES_NPC_OLD_MAN);
-        npc.frame = Rect::new(5, 5, 2, 2);
+        npc.frame = IntRect::new(5, 5, 2, 2);
         npc.is_rigid = false;
         
         world.add_entity(npc);
-        world.compute_visible_entities(&Rect::square_from_origin(20));
+        world.compute_visible_entities(&IntRect::square_from_origin(20));
         
         let (hitmap, _, _) = world.compute_hitmap();
         assert!(!hitmap[6][5]);
@@ -129,8 +129,8 @@ mod tests {
     #[test]
     fn test_hitmap_with_biome_tiles_nothing_still_hits() {
         let mut world = World::new(get_next_id());
-        world.bounds = Rect::new(0, 0, 10, 10);
-        world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
+        world.bounds = IntRect::new(0, 0, 10, 10);
+        world.cached_hero_props.frame = IntRect::new(4, 4, 2, 2);
         
         world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data('0'); 10]; 10];
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data('0'); 10]; 10];
@@ -146,8 +146,8 @@ mod tests {
     #[test]
     fn test_hitmap_with_biome_tiles() {
         let mut world = World::new(get_next_id());
-        world.bounds = Rect::new(0, 0, 10, 10);
-        world.cached_hero_props.frame = Rect::new(4, 4, 2, 2);
+        world.bounds = IntRect::new(0, 0, 10, 10);
+        world.cached_hero_props.frame = IntRect::new(4, 4, 2, 2);
         
         world.constructions_tiles.tiles = vec![vec![ConstructionTile::from_data('0'); 10]; 10];
         world.biome_tiles.tiles = vec![vec![BiomeTile::from_data('1'); 10]; 10];

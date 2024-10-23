@@ -1,4 +1,4 @@
-use crate::{lang::localizable::LocalizableText, text, ui::components::{Typography, View}};
+use crate::{lang::localizable::LocalizableText, text, ui::components::{empty_view, Typography, View}};
 
 pub struct DeathScreen {
     pub is_open: bool
@@ -16,6 +16,10 @@ impl DeathScreen {
     }
 
     pub fn ui(&self) -> View {
-        text!(Typography::Title, "death_screen.title".localized())
+        if self.is_open {
+            text!(Typography::Title, "death_screen.title".localized())
+        } else {
+            empty_view()
+        }
     }
 }

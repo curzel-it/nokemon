@@ -3,6 +3,7 @@ use std::ops::Add;
 use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Default, Debug, Serialize, Deserialize)]
+#[repr(C)]
 pub struct Vector2d {
     pub x: f32,
     pub y: f32,

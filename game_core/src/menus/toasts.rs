@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 
-use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, NonColor, Spacing, TextureInfo, Typography, View, COLOR_BLACK}, scaffold::scaffold}, utils::{animator::Animator, rect::Rect}, vstack};
+use crate::{constants::SPRITE_SHEET_MENU, features::animated_sprite::AnimatedSprite, hstack, spacing, text, texture, ui::{components::{empty_view, BordersTextures, NonColor, Spacing, TextureInfo, Typography, View, COLOR_BLACK}, scaffold::scaffold}, utils::{animator::Animator, rect::IntRect}, vstack};
 
 #[derive(Debug, Clone, Copy)]
 pub enum ToastMode {
@@ -11,7 +11,7 @@ pub enum ToastMode {
 
 #[derive(Debug, Clone, Copy)]
 pub struct ToastImage {
-    pub sprite_frame: Rect,
+    pub sprite_frame: IntRect,
     pub sprite_sheet_id: u32,
     pub number_of_frames: i32,    
 }
@@ -82,7 +82,7 @@ impl ToastDisplay {
 }
 
 impl ToastImage {
-    pub fn new(sprite_frame: Rect, sprite_sheet_id: u32, number_of_frames: i32) -> Self {
+    pub fn new(sprite_frame: IntRect, sprite_sheet_id: u32, number_of_frames: i32) -> Self {
         Self {
             sprite_frame,
             sprite_sheet_id,
@@ -90,7 +90,7 @@ impl ToastImage {
         }
     }
     
-    pub fn static_image(sprite_frame: Rect, sprite_sheet_id: u32) -> Self {
+    pub fn static_image(sprite_frame: IntRect, sprite_sheet_id: u32) -> Self {
         Self::new(sprite_frame, sprite_sheet_id, 1)
     }
 }
@@ -183,23 +183,23 @@ impl ToastDisplay {
 }
 
 const TOAST_BORDERS_TEXTURES: BordersTextures = BordersTextures {
-    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 3, y: 0, w: 1, h: 1 } },
-    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 5, y: 0, w: 1, h: 1 } },
-    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 5, y: 2, w: 1, h: 1 } },
-    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 3, y: 2, w: 1, h: 1 } },
-    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 4, y: 0, w: 1, h: 1 } },
-    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 5, y: 1, w: 1, h: 1 } },
-    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 4, y: 2, w: 1, h: 1 } },
-    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 3, y: 1, w: 1, h: 1 } },
+    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 3, y: 0, w: 1, h: 1 } },
+    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 5, y: 0, w: 1, h: 1 } },
+    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 5, y: 2, w: 1, h: 1 } },
+    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 3, y: 2, w: 1, h: 1 } },
+    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 4, y: 0, w: 1, h: 1 } },
+    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 5, y: 1, w: 1, h: 1 } },
+    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 4, y: 2, w: 1, h: 1 } },
+    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 3, y: 1, w: 1, h: 1 } },
 };
 
 const TOAST_IMPORTANT_BORDERS_TEXTURES: BordersTextures = BordersTextures {
-    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 0, w: 1, h: 1 } },
-    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 0, w: 1, h: 1 } },
-    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 2, w: 1, h: 1 } },
-    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 2, w: 1, h: 1 } },
-    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 7, y: 0, w: 1, h: 1 } },
-    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 1, w: 1, h: 1 } },
-    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 7, y: 2, w: 1, h: 1 } },
-    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 1, w: 1, h: 1 } },
+    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 0, w: 1, h: 1 } },
+    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 0, w: 1, h: 1 } },
+    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 2, w: 1, h: 1 } },
+    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 2, w: 1, h: 1 } },
+    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 7, y: 0, w: 1, h: 1 } },
+    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 1, w: 1, h: 1 } },
+    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 7, y: 2, w: 1, h: 1 } },
+    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 1, w: 1, h: 1 } },
 };

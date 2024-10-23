@@ -1,5 +1,5 @@
 
-use crate::{constants::SPRITE_SHEET_MENU, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::{components::{empty_view, BordersTextures, TextureInfo, View}, scaffold::scaffold}, utils::rect::Rect};
+use crate::{constants::SPRITE_SHEET_MENU, game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, lang::localizable::LocalizableText, ui::{components::{empty_view, BordersTextures, TextureInfo, View}, scaffold::scaffold}, utils::rect::IntRect};
 
 use super::menu::{Menu, MenuItem, MenuUpdate};
 
@@ -69,14 +69,14 @@ impl ConfirmationDialog {
 }
 
 const ALERT_BORDERS_TEXTURES: BordersTextures = BordersTextures {
-    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 0, w: 1, h: 1 } },
-    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 0, w: 1, h: 1 } },
-    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 2, w: 1, h: 1 } },
-    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 2, w: 1, h: 1 } },
-    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 7, y: 0, w: 1, h: 1 } },
-    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 8, y: 1, w: 1, h: 1 } },
-    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 7, y: 2, w: 1, h: 1 } },
-    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 6, y: 1, w: 1, h: 1 } },
+    corner_top_left:     TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 0, w: 1, h: 1 } },
+    corner_top_right:    TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 0, w: 1, h: 1 } },
+    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 2, w: 1, h: 1 } },
+    corner_bottom_left:  TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 2, w: 1, h: 1 } },
+    side_top:            TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 7, y: 0, w: 1, h: 1 } },
+    side_right:          TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 8, y: 1, w: 1, h: 1 } },
+    side_bottom:         TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 7, y: 2, w: 1, h: 1 } },
+    side_left:           TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 6, y: 1, w: 1, h: 1 } },
 };
 
 impl ConfirmationDialog {

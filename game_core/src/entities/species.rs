@@ -12,7 +12,7 @@ use crate::game_engine::locks::LockType;
 use crate::lang::localizable::LocalizableText;
 use crate::utils::directions::Direction;
 use crate::utils::ids::get_next_id;
-use crate::utils::rect::Rect;
+use crate::utils::rect::IntRect;
 use crate::utils::vector::Vector2d;
 
 pub type SpeciesId = u32;
@@ -26,7 +26,7 @@ pub struct Species {
     pub base_speed: f32,
     pub is_rigid: bool,
     pub inventory_texture_offset: (i32, i32),
-    pub sprite_frame: Rect,
+    pub sprite_frame: IntRect,
     pub sprite_sheet_id: u32,
     pub sprite_number_of_frames: i32,
     
@@ -129,8 +129,8 @@ impl Species {
         entity.movement_directions = self.movement_directions;
     }
 
-    pub fn inventory_sprite_frame(&self) -> Rect {
-        Rect::new(self.inventory_texture_offset.1, self.inventory_texture_offset.0, 1, 1)
+    pub fn inventory_sprite_frame(&self) -> IntRect {
+        IntRect::new(self.inventory_texture_offset.1, self.inventory_texture_offset.0, 1, 1)
     }
 
     fn make_sprite(&self, _: bool) -> AnimatedSprite {
@@ -170,7 +170,7 @@ pub const SPECIES_NONE: Species = Species {
     base_speed: 0.0,
     is_rigid: false,
     inventory_texture_offset: (0, 0),
-    sprite_frame: Rect::new(0, 0, 0, 0),
+    sprite_frame: IntRect::new(0, 0, 0, 0),
     sprite_sheet_id: SPRITE_SHEET_BIOME_TILES,
     sprite_number_of_frames: 1,
     lock_type: LockType::None,

@@ -116,7 +116,6 @@ impl KeyboardEventsProvider {
         current_char: Option<char>,
         time_since_last_update: f32
     ) {
-
         self.discard_direction_events_until_next_arrow_key_is_pressed = 
         self.discard_direction_events_until_next_arrow_key_is_pressed &&
             !up_pressed &&

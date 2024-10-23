@@ -1,4 +1,4 @@
-use crate::{constants::WORLD_TRANSITION_TIME, utils::animator::Animator};
+use crate::{constants::WORLD_TRANSITION_TIME, text, ui::components::{Typography, View}, utils::animator::Animator};
 
 pub struct LoadingScreen {
     pub text: String,
@@ -27,5 +27,9 @@ impl LoadingScreen {
 
     pub fn animate_world_transition(&mut self) {
         self.animator.animate(0.0, 1.0, WORLD_TRANSITION_TIME);
+    }
+
+    pub fn ui(&self) -> View {
+        text!(Typography::Title, format!("{}", self.text))
     }
 }

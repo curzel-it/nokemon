@@ -1,15 +1,15 @@
 use std::{cell::RefCell, collections::HashSet, fmt::{self, Debug}};
 
 use common_macros::hash_set;
-use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::{ANIMATIONS_FPS, HERO_ENTITY_ID, SPRITE_SHEET_ANIMATED_OBJECTS, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::{known_species::SPECIES_HERO, species::EntityType}, features::{animated_sprite::AnimatedSprite, hitmap::{EntityIdsMap, Hitmap, WeightsMap}}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::TileSet}, utils::{directions::Direction, rect::IntRect, vector::Vector2d}};
 
 use super::{entity::{Entity, EntityId, EntityProps}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::save_pressure_plate_states};
 
 pub struct World {
     pub id: u32,
     pub total_elapsed_time: f32,
-    pub bounds: Rect,
-    pub visible_bounds: Rect,
+    pub bounds: IntRect,
+    pub visible_bounds: IntRect,
     pub biome_tiles: TileSet<BiomeTile>,
     pub constructions_tiles: TileSet<ConstructionTile>,
     pub entities: RefCell<Vec<Entity>>,    
@@ -39,8 +39,8 @@ impl World {
         Self {
             id,
             total_elapsed_time: 0.0,
-            bounds: Rect::square_from_origin(150),
-            visible_bounds: Rect::square_from_origin(150),
+            bounds: IntRect::square_from_origin(150),
+            visible_bounds: IntRect::square_from_origin(150),
             biome_tiles: TileSet::empty(),
             constructions_tiles: TileSet::empty(),
             entities: RefCell::new(vec![]),
@@ -97,7 +97,7 @@ impl World {
     pub fn update_rl(
         &mut self, 
         time_since_last_update: f32,
-        viewport: &Rect,
+        viewport: &IntRect,
         keyboard: &KeyboardEventsProvider
     ) -> Vec<EngineStateUpdate> {
         self.total_elapsed_time += time_since_last_update;
@@ -233,10 +233,10 @@ impl World {
                 target.is_rigid = false;
                 target.is_dying = true;
                 target.remaining_lifespan = 10.0 / ANIMATIONS_FPS;                
-                target.frame = Rect::new(target.frame.x, target.frame.y, 1, 1).offset_y(if target.frame.h > 1 { 1 } else { 0 });
+                target.frame = IntRect::new(target.frame.x, target.frame.y, 1, 1).offset_y(if target.frame.h > 1 { 1 } else { 0 });
                 target.sprite = AnimatedSprite::new(
                     SPRITE_SHEET_ANIMATED_OBJECTS, 
-                    Rect::new(0, 10, 1, 1), 
+                    IntRect::new(0, 10, 1, 1), 
                     5
                 );
             }
@@ -314,7 +314,7 @@ impl World {
         self.update_tiles_hitmap();
     }  
     
-    pub fn find_teleporter_for_destination(&self, destination_world: u32) -> Option<Rect> {
+    pub fn find_teleporter_for_destination(&self, destination_world: u32) -> Option<IntRect> {
         self.entities.borrow().iter()
             .find(|t| {
                 if !matches!(t.entity_type, EntityType::Teleporter) {
@@ -340,7 +340,7 @@ impl World {
         }
     }
 
-    pub fn is_hero_around_and_on_collision_with(&self, target: &Rect) -> bool {
+    pub fn is_hero_around_and_on_collision_with(&self, target: &IntRect) -> bool {
         let hero = self.cached_hero_props.hittable_frame;
         let hero_direction: Direction = self.cached_hero_props.direction;        
         if !self.has_confirmation_key_been_pressed { return false }  

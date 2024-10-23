@@ -1,4 +1,4 @@
-use crate::{constants::{INITIAL_CAMERA_VIEWPORT, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, utils::{rect::Rect, vector::Vector2d}};
+use crate::{constants::{INITIAL_CAMERA_VIEWPORT, TILE_SIZE, WORLD_ID_NONE}, dialogues::{menu::DialogueMenu, models::Dialogue}, features::{creep_spawner::CreepSpawner, death_screen::DeathScreen, destination::Destination, loading_screen::LoadingScreen}, menus::{confirmation::ConfirmationDialog, entity_options::EntityOptionsMenu, game_menu::GameMenu, long_text_display::LongTextDisplay, toasts::{Toast, ToastDisplay}}, utils::{rect::IntRect, vector::Vector2d}};
 
 use super::{inventory::{add_to_inventory, remove_from_inventory}, keyboard_events_provider::{KeyboardEventsProvider, NO_KEYBOARD_EVENTS}, mouse_events_provider::MouseEventsProvider, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World};
 
@@ -15,7 +15,7 @@ pub struct GameEngine {
     pub entity_options_menu: EntityOptionsMenu,
     pub keyboard: KeyboardEventsProvider,
     pub mouse: MouseEventsProvider,
-    pub camera_viewport: Rect,
+    pub camera_viewport: IntRect,
     pub camera_viewport_offset: Vector2d,
     pub is_running: bool,
     pub creative_mode: bool,
@@ -147,20 +147,6 @@ impl GameEngine {
         self.camera_viewport.h = (height / (scale * TILE_SIZE)) as i32;
         self.long_text_display.max_line_length = (width / font_size).floor() as usize;
         self.long_text_display.visible_line_count = (0.3 * height / (line_spacing + font_size)).floor() as usize;
-    }
-
-    pub fn rendering_scale_for_screen_width(&self, width: f32) -> (f32, f32) {
-        if self.creative_mode {
-            return (1.0, 2.0)
-        }
-        if width < 500.0 {
-            (1.0, 1.0)
-        } else if width < 1400.0 || self.creative_mode {
-            (2.0, 2.0)
-        } else {
-            let scale = (width / 1000.0).ceil();
-            (scale, scale)
-        }
     }
 
     fn apply_state_updates(&mut self, updates: Vec<EngineStateUpdate>) {
@@ -302,7 +288,7 @@ impl GameEngine {
         }
     }
 
-    fn center_camera_in(&mut self, frame: &Rect) {
+    fn center_camera_in(&mut self, frame: &IntRect) {
         self.camera_viewport.center_in(frame);
     }
 

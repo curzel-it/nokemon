@@ -3,45 +3,34 @@ mod rendering;
 use std::{collections::HashMap, env};
 
 use common_macros::hash_map;
-use game_core::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE}, game_engine::{engine::GameEngine, keyboard_events_provider::KeyboardEventsProvider, mouse_events_provider::MouseEventsProvider}, ui::components::Typography, utils::vector::Vector2d};
+use game_core::{constants::{ASSETS_PATH, FONT, FONT_BOLD, INITIAL_CAMERA_VIEWPORT, SPRITE_SHEET_ANIMATED_OBJECTS, SPRITE_SHEET_AVATARS, SPRITE_SHEET_BASE_ATTACK, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_BUILDINGS, SPRITE_SHEET_CONSTRUCTION_TILES, SPRITE_SHEET_FARM_PLANTS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_MENU, SPRITE_SHEET_STATIC_OBJECTS, TILE_SIZE}, engine, initialize_game, is_creative_mode, is_game_running, stop_game, ui::components::Typography, update_game, update_keyboard, update_mouse, utils::vector::Vector2d, window_size_changed};
 use raylib::{ffi::{KeyboardKey, MouseButton}, texture::Texture2D, RaylibHandle, RaylibThread};
 use rendering::{ui::{get_rendering_config, get_rendering_config_mut, init_rendering_config, is_rendering_config_initialized, RenderingConfig}, worlds::render};
 
 fn main() {
-    let mut creative_mode = false;
+    let mut needs_window_init = true;
+    let creative_mode = env::args().any(|arg| arg == "creative");
 
-    let args: Vec<String> = env::args().collect();
-    if args.contains(&"creative".to_owned()) {
-        creative_mode = true;
-    }
-
-    let mut engine = GameEngine::new();
-    engine.set_creative_mode(creative_mode);
+    initialize_game(creative_mode);
+    let engine = engine();
     
     let (mut rl, thread) = start_rl();
     rl.set_window_min_size(360, 240);
-    engine.start();
-    
-    window_size_changed(
-        &mut engine, 
-        rl.get_screen_width() as f32, 
-        rl.get_screen_height() as f32
-    );
-    
-    while engine.is_running {
+        
+    while is_game_running() {
         let time_since_last_update = rl.get_frame_time().min(0.1);
 
-        if rl.is_window_resized() {
-            println!("Window resized to {}x{}", rl.get_screen_width(), rl.get_screen_height());
-            window_size_changed(&mut engine, rl.get_screen_width() as f32, rl.get_screen_height() as f32);
+        if needs_window_init || rl.is_window_resized() {
+            needs_window_init = false;
+            handle_window_size_changed(rl.get_screen_width() as f32, rl.get_screen_height() as f32);
         }
         if rl.window_should_close() && !rl.is_key_pressed(raylib::consts::KeyboardKey::KEY_ESCAPE) {
-            engine.is_running = false;
+            stop_game();
         }
 
-        update_keyboard(&mut rl, &mut engine.keyboard, time_since_last_update);
-        update_mouse(&mut rl, &mut engine.mouse, get_rendering_config().rendering_scale);
-        engine.update(time_since_last_update);
+        handle_keyboard_updates(&mut rl, time_since_last_update);
+        handle_mouse_updates(&mut rl, get_rendering_config().rendering_scale);
+        update_game(time_since_last_update);
         render(&mut rl, &thread, &engine.world, &engine);  
     }
 }
@@ -74,12 +63,12 @@ fn start_rl() -> (RaylibHandle, RaylibThread) {
     (rl, thread)
 }
 
-fn window_size_changed(engine: &mut GameEngine, width: f32, height: f32) {
+fn handle_window_size_changed(width: f32, height: f32) {
     if !is_rendering_config_initialized() {
         return
     }
     println!("Window size changed to {}x{}", width, height);
-    let (scale, font_scale) = engine.rendering_scale_for_screen_width(width);
+    let (scale, font_scale) = rendering_scale_for_screen_width(width);
     
     println!("Updated rendering scale to {}", scale);
     println!("Updated font scale to {}", scale);
@@ -92,8 +81,7 @@ fn window_size_changed(engine: &mut GameEngine, width: f32, height: f32) {
 
     let font_size = config.scaled_font_size(&Typography::Regular);
     let line_spacing = config.font_lines_spacing(&Typography::Regular);
-
-    engine.window_size_changed(width, height, scale, font_size, line_spacing);
+    window_size_changed(width, height, scale, font_size, line_spacing);
 }
 
 fn load_textures(rl: &mut RaylibHandle, thread: &RaylibThread) -> HashMap<u32, Texture2D> {    
@@ -128,8 +116,8 @@ fn texture(rl: &mut RaylibHandle, thread: &RaylibThread, name: &str) -> Option<T
     }
 }
 
-fn update_mouse(rl: &mut RaylibHandle, mouse: &mut MouseEventsProvider, rendering_scale: f32) {
-    mouse.update(
+fn handle_mouse_updates(rl: &mut RaylibHandle, rendering_scale: f32) {
+    update_mouse(
         rl.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT), 
         rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT), 
         rl.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT), 
@@ -139,8 +127,8 @@ fn update_mouse(rl: &mut RaylibHandle, mouse: &mut MouseEventsProvider, renderin
     );
 }
 
-fn update_keyboard(rl: &mut RaylibHandle, keyboard: &mut KeyboardEventsProvider, time_since_last_update: f32) {
-    keyboard.update(
+fn handle_keyboard_updates(rl: &mut RaylibHandle, time_since_last_update: f32) {
+    update_keyboard(
         rl.is_key_pressed(KeyboardKey::KEY_W) || rl.is_key_pressed(KeyboardKey::KEY_UP), 
         rl.is_key_pressed(KeyboardKey::KEY_D) || rl.is_key_pressed(KeyboardKey::KEY_RIGHT), 
         rl.is_key_pressed(KeyboardKey::KEY_S) || rl.is_key_pressed(KeyboardKey::KEY_DOWN), 
@@ -154,7 +142,30 @@ fn update_keyboard(rl: &mut RaylibHandle, keyboard: &mut KeyboardEventsProvider,
         rl.is_key_pressed(KeyboardKey::KEY_E), 
         rl.is_key_pressed(KeyboardKey::KEY_F), 
         rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE), 
-        rl.get_char_pressed(), 
+        get_char_pressed(rl),
         time_since_last_update
     );
+}
+
+fn get_char_pressed(rl: &mut RaylibHandle) -> u32 {
+    let character = rl.get_char_pressed();
+    if let Some(character) = character { 
+        character as u32
+    } else {
+        0
+    }
+}
+
+fn rendering_scale_for_screen_width(width: f32) -> (f32, f32) {
+    if is_creative_mode() {
+        return (1.0, 2.0)
+    }
+    if width < 500.0 {
+        (1.0, 1.0)
+    } else if width < 1400.0 {
+        (2.0, 2.0)
+    } else {
+        let scale = (width / 1000.0).ceil();
+        (scale, scale)
+    }
 }

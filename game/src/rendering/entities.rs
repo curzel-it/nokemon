@@ -1,48 +1,21 @@
-use std::cmp::Ordering;
-
-use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, entity::Entity, world::World}};
+use game_core::{constants::TILE_SIZE, game_engine::engine::GameEngine, renderables_vec, RenderableItem};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;
 
-pub fn render_entities(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
-    let visible_entities = &world.visible_entities;
-    let entities_map = world.entities.borrow();    
-    
-    let mut entities: Vec<&Entity> = visible_entities.iter()
-        .map(|(index, _)| &entities_map[*index])
-        .collect();
-    
-    entities.sort_by(|entity_a, entity_b| {
-        let a = entity_a;
-        let b = entity_b;
-
-        let ay = a.frame.y + if a.frame.h > 1 { 1 } else { 0 };
-        let by = b.frame.y + if b.frame.h > 1 { 1 } else { 0 };
-
-        if a.z_index < b.z_index && a.z_index < 0 { return Ordering::Less; }
-        if a.z_index > b.z_index && b.z_index < 0 { return Ordering::Greater; }
-        if ay < by { return Ordering::Less; }
-        if ay > by { return Ordering::Greater; }
-        if a.z_index < b.z_index { return Ordering::Less; }
-        if a.z_index > b.z_index { return Ordering::Greater; }
-        if a.frame.x < b.frame.x { return Ordering::Less; }
-        if a.frame.x > b.frame.x { return Ordering::Greater; }
-        Ordering::Equal
-    });
-
-    for item in entities {
+pub fn render_entities(d: &mut RaylibDrawHandle, engine: &GameEngine) {
+    for item in &renderables_vec() {
         draw_item(d, item, engine);
     }
 }
 
-fn draw_item(d: &mut RaylibDrawHandle, item: &Entity, engine: &GameEngine) {
-    let sprite_key = item.sprite_sheet();
+fn draw_item(d: &mut RaylibDrawHandle, item: &RenderableItem, engine: &GameEngine) {
+    let sprite_key = item.sprite_sheet_id;
     let scale = get_rendering_config().rendering_scale;
     let tile_scale = TILE_SIZE * scale;
     
     if let Some(texture) = get_rendering_config().get_texture(sprite_key) {
-        let source = item.texture_source_rect();
+        let source = item.texture_rect;
         let offset = item.offset;
         let frame = item.frame;
 
