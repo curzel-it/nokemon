@@ -1,4 +1,4 @@
-use crate::utils::rect::Rect;
+use crate::utils::rect::IntRect;
 
 use super::components::{NonColor, View};
 
@@ -11,7 +11,7 @@ pub enum AnchorPoint {
 }
 
 pub struct Layout {
-    pub frame: Rect,
+    pub frame: IntRect,
     pub background_color: NonColor,
     pub children: Vec<(AnchorPoint, View)>,
 }
@@ -25,7 +25,7 @@ impl Layout {
     ) -> Self {
         Self { 
             background_color,
-            frame: Rect::new(0, 0, w, h), 
+            frame: IntRect::new(0, 0, w, h), 
             children 
         }
     }

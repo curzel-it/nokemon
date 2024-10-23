@@ -4,16 +4,16 @@ use super::{directions::Direction, vector::Vector2d};
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize, PartialEq, Eq)]
 #[repr(C)]
-pub struct Rect {
+pub struct IntRect {
     pub x: i32,
     pub y: i32,
     pub w: i32,
     pub h: i32,
 }
 
-impl Rect {
+impl IntRect {
     pub const fn new(x: i32, y: i32, w: i32, h: i32) -> Self {
-        Rect { x, y, w, h }
+        IntRect { x, y, w, h }
     }
 
     pub fn from_origin(w: i32, h: i32) -> Self {
@@ -31,7 +31,7 @@ impl Rect {
         )
     }
 
-    pub fn center_in(&mut self, other: &Rect) {
+    pub fn center_in(&mut self, other: &IntRect) {
         self.center_at(&other.center())
     }
 
@@ -60,7 +60,7 @@ impl Rect {
         Vector2d::new(self.w as f32, self.h as f32)
     }
 
-    pub fn is_around_and_pointed_at(&self, other: &Rect, direction: &Direction) -> bool {
+    pub fn is_around_and_pointed_at(&self, other: &IntRect, direction: &Direction) -> bool {
         if self.x == other.x && self.y == other.y {
             return true
         }
@@ -90,7 +90,7 @@ mod tests {
 
     #[test]
     fn test_new_rect() {
-        let rect = Rect::new(10, 20, 30, 40);
+        let rect = IntRect::new(10, 20, 30, 40);
         assert_eq!(rect.x, 10);
         assert_eq!(rect.y, 20);
         assert_eq!(rect.w, 30);
@@ -99,8 +99,8 @@ mod tests {
 
     #[test]
     fn test_center_in() {
-        let mut rect = Rect::new(0, 0, 10, 10);
-        let outer_rect = Rect::new(10, 10, 20, 20);
+        let mut rect = IntRect::new(0, 0, 10, 10);
+        let outer_rect = IntRect::new(10, 10, 20, 20);
         rect.center_in(&outer_rect);
         assert_eq!(rect.x, 15);
         assert_eq!(rect.y, 15);

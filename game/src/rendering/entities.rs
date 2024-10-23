@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, entity::Entity, world::World}, utils::{rect::Rect, vector::Vector2d}};
+use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, entity::Entity, world::World}};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;

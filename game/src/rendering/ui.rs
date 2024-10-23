@@ -1,6 +1,6 @@
 use std::{collections::HashMap, sync::Once};
 
-use game_core::{constants::TILE_SIZE, ui::{components::{BordersTextures, GridSpacing, NonColor, Spacing, Typography, View}, layouts::{AnchorPoint, Layout}}, utils::{rect::Rect, vector::Vector2d}};
+use game_core::{constants::TILE_SIZE, ui::{components::{BordersTextures, GridSpacing, NonColor, Spacing, Typography, View}, layouts::{AnchorPoint, Layout}}, utils::{rect::IntRect, vector::Vector2d}};
 use raylib::prelude::*;
 
 pub struct RenderingConfig {
@@ -341,7 +341,7 @@ fn render_texture(
     d: &mut RaylibDrawHandle,
     config: &RenderingConfig,
     key: &u32,
-    source: &Rect,
+    source: &IntRect,
     position: &Vector2d,
     size:  &Vector2d
 ) {

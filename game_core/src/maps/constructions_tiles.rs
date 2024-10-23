@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::utils::rect::Rect;
+use crate::utils::rect::IntRect;
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -36,11 +36,11 @@ pub struct ConstructionTile {
     pub tile_right_type: Construction,
     pub tile_down_type: Construction,
     pub tile_left_type: Construction,
-    pub texture_source_rect: Rect,
+    pub texture_source_rect: IntRect,
 }
 
 impl SpriteTile for ConstructionTile {
-    fn texture_source_rect(&self, _: i32) -> Rect {
+    fn texture_source_rect(&self, _: i32) -> IntRect {
         self.texture_source_rect
     }
 }
@@ -201,7 +201,7 @@ impl ConstructionTile {
             tile_right_type: Construction::Nothing, 
             tile_down_type: Construction::Nothing, 
             tile_left_type: Construction::Nothing, 
-            texture_source_rect: Rect::square_from_origin(1) 
+            texture_source_rect: IntRect::square_from_origin(1) 
         };
         tile.setup_textures();
         tile

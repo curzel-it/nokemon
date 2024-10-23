@@ -1,7 +1,7 @@
 use std::ptr;
 
 use game_engine::engine::GameEngine;
-use utils::{rect::Rect, vector::Vector2d};
+use utils::{rect::IntRect, vector::Vector2d};
 
 pub mod constants;
 pub mod dialogues;
@@ -118,9 +118,9 @@ pub extern "C" fn update_mouse(
 #[repr(C)]
 pub struct RenderableItem {
     pub sprite_sheet_id: u32,
-    pub texture_rect: Rect,
+    pub texture_rect: IntRect,
     pub position: Vector2d,
-    pub frame: Rect
+    pub frame: IntRect
 }
 
 #[no_mangle]
@@ -128,9 +128,9 @@ pub extern "C" fn renderables(length: *mut usize) -> *mut RenderableItem {
     let items = vec![
         RenderableItem {
             sprite_sheet_id: 1001,
-            texture_rect: Rect::square_from_origin(99),
+            texture_rect: IntRect::square_from_origin(99),
             position: Vector2d::zero(),
-            frame: Rect::square_from_origin(100)
+            frame: IntRect::square_from_origin(100)
         }
     ];
 

@@ -1,6 +1,6 @@
 use serde::{ser::SerializeStruct, Deserialize, Serialize, Serializer, de::Deserializer};
 
-use crate::utils::{directions::Direction, rect::Rect};
+use crate::utils::{directions::Direction, rect::IntRect};
 
 use super::tiles::{SpriteTile, TileSet};
 
@@ -41,8 +41,8 @@ pub struct BiomeTile {
 }
 
 impl SpriteTile for BiomeTile {
-    fn texture_source_rect(&self, variant: i32) -> Rect {
-        Rect::new(
+    fn texture_source_rect(&self, variant: i32) -> IntRect {
+        IntRect::new(
             self.texture_offset_x,
             self.texture_offset_y + variant * Biome::number_of_biomes(),
             1, 

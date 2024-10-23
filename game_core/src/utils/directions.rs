@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{rect::Rect, vector::Vector2d};
+use super::{rect::IntRect, vector::Vector2d};
 
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Direction {
@@ -75,7 +75,7 @@ impl Direction {
     }
 }
 
-pub fn direction_between_rects(source: &Rect, other: &Rect) -> Direction {
+pub fn direction_between_rects(source: &IntRect, other: &IntRect) -> Direction {
     if source.x > other.x { return Direction::Left }
     if source.x < other.x { return Direction::Right }
     if source.y > other.y { return Direction::Up }

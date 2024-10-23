@@ -1,4 +1,4 @@
-use crate::utils::{rect::Rect, vector::Vector2d};
+use crate::utils::{rect::IntRect, vector::Vector2d};
 
 pub type NonColor = (u8, u8, u8, u8);
 
@@ -37,7 +37,7 @@ pub enum View {
     VStack { spacing: Spacing, children: Vec<View> },
     HStack { spacing: Spacing, children: Vec<View> },
     Text { style: Typography, text: String },
-    Texture { key: u32, source_rect: Rect, size: Vector2d },
+    Texture { key: u32, source_rect: IntRect, size: Vector2d },
     Spacing { size: Spacing },
     VGrid { columns: usize, spacing: GridSpacing, children: Vec<View> },
     FullScreenBackdrop { children: Vec<View> },
@@ -47,7 +47,7 @@ pub enum View {
 
 pub struct TextureInfo {
     pub key: u32,
-    pub source_rect: Rect
+    pub source_rect: IntRect
 }
 
 pub struct BordersTextures {

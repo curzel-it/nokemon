@@ -1,16 +1,16 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, directions::MovementDirections}, utils::{directions::Direction, rect::Rect, vector::Vector2d}};
+use crate::{constants::UNLIMITED_LIFESPAN, dialogues::models::{Dialogue, EntityDialogues}, entities::species::{species_by_id, EntityType}, features::{animated_sprite::AnimatedSprite, destination::Destination, directions::MovementDirections}, utils::{directions::Direction, rect::IntRect, vector::Vector2d}};
 
 use super::{locks::LockType, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::get_value_for_key, world::World};
 
 #[derive(Debug, Copy, Clone)]
 pub struct EntityProps {
     pub direction: Direction,
-    pub frame: Rect,
+    pub frame: IntRect,
     pub offset: Vector2d,
     pub speed: f32,
-    pub hittable_frame: Rect,
+    pub hittable_frame: IntRect,
     pub is_invulnerable: bool,
 }
 
@@ -18,10 +18,10 @@ impl Default for EntityProps {
     fn default() -> Self {
         Self { 
             direction: Default::default(), 
-            frame: Rect::square_from_origin(1), 
+            frame: IntRect::square_from_origin(1), 
             offset: Vector2d::zero(),
             speed: 0.0,
-            hittable_frame: Rect::square_from_origin(1),
+            hittable_frame: IntRect::square_from_origin(1),
             is_invulnerable: false,
         }
     }
@@ -32,7 +32,7 @@ pub type EntityId = u32;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Entity {
     pub id: EntityId,
-    pub frame: Rect,  
+    pub frame: IntRect,  
     pub name: String,  
     pub species_id: u32,  
     pub entity_type: EntityType,  
@@ -46,7 +46,7 @@ pub struct Entity {
     pub time_immobilized: f32,
     pub destination: Option<Destination>,
     pub lock_type: LockType,
-    pub original_sprite_frame: Rect,
+    pub original_sprite_frame: IntRect,
 
     #[serde(default)]
     pub movement_directions: MovementDirections,
@@ -140,7 +140,7 @@ impl Entity {
         self.sprite.sheet_id
     }
 
-    pub fn texture_source_rect(&self) -> Rect {
+    pub fn texture_source_rect(&self) -> IntRect {
         self.sprite.texture_source_rect()
     }
 

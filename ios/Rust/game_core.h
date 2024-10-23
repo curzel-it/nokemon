@@ -134,12 +134,12 @@
 
 typedef struct BordersTextures BordersTextures;
 
-typedef struct Rect {
+typedef struct IntRect {
   int32_t x;
   int32_t y;
   int32_t w;
   int32_t h;
-} Rect;
+} IntRect;
 
 typedef struct Vector2d {
   float x;
@@ -148,9 +148,9 @@ typedef struct Vector2d {
 
 typedef struct RenderableItem {
   uint32_t sprite_sheet_id;
-  struct Rect texture_rect;
+  struct IntRect texture_rect;
   struct Vector2d position;
-  struct Rect frame;
+  struct IntRect frame;
 } RenderableItem;
 
 

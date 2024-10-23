@@ -2,7 +2,7 @@
 use crate::constants::{MENU_CLOSE_TIME, MENU_OPEN_TIME, SPRITE_SHEET_MENU};
 use crate::ui::components::{empty_view, BordersTextures, TextureInfo};
 use crate::ui::scaffold::scaffold;
-use crate::utils::rect::Rect;
+use crate::utils::rect::IntRect;
 use crate::{game_engine::{keyboard_events_provider::KeyboardEventsProvider, state_updates::WorldStateUpdate}, text, ui::components::{Spacing, Typography, View}, utils::animator::Animator, vstack};
 
 pub struct Menu<Item: MenuItem> {
@@ -115,14 +115,14 @@ impl<Item: MenuItem> Menu<Item> {
 }
 
 pub const MENU_BORDERS_TEXTURES: BordersTextures = BordersTextures {
-    corner_top_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 0, w: 1, h: 1 } },
-    corner_top_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 0, w: 1, h: 1 } },
-    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 2, w: 1, h: 1 } },
-    corner_bottom_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 2, w: 1, h: 1 } },
-    side_top: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 1, y: 0, w: 1, h: 1 } },
-    side_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 2, y: 1, w: 1, h: 1 } },
-    side_bottom: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 1, y: 2, w: 1, h: 1 } },
-    side_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: Rect { x: 0, y: 1, w: 1, h: 1 } },
+    corner_top_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 0, y: 0, w: 1, h: 1 } },
+    corner_top_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 2, y: 0, w: 1, h: 1 } },
+    corner_bottom_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 2, y: 2, w: 1, h: 1 } },
+    corner_bottom_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 0, y: 2, w: 1, h: 1 } },
+    side_top: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 1, y: 0, w: 1, h: 1 } },
+    side_right: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 2, y: 1, w: 1, h: 1 } },
+    side_bottom: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 1, y: 2, w: 1, h: 1 } },
+    side_left: TextureInfo { key: SPRITE_SHEET_MENU, source_rect: IntRect { x: 0, y: 1, w: 1, h: 1 } },
 };
 
 impl<Item: MenuItem> Menu<Item> {

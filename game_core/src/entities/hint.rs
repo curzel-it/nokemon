@@ -1,4 +1,4 @@
-use crate::{constants::{SPRITE_SHEET_AVATARS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_STATIC_OBJECTS}, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::{Toast, ToastImage}, utils::rect::Rect};
+use crate::{constants::{SPRITE_SHEET_AVATARS, SPRITE_SHEET_INVENTORY, SPRITE_SHEET_STATIC_OBJECTS}, game_engine::{entity::Entity, state_updates::{EngineStateUpdate, WorldStateUpdate}, storage::{get_value_for_key, set_value_for_key, StorageKey}, world::World}, lang::localizable::LocalizableText, menus::toasts::{Toast, ToastImage}, utils::rect::IntRect};
 
 use super::species::species_by_id;
 
@@ -76,7 +76,7 @@ impl Toast {
         Toast::important_with_image(
             text, 
             ToastImage::new(
-                Rect::new(0, 0, 2, 2), 
+                IntRect::new(0, 0, 2, 2), 
                 SPRITE_SHEET_AVATARS, 
                 3
             )

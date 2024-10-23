@@ -1,19 +1,19 @@
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, UNLIMITED_LIFESPAN}, game_engine::entity::Entity, utils::{directions::Direction, rect::Rect, timed_content_provider::TimedContentProvider}};
+use crate::{constants::{ANIMATIONS_FPS, SPRITE_SHEET_HUMANOIDS_1X1, SPRITE_SHEET_HUMANOIDS_1X2, SPRITE_SHEET_HUMANOIDS_2X2, SPRITE_SHEET_HUMANOIDS_2X3, UNLIMITED_LIFESPAN}, game_engine::entity::Entity, utils::{directions::Direction, rect::IntRect, timed_content_provider::TimedContentProvider}};
 
 #[derive(Debug, Clone)]
 pub struct AnimatedSprite {
     pub sheet_id: u32, 
-    pub frame: Rect,
+    pub frame: IntRect,
     pub supports_directions: bool,
-    original_frame: Rect,
+    original_frame: IntRect,
     number_of_frames: i32,
     frames_provider: TimedContentProvider<i32>,
 }
 
 impl AnimatedSprite {
-    pub fn new(sheet_id: u32, frame: Rect, number_of_frames: i32) -> Self {
+    pub fn new(sheet_id: u32, frame: IntRect, number_of_frames: i32) -> Self {
         Self {
             sheet_id, 
             frame,
@@ -31,7 +31,7 @@ impl AnimatedSprite {
         }
     }
 
-    pub fn texture_source_rect(&self) -> Rect {
+    pub fn texture_source_rect(&self) -> IntRect {
         self.frame
     }
 }
@@ -86,7 +86,7 @@ fn supports_directions(sheet_id: u32) -> bool {
 #[derive(Serialize, Deserialize)]
 struct AnimatedSpriteData {
     sheet_id: u32, 
-    frame: Rect,
+    frame: IntRect,
     number_of_frames: i32,
 }
 
