@@ -3,4 +3,7 @@ language = "C"
 include_guard = "GAME_CORE_H"
 
 [parse]
-parse_deps = false
+include = ["*"]
+
+[export]
+include = ["*"]

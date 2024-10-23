@@ -134,8 +134,70 @@
 
 typedef struct BordersTextures BordersTextures;
 
+typedef struct Rect {
+  int32_t x;
+  int32_t y;
+  int32_t w;
+  int32_t h;
+} Rect;
+
+typedef struct Vector2d {
+  float x;
+  float y;
+} Vector2d;
+
+typedef struct RenderableItem {
+  uint32_t sprite_sheet_id;
+  struct Rect texture_rect;
+  struct Vector2d position;
+  struct Rect frame;
+} RenderableItem;
+
 
 
 void test_integration(void);
+
+void initialize_game(bool creative_mode);
+
+bool is_creative_mode(void);
+
+bool is_game_running(void);
+
+void stop_game(void);
+
+void window_size_changed(float width,
+                         float height,
+                         float scale,
+                         float font_size,
+                         float line_spacing);
+
+void update_game(float time_since_last_update);
+
+void update_keyboard(bool up_pressed,
+                     bool right_pressed,
+                     bool down_pressed,
+                     bool left_pressed,
+                     bool up_down,
+                     bool right_down,
+                     bool down_down,
+                     bool left_down,
+                     bool escape_pressed,
+                     bool menu_pressed,
+                     bool confirm_pressed,
+                     bool attack_pressed,
+                     bool backspace_pressed,
+                     uint32_t current_char,
+                     float time_since_last_update);
+
+void update_mouse(bool mouse_left_down,
+                  bool mouse_left_pressed,
+                  bool mouse_right_pressed,
+                  float mouse_x,
+                  float mouse_y,
+                  float rendering_scale);
+
+struct RenderableItem *renderables(uintptr_t *length);
+
+void free_renderables(struct RenderableItem *ptr, uintptr_t length);
 
 #endif  /* GAME_CORE_H */

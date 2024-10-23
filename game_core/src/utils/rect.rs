@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use super::{directions::Direction, vector::Vector2d};
 
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize, PartialEq, Eq)]
+#[repr(C)]
 pub struct Rect {
     pub x: i32,
     pub y: i32,

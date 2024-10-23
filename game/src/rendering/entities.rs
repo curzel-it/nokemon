@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, entity::Entity, world::World}};
+use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, entity::Entity, world::World}, utils::{rect::Rect, vector::Vector2d}};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;
@@ -43,8 +43,8 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &Entity, engine: &GameEngine) {
     
     if let Some(texture) = get_rendering_config().get_texture(sprite_key) {
         let source = item.texture_source_rect();
-        let offset = item.offset;
-        let frame = item.frame;
+        let offset = item.offset; // rendering_position_offset();
+        let frame = item.frame; // rendering_rect();
 
         let source_rect = Rectangle {
             x: source.x as f32 * TILE_SIZE, 

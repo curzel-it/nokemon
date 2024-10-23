@@ -1,4 +1,7 @@
+use std::ptr;
+
 use game_engine::engine::GameEngine;
+use utils::{rect::Rect, vector::Vector2d};
 
 pub mod constants;
 pub mod dialogues;
@@ -110,4 +113,42 @@ pub extern "C" fn update_mouse(
         mouse_x, mouse_y, 
         rendering_scale
     );
+}
+
+#[repr(C)]
+pub struct RenderableItem {
+    pub sprite_sheet_id: u32,
+    pub texture_rect: Rect,
+    pub position: Vector2d,
+    pub frame: Rect
+}
+
+#[no_mangle]
+pub extern "C" fn renderables(length: *mut usize) -> *mut RenderableItem {
+    let items = vec![
+        RenderableItem {
+            sprite_sheet_id: 1001,
+            texture_rect: Rect::square_from_origin(99),
+            position: Vector2d::zero(),
+            frame: Rect::square_from_origin(100)
+        }
+    ];
+
+    let len = items.len();
+    unsafe {
+        ptr::write(length, len);
+    }
+
+    let ptr = items.as_ptr() as *mut RenderableItem;
+    std::mem::forget(items);
+    ptr
+}
+
+#[no_mangle]
+pub extern "C" fn free_renderables(ptr: *mut RenderableItem, length: usize) {
+    if !ptr.is_null() {
+        unsafe {
+            let _ = Vec::from_raw_parts(ptr, length, length);
+        }
+    }
 }
