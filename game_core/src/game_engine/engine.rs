@@ -149,20 +149,6 @@ impl GameEngine {
         self.long_text_display.visible_line_count = (0.3 * height / (line_spacing + font_size)).floor() as usize;
     }
 
-    pub fn rendering_scale_for_screen_width(&self, width: f32) -> (f32, f32) {
-        if self.creative_mode {
-            return (1.0, 2.0)
-        }
-        if width < 500.0 {
-            (1.0, 1.0)
-        } else if width < 1400.0 || self.creative_mode {
-            (2.0, 2.0)
-        } else {
-            let scale = (width / 1000.0).ceil();
-            (scale, scale)
-        }
-    }
-
     fn apply_state_updates(&mut self, updates: Vec<EngineStateUpdate>) {
         let mut sorted_updates = updates.clone();
 
