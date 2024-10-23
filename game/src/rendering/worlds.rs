@@ -1,7 +1,7 @@
 use game_core::game_engine::{engine::GameEngine, world::World};
 use raylib::prelude::*;
 
-use super::{death_screen::render_death_screen, entities::render_entities, loading_screen::render_loading_screen, menus::render_menu, tiles::render_tiles};
+use super::{entities::render_entities, tiles::render_tiles, ui::render_layout};
 
 pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
     let fps = rl.get_fps();
@@ -12,9 +12,9 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
         render_tiles(&mut d, world, engine);
         render_entities(&mut d, world, engine);
     }
-    render_menu(&mut d, engine);
-    render_loading_screen(&mut d, &engine.loading_screen);
-    render_death_screen(&mut d, engine);
+
+    let hud = engine.hud_ui(d.get_screen_width(), d.get_screen_height());
+    render_layout(&hud, &mut d);
     
     draw_debug_info(
         &mut d, 

@@ -1,6 +1,6 @@
 use std::{collections::HashMap, sync::Once};
 
-use game_core::{constants::TILE_SIZE, ui::{components::{BordersTextures, GridSpacing, Spacing, Typography, View}, layouts::{AnchorPoint, Layout}}, utils::{rect::Rect, vector::Vector2d}};
+use game_core::{constants::TILE_SIZE, ui::{components::{BordersTextures, GridSpacing, NonColor, Spacing, Typography, View}, layouts::{AnchorPoint, Layout}}, utils::{rect::Rect, vector::Vector2d}};
 use raylib::prelude::*;
 
 pub struct RenderingConfig {
@@ -80,12 +80,19 @@ impl RenderingConfig {
 }
 
 pub fn render_layout(layout: &Layout, d: &mut RaylibDrawHandle) {
+    d.draw_rectangle(
+        0, 
+        0, 
+        d.get_screen_width(), 
+        d.get_screen_height(), 
+        as_rcolor(&layout.background_color)
+    );
+
     let config = get_rendering_config();
-    for (anchor, views) in &layout.children {
-        for view in views {
-            let position = calculate_position(layout, anchor, view, config);
-            render_view(view, d, config, &position);
-        }
+
+    for (anchor, view) in &layout.children {
+        let position = calculate_position(layout, anchor, view, config);
+        render_view(view, d, config, &position);
     }
 }
 
@@ -127,6 +134,10 @@ fn accounts_for_stack_size(view: &View) -> bool {
     !matches!(view, View::FixedPosition { position: _, children: _})
 }
 
+fn as_rcolor(color: &NonColor) -> Color {
+    Color::new(color.0, color.1, color.2, color.3)
+}
+
 fn render_view(
     view: &View, 
     d: &mut RaylibDrawHandle, 
@@ -135,7 +146,7 @@ fn render_view(
 ) {
     match view {
         View::ZStack { spacing, background_color, children } => {
-            let color = Color::new(background_color.0, background_color.1, background_color.2, background_color.3);
+            let color = as_rcolor(background_color);
             render_zstack(view, d, config, position, children, spacing, color);
         }
         View::VStack { spacing, children } => {
