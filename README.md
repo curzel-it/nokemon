@@ -39,4 +39,6 @@ cbindgen --config game_core/cbindgen.toml --crate game_core --output game_core.h
 ![Map Editor](docs/6.png)
 
 ## TODO:
-- lots 
+- Add tests to make sure kunai can be used to lower pressure plates
+- Add indicator for overlapping enemies (beta testers liked the bug)
+- On windows, some users report crashes when certain dialogues start

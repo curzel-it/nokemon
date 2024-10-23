@@ -10,7 +10,7 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     
     if !engine.loading_screen.is_in_progress() || engine.loading_screen.progress() > 0.4 {
         render_tiles(&mut d, world, engine);
-        render_entities(&mut d, world, engine);
+        render_entities(&mut d, engine);
     }
 
     let hud = engine.hud_ui(d.get_screen_width(), d.get_screen_height());

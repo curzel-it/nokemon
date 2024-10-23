@@ -1,6 +1,6 @@
-use std::ptr;
+use std::{cmp::Ordering, ptr};
 
-use game_engine::engine::GameEngine;
+use game_engine::{engine::GameEngine, entity::Entity};
 use utils::{rect::IntRect, vector::Vector2d};
 
 pub mod constants;
@@ -119,20 +119,52 @@ pub extern "C" fn update_mouse(
 pub struct RenderableItem {
     pub sprite_sheet_id: u32,
     pub texture_rect: IntRect,
-    pub position: Vector2d,
+    pub offset: Vector2d,
     pub frame: IntRect
+}
+
+pub fn renderables_vec() -> Vec<RenderableItem> {
+    let world = &engine().world;
+    let visible_entities = &world.visible_entities;
+    let entities_map = world.entities.borrow();    
+
+    let mut entities: Vec<&Entity> = visible_entities.iter()
+        .map(|(index, _)| &entities_map[*index])
+        .collect();
+
+    entities.sort_by(|entity_a, entity_b| {
+        let a = entity_a;
+        let b = entity_b;
+
+        let ay = a.frame.y + if a.frame.h > 1 { 1 } else { 0 };
+        let by = b.frame.y + if b.frame.h > 1 { 1 } else { 0 };
+
+        if a.z_index < b.z_index && a.z_index < 0 { return Ordering::Less; }
+        if a.z_index > b.z_index && b.z_index < 0 { return Ordering::Greater; }
+        if ay < by { return Ordering::Less; }
+        if ay > by { return Ordering::Greater; }
+        if a.z_index < b.z_index { return Ordering::Less; }
+        if a.z_index > b.z_index { return Ordering::Greater; }
+        if a.frame.x < b.frame.x { return Ordering::Less; }
+        if a.frame.x > b.frame.x { return Ordering::Greater; }
+        Ordering::Equal
+    });
+
+    entities.iter()
+        .map(|e| {
+            RenderableItem {
+                sprite_sheet_id: e.sprite_sheet(),
+                texture_rect: e.texture_source_rect(),
+                offset: e.offset,
+                frame: e.frame
+            }
+        })
+        .collect()
 }
 
 #[no_mangle]
 pub extern "C" fn renderables(length: *mut usize) -> *mut RenderableItem {
-    let items = vec![
-        RenderableItem {
-            sprite_sheet_id: 1001,
-            texture_rect: IntRect::square_from_origin(99),
-            position: Vector2d::zero(),
-            frame: IntRect::square_from_origin(100)
-        }
-    ];
+    let items = renderables_vec();
 
     let len = items.len();
     unsafe {

@@ -27,7 +27,7 @@ struct ContentView: View {
             for item in renderableItems {
                 print("Sprite Sheet ID: \(item.sprite_sheet_id)")
                 print("Texture Rect: (x: \(item.texture_rect.x), y: \(item.texture_rect.y), width: \(item.texture_rect.width), height: \(item.texture_rect.height))")
-                print("Position: (x: \(item.position.x), y: \(item.position.y))")
+                print("Offset: (x: \(item.offset.x), y: \(item.offset.y))")
                 print("Frame: (x: \(item.frame.x), y: \(item.frame.y), width: \(item.frame.width), height: \(item.frame.height))")
             }
         }
@@ -52,7 +52,7 @@ public struct Vector2d {
 public struct RenderableItem {
     public var sprite_sheet_id: UInt32
     public var texture_rect: IntRect
-    public var position: Vector2d
+    public var offset: Vector2d
     public var frame: IntRect
 }
 

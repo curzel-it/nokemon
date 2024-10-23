@@ -149,7 +149,7 @@ typedef struct Vector2d {
 typedef struct RenderableItem {
   uint32_t sprite_sheet_id;
   struct IntRect texture_rect;
-  struct Vector2d position;
+  struct Vector2d offset;
   struct IntRect frame;
 } RenderableItem;
 
