@@ -1,24 +1,23 @@
-use game_core::{constants::TILE_SIZE, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::SpriteTile}, utils::{rect::IntRect, vector::Vector2d}};
+use game_core::{constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, TILE_SIZE}, current_biome_tiles_variant, current_world_default_tile, current_world_height, current_world_width, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::SpriteTile}, utils::{rect::IntRect, vector::Vector2d}};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;
 
 pub fn render_tiles(
     d: &mut RaylibDrawHandle, 
-    sprite_key_biome: u32,
-    sprite_key_constructions: u32,
-    variant: i32,
-    world_width: i32,
-    world_height: i32,
     camera_viewport: &IntRect, 
     camera_viewport_offset: &Vector2d,
-    default_tile: &BiomeTile,
     biome_tiles: &[Vec<BiomeTile>],
     constructions_tiles: &[Vec<ConstructionTile>]
 ) {
+    let variant = current_biome_tiles_variant();
+    let world_width = current_world_width();
+    let world_height = current_world_height();
+    let default_tile = &current_world_default_tile();
+    
     let config = get_rendering_config();
-    let texture_biome = config.get_texture(sprite_key_biome).unwrap();
-    let texture_constructions = config.get_texture(sprite_key_constructions).unwrap();
+    let texture_biome = config.get_texture(SPRITE_SHEET_BIOME_TILES).unwrap();
+    let texture_constructions = config.get_texture(SPRITE_SHEET_CONSTRUCTION_TILES).unwrap();
     let scale = config.rendering_scale;
 
     let tile_scale = scale * TILE_SIZE;

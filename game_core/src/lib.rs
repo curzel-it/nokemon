@@ -2,6 +2,7 @@ use std::{cmp::Ordering, ffi::{c_char, CStr}, path::PathBuf, ptr};
 
 use config::initialize_config_paths;
 use game_engine::{engine::GameEngine, entity::Entity};
+use maps::{biome_tiles::BiomeTile, constructions_tiles::ConstructionTile};
 use utils::{rect::IntRect, vector::Vector2d};
 
 pub mod config;
@@ -206,10 +207,107 @@ pub extern "C" fn initialize_config(
     );
 }
 
+#[no_mangle]
+pub extern "C" fn can_render_frame() -> bool {
+    let engine = engine();
+    !engine.loading_screen.is_in_progress() || engine.loading_screen.progress() > 0.4
+}
+
+#[no_mangle]
+pub extern "C" fn current_biome_tiles_variant() -> i32 {
+    engine().world.biome_tiles.current_variant()
+}
+
+#[no_mangle]
+pub extern "C" fn current_world_width() -> i32 {
+    engine().world.bounds.w
+}
+
+#[no_mangle]
+pub extern "C" fn current_world_height() -> i32 {
+    engine().world.bounds.h
+}
+
+#[no_mangle]
+pub extern "C" fn camera_viewport() -> IntRect {
+    engine().camera_viewport
+}
+
+#[no_mangle]
+pub extern "C" fn camera_viewport_offset() -> Vector2d {
+    engine().camera_viewport_offset
+}
+
+#[no_mangle]
+pub extern "C" fn current_world_default_tile() -> BiomeTile {
+    engine().world.default_tile()
+}
+
 fn to_string(value: *const c_char) -> String {
     unsafe { CStr::from_ptr(value) }.to_str().unwrap().to_owned()
 }
 
 fn to_path(value: *const c_char) -> PathBuf {
     PathBuf::from(to_string(value))
+}
+
+pub fn biome_tiles_vec() -> &'static Vec<Vec<BiomeTile>> {
+    println!("Getting tiles for world {}", &engine().world.id);
+    &engine().world.biome_tiles.tiles
+}
+
+#[no_mangle]
+pub extern "C" fn get_biome_tiles(out_tiles: *mut *const BiomeTile, out_len_x: *mut usize, out_len_y: *mut usize) {
+    let tiles = biome_tiles_vec();
+    let len_y = tiles.len();
+    let len_x = if len_y > 0 { tiles[0].len() } else { 0 };
+
+    let flat_tiles: Vec<BiomeTile> = tiles.iter().flat_map(|row| row.iter().cloned()).collect();
+    let ptr = flat_tiles.as_ptr();
+
+    std::mem::forget(flat_tiles);
+
+    unsafe {
+        *out_tiles = ptr;
+        *out_len_x = len_x;
+        *out_len_y = len_y;
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn free_biome_tiles(tiles_ptr: *mut BiomeTile, len_x: usize, len_y: usize) {
+    let len = len_x * len_y;
+    unsafe {
+        let _ = Vec::from_raw_parts(tiles_ptr, len, len);
+    }
+}
+
+pub fn construction_tiles_vec() -> &'static Vec<Vec<ConstructionTile>> {
+    &engine().world.constructions_tiles.tiles
+}
+
+#[no_mangle]
+pub extern "C" fn get_construction_tiles(out_tiles: *mut *const ConstructionTile, out_len_x: *mut usize, out_len_y: *mut usize) {
+    let tiles = construction_tiles_vec();
+    let len_y = tiles.len();
+    let len_x = if len_y > 0 { tiles[0].len() } else { 0 };
+
+    let flat_tiles: Vec<ConstructionTile> = tiles.iter().flat_map(|row| row.iter().cloned()).collect();
+    let ptr = flat_tiles.as_ptr();
+
+    std::mem::forget(flat_tiles);
+
+    unsafe {
+        *out_tiles = ptr;
+        *out_len_x = len_x;
+        *out_len_y = len_y;
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn free_construction_tiles(tiles_ptr: *mut ConstructionTile, len_x: usize, len_y: usize) {
+    let len = len_x * len_y;
+    unsafe {
+        let _ = Vec::from_raw_parts(tiles_ptr, len, len);
+    }
 }

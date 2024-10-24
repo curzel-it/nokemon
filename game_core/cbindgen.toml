@@ -7,3 +7,6 @@ include = ["*"]
 
 [export]
 include = ["*"]
+
+[enum]
+prefix_with_name = true

@@ -132,6 +132,50 @@
 
 #define SPECIES_DEEP_HOLE 5001
 
+enum Biome {
+  Biome_Nothing,
+  Biome_Grass,
+  Biome_GrassFlowersRed,
+  Biome_GrassFlowersYellow,
+  Biome_GrassFlowersBlue,
+  Biome_GrassFlowersPurple,
+  Biome_Water,
+  Biome_Rock,
+  Biome_Desert,
+  Biome_Snow,
+  Biome_DarkWood,
+  Biome_LightWood,
+  Biome_DarkRock,
+  Biome_Ice,
+  Biome_DarkGrass,
+  Biome_RockPlates,
+  Biome_Lava,
+  Biome_Farmland,
+};
+typedef uint32_t Biome;
+
+enum Construction {
+  Construction_Nothing,
+  Construction_WoodenFence,
+  Construction_MetalFence,
+  Construction_DarkRock,
+  Construction_LightWall,
+  Construction_Counter,
+  Construction_Library,
+  Construction_TallGrass,
+  Construction_Forest,
+  Construction_Bamboo,
+  Construction_Box,
+  Construction_Rail,
+  Construction_StoneWall,
+  Construction_IndicatorArrow,
+  Construction_Bridge,
+  Construction_Broadleaf,
+  Construction_StoneBox,
+  Construction_SpoiledTree,
+};
+typedef uint32_t Construction;
+
 typedef struct BordersTextures BordersTextures;
 
 typedef struct IntRect {
@@ -152,6 +196,25 @@ typedef struct RenderableItem {
   struct Vector2d offset;
   struct IntRect frame;
 } RenderableItem;
+
+typedef struct BiomeTile {
+  Biome tile_type;
+  Biome tile_up_type;
+  Biome tile_right_type;
+  Biome tile_down_type;
+  Biome tile_left_type;
+  int32_t texture_offset_x;
+  int32_t texture_offset_y;
+} BiomeTile;
+
+typedef struct ConstructionTile {
+  Construction tile_type;
+  Construction tile_up_type;
+  Construction tile_right_type;
+  Construction tile_down_type;
+  Construction tile_left_type;
+  struct IntRect texture_source_rect;
+} ConstructionTile;
 
 
 
@@ -206,5 +269,31 @@ void initialize_config(const char *current_lang,
                        const char *inventory_path,
                        const char *key_value_storage_path,
                        const char *localized_strings_path);
+
+bool can_render_frame(void);
+
+int32_t current_biome_tiles_variant(void);
+
+int32_t current_world_width(void);
+
+int32_t current_world_height(void);
+
+struct IntRect camera_viewport(void);
+
+struct Vector2d camera_viewport_offset(void);
+
+struct BiomeTile current_world_default_tile(void);
+
+void get_biome_tiles(const struct BiomeTile **out_tiles,
+                     uintptr_t *out_len_x,
+                     uintptr_t *out_len_y);
+
+void free_biome_tiles(struct BiomeTile *tiles_ptr, uintptr_t len_x, uintptr_t len_y);
+
+void get_construction_tiles(const struct ConstructionTile **out_tiles,
+                            uintptr_t *out_len_x,
+                            uintptr_t *out_len_y);
+
+void free_construction_tiles(struct ConstructionTile *tiles_ptr, uintptr_t len_x, uintptr_t len_y);
 
 #endif  /* GAME_CORE_H */

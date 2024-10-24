@@ -6,6 +6,7 @@ use super::tiles::{SpriteTile, TileSet};
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
 #[derive(Default)]
+#[repr(u32)]
 pub enum Construction {
     #[default]
     Nothing,
@@ -28,8 +29,8 @@ pub enum Construction {
     SpoiledTree
 }
 
-
 #[derive(Debug, Default, Clone, Copy)]
+#[repr(C)]
 pub struct ConstructionTile {
     pub tile_type: Construction,
     pub tile_up_type: Construction,

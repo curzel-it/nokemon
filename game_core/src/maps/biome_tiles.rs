@@ -6,6 +6,7 @@ use super::tiles::{SpriteTile, TileSet};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[derive(Default)]
+#[repr(u32)]
 pub enum Biome {
     Nothing,
     #[default]
@@ -28,8 +29,8 @@ pub enum Biome {
     Farmland,
 }
 
-
 #[derive(Default, Debug, Clone)]
+#[repr(C)]
 pub struct BiomeTile {
     pub tile_type: Biome,
     pub tile_up_type: Biome,

@@ -1,28 +1,28 @@
-use game_core::game_engine::{engine::GameEngine, world::World};
+use game_core::{camera_viewport, camera_viewport_offset, can_render_frame, engine};
 use raylib::prelude::*;
 
 use super::{entities::render_entities, tiles::render_tiles, ui::render_layout};
 
-pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engine: &GameEngine) {
+pub fn render_frame(rl: &mut RaylibHandle, thread: &RaylibThread) {
+    let engine = engine();
+    let world = &engine.world;
+
     let fps = rl.get_fps();
     let mut d = rl.begin_drawing(thread);
     d.clear_background(Color::BLACK);
     
-    if !engine.loading_screen.is_in_progress() || engine.loading_screen.progress() > 0.4 {
+    if can_render_frame() {
+        let camera_viewport = camera_viewport();
+        let camera_viewport_offset = camera_viewport_offset();
+
         render_tiles(
             &mut d, 
-            world.biome_tiles.sheet_id,
-            world.constructions_tiles.sheet_id,
-            world.biome_tiles.current_variant(),
-            world.bounds.w,
-            world.bounds.h,
-            &engine.camera_viewport, 
-            &engine.camera_viewport_offset,
-            &world.default_tile(),
+            &camera_viewport, 
+            &camera_viewport_offset,
             &world.biome_tiles.tiles,
             &world.constructions_tiles.tiles
         );
-        render_entities(&mut d, &engine.camera_viewport, &engine.camera_viewport_offset);
+        render_entities(&mut d, &camera_viewport, &camera_viewport_offset);
     }
 
     let hud = engine.hud_ui(d.get_screen_width(), d.get_screen_height());
