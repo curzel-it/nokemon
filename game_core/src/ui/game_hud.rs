@@ -32,6 +32,6 @@ impl GameEngine {
         if self.death_screen.is_open {
             return COLOR_BLACK_70
         }
-        return COLOR_TRANSPARENT
+        COLOR_TRANSPARENT
     }
 }

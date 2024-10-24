@@ -33,8 +33,8 @@ impl<T> TileSet<T> {
         self.sprite_counter.update(time_since_last_update);
     }
 
-    pub fn current_variant(&self, row: usize, col: usize) -> i32 {
-        (*self.sprite_counter.current_frame() + row as i32 + col as i32) % BIOME_NUMBER_OF_FRAMES
+    pub fn current_variant(&self) -> i32 {
+        *self.sprite_counter.current_frame() % BIOME_NUMBER_OF_FRAMES
     }
 }
 /*

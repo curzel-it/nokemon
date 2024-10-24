@@ -1,8 +1,10 @@
-use std::{cmp::Ordering, ptr};
+use std::{cmp::Ordering, ffi::{c_char, CStr}, path::PathBuf, ptr};
 
+use config::initialize_config_paths;
 use game_engine::{engine::GameEngine, entity::Entity};
 use utils::{rect::IntRect, vector::Vector2d};
 
+pub mod config;
 pub mod constants;
 pub mod dialogues;
 pub mod entities;
@@ -183,4 +185,31 @@ pub extern "C" fn free_renderables(ptr: *mut RenderableItem, length: usize) {
             let _ = Vec::from_raw_parts(ptr, length, length);
         }
     }
+}
+
+#[no_mangle]
+pub extern "C" fn initialize_config(
+    current_lang: *const c_char,
+    levels_path: *const c_char,
+    species_path: *const c_char,
+    inventory_path: *const c_char,
+    key_value_storage_path: *const c_char,
+    localized_strings_path: *const c_char,
+) {
+    initialize_config_paths(
+        to_string(current_lang),
+        to_path(levels_path),
+        to_path(species_path),
+        to_path(inventory_path),
+        to_path(key_value_storage_path),
+        to_path(localized_strings_path),
+    );
+}
+
+fn to_string(value: *const c_char) -> String {
+    unsafe { CStr::from_ptr(value) }.to_str().unwrap().to_owned()
+}
+
+fn to_path(value: *const c_char) -> PathBuf {
+    PathBuf::from(to_string(value))
 }

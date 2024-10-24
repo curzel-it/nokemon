@@ -1,15 +1,24 @@
-use game_core::{constants::TILE_SIZE, game_engine::engine::GameEngine, renderables_vec, RenderableItem};
+use game_core::{constants::TILE_SIZE, renderables_vec, utils::{vector::Vector2d, rect::IntRect}, RenderableItem};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;
 
-pub fn render_entities(d: &mut RaylibDrawHandle, engine: &GameEngine) {
+pub fn render_entities(
+    d: &mut RaylibDrawHandle, 
+    camera_viewport: &IntRect, 
+    camera_viewport_offset: &Vector2d
+) {
     for item in &renderables_vec() {
-        draw_item(d, item, engine);
+        render_entity(d, item, camera_viewport, camera_viewport_offset);
     }
 }
 
-fn draw_item(d: &mut RaylibDrawHandle, item: &RenderableItem, engine: &GameEngine) {
+fn render_entity(
+    d: &mut RaylibDrawHandle, 
+    item: &RenderableItem, 
+    camera_viewport: &IntRect, 
+    camera_viewport_offset: &Vector2d
+) {
     let sprite_key = item.sprite_sheet_id;
     let scale = get_rendering_config().rendering_scale;
     let tile_scale = TILE_SIZE * scale;
@@ -26,11 +35,11 @@ fn draw_item(d: &mut RaylibDrawHandle, item: &RenderableItem, engine: &GameEngin
             height: source.h as f32 * TILE_SIZE,
         };
 
-        let actual_col = frame.x as f32 - engine.camera_viewport.x as f32;
-        let actual_offset_x = offset.x - engine.camera_viewport_offset.x;
+        let actual_col = frame.x as f32 - camera_viewport.x as f32;
+        let actual_offset_x = offset.x - camera_viewport_offset.x;
 
-        let actual_row = frame.y as f32 - engine.camera_viewport.y as f32;
-        let actual_offset_y = offset.y - engine.camera_viewport_offset.y;
+        let actual_row = frame.y as f32 - camera_viewport.y as f32;
+        let actual_offset_y = offset.y - camera_viewport_offset.y;
 
         let dest_rect = Rectangle {
             x: actual_col * tile_scale + actual_offset_x * scale,

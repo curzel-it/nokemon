@@ -1,10 +1,9 @@
 use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
-use std::env;
 use std::fs::File;
 use std::io::Read;
-use std::path::PathBuf;
-use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPECIES_PATH, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
+use crate::config::config;
+use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
 use crate::features::animated_sprite::AnimatedSprite;
 use crate::features::directions::MovementDirections;
 use crate::game_engine::entity::Entity;
@@ -151,11 +150,7 @@ impl Species {
 
 lazy_static! {
     pub static ref ALL_SPECIES: Vec<Species> = {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("..");
-        path.push(SPECIES_PATH);
-        
-        let mut file = File::open(path).expect("Could not open species.json");
+        let mut file = File::open(config().species_path.clone()).expect("Could not open species.json");
         let mut data = String::new();
         file.read_to_string(&mut data).expect("Could not read species.json");
         serde_json::from_str(&data).expect("Error parsing species.json")

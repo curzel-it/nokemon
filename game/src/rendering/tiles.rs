@@ -1,38 +1,39 @@
-use game_core::{constants::TILE_SIZE, game_engine::{engine::GameEngine, world::World}, maps::{biome_tiles::Biome, constructions_tiles::Construction, tiles::SpriteTile}};
+use game_core::{constants::TILE_SIZE, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::{Construction, ConstructionTile}, tiles::SpriteTile}, utils::{rect::IntRect, vector::Vector2d}};
 use raylib::prelude::*;
 
 use super::ui::get_rendering_config;
 
-pub fn render_tiles(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
-    draw_tiles_in_viewport(d, world, engine);
-}
-
-fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &GameEngine) {
-    let sprite_key_biome = world.biome_tiles.sheet_id;
-    let sprite_key_constructions = world.constructions_tiles.sheet_id;
-    let default_tile = world.default_tile();
-
+pub fn render_tiles(
+    d: &mut RaylibDrawHandle, 
+    sprite_key_biome: u32,
+    sprite_key_constructions: u32,
+    variant: i32,
+    world_width: i32,
+    world_height: i32,
+    camera_viewport: &IntRect, 
+    camera_viewport_offset: &Vector2d,
+    default_tile: &BiomeTile,
+    biome_tiles: &[Vec<BiomeTile>],
+    constructions_tiles: &[Vec<ConstructionTile>]
+) {
     let config = get_rendering_config();
     let texture_biome = config.get_texture(sprite_key_biome).unwrap();
     let texture_constructions = config.get_texture(sprite_key_constructions).unwrap();
     let scale = config.rendering_scale;
 
     let tile_scale = scale * TILE_SIZE;
-    let camera_offset_x = engine.camera_viewport_offset.x * scale;
-    let camera_offset_y = engine.camera_viewport_offset.y * scale;
+    let camera_offset_x = camera_viewport_offset.x * scale;
+    let camera_offset_y = camera_viewport_offset.y * scale;
 
-    let x_start = engine.camera_viewport.x - 1;
-    let y_start = engine.camera_viewport.y - 1;
-    let x_end = x_start + engine.camera_viewport.w + 3;
-    let y_end = y_start + engine.camera_viewport.h + 3;
-
-    let world_width = world.bounds.w;
-    let world_height = world.bounds.h;
+    let x_start = camera_viewport.x - 1;
+    let y_start = camera_viewport.y - 1;
+    let x_end = x_start + camera_viewport.w + 3;
+    let y_end = y_start + camera_viewport.h + 3;
 
     for col in x_start..x_end {
         for row in y_start..y_end {
-            let actual_row = row as f32 - engine.camera_viewport.y as f32;
-            let actual_col = col as f32 - engine.camera_viewport.x as f32;
+            let actual_row = row as f32 - camera_viewport.y as f32;
+            let actual_col = col as f32 - camera_viewport.x as f32;
 
             let dest_rect = Rectangle {
                 x: actual_col * tile_scale - camera_offset_x,
@@ -42,7 +43,6 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
             };
 
             if col < 0 || row < 0 || col >= world_width || row >= world_height {
-                let variant = world.biome_tiles.current_variant(0, 0);
                 let source = default_tile.texture_source_rect(variant);
 
                 let source_rect = Rectangle {
@@ -64,11 +64,10 @@ fn draw_tiles_in_viewport(d: &mut RaylibDrawHandle, world: &World, engine: &Game
                 let row_usize = row as usize;
                 let col_usize = col as usize;
 
-                let biome_tile = &world.biome_tiles.tiles[row_usize][col_usize];
-                let construction_tile = &world.constructions_tiles.tiles[row_usize][col_usize];
+                let biome_tile = &biome_tiles[row_usize][col_usize];
+                let construction_tile = &constructions_tiles[row_usize][col_usize];
 
                 if !matches!(biome_tile.tile_type, Biome::Nothing) {
-                    let variant = world.biome_tiles.current_variant(row_usize, col_usize);
                     let source = biome_tile.texture_source_rect(variant);
 
                     let source_rect = Rectangle {

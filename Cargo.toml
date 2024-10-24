@@ -3,4 +3,4 @@ members = [
     "game_core",
     "game",
 ]
-
+resolver = "2"

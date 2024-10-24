@@ -200,4 +200,11 @@ struct RenderableItem *renderables(uintptr_t *length);
 
 void free_renderables(struct RenderableItem *ptr, uintptr_t length);
 
+void initialize_config(const char *current_lang,
+                       const char *levels_path,
+                       const char *species_path,
+                       const char *inventory_path,
+                       const char *key_value_storage_path,
+                       const char *localized_strings_path);
+
 #endif  /* GAME_CORE_H */

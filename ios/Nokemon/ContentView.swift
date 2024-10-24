@@ -17,12 +17,22 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
+            
             test_integration()
+            
+            initialize_config(
+                "en",
+                folderContaining(name: "1001", extension: "json", folder: "data"),
+                filePath(name: "species", extension: "json", folder: "data"),
+                filePath(name: "inventory", extension: "json", folder: "data"),
+                saveFilePath(),
+                folderContaining(name: "en", extension: "stringx", folder: "lang")
+            )
+            
             initialize_game(false)
             window_size_changed(400, 400, 1, 1, 1)
             update_game(0.1)
             
-            // Example usage
             let renderableItems = fetchRenderableItems()
             for item in renderableItems {
                 print("Sprite Sheet ID: \(item.sprite_sheet_id)")
@@ -78,3 +88,26 @@ func fetchRenderableItems() -> [RenderableItem] {
     return items
 }
 
+func filePath(name: String, extension ext: String, folder: String) -> String {
+    Bundle.main.url(forResource: name, withExtension: ext, subdirectory: folder)?
+        .absoluteString
+        .replacingOccurrences(of: "file:///", with: "/") ?? "iOS file not found \(folder)/\(name).\(ext)"
+}
+
+func folderContaining(name: String, extension ext: String, folder: String) -> String {
+    filePath(name: name, extension: ext, folder: folder)
+        .replacingOccurrences(of: "/\(name).\(ext)", with: "")
+}
+
+func saveFilePath() -> String {
+    let fileManager = FileManager.default
+    let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let saveFileURL = documentsDirectory.appendingPathComponent("save.json")
+    
+    if !fileManager.fileExists(atPath: saveFileURL.path) {
+        let defaultContents = "{\"always\": 1}".data(using: .utf8)
+        fileManager.createFile(atPath: saveFileURL.path, contents: defaultContents, attributes: nil)
+    }
+    
+    return saveFileURL.path
+}
