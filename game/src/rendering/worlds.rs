@@ -9,8 +9,20 @@ pub fn render(rl: &mut RaylibHandle, thread: &RaylibThread, world: &World, engin
     d.clear_background(Color::BLACK);
     
     if !engine.loading_screen.is_in_progress() || engine.loading_screen.progress() > 0.4 {
-        render_tiles(&mut d, world, engine);
-        render_entities(&mut d, engine);
+        render_tiles(
+            &mut d, 
+            world.biome_tiles.sheet_id,
+            world.constructions_tiles.sheet_id,
+            world.biome_tiles.current_variant(),
+            world.bounds.w,
+            world.bounds.h,
+            &engine.camera_viewport, 
+            &engine.camera_viewport_offset,
+            &world.default_tile(),
+            &world.biome_tiles.tiles,
+            &world.constructions_tiles.tiles
+        );
+        render_entities(&mut d, &engine.camera_viewport, &engine.camera_viewport_offset);
     }
 
     let hud = engine.hud_ui(d.get_screen_width(), d.get_screen_height());
