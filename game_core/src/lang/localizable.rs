@@ -31,13 +31,10 @@ lazy_static! {
 }
 
 fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
-    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    path.push("..");
-    path.push(config().localized_strings_path.clone());
-
     let mut localized_strings = HashMap::new();    
-    let paths = fs::read_dir(path)
-        .expect("Failed to read localized strings directory")
+    println!("Lang folder: {:#?}", config().localized_strings_path.clone());
+    let paths = fs::read_dir(config().localized_strings_path.clone())
+        .expect("Failed to read localized strings")
         .flatten()
         .map(|p| p.path());
 
@@ -72,25 +69,20 @@ fn parse_strings_content(content: &str) -> HashMap<String, String> {
         }
 
         if content_chars[pos] == '"' {
-            // Parse the key string
             let key = parse_string(&content_chars, &mut pos);
             skip_whitespace(&content_chars, &mut pos);
 
-            // Expect '='
             if pos >= len || content_chars[pos] != '=' {
                 panic!("Expected '=' after key at position {}", pos);
             }
-            pos += 1; // Skip '='
+            pos += 1; 
 
             skip_whitespace(&content_chars, &mut pos);
 
-            // Parse the value
             let value = if content_chars[pos] == '"' {
                 if pos + 2 < len && content_chars[pos + 1] == '"' && content_chars[pos + 2] == '"' {
-                    // Multiline string
                     parse_multiline_string(&content_chars, &mut pos)
                 } else {
-                    // Single line string
                     parse_string(&content_chars, &mut pos)
                 }
             } else {
@@ -99,7 +91,6 @@ fn parse_strings_content(content: &str) -> HashMap<String, String> {
 
             strings_map.insert(key, value);
         } else {
-            // Unexpected character
             panic!("Expected '\"' at position {}", pos);
         }
     }
@@ -117,16 +108,15 @@ fn parse_string(chars: &[char], pos: &mut usize) -> String {
     if chars[*pos] != '"' {
         panic!("Expected '\"' at position {}", pos);
     }
-    *pos += 1; // Skip opening '"'
+    *pos += 1; 
 
     let mut result = String::new();
     while *pos < chars.len() {
         let c = chars[*pos];
         if c == '"' {
-            *pos += 1; // Skip closing '"'
+            *pos += 1; 
             return result;
         } else if c == '\\' {
-            // Handle escaped characters
             *pos += 1;
             if *pos >= chars.len() {
                 panic!("Unexpected end of input after escape character at position {}", pos);
@@ -148,13 +138,11 @@ fn parse_string(chars: &[char], pos: &mut usize) -> String {
 }
 
 fn parse_multiline_string(chars: &[char], pos: &mut usize) -> String {
-    // We expect that chars[pos..pos+3] == ['"', '"', '"']
     if *pos + 2 >= chars.len() || chars[*pos] != '"' || chars[*pos + 1] != '"' || chars[*pos + 2] != '"' {
         panic!("Expected '\"\"\"' at position {}", pos);
     }
-    *pos += 3; // Skip opening '"""'
+    *pos += 3;
 
-    // Optionally skip a newline immediately after the opening triple quotes
     if *pos < chars.len() && chars[*pos] == '\n' {
         *pos += 1;
     }
@@ -162,8 +150,7 @@ fn parse_multiline_string(chars: &[char], pos: &mut usize) -> String {
     let mut result = String::new();
     while *pos + 2 < chars.len() {
         if chars[*pos] == '"' && chars[*pos + 1] == '"' && chars[*pos + 2] == '"' {
-            *pos += 3; // Skip closing '"""'
-            // Optionally remove the last newline if present
+            *pos += 3;
             if result.ends_with('\n') {
                 result.pop();
             }

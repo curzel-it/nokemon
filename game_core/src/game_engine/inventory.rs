@@ -73,22 +73,14 @@ pub fn inventory_contains_species(species_id: u32) -> bool {
 }
 
 fn load_inventory() -> Vec<Entity> {
-    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    path.push("..");
-    path.push(config().inventory_path.clone());
-
-    let file = File::open(path).expect("Failed to open inventory.json file");
+    let file = File::open(config().inventory_path.clone()).expect("Failed to open inventory.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize inventory file from JSON")
 }
 
 fn save_inventory(inventory: &Vec<Entity>) {
     if let Ok(serialized_inventory) = serde_json::to_string_pretty(inventory) {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("..");
-        path.push(config().inventory_path.clone());
-
-        if let Ok(mut file) = File::create(path) {
+        if let Ok(mut file) = File::create(config().inventory_path.clone()) {
             if let Err(e) = file.write_all(serialized_inventory.as_bytes()) {
                 eprintln!("Failed to write inventory file: {}", e);
             } else {

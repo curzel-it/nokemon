@@ -152,11 +152,7 @@ impl Species {
 
 lazy_static! {
     pub static ref ALL_SPECIES: Vec<Species> = {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("..");
-        path.push(config().species_path.clone());
-        
-        let mut file = File::open(path).expect("Could not open species.json");
+        let mut file = File::open(config().species_path.clone()).expect("Could not open species.json");
         let mut data = String::new();
         file.read_to_string(&mut data).expect("Could not read species.json");
         serde_json::from_str(&data).expect("Error parsing species.json")

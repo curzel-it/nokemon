@@ -1,10 +1,12 @@
+use std::path::PathBuf;
+
 pub struct Config {
     pub current_lang: String,
-    pub levels_path: String,
-    pub species_path: String,
-    pub inventory_path: String,
-    pub key_value_storage_path: String,
-    pub localized_strings_path: String,
+    pub levels_path: PathBuf,
+    pub species_path: PathBuf,
+    pub inventory_path: PathBuf,
+    pub key_value_storage_path: PathBuf,
+    pub localized_strings_path: PathBuf,
 }
 
 static mut CONFIG: *mut Config = std::ptr::null_mut();
@@ -15,13 +17,13 @@ pub fn config() -> &'static Config {
     }
 }
 
-pub fn initialize_config_strings(
+pub fn initialize_config_paths(
     current_lang: String,
-    levels_path: String,
-    species_path: String,
-    inventory_path: String,
-    key_value_storage_path: String,
-    localized_strings_path: String,
+    levels_path: PathBuf,
+    species_path: PathBuf,
+    inventory_path: PathBuf,
+    key_value_storage_path: PathBuf,
+    localized_strings_path: PathBuf,
 ) {
     unsafe {
         let config = Config {

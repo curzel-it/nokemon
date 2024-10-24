@@ -22,22 +22,14 @@ impl StorageKey {
 }
 
 fn load_stored_values() -> BTreeMap<String, u32> {
-    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    path.push("..");
-    path.push(config().key_value_storage_path.clone());
-
-    let file = File::open(path).expect("Failed to open save.json file");
+    let file = File::open(config().key_value_storage_path.clone()).expect("Failed to open save.json file");
     let reader = BufReader::new(file);
     serde_json::from_reader(reader).expect("Failed to deserialize save file from JSON")
 }
 
 fn save_stored_values(data: &BTreeMap<String, u32>) {
-    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    path.push("..");
-    path.push(config().key_value_storage_path.clone());
-
     if let Ok(serialized_world) = serde_json::to_string_pretty(data) {
-        if let Ok(mut file) = File::create(path) {
+        if let Ok(mut file) = File::create(config().key_value_storage_path.clone()) {
             if let Err(e) = file.write_all(serialized_world.as_bytes()) {
                 eprintln!("Failed to write save file: {}", e);
             } else {
