@@ -1,9 +1,7 @@
 use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
-use std::env;
 use std::fs::File;
 use std::io::Read;
-use std::path::PathBuf;
 use crate::config::config;
 use crate::constants::{HERO_ENTITY_ID, NO_PARENT, SPRITE_SHEET_BIOME_TILES, UNLIMITED_LIFESPAN};
 use crate::features::animated_sprite::AnimatedSprite;

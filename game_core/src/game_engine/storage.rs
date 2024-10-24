@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, path::PathBuf, sync::{mpsc::{self, Sender}, RwLock}, thread};
+use std::{collections::BTreeMap, fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 
 use crate::config::config;

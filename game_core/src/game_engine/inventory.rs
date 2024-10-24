@@ -1,4 +1,4 @@
-use std::{fs::File, io::{BufReader, Write}, path::PathBuf, sync::{mpsc::{self, Sender}, RwLock}, thread};
+use std::{fs::File, io::{BufReader, Write}, sync::{mpsc::{self, Sender}, RwLock}, thread};
 use lazy_static::lazy_static;
 use serde_json;
 use crate::{config::config, entities::species::{species_by_id, EntityType}, game_engine::entity::Entity};

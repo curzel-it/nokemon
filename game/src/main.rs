@@ -39,7 +39,7 @@ fn main() {
         handle_keyboard_updates(&mut rl, time_since_last_update);
         handle_mouse_updates(&mut rl, get_rendering_config().rendering_scale);
         update_game(time_since_last_update);
-        render(&mut rl, &thread, &engine.world, &engine);  
+        render(&mut rl, &thread, &engine.world, engine);  
     }
 }
 
