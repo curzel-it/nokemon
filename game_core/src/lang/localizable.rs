@@ -1,10 +1,9 @@
-use crate::constants::DEFAULT_LANG;
-
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use lazy_static::lazy_static;
-use crate::constants::LOCALIZED_STRINGS_PATH;
+
+use crate::config::config;
 
 pub trait LocalizableText {
     fn localized(&self) -> String; 
@@ -12,7 +11,7 @@ pub trait LocalizableText {
 
 impl LocalizableText for String {
     fn localized(&self) -> String {
-        if let Some(strings) = LOCALIZED_STRINGS.get(DEFAULT_LANG) {
+        if let Some(strings) = LOCALIZED_STRINGS.get(config().current_lang.as_str()) {
             if let Some(localized_string) = strings.get(self) {
                 return localized_string.clone();
             }
@@ -34,7 +33,7 @@ lazy_static! {
 fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
     let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     path.push("..");
-    path.push(LOCALIZED_STRINGS_PATH);
+    path.push(config().localized_strings_path.clone());
 
     let mut localized_strings = HashMap::new();    
     let paths = fs::read_dir(path)
@@ -43,7 +42,7 @@ fn load_localized_strings() -> HashMap<String, HashMap<String, String>> {
         .map(|p| p.path());
 
     for file_path in paths {        
-        if file_path.extension() == Some(std::ffi::OsStr::new("strings")) {
+        if file_path.extension() == Some(std::ffi::OsStr::new("stringx")) {
             if let Some(locale) = file_path.file_stem().and_then(|os_str| os_str.to_str()) {
                 let strings = load_strings_from_file(&file_path);
                 localized_strings.insert(locale.to_string(), strings);

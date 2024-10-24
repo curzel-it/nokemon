@@ -17,12 +17,22 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
+            
             test_integration()
+            
+            initialize_config(
+                "en",
+                Bundle.main.url(forResource: "1001", withExtension: "json", subdirectory: "data")!.appending(path: "..").absoluteString,
+                Bundle.main.url(forResource: "species", withExtension: "json", subdirectory: "data")!.absoluteString,
+                Bundle.main.url(forResource: "inventory", withExtension: "json", subdirectory: "data")!.absoluteString,
+                Bundle.main.url(forResource: "save", withExtension: "json", subdirectory: "data")!.absoluteString,
+                Bundle.main.url(forResource: "en", withExtension: "stringx", subdirectory: "lang")!.appending(path: "..").absoluteString
+            )
+            
             initialize_game(false)
             window_size_changed(400, 400, 1, 1, 1)
             update_game(0.1)
             
-            // Example usage
             let renderableItems = fetchRenderableItems()
             for item in renderableItems {
                 print("Sprite Sheet ID: \(item.sprite_sheet_id)")

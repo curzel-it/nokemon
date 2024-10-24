@@ -27,22 +27,9 @@ pub const WORLD_TRANSITION_TIME: f32 = 0.3;
 pub const MENU_CLOSE_TIME: f32 = 0.2;
 pub const MENU_OPEN_TIME: f32 = 0.1;
 
-// Localization
-pub const DEFAULT_LANG: &str = "en";
-
 // Prefabs
 pub const HOUSE_INTERIOR_ROWS: usize = 6;
 pub const HOUSE_INTERIOR_COLUMNS: usize = 10;
-
-// Paths
-pub const ASSETS_PATH: &str = "assets";
-pub const LEVELS_PATH: &str = "data";
-pub const SPECIES_PATH: &str = "data/species.json";
-pub const INVENTORY_PATH: &str = "data/inventory.json";
-pub const KEY_VALUE_STORAGE_PATH: &str = "data/save.json";
-pub const FONT: &str = "fonts/PixelOperator/PixelOperator8.ttf";
-pub const FONT_BOLD: &str = "fonts/PixelOperator/PixelOperator8-Bold.ttf";
-pub const LOCALIZED_STRINGS_PATH: &str = "lang";
 
 // Tiles
 pub const TILE_VARIATIONS_FPS: f32 = 1.0;

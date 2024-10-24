@@ -2,13 +2,13 @@ use std::{fs::File, io::{BufReader, Write}, path::PathBuf};
 
 use serde::{ser::SerializeStruct, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::Error;
-use crate::{constants::{LEVELS_PATH, SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
+use crate::{config::config, constants::{SPRITE_SHEET_BIOME_TILES, SPRITE_SHEET_CONSTRUCTION_TILES, WORLD_SIZE_COLUMNS, WORLD_SIZE_ROWS}, entities::known_species::SPECIES_HERO, game_engine::{entity::Entity, world::World}, maps::{biome_tiles::{Biome, BiomeTile}, constructions_tiles::ConstructionTile, tiles::TileSet}};
 
 impl World {
     pub fn load(id: u32) -> Option<Self> {
         let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         path.push("..");
-        path.push(LEVELS_PATH);
+        path.push(config().levels_path.clone());
         path.push(format!("{}.json", id));
 
         if let Ok(file) = File::open(path) {
@@ -38,7 +38,7 @@ impl World {
     pub fn save(&self) {
         let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         path.push("..");
-        path.push(LEVELS_PATH);
+        path.push(config().levels_path.clone());
         path.push(format!("{}.json", self.id));
 
         if let Ok(serialized_world) = serde_json::to_string_pretty(self) {

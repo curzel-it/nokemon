@@ -6,7 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1E06CD732CC9A7AB001231D7 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1E06CD722CC9A7AB001231D7 /* assets */; };
+		1E06CD752CC9A7B4001231D7 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 1E06CD742CC9A7B4001231D7 /* data */; };
+		1E06CD772CC9A7BD001231D7 /* lang in Resources */ = {isa = PBXBuildFile; fileRef = 1E06CD762CC9A7BD001231D7 /* lang */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		1E06CD722CC9A7AB001231D7 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = Resources/assets; sourceTree = "<group>"; };
+		1E06CD742CC9A7B4001231D7 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = Resources/data; sourceTree = "<group>"; };
+		1E06CD762CC9A7BD001231D7 /* lang */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lang; path = Resources/lang; sourceTree = "<group>"; };
 		1EE0347C2CC8585400159636 /* Nokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -37,6 +46,9 @@
 		1EE034732CC8585400159636 = {
 			isa = PBXGroup;
 			children = (
+				1E06CD762CC9A7BD001231D7 /* lang */,
+				1E06CD742CC9A7B4001231D7 /* data */,
+				1E06CD722CC9A7AB001231D7 /* assets */,
 				1EF8E9362CC8598400867F59 /* Rust */,
 				1EE0347E2CC8585400159636 /* Nokemon */,
 				1EE0347D2CC8585400159636 /* Products */,
@@ -116,6 +128,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E06CD772CC9A7BD001231D7 /* lang in Resources */,
+				1E06CD752CC9A7B4001231D7 /* data in Resources */,
+				1E06CD732CC9A7AB001231D7 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +271,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -279,6 +295,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.curzel.Nokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Nokemon/Nokemon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -291,6 +308,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -314,6 +332,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.curzel.Nokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Nokemon/Nokemon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
